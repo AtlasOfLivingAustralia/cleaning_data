@@ -1,0 +1,71 @@
+# Taxonomy {#sec-taxonomy}
+
+The following steps assume that the taxonomic history of the included species is known and correct and out-of-date names and synonymy have been fixed during the data preparation.
+
+### Standarize scientific names
+
+Ensure that the spelling is correct and fix errors as they appear. It is essential to decide on a standard way to record the scientific names and be consistent. For example, it can always start with upper case and separate the names with an underline, as in "Moloch_horridus". It is also important to check if high hierarchy taxonomic classification is correct and not missed, as family and order.
+
+### Taxonomic cleaning
+
+-   Remove non-identifiable specimens: If a species is not discernible with checks of spelling and taxonomy, then it should be removed.
+
+-   Remove records with insufficient taxon identification: If a record is not identified down to the species level and this level of detail is needed for the study, then the record should be removed.
+
+-   Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed.
+
+### Optional taxonomic cleaning
+
+These steps can be applicable depending on the research aim.
+
+-   Remove non-native species: This step is a common requirement. A list can be obtained from the [Global Register of Introduced and Invasive Species (GRIIS)](https://griis.org/)
+
+-   Remove domesticated specimens.
+
+-   Remove extinct species.
+
+-   Remove specific taxa/life stages depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.
+
+## Spatial data
+
+Now that the taxonomic data is cleaned, it is important to plot your data on a map again and clean up the distribution data.
+
+### Coordinates correction (or wrangling?)
+
+Many coordinates issues can be solved with data manipulation instead of discarding the data immediately, as they are often data entry errors. Here are some examples:
+
+-   Correct flipped coordinates: Data visualizations can help to detect flipped coordinates. Flipped coordinates typically appear as a clustering of points, whereby swapping the latitude and longitude will place the coordinates where they are expected.
+
+-   Correct poorly formatted coordinates: Different datasets can provide coordinates in different formats, so it is crucial to correct the format of the coordinates before discarding any points.
+
+-   Correct numerical sign confusion: As with flipped coordinates, if there is a clustering of points mirrored to another hemisphere, consider swapping the sign and correct rather than discard the points.
+
+-   Correct/check for records with coordinates in a different country than is listed in the country field: The coordinates could be wrong or just the country listed. Note that the country should only be changed to match the coordinates if the data is trustworthy.
+
+-   Correct/check for records with locality but no occurrence/georeference (if possible): If you have a good locality, consider georeferencing for coordinates rather than discarding the missing data entry. If the locality is not precise, this will likely yield lower-quality data points.
+
+### Coordinates cleaning
+
+After completing the manipulation of the coordinates, if there are still errors, consider removing the data entry:
+
+-   Remove records with null or missing coordinates that could not be georeferenced: It can be records missing partial or complete information. Maintaining missing values can cause errors, as many analysis do not accept missing values. If the information is not available elsewhere or an alteration of the data would deprove the entry value, consider remove it.
+
+-   Remove records with zero coordinates that could not be georeferenced: When plotting it on a map, zero coordinates will be found around the point at zero latitudes and longitudes. These records will not accurately represent their valid location and must be removed.
+
+-   Remove records plotted away from the known species distribution area: They are easily identifiable as outliers. It is essential to check the metadata to ensure that it is a data entry error and not a real outlier. In some cases, it worth to go back and check the literature before discard the entry. There are several ways of dealing with this issue, but one option can be to mask data to remove points from falling off a determined area.
+
+-   Remove records with low coordinate precision: Coordinate precision is vital for the accuracy of models. However, different studies may have different precision cut-offs. For example, coordinate precision below 100km represents the grain size of many macroecological analyses. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places (add a reference here). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision.
+
+-   Remove records with coordinates assigned to country and province centroids: There are many fonts that deal with centroid data, such as Centre of Country, botanic gardens, zoos, country capitals, biodiversity institutions, urban areas, and gbif headquarters. This issue can happen for several reasons and sometimes can be tricky to spot. Exploratory visuals can help support findings, making it easier to spot clusterings of points. Centroids are common when records are being assigned from georeferencing based on vague locality descriptions or from incorrect georeferencing. Sometimes, records are erroneously entered with the physical location of the specimen or because they represent individuals from captivity or horticulture, which were not clearly labeled as such. In a few cases, zoos and botanic gardens might be where the record was sighted. However, in this case, it is not naturally occurring and should be removed. Records in urban areas may not want to be removed by everyone, but it is essential to note that it could be old data or have vague locality descriptions.
+
+-   Remove records outside of the country of interest: In some cases, records outside the country of origin may be outliers. In other cases, they may be perfectly valid. It is important to analyze case-by-case and remove the record if necessary.
+
+-   Remove records where longitude and latitude are equal: High likelihood that this is not where the record was recorded and, therefore, should be checked and (possibly) removed.
+
+## Ecology
+
+When the information on the ecological requirements of the species is available and important for the study, ecological data checking, cleaning and standardization is necessary. Examples include morphological measurements that should be in the same metric, information regarding life stages, and habitat preference.
+
+## Checklist of data standardization
+
+Add here a downloadable checklist of issues to be checked.

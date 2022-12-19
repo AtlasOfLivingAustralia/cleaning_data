@@ -1,0 +1,33 @@
+# Data download and preparation {#part1-data-preparation .unnumbered}
+
+This section describes the initial steps and some important points that should be considered when obtaining species distribution records. It is essential an understand and familiarization with the data prior to data cleaning.
+
+There are essentially two scopes of study on getting distribution data:
+
+-   **Taxonomic:** That's when the main aim of the study is to gather data around a specific taxonomic unit. That can be a species or a community. The search is performed using the scientific and common name of the species or group of species.
+
+(include here a figure of a species map)
+
+-   **Spatial:** Here the aim is to obtain a list of all species present in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest.
+
+(include here a figure of a location with different species)
+
+The following five chapters focus on the initial steps on biodiversity data cleaning, but the order can be exchange according to the scope of the study being conducted. If there is a taxonomic focus, determining a naming authority should be the first step to ensure searching the correct taxa.
+
+-   In @sec-naming-authority we highlight the importance to be careful when checking taxonomic information and we suggest different organizations that provide updated lists.
+
+If the interested in a specific spatial region, naming authority became a secondary task, as a knowledge of taxonomy is essential to verify the data obtained.
+
+-   In @sec-download-data we list ways and different fonts to obtain occurrence data.
+
+-   In @sec-merge-data we highlight common issues when merging data from multiple places.
+
+-   In @sec-familiarise-data is the first time you will be visualising and getting used to the available data.
+
+-   Finally, in @sec-optional-preparation, we provide some extra steps
+
+- Optional steps on data preparation
+
+When handling data from the ALA, some filters can help obtain only the type of records required for the study. Filter by "basis of record", for example, can ensure consistency when getting data from multiple places. For example, it is possible to exclude data originating from citizen science projects or only include data from herbariums and natural history museums.
+
+-EXTRA: R packages that can help with data preparation?

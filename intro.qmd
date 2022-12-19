@@ -1,0 +1,37 @@
+# Introduction
+
+## Importance of data cleaning
+
+Data cleaning is a process of identifying, fixing and/or removing incorrect, doubtful, mislabeled, or incomplete data within a dataset. It is a critical step for biodiversity research, increasing the trust in data for analyses and research outputs. The anecdote "garbage in, garbage out" reflects this idea - your analysis and findings are only as good as the data you've used.
+
+Issues with data quality can arise in many different ways, from coordinate precision during collection in the field, to merging multiple data sources together, where mismatches can happen. For this reason, the data cleaning process is highly variable depending on the data set you're working with, this makes it hard to provide a universal solution.
+
+Although data cleaning can be time-consuming it is essential to ensure high quality outputs, an established and consistent process will assist in high quality data for analysis moving forward.
+
+## Characteristics of a quality data
+
+-   **Accurate:** How closely does the data reflect what it is trying to represent, how close to the 'true value' is it.
+-   **Comprehensive:** Are all relevant fields filled in, does the data detail everything you need without needing to infer fields or proceed with missing information.
+-   **Consistent/uniform:** Are all units the same, with the same level of precision. This information can vary greatly when working with open source data collected by multiple people across space and time.
+-   **Relevant:** Is the data you're using useful for the question/s you're trying to answer.
+
+from (https://www.iteratorshq.com/blog/data-cleaning-in-5-easy-steps/)
+
+## Data cleaning process
+
+In the following chapters, we will take a deep dive into the different steps of the data-cleaning process.We'll separate it into three main steps: Data preparation, standardization, and enrichment (Figure 1).
+
+![Figure 1. Data cleaning process](images/diagram_1.png)
+
+## Limitations
+
+-   Type and quality of the information available
+-   Different types of research require different data cleaning steps
+-   Spatial grain (and where to stop)
+
+## How to use this book
+
+List here
+
+See @knuth84 for additional discussion of literate programming.\
+See @boyle22 for additional info

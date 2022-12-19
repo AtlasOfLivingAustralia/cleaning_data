@@ -1,0 +1,19 @@
+# Familiarise with the data and metadata and initial clean-up {#sec-familiarise-data}
+
+Before getting started with data cleaning, a visual inspection of the entire dataset can save time and solve easy-to-spot errors. It can improve the knowledge of the available data and can be done with it. Understanding the metadata provides context to the structure of the data and information on how the data was collected.
+
+A plot of the occurrence data on a map can follow it. This simple step can highlight coordinates with missing data or even inverted or erroneous coordinates (as points floating in the ocean while focusing on terrestrial species and vice versa).
+
+Other tools, such as looking for only positive values if that is what is expected, can also be used in this initial data familiarization step.
+
+## Initial clean-up
+
+Although systematic data cleaning is required, some apparent mistakes observed during the initial visualization of the data and metadata can be fixed straight away. It includes removing records from unlikely sources, removing unnecessary details for the study, and fixing typos, incorrect capitalization and minor coordinates errors, such as inverted coordinates.
+
+## Rebuild missing data??
+
+## Optional steps on data preparation
+
+When handling data from the ALA, some filters can help obtain only the type of records required for the study. Filter by "basis of record", for example, can ensure consistency when getting data from multiple places. For example, it is possible to exclude data originating from citizen science projects or only include data from herbariums and natural history museums.
+
+## EXTRA: R packages that can help with data preparation?

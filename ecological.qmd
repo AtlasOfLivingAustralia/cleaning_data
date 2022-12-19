@@ -1,0 +1,7 @@
+# Ecology {#sec-ecology}
+
+When the information on the ecological requirements of the species is available and important for the study, ecological data checking, cleaning and standardization is necessary. Examples include morphological measurements that should be in the same metric, information regarding life stages, and habitat preference.
+
+## Checklist of data standardization
+
+Add here a downloadable checklist of issues to be checked.

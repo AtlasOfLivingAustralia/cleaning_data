@@ -1,0 +1,21 @@
+# Welcome {.unnumbered}
+
+This is a webiste created by the Science and Decision Support team at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/) to support researchers and decision makers on a consistent process of cleaning up biodiversity datasets, obtained or not from ALA.
+
+
+In this book we will first discuss the importance and limitations of data cleaning, followed by practical guidelines and a step-by-step for data acquisition, taxonomic, distribution and ecological data clean-up and additional decisions that can improve data quality, depending of the kind of study being conducted.
+
+You will also find resources and R packages that can be used to facilitate the data cleaning process. Note that there's no work for all solution, and all guidelines should be revised according to your data and knowledge.  
+
+This is a free and live document. If you have questions or suggestions please reach us at (e-mail).
+
+
+## Citation {.unnumbered}
+ 
+ (include the book citation here)
+
+Participants, in alphabetic order:  
+- Fonti Kar  
+- Jessica Fenker  
+- Margot Schneider  
+- Martin Westgate  

@@ -1,0 +1,41 @@
+# Determine a naming authority {#sec-naming-authority}
+
+New species are being discovered and described all the time. Keeping up-to-date with the taxonomic literature can be challenging, where many taxonomic changes result from the rapid rise of new analytical tools, especially in the molecular field. Species historically described solely based on morphological characters are now being revealed as multiple species based on genomes, population genetic studies, and integrative approaches, where many lines of evidence are used to delimit and describe new species.
+
+Accurate species delimitation is essential for understanding evolutionary processes and for adequate conservation management, as species-level lists are the foundation of conservation decisions, as is the IUCN Red List (@melville21). Yet, there are many databases on the species list, and deciding which one to follow can take time and effort.
+
+## Taxonomic shortfalls
+
+Recent studies have described many taxonomic shortfalls (ref), such as differences in species concepts, subspecies and other sub-specific categories, and groups who's taxonomy changes all the time.
+
+There is a large number of databases on species list
+
+barcode - database of genetic sequences to determine species
+
+Problems to be considered when checking taxonomy: - issue of incorrect taxonomy identification - synonymies
+
+## Choosing a naming authority
+
+Before starting any study on biodiversity, it is essential to know the unit of study, be it an individual species or a group of species.
+
+A knowledge of taxonomy is essential in order to verify the data you are working with. For this, different organizations provide updated lists of species or even details of the taxonomic history of a species. taxonomic changes can be helpful when interpreting old data which may have species names you don't recognize.
+
+In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. These authorities provide a list of accepted and authoritative names as a template.
+
+Yet, it is fundamental to understand the taxonomic history of the interest species. Changes in taxonomy, such as species split, new higher level classification (as genera), or species descriptions, highlight the importance of keeping up-to-date with taxonomic literature. This can be achieved via specialized books and scientific papers. Most taxonomic society groups release annual updates on taxonomy. The [Atlas of Living Australia (ALA)](www.ala.org.au) can also be used to investigate taxonomic changes.
+
+## Australian taxonomic society groups
+
+**VERTEBRATES**
+
+-   Amphibians and reptiles - [Australian Herpetological Society](https://ahs.org.au/)\
+-   Birds - [Birdlife Australia](https://www.birdlife.org.au/)\
+-   Fish - [Australian Society for Fish Biology](https://www.asfb.org.au/)\
+-   Mammals - [The Australian Mammal Society](https://australianmammals.org.au/)
+
+**INVERTEBRATES**
+
+-   Arachnology - [Australasian Arachnological Society](www.australasianarachnologicalsociety.org)\
+-   Entomology - [Australian Entomological Society](https://www.austentsoc.org.au/)\
+-   Malacology - [The Malacological Society of Australasia](https://www.malsocaus.org/)\
+-   Nematology - [Australasian Association of Nematologists](https://www.nematologists.org.au/)
