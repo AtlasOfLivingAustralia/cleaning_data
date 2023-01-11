@@ -1,14 +1,20 @@
 # Introduction
 
-## Importance of data cleaning
+## Data assumptions 
 
-Data cleaning is a process of identifying, fixing and/or removing incorrect, doubtful, mislabeled, or incomplete data within a dataset. It is a critical step for biodiversity research, increasing the trust in data for analyses and research outputs. The anecdote "garbage in, garbage out" reflects this idea - your analysis and findings are only as good as the data you've used.
+##gbif/ala data etc
 
-Issues with data quality can arise in many different ways, from coordinate precision during collection in the field, to merging multiple data sources together, where mismatches can happen. For this reason, the data cleaning process is highly variable depending on the data set you're working with, this makes it hard to provide a universal solution.
+## Why clean data
 
-Although data cleaning can be time-consuming it is essential to ensure high quality outputs, an established and consistent process will assist in high quality data for analysis moving forward.
+Data cleaning is a process of identifying, fixing and/or removing incorrect, doubtful, mislabeled, or incomplete data within a data set. It is a critical step for biodiversity research, increasing data quality improves the validity of research outputs. Your analysis and findings are only as good as the data you've used.
 
-## Characteristics of a quality data
+Open source biodiversity data is a great resource, giving you access to a large amount of data that you otherwise would not have access to on your own. However, with this brings the challenges of using other peoples data. Because open source data has been collected from many different people, you likely have a data-set with different levels of taxonomic and spatial precision across records. It's important to consider the types of issues with the data you might face, issues with data quality can arise in many different ways, from low coordinate precision in the field, to merging multiple data sources together, where mismatches can happen. For this reason, the data cleaning process is highly variable depending on the data set you're working with, making it difficult to provide a 'one size fits all' solution.
+
+Although data cleaning can be time-consuming it is essential to ensure high quality outputs, an established and consistent process will assist in high quality data for analysis moving forward. Here we'll provide you with information and resources on important steps to take to improve the quality of the data you're working with. Some steps are crucial and others may be considered less so, there will always be a point of 'diminishing returns' in data cleaning where it's important to stop, and assess your goals for this data, before the process becomes too much of a time sink.
+
+## Characteristics of high quality data 
+
+#unsure about this section
 
 -   **Accurate:** How closely does the data reflect what it is trying to represent, how close to the 'true value' is it.
 -   **Comprehensive:** Are all relevant fields filled in, does the data detail everything you need without needing to infer fields or proceed with missing information.
@@ -17,11 +23,11 @@ Although data cleaning can be time-consuming it is essential to ensure high qual
 
 from (https://www.iteratorshq.com/blog/data-cleaning-in-5-easy-steps/)
 
-## Data cleaning process
+## Outline
 
-In the following chapters, we will take a deep dive into the different steps of the data-cleaning process.We'll separate it into three main steps: Data preparation, standardization, and enrichment (Figure 1).
+In the following chapters, we will take a deep dive into the different data cleaning steps. We'll start with how to download open source biodiversity data. One you have your data we'll go through the importance of standardizing taxonomy and suggestions of how to do this, followed by investigating spatial errors. We will then discuss the issue of duplicates in open source data, and lastly outliers.
 
-![Figure 1. Data cleaning process](images/diagram_1.png)
+##new diagram here
 
 ## Limitations
 
