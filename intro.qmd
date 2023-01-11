@@ -1,6 +1,6 @@
 # Introduction
 
-## Data assumptions 
+## Data assumptions
 
 ##gbif/ala data etc
 
@@ -12,7 +12,7 @@ Open source biodiversity data is a great resource, giving you access to a large 
 
 Although data cleaning can be time-consuming it is essential to ensure high quality outputs, an established and consistent process will assist in high quality data for analysis moving forward. Here we'll provide you with information and resources on important steps to take to improve the quality of the data you're working with. Some steps are crucial and others may be considered less so, there will always be a point of 'diminishing returns' in data cleaning where it's important to stop, and assess your goals for this data, before the process becomes too much of a time sink.
 
-## Characteristics of high quality data 
+## Characteristics of high quality data
 
 #unsure about this section
 
