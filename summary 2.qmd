@@ -1,5 +1,0 @@
-# Summary
-
--   nice diagram
--   decide where to refer to the R packages
--   add references
