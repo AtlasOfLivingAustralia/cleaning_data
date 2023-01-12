@@ -1,6 +1,6 @@
-#note this section will come after download-data (to be re-arranged)
-
 # Standardise Taxonomy  {#sec-standardise-taxonomy}
+
+#note this section will come after download-data (to be re-arranged)
 
 New species are being discovered and described all the time. Keeping up-to-date with the taxonomic literature can be challenging, where many taxonomic changes result from the rapid rise of new analytical tools, especially in the molecular field. Species historically described solely based on morphological characters are now being revealed as multiple species based on genomics, population genetic studies, and integrative approaches, where many lines of evidence are used to delimit and describe new species.
 
