@@ -22,6 +22,8 @@ You can download data directly from respective websites or alternatively you can
 
 When handling data from the ALA, some filters can help obtain only the type of records required for the study. Filter by "basis of record", for example, can ensure consistency when getting data from multiple places. For example, it is possible to exclude data originating from citizen science projects or only include data from herbariums and natural history museums. This can help with consistency, making it clear where the data has come from, and it's quality. This can also make merging data you may have sourced from multiple places easier.
 
+-   **year cut of**
+
 ```{r}
 
 ```
@@ -50,7 +52,7 @@ Now that you have data to work with it's important to familiarise yourself with 
 
 -   A visual inspection of the entire data can save time and solve easy-to-spot errors.
 
--    It can improve your knowledge of the data you're working with and what you might be able to do or what you might be limited by.
+-   It can improve your knowledge of the data you're working with and what you might be able to do or what you might be limited by.
 
 A simple way to visualize your data is to plot it on a map. This simple step can highlight coordinates with missing data or even inverted or erroneous coordinates (as points floating in the ocean while focusing on terrestrial species and vice versa).
 
