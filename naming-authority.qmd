@@ -54,7 +54,7 @@ Now that you've chosen a naming authority you'll want to use it to ensure the da
 
 ```
 
-## Standardize taxonomy 
+## Standardize taxonomy
 
 The following steps assume that the taxonomic history of the included species is known and correct and out-of-date names and synonymy have been fixed.
 
