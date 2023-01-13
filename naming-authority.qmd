@@ -1,4 +1,4 @@
-# Standardise Taxonomy  {#sec-standardise-taxonomy}
+# Taxonomy {#sec-standardise-taxonomy}
 
 #note this section will come after download-data (to be re-arranged)
 
@@ -46,10 +46,52 @@ In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/a
 -   Malacology - [The Malacological Society of Australasia](https://www.malsocaus.org/)\
 -   Nematology - [Australasian Association of Nematologists](https://www.nematologists.org.au/)
 
-## What to do with the naming authority 
+## What to do with the naming authority
 
 Now that you've chosen a naming authority you'll want to use it to ensure the data you're working with has consistent taxonomy
 
 ```{r}
 
 ```
+
+## Standardize taxonomy 
+
+The following steps assume that the taxonomic history of the included species is known and correct and out-of-date names and synonymy have been fixed.
+
+Ensure that the spelling is correct and fix errors as they appear. It is essential to decide on a standard way to record the scientific names and be consistent. For example, start with upper case and separate the names with an underline e.g. "Moloch_horridus".
+
+It is also important to check the taxonomic hierarchy, make sure it's correct and nothing is missing, such as family, and order. You can often fill this information in using your chosen naming authority or referring back to an atlas such as the ALA.
+
+```{r}
+
+```
+
+It's best practice to standardise and fix what you can before you start removing anything, this decreases the chance of removing more records than you need to.
+
+-   Remove non-identifiable specimens: If a species is not discernible after checking spelling and taxonomy, then it should be removed.
+
+-   Remove records with insufficient taxon identification: If a record is not identified down to the species level and this level of detail is needed for the study, then the record should be removed.
+
+-   Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed. Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1) an image of the species in question which does not match 2) If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)
+
+```{r}
+
+```
+
+### Optional taxonomic cleaning
+
+The following steps may not apply to your research interests, however this type of cleaning is commonly required.
+
+-   Remove non-native species: This step is a common requirement. A list can be obtained from the [Global Register of Introduced and Invasive Species (GRIIS)](https://griis.org/)
+
+-   Remove domesticated specimens, sightings of dogs, cats, but also garden species (**elaborate**)
+
+-   Remove extinct species: if you don't have a year filter on your data you might have records of species that have become extinct in more recent years.
+
+-   Remove specific taxa/life stages depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.
+
+```{r}
+
+```
+
+## 
