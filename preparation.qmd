@@ -1,5 +1,7 @@
 # Data download and preparation {#part1-data-preparation .unnumbered}
 
+#This whole chapter can be deleted --\>relevant information transferred to other chapters
+
 This section describes the initial steps and some important points that should be considered when obtaining species distribution records. It is essential an understand and familiarization with the data prior to data cleaning.
 
 There are essentially two scopes of study on getting distribution data:

@@ -1,8 +1,35 @@
 # Introduction
 
+The information about data cleaning steps in this book has been guided by the literature. We have consulted both peer reviewed and grey literature on preparing open source biodiversity data for species distribution modelling. This resource does not cover how to run a species distribution model, only how to prepare your data to this standard. This book is targeted to HDR students and those in their early career looking for code based guidance/resources on data cleaning. \
+All resources that have been consulted for this book can be found **here**.
+
+## What you won't learn 
+
 ## Data assumptions
 
-##gbif/ala data etc
+We have written this book as a resource for accessing and cleaning open source biodiversity data. The cleaning steps are predominately related to cleaning taxonomic and spatial issues. The data we will be working with is point based species observation data downloaded form online repositories such as the Global Biodiversity Information Facility (GBIF), the Atlas of Living Australia (ALA), (**maybe a third example**).
+
+If you have biodiversity data you have personally collected you may still find most chapters of this book relevant. However if you are not working with spatial biodiversity data this book may not be of much use. We recommend you check out **r for data science** (??) as a more general resource.
+
+### Data scope
+
+Before you start working with data you'll want to know what your scope is. Your aim will dictate the scope and data you need. There are essentially two main scopes of study you might be focusing on when looking at distribution data, are you focusing on a species species or group of species, Taxonomic scope, or are you looking at everything in a certain area, Spatial scope.
+
+#### **Taxonomic**
+
+Where the aim of the study is to gather data on a specific taxonomic unit. This might be a species or a community. The search is performed using the scientific and common name of the species or group of species.
+
+```{r}
+# Include a figure of a species map
+```
+
+#### **Spatial** 
+
+Where the aim is to obtain a list of all species present in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest.
+
+```{r}
+# Include a figure of a location with different species, (ACT or something)
+```
 
 ## Why clean data
 
