@@ -19,7 +19,7 @@ Before you start working with data you'll want to know what your scope is. Your 
 
 Where the aim of the study is to gather data on a specific taxonomic unit. This might be a species or a community. The search is performed using the scientific and common name of the species or group of species.
 
-```{r}
+```{r include=FALSE}
 library(galah)
 library(here)
 library(sf)
@@ -40,6 +40,9 @@ lampromicra<- galah_call() %>%
   galah_select(species)%>%
   atlas_occurrences()
 
+```
+
+```{r echo=FALSE}
 #map Lampromicra senator
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 lampromicramap <- ggplot() +
@@ -61,7 +64,7 @@ lampromicramap
 
 Where the aim is to obtain a list of all species present in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest.
 
-```{r}
+```{r include=FALSE}
 
 insects <- galah_call() |> 
   galah_identify("Insecta") |>
@@ -69,6 +72,11 @@ insects <- galah_call() |>
    galah_select(order) |>
 atlas_occurrences() 
 
+
+```
+
+
+```{r echo=FALSE}
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 insectsmap <- ggplot() +
   geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
