@@ -1,9 +1,9 @@
 # Introduction
 
-The information about data cleaning steps in this book has been guided by the literature. We have consulted both peer reviewed and grey literature on preparing open source biodiversity data for species distribution modelling. This resource does not cover how to run a species distribution model, only how to prepare your data to this standard. This book is targeted to HDR students and those in their early career looking for code based guidance/resources on data cleaning. \
+The information about data cleaning steps in this book has been guided by the literature. We have consulted both peer reviewed and grey literature on preparing open source biodiversity data for species distribution modelling. This resource does not cover how to run a species distribution model, only how to prepare your data to this standard. This book is targeted to HDR students and those in their early career looking for code based guidance/resources on data cleaning.\
 All resources that have been consulted for this book can be found **here**.
 
-## What you won't learn 
+## What you won't learn
 
 ## Data assumptions
 
@@ -20,14 +20,67 @@ Before you start working with data you'll want to know what your scope is. Your 
 Where the aim of the study is to gather data on a specific taxonomic unit. This might be a species or a community. The search is performed using the scientific and common name of the species or group of species.
 
 ```{r}
+library(galah)
+library(here)
+library(sf)
+library(rmapshaper)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+library(ggnewscale)
+library(tidyverse) # group of packages
+library(ozmaps)
+
+galah_config(email = "margot.schneider@csiro.au", atlas = "Australia")
+
+lampromicra<- galah_call() %>%
+  galah_identify("Lampromicra aerea", "Lampromicra senator"
+                 ) %>%
+  galah_filter( year > 1950 & year <= 2022)%>%
+  galah_select(species)%>%
+  atlas_occurrences()
+
+#map Lampromicra senator
+aus <- st_transform(ozmaps::ozmap_country, 4326)
+lampromicramap <- ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = lampromicra,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = species),
+    size = 2,
+  ) +
+  ylim(-45, -10) +
+  xlim(110, 155) +
+  theme_void()
+lampromicramap
+
 # Include a figure of a species map
 ```
 
-#### **Spatial** 
+#### **Spatial**
 
 Where the aim is to obtain a list of all species present in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest.
 
 ```{r}
+
+insects <- galah_call() |> 
+  galah_identify("Insecta") |>
+  galah_filter(stateProvince == "Tasmania") |> 
+   galah_select(order) |>
+atlas_occurrences() 
+
+aus <- st_transform(ozmaps::ozmap_country, 4326)
+insectsmap <- ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = insects,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = order),
+    size = 0.3,
+  ) +
+  ylim(-44, -39) +
+  xlim(144.7, 148.5) +
+  theme_void()
+insectsmap
 # Include a figure of a location with different species, (ACT or something)
 ```
 
