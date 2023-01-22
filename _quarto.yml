@@ -16,14 +16,10 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
-    
-    - part: preparation.qmd 
-      chapters:
-        - naming-authority.qmd
-        - download-data.qmd
-        - merge-data.qmd
-        - familiarise-data.qmd
-        - optional-preparation.qmd
+    - naming-authority.qmd
+    - download-data.qmd
+    - familiarise-data.qmd
+    - optional-preparation.qmd
         
     - part: cleaning.qmd
       chapters:
