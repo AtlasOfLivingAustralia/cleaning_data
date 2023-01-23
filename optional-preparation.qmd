@@ -1,5 +1,0 @@
-# Optional steps on data preparation {#sec-optional-preparation}
-
-When handling data from the ALA, some filters can help obtain only the type of records required for the study. Filter by "basis of record", for example, can ensure consistency when getting data from multiple places. For example, it is possible to exclude data originating from citizen science projects or only include data from herbariums and natural history museums.
-
--EXTRA: R packages that can help with data preparation?
