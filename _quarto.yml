@@ -13,13 +13,13 @@ book:
       This book was built with <a href="https://quarto.org/">Quarto</a>.
 
   cover-image: images/book_cover2.jpg 
+
   chapters:
     - index.qmd
     - intro.qmd
-    - naming-authority.qmd
     - download-data.qmd
+    - naming-authority.qmd
     - familiarise-data.qmd
-    - optional-preparation.qmd
         
     - part: cleaning.qmd
       chapters:

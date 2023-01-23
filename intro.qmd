@@ -75,7 +75,6 @@ atlas_occurrences()
 
 ```
 
-
 ```{r echo=FALSE}
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 insectsmap <- ggplot() +
