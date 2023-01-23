@@ -7,6 +7,8 @@ All resources that have been consulted for this book can be found **here**.
 
 ## What you won't learn
 
+-   How to run an SDM
+
 ## Data assumptions
 
 We have written this book as a resource for accessing and cleaning open source biodiversity data. The cleaning steps are predominately related to cleaning taxonomic and spatial issues. The data we will be working with is point based species observation data downloaded form online repositories such as the Global Biodiversity Information Facility (GBIF), the Atlas of Living Australia (ALA), (**maybe a third example**).

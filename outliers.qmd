@@ -1,1 +1,5 @@
-# Outliers 
+# Outliers and final checks
+
+Outliers can be true outliers or data errors, true outliers are not necessarily to be removed. This could represent mis-identified specimens, etc
+
+(#note to double check what i wrote for support article around inconsistent sampling and open source data)

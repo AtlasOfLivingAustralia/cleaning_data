@@ -1,1 +1,13 @@
 # Duplicates
+
+There are a few different categories of duplicates which you might encounter when working with open source biodiversity data:
+
+1.  exact match, unique identifer is the same and coordinates/ date matches
+
+    (When you collect data from multiple sources or even internally within one source there are often duplicates. These are true duplicates- as in they have the same UID, same coordinates for the same species. They don't always impact modelling (only tools like alpha hulls won't run with it) Although they can impact sampling bias and increase computational burden for no added benefit so it's best to remove them)
+
+2.  same coordinates, yet different year, this could be the same plant sampled again
+
+3.  herbarium duplicates
+
+4.  spatial thinning
