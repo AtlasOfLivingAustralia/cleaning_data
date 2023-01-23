@@ -20,6 +20,8 @@ book:
     - download-data.qmd
     - naming-authority.qmd
     - spatial.qmd
+    - duplicates.qmd
+    - outliers.qmd
     - example.qmd
     - summary.qmd
     - references.qmd
