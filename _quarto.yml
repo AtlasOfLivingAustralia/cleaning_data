@@ -19,7 +19,6 @@ book:
     - intro.qmd
     - download-data.qmd
     - naming-authority.qmd
-    - familiarise-data.qmd
         
     - part: cleaning.qmd
       chapters:
