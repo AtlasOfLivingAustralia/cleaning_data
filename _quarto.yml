@@ -19,12 +19,7 @@ book:
     - intro.qmd
     - download-data.qmd
     - naming-authority.qmd
-        
-    - part: cleaning.qmd
-      chapters:
-        - taxonomic.qmd
-        - spatial.qmd
-        
+    - spatial.qmd
     - example.qmd
     - summary.qmd
     - references.qmd
