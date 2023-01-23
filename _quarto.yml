@@ -24,7 +24,6 @@ book:
       chapters:
         - taxonomic.qmd
         - spatial.qmd
-        - ecological.qmd
     
     - part: improving.qmd
     - example.qmd
