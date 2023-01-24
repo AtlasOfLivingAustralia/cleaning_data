@@ -16,6 +16,7 @@ All resources that have been consulted for this book can be found **here**.
 ## What you won't learn
 
 -   How to run an SDM [@godfree_implications_2021]
+-   testing reference [@zizka_coordinatecleaner_2019]
 
 ## Data assumptions
 
