@@ -1,13 +1,21 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+bibliography: references.bib 
+csl: methods-in-ecology-and-evolution.csl
+---
+
 # Introduction {.unnumbered}
 
-The information about data cleaning steps in this book has been guided by the literature. We have consulted both peer reviewed and grey literature on preparing open source biodiversity data for species distribution modelling. This resource does not cover how to run a species distribution model, only how to prepare your data to this standard. This book is targeted to HDR students and those in their early career looking for code based guidance/resources on data cleaning.\
+The information about data cleaning steps in this book has been guided by the literature [@knuth84]. We have consulted both peer reviewed and grey literature on preparing open source biodiversity data for species distribution modelling. This resource does not cover how to run a species distribution model, only how to prepare your data to this standard. This book is targeted to HDR students and those in their early career looking for code based guidance/resources on data cleaning.\
 All resources that have been consulted for this book can be found **here**.
 
 ##note to add a "checklist of data standardization" section, downloadable checklist of issues to be checked
 
 ## What you won't learn
 
--   How to run an SDM
+-   How to run an SDM [@godfree_implications_2021]
 
 ## Data assumptions
 
@@ -44,9 +52,10 @@ lampromicra<- galah_call() %>%
   galah_select(species)%>%
   atlas_occurrences()
 
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
-```{r echo=FALSE}
+```{r eval=FALSE}
 #map Lampromicra senator
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 lampromicramap <- ggplot() +
