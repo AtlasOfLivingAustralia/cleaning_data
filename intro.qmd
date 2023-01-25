@@ -8,21 +8,21 @@ csl: methods-in-ecology-and-evolution.csl
 
 # Introduction {.unnumbered}
 
-The information about data cleaning steps in this book has been guided by the literature [@knuth84]. We have consulted both peer reviewed and grey literature on preparing open source biodiversity data for species distribution modelling. This resource does not cover how to run a species distribution model, only how to prepare your data to this standard. This book is targeted to HDR students and those in their early career looking for code based guidance/resources on data cleaning.\
-All resources that have been consulted for this book can be found **here**.
+The information about data cleaning steps in this book has been guided by the literature. We have consulted both peer reviewed and grey literature on preparing open source biodiversity data for species distribution modelling. This resource covers how to prepare your data to the standard of running a species distribution model. This book is targeted to HDR students and those in their early career looking for code based guidance/resources on data cleaning.\
+All resources that have been consulted for this book can be found @sec-references.
 
 ##note to add a "checklist of data standardization" section, downloadable checklist of issues to be checked
 
 ## What you won't learn
 
--   How to run an SDM [@godfree_implications_2021]
+-   How to run an SDM
 -   testing reference [@zizka_coordinatecleaner_2019]
 
 ## Data assumptions
 
-We have written this book as a resource for accessing and cleaning open source biodiversity data. The cleaning steps are predominately related to cleaning taxonomic and spatial issues. The data we will be working with is point based species observation data downloaded form online repositories such as the Global Biodiversity Information Facility (GBIF), the Atlas of Living Australia (ALA), (**maybe a third example**).
+We have written this book as a resource for accessing and cleaning open source biodiversity data. The cleaning steps are predominately related to cleaning taxonomic and spatial issues. The data we will be working with is point based species observation data downloaded form online repositories such as the [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF), [the Atlas of Living Australia](https://www.ala.org.au/) (ALA), (**maybe a third example**).
 
-If you have biodiversity data you have personally collected you may still find most chapters of this book relevant. However if you are not working with spatial biodiversity data this book may not be of much use. We recommend you check out **r for data science** (??) as a more general resource.
+If you have biodiversity data you have personally collected you may still find most chapters of this book relevant. However if you are not working with spatial biodiversity data this book may not be of much use. We recommend you check out [**r for data science**](https://r4ds.hadley.nz/intro.html)(??) as a more general resource.
 
 ### Data scope
 
@@ -107,9 +107,9 @@ insectsmap
 
 ## Why clean data
 
-Data cleaning is a process of identifying, fixing and/or removing incorrect, doubtful, mislabeled, or incomplete data within a data set. It is a critical step for biodiversity research, increasing data quality improves the validity of research outputs. Your analysis and findings are only as good as the data you've used.
+Data cleaning is a process of identifying, fixing and/or removing incorrect, doubtful, mislabeled, or incomplete data within a data set. It is a critical step for biodiversity research, increasing data quality improves the validity of research outputs. Your analysis and findings are only as good as the data you've used [@rodrigues_species_2022].
 
-Open source biodiversity data is a great resource, giving you access to a large amount of data that you otherwise would not have access to on your own. However, with this brings the challenges of using other peoples data. Because open source data has been collected from many different people, you likely have a data-set with different levels of taxonomic and spatial precision across records. It's important to consider the types of issues with the data you might face, issues with data quality can arise in many different ways, from low coordinate precision in the field, to merging multiple data sources together, where mismatches can happen. For this reason, the data cleaning process is highly variable depending on the data set you're working with, making it difficult to provide a 'one size fits all' solution.
+Open source biodiversity data is a great resource, giving you access to a large amount of data that you otherwise would not have access to on your own. However, with this brings the challenges of using other peoples data. Because open source data has been collected from many different people, you likely have a data-set with different levels of taxonomic and spatial precision across records. It's important to consider the types of errors you might encounter, issues with data quality can arise in many different ways, from low coordinate precision in the field, to merging multiple data sources together, where mismatches can happen. For this reason, the data cleaning process is highly variable depending on the data set you're working with, making it difficult to provide a 'one size fits all' solution.
 
 Although data cleaning can be time-consuming it is essential to ensure high quality outputs, an established and consistent process will assist in high quality data for analysis moving forward. Here we'll provide you with information and resources on important steps to take to improve the quality of the data you're working with. Some steps are crucial and others may be considered less so, there will always be a point of 'diminishing returns' in data cleaning where it's important to stop, and assess your goals for this data, before the process becomes too much of a time sink.
 
@@ -140,5 +140,5 @@ In the following chapters, we will take a deep dive into the different data clea
 
 List here
 
-See @knuth84 for additional discussion of literate programming.\
-See @boyle22 for additional info
+See [@knuth84] for additional discussion of literate programming.\
+See [@boyle22] for additional info
