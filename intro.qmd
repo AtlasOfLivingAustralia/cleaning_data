@@ -7,139 +7,66 @@ bibliography: references.bib
 csl: methods-in-ecology-and-evolution.csl
 ---
 
-# Introduction {.unnumbered}
+# Introduction 
 
-The information about data cleaning steps in this book has been guided by the literature. We have consulted both peer reviewed and grey literature on preparing open source biodiversity data for species distribution modelling. This resource covers how to prepare your data to the standard of running a species distribution model. This book is targeted to HDR students and those in their early career looking for code based guidance/resources on data cleaning.\
-All resources that have been consulted for this book can be found @sec-references.
+> "Garbage in, garbage out" 
 
-##note to add a "checklist of data standardization" section, downloadable checklist of issues to be checked
+The idea of flawed or sub-par input data produces nonsensical output is one that is well known in many scientific disciplines. In biodiversity research, scientists often have to collate large amounts of open access data from various sources  to address their research question. This can be challenging as the quality of data can vary depending on the data provider. 
 
-## What you won't learn
+Data cleaning is therefore an essential step in biodiversity research. The process of identifying and fixing incorrect or doubtful data can improve data quality and the validity of scientific findings. [@rodrigues_species_2022].
 
--   How to run an SDM
--   testing reference [@zizka_coordinatecleaner_2019]
+Here, we will guide you through how to acquire and clean open access biodiversity data in R. 
 
-## Data assumptions
+## What you will learn
 
-We have written this book as a resource for accessing and cleaning open source biodiversity data. The cleaning steps are predominately related to cleaning taxonomic and spatial issues. The data we will be working with is point based species observation data downloaded form online repositories such as the [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF), [the Atlas of Living Australia](https://www.ala.org.au/) (ALA), (**maybe a third example**).
-
-If you have biodiversity data you have personally collected you may still find most chapters of this book relevant. However if you are not working with spatial biodiversity data this book may not be of much use. We recommend you check out [**r for data science**](https://r4ds.hadley.nz/intro.html)(??) as a more general resource.
-
-### Data scope
-
-Before you start working with data you'll want to know what your scope is. Your aim will dictate the scope and data you need. There are essentially two main scopes of study you might be focusing on when looking at distribution data, are you focusing on a species species or group of species, Taxonomic scope, or are you looking at everything in a certain area, Spatial scope.
-
-#### **Taxonomic**
-
-Where the aim of the study is to gather data on a specific taxonomic unit. This might be a species or a community. The search is performed using the scientific and common name of the species or group of species.
-
-```{r include=FALSE}
-library(galah)
-library(here)
-library(sf)
-library(rmapshaper)
-library(dplyr)
-library(stringr)
-library(ggplot2)
-library(ggnewscale)
-library(tidyverse) # group of packages
-library(ozmaps)
-
-galah_config(email = "margot.schneider@csiro.au", atlas = "Australia")
-
-lampromicra<- galah_call() %>%
-  galah_identify("Lampromicra aerea", "Lampromicra senator"
-                 ) %>%
-  galah_filter( year > 1950 & year <= 2022)%>%
-  galah_select(species)%>%
-  atlas_occurrences()
-
-knitr::opts_chunk$set(eval = FALSE)
-```
-
-```{r eval=FALSE}
-#map Lampromicra senator
-aus <- st_transform(ozmaps::ozmap_country, 4326)
-lampromicramap <- ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = lampromicra,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = species),
-    size = 2,
-  ) +
-  ylim(-45, -10) +
-  xlim(110, 155) +
-  theme_void()
-lampromicramap
-
-# Include a figure of a species map
-```
-
-#### **Spatial**
-
-Where the aim is to obtain a list of all species present in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest.
-
-```{r include=FALSE}
-
-insects <- galah_call() |> 
-  galah_identify("Insecta") |>
-  galah_filter(stateProvince == "Tasmania") |> 
-   galah_select(order) |>
-atlas_occurrences() 
-
+```{r}
+# new diagram here
+library(DiagrammeR)
 
 ```
+Import data 
+Tidy and familiarise 
+Investigate taxonomy
+Investigate spatial data
+Investigate duplicates
+Investigate outliers
 
-```{r echo=FALSE}
-aus <- st_transform(ozmaps::ozmap_country, 4326)
-insectsmap <- ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = insects,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = order),
-    size = 0.3,
-  ) +
-  ylim(-44, -39) +
-  xlim(144.7, 148.5) +
-  theme_void()
-insectsmap
-# Include a figure of a location with different species, (ACT or something)
-```
+### Outline of the book
 
-## Why clean data
-
-Data cleaning is a process of identifying, fixing and/or removing incorrect, doubtful, mislabeled, or incomplete data within a data set. It is a critical step for biodiversity research, increasing data quality improves the validity of research outputs. Your analysis and findings are only as good as the data you've used [@rodrigues_species_2022].
-
-Open source biodiversity data is a great resource, giving you access to a large amount of data that you otherwise would not have access to on your own. However, with this brings the challenges of using other peoples data. Because open source data has been collected from many different people, you likely have a data-set with different levels of taxonomic and spatial precision across records. It's important to consider the types of errors you might encounter, issues with data quality can arise in many different ways, from low coordinate precision in the field, to merging multiple data sources together, where mismatches can happen. For this reason, the data cleaning process is highly variable depending on the data set you're working with, making it difficult to provide a 'one size fits all' solution.
-
-Although data cleaning can be time-consuming it is essential to ensure high quality outputs, an established and consistent process will assist in high quality data for analysis moving forward. Here we'll provide you with information and resources on important steps to take to improve the quality of the data you're working with. Some steps are crucial and others may be considered less so, there will always be a point of 'diminishing returns' in data cleaning where it's important to stop, and assess your goals for this data, before the process becomes too much of a time sink.
-
-## Characteristics of high quality data
-
-#unsure about this section
-
--   **Accurate:** How closely does the data reflect what it is trying to represent, how close to the 'true value' is it.
--   **Comprehensive:** Are all relevant fields filled in, does the data detail everything you need without needing to infer fields or proceed with missing information.
--   **Consistent/uniform:** Are all units the same, with the same level of precision. This information can vary greatly when working with open source data collected by multiple people across space and time.
--   **Relevant:** Is the data you're using useful for the question/s you're trying to answer.
-
-from (https://www.iteratorshq.com/blog/data-cleaning-in-5-easy-steps/)
-
-## Outline
+The major cleaning steps will focus on taxonomic and spatial issues.
 
 In the following chapters, we will take a deep dive into the different data cleaning steps. We'll start with how to download open source biodiversity data. One you have your data we'll go through the importance of standardizing taxonomy and suggestions of how to do this, followed by investigating spatial errors. We will then discuss the issue of duplicates in open source data, and lastly outliers.
 
-##new diagram here
+## What you won't learn
 
-## Limitations
+- How to clean other data types e.g. environmental or trait data
+- How to run a species distribution model
+- Hypothesis testing
 
--   Type and quality of the information available
--   Different types of research require different data cleaning steps
--   Spatial grain (and where to stop)
+## Prerequisites
 
-## How to use this book
+We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). If you have occurrence data you have personally collected, some parts of this book may still be relevant.
 
-List here
+### User accounts
 
-See [@knuth84] for additional discussion of literate programming.\
-See [@boyle22] for additional info
+Getting a galah account, galah config
+
+### R
+
+Install 
+
+### RStudio
+
+Install
+
+
+
+
+
+
+
+## Notes 
+
+and resources on important steps to take to improve the quality of the data you're working with. Some steps are crucial and others may be considered less so, there will always be a point of 'diminishing returns' in data cleaning where it's important to stop, and assess your goals for this data, before the process becomes too much of a time sink.
+
+note to add a "checklist of data standardization" section, downloadable checklist of issues to be checked
