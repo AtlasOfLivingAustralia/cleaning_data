@@ -1,16 +1,20 @@
+---
+bibliography: references.bib
+---
+
 # Download occurrence data {#sec-download-data}
 
 As we outlined in the introduction, we are assuming you are looking for open source biodiversity data. There are many ways to obtain data like this, each have their own pros and cons. We will show you where to get data, why you might get data from 'a' vs 'b' and importantly how to get this data.
 
 ## Where to get data
 
-There are many ways to obtain species or region of interest occurrence data. For example a literature based search using web search engines such as Google Scholar. Data can also be obtained directly from data infrastructure websites such as the [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/) or citizen science initiatives, such as [iNaturalist](https://www.inaturalist.org/). The [Atlas of Living Australia (ALA)](www.ala.org.au) is the Australian node to GBIF. It is an open-access biodiversity database that aggregates data from a broad range of projects, initiatives, museums, and universities, where data is ingested into the platform. GBIF being global is a great place to start depending on what type of study you're doing. The ALA for example feeds data into GBIF, so why might you want to download data directly from the ALA or another region specific node?
+There are many ways to obtain species or region of interest occurrence data. For example a literature based search using Google Scholar might get you the information you're after. However, data can also be obtained directly from data infrastructure websites such as the [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/) or citizen science initiatives, such as [iNaturalist](https://www.inaturalist.org/). The [Atlas of Living Australia (ALA)](www.ala.org.au) is the Australian node to GBIF. It is an open-access biodiversity database that aggregates data from a broad range of projects, initiatives, museums, and universities, where data is ingested into the platform. GBIF being global is a great place to start depending on what type of study you're doing. The ALA for example feeds data into GBIF, so why might you want to download data directly from the ALA or another region specific node?
 
 Sometimes nodes, like the ALA use their own taxonomic systems for aggregating data, in certain cases this might make your life easier if the node has all the data you need (**might want to expand on this).**
 
 ## Downloading data
 
-You can download data directly from respective websites or alternatively you can use R or Python packages explicitly created for downloading occurrence record data (see a list in chapter xx or below). The ALA has developed an R and python package to download data from the ALA. [galah](https://galah.ala.org.au/) enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations. galah while originally designed to get data out of the ALA now also allows you to download occurrence records from all living atlases.
+You can download data directly from respective websites or alternatively you can use R or Python packages explicitly created for downloading occurrence record data (galah, rgbif, etc... ). The ALA has developed an R and python package to download data from the ALA. [galah](https://galah.ala.org.au/) enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations. galah while originally designed to get data out of the ALA now also allows you to download occurrence records from all living atlases.
 
 ##example for downloading data (ALA and maybe also GBIF)
 
@@ -20,19 +24,23 @@ You can download data directly from respective websites or alternatively you can
 
 ### Optional steps on data preparation
 
-When handling data from the ALA, some filters can help obtain only the type of records required for the study. Filter by "basis of record", for example, can ensure consistency when getting data from multiple places. For example, it is possible to exclude data originating from citizen science projects or only include data from herbariums and natural history museums. This can help with consistency, making it clear where the data has come from, and it's quality. This can also make merging data you may have sourced from multiple places easier.
+#### Basis of record
 
--   **year cut of**
+When handling data from the ALA, some filters can help obtain only the type of records required for the study. Filter by "basis of record", for example, can ensure consistency when getting data from multiple places [@fuhrding-potschkat_influence_2022]. For example, it is possible to exclude data originating from citizen science projects or only include data from herbariums [@godfree_implications_2021] and natural history museums. This can help indicate where the data has come from, and it's quality. If data has been sourced from multiple places this can assist with making the data merging step more streamlined.
 
 ```{r}
 
 ```
 
+#### Year filter
+
+Many people when working with open source biodiversity data will remove all records before a certain year [@gueta_quantifying_2016; @marsh_accounting_2022]. This is often done to increase data precision, as older records are more likely to be insufficiently accurate. The year cutoff varies however the most commonly used is 1945 [@zizka_no_2020; @fuhrding-potschkat_influence_2022] , although some studies discard all data collected before 1990 [@marsh_accounting_2022; @gueta_quantifying_2016]
+
 ## Merge datasets
 
 If you have downloaded data from different sources, you likely will need to collate your data into a singular database.
 
-When combining data from multiple places, it is important to standardize the data fields and merge the data carefully. There is a chance data will be incorrectly formatted and/or mislabeled.
+When combining data from multiple places, it is important to standardize the data fields and merge the data carefully [@ribeiro_bdc_2022]. There is a chance data will be incorrectly formatted and/or mislabeled.
 
 One of the main issues you might face if you've sourced data from different organisations/people is that higher taxonomy may not match- if this is the case, take a look at the "taxonomy" chapter for more information on how to deal with inconsistent taxonomy.
 
@@ -44,19 +52,19 @@ One of the main issues you might face if you've sourced data from different orga
 
 ## Familiarize with the data and metadata
 
-Now that you have data to work with it's important to familiarise yourself with it. This is best done before you get started with any data cleaning.
+Now that you have data to work with it's important to familiarise yourself with it. This is best done before you get started with any data cleaning [@streamdna_sharing_2020].
 
--   Taking the time to understand the metadata will provide context to the structure of the data and information on how the data was collected.
+-   Metadata can provide information on the structure of the data and how the data was collected.
 
 -   The metadata may also outline or provide insights into the limitations of the data.
 
--   A visual inspection of the entire data can save time and solve easy-to-spot errors.
+-   A visual inspection of your entire dataset can save time and solve easy-to-spot errors.
 
--   It can improve your knowledge of the data you're working with and what you might be able to do or what you might be limited by.
+-   Help identify limitations
 
 A simple way to visualize your data is to plot it on a map. This simple step can highlight coordinates with missing data or even inverted or erroneous coordinates (as points floating in the ocean while focusing on terrestrial species and vice versa).
 
-Other tools, such as looking for only positive values if that is what is expected, can also be used in this initial data familiarization step.
+Other tools, such as looking for only positive values (if that is what is expected) can also be used in this initial data familiarization step.
 
 ```{r}
 
@@ -64,11 +72,11 @@ Other tools, such as looking for only positive values if that is what is expecte
 
 ## Initial clean-up
 
-Although systematic data cleaning is required, some apparent mistakes observed during the initial visualization of the data and metadata can be fixed straight away.
+Systematic data cleaning is required, however, some mistakes observed during the initial visualization of the data and metadata can be fixed straight away.
 
--   Fix typos
+-   Typos
 
--   Consistent capitalizations
+-   Ensure consistent capitalizations
 
 -   Fix minor coordinates errors, such as inverted or badly formatted
 

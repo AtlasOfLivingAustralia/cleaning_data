@@ -4,7 +4,7 @@
 -   decide where to refer to the R packages
 -   add references
 
-## Extra notes 
+## Extra notes
 
 Now that the data is cleaned and standardized, extra work can be done to guarantee the data quality. These steps will depend on the kind of study being conducted.
 

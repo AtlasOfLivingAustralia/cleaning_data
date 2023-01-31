@@ -1,30 +1,22 @@
 # Taxonomy {#sec-standardise-taxonomy}
 
-#note this section will come after download-data (to be re-arranged)
+New species are being discovered and described all the time. The rapid rise of analyitical tools, especially in molecular biology can make it difficult to keep up with taxonomic literature. Species that historically were described solely on morphological characteristics are being re-classified post genomic/population genetics, and integrative taxonomy, an approach which integrates information from multiple areas which can be used to delimit and describe new species [@garraffoni2019integrative].
 
-New species are being discovered and described all the time. Keeping up-to-date with the taxonomic literature can be challenging, where many taxonomic changes result from the rapid rise of new analytical tools, especially in the molecular field. Species historically described solely based on morphological characters are now being revealed as multiple species based on genomics, population genetic studies, and integrative approaches, where many lines of evidence are used to delimit and describe new species.
+Taxonomy is dynamic, data can therefore be inconsistent between databases and across timescales. Additionally the scientific community do not always agree on the classification of species, this results in multiple phylogenetic trees for the same species or arrays of subspecies.
 
-Due to the dynamism of taxonomy it can sometimes be difficult to have consistent data from multiple databases. The scientific community will not always agree on the classification of species and therefore these classifications can vary, resulting in multiple phylogeny trees for the same species or different subspecies etc.
-
-If you've downloaded data from an online biodiversity database a naming authority will have been used to classify species. You may have gotten data from multiple sources where species are categorized differently.
-
-So how do you deal with taxonomic inconsistencies?
+To deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, and you might not agree with their classifications, so how do you deal with taxonomic inconsistencies?
 
 ## Naming authorities
 
-Using a naming authority is a good way to help decide which taxonomic categorization of the data you're working with is correct. Accurate species delimitation is essential for understanding evolutionary processes and for adequate conservation management, as species-level lists are the foundation of conservation decisions, as is the IUCN Red List (@melville21). Yet, there are many databases for determining species taxonomy, and deciding which one to follow can take time and effort.
+### What is a naming authority
 
-### Taxonomic shortfalls
+**I think it's worth actually defining this very clearly because its not common knowledge**
 
-Recent studies have described many taxonomic shortfalls (ref), such as differences in species concepts, subspecies and other sub-specific categories, and groups who's taxonomy is constantly changing.
-
-There are many databases that contain information on species lists, barcode for example, is a database of genetic sequences for determining species.
-
-**Problems to be considered when checking taxonomy: - issue of incorrect taxonomy identification - synonymies** (this section needs to be expanded out)
+Using a naming authority is a great way to make decisions surrounding taxonomic categorizations of the data you're working with. Accurate species delimitation is crucial for adequate conservation management and understanding evolutionary processes \[REF\]. Species-level lists re the foundation of conservation decisions, such as is the IUCN Red List [@melville21]. However, deciding what naming authority to use can be challenging and time consuming.
 
 ### Choosing a naming authority
 
-It is essential to know what you are studying, is it an individual species or a group of species, this could influence what naming authority you choose to use for decision making.
+Choosing a naming authority will be dictated by whether or not you are looking at a single species or maybe a genus, or if you're looking at all species in a certain region. The difference in scope might influence if you choose to use a naming authority from a taxonomic society group or something that covers for example all plants.
 
 A knowledge of taxonomy is essential in order to verify the data you are working with. For this, different organizations provide updated lists of species or even details of the taxonomic history of a species. Checking changes in taxonomy can be helpful when interpreting old data which may have species names you don't recognize. Changes in taxonomy, such as species split, new higher level classification (as genera), or species descriptions, highlight the importance of keeping up-to-date with taxonomic literature. This can be achieved by consulting the literature. Most taxonomic society groups release annual updates on taxonomy. The [Atlas of Living Australia (ALA)](www.ala.org.au) can also be used to investigate taxonomic changes.
 
