@@ -1,23 +1,37 @@
-# Welcome {.unnumbered}
+# Welcome!
 
-This resource has been created by the Science and Decision Support team at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/) to assist researchers and decision makers with cleaning biodiversity.
+Data cleaning is the exploration, detection and correction of erroneous data. The standard of what 'clean' data looks like varies considerably across projects and data sources. This means that there is no 'one-size-fits-all' approach. 
 
-In this book we will first outline some assumptions about the data being used, and the importance and limitations of data cleaning, followed by practical guidelines and steps to be taken for data acquisition and cleaning.
+Our goal in creating this resource was to assist researchers and decision makers that may have limited experience with cleaning geo-referenced biodiversity data in R. 
 
-You will also find resources and R packages that can be used to facilitate the data cleaning process. It's worth noting there are likely many ways to achieve the same results, all guidelines should be revised according to the data you have, and what you are trying to achieve.
+In this book, we provide an overview of a typical data cleaning workflow - from acquisition, to identifying potential errors to correction. Throughout each chapter, we include practical guidelines, R code blocks and additional resources that may aid with each data cleaning step. The content of this book is derived from our [informal review](#link to details maybe supplementary materials?) of the current state of biodiversity research. 
+
+This work was inspired by an [Australian Research Data Commons](https://ardc.edu.au/) project where our team worked closely with research partners to streamline their data cleaning workflows.
 
 ## How to contribute
 
-This is a free and live document. This is a fast moving space with new tools and techniques being developed all the time, if you have questions or suggestions please reach us at (e-mail).
+We would like to preface that we are not experts in data cleaning, however; we felt there was need for a consolidated resource to guide data cleaning decisions.
+
+We welcome contributions to this document and suggest folks to submit pull requests at the [GitHub repository](https://github.com/AtlasOfLivingAustralia/cleaning_data) where this document lives. Contributing guidlines can be found at XX
+
+Alternatively, if you have questions or suggestions please reach us at (e-mail) or submit a GitHub issue. 
+
+## How to cite
+
+[Refer to this when creating this section](https://ardc.edu.au/resource/citing-software/)
+
+You can cite this document: 
+
 
 ## Authors {.unnumbered}
 
-Authoris listed in alphabetic order:\
+This resource was created by the Science and Decision Support team at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/) 
+
+Authors listed in alphabetic order:\
 - Fonti Kar\
 - Jessica Fenker\
 - Margot Schneider\
 - Martin Westgate
 
-## How to Cite
-
 ## Acknowledgements
+

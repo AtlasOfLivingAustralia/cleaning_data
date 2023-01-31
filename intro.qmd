@@ -1,5 +1,6 @@
 ---
 output: html_document
+editor: source
 editor_options: 
   chunk_output_type: console
 bibliography: references.bib 
