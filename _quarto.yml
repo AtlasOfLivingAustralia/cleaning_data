@@ -17,6 +17,7 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
+    - scope.qmd
     - download-data.qmd
     - naming-authority.qmd
     - spatial.qmd
@@ -24,6 +25,7 @@ book:
     - outliers.qmd
     - example.qmd
     - summary.qmd
+    - appendix.qmd
     - references.qmd
 
 bibliography: references.bib

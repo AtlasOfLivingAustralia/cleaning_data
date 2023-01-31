@@ -1,0 +1,81 @@
+### Data scope
+
+Before you start working with data you'll want to know what your scope is. Your aim will dictate the scope and data you need. There are essentially two main scopes of study you might be focusing on when looking at distribution data, are you focusing on a species species or group of species, Taxonomic scope, or are you looking at everything in a certain area, Spatial scope.
+
+#### **Taxonomic**
+
+Where the aim of the study is to gather data on a specific taxonomic unit. This might be a species or a community. The search is performed using the scientific and common name of the species or group of species.
+
+```{r include=FALSE}
+library(galah)
+library(here)
+library(sf)
+library(rmapshaper)
+library(dplyr)
+library(stringr)
+library(ggplot2)
+library(ggnewscale)
+library(tidyverse) # group of packages
+library(ozmaps)
+
+galah_config(email = "margot.schneider@csiro.au", atlas = "Australia")
+
+lampromicra<- galah_call() %>%
+  galah_identify("Lampromicra aerea", "Lampromicra senator"
+                 ) %>%
+  galah_filter( year > 1950 & year <= 2022)%>%
+  galah_select(species)%>%
+  atlas_occurrences()
+
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+```{r eval=FALSE}
+#map Lampromicra senator
+aus <- st_transform(ozmaps::ozmap_country, 4326)
+lampromicramap <- ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = lampromicra,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = species),
+    size = 2,
+  ) +
+  ylim(-45, -10) +
+  xlim(110, 155) +
+  theme_void()
+lampromicramap
+
+# Include a figure of a species map
+```
+
+#### **Spatial**
+
+Where the aim is to obtain a list of all species present in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest.
+
+```{r include=FALSE}
+
+insects <- galah_call() |> 
+  galah_identify("Insecta") |>
+  galah_filter(stateProvince == "Tasmania") |> 
+   galah_select(order) |>
+atlas_occurrences() 
+
+
+```
+
+```{r echo=FALSE}
+aus <- st_transform(ozmaps::ozmap_country, 4326)
+insectsmap <- ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = insects,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = order),
+    size = 0.3,
+  ) +
+  ylim(-44, -39) +
+  xlim(144.7, 148.5) +
+  theme_void()
+insectsmap
+# Include a figure of a location with different species, (ACT or something)
+```
+
