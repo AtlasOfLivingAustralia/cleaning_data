@@ -4,7 +4,23 @@ New species are being discovered and described all the time. The rapid rise of a
 
 Taxonomy is dynamic, data can therefore be inconsistent between databases and across timescales. Additionally the scientific community do not always agree on the classification of species, this results in multiple phylogenetic trees for the same species or arrays of subspecies.
 
-To deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, and you might not agree with their classifications, so how do you deal with taxonomic inconsistencies?
+## Taxonomy in biodiversity databases  
+
+##note this section might be best placed somewhere else i'm not sure
+
+To deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, you might not agree with their classifications, and there may be other issues you are not aware of:
+
+-   people assume the taxonomic backbone the ALA uses is correct
+
+-   assume that data has been parsed
+
+-   this process is not transparent
+
+-   taxonomic backbone changes without documentation/record, if you re-download data for example a year later things may have changed without traceable decisions.
+
+Errors less likely at higher level taxonomy than at the species level. th
+
+so how do you deal with taxonomic inconsistencies?
 
 ## Naming authorities
 
@@ -45,6 +61,21 @@ Now that you've chosen a naming authority you'll want to use it to ensure the da
 ```{r}
 
 ```
+
+## Synonymy
+
+What are synonyms
+
+Synonyms can be annoying to deal with when working with open source data, and they can appear because of multiple reasons
+
+1.  Taxonomy changes over time, a record from the 1950s might have a name that is no longer used for the species
+2.  The scientific community doesn't always agree, there may be multiple names, and taxonomic classifications for the same species
+
+There are two main types of synonyms when it comes to taxonomy: **heterotypic** and **homotypic.** The type of synonym might dictate how you handle it.
+
+Often naming authorities will have one they deem as accepted, and list others as synonyms.
+
+Note: maybe need to explain difference between **heterotypic** and **homotypic** synonyms
 
 ## Standardize taxonomy
 
