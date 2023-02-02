@@ -10,27 +10,27 @@ Taxonomy is dynamic, data can therefore be inconsistent between databases and ac
 
 **I think it's worth actually defining this very clearly because its not common knowledge**
 
-## Naming authorities and taxonomy in biodiversity databases  
+## Naming authorities and taxonomy in biodiversity databases
 
-##note this section might be best placed somewhere else i'm not sure
+##note this section might be best placed somewhere else I'm not sure
 
-When you download data from different databases you might be faced with dealing with inconsistencies between the datasets. This is a challenge that data aggregators face when ingesting and aggregating data. This is a large task with lots of heterogeneity and can lead to errors along the way. To help deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, you might not agree with their classifications, and there may be other issues you are not aware of. For example the ALA uses multiple naming authorities in a hierarchical format:
+When you download data from different databases you might be faced with dealing with inconsistencies between the datasets. This is a challenge that data aggregators face when ingesting and aggregating data. This is a large task with lots of heterogeneity and can lead to errors along the way. To help deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, and you might not agree with their classifications. There may be other issues you are not aware of: For example, the ALA uses multiple naming authorities in a hierarchical format:
 
 #note image is from a helpfile I wrote- we can re-do it so it's consistent with the style of this document
 
 ![](images/image-1066364510.png)
 
-While this is in theory is how the ALAs backbone is built, issues can occur with aggregation leading to potentially serious problems with the taxonomic structure. In addition data can be parsed incorrectly, and the process isn't as transparent as people would like. Meaning that when the taxonomic backbone is updated, the elements that have changed are untraceable. We've highlighted the issues with ALA taxonomy, however this is a widespread issue.
+While this is in theory how the ALAs backbone is built, issues can occur with aggregation leading to potentially serious problems with the taxonomic structure. In addition data can be parsed incorrectly, and the process isn't as transparent as people would like. Meaning that when the taxonomic backbone is updated, the elements that have changed are untraceable. We've highlighted the issues with ALA taxonomy, however this is a widespread issue.
 
-With all that, open source data has many pros, so how does one deal with taxonomic inconsistencies to get the most accurate product from this resource?
+With all that, open source data has many pros, so how does one deal with taxonomic inconsistencies to get the most accurate data in the end?
 
 ### Choosing your own naming authority
 
-Using a naming authority is a great way to make decisions surrounding taxonomic categorizations of the data you're working with. Accurate species delimitation is crucial for adequate conservation management and understanding evolutionary processes \[REF\]. Species-level lists re the foundation of conservation decisions, such as is the IUCN Red List [@melville21]. However, deciding what naming authority to use can be challenging and time consuming.
+Using a naming authority is a great way to make decisions surrounding taxonomic categorizations of open source biodiversity data. Accurate species delimitation is crucial for adequate conservation management and understanding evolutionary processes [@mace2004role]. Species-level lists re the foundation of conservation decisions, such as is the IUCN Red List [@melville21]. However, deciding what naming authority to use can be challenging and time consuming.
 
-Choosing a naming authority will be dictated by whether or not you are looking at a single species or maybe a genus, or if you're looking at all species in a certain region. The difference in scope might influence if you choose to use a naming authority from a taxonomic society group or something that covers for example all plants.
+What naming authority you choose will be dictated by whether or not you are looking at a single species or maybe a genus, or if you're looking at all species in a certain region. The difference in scope might influence if you choose to use a naming authority from a taxonomic society group or something that covers for example all plants.
 
-A knowledge of taxonomy is essential in order to verify the data you are working with. For this, different organizations provide updated lists of species or even details of the taxonomic history of a species. Checking changes in taxonomy can be helpful when interpreting old data which may have species names you don't recognize. Changes in taxonomy, such as species split, new higher level classification (as genera), or species descriptions, highlight the importance of keeping up-to-date with taxonomic literature. This can be achieved by consulting the literature. Most taxonomic society groups release annual updates on taxonomy. The [Atlas of Living Australia (ALA)](www.ala.org.au) can also be used to investigate taxonomic changes.
+A knowledge of taxonomy is essential in order to verify the data you are working with. For this, different organizations provide updated lists of species or even details of the taxonomic history of a species. Checking changes in taxonomy can be helpful when interpreting old data which may have species names you don't recognize. Changes in taxonomy, such as species split, new higher level classification (as genera), or species descriptions, highlight the importance of keeping up-to-date with taxonomic literature. This can be achieved by consulting the literature. Most taxonomic society groups release annual updates on taxonomy.
 
 In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. These authorities provide a list of accepted and authoritative names as a template. If you're unsure what naming authority to use, APNI and the AFD are a good place to start, especially if the data you're investigating covers a wide range of taxa. If you're investigating certain taxa it's worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we've provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.
 
@@ -50,9 +50,17 @@ In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/a
 -   Malacology - [The Malacological Society of Australasia](https://www.malsocaus.org/)\
 -   Nematology - [Australasian Association of Nematologists](https://www.nematologists.org.au/)
 
+### Global taxonomy
+
+-   GBIF uses 100 different sources to assemble - [their global taxonomic backbone](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c)
+
+-   Authoritative taxonomic information on plants, animals, fungi, and microbes - [Integrated Taxonomic Information System, ITIS](https://www.itis.gov/)
+
+-   Global taxonomic catalogue - [Catalogue of Life](https://www.catalogueoflife.org/)
+
 ## What to do with the naming authority
 
-Now that you've chosen a naming authority you'll want to use it to ensure the data you're working with has consistent taxonomy
+Now that you've chosen a naming authority you can use it to ensure consistency across your data set but also check you haven't missed any species data.
 
 ```{r}
 
