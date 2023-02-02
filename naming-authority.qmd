@@ -1,26 +1,8 @@
 # Taxonomy {#sec-standardise-taxonomy}
 
-New species are being discovered and described all the time. The rapid rise of analyitical tools, especially in molecular biology can make it difficult to keep up with taxonomic literature. Species that historically were described solely on morphological characteristics are being re-classified post genomic/population genetics, and integrative taxonomy, an approach which integrates information from multiple areas which can be used to delimit and describe new species [@garraffoni2019integrative].
+New species are being discovered and described all the time. The rapid rise of analytical tools, especially in molecular biology can make it difficult to keep up with taxonomic literature. Species historically described solely on morphological characteristics are being re-classified post genomic/population genetics, and integrative taxonomy, an approach which integrates information from multiple areas which can be used to delimit and describe new species [@garraffoni2019integrative].
 
 Taxonomy is dynamic, data can therefore be inconsistent between databases and across timescales. Additionally the scientific community do not always agree on the classification of species, this results in multiple phylogenetic trees for the same species or arrays of subspecies.
-
-## Taxonomy in biodiversity databases  
-
-##note this section might be best placed somewhere else i'm not sure
-
-To deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, you might not agree with their classifications, and there may be other issues you are not aware of:
-
--   people assume the taxonomic backbone the ALA uses is correct
-
--   assume that data has been parsed
-
--   this process is not transparent
-
--   taxonomic backbone changes without documentation/record, if you re-download data for example a year later things may have changed without traceable decisions.
-
-Errors less likely at higher level taxonomy than at the species level. th
-
-so how do you deal with taxonomic inconsistencies?
 
 ## Naming authorities
 
@@ -28,9 +10,23 @@ so how do you deal with taxonomic inconsistencies?
 
 **I think it's worth actually defining this very clearly because its not common knowledge**
 
-Using a naming authority is a great way to make decisions surrounding taxonomic categorizations of the data you're working with. Accurate species delimitation is crucial for adequate conservation management and understanding evolutionary processes \[REF\]. Species-level lists re the foundation of conservation decisions, such as is the IUCN Red List [@melville21]. However, deciding what naming authority to use can be challenging and time consuming.
+## Naming authorities and taxonomy in biodiversity databases  
 
-### Choosing a naming authority
+##note this section might be best placed somewhere else i'm not sure
+
+When you download data from different databases you might be faced with dealing with inconsistencies between the datasets. This is a challenge that data aggregators face when ingesting and aggregating data. This is a large task with lots of heterogeneity and can lead to errors along the way. To help deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, you might not agree with their classifications, and there may be other issues you are not aware of. For example the ALA uses multiple naming authorities in a hierarchical format:
+
+#note image is from a helpfile I wrote- we can re-do it so it's consistent with the style of this document
+
+![](images/image-1066364510.png)
+
+While this is in theory is how the ALAs backbone is built, issues can occur with aggregation leading to potentially serious problems with the taxonomic structure. In addition data can be parsed incorrectly, and the process isn't as transparent as people would like. Meaning that when the taxonomic backbone is updated, the elements that have changed are untraceable. We've highlighted the issues with ALA taxonomy, however this is a widespread issue.
+
+With all that, open source data has many pros, so how does one deal with taxonomic inconsistencies to get the most accurate product from this resource?
+
+### Choosing your own naming authority
+
+Using a naming authority is a great way to make decisions surrounding taxonomic categorizations of the data you're working with. Accurate species delimitation is crucial for adequate conservation management and understanding evolutionary processes \[REF\]. Species-level lists re the foundation of conservation decisions, such as is the IUCN Red List [@melville21]. However, deciding what naming authority to use can be challenging and time consuming.
 
 Choosing a naming authority will be dictated by whether or not you are looking at a single species or maybe a genus, or if you're looking at all species in a certain region. The difference in scope might influence if you choose to use a naming authority from a taxonomic society group or something that covers for example all plants.
 
