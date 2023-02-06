@@ -14,25 +14,30 @@ Taxonomy is dynamic, data can therefore be inconsistent between databases and ac
 
 ##note this section might be best placed somewhere else I'm not sure
 
-When you download data from different databases you might be faced with dealing with inconsistencies between the datasets. This is a challenge that data aggregators face when ingesting and aggregating data. This is a large task with lots of heterogeneity and can lead to errors along the way. To help deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, and you might not agree with their classifications. There may be other issues you are not aware of: For example, the ALA uses multiple naming authorities in a hierarchical format:
+When you download data from different databases you might be faced with inconsistencies between the datasets. This is a challenge that data aggregators face when ingesting and aggregating data. This is a large task with lots of heterogeneity and can lead to errors along the way. To help deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, and you might not agree with their classifications. There may be other issues you are not aware of: For example, the ALA uses multiple naming authorities in a hierarchical format:
 
 #note image is from a helpfile I wrote- we can re-do it so it's consistent with the style of this document
 
 ![](images/image-1066364510.png)
 
-While this is in theory how the ALAs backbone is built, issues can occur with aggregation leading to potentially serious problems with the taxonomic structure. In addition data can be parsed incorrectly, and the process isn't as transparent as people would like. Meaning that when the taxonomic backbone is updated, the elements that have changed are untraceable. We've highlighted the issues with ALA taxonomy, however this is a widespread issue.
+While this is in theory how the ALAs backbone is built, issues can occur with aggregation leading to potentially serious problems with the taxonomic structure. In addition data can be parsed incorrectly, and the process isn't transparent. Meaning that when the taxonomic backbone is updated, the elements that have changed are untraceable. These issues are not specific to ALA taxonomy, but occur in varying forms among data aggregators.
 
 With all that, open source data has many pros, so how does one deal with taxonomic inconsistencies to get the most accurate data in the end?
 
 ### Choosing your own naming authority
 
-Using a naming authority is a great way to make decisions surrounding taxonomic categorizations of open source biodiversity data. Accurate species delimitation is crucial for adequate conservation management and understanding evolutionary processes [@mace2004role]. Species-level lists re the foundation of conservation decisions, such as is the IUCN Red List [@melville21]. However, deciding what naming authority to use can be challenging and time consuming.
+Using a naming authority is a great way to make decisions surrounding taxonomic categorizations of open source biodiversity data. Accurate species delimitation is crucial for adequate conservation management and understanding evolutionary processes [@mace2004role]. Species-level lists are the foundation of conservation decisions, such as is the IUCN Red List [@melville21]. However, deciding what naming authority to use can be challenging and time consuming.
 
-What naming authority you choose will be dictated by whether or not you are looking at a single species or maybe a genus, or if you're looking at all species in a certain region. The difference in scope might influence if you choose to use a naming authority from a taxonomic society group or something that covers for example all plants.
+What naming authority you choose can be dictated by:
 
-A knowledge of taxonomy is essential in order to verify the data you are working with. For this, different organizations provide updated lists of species or even details of the taxonomic history of a species. Checking changes in taxonomy can be helpful when interpreting old data which may have species names you don't recognize. Changes in taxonomy, such as species split, new higher level classification (as genera), or species descriptions, highlight the importance of keeping up-to-date with taxonomic literature. This can be achieved by consulting the literature. Most taxonomic society groups release annual updates on taxonomy.
+1.  Are you looking at a single species, or single genus (Taxonomic)
+2.  Are you looking at all species in a certain region (spatial)
 
-In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. These authorities provide a list of accepted and authoritative names as a template. If you're unsure what naming authority to use, APNI and the AFD are a good place to start, especially if the data you're investigating covers a wide range of taxa. If you're investigating certain taxa it's worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we've provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.
+The difference in scope might influence if you choose to use a naming authority from a taxonomic society group or multiple broad sources.
+
+A knowledge of taxonomy assist your ability to verify the data you are working with. For this, different organizations provide updated lists of species or even details of the taxonomic history of a species. Checking changes in taxonomy can be helpful when interpreting old data which may have species names you don't recognize. Changes in taxonomy, such as species split, new higher level classification (as genera), or species descriptions, highlight the importance of keeping up-to-date with taxonomic literature. This can be achieved by consulting the literature. Most taxonomic society groups release annual updates on taxonomy.
+
+In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. These authorities provide a list of accepted and authoritative names as a template. If you're unsure what naming authority to use and you're looking at Australian species, the APNI and the AFD are a good place to start, especially if the data you're investigating covers a wide range of taxa. If you're investigating specific taxa it's worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we've provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.
 
 ### Australian taxonomic society groups
 
@@ -60,7 +65,7 @@ In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/a
 
 ## What to do with the naming authority
 
-Now that you've chosen a naming authority you can use it to ensure consistency across your data set but also check you haven't missed any species data.
+Now that you've chosen a naming authority you can use it to ensure consistency across your data set, but also check you haven't missed any species data from your download.
 
 ```{r}
 
@@ -70,16 +75,22 @@ Now that you've chosen a naming authority you can use it to ensure consistency a
 
 There are two main types of synonyms when it comes to taxonomy: **heterotypic** and **homotypic.** The type of synonym might dictate how you handle it.
 
-Homotypic: a name base on the same type as that of another name, objective synonym
+Homotypic: a name base on the same type as that of another name, objective synonym \[IAPT\]
 
-Heterotypic
+Heterotypic: a name based on a type different from that of another name referring to the same taxon \[IAPT\]
 
 Synonyms can be annoying to deal with when working with open source data, and they can appear because of multiple reasons
 
 1.  Taxonomy changes over time, a record from the 1950s might have a name that is no longer used for the species
 2.  The scientific community doesn't always agree, there may be multiple names, and taxonomic classifications for the same species
 
-Often naming authorities will have one they deem as accepted, and list others as synonyms.
+Often naming authorities will have one they deem as accepted, and list others as synonyms. Biodiversity data repositories will have a preferred name according to the naming authority they use and display species data under this name with synonyms listed. Sometimes data doesn't parse correctly or maybe the data provider you're using recognizes the names as different species. Because of this it can be worth with:
+
+1.  Downloading higher taxon data and then filtering for what you need, as disparities are less common at higher levels
+2.  Include synonyms of the species names you're interested in your download
+3.  Download the original inputted name in fields such as "verbatimScientificName" which reflects a pre-parsed scientific name. This can be useful if conducting a spatial analyses
+
+Understanding if a species name has synonyms can also be useful for accessing literature. For example some *Eucaluptus* species have been re-classified and old literature might refer to an old name you were unaware of. This can increase your access to potentially seminal literature about a species \[REF\].
 
 ## Standardize taxonomy
 
@@ -99,7 +110,9 @@ It's best practice to standardise and fix what you can before you start removing
 
 -   Remove records with insufficient taxon identification: If a record is not identified down to the species level and this level of detail is needed for the study, then the record should be removed.
 
--   Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed. Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1) an image of the species in question which does not match 2) If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)
+-   Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed.
+
+    Note: Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1) an image of the species in question which does not match 2) If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)
 
 ```{r}
 
