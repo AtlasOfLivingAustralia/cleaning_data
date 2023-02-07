@@ -1,6 +1,6 @@
 # Duplicates
 
-There are a few different categories of duplicates which you might encounter when working with open source biodiversity data:
+Duplicates add computational burden to your analyses. Some spatial analyses won't run if duplicates are present as it breaks mathematical constraints. There are a few different categories of duplicates which you might encounter when working with open source biodiversity data, with some being more difficult to work with than others.
 
 1.  exact match, unique identifer is the same and coordinates/ date matches
 
