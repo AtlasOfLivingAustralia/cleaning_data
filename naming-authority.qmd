@@ -71,7 +71,7 @@ Now that you've chosen a naming authority you can use it to ensure consistency a
 
 ```
 
-## Synonymy
+## Synonyms
 
 There are two main types of synonyms when it comes to taxonomy: **heterotypic** and **homotypic.** The type of synonym might dictate how you handle it.
 
