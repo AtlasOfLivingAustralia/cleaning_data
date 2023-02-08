@@ -34,7 +34,7 @@ When handling data from the ALA, some filters can help obtain only the type of r
 
 #### Year filter
 
-Many people when working with open source biodiversity data will remove all records before a certain year [@gueta_quantifying_2016; @marsh_accounting_2022]. This is often done to increase data precision, as older records are more likely to be insufficiently accurate. The year cutoff varies however the most commonly used is 1945 [@zizka_no_2020; @fuhrding-potschkat_influence_2022] , although some studies discard all data collected before 1990 [@marsh_accounting_2022; @gueta_quantifying_2016]
+Many people when working with open source biodiversity data will remove all records before a certain year [@gueta_quantifying_2016; @marsh_accounting_2022]. This is often done to increase data precision, as older records are more likely to be insufficiently accurate. The year cutoff varies however the most commonly used is 1945 [@zizka_no_2020; @fuhrding-potschkat_influence_2022], although some studies discard all data collected before 1990 [@gueta_quantifying_2016; @marsh_accounting_2022].
 
 ## Merge datasets
 

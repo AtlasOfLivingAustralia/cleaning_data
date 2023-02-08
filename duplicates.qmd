@@ -1,13 +1,31 @@
+---
+bibliography: references.bib
+---
+
 # Duplicates
 
 Duplicates add computational burden to your analyses. Some spatial analyses won't run if duplicates are present as it breaks mathematical constraints. There are a few different categories of duplicates which you might encounter when working with open source biodiversity data, with some being more difficult to work with than others.
 
-1.  exact match, unique identifer is the same and coordinates/ date matches
+1.  True duplicates = Unique identifier (UID) is the same
 
-    (When you collect data from multiple sources or even internally within one source there are often duplicates. These are true duplicates- as in they have the same UID, same coordinates for the same species. They don't always impact modelling (only tools like alpha hulls won't run with it) Although they can impact sampling bias and increase computational burden for no added benefit so it's best to remove them)
+    True duplicates can occur for many reasons, often data is sent to the state authority it was collected in as well as the authority responsible for collecting the data, which is not always the same. When this data is aggregated by the ALA for example, they end up with multiple copies. These are true duplicates- as in they have the same UID, same coordinates, same species. They don't always impact modelling. Although they can impact sampling bias and increase computational burden for no added benefit so it's best to remove them [@jin_bdcleaner_2020; @marsh_accounting_2022].
 
-2.  same coordinates, yet different year, this could be the same plant sampled again
+    Removing true duplicates where the UID is the same is quite straightforward and is a common step before mapping biodiversity data.
 
-3.  herbarium duplicates
+    ```{r}
 
-4.  spatial thinning
+    ```
+
+2.  Different UID Same species, same coordinates, yet different year.
+
+    If the UID is different, but the species name is the same and the coordinates are the same this could be a couple of different things:
+
+    a\) If the year is different, it's likely a true record, indicating it's continued presence- this is most likely for plants...there are cases where you'll still want to remove the
+
+    b\) Herbarium duplicates: same year, same collector, however different UID and minor differences in locality, coordinate precision. These can be more difficult to decipher, and we've called them Herbarium duplicates as this is when they most commonly occur. The same specimen will sometimes be sent to multiple herbariums, this results in different UIDs. Additionally because the data is potentially being inputted by different people the discrepancies this causes can make them difficult to spot \[REF bob pers com\].
+
+    ##example from bobs data
+
+3.  Spatial thinning = records located close to each other
+
+    These records are not duplicates, not the same individual, not in exactly the same spot, yet close together. Think about patch of grass, this isn't one plant but many all packed tightly together. This adds computational burden, especially for large scale biodiversity analyses and distribution modelling for many species [@zizka2020; @kuralt]. This can also be done to reduce bias associated with oversampling at a small number of sites within larger species ranges [@godfree_implications_2021].
