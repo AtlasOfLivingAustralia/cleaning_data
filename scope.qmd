@@ -1,6 +1,6 @@
 ### Data scope
 
-Before you start working with data you'll want to know what your scope is. Your aim will dictate the scope and data you need. There are essentially two main scopes of study you might be focusing on when looking at distribution data, are you focusing on a species, or group of species, Taxonomic scope, or are you looking at everything in a certain area, Spatial scope.
+Before you start working with data you'll want to know what your scope is. Your aim will dictate the scope and data you need. There are essentially two main scopes of study you might be focusing on when looking at distribution data, are you focusing on a species species or group of species, Taxonomic scope, or are you looking at everything in a certain area, Spatial scope.
 
 #### **Taxonomic**
 

@@ -1,6 +1,6 @@
 # Outliers and final checks
 
-#note from meeting with Martin this section might include some alpha hull examples for how to detect outliers, or how they can skew your data, in addition to maybe an SDM for outlier detection even if we won't be teaching people how to run an SDM
+#note from meeting with Martin this section might include some alpha hull examples for how to detect outliers, or how they can skew your data, in addition to maybe an SDM for outlier detection [@simoes2018utility] even if we won't be teaching people how to run an SDM
 
 Outliers can be true outliers or data errors, true outliers are not necessarily to be removed. This could represent mis-identified specimens, etc
 
