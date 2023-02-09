@@ -78,4 +78,3 @@ insectsmap <- ggplot() +
 insectsmap
 # Include a figure of a location with different species, (ACT or something)
 ```
-

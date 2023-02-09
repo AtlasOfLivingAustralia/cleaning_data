@@ -7,15 +7,15 @@ bibliography: references.bib
 csl: methods-in-ecology-and-evolution.csl
 ---
 
-# Introduction 
+# Introduction
 
-> "Garbage in, garbage out" 
+> "Garbage in, garbage out"
 
-The idea of flawed or sub-par input data produces nonsensical output is one that is well known in many scientific disciplines. In biodiversity research, scientists often have to collate large amounts of open access data from various sources  to address their research question. This can be challenging as the quality of data can vary depending on the data provider. 
+The idea of flawed or sub-par input data produces nonsensical output is one that is well known in many scientific disciplines. In biodiversity research, scientists often have to collate large amounts of open access data from various sources to address their research question. This can be challenging as the quality of data can vary depending on the data provider.
 
 Data cleaning is therefore an essential step in biodiversity research. The process of identifying and fixing incorrect or doubtful data can improve data quality and the validity of scientific findings. [@rodrigues_species_2022].
 
-Here, we will guide you through how to acquire and clean open access biodiversity data in R. 
+Here, we will guide you through how to acquire and clean open access biodiversity data in R.
 
 ## What you will learn
 
@@ -24,12 +24,8 @@ Here, we will guide you through how to acquire and clean open access biodiversit
 library(DiagrammeR)
 
 ```
-Import data 
-Tidy and familiarise 
-Investigate taxonomy
-Investigate spatial data
-Investigate duplicates
-Investigate outliers
+
+Import data Tidy and familiarise Investigate taxonomy Investigate spatial data Investigate duplicates Investigate outliers
 
 ### Outline of the book
 
@@ -39,9 +35,9 @@ In the following chapters, we will take a deep dive into the different data clea
 
 ## What you won't learn
 
-- How to clean other data types e.g. environmental or trait data
-- How to run a species distribution model
-- Hypothesis testing
+-   How to clean other data types e.g. environmental or trait data
+-   How to run a species distribution model
+-   Hypothesis testing
 
 ## Prerequisites
 
@@ -53,19 +49,13 @@ Getting a galah account, galah config
 
 ### R
 
-Install 
+Install
 
 ### RStudio
 
 Install
 
-
-
-
-
-
-
-## Notes 
+## Notes
 
 and resources on important steps to take to improve the quality of the data you're working with. Some steps are crucial and others may be considered less so, there will always be a point of 'diminishing returns' in data cleaning where it's important to stop, and assess your goals for this data, before the process becomes too much of a time sink.
 
