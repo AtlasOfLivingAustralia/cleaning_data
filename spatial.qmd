@@ -34,7 +34,7 @@ You may have already fixed up some of these when you first downloaded your data,
 
 -   (**Correct/check for records with locality but no occurrence/georeference (if possible): If you have a good locality, consider georeferencing for coordinates rather than discarding the missing data entry. If the locality is not precise, this will likely yield lower-quality data points.**) unsure of this step if we want to go into georeferencing? or maybe point people to another resource
 
-### Coordinate precision 
+### Coordinate precision
 
 Open source biodiversity data will be collected from many people with different tools and expertise, some record coordinates may have been recorded with a phone, some with a GPS, and some maybe just from a place name and coordinates added after the fact. Depending on the level of precision you need, you might consider discarding data that is not precise enough, or removing decimal places for data you know could not be that precise. At the ALA there is a "cooridnateprecision"/ "coordinateUncertainityIn Meters" column you can download with the data which can sometime help discern the accuracy of the data (worth noting it's not always completed).
 
