@@ -47,14 +47,9 @@ The major cleaning steps will focus on taxonomic and spatial issues.
 
 ### User accounts
 
-Sign up with the relevant data infrastructure e.g GBIF or ALA
+Sign up for an account with the relevant data infrastructure e.g GBIF or ALA
 
-For example for ALA, data can be accessed via the R package {galah} and users must configure their XX prior to download.
-
-```{r galah config}
-
-```
-
+- Links to download
 
 ### R
 
@@ -70,10 +65,3 @@ Download and install R for your operating system
 #### Windows {.unnumbered}
 #### Mac {.unnumbered}
 
-## Notes {.unnumbered}
-
-In the following chapters, we will take a deep dive into the different data cleaning steps. We'll start with how to download open source biodiversity data. One you have your data we'll go through the importance of standardizing taxonomy and suggestions of how to do this, followed by investigating spatial errors. We will then discuss the issue of duplicates in open source data, and lastly outliers.
-
-and resources on important steps to take to improve the quality of the data you're working with. Some steps are crucial and others may be considered less so, there will always be a point of 'diminishing returns' in data cleaning where it's important to stop, and assess your goals for this data, before the process becomes too much of a time sink.
-
-note to add a "checklist of data standardization" section, downloadable checklist of issues to be checked

@@ -13,26 +13,6 @@ knitr::opts_chunk$set(
   warning = FALSE
 )
 
-
-# galah_config(email = "margot.schneider@csiro.au", atlas = "Australia")
-
-# lampromicra <- galah_call() %>%
-#   galah_identify("Lampromicra aerea", "Lampromicra senator"
-#                  ) %>%
-#   galah_filter( year > 1950 & year <= 2022)%>%
-#   galah_select(group = "basic")%>%
-#   atlas_occurrences()
-# 
-# arrow::write_parquet(lampromicra, "data/galah/lampromicra")
-
-# insects <- galah_call() |>
-#   galah_identify("Insecta") |>
-#   galah_filter(stateProvince == "Tasmania") |>
-#    galah_select(group = "basic", order) |>
-#   atlas_occurrences()
-# 
-# arrow::write_parquet(insects, "data/galah/insects")
-
 library(here)
 library(sf)
 library(dplyr)
@@ -91,6 +71,29 @@ ggplot() +
   ylim(-44, -39) +
   xlim(144.7, 148.5) +
   theme_void()
+
+```
+
+
+```{r, include=FALSE}
+# galah_config(email = "margot.schneider@csiro.au", atlas = "Australia")
+
+# lampromicra <- galah_call() %>%
+#   galah_identify("Lampromicra aerea", "Lampromicra senator"
+#                  ) %>%
+#   galah_filter( year > 1950 & year <= 2022)%>%
+#   galah_select(group = "basic")%>%
+#   atlas_occurrences()
+# 
+# arrow::write_parquet(lampromicra, "data/galah/lampromicra")
+
+# insects <- galah_call() |>
+#   galah_identify("Insecta") |>
+#   galah_filter(stateProvince == "Tasmania") |>
+#    galah_select(group = "basic", order) |>
+#   atlas_occurrences()
+# 
+# arrow::write_parquet(insects, "data/galah/insects")
 
 ```
 
