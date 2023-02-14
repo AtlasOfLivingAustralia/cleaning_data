@@ -11,13 +11,13 @@ csl: methods-in-ecology-and-evolution.csl
 
 > "Garbage in, garbage out"
 
-The idea of flawed or sub-par input data produces nonsensical output is one that is well known in many scientific disciplines. In biodiversity research, scientists often have to collate large amounts of open access data from various sources to address their research question. This can be challenging as the quality of data can vary depending on the data provider.
+The idea of flawed or sub-par input data produces nonsensical output is one that is well known in many scientific disciplines. In biodiversity research, scientists often have to collate large amounts of open access data from various sources to address their research question. This can be challenging as the quality of data can vary depending on the provider.
 
 Data cleaning is therefore an essential step in biodiversity research. The process of identifying and fixing incorrect or doubtful data can improve data quality and the validity of scientific findings. [@rodrigues_species_2022].
 
-Here, we will guide you through how to acquire and clean open access biodiversity data in R.
+This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). If you have occurrence data you have personally collected, some parts of this book may still be relevant.
 
-## What you will learn
+## What you will learn / Outline of the book
 
 ```{r}
 # new diagram here
@@ -25,13 +25,17 @@ library(DiagrammeR)
 
 ```
 
-Import data Tidy and familiarise Investigate taxonomy Investigate spatial data Investigate duplicates Investigate outliers
-
-### Outline of the book
+- Import data
+- Tidy and familiarise with meta-data
 
 The major cleaning steps will focus on taxonomic and spatial issues.
 
-In the following chapters, we will take a deep dive into the different data cleaning steps. We'll start with how to download open source biodiversity data. One you have your data we'll go through the importance of standardizing taxonomy and suggestions of how to do this, followed by investigating spatial errors. We will then discuss the issue of duplicates in open source data, and lastly outliers.
+- Investigate, flag and correct or remove: 
+  - Taxonomic issues
+    - Duplicates
+  - Spatial data 
+      - Outliers
+      - Duplicates
 
 ## What you won't learn
 
@@ -41,21 +45,34 @@ In the following chapters, we will take a deep dive into the different data clea
 
 ## Prerequisites
 
-We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). If you have occurrence data you have personally collected, some parts of this book may still be relevant.
-
 ### User accounts
 
-Getting a galah account, galah config
+Sign up with the relevant data infrastructure e.g GBIF or ALA
+
+For example for ALA, data can be accessed via the R package {galah} and users must configure their XX prior to download.
+
+```{r galah config}
+
+```
+
 
 ### R
 
-Install
+Download and install R for your operating system
+
+#### Windows {.unnumbered}
+#### Mac {.unnumbered}
 
 ### RStudio
 
-Install
+Download and install R for your operating system
 
-## Notes
+#### Windows {.unnumbered}
+#### Mac {.unnumbered}
+
+## Notes {.unnumbered}
+
+In the following chapters, we will take a deep dive into the different data cleaning steps. We'll start with how to download open source biodiversity data. One you have your data we'll go through the importance of standardizing taxonomy and suggestions of how to do this, followed by investigating spatial errors. We will then discuss the issue of duplicates in open source data, and lastly outliers.
 
 and resources on important steps to take to improve the quality of the data you're working with. Some steps are crucial and others may be considered less so, there will always be a point of 'diminishing returns' in data cleaning where it's important to stop, and assess your goals for this data, before the process becomes too much of a time sink.
 

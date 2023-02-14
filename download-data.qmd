@@ -2,27 +2,38 @@
 bibliography: references.bib
 ---
 
-# Download occurrence data {#sec-download-data}
+# Download occurrence data {#sec-download-data} 
 
-As we outlined in the introduction, we are assuming you are looking for open source biodiversity data. There are many ways to obtain data like this, each have their own pros and cons. We will show you where to get data, why you might get data from 'a' vs 'b' and importantly how to get this data.
+Once you have decided on your data scope, we can precede to downloading the data. We will introduce a few common data infrastructures that offer open access biodiversity data and highlight some considerations when choosing one in the context of your data scope. We will then discuss some obstacles when consolidating data from multiple sources and the importance of metadata. 
 
-## Where to get data
+## Where to get data from
 
-There are many ways to obtain species or region of interest occurrence data. For example a literature based search using Google Scholar might get you the information you're after. However, data can also be obtained directly from data infrastructure websites such as the [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/) or citizen science initiatives, such as [iNaturalist](https://www.inaturalist.org/). The [Atlas of Living Australia (ALA)](www.ala.org.au) is the Australian node to GBIF. It is an open-access biodiversity database that aggregates data from a broad range of projects, initiatives, museums, and universities, where data is ingested into the platform. GBIF being global is a great place to start depending on what type of study you're doing. The ALA for example feeds data into GBIF, so why might you want to download data directly from the ALA or another region specific node?
+The [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/) network consists of a series of ‘node’ organisations who collate biodiversity data from their own countries, with GBIF acting as an overarching organisation to store data from all nodes. Users that are interested in obtaining data that has global coverage may want to download directly from GBIF. 
 
-Sometimes nodes, like the ALA use their own taxonomic systems for aggregating data, in certain cases this might make your life easier if the node has all the data you need (**might want to expand on this).**
+Alternatively, using a *regional node* may be more relevant if your project is at a smaller scale. For example, the [Atlas of Living Australia (ALA)](www.ala.org.au) is the Australian node to GBIF and aggregates data from a broad range of providers such as government initiatives, museums, and universities. Importantly, the ALA uses their own taxonomic system and may vary with other data infrastructures. To find other nodes, check out this [page](https://www.gbif.org/the-gbif-network)
+
+If your project relates to citizen science then [iNaturalist](https://www.inaturalist.org/) may be a good option for accessing crowd-sourced data of species observations.
+
 
 ## Downloading data
 
-You can download data directly from respective websites or alternatively you can use R or Python packages explicitly created for downloading occurrence record data (galah, rgbif, etc... ). The ALA has developed an R and python package to download data from the ALA. [galah](https://galah.ala.org.au/) enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations. galah while originally designed to get data out of the ALA now also allows you to download occurrence records from all living atlases.
+Many developers have created R packages to interact with each data infrastructures's API to aid access to biodiversity data. Here are a few examples, we recommend taking a look at each package's documentation to choose one that suits your project. Below we have included some code blocks for downloading occurrence data. 
 
-##example for downloading data (ALA and maybe also GBIF)
+- [`rgbif`](https://docs.ropensci.org/rgbif/) an interface to GBIF
+- [`galah`](https://galah.ala.org.au/index.html)  an interface to a number living Atlases, as well as GBIF
+- [`rinat`](https://docs.ropensci.org/rinat/) an interface to iNaturalist observations
+- [`rebird`](https://docs.ropensci.org/rebird/) an interface with the eBird webservices.
+- [`spocc`](https://docs.ropensci.org/spocc/) a R package to query and collect species occurrence data from various sources including [VertNet](https://github.com/ropensci/rvertnet), [iDigBio](http://www.idigbio.org/) and others.
+
+One benefit of using `galah` is that enables users to acquire not only species occurrence records but also taxonomic information, or associated media such as images or sounds.
 
 ```{r}
-
+## example for downloading data (ALA and maybe also GBIF)
 ```
 
-### Optional steps on data preparation
+### Refining your data download
+
+It is typical that data infrastructures impose constraints to query size. We suggest for broad data scopes that it may be more efficient to further refine your query before downloading. Below we provide two 
 
 #### Basis of record
 
@@ -34,6 +45,8 @@ When handling data from the ALA, some filters can help obtain only the type of r
 
 #### Year filter
 
+- **WHEN** - from what time period do you want your data to cover?
+
 Many people when working with open source biodiversity data will remove all records before a certain year [@gueta_quantifying_2016; @marsh_accounting_2022]. This is often done to increase data precision, as older records are more likely to be insufficiently accurate. The year cutoff varies however the most commonly used is 1945 [@zizka_no_2020; @fuhrding-potschkat_influence_2022], although some studies discard all data collected before 1990 [@gueta_quantifying_2016; @marsh_accounting_2022].
 
 ## Merge datasets
@@ -42,12 +55,11 @@ If you have downloaded data from different sources, you likely will need to coll
 
 When combining data from multiple places, it is important to standardize the data fields and merge the data carefully [@ribeiro_bdc_2022]. There is a chance data will be incorrectly formatted and/or mislabeled.
 
-One of the main issues you might face if you've sourced data from different organisations/people is that higher taxonomy may not match- if this is the case, take a look at the "taxonomy" chapter for more information on how to deal with inconsistent taxonomy.
+One of the main issues you might face if you've sourced data from different organisations/people is that higher taxonomy may not match- if this is the case, take a look at the "taxonomy" chapter for more information on how to deal with inconsistent taxonomy before merging!
 
-##example on formatting consistency, merging data together etc
 
 ```{r}
-
+##example on formatting consistency, merging data together etc
 ```
 
 ## Familiarize with the data and metadata
@@ -70,7 +82,7 @@ Other tools, such as looking for only positive values (if that is what is expect
 
 ```
 
-## Initial clean-up
+## Precleaning (I think this part should be its own section)
 
 Systematic data cleaning is required, however, some mistakes observed during the initial visualization of the data and metadata can be fixed straight away.
 
@@ -86,4 +98,6 @@ Systematic data cleaning is required, however, some mistakes observed during the
 
 ```
 
-## 
+## Notes 
+
+Do you want to limit the data to museum records or to citizen data? Certain data providers have their own naming conventions... [Not sure if this is a good place for this]

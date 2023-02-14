@@ -1,71 +1,87 @@
-### Data scope
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
-Before you start working with data you'll want to know what your scope is. Your aim will dictate the scope and data you need. There are essentially two main scopes of study you might be focusing on when looking at distribution data, are you focusing on a species species or group of species, Taxonomic scope, or are you looking at everything in a certain area, Spatial scope.
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = '', 
+  fig.width = 6, 
+  fig.height = 6,
+  echo = FALSE,
+  warning = FALSE
+)
 
-#### **Taxonomic**
 
-Where the aim of the study is to gather data on a specific taxonomic unit. This might be a species or a community. The search is performed using the scientific and common name of the species or group of species.
+# galah_config(email = "margot.schneider@csiro.au", atlas = "Australia")
 
-```{r include=FALSE}
-library(galah)
+# lampromicra <- galah_call() %>%
+#   galah_identify("Lampromicra aerea", "Lampromicra senator"
+#                  ) %>%
+#   galah_filter( year > 1950 & year <= 2022)%>%
+#   galah_select(group = "basic")%>%
+#   atlas_occurrences()
+# 
+# arrow::write_parquet(lampromicra, "data/galah/lampromicra")
+
+# insects <- galah_call() |>
+#   galah_identify("Insecta") |>
+#   galah_filter(stateProvince == "Tasmania") |>
+#    galah_select(group = "basic", order) |>
+#   atlas_occurrences()
+# 
+# arrow::write_parquet(insects, "data/galah/insects")
+
 library(here)
 library(sf)
-library(rmapshaper)
 library(dplyr)
-library(stringr)
 library(ggplot2)
-library(ggnewscale)
 library(tidyverse) # group of packages
 library(ozmaps)
-
-galah_config(email = "margot.schneider@csiro.au", atlas = "Australia")
-
-lampromicra<- galah_call() %>%
-  galah_identify("Lampromicra aerea", "Lampromicra senator"
-                 ) %>%
-  galah_filter( year > 1950 & year <= 2022)%>%
-  galah_select(species)%>%
-  atlas_occurrences()
-
-knitr::opts_chunk$set(eval = FALSE)
 ```
+# Data scope
 
-```{r eval=FALSE}
+Data scope pertains to the type of data needed for your project, your research question will help guide the scope of data you need. 
+
+Consider the following to in reference to your research aim: 
+
+- What is the **taxonomic** unit of your research interest? 
+- What is the **spatial** scale of your project? The entire country? A specific conservation area?
+
+Your data scope may change according to the availability of data for certain research interests. In some instances, rare species tend to have considerably fewer records.
+
+## Taxonomic scope
+
+Where the aim of the study is to gather data on a specific taxonomic unit. This could be a threatened species or a broad taxonomic group. The download query is performed using the scientific name or name of the taxonomic group.
+
+
+```{r}
 #map Lampromicra senator
+lampromicra <- arrow::read_parquet(here("data", "galah", "lampromicra"))
 aus <- st_transform(ozmaps::ozmap_country, 4326)
-lampromicramap <- ggplot() +
+
+ ggplot() +
   geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
   geom_point(
     data = lampromicra,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = species),
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = scientificName),
     size = 2,
   ) +
   ylim(-45, -10) +
   xlim(110, 155) +
   theme_void()
-lampromicramap
-
-# Include a figure of a species map
 ```
 
-#### **Spatial**
+## Spatial scope
 
-Where the aim is to obtain a list of all species present in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest.
+Where the aim is to obtain data for targeted taxa in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest. The example below shows all Insecta orders in the state of Tasmania in Australia
 
-```{r include=FALSE}
-
-insects <- galah_call() |> 
-  galah_identify("Insecta") |>
-  galah_filter(stateProvince == "Tasmania") |> 
-   galah_select(order) |>
-atlas_occurrences() 
-
-
-```
-
-```{r echo=FALSE}
+```{r}
+insects <- arrow::read_parquet(here("data", "galah","insects"))
 aus <- st_transform(ozmaps::ozmap_country, 4326)
-insectsmap <- ggplot() +
+
+ggplot() +
   geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
   geom_point(
     data = insects,
@@ -75,6 +91,6 @@ insectsmap <- ggplot() +
   ylim(-44, -39) +
   xlim(144.7, 148.5) +
   theme_void()
-insectsmap
-# Include a figure of a location with different species, (ACT or something)
+
 ```
+

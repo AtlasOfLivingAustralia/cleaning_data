@@ -10,9 +10,9 @@ The content of this book is guided by the current state of biodiversity literatu
 
 ## How to contribute
 
-We would like to preface that we are not experts in data cleaning, however; we felt there was need for a consolidated resource to guide data cleaning decisions.
+We would like to preface that we are not experts in data cleaning, but felt there was need for a consolidated resource to guide data cleaning decisions.
 
-We welcome contributions to this document and suggest folks to submit pull requests at the [GitHub repository](https://github.com/AtlasOfLivingAustralia/cleaning_data) where this document lives. Contributing guidelines can be found at XX (Maybe another section or just a MD in GitHub Repo)
+We welcome contributions to this document and suggest folks to submit pull requests at the [GitHub repository](https://github.com/AtlasOfLivingAustralia/cleaning_data) of this document. Contributing guidelines can be found at XX (Maybe another section or just a MD in GitHub Repo)
 
 Alternatively, if you have questions please submit a [GitHub issue](https://github.com/AtlasOfLivingAustralia/cleaning_data/issues).
 
