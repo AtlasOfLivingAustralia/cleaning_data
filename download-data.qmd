@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
   warning = FALSE
 )
 
-
 library(galah)
 library(dplyr)
 library(arrow)
@@ -49,13 +48,6 @@ One benefit of using `galah` is that enables users to acquire not only species o
 
 First, we have to configure `galah`. This is where you supply your account credentials and set the atlas to a particular region. See `?galah_config` for more configuration options. You can [save these credentials](https://docs.ropensci.org/rgbif/articles/gbif_credentials.html) in your `.Renviron` so you don't have to enter it explicitly in code! 
 
-```{r}
-galah_config(email = "firstname.surname@email.com",
-             username = "user.name",
-             password = "yourpassword",
-             atlas = "Global")
-
-```
 We will be downloading all occurrences for the African Elephant from GBIF. This may take a while as it is around 12,000 records. Once downloaded, you can save the records locally in your desired format. For larger downloads, we recommend saving the data as `parquets` using `arrow::write_parquet`
 
 ```{r, echo = TRUE}
@@ -80,31 +72,41 @@ read_parquet("data/gbif/elephant")
 In order to access data from the Spain GBIF node, we will need to reconfigure `galah` so that our query points to Australia. After that, we will download all records for the Pink Robin.
 
 ```{r, echo = TRUE}
-galah_config(email = "firstname.surname@email.com", 
+galah_config(email = Sys.getenv("ALA_EMAIL"), 
              atlas = "Australia")
 
 pink_robin <- galah_call() %>% 
   galah_identify("Petroica rodinogaster") %>% 
   atlas_occurrences
 
-write_parquet(pink_robin, "data/galah/pink_robin")
+arrow::write_parquet(pink_robin, "data/galah/pink_robin")
 ```
 
 ```{r, echo = FALSE, eval = TRUE}
 read_parquet("data/galah/pink_robin")
 ```
 
+## Refining your data download
+
+Open access biodiversity data come from many different providers such as universities, research institutes (museums and herbariums), government and the general public. As such, the data type and quality can vary considerably. For example, museums tend to supply records that are associated with a preserved specimen, whereas citizen sourced data are often images captured from a smart phone. Generally, biodiversity data from reputable providers tend to be more reliable compared to crowd sourced data as some organisms can misidentified. 
+
+If your project requires research grade data, we recommend refining your query by: 
+
+- year
+- basis of record
+- assertions 
+
+Refining your download query ensures higher quality data and also reduces the download size as many data infrastructures impose constraints to download size. Below we have illustrated how to do so in `galah`. 
+
+#### Year filter
+
+Many people when working with open source biodiversity data will remove all records before a certain year [@gueta_quantifying_2016; @marsh_accounting_2022]. This is often done to increase data precision, as older records are more likely to be insufficiently accurate. The year cutoff varies however the most commonly used is 1945 [@zizka_no_2020; @fuhrding-potschkat_influence_2022], although some studies discard all data collected before 1990 [@gueta_quantifying_2016; @marsh_accounting_2022].
 
 
+```{r}
 
+```
 
-### Refining your data download
-
-Open access biodiversity data come from many different sources, 
-
-Additionally, it is typical that data infrastructures impose constraints to query size.
-
-We suggest for broad data scopes that it may be more efficient to further refine your query before downloading. Users may want to narrow their query by *basis of record* or by a *year filter* 
 
 #### Basis of record
 
@@ -114,13 +116,17 @@ When handling data from the ALA, some filters can help obtain only the type of r
 
 ```
 
-#### Year filter
+#### Assertions
+
+```{r}
+
+```
 
 
 
-Many people when working with open source biodiversity data will remove all records before a certain year [@gueta_quantifying_2016; @marsh_accounting_2022]. This is often done to increase data precision, as older records are more likely to be insufficiently accurate. The year cutoff varies however the most commonly used is 1945 [@zizka_no_2020; @fuhrding-potschkat_influence_2022], although some studies discard all data collected before 1990 [@gueta_quantifying_2016; @marsh_accounting_2022].
+## Merge datasets from different infrastructures
 
-## Merge datasets
+(Park this for now may come after naming authority)
 
 If you have downloaded data from different sources, you likely will need to collate your data into a singular database.
 
@@ -133,42 +139,3 @@ One of the main issues you might face if you've sourced data from different orga
 ##example on formatting consistency, merging data together etc
 ```
 
-## Familiarize with the data and metadata
-
-Now that you have data to work with it's important to familiarise yourself with it. This is best done before you get started with any data cleaning [@streamdna_sharing_2020].
-
--   Metadata can provide information on the structure of the data and how the data was collected.
-
--   The metadata may also outline or provide insights into the limitations of the data.
-
--   A visual inspection of your entire dataset can save time and solve easy-to-spot errors.
-
--   Help identify limitations
-
-A simple way to visualize your data is to plot it on a map. This simple step can highlight coordinates with missing data or even inverted or erroneous coordinates (as points floating in the ocean while focusing on terrestrial species and vice versa).
-
-Other tools, such as looking for only positive values (if that is what is expected) can also be used in this initial data familiarization step.
-
-```{r}
-
-```
-
-## Precleaning (I think this part should be its own section)
-
-Systematic data cleaning is required, however, some mistakes observed during the initial visualization of the data and metadata can be fixed straight away.
-
--   Typos
-
--   Ensure consistent capitalizations
-
--   Fix minor coordinates errors, such as inverted or badly formatted
-
--   Remove records with no coordinates
-
-```{r}
-
-```
-
-## Notes 
-
-Do you want to limit the data to museum records or to citizen data? Certain data providers have their own naming conventions... [Not sure if this is a good place for this]

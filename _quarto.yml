@@ -19,6 +19,7 @@ book:
     - intro.qmd
     - scope.qmd
     - download-data.qmd
+    - preclean.qmd
     - naming-authority.qmd
     - spatial.qmd
     - duplicates.qmd
