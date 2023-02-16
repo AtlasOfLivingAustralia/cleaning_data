@@ -15,7 +15,9 @@ The idea of flawed or sub-par input data produces nonsensical output is one that
 
 Data cleaning is therefore an essential step in biodiversity research. The process of identifying and fixing incorrect or doubtful data can improve data quality and the validity of scientific findings. [@rodrigues_species_2022].
 
-This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). If you have occurrence data you have personally collected, some parts of this book may still be relevant.
+This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). We will be working with the R package [`galah`](https://galah.ala.org.au/) for accessing biodiversity data. If you have occurrence data you have personally collected, some parts of this book may still be relevant. 
+
+We have included code blocks throughout this block to show you how to execute a particular task. We will point out at the beginning of the code block of any R packages that are needed for data cleaning or visualising.
 
 ## What you will learn / Outline of the book
 

@@ -69,7 +69,7 @@ read_parquet("data/gbif/elephant")
 
 ### Regional node via `galah`
 
-In order to access data from the Spain GBIF node, we will need to reconfigure `galah` so that our query points to Australia. After that, we will download all records for the Pink Robin.
+In order to access data from the Australia node, we will need to reconfigure `galah` so that our query points to Australia. After that, we will download all records for the Pink Robin.
 
 ```{r, echo = TRUE}
 galah_config(email = Sys.getenv("ALA_EMAIL"), 
@@ -88,54 +88,76 @@ read_parquet("data/galah/pink_robin")
 
 ## Refining your data download
 
-Open access biodiversity data come from many different providers such as universities, research institutes (museums and herbariums), government and the general public. As such, the data type and quality can vary considerably. For example, museums tend to supply records that are associated with a preserved specimen, whereas citizen sourced data are often images captured from a smart phone. Generally, biodiversity data from reputable providers tend to be more reliable compared to crowd sourced data as some organisms can misidentified. 
+Open access biodiversity data comes from many different providers such as universities, research institutes (museums and herbariums), government and the general public. As such, the data type and quality can vary considerably. For example, museums harbour older records that are associated with a preserved specimen, whereas citizen sourced data are often images captured from a smart phone. 
 
-If your project requires research grade data, we recommend refining your query by: 
+Refining your download query ensures higher quality data and also reduces the download size as many data infrastructures impose constraints to download size. Below we have illustrated how you can refine your query a few quality measures using `galah_filter`. 
 
-- year
-- basis of record
-- assertions 
+#### By Year
 
-Refining your download query ensures higher quality data and also reduces the download size as many data infrastructures impose constraints to download size. Below we have illustrated how to do so in `galah`. 
+Generally, old data records tend to be insufficient or less reliable as taxonomic knowledge and GPS tools were not readily available. For this reason, many users consider removing all occurrence records before a certain year to increase data precision [@gueta_quantifying_2016; @marsh_accounting_2022] . 
 
-#### Year filter
+Choosing the year 'cut-off' is relatively arbitary, but the most commonly used year is 1945 [@zizka_no_2020; @fuhrding-potschkat_influence_2022], although some studies discard all data collected before 1990 [@gueta_quantifying_2016; @marsh_accounting_2022].
 
-Many people when working with open source biodiversity data will remove all records before a certain year [@gueta_quantifying_2016; @marsh_accounting_2022]. This is often done to increase data precision, as older records are more likely to be insufficiently accurate. The year cutoff varies however the most commonly used is 1945 [@zizka_no_2020; @fuhrding-potschkat_influence_2022], although some studies discard all data collected before 1990 [@gueta_quantifying_2016; @marsh_accounting_2022].
+Here we will narrow the Pink Robin query from above to records after 1945 using `galah_filter`:
 
-
-```{r}
-
+```{r, echo = TRUE}
+pink_robin_post1945 <- galah_call() %>% 
+  galah_identify("Petroica rodinogaster") %>% 
+  galah_filter(year > 1945) %>% 
+  atlas_occurrences()
 ```
-
 
 #### Basis of record
 
-When handling data from the ALA, some filters can help obtain only the type of records required for the study. Filter by "basis of record", for example, can ensure consistency when getting data from multiple places [@fuhrding-potschkat_influence_2022]. For example, it is possible to exclude data originating from citizen science projects or only include data from herbariums [@godfree_implications_2021] and natural history museums. This can help indicate where the data has come from, and it's quality. If data has been sourced from multiple places this can assist with making the data merging step more streamlined.
+Basis of record is a [Darwin Core term](https://dwc.tdwg.org/terms/#dwc:basisOfRecord) that refers to the specific nature of the occurrence record. It can be used to refine your data download and ensure consistency when consolidating data from multiple organisations [@fuhrding-potschkat_influence_2022]. 
 
-```{r}
+There are 6 different classes for basis of record: 
 
+- Living Specimen - a specimen that is alive, e.g. a living plant in a national park
+- Preserved Specimen - a specimen that has been preserved, for example, a dried plant on an herbarium sheet 
+- Fossil Specimen - a preserved specimen that is a fossil
+- Material Sample - a genetic or environmental sample
+- Material Citation - A reference to, or citation of, a specimen in scholarly publications, e.g a citation of a physical specimen in a scientific journal 
+- Human Observation - an output of human observation process e.g. evidence of an occurrence taken from field notes or an occurrence without any physical evidence
+- Machine Observation - An output of a machine observation process e.g. a photograph, a video, an audio recording, a remote sensing image or an occurrence record based on telemetry.
+
+Depending on your data scope, it may be practical to limit data that can be traced to a physical specimen or observation [@godfree_implications_2021], which we do for the Pink Robin below
+
+```{r, echo=TRUE}
+tractable_records <- c("LIVING_SPECIMEN", 
+                       "PRESERVED_SPECIMEN", 
+                       "MATERIAL_SAMPLE", 
+                       "MACHINE_OBSERVATION")
+
+pink_robin_tractable <- galah_call() %>% 
+  galah_identify("Petroica rodinogaster") %>% 
+  galah_filter(basisOfRecord == tractable_records) %>% 
+  atlas_occurrences()
 ```
 
 #### Assertions
 
-```{r}
+Data infrastructures use assertions to internally grade the quality, completeness and consistency of an occurrence record. Assertions take values of either 1 or 0, indicating the presence or absence of the data quality issue. Note that assertions may vary depending what atlas you have configured to. You can see the available assertions and their descriptions using:
 
+```{r}
+show_all("assertions") %>% print(n = 200)
+```
+
+Once you have decided which assertions are important for your project you can further refine your download
+
+```{r}
+poor_location_quality <- c()
+
+
+galah_call() %>% 
+  galah_identify("Petroica rodinogaster") %>% 
+  galah_filter(basisOfRecord == tractable_records) %>% 
+  galah_select(group = c("basic", "assertions")) %>% 
+  atlas_occurrences -> x
 ```
 
 
 
-## Merge datasets from different infrastructures
 
-(Park this for now may come after naming authority)
-
-If you have downloaded data from different sources, you likely will need to collate your data into a singular database.
-
-When combining data from multiple places, it is important to standardize the data fields and merge the data carefully [@ribeiro_bdc_2022]. There is a chance data will be incorrectly formatted and/or mislabeled.
-
-One of the main issues you might face if you've sourced data from different organisations/people is that higher taxonomy may not match- if this is the case, take a look at the "taxonomy" chapter for more information on how to deal with inconsistent taxonomy before merging!
-
-
-```{r}
-##example on formatting consistency, merging data together etc
-```
-
+ 
+ 
