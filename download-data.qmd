@@ -66,12 +66,6 @@ arrow::write_parquet(african_ele, "data/gbif/elephant")
 read_parquet("data/gbif/elephant")
 ```
 
-By default, `atlas_occurrences` will return a tibble with a number of columns containing taxonomic and spatialinformation as well as other metadata. You can use `galah_select` to select the columns that are relevant for you. To see all available fields you can choose from:
-
-```{r, echo = TRUE}
-
-```
-
 
 ### Regional node via `galah`
 
@@ -84,7 +78,9 @@ galah_config(email = Sys.getenv("ALA_EMAIL"),
 pink_robin <- galah_call() %>% 
   galah_identify("Petroica rodinogaster") %>% 
   atlas_occurrences
+```
 
+```{r}
 arrow::write_parquet(pink_robin, "data/galah/pink_robin")
 ```
 
@@ -92,9 +88,43 @@ arrow::write_parquet(pink_robin, "data/galah/pink_robin")
 read_parquet("data/galah/pink_robin")
 ```
 
+## Choosing specific data columns
+
+By default, `atlas_occurrences` will return a tibble with a selection of columns containing taxonomic and spatial data as well as other metadata. Alternatively, you can use `galah_select` to subset the columns that are relevant for your work. To see all available fields you can choose from:
+
+```{r, echo = TRUE, eval = TRUE}
+show_all(fields) 
+```
+
+Here, we will choose a smaller subsets of 8 columns to download for the Pink Robin
+
+```{r, echo = TRUE}
+project_fields <- c("recordID",
+                    "eventDate",
+                    "year", 
+                    "basisOfRecord", 
+                    "occurrenceStatus",
+                    "scientificName",
+                    "decimalLatitude",
+                    "decimalLongitude")
+
+pink_robin_projfields <- galah_call() %>% 
+  galah_identify("Petroica rodinogaster") %>% 
+  galah_select(project_fields) %>% 
+  atlas_occurrences()
+```
+
+```{r}
+arrow::write_parquet(pink_robin_projfields, "data/galah/probin_fields")
+```
+
+```{r, eval = TRUE}
+read_parquet("data/galah/probin_fields")
+```
+
 ## Refining your data download
 
-Open access biodiversity data comes from many different providers such as universities, research institutes (museums and herbariums), government and the general public. As such, the data type and quality can vary considerably. For example, museums harbour older records that are associated with a preserved specimen, whereas citizen sourced data are often images captured from a smart phone. 
+Open access biodiversity data comes from many different providers such as universities, research institutes (museums and herbariums), government and the general public. As such, data type and quality can vary considerably. For example, museums harbour older records that are associated with a preserved specimen, whereas citizen sourced data are often images captured from a smart phone. 
 
 Refining your download query ensures higher quality data and also reduces the download size as many data infrastructures impose constraints to download size. Below we have illustrated how you can refine your query a few quality measures using `galah_filter`. 
 
@@ -145,20 +175,27 @@ pink_robin_tractable <- galah_call() %>%
 
 Data infrastructures use assertions to internally grade the quality, completeness and consistency of each occurrence record. Assertions take values of either 1 or 0, indicating the presence or absence of the data quality issue. Note that assertions may vary depending what atlas you have configured to. You can see the available assertions and their descriptions using:
 
-```{r}
-show_all("assertions") %>% print(n = 200)
+```{r, eval = TRUE, echo=TRUE}
+show_all("assertions") 
 ```
 
-Once you have decided which assertions are important for your project you can further refine your download
+Once you have decided which assertions are important for your project you can further refine your download.
 
 ```{r}
-poor_location_quality <- c()
+galah_call() %>% 
+  galah_identify("Petroica rodinogaster") %>% 
+  galah_filter(identificationIncorrect == TRUE,
+               COORDINATE_INVALID == TRUE) %>% 
+  atlas_counts() # zero?! 
 
 
 galah_call() %>% 
   galah_identify("Petroica rodinogaster") %>% 
   galah_filter(basisOfRecord == tractable_records) %>% 
+  galah_select(group = "assertions") %>% 
   atlas_occurrences -> x
+
+# Come back to this later, biocache busy
 ```
 
 

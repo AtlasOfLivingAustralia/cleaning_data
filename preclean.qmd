@@ -1,10 +1,31 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  comment = '', 
+  fig.width = 6, 
+  fig.height = 6,
+  eval = FALSE,
+  echo = FALSE,
+  warning = FALSE
+)
+
+library(galah)
+library(dplyr)
+library(arrow)
+```
 # Precleaning 
 
-## Familiarize with the data and metadata
+Precleaning prepares the dataset in a general manner so that it is formatted in a logical and consistent manner. This process not only allows you to get to know the data but it also makes the next stage of in-depth data cleaning proceed more smoothly [@streamdna_sharing_2020]. 
 
-Now that you have data to work with it's important to familiarise yourself with it. This is best done before you get started with any data cleaning [@streamdna_sharing_2020].
+## Knowing your metadata
 
--   Metadata can provide information on the structure of the data and how the data was collected.
+Metadata provide information on the structure of the data and how the data was collected. Data infrastructures use Darwin Core terms to describe their data. This makes data more interoperable across different organisations. All Darwin Core term definitions can be found [here](https://dwc.tdwg.org/terms/)
 
 -   The metadata may also outline or provide insights into the limitations of the data.
 
@@ -12,12 +33,41 @@ Now that you have data to work with it's important to familiarise yourself with 
 
 -   Help identify limitations
 
+## Familiarise with the data 
+
+
+
+A great way to get a overview of your data is to use the R package `skimr`. `skimr` produces nicely formatted summary of important data attributes such as missingness, tally of unique values for character variables and descriptive statistics for numeric variables.
+
+[Not sure if I need to go through downloading this dataset as it was covered in the previous section? I am leaning towards no]
+
+```{r, echo = TRUE}
+library(skimr)
+
+skim(african_ele)
+```
+
+Here is the `skimr` report for our African elephant dataset we downloaded in the preceding chapter.
+
+```{r, eval = TRUE}
+african_ele <- read_parquet("data/gbif/elephant")
+
+skim(african_ele)
+```
+
+
+
+
 A simple way to visualize your data is to plot it on a map. This simple step can highlight coordinates with missing data or even inverted or erroneous coordinates (as points floating in the ocean while focusing on terrestrial species and vice versa).
 
 Other tools, such as looking for only positive values (if that is what is expected) can also be used in this initial data familiarization step.
 
 ```{r}
+library(skimr)
 
+african_ele <- read_parquet("data/gbif/elephant")
+
+skim(african_ele)
 ```
 
 
