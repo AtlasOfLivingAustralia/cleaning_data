@@ -1,4 +1,22 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
 # Appendix {#sec-appendix}
 
-How Margot searched for papers and made excel spreadsheet.
-What constitutes as grey literature etc
+We don't claim to be experts in data cleaning, therefore in order to
+ensure content for this book was current and relevant we undertook an
+informal literature review of both peer reviewed and grey literature.
+Key themes searched were:
+
+1.  Cleaning data for species distribution models
+
+2.  Cleaning open biodiversity data
+
+3.  Australian and global naming authorities
+
+4.  R packages for biodiversity data cleaning
+
+Paper

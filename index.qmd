@@ -6,7 +6,7 @@ Our goal in creating this resource was to assist researchers and decision makers
 
 In this book, we provide an overview of a typical data cleaning workflow - from acquisition, to identifying potential errors to correction. Throughout each chapter, we include practical guidelines, R code blocks and additional resources that may aid with each data cleaning step.
 
-The content of this book is guided by the current state of biodiversity literature on preparing data for species distribution modelling. For more details about how this was done, please refer to the  [Appendix](appendix.qmd). All resources that have been consulted for this book can be found in [References](references.qmd).
+The content of this book is guided by the current state of biodiversity literature on preparing data for species distribution modelling. For more details about how this was done, please refer to the [Appendix](appendix.qmd). All resources that have been consulted for this book can be found in [References](references.qmd).
 
 ## How to contribute
 

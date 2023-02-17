@@ -144,8 +144,6 @@ When combining data from multiple places, it is important to standardize the dat
 
 One of the main issues you might face if you've sourced data from different organisations/people is that higher taxonomy may not match- if this is the case, take a look at the "taxonomy" chapter for more information on how to deal with inconsistent taxonomy before merging!
 
-
 ```{r}
 ##example on formatting consistency, merging data together etc
 ```
-

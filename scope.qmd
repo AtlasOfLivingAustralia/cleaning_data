@@ -20,21 +20,21 @@ library(ggplot2)
 library(tidyverse) # group of packages
 library(ozmaps)
 ```
+
 # Data scope
 
-Data scope pertains to the type of data needed for your project, your research question will help guide the scope of data you need. 
+Data scope pertains to the type of data needed for your project, your research question will help guide the scope of data you need.
 
-Consider the following to in reference to your research aim: 
+Consider the following to in reference to your research aim:
 
-- What is the **taxonomic** unit of your research interest? 
-- What is the **spatial** scale of your project? The entire country? A specific conservation area?
+-   What is the **taxonomic** unit of your research interest?
+-   What is the **spatial** scale of your project? The entire country? A specific conservation area?
 
 Your data scope may change according to the availability of data for certain research interests. In some instances, rare species tend to have considerably fewer records.
 
 ## Taxonomic scope
 
 Where the aim of the study is to gather data on a specific taxonomic unit. This could be a threatened species or a broad taxonomic group. The download query is performed using the scientific name or name of the taxonomic group.
-
 
 ```{r}
 #map Lampromicra senator
@@ -74,7 +74,6 @@ ggplot() +
 
 ```
 
-
 ```{r, include=FALSE}
 # galah_config(email = "margot.schneider@csiro.au", atlas = "Australia")
 
@@ -86,7 +85,7 @@ ggplot() +
 #   atlas_occurrences()
 # 
 # arrow::write_parquet(lampromicra, "data/galah/lampromicra")
-
+#
 # insects <- galah_call() |>
 #   galah_identify("Insecta") |>
 #   galah_filter(stateProvince == "Tasmania") |>
@@ -96,4 +95,3 @@ ggplot() +
 # arrow::write_parquet(insects, "data/galah/insects")
 
 ```
-
