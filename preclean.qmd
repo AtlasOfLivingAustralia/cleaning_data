@@ -27,11 +27,11 @@ library(janitor)
 
 Precleaning prepares the dataset in a general manner so that it is formatted in a logical and consistent manner. It is a 'broad sweep' procedure that allows you to familiarise with the data but it also makes the next stage of in-depth data cleaning proceed more smoothly [@streamdna_sharing_2020]. We will discuss some approaches on how to be curious with your data and how to detect and handle string inconsistencies, missing data and outliers.
 
-### Metadata
+## Metadata
 
 Metadata describes your dataset. It defines each variable and describes its contents such as what units a variable is measured in. Data infrastructures that uses Darwin Core terms will have interoperable metadata. All Darwin Core term definitions can be found [here](https://dwc.tdwg.org/terms/). We suggest using `Ctrl/CMD F` and searching your variable name on this webpage. Don't hesistate to Google variable names if you are unsure what they represent.  
 
-### Initial inspection 
+## Initial inspection 
 
 A great way to get an initial overview of your data is to use the R package `skimr`. Importantly `skimr` produces a summary of  descriptive statistics for every variable such as amount of missing data and tally of unique values.
 
@@ -42,7 +42,7 @@ library(skimr)
 
 skim(african_ele)
 ```
-Here is the `skimr` report for our African elephant dataset we [downloaded earlier](download.qmd)
+Here is the `skimr` report for our African elephant dataset we [downloaded earlier](download-data.qmd)
 
 ```{r, eval = TRUE}
 african_ele <- read_parquet("data/gbif/elephant")
@@ -50,7 +50,20 @@ african_ele <- read_parquet("data/gbif/elephant")
 skim(african_ele)
 ```
 
-### String inconsistencies
+### Numeric ranges
+
+One shortfall to the `skimr` output is that it doesn't provide ranges for numeric variables which we can achieve with the `summary()` function in conjunction with functions from the `dplyr` package
+
+```{r, eval = TRUE}
+library(dplyr)
+
+# Isolate numeric columns with `select` and `where` then call `summary` function
+african_ele %>% 
+select(where(is.numeric)) %>% 
+summary()
+```
+
+## String inconsistencies
 
 String inconsistencies include mispellings, capitalisation errors, misplaced punctuations or trailing white spaces. We will use the `janitor` R package to explore whether our data has any of these issues. The function `tably` will compute a counts and percent of total rows for each unique value. 
 
@@ -74,7 +87,7 @@ african_ele %>%
   print(n = 20)
 ```
 
-As an example, we can see there are few different variations of `Province`, `Prov.`, `Prov`. We will correct these with the `tidyverse` packages `stringr`,  `dplyr`, `tidyr` as well as `glue`
+From the `tabyl` output, we can see there are few different variations of `Province`, `Prov.`, `Prov`. As an example, we will correct these with the `tidyverse` packages `stringr`,  `dplyr`, `tidyr` as well as `glue`. If you are not very familiar with regular expressions, we highly recommend this [cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)
 
 ```{r, eval = TRUE, echo = TRUE}
 library(tidyverse)
@@ -90,19 +103,13 @@ pattern = regex("Prov(?![:lower:])")
 str_subset(african_ele$stateProvince, pattern = pattern)
 typos_provinces <- str_subset(african_ele$stateProvince, pattern = pattern)
 
-# Select the first part of the province names for  correction using the `word` function
-# `sep = " P"` means separate words based on a space and P (as there are two worded province names e.g. West Nile Province)
-str_subset(african_ele$stateProvince, pattern = pattern) %>% 
-word(sep = " P")
-
-# Create a new variable called stateProvince_clean using `mutate`, `if_else`, `str_detect` and `glue`
-# `str_detect` will evaluate which values of `stateProvince` matches our pattern we defined earlier.
+# Create a new variable `stateProvince_clean` using `mutate`, `if_else`, `str_detect` and `glue`
+# `str_detect` will evaluate values of `stateProvince` that matches our pattern we defined earlier.
 # Matches will return TRUE, non-matches will return FALSE. 
-# The `if_else` will then evaluate these TRUE/FALSE/NA and for values that are TRUE, it will take
-#  the first part of the province name enclosed in {} and join it with word Province using the `glue` function
-# for values that are FALSE, it will just take the value in stateProvince
-# Note that we are assigning these changes to a new object (african_ele_2)
-
+# The `if_else` will then evaluate these logicals (TRUE/FALSE/NA) 
+# for TRUE values, the `glue` function will take the first part of the province name enclosed in and join it with word Province.
+# for FALSE values , it will just take the corresponding value in stateProvince
+# Note that we are assigning these changes to a new object (`african_ele_2`)
 african_ele_2 <- african_ele %>% 
   mutate(stateProvince_clean = if_else(str_detect(stateProvince, pattern = pattern),
                                       true = glue('{word(stateProvince, sep = " P")} Province'),
@@ -118,13 +125,13 @@ african_ele_2 %>%
   filter(stateProvince %in% typos_provinces)
 
 # Its good practice to check the other values were not affected by your corrections
-# Here we are removing the NA and subseting the unique rows
+# Here we are removing the NA with `drop_na` and subsetting unique rows with `distinct`
 african_ele_2 %>% 
   select(starts_with("stateProvince")) %>% 
-  tidyr::drop_na() %>% 
+  drop_na() %>% 
   distinct() 
 
-# Finally check
+# Final check
 # Check with the original code that detected the issue
 african_ele_2 %>%
   pull(stateProvince_clean) %>% 
@@ -133,7 +140,7 @@ african_ele_2 %>%
   print(n = 20)
 ```
 
-There are some more similar issues that can be corrected in a similar approach: 
+There are some other issues that can be corrected in a similar approach: 
 
 - `North West`, `North West District` and `North-Western`
 - `Àfrica Central`, `Central Province` and `Central`
@@ -142,61 +149,27 @@ There are some more similar issues that can be corrected in a similar approach:
 
 We recommend consulting reputable sources that can help delineate or consolidate similar values. Googling and looking at Wikipedia's sources are good places to find resources that you can verify accepted state and province names. 
 
+## Missing data 
 
+(I wonder if this is really the place for this or better to just do this in the Spatial chapter)
 
-One shortfall to this output is that it doesn't provide ranges for numeric variables which we can achieve with the `summary()` function in conjunction with functions from the `dplyr` package
+-   Remove records with no coordinates
 
-```{r, eval = TRUE}
-library(dplyr)
-
-african_ele %>% 
-select(where(is.numeric)) %>% 
-summary()
-```
-
-
-
-
-### Quick visualiations
+## Quick visualiations
 
 A graphic plot of your data can be very telling and can help you spot potential errors that may be due to formatting.
 
-#### Histograms
+### GGally
 
-```{r}
+A visual inspection of your entire dataset can save time and solve easy-to-spot errors.
 
-```
+### Quick map
 
-
-
-
-
-
-Metadata can sometimes provide insights to the limitations of your data. For example... [Margot do you have concrete examples from your reading?]
-
-```{r}
-african_ele %>%
-  select(coordinatePrecision, coordinateUncertaintyInMeters) %>% 
-  skim()
-```
+(I wonder if this is really the place for this or better to just do this in the Spatial chapter)
 
 A simple way to visualize your data is to plot it on a map. 
 
-
-```{r}
-library(skimr)
-
-african_ele <- read_parquet("data/gbif/elephant")
-
-skim(african_ele)
-```
--   A visual inspection of your entire dataset can save time and solve easy-to-spot errors.
-
-
-
 -   Fix minor coordinates errors, such as inverted or badly formatted
-
--   Remove records with no coordinates
 
 ```{r}
 
@@ -205,29 +178,5 @@ skim(african_ele)
 
 ### Notes
 
-From the `skimr` output, we noticed that there are 5 unique values for [`scientificName`](https://dwc.tdwg.org/terms/#dwc:scientificName).  values. Lets `tabyl` that variable.
+Metadata can sometimes provide insights to the limitations of your data. For example... [Margot do you have concrete examples from your reading?]
 
-```{r}
-african_ele %>%
-  pull(scientificName) %>% 
-  tabyl() 
-```
-There is a strange code value inputted as scientificName (BOLD:AAF2609). Googling this value, takes us to [records](https://www.gbif.org/es/occurrence/search?taxon_key=10456614) that were part of a genome barcoding project. We also identified some inconsistencies with the genus (Elephas and Loxodonta) and formatting of taxonomic authority as well as some subspecies. 
-
-Depending on your project, these inconsistencies may not be a problem but its important to be aware of them. If you want to use `scientificName` as your taxonomic unit, you can correct or exclude these. Alternatively, you may want to use the variable `species` instead which has only 1 unique value.
-
-```{r}
-african_ele %>%
-  pull(species) %>% 
-  tabyl() 
-```
-
-Systematic data cleaning is required, however, some mistakes observed during the initial visualization of the data and metadata can be fixed straight away.
-
-From this output we can see a few things: 
-
-- There are 5 unique values for [`scientificName`](https://dwc.tdwg.org/terms/#dwc:scientificName) which implies there maybe subspecies or inconsistencies that we need to investigate.
-- There are 130 unique values for `issue`. These are assertions that have been concatenated together. We recommend looking over these and  refining your download depending on the flagged issues. 
-- [`typeStatus`](https://dwc.tdwg.org/terms/#dwc:typeStatus) is completely empty.
-- 89% of our data has coordinates.
-- There are records that date back to 1799! You may want to exclude certain years if you hadn't done so during the [download](download.qmd)
