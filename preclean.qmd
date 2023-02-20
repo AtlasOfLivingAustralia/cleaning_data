@@ -29,38 +29,26 @@ Precleaning prepares the dataset in a general manner so that it is formatted in 
 
 ## Metadata
 
-Metadata describes your dataset. It defines each variable and describes its contents such as what units a variable is measured in. Data infrastructures that uses Darwin Core terms will have interoperable metadata. All Darwin Core term definitions can be found [here](https://dwc.tdwg.org/terms/). We suggest using `Ctrl/CMD F` and searching your variable name on this webpage. Don't hesistate to Google variable names if you are unsure what they represent.  
+Metadata describes your dataset. It defines each variable and describes its contents such as what units a variable is measured in. Data infrastructures that uses Darwin Core terms will have interoperable metadata. All Darwin Core term definitions can be found [here](https://dwc.tdwg.org/terms/), we suggest using `Ctrl/CMD F` and searching your variable name on the [webpage](https://dwc.tdwg.org/terms/). Don't hesitate to Google variable names if you are unsure what they represent.  
 
 ## Initial inspection 
 
-A great way to get an initial overview of your data is to use the R package `skimr`. Importantly `skimr` produces a summary of  descriptive statistics for every variable such as amount of missing data and tally of unique values.
+A great way to get an initial overview of your data is to use the R package `skimr`. Importantly `skimr` produces tables of descriptive statistics, such as amount of missing data, for every variable
 
-The summary is grouped by data type (numeric, character, date) so you can also check for any inconsistencies. As you are looking through the output and ask yourself whether the data is in line with your expectation. If you requested data for a group of species, are there all represented? Are the values for a variable reasonable? These considerations will help you detect potential issues in the data. 
+The output is also grouped by data type (numeric, character, date) so you can also check for any inconsistencies. As you are looking through the output, ask yourself whether the data is in line with your expectation. If you requested data for a group of species, are they all represented? Are the values for a variable reasonable? Looking at the quartiles will help you get the sense of the distribution of data. These considerations will help you detect potential issues in the data. 
 
 ```{r, echo = TRUE}
 library(skimr)
 
 skim(african_ele)
 ```
+
 Here is the `skimr` report for our African elephant dataset we [downloaded earlier](download-data.qmd)
 
 ```{r, eval = TRUE}
 african_ele <- read_parquet("data/gbif/elephant")
 
 skim(african_ele)
-```
-
-### Numeric ranges
-
-One shortfall to the `skimr` output is that it doesn't provide ranges for numeric variables which we can achieve with the `summary()` function in conjunction with functions from the `dplyr` package
-
-```{r, eval = TRUE}
-library(dplyr)
-
-# Isolate numeric columns with `select` and `where` then call `summary` function
-african_ele %>% 
-select(where(is.numeric)) %>% 
-summary()
 ```
 
 ## String inconsistencies
