@@ -31,3 +31,11 @@ Authors listed in alphabetic order:\
 - Jessica Fenker\
 - Margot Schneider\
 - Martin Westgate
+
+
+<aside>
+```{r}
+#just testing an aside 
+```
+
+</aside>
