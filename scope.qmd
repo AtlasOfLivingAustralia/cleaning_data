@@ -53,6 +53,14 @@ aus <- st_transform(ozmaps::ozmap_country, 4326)
   theme_void()
 ```
 
+<aside>
+
+Curious what *Lampromicra senator* looks like?
+
+[![Lampromicra senator perched on a leaf by Dexmond Wells CC-BY-NC 4.0](images/Lampromicra.jpeg){width="800"}](https://images.ala.org.au/store/4/8/8/4/1f4fc763-d21f-4e5d-b803-f931a4c14884/tms/3/2/1.png)
+
+</aside>
+
 ## Spatial scope
 
 Where the aim is to obtain data for targeted taxa in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest. The example below shows all Insecta orders in the state of Tasmania in Australia
