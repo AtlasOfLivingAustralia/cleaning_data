@@ -83,7 +83,7 @@ ggplot() +
 ```
 
 ```{r, include=FALSE}
-# galah_config(email = "margot.schneider@csiro.au", atlas = "Australia")
+# galah_config(email = ALA_mail, atlas = "Australia")
 
 # lampromicra <- galah_call() %>%
 #   galah_identify("Lampromicra aerea", "Lampromicra senator"

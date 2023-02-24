@@ -199,7 +199,9 @@ galah_call() %>%
 ```
 
 
+### note 
 
+Narrowing your results to a specific spatial area- using `galah_geolocate` or by regions etc, discussions around whether this is best to be placed in this chapter to assist with expaning scope has been raised. 
 
  
  

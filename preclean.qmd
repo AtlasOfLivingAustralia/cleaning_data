@@ -39,6 +39,8 @@ If you're using data from particular institutions it's worth checking the metada
 3.  Audio is reocrded via a shartphone app, the authors recommend if you require high coordinate precision to filter data to `geographic uncertainty of <3000m`
 4.  The data is presence only data
 
+Metadata can also be useful for understanding the license that the data falls under, this is mostly relevant for using multimedia associated with the data.
+
 ## Initial inspection
 
 A great way to get an initial overview of your data is to use the R package `skimr`. Importantly `skimr` produces tables of descriptive statistics, such as amount of missing data, for every variable
@@ -171,6 +173,4 @@ A simple way to visualize your data is to plot it on a map.
 
 ```
 
-### Notes
-
-Metadata can sometimes provide insights to the limitations of your data. For example... \[Margot do you have concrete examples from your reading?\]
+### 
