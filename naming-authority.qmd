@@ -1,8 +1,22 @@
 # Taxonomy {#sec-standardise-taxonomy}
 
-New species are being discovered and described all the time. The rapid rise of analytical tools, especially in molecular biology can make it difficult to keep up with taxonomic literature. Species historically described solely on morphological characteristics are being re-classified post genomic/population genetics, and integrative taxonomy, an approach which integrates information from multiple areas which can be used to delimit and describe new species [@garraffoni2019integrative].
+The field of taxonomy has evolved dramatically over the past century. Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before.  [@garraffoni2019integrative]. These modern approaches has also enabled reclassification of organisms that have been historically described using morphological traits. What complicates this process further is when taxonomy is sometimes not agreed upon by researchers which can result in multiple names (synonyms) for the same organism.Disagreemeb
 
-Taxonomy is dynamic, data can therefore be inconsistent between databases and across timescales. Additionally the scientific community do not always agree on the classification of species, this results in multiple phylogenetic trees for the same species or arrays of subspecies.
+The dynamic nature of taxonom makes working with biodiversity data all the more challenging. 
+
+Outline of section: 
+- What is taxonomy - classification and naming system
+- What is the problem with it -> it varies, data infrastructures have different systems
+- Challenge with biodiveristy data
+- What is the solution -> 
+  choose a naming authority
+  query with your ideal species list, some systems fuzzy match and will have synonyms
+    getting all the name columns including your own preferred naming authority to check if you back correct
+    taxonomic input from experts
+    synonyms standardisation
+    never will be perfect, so long as your process and decisions are consistent and documented and transparent
+
+
 
 ## Naming authorities
 
@@ -119,6 +133,8 @@ It's best practice to standardise and fix what you can before you start removing
 ```
 
 ### Optional taxonomic cleaning
+
+(I think this should be in another section)
 
 The following steps may not apply to your research interests, however this type of cleaning is commonly required.
 
