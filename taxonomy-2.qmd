@@ -1,0 +1,33 @@
+
+### Extended taxonomic cleaning
+
+(I think this should be in another section)
+
+The following steps may not apply to your research interests, however this type of cleaning is commonly required.
+
+-   Remove non-native species: This step is a common requirement. A list can be obtained from the [Global Register of Introduced and Invasive Species (GRIIS)](https://griis.org/)
+
+-   Remove domesticated specimens, sightings of dogs, cats, but also garden species (**elaborate**)
+
+-   Remove extinct species: if you don't have a year filter on your data you might have records of species that have become extinct in more recent years.
+
+-   Remove specific taxa/life stages depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.
+
+```{r}
+
+```
+
+## Merge datasets from different infrastructures
+
+(Park this for now may come after naming authority)
+
+If you have downloaded data from different sources, you likely will need to collate your data into a singular database.
+
+When combining data from multiple places, it is important to standardize the data fields and merge the data carefully [@ribeiro_bdc_2022]. There is a chance data will be incorrectly formatted and/or mislabeled.
+
+One of the main issues you might face if you've sourced data from different organisations/people is that higher taxonomy may not match- if this is the case, take a look at the "taxonomy" chapter for more information on how to deal with inconsistent taxonomy before merging!
+
+```{r}
+##example on formatting consistency, merging data together etc
+```
+

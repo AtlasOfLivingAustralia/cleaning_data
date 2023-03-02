@@ -1,0 +1,133 @@
+# Taxonomy {#sec-standardise-taxonomy}
+
+The field of taxonomy has evolved dramatically over the past century. Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before.  [@garraffoni2019integrative]. These modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Complications can arise when taxonomy is not unanimously agreed upon by researchers which can result in multiple names (synonyms) for the same organism. The dynamic nature of taxonomy can make working with biodiversity data all the more challenging. 
+
+In this chapter we will go through some approaches with cleaning taxonomic data. We will highlight the importance of naming authorities in dealing with synonyms. Finally, we will end with a worked example that shows the application of these approaches when consolidating data from different data providers.
+
+<!-- Outline of section:  -->
+<!-- - What is taxonomy - classification and naming system -->
+<!-- - What is the problem with it -> it varies, data infrastructures have different systems -->
+<!-- - Challenge with biodiveristy data -->
+<!-- - What is the solution ->  -->
+<!--   choose a naming authority -->
+<!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
+<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
+<!--     taxonomic input from experts -->
+<!--     synonyms standardisation -->
+<!--     never will be perfect, so long as your process and decisions are consistent and documented and transparent -->
+
+
+## Synonyms
+
+Synonyms can be annoying to deal with when working with open source data. Biodiversity data infrastructures will have a preferred name according to their own taxonomic system and display species data under this name with synonyms listed. In some cases, the data provider may recognises the names you've provided as different species.
+
+Often naming authorities will have one they deem as accepted, and list others as synonyms. 
+
+To identify synonyms, we recommend:
+
+1.  Downloading higher taxon data (kingdom:class) and then filtering for what you need, as disparities are less common at higher levels (???? Check with Martin)
+
+```{r}
+# Orchid as an example 
+# Read in problem child data and show
+
+# Group by species and count unique values for higher taxonomy
+```
+
+2. {Taxize}
+
+## Taxonomy preclean 
+
+It's best practice to standardise and fix what you can before you start removing anything, this decreases the chance of removing more records than you need to.
+
+It is essential to decide on a standard way to record the scientific names and be consistent. For example, start with upper case and separate the names with an underline e.g. "Moloch_horridus".
+
+
+<!-- I dont know where this should go -->
+If higher taxonomy such as family, and order, is important for your work,  then it is also important to check those columns are correct and nothing is missing. You can often back fill this information using your chosen naming authority or referring back to an atlas such as the ALA. 
+
+```{r}
+
+```
+
+
+
+- Ensure that the spelling is correct and fix errors as they appear
+
+```{r}
+
+```
+
+
+-   Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed.
+
+
+-   Remove non-identifiable specimens: If a species is not discernible after checking spelling and taxonomy, then it should be removed.
+
+
+
+```{r}
+searchtaxon failed
+```
+
+-   Remove records with insufficient taxon identification: If a record is not identified down to the species level and this level of detail is needed for the study, then the record should be removed.
+
+```{r}
+taxonRank
+```
+
+
+Note: Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1) an image of the species in question which does not match 2) If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)
+
+```{r}
+
+```
+
+## Input from experts
+
+### Australian taxonomic society groups
+
+**VERTEBRATES**
+
+-   Amphibians and reptiles - [Australian Herpetological Society](https://ahs.org.au/)\
+-   Birds - [Birdlife Australia](https://www.birdlife.org.au/)\
+-   Fish - [Australian Society for Fish Biology](https://www.asfb.org.au/)\
+-   Mammals - [The Australian Mammal Society](https://australianmammals.org.au/)
+
+**INVERTEBRATES**
+
+-   Arachnology - [Australasian Arachnological Society](www.australasianarachnologicalsociety.org)\
+-   Entomology - [Australian Entomological Society](https://www.austentsoc.org.au/)\
+-   Malacology - [The Malacological Society of Australasia](https://www.malsocaus.org/)\
+-   Nematology - [Australasian Association of Nematologists](https://www.nematologists.org.au/)
+
+### Global taxonomy
+
+-   GBIF uses 100 different sources to assemble - [their global taxonomic backbone](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c)
+
+-   Authoritative taxonomic information on plants, animals, fungi, and microbes - [Integrated Taxonomic Information System, ITIS](https://www.itis.gov/)
+
+-   Global taxonomic catalogue 
+
+- [Catalogue of Life](https://www.catalogueoflife.org/)
+
+
+## Notes
+
+## Synonyms
+
+There are two main types of taxonomic synonyms: **heterotypic** and **homotypic.** The type of synonym might dictate how you handle it.
+
+Homotypic: a name base on the same type as that of another name, objective synonym \[IAPT\]
+
+Heterotypic: a name based on a type different from that of another name referring to the same taxon \[IAPT\]
+
+, and they can appear because of multiple reasons
+
+1.  Taxonomy changes over time, a record from the 1950s might have a name that is no longer used for the species
+2.  The scientific community doesn't always agree, there may be multiple names, and taxonomic classifications for the same species
+
+
+Identifying synonyms is also be useful for accessing literature. For example some *Eucaluptus* species have been re-classified and old literature might refer to an old name you were unaware of. This can increase your access to potentially seminal literature about a species \[REF\].
+
+## 
