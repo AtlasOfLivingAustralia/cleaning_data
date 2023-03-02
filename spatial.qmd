@@ -1,16 +1,34 @@
 # Spatial data {#sec-spatial}
 
-Now that you've been through the taxonomic cleaning steps it's time to clean up the spatial element. Now is a great time to plot your data onto a map again. Spatial errors are much easier to spot from a visual perspective. You may have flagged some records as being taxonomically incorrect, and it's important to keep those in mind as you go through these steps, you might come across more.
+You've been through the taxonomic cleaning steps so now it's time to clean up the spatial element. You may have flagged records as being taxonomically incorrect, it's important to keep those in mind as you go through the spatial cleaning steps as you might learn more about those records. We will discuss some different ways to check for spatial outliers as well as the removal of records in certain geographic areas known to be problematic.
+
+## Quick visualisation
+
+Now is a great time to plot your data onto a map again. Spatial errors are much easier to spot from a visual perspective.
 
 ```{r}
 
 ```
 
-### Coordinate correction
+## Coordinate precision
 
-(**some of this is in the download chapter-unsure if we want to move it or keep it**)
+Open access data will be collected from many people using different tools with varying expertise, some record coordinates may have been recorded with a phone, some with a GPS, or a place name and coordinates added after the fact. Depending on the level of precision you need, you might consider discarding data of lower precision, or removing decimal places for data you know could not be that precise. At the ALA there is a "cooridnateprecision"/ "coordinateUncertainityIn Meters" assertion ([see assertion section to download these with the data)]{.underline}
 
-You may have already fixed up some of these when you first downloaded your data, but now it's time to be more rigorous. As always we'll start with fixing data before discarding, many coordinates issues can be solved with data manipulation instead of discarding data:
+![](images/image-613988507.png)
+
+https://xkcd.wtf/2170/
+
+Most people will be working with between 2 and 5 decimal places. Studies often have different precision cut-offs. For example, coordinate precision below 100km represents the grain size of many macroecological analyses. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places (**add a reference here**). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
+
+-   How to filter by \# of decimal places
+
+    ```{r}
+
+    ```
+
+## Coordinate correction
+
+Some of these steps may have been completed in a pre-cleaning step, however it's now time to be more rigorous. As always we'll start with fixing data before discarding, many coordinates issues can be solved with data manipulation instead of discarding:
 
 -   Correct flipped coordinates: Flipped coordinates typically appear as a clustering of points, whereby swapping the latitude and longitude will place the coordinates where they are expected.
 
@@ -32,25 +50,7 @@ You may have already fixed up some of these when you first downloaded your data,
 
 -   Check for records with coordinates in a different country than is listed in the country field: The coordinates could be wrong or just the country listed. Note that the country should only be changed to match the coordinates if the data is trustworthy.
 
--   (**Correct/check for records with locality but no occurrence/georeference (if possible): If you have a good locality, consider georeferencing for coordinates rather than discarding the missing data entry. If the locality is not precise, this will likely yield lower-quality data points.**) unsure of this step if we want to go into georeferencing? or maybe point people to another resource
-
-### Coordinate precision
-
-Open source biodiversity data will be collected from many people with different tools and expertise, some record coordinates may have been recorded with a phone, some with a GPS, and some maybe just from a place name and coordinates added after the fact. Depending on the level of precision you need, you might consider discarding data that is not precise enough, or removing decimal places for data you know could not be that precise. At the ALA there is a "cooridnateprecision"/ "coordinateUncertainityIn Meters" column you can download with the data which can sometime help discern the accuracy of the data (worth noting it's not always completed).
-
-![](images/image-613988507.png)
-
-https://xkcd.wtf/2170/
-
-Realistically you will probably be working with between 2 and 5 decimal places. Studies often have different precision cut-offs. For example, coordinate precision below 100km represents the grain size of many macroecological analyses. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places (**add a reference here**). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
-
--   How to filter by \# of decimal places
-
-    ```{r}
-
-    ```
-
-### Coordinate cleaning
+## Coordinate cleaning
 
 Now that you've gone through and fixed what you can, it's time to remove records that still have errors. This doesn't mean removing outliers, we'll talk about those later.
 
@@ -72,7 +72,9 @@ Now that you've gone through and fixed what you can, it's time to remove records
 
     ```
 
--   Remove records with coordinates assigned to country and province centroids: There are many fonts that deal with centroid data, such as Centre of Country, botanic gardens, zoos, country capitals, biodiversity institutions, urban areas, and gbif headquarters. This issue can happen for several reasons and sometimes can be tricky to spot. Exploratory visuals can help support findings, making it easier to spot clusterings of points.
+    ### Optional record removal  
+
+-   Remove records with coordinates assigned to country and province centroids: such as Centre of Country, botanic gardens, zoos, country capitals, biodiversity institutions, urban areas, and gbif headquarters. In some cases these records will haven actually been recorded at a zoo for example, in other cases this is often incorrectly georeferenced records. They can be tricky to spot but there are a few packages that deal with centroid data. Exploratory visuals can also help support findings, making it easier to spot clusterings of points.
 
     Centroids are common when records are being assigned from georeferencing based on vague locality descriptions or from incorrect georeferencing. Sometimes, records are erroneously entered with the physical location of the specimen or because they represent individuals from captivity or horticulture, which were not clearly labeled as such.
 
