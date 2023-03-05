@@ -33,6 +33,44 @@ If your project relates to citizen science then [iNaturalist](https://www.inatur
 
 ## Downloading data
 
+### Taxonomic focus
+
+## Query with choosen naming authority
+
+(May go before download data or used after download to refine, improve download)
+
+Now that you've chosen a naming authority you can use it to ensure consistency across your data set, but also check you haven't missed any species data from your download.
+
+### Getting higher taxonomy
+
+ Downloading higher taxon data (kingdom:class) and then filtering for what you need, as disparities are less common at higher levels (???? Check with Martin)
+
+
+```{r}
+
+```
+
+### Getting all taxonomy relevant columns
+
+
+  Include the original name that was recorded by the data provider in your download. This is often referred to as `verbatimScientificName`. or vernacularname
+
+
+
+```{r}
+# Orchid as an example 
+# Read in problem child data and show
+
+# Group by species and count unique values for higher taxonomy
+```
+
+2.  Include synonyms of the species names you're interested in your download
+
+```{r}
+
+```
+
+
 Many developers have created R packages to interact with each data infrastructures's API to aid access to biodiversity data. Here are a few examples, we recommend taking a look at each package's documentation to choose one that suits your project. 
 
 - [`rgbif`](https://docs.ropensci.org/rgbif/) an interface to GBIF
@@ -43,7 +81,7 @@ Many developers have created R packages to interact with each data infrastructur
 
 One benefit of using `galah` is that enables users to acquire not only species occurrence records but also taxonomic information, or associated media such as images or sounds. Below we have included some code blocks for downloading occurrence data with `galah` from GBIF and a Spain node.
 
-### GBIF data via `galah`
+#### GBIF data via `galah`
 
 First, we have to configure `galah`. This is where you supply your account credentials and set the atlas to a particular region. See `?galah_config` for more configuration options. You can [save these credentials](https://docs.ropensci.org/rgbif/articles/gbif_credentials.html) in your `.Renviron` so you don't have to enter it explicitly in code. 
 
@@ -67,7 +105,7 @@ read_parquet("data/gbif/elephant")
 ```
 
 
-### Regional node via `galah`
+#### Regional node via `galah`
 
 In order to access data from the Australia node, we will need to reconfigure `galah` so that our query points to Australia. After that, we will download all records for the Pink Robin.
 
@@ -87,6 +125,29 @@ arrow::write_parquet(pink_robin, "data/galah/pink_robin")
 ```{r, echo = FALSE, eval = TRUE}
 read_parquet("data/galah/pink_robin")
 ```
+
+### Spatial focus
+
+work in progess
+
+```{r}
+
+
+my_polygon <- tibble(site = "A",
+       geometry = "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))")
+
+my_polygon_sf <- st_as_sf(my_polygon, wkt = "geometry") %>%
+  st_set_crs(4326) 
+
+ggplot() +
+  geom_sf(data = my_polygon_sf)
+
+galah_call() |>
+  galah_identify("Perameles") |>
+  galah_geolocate(wkt) |>
+  atlas_species()
+```
+
 
 ## Choosing specific data columns
 
@@ -179,21 +240,24 @@ Data infrastructures use assertions to internally grade the quality, completenes
 show_all("assertions") 
 ```
 
-Once you have decided which assertions are important for your project you can further refine your download.
+Once you have decided which assertions are important for your project you can further refine your download. Here we are 
 
 ```{r}
-galah_call() %>% 
-  galah_identify("Petroica rodinogaster") %>% 
-  galah_filter(identificationIncorrect == TRUE,
-               COORDINATE_INVALID == TRUE) %>% 
-  atlas_counts() # zero?! 
+nice_inverts <- galah_call() %>% 
+    galah_filter(
+      taxonConceptID == galah_identify("Animalia")$identifier, 
+      taxonConceptID != galah_identify("Chordata")$identifier, 
+      basisOfRecord == specimen_only, # Filters to specimen only
+      identificationIncorrect == FALSE,
+      year == 2022) %>% 
+  atlas_occurrences()
 
 
 galah_call() %>% 
   galah_identify("Petroica rodinogaster") %>% 
   galah_filter(basisOfRecord == tractable_records) %>% 
   galah_select(group = "assertions") %>% 
-  atlas_occurrences -> x
+  atlas_occurrences() -> x
 
 # Come back to this later, biocache busy
 ```
