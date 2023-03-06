@@ -18,7 +18,7 @@ Open access data will be collected from many people using different tools with v
 
 https://xkcd.wtf/2170/
 
-Coordinate precision below 100km represents the grain size of many macroecological analyses (**REF**). Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places (**add a reference here**). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
+Coordinate precision below 100km represents the grain size of many macroecological analyses \[@zizka2020\]. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places (**add a reference here**). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
 
 ```{r}
 #How to filter by number of decimal places
