@@ -1,5 +1,6 @@
 # Summary
 
+- final checks as a way summarise the book
 -   nice diagram
 -   decide where to refer to the R packages
 -   add references

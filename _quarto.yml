@@ -20,11 +20,10 @@ book:
     - scope.qmd
     - download-data.qmd
     - preclean.qmd
-    - naming-authority.qmd
+    - taxonomy.qmd
     - spatial.qmd
     - duplicates.qmd
     - outliers.qmd
-    - example.qmd
     - summary.qmd
     - appendix.qmd
     - references.qmd

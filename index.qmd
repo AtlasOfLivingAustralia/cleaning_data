@@ -33,9 +33,3 @@ Authors listed in alphabetic order:\
 - Martin Westgate
 
 
-<aside>
-```{r}
-#just testing an aside 
-```
-
-</aside>
