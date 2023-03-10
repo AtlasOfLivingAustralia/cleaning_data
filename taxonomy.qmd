@@ -250,3 +250,67 @@ Often naming authorities will have one they deem as accepted, and list others as
 #### This has lots all meaning
 
 1.  Downloading higher taxon data (kingdom:class) and then filtering for what you need, as disparities are less common at higher levels (???? Check with Martin)
+
+
+##fiddling with fake data 
+```{r}
+
+plants <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
+
+
+plants %>%
+  select(record_id:longitude_used) %>%
+  rename(latitude = latitude_used,
+         longitude = longitude_used) %>%
+  sample_frac(0.05) %>%
+  write_csv_arrow(sink = "/Users/sch609/Documents/Github/cleaning_data/ignore/dap/plant_subset.csv")
+
+plants <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/dap/plant_subset.csv")
+
+### Making some fake missing data
+set.seed(5)
+tobemissing <- plants %>%
+  filter(order == "Fabales") %>%
+  sample_frac(0.15) %>%
+  pull(scientific_name) %>%
+  unique()
+
+plants <- plants %>%
+  mutate(order = ifelse(scientific_name %in% tobemissing, NA, order)) # 40 species
+
+#try inverts 
+inverts<-read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv")
+
+
+inverts %>%
+  select(record_id:longitude) %>%
+  sample_frac(0.01) %>%
+  write_csv_arrow(sink = "/Users/sch609/Documents/Github/cleaning_data/ignore/dap/invert_subset.csv")
+
+inverts <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/dap/invert_subset.csv")
+
+### Making some fake missing data
+set.seed(5)
+
+tobemissing <- inverts %>%
+  filter(class == "Arachnida") %>%
+  sample_frac(0.3) %>%
+  pull(scientific_name) %>%
+  unique()
+
+inverts <- inverts %>%
+  mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
+
+#try and backfill
+to_search <- inverts %>% 
+  filter(is.na(class)) %>% 
+  select(scientific_name) %>% 
+  distinct()
+
+to_search<- to_search%>%
+  rename(scientificName = scientific_name)
+
+back_filled_arachnida<-galah::search_taxa(to_search) %>% tibble()
+
+```
+
