@@ -89,21 +89,20 @@ ggplot() +
 <!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
 <!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
 
+
 ### Choosing your own naming authority
 
-Using a naming authority is a great way to make decisions surrounding taxonomic categorizations of open source biodiversity data.  However, deciding what naming authority to use can be challenging and time consuming.
+Using a naming authority is a great way to make decisions surrounding taxonomic categorizations of open source biodiversity data. However, deciding what naming authority to use can be challenging and time consuming.
 
 What naming authority you choose will most certainly depend on your data scope. Spatial focus, will have many species and may need multiple naming authorities.
 
+A knowledge of taxonomy assist your ability to verify the data you are working with. For this, different organizations provide updated lists of species or even details of the taxonomic history of a species.
 
-A knowledge of taxonomy assist your ability to verify the data you are working with. For this, different organizations provide updated lists of species or even details of the taxonomic history of a species. 
-
-Checking changes in taxonomy can be helpful when interpreting old data which may have species names you don't recognize. 
+Checking changes in taxonomy can be helpful when interpreting old data which may have species names you don't recognize.
 
 Changes in taxonomy, such as species split, new higher level classification (as genera), or species descriptions, highlight the importance of keeping up-to-date with taxonomic literature. This can be achieved by consulting the literature. Most taxonomic society groups release annual updates on taxonomy.
 
 In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. These authorities provide a list of accepted and authoritative names as a template. If you're unsure what naming authority to use and you're looking at Australian species, the APNI and the AFD are a good place to start, especially if the data you're investigating covers a wide range of taxa. If you're investigating specific taxa it's worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we've provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.
-
 
 ## Naming authorities
 
