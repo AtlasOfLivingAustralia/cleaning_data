@@ -77,3 +77,33 @@ Remove records outside of the country of interest: In some cases, records outsid
 ```
 
 ## Checklist of data standardization
+
+
+# Notes
+## Missing data
+
+(I wonder if this is really the place for this or better to just do this in the Spatial chapter)
+
+-   Remove records with no coordinates
+
+## Quick visualiations
+
+A graphic plot of your data can be very telling and can help you spot potential errors that may be due to formatting.
+
+### GGally
+
+A visual inspection of your entire dataset can save time and solve easy-to-spot errors.
+
+### Quick map
+
+(I wonder if this is really the place for this or better to just do this in the Spatial chapter)
+
+A simple way to visualize your data is to plot it on a map.
+
+-   Fix minor coordinates errors, such as inverted or badly formatted
+
+```{r}
+
+```
+
+### 

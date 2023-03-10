@@ -1,6 +1,9 @@
 
 ### Extended taxonomic cleaning
 
+Finally, we will end with a worked example that shows the application of these approaches when consolidating data from different data providers.
+
+
 (I think this should be in another section)
 
 The following steps may not apply to your research interests, however this type of cleaning is commonly required.

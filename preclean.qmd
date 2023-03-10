@@ -61,9 +61,11 @@ african_ele <- read_parquet("data/gbif/elephant")
 skim(african_ele)
 ```
 
-## String inconsistencies
+## Structural inconsistencies
 
-String inconsistencies include mispellings, capitalisation errors, misplaced punctuations or trailing white spaces. We will use the `janitor` R package to explore whether our data has any of these issues. The function `tably` will compute a counts and percent of total rows for each unique value.
+### String inconsistencies
+
+String inconsistencies include mispellings, capitalisation errors, misplaced punctuations or trailing white spaces. We will use the `janitor` R package to explore whether our data has any of these issues. The function `tabyl` will compute a counts and percent of total rows for each unique value.
 
 We recommend `tabyl-ing` any character strings that are relevant to your project. For example, here is the [`stateProvince`](https://dwc.tdwg.org/terms/#dwc:stateProvince) in alphabetical order.
 
@@ -147,30 +149,3 @@ There are some other issues that can be corrected in a similar approach:
 
 We recommend consulting reputable sources that can help delineate or consolidate similar values. Googling and looking at Wikipedia's sources are good places to find resources that you can verify accepted state and province names.
 
-## Missing data
-
-(I wonder if this is really the place for this or better to just do this in the Spatial chapter)
-
--   Remove records with no coordinates
-
-## Quick visualiations
-
-A graphic plot of your data can be very telling and can help you spot potential errors that may be due to formatting.
-
-### GGally
-
-A visual inspection of your entire dataset can save time and solve easy-to-spot errors.
-
-### Quick map
-
-(I wonder if this is really the place for this or better to just do this in the Spatial chapter)
-
-A simple way to visualize your data is to plot it on a map.
-
--   Fix minor coordinates errors, such as inverted or badly formatted
-
-```{r}
-
-```
-
-### 

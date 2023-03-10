@@ -128,7 +128,8 @@ read_parquet("data/galah/pink_robin")
 
 ### Spatial focus
 
-work in progess
+Work in progess
+Read in shpfile, transform to polygon
 
 ```{r}
 

@@ -1,31 +1,144 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
 # Taxonomy {#sec-standardise-taxonomy}
 
-The field of taxonomy has evolved dramatically over the past century. Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before.  [@garraffoni2019integrative]. These modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Complications can arise when taxonomy is not unanimously agreed upon by researchers which can result in multiple names (synonyms) for the same organism. The dynamic nature of taxonomy can make working with biodiversity data all the more challenging. 
+```{r, setup, include=FALSE}
 
-In this chapter we will go through some approaches with cleaning taxonomic data. We will highlight the importance of naming authorities in dealing with synonyms. Finally, we will end with a worked example that shows the application of these approaches when consolidating data from different data providers.
+knitr::opts_chunk$set(
+  comment = '', 
+  fig.width = 6, 
+  fig.height = 6,
+  eval = TRUE,
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+
+options(tidyverse.quiet = TRUE)
+
+library(arrow)
+library(tidyverse)
+```
+
+```{r loaddata, include=FALSE}
+
+# inverts <- open_dataset("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv", format = "csv")
+# 
+# inverts %>% 
+#   filter(family == "apidae") %>% 
+#   write_parquet(sink = "data/dap/bees.parquet")
+
+bees <- read_parquet("data/dap/bees.parquet")
+
+plants <- read_csv("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
+
+plants %>%
+  select(record_id:longitude_used) %>%
+  rename(latitude = latitude_used,
+         longitude = longitude_used) %>%
+  sample_frac(0.05) %>%
+  write_csv_arrow(sink = "data/dap/plants_subset.csv")
+
+plants <- read_csv("data/dap/plants_subset.csv")
+
+### Making some fake missing data
+set.seed(5)
+tobemissing <- plants %>%
+  filter(order == "Fabales") %>%
+  sample_frac(0.15) %>%
+  pull(scientific_name) %>%
+  unique()
+
+plants <- plants %>%
+  mutate(order = ifelse(scientific_name %in% tobemissing, NA, order)) # 40 species
+
+```
+
+Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before [@garraffoni2019integrative]. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers. The complex and dynamic nature of taxonomy makes working with biodiversity data challenging. In this chapter we will go through some approaches with cleaning taxonomic data and dealing with synonyms. 
 
 <!-- Outline of section:  -->
-<!-- - What is taxonomy - classification and naming system -->
-<!-- - What is the problem with it -> it varies, data infrastructures have different systems -->
-<!-- - Challenge with biodiveristy data -->
-<!-- - What is the solution ->  -->
-<!--   choose a naming authority -->
-<!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
-<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
-<!--     taxonomic input from experts -->
+<!-- Synonyms what are they and why is it a problem
+<!-- solution -->
+<!--  Clean:  never will be perfect, so long as your process and decisions are  and documented and transparent consistent --> 
+<!-- taxonomy preclean -->
 <!--     synonyms standardisation -->
-<!--     never will be perfect, so long as your process and decisions are consistent and documented and transparent -->
+<!--     taxonomic input from experts -->
 
 
-## Synonyms
+## Taxonomy preclean 
 
-Synonyms can be annoying to deal with when working with open source data. Biodiversity data infrastructures will have a preferred name according to their own taxonomic system and display species data under this name with synonyms listed. In some cases, the data provider may recognises the names you've provided as different species.
+Similar to what we did in the previous chapter, we will apply a broad sweep pre-clean to taxonomic data. This will make dealing with synonyms go as smoothly as possible.
 
-Often naming authorities will have one they deem as accepted, and list others as synonyms. 
+The process is to first identify the issue, correct it, check it, and then document the changes. The goal is to standardise and correct as many errors issues before removing records. 
 
-To identify synonyms, we recommend:
+### Higher taxonomy 
 
-1.  Downloading higher taxon data (kingdom:class) and then filtering for what you need, as disparities are less common at higher levels (???? Check with Martin)
+Higher taxonomy such as phylum and class may be used to group species for analysis or data visualisations. Its important to check the spelling and formatting of these columns. 
+Its always good to start with some a useful table of counts for each taxonomic level. Keep an eye out for spelling errors, formatting issues and missing data. Note that `NA` in the output represents missing
+
+As an example:
+
+```{r}
+library(tidyverse)
+library(janitor)
+
+plants %>% 
+  pull(class) %>% 
+  tabyl()
+
+plants %>% 
+  pull(order) %>% 
+  tabyl() %>% 
+  head()
+
+plants %>% 
+  pull(genus) %>% 
+  tabyl() %>% 
+  tail()
+```
+
+#### Missing higher taxonomy {.unnumbered}
+
+If you noticed you have missing data in these columns, you can usually back fill this information using your [chosen naming authority](link back to section) or retrieving this information from a living atlas such as the ALA. 
+
+The code below demonstrates how you can isolate the `scientific_names` of taxa with missing XX data and getting taxonomic information from ALA
+
+(Example WORK IN PROGRESS, need better fake data, Inverts?)
+Seperate chunk where message = TRUE for hits
+```{r}
+library(galah)
+
+# These are the taxa missing `genus` information
+to_search <- plants %>% 
+  filter(is.na(order)) %>% 
+  select(species) %>% 
+  distinct()
+
+to_search
+
+search_taxa(to_search)
+```
+
+#### Insufficient taxonomic rank {.unnumbered}
+
+If a record is not identified down to the taxonomic level that needed for the study e.g. species, then the record should be removed.
+
+(Remember to go back to download or scope section to tell users to download taxonRank)
+
+During your data download, ensure you have requested for the column [`taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank), this variable tells us the taxonomic rank of the most specific name in the scientificName.
+
+(Come back to this example, perhaps needs spatial focus in a given area and then download everything in there and exclude anything that taxonRank is not species)
+
+```{r}
+
+
+```
+
+#### Inconsistent taxonomy
 
 ```{r}
 # Orchid as an example 
@@ -34,54 +147,74 @@ To identify synonyms, we recommend:
 # Group by species and count unique values for higher taxonomy
 ```
 
-2. {Taxize}
+### Capitalisation 
 
-## Taxonomy preclean 
+Normally higher taxonomy are capitalised e.g. Myrtaceae or Aves. Capitalisation errors are usually quick to spot when you print the data object. Alternatively you can try using `str_subset` on columns you expect to have capital letters. 
 
-It's best practice to standardise and fix what you can before you start removing anything, this decreases the chance of removing more records than you need to.
-
-It is essential to decide on a standard way to record the scientific names and be consistent. For example, start with upper case and separate the names with an underline e.g. "Moloch_horridus".
-
-
-<!-- I dont know where this should go -->
-If higher taxonomy such as family, and order, is important for your work,  then it is also important to check those columns are correct and nothing is missing. You can often back fill this information using your chosen naming authority or referring back to an atlas such as the ALA. 
+The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found
 
 ```{r}
+library(tidyverse)
 
+str_subset(unique(bees$class), "[:upper:]")
 ```
 
-
-
-- Ensure that the spelling is correct and fix errors as they appear
+We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that Insecta is inputted entirely in lowercase.
 
 ```{r}
-
+str_subset(unique(bees$class), "[:lower:]") 
 ```
 
-
--   Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed.
-
-
--   Remove non-identifiable specimens: If a species is not discernible after checking spelling and taxonomy, then it should be removed.
-
-
+We can correct the lower case formatting as below, remember to check the fix before overwriting/removing the erroneous column(s)
 
 ```{r}
-searchtaxon failed
+bees %>% 
+  mutate(class_corrected = str_to_sentence(class)) %>%
+  select(starts_with("class"))
+
+bees_corrected <- bees %>% 
+  mutate(class_corrected = str_to_sentence(class)) %>% 
+  select(-class) %>% # Remove erroreous column 
+  rename(class = class_corrected) # Rename corrected column as the new 'class'
 ```
 
--   Remove records with insufficient taxon identification: If a record is not identified down to the species level and this level of detail is needed for the study, then the record should be removed.
+### Seperators
+
+In a taxonomic data, separators such as, spaces and underscore are found in scientific names and are used to delineate the genus and [species name](https://dwc.tdwg.org/terms/#dwc:specificEpithet). While it is personal choice which separator you use, it is good practice to be consistent with your choice. Consistency ensures that unique values of scientific name truly reflects unique species and not due to inconsistencies. 
+
+Try `tabyl-ing` your taxonomic columns to check if you have any inconsistencies first
 
 ```{r}
-taxonRank
+plants %>% 
+  pull(scientific_name) %>% 
+  tabyl() %>% 
+  tibble()
 ```
 
+Consistent taxonomic formatting may not be an issue if you are downloading data from one single source such as the ALA where scientific names are already formatted consistently e.g. "Moloch horridus". This may not be the case when consolidating data from multiple sources.
 
-Note: Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1) an image of the species in question which does not match 2) If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)
+Below is code to create an underscore scientific name from one that is separated with a space. Remember to check your changes
 
 ```{r}
+plants_updated <- plants %>% 
+  mutate(scientific_name_undersc = str_replace_all(scientific_name, " ", "_")) 
 
+plants_updated %>% 
+  pull(scientific_name_undersc) %>% 
+  tabyl() %>% 
+  tibble()
 ```
+
+## Synonyms
+
+Synonyms are not straightforward when working with open source biodiversity data. Data infrastructures have their own taxonomic systems which may not be accepted by researchers or consistent with your chosen [naming authority](link_back). For these reasons, its important to flag and correct synonyms in a clear manner while keeping in mind that there is no universal or perfect solution. We recommend being explicit and consistent with your decisions about synonyms and keeping a good record of the changes to aid transparency and reproducibility. 
+
+Often naming authorities will have one they deem as accepted, and list others as synonyms. Here is an [example](https://biodiversity.org.au/afd/taxa/Egernia/names) (How do people retrieve these from the AFD?)
+
+
+{Taxize}
+
+
 
 ## Input from experts
 
@@ -101,7 +234,7 @@ Note: Incorrectly identified specimens can be difficult to identify with open so
 -   Malacology - [The Malacological Society of Australasia](https://www.malsocaus.org/)\
 -   Nematology - [Australasian Association of Nematologists](https://www.nematologists.org.au/)
 
-### Global taxonomy
+### Global taxonomy 
 
 -   GBIF uses 100 different sources to assemble - [their global taxonomic backbone](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c)
 
@@ -114,20 +247,6 @@ Note: Incorrectly identified specimens can be difficult to identify with open so
 
 ## Notes
 
-## Synonyms
+#### This has lots all meaning
 
-There are two main types of taxonomic synonyms: **heterotypic** and **homotypic.** The type of synonym might dictate how you handle it.
-
-Homotypic: a name base on the same type as that of another name, objective synonym \[IAPT\]
-
-Heterotypic: a name based on a type different from that of another name referring to the same taxon \[IAPT\]
-
-, and they can appear because of multiple reasons
-
-1.  Taxonomy changes over time, a record from the 1950s might have a name that is no longer used for the species
-2.  The scientific community doesn't always agree, there may be multiple names, and taxonomic classifications for the same species
-
-
-Identifying synonyms is also be useful for accessing literature. For example some *Eucaluptus* species have been re-classified and old literature might refer to an old name you were unaware of. This can increase your access to potentially seminal literature about a species \[REF\].
-
-## 
+1.  Downloading higher taxon data (kingdom:class) and then filtering for what you need, as disparities are less common at higher levels (???? Check with Martin)

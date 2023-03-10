@@ -86,7 +86,8 @@ ggplot() +
 
 <!-- Define what naming authority is -->
 <!-- How to choose -->
-<!-- (I think it's worth actually defining this very clearly because its not common knowledge) -->
+<!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
+<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
 
 ### Choosing your own naming authority
 
