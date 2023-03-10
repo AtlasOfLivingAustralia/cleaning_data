@@ -9,3 +9,11 @@ Outliers can be true outliers or data errors, true outliers are not necessarily 
 - Alpha hull (some example species - check cailtin chat history)
 
 - SDM Shandiya? 
+
+-   Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed.
+
+Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1) an image of the species in question which does not match 2) If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)
+
+```{r}
+
+```

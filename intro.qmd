@@ -15,7 +15,7 @@ The idea of flawed or sub-par input data produces nonsensical output is one that
 
 Data cleaning is therefore an essential step in biodiversity research. The process of identifying and fixing incorrect or doubtful data can improve data quality and the validity of scientific findings. [@rodrigues_species_2022].
 
-This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). We will be working with the R package [`galah`](https://galah.ala.org.au/) for accessing biodiversity data. If you have occurrence data you have personally collected, some parts of this book may still be relevant. 
+This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). We will be working with the R package [`galah`](https://galah.ala.org.au/) for accessing biodiversity data. If you have occurrence data you have personally collected, some parts of this book may still be relevant.
 
 We have included code blocks throughout this block to show you how to execute a particular task. We will point out at the beginning of the code block of any R packages that are needed for data cleaning or visualising.
 
@@ -27,19 +27,28 @@ library(DiagrammeR)
 
 ```
 
-- Import data
-- Tidy and familiarise with meta-data
+To begin working with open access data we'll teach you how to:
 
-The major cleaning steps will focus on taxonomic and spatial issues.
+-   narrowing your data scope
 
-- Investigate, flag and correct or remove: 
-  - Taxonomic issues
-    - Duplicates
-  - Spatial data 
-      - Outliers
-      - Duplicates
+-   Import data
+
+-   pre-cleaning steps, such as tidying and familiarise with meta-data
+
+Once data has been imported and formatted correctly we'll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity data.
+
+-   We will start with taxonomic issues
+    -   Taxonomic issues
+        -   naming authorities
+        -   synonyms
+        -   Duplicates
+    -   Spatial data
+        -   Outliers
+        -   Duplicates
 
 ## What you won't learn
+
+There are many important subject areas which this book will not cover. We won't be teaching you:
 
 -   How to clean other data types e.g. environmental or trait data
 -   How to run a species distribution model
@@ -49,21 +58,22 @@ The major cleaning steps will focus on taxonomic and spatial issues.
 
 ### User accounts
 
-Sign up for an account with the relevant data infrastructure e.g GBIF or ALA
+To get data out of data infrastructures such as the Atlas of living Australia (ALA) or the Global Biodiversity Information (GBIF) you'll need to first create an account. You'll want to sign up for an account with the relevant data infrastructre, this book will use ALA and GBIF data as examples.
 
-- Links to download
+Atlas of Living Australia = [create an account](https://auth.ala.org.au/userdetails/registration/createAccount) Global Biodiversity Information Facility = [create an account](https://www.gbif.org/user/profile)
 
 ### R
 
-Download and install R for your operating system
+Download R from [CRAN](https://cloud.r-project.org/) (the comprehensive R archive network), for your operating system, and install it on your device. Major updates for R come out yearly with a few minor releases throughout the year, so make sure to update semi regularly.
 
 #### Windows {.unnumbered}
+
 #### Mac {.unnumbered}
 
 ### RStudio
 
-Download and install R for your operating system
+Rstudio is an integrated development environment (IDE) for R programming. Download and install Rstudio for your operating system <https://posit.co/download/rstudio-desktop/>
 
 #### Windows {.unnumbered}
-#### Mac {.unnumbered}
 
+#### Mac {.unnumbered}
