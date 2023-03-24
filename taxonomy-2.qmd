@@ -1,36 +1,188 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
-### Extended taxonomic cleaning
+# Taxonomy 2
 
-Finally, we will end with a worked example that shows the application of these approaches when consolidating data from different data providers.
+```{r, setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  comment = '', 
+  fig.width = 6, 
+  fig.height = 6,
+  eval = TRUE,
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+
+options(tidyverse.quiet = TRUE)
+
+library(tidyverse)
+library(galah)
+
+# worms <- read_csv("~/Dropbox/1 - ALA/Projects/data_cleaning_workflows/data/worms/worrms_marine_splist.csv")
+# 
+# set.seed(123)
+# worms_mini <- worms %>% 
+#   sample_frac(size = 0.1) %>% 
+#   select(-1) %>% 
+#   distinct()
+# 
+# write_csv(worms_mini, "data/worms/worms.csv")
+
+# WORMS dataset
+worms <- read_csv("data/worms/worms.csv")
+
+# afd <- read_csv("~/Dropbox/1 - ALA/Projects/data_cleaning_workflows/ignore/data/AFD_checklist_clean.csv")
+# 
+# afd %>% filter(VALID_NAME %in% unique(worms$scientificname)) %>%
+#   write_csv("data/naming/afd.csv")
+
+# AFD dataset
+# afd <- read_csv("data/naming/afd.csv")
+# 
+# galah_config(atlas = "Australia",
+#              email = Sys.getenv("ALA_EMAIL"))
+# 
+# # Check that galah can find all the species
+# galah_call() %>%
+#   galah_identify(afd$VALID_NAME)
+# 
+# # Download occurrences
+# inverts <- galah_call() %>%
+#   galah_identify(afd$VALID_NAME) %>%
+#   galah_select(group = "basic") %>%
+#   atlas_occurrences()
+# 
+# write_csv(inverts, "data/galah/inverts.csv")
+
+# Inverts
+inverts <- read_csv("data/galah/inverts.csv")
+```
+
+## Joining datasets from different infrastructures
+
+If you have downloaded data from different sources, you likely will need to collate your data into a singular database. It is important to make sure fields that have the same, are indeed the same variable, so prior to merging - take the time cross check the meta-data from different data providers [@ribeiro_bdc_2022]. 
 
 
-(I think this should be in another section)
+### Variable names and case format
 
-The following steps may not apply to your research interests, however this type of cleaning is commonly required.
+Data providers will have their own naming conventions for variables. For example, World Register of Marine Species uses a combination of lower case e.g scientific_name and camel case e.g isExtinct. While the naming authority - Australian Fauna Directory (AFD) uses upper, snake case e.g. SCIENTIFIC_NAME. What format you choose is a matter of personal preference, the key is to be consistent.
+
+Here we will subset the variables we want, reformat them to the upper, snake case names and then join by `VALID_NAME` 
+
+```{r}
+library(stringr)
+
+habitat_data <- worms %>% 
+  select(valid_name, starts_with("is")) 
+
+names(habitat_data)[-1] 
+
+new_names <- str_split(names(habitat_data)[-1], pattern =  "(?<=[a-z])(?=[A-Z])", n = 2) %>%  # Seperate where case cases from lower to upper i.e. camel case
+  map(.x = ., 
+      .f = ~tolower(.x)) %>% # Convert to all lower case
+    map(.x = ., 
+      .f = ~str_flatten(.x, "_")) %>%  # Bind the two seperated elements
+  unlist()
+  
+new_names
+
+# Replace old with new
+names(habitat_data)[-1] <- new_names
+
+# Join habitat data by VALID_NAME
+afd %>% left_join(habitat_data, by = join_by(VALID_NAME == valid_name))
+```
+
+One issue you might face is that higher taxonomy from different providers may not match. 
+
+```{r}
+higher_taxonomy <- inverts %>%
+  select(scientificName) %>% 
+  rename(scientific_name = scientificName) %>% 
+  distinct() %>% 
+  search_taxa()
+
+
+### Problem 2
+
+higher_taxonomy <- inverts %>%
+  select(scientificName) %>% 
+  rename(scientific_name = scientificName) %>% 
+  distinct() %>% 
+  search_taxa() # None
+
+# Get higher taxonomy via galah_select
+inverts_2 <- galah_call() %>%
+  galah_identify(afd$VALID_NAME) %>%
+  galah_select(group = "basic", phylum, class, order, family, genus) %>%
+  atlas_occurrences()
+
+inverts_2
+
+
+```
+
+If this is the case, we suggest choosing the data provider with the higher taxonomy that is consistent with your naming authority and use it to back fill the higher taxonomy of the other data sources
+
+```{r}
+
+```
+
+Remember to always check your changes after! 
+
+```{r}
+
+```
+
+## Extended taxonomic cleaning
+
+Depending on your project's data scope, it may be necessary to remove certain groups of taxa. Below, we have provided a few examples. We will also briefly showcase `CoordinateCleaner` a useful R package for removing XX records.
+
+
+### Introduced or Invasive species
 
 -   Remove non-native species: This step is a common requirement. A list can be obtained from the [Global Register of Introduced and Invasive Species (GRIIS)](https://griis.org/)
 
+### Domesticated species
+
 -   Remove domesticated specimens, sightings of dogs, cats, but also garden species (**elaborate**)
 
--   Remove extinct species: if you don't have a year filter on your data you might have records of species that have become extinct in more recent years.
+### Extinct species 
 
--   Remove specific taxa/life stages depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.
+In most cases, a year filter during in your download query would have _most_ removed extinct species, however its good to check if this is the chance using  you might have records of species that have become extinct in more recent years.
 
 ```{r}
 
 ```
 
-## Merge datasets from different infrastructures
 
-(Park this for now may come after naming authority)
+### Marine or terrestrial species
 
-If you have downloaded data from different sources, you likely will need to collate your data into a singular database.
-
-When combining data from multiple places, it is important to standardize the data fields and merge the data carefully [@ribeiro_bdc_2022]. There is a chance data will be incorrectly formatted and/or mislabeled.
-
-One of the main issues you might face if you've sourced data from different organisations/people is that higher taxonomy may not match- if this is the case, take a look at the "taxonomy" chapter for more information on how to deal with inconsistent taxonomy before merging!
+-   Remove specific taxa/ depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.
 
 ```{r}
-##example on formatting consistency, merging data together etc
+
 ```
+
+### Certain lifestges
+
+sex, reproductive condition
+
+```{r}
+# lifeStage
+```
+
+
+### CoordinateCleaner
+
+```{r}
+
+```
+
+
 
