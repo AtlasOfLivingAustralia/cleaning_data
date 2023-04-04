@@ -12,20 +12,35 @@ Duplicates add computational burden to your analyses. Some spatial analyses won'
 
     Removing true duplicates where the UID is the same is quite straightforward and is a common step before mapping biodiversity data.
 
-    ```{r}
+```{r}
+#assertions: duplicateType "DIFFERENT_DATASET"
 
-    ```
+```
 
 2.  Different UID Same species, same coordinates, yet different year.
 
     If the UID is different, but the species name is the same and the coordinates are the same this could be a couple of different things:
 
     a\) If the year is different, it's likely a true record, indicating it's continued presence- this is most likely for plants...there are cases where you'll still want to remove the
+    
+    ```{r}
+#assertions: duplicate_status "ASSOCIATED"
+```
 
     b\) Herbarium duplicates: same year, same collector, however different UID and minor differences in locality, coordinate precision. These can be more difficult to decipher, and we've called them Herbarium duplicates as this is when they most commonly occur. The same specimen will sometimes be sent to multiple herbariums, this results in different UIDs. Additionally because the data is potentially being inputted by different people the discrepancies this causes can make them difficult to spot \[REF bob pers com\].
 
-    ##example from bobs data
+```{r}
+#assertions: duplicateType "DIFFERENT_DATASET"
+#assertions: isDuplicateOf "DIFFERENT_DATASET"
+
+
+```
 
 3.  Spatial thinning = records located close to each other
 
     These records are not duplicates, not the same individual, not in exactly the same spot, yet close together. Think about patch of grass, this isn't one plant but many all packed tightly together. This adds computational burden, especially for large scale biodiversity analyses and distribution modelling for many species [@zizka2020; @kuralt]. This can also be done to reduce bias associated with oversampling at a small number of sites within larger species ranges [@godfree_implications_2021].
+    
+```{r}
+
+```
+

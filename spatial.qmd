@@ -42,6 +42,11 @@ Some of these steps may have been completed in a pre-cleaning step, however it's
 
 **Country field doesn't match coordinates:** The coordinates could be wrong or just the country listed.
 
+```{r}
+
+```
+
+
 ## Coordinate cleaning
 
 Once you have fixed everything you can, it's time to remove records that still have errors. This doesn't mean removing all outliers, you must have more than "it's far away from the others" to justify a records removal.

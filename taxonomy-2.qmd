@@ -4,7 +4,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Taxonomy 2
+# Extended Taxonomy
 
 ```{r, setup, include=FALSE}
 
@@ -42,14 +42,10 @@ worms <- read_csv("data/worms/worms.csv")
 #   write_csv("data/naming/afd.csv")
 
 # AFD dataset
-# afd <- read_csv("data/naming/afd.csv")
-# 
+afd <- read_csv("data/naming/afd.csv")
+
 # galah_config(atlas = "Australia",
 #              email = Sys.getenv("ALA_EMAIL"))
-# 
-# # Check that galah can find all the species
-# galah_call() %>%
-#   galah_identify(afd$VALID_NAME)
 # 
 # # Download occurrences
 # inverts <- galah_call() %>%
@@ -61,6 +57,9 @@ worms <- read_csv("data/worms/worms.csv")
 
 # Inverts
 inverts <- read_csv("data/galah/inverts.csv")
+
+# Plants
+plants <- read_csv("data/dap/plants_subset.csv")
 ```
 
 ## Joining datasets from different infrastructures
@@ -72,7 +71,7 @@ If you have downloaded data from different sources, you likely will need to coll
 
 Data providers will have their own naming conventions for variables. For example, World Register of Marine Species uses a combination of lower case e.g scientific_name and camel case e.g isExtinct. While the naming authority - Australian Fauna Directory (AFD) uses upper, snake case e.g. SCIENTIFIC_NAME. What format you choose is a matter of personal preference, the key is to be consistent.
 
-Here we will subset the variables we want, reformat them to the upper, snake case names and then join by `VALID_NAME` 
+Here we will subset the variables we want, reformat them to the lower snake case names and then join by `VALID_NAME` 
 
 ```{r}
 library(stringr)
@@ -98,39 +97,15 @@ names(habitat_data)[-1] <- new_names
 afd %>% left_join(habitat_data, by = join_by(VALID_NAME == valid_name))
 ```
 
-One issue you might face is that higher taxonomy from different providers may not match. 
+One issue you might face is that higher taxonomy from different providers may not match. If this is the case, we suggest choosing the data provider with the higher taxonomy that is consistent with your naming authority and use it to back fill the higher taxonomy of the other data sources
 
 ```{r}
 higher_taxonomy <- inverts %>%
   select(scientificName) %>% 
-  rename(scientific_name = scientificName) %>% 
   distinct() %>% 
   search_taxa()
 
-
-### Problem 2
-
-higher_taxonomy <- inverts %>%
-  select(scientificName) %>% 
-  rename(scientific_name = scientificName) %>% 
-  distinct() %>% 
-  search_taxa() # None
-
-# Get higher taxonomy via galah_select
-inverts_2 <- galah_call() %>%
-  galah_identify(afd$VALID_NAME) %>%
-  galah_select(group = "basic", phylum, class, order, family, genus) %>%
-  atlas_occurrences()
-
-inverts_2
-
-
-```
-
-If this is the case, we suggest choosing the data provider with the higher taxonomy that is consistent with your naming authority and use it to back fill the higher taxonomy of the other data sources
-
-```{r}
-
+higher_taxonomy
 ```
 
 Remember to always check your changes after! 
@@ -146,27 +121,120 @@ Depending on your project's data scope, it may be necessary to remove certain gr
 
 ### Introduced or Invasive species
 
--   Remove non-native species: This step is a common requirement. A list can be obtained from the [Global Register of Introduced and Invasive Species (GRIIS)](https://griis.org/)
+Remove non-native species: This step is a common requirement. A list can be obtained from the [Global Register of Introduced and Invasive Species (GRIIS)](https://griis.org/download). The downloads are sorted my country. Once this list is read into R, you can proceed to exclude invasive species from your data as below:
+
+```{r}
+library(tidyverse)
+library(here)
+
+griis_ls <- read_csv(here("data/lists/GRIIS_Australia_20230331-121730.csv"))
+
+glimpse(griis_ls)
+
+# Note which species matched with GRIIS list
+matches <- plants |> filter(scientific_name %in% griis_ls$accepted_name.species)
+matches
+
+# Exclude GRIIS matches
+plants_no_griis <- plants |> filter(! scientific_name %in% matches)
+```
 
 ### Domesticated species
 
--   Remove domesticated specimens, sightings of dogs, cats, but also garden species (**elaborate**)
-
-### Extinct species 
-
-In most cases, a year filter during in your download query would have _most_ removed extinct species, however its good to check if this is the chance using  you might have records of species that have become extinct in more recent years.
+Remove domesticated specimens, sightings of dogs, cats, but also garden species.
 
 ```{r}
 
 ```
 
 
-### Marine or terrestrial species
+### Extinct species 
 
--   Remove specific taxa/ depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.
+In most cases, a year filter during in your download query should remove  _most_ extinct species. 
+
+```{r, eval=FALSE}
+library(worrms)
+
+my_species <- inverts |> 
+  pull(scientificName) |>
+  unique()
+
+extinct_check <- map_dfr(my_species,
+       possibly(~worrms::wm_records_name(name = .x) |> mutate(search_term = .x))
+)
+
+extinct_check |> filter(isExtinct == TRUE)
+```
+
+If you are concerned that a year filter didn't capture all you extinct species, you can try the 
+Interim Register of Marine and Nonmarine Genera [(IRMNG)](https://www.irmng.org/). The list is comprehensive and actively maintained, the only caveat is that a lot of its data doesn't go down to species level. As such, we recommend using the following approach to find _potentially extinct_ taxa and futher investigate the records that we are flagged.
+
+The required files can be downloadedfrom [here](https://www.irmng.org/export/). Once you have unzipped the file in your projected directory, we need to process the list a littlerbefore we use it to exclude extinct species.  
 
 ```{r}
+library(data.table)
+library(janitor)
 
+# Taxonomic info
+irmng_taxa <- fread("data/lists/irmng/irmng_taxon.txt", na.strings = c(""))
+
+# Species profile
+irmng_sp <- fread("data/lists/irmng/irmng_speciesprofile.txt", na.strings = c(""))
+
+# Precleaning 
+awc_pattern <- "(awaiting allocation)"
+insed_pattern <- "incertae sedis"
+
+cleaned_irmng_taxa <- irmng_taxa |> 
+  mutate(class = ifelse(str_detect(class, pattern = paste0(awc_pattern,"|", insed_pattern)),
+                        word(class), class) # Remove pesky values
+         ) |> 
+  filter(taxonomicStatus == "accepted") |> # Filter to accepted names 
+  filter(kingdom %in% c("Animalia", "Plantae"),
+         ! kingdom == "Questionable / non-biota (fossil)") # Filter to Animal and plants - change if working with other kingdoms
+
+# Join with species profile, remove pesky values and filter to extinct taxa 
+extinct_irmng <- irmng_taxa |> 
+  left_join(irmng_sp, by = "taxonID") |> 
+  filter(! scientificName == "Questionable / non-biota (fossil)") |> 
+  filter(isExtinct == TRUE) 
+
+# Summary of extinct species by taxonRank
+extinct_irmng$taxonRank |> tabyl()
+
+# Create genus 
+inverts <- inverts |> 
+  mutate(genus = word(scientificName, 1)) 
+
+# Extract unique extinct genus and remove genus that have punctuation in them
+extinct_genus <- extinct_irmng |> 
+  drop_na(genus) |> 
+  filter(!str_detect(genus, pattern = regex("[:punct:]"))) |> 
+  pull(genus) |> 
+  unique() 
+ 
+# Check if there are any matches at genus level
+check <- inverts |> 
+filter(str_detect(genus, pattern = regex(paste0(extinct_genus, collapse="|")))) |> 
+  pull(scientificName) |> 
+  unique() 
+
+check
+```
+
+Another option is to use the IUCN 
+
+https://apiv3.iucnredlist.org/api/v3/docs#species-category
+https://docs.ropensci.org/crul/articles/crul.html
+
+```{r, eval=FALSE}
+library(rredlist)
+
+# Create IUCN token
+usethis::edit_r_environ()
+rredlist::rl_use_iucn()
+
+rl_sp_category_('EX')
 ```
 
 ### Certain lifestges
@@ -177,8 +245,18 @@ sex, reproductive condition
 # lifeStage
 ```
 
+### Marine species
+
+-   Remove specific taxa/ depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.
+
+```{r}
+
+```
+
 
 ### CoordinateCleaner
+
+<!-- Move to spatial? -->
 
 ```{r}
 

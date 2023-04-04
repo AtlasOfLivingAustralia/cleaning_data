@@ -39,6 +39,7 @@
 \makeatother
 \usepackage{xcolor}
 \usepackage[left=1in,marginparwidth=2.0666666666667in,textwidth=4.1333333333333in,marginparsep=0.3in]{geometry}
+\usepackage[normalem]{ulem}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
@@ -218,7 +219,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, enhanced, breakable, boxrule=0pt, sharp corners, interior hidden, frame hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, borderline west={3pt}{0pt}{shadecolor}, interior hidden, boxrule=0pt, sharp corners, breakable, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -304,16 +305,6 @@ Authors listed in alphabetic order:\\
 - Margot Schneider\\
 - Martin Westgate
 
-\marginnote{\begin{footnotesize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#just testing an aside }
-\end{Highlighting}
-\end{Shaded}
-
-\end{footnotesize}}
-
 \bookmarksetup{startatroot}
 
 \hypertarget{introduction}{%
@@ -361,20 +352,25 @@ book}\label{what-you-will-learn-outline-of-the-book}}
 \end{Highlighting}
 \end{Shaded}
 
+To begin working with open access data we'll teach you how to:
+
 \begin{itemize}
-\tightlist
+\item
+  narrowing your data scope
 \item
   Import data
 \item
-  Tidy and familiarise with meta-data
+  pre-cleaning steps, such as tidying and familiarise with meta-data
 \end{itemize}
 
-The major cleaning steps will focus on taxonomic and spatial issues.
+Once data has been imported and formatted correctly we'll dive into the
+major cleaning steps. We will focus on how to deal with taxonomic and
+spatial issues with biodiversity data.
 
 \begin{itemize}
 \tightlist
 \item
-  Investigate, flag and correct or remove:
+  We will start with taxonomic issues
 
   \begin{itemize}
   \tightlist
@@ -383,6 +379,10 @@ The major cleaning steps will focus on taxonomic and spatial issues.
 
     \begin{itemize}
     \tightlist
+    \item
+      naming authorities
+    \item
+      synonyms
     \item
       Duplicates
     \end{itemize}
@@ -402,6 +402,9 @@ The major cleaning steps will focus on taxonomic and spatial issues.
 \hypertarget{what-you-wont-learn}{%
 \section{What you won't learn}\label{what-you-wont-learn}}
 
+There are many important subject areas which this book will not cover.
+We won't be teaching you:
+
 \begin{itemize}
 \tightlist
 \item
@@ -418,19 +421,24 @@ The major cleaning steps will focus on taxonomic and spatial issues.
 \hypertarget{user-accounts}{%
 \subsection{User accounts}\label{user-accounts}}
 
-Sign up for an account with the relevant data infrastructure e.g GBIF or
-ALA
+To get data out of data infrastructures such as the Atlas of living
+Australia (ALA) or the Global Biodiversity Information (GBIF) you'll
+need to first create an account. You'll want to sign up for an account
+with the relevant data infrastructre, this book will use ALA and GBIF
+data as examples.
 
-\begin{itemize}
-\tightlist
-\item
-  Links to download
-\end{itemize}
+Atlas of Living Australia =
+\href{https://auth.ala.org.au/userdetails/registration/createAccount}{create
+an account} Global Biodiversity Information Facility =
+\href{https://www.gbif.org/user/profile}{create an account}
 
 \hypertarget{r}{%
 \subsection{R}\label{r}}
 
-Download and install R for your operating system
+Download R from \href{https://cloud.r-project.org/}{CRAN} (the
+comprehensive R archive network), for your operating system, and install
+it on your device. Major updates for R come out yearly with a few minor
+releases throughout the year, so make sure to update semi regularly.
 
 \hypertarget{windows}{%
 \subsubsection*{Windows}\label{windows}}
@@ -443,7 +451,9 @@ Download and install R for your operating system
 \hypertarget{rstudio}{%
 \subsection{RStudio}\label{rstudio}}
 
-Download and install R for your operating system
+Rstudio is an integrated development environment (IDE) for R
+programming. Download and install Rstudio for your operating system
+\url{https://posit.co/download/rstudio-desktop/}
 
 \hypertarget{windows-1}{%
 \subsubsection*{Windows}\label{windows-1}}
@@ -486,6 +496,25 @@ taxonomic group.
 
 \includegraphics{./scope_files/figure-pdf/unnamed-chunk-1-1.pdf}
 
+\marginnote{\begin{footnotesize}
+
+Curious what \emph{Lampromicra senator} looks like?
+
+\begin{figure}
+
+{\centering 
+
+\href{https://images.ala.org.au/store/4/8/8/4/1f4fc763-d21f-4e5d-b803-f931a4c14884/tms/3/2/1.png}{\includegraphics[width=8.33333in,height=\textheight]{./images/Lampromicra.jpeg}}
+
+}
+
+\caption{Lampromicra senator perched on a leaf by Dexmond Wells CC-BY-NC
+4.0}
+
+\end{figure}
+
+\end{footnotesize}}
+
 \hypertarget{spatial-scope}{%
 \section{Spatial scope}\label{spatial-scope}}
 
@@ -495,6 +524,91 @@ the area of interest. The example below shows all Insecta orders in the
 state of Tasmania in Australia
 
 \includegraphics{./scope_files/figure-pdf/unnamed-chunk-2-1.pdf}
+
+\hypertarget{naming-authorities}{%
+\section{Naming authorities}\label{naming-authorities}}
+
+\hypertarget{choosing-your-own-naming-authority}{%
+\subsection{Choosing your own naming
+authority}\label{choosing-your-own-naming-authority}}
+
+Using a naming authority is a great way to make decisions surrounding
+taxonomic categorizations of open source biodiversity data. However,
+deciding what naming authority to use can be challenging and time
+consuming.
+
+What naming authority you choose will most certainly depend on your data
+scope. Spatial focus, will have many species and may need multiple
+naming authorities.
+
+A knowledge of taxonomy assist your ability to verify the data you are
+working with. For this, different organizations provide updated lists of
+species or even details of the taxonomic history of a species.
+
+Checking changes in taxonomy can be helpful when interpreting old data
+which may have species names you don't recognize.
+
+Changes in taxonomy, such as species split, new higher level
+classification (as genera), or species descriptions, highlight the
+importance of keeping up-to-date with taxonomic literature. This can be
+achieved by consulting the literature. Most taxonomic society groups
+release annual updates on taxonomy.
+
+In Australia, the \href{https://www.anbg.gov.au/apni/}{Australian Plant
+Name Index (APNI)} is the primary naming authority for plants. With the
+\href{https://biodiversity.org.au/afd/home}{Australian Faunal Directory
+(AFD)} the main taxonomic catalog for animal species. These authorities
+provide a list of accepted and authoritative names as a template. If
+you're unsure what naming authority to use and you're looking at
+Australian species, the APNI and the AFD are a good place to start,
+especially if the data you're investigating covers a wide range of taxa.
+If you're investigating specific taxa it's worth checking when the
+taxonomy was last updated in the APNI or AFD, especially if you know
+there has been recent changes. If you want to investigate closer, we've
+provided some links to society groups, in some cases these can be more
+up to date that the APNI or AFD.
+
+\hypertarget{naming-authorities-1}{%
+\section{Naming authorities}\label{naming-authorities-1}}
+
+Accurate species delimitation is crucial for adequate conservation
+management and understanding evolutionary processes (Mace 2004).
+Species-level lists are the foundation of conservation decisions, such
+as is the IUCN Red List (\textbf{melville21?}).
+
+The difference in scope might influence if you choose to use a naming
+authority from a taxonomic society group or multiple broad sources.
+
+\hypertarget{naming-authorities-and-taxonomy-in-biodiversity-databases}{%
+\section{Naming authorities and taxonomy in biodiversity
+databases}\label{naming-authorities-and-taxonomy-in-biodiversity-databases}}
+
+When you download data from different databases you might be faced with
+inconsistencies between the datasets. This is a challenge that data
+aggregators face when ingesting and aggregating data. This is a large
+task with lots of heterogeneity and can lead to errors along the way. To
+help deal with naming inconsistencies, naming authorities are used by
+online biodiversity databases in order to classify species {[}REF{]}.
+Different databases might use different naming authorities, and you
+might not agree with their classifications. There may be other issues
+you are not aware of: For example, the ALA uses multiple naming
+authorities in a hierarchical format:
+
+(note image is from a helpfile I wrote- we can re-do it so it's
+consistent with the style of this document)
+
+\includegraphics{./images/image-1066364510.png}
+
+With all that, open source data has many pros, so how does one deal with
+taxonomic inconsistencies to get the most accurate data in the end?
+
+While this is in theory how the ALAs backbone is built, issues can occur
+with aggregation leading to potentially serious problems with the
+taxonomic structure. In addition data can be parsed incorrectly, and the
+process isn't transparent. Meaning that when the taxonomic backbone is
+updated, the elements that have changed are untraceable. These issues
+are not specific to ALA taxonomy, but occur in varying forms among data
+aggregators.
 
 \bookmarksetup{startatroot}
 
@@ -534,6 +648,44 @@ for accessing crowd-sourced data of species observations.
 \hypertarget{downloading-data}{%
 \section{Downloading data}\label{downloading-data}}
 
+\hypertarget{taxonomic-focus}{%
+\subsection{Taxonomic focus}\label{taxonomic-focus}}
+
+\hypertarget{query-with-choosen-naming-authority}{%
+\section{Query with choosen naming
+authority}\label{query-with-choosen-naming-authority}}
+
+(May go before download data or used after download to refine, improve
+download)
+
+Now that you've chosen a naming authority you can use it to ensure
+consistency across your data set, but also check you haven't missed any
+species data from your download.
+
+\hypertarget{getting-higher-taxonomy}{%
+\subsection{Getting higher taxonomy}\label{getting-higher-taxonomy}}
+
+Downloading higher taxon data (kingdom:class) and then filtering for
+what you need, as disparities are less common at higher levels (????
+Check with Martin)
+
+\hypertarget{getting-all-taxonomy-relevant-columns}{%
+\subsection{Getting all taxonomy relevant
+columns}\label{getting-all-taxonomy-relevant-columns}}
+
+Include the original name that was recorded by the data provider in your
+download. This is often referred to as \texttt{verbatimScientificName}.
+or vernacularname
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Include synonyms of the species names you're interested in your
+  download
+\end{enumerate}
+
 Many developers have created R packages to interact with each data
 infrastructures's API to aid access to biodiversity data. Here are a few
 examples, we recommend taking a look at each package's documentation to
@@ -567,7 +719,7 @@ code blocks for downloading occurrence data with \texttt{galah} from
 GBIF and a Spain node.
 
 \hypertarget{gbif-data-via-galah}{%
-\subsection{\texorpdfstring{GBIF data via
+\subsubsection{\texorpdfstring{GBIF data via
 \texttt{galah}}{GBIF data via galah}}\label{gbif-data-via-galah}}
 
 First, we have to configure \texttt{galah}. This is where you supply
@@ -600,29 +752,29 @@ using \texttt{arrow::write\_parquet}
 
 \begin{verbatim}
 # A tibble: 12,537 x 50
-      gbifID datasetKey  occur~1 kingdom phylum class order family genus species
- *     <dbl> <chr>       <chr>   <chr>   <chr>  <chr> <chr> <chr>  <chr> <chr>  
- 1 924537719 95f132fe-f~ 73e088~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
- 2 924537718 95f132fe-f~ 73e0ad~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
- 3 924537717 95f132fe-f~ 73f0f6~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
- 4 923926679 50c9509d-2~ http:/~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
- 5 923924124 50c9509d-2~ http:/~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
- 6 922237429 6ac3f774-d~ <NA>    Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
- 7 922237412 6ac3f774-d~ <NA>    Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
- 8 922237188 6ac3f774-d~ <NA>    Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
- 9 922237135 6ac3f774-d~ <NA>    Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
-10 922237121 6ac3f774-d~ <NA>    Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~ Loxodo~
-# ... with 12,527 more rows, 40 more variables: infraspecificEpithet <chr>,
+      gbifID datasetKey     occurrenceID kingdom phylum class order family genus
+ *     <dbl> <chr>          <chr>        <chr>   <chr>  <chr> <chr> <chr>  <chr>
+ 1 924537719 95f132fe-f762~ 73e088f2-f8~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+ 2 924537718 95f132fe-f762~ 73e0ad3c-f8~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+ 3 924537717 95f132fe-f762~ 73f0f6ec-f8~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+ 4 923926679 50c9509d-22c7~ http://www.~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+ 5 923924124 50c9509d-22c7~ http://www.~ Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+ 6 922237429 6ac3f774-d9fb~ <NA>         Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+ 7 922237412 6ac3f774-d9fb~ <NA>         Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+ 8 922237188 6ac3f774-d9fb~ <NA>         Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+ 9 922237135 6ac3f774-d9fb~ <NA>         Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+10 922237121 6ac3f774-d9fb~ <NA>         Animal~ Chord~ Mamm~ Prob~ Eleph~ Loxo~
+# i 12,527 more rows
+# i 41 more variables: species <chr>, infraspecificEpithet <chr>,
 #   taxonRank <chr>, scientificName <chr>, verbatimScientificName <chr>,
 #   verbatimScientificNameAuthorship <chr>, countryCode <chr>, locality <chr>,
 #   stateProvince <chr>, occurrenceStatus <chr>, individualCount <dbl>,
 #   publishingOrgKey <chr>, decimalLatitude <dbl>, decimalLongitude <dbl>,
-#   coordinateUncertaintyInMeters <dbl>, coordinatePrecision <dbl>,
-#   elevation <dbl>, elevationAccuracy <dbl>, depth <dbl>, ...
+#   coordinateUncertaintyInMeters <dbl>, coordinatePrecision <dbl>, ...
 \end{verbatim}
 
 \hypertarget{regional-node-via-galah}{%
-\subsection{\texorpdfstring{Regional node via
+\subsubsection{\texorpdfstring{Regional node via
 \texttt{galah}}{Regional node via galah}}\label{regional-node-via-galah}}
 
 In order to access data from the Australia node, we will need to
@@ -642,22 +794,27 @@ that, we will download all records for the Pink Robin.
 
 \begin{verbatim}
 # A tibble: 11,992 x 8
-   decimal~1 decim~2 eventDate           scien~3 taxon~4 recor~5 dataR~6 occur~7
- *     <dbl>   <dbl> <dttm>              <chr>   <chr>   <chr>   <chr>   <chr>  
- 1     -43.7    146. NA                  Petroi~ https:~ 81d100~ Histor~ PRESENT
- 2     -43.7    146. NA                  Petroi~ https:~ 235009~ Histor~ PRESENT
- 3     -43.7    146. 1971-02-03 14:00:00 Petroi~ https:~ 0f644c~ Histor~ PRESENT
- 4     -43.7    146. 2020-10-07 02:39:00 Petroi~ https:~ 77d610~ iNatur~ PRESENT
- 5     -43.7    146. 2015-09-22 14:00:00 Petroi~ https:~ e92acb~ eBird ~ PRESENT
- 6     -43.6    146. 2002-01-03 13:00:00 Petroi~ https:~ 1a4ac6~ BirdLi~ PRESENT
- 7     -43.6    146. NA                  Petroi~ https:~ 28ec00~ Histor~ PRESENT
- 8     -43.6    146. 2020-12-27 13:00:00 Petroi~ https:~ cbc68d~ eBird ~ PRESENT
- 9     -43.6    146. 2021-03-07 13:00:00 Petroi~ https:~ 961160~ eBird ~ PRESENT
-10     -43.6    146. 2020-12-26 13:00:00 Petroi~ https:~ 035bfb~ eBird ~ PRESENT
-# ... with 11,982 more rows, and abbreviated variable names 1: decimalLatitude,
-#   2: decimalLongitude, 3: scientificName, 4: taxonConceptID, 5: recordID,
-#   6: dataResourceName, 7: occurrenceStatus
+   decimalLatitude decimalLongitude eventDate           scientificName          
+ *           <dbl>            <dbl> <dttm>              <chr>                   
+ 1           -43.7             146. NA                  Petroica (Erythrodryas)~
+ 2           -43.7             146. NA                  Petroica (Erythrodryas)~
+ 3           -43.7             146. 1971-02-03 14:00:00 Petroica (Erythrodryas)~
+ 4           -43.7             146. 2020-10-07 02:39:00 Petroica (Erythrodryas)~
+ 5           -43.7             146. 2015-09-22 14:00:00 Petroica (Erythrodryas)~
+ 6           -43.6             146. 2002-01-03 13:00:00 Petroica (Erythrodryas)~
+ 7           -43.6             146. NA                  Petroica (Erythrodryas)~
+ 8           -43.6             146. 2020-12-27 13:00:00 Petroica (Erythrodryas)~
+ 9           -43.6             146. 2021-03-07 13:00:00 Petroica (Erythrodryas)~
+10           -43.6             146. 2020-12-26 13:00:00 Petroica (Erythrodryas)~
+# i 11,982 more rows
+# i 4 more variables: taxonConceptID <chr>, recordID <chr>,
+#   dataResourceName <chr>, occurrenceStatus <chr>
 \end{verbatim}
+
+\hypertarget{spatial-focus}{%
+\subsection{Spatial focus}\label{spatial-focus}}
+
+Work in progess Read in shpfile, transform to polygon
 
 \hypertarget{choosing-specific-data-columns}{%
 \section{Choosing specific data
@@ -689,7 +846,7 @@ fields you can choose from:
  8 associatedOccurrences http://rs.tdwg.org/dwc/terms/associatedOcc~ fiel~ <NA> 
  9 associatedOrganisms   http://rs.tdwg.org/dwc/terms/associatedOrg~ fiel~ <NA> 
 10 associatedReferences  http://rs.tdwg.org/dwc/terms/associatedRef~ fiel~ <NA> 
-# ... with 601 more rows
+# i 601 more rows
 \end{verbatim}
 
 Here, we will choose a smaller subsets of 8 columns to download for the
@@ -715,21 +872,21 @@ Pink Robin
 
 \begin{verbatim}
 # A tibble: 11,992 x 8
-   recordID    eventDate            year basis~1 occur~2 scien~3 decim~4 decim~5
- * <chr>       <dttm>              <dbl> <chr>   <chr>   <chr>     <dbl>   <dbl>
- 1 000fc2ef-b~ 1976-12-18 13:00:00  1976 HUMAN_~ PRESENT Petroi~   -37.4    144.
- 2 001410fd-3~ 1978-05-23 14:00:00  1978 HUMAN_~ PRESENT Petroi~   -38.2    142.
- 3 00164a76-0~ 1977-12-15 13:00:00  1977 HUMAN_~ PRESENT Petroi~   -42.9    147.
- 4 001bfca5-4~ 1940-12-31 14:00:00  1941 OBSERV~ PRESENT Petroi~   -36.4    147.
- 5 001e33bd-b~ 2002-10-17 14:00:00  2002 HUMAN_~ PRESENT Petroi~   -40.9    146.
- 6 0021cc7c-a~ 2016-04-09 14:00:00  2016 OCCURR~ PRESENT Petroi~   -38.6    144.
- 7 00287e24-8~ 2021-01-14 13:00:00  2021 HUMAN_~ PRESENT Petroi~   -37.5    146.
- 8 002e05a7-b~ 2000-07-24 14:00:00  2000 OBSERV~ PRESENT Petroi~   -38.4    145.
- 9 00327fc2-a~ 1983-11-23 13:00:00  1983 PRESER~ PRESENT Petroi~   -37.3    149.
-10 0035016f-a~ NA                     NA HUMAN_~ PRESENT Petroi~   -41.1    146.
-# ... with 11,982 more rows, and abbreviated variable names 1: basisOfRecord,
-#   2: occurrenceStatus, 3: scientificName, 4: decimalLatitude,
-#   5: decimalLongitude
+   recordID             eventDate            year basisOfRecord occurrenceStatus
+ * <chr>                <dttm>              <dbl> <chr>         <chr>           
+ 1 000fc2ef-b696-4576-~ 1976-12-18 13:00:00  1976 HUMAN_OBSERV~ PRESENT         
+ 2 001410fd-3a01-43aa-~ 1978-05-23 14:00:00  1978 HUMAN_OBSERV~ PRESENT         
+ 3 00164a76-0b3a-4b44-~ 1977-12-15 13:00:00  1977 HUMAN_OBSERV~ PRESENT         
+ 4 001bfca5-4197-40a6-~ 1940-12-31 14:00:00  1941 OBSERVATION   PRESENT         
+ 5 001e33bd-bb15-4384-~ 2002-10-17 14:00:00  2002 HUMAN_OBSERV~ PRESENT         
+ 6 0021cc7c-a371-4af6-~ 2016-04-09 14:00:00  2016 OCCURRENCE    PRESENT         
+ 7 00287e24-87b8-429a-~ 2021-01-14 13:00:00  2021 HUMAN_OBSERV~ PRESENT         
+ 8 002e05a7-b1bf-4eba-~ 2000-07-24 14:00:00  2000 OBSERVATION   PRESENT         
+ 9 00327fc2-ae67-467b-~ 1983-11-23 13:00:00  1983 PRESERVED_SP~ PRESENT         
+10 0035016f-ae80-494a-~ NA                     NA HUMAN_OBSERV~ PRESENT         
+# i 11,982 more rows
+# i 3 more variables: scientificName <chr>, decimalLatitude <dbl>,
+#   decimalLongitude <dbl>
 \end{verbatim}
 
 \hypertarget{refining-your-data-download}{%
@@ -848,23 +1005,31 @@ descriptions using:
 
 \begin{verbatim}
 # A tibble: 117 x 4
-   id                                 description                  categ~1 type 
-   <chr>                              <chr>                        <chr>   <chr>
- 1 AMBIGUOUS_COLLECTION               Ambiguous collection         Warning asse~
- 2 AMBIGUOUS_INSTITUTION              Ambiguous institution        Warning asse~
- 3 BASIS_OF_RECORD_INVALID            Basis of record badly formed Warning asse~
- 4 biosecurityIssue                   Biosecurity issue            Error   asse~
- 5 COLLECTION_MATCH_FUZZY             Collection match fuzzy       Warning asse~
- 6 COLLECTION_MATCH_NONE              Collection not matched       Warning asse~
- 7 CONTINENT_COUNTRY_MISMATCH         Continent country mismatch   Warning asse~
- 8 CONTINENT_DERIVED_FROM_COORDINATES Continent derived from coor~ Warning asse~
- 9 CONTINENT_INVALID                  Continent invalid            Warning asse~
-10 COORDINATE_ACCURACY_INVALID        Coordinate accuracy invalid  Warning asse~
-# ... with 107 more rows, and abbreviated variable name 1: category
+   id                                 description                 category type 
+   <chr>                              <chr>                       <chr>    <chr>
+ 1 AMBIGUOUS_COLLECTION               Ambiguous collection        Warning  asse~
+ 2 AMBIGUOUS_INSTITUTION              Ambiguous institution       Warning  asse~
+ 3 BASIS_OF_RECORD_INVALID            Basis of record badly form~ Warning  asse~
+ 4 biosecurityIssue                   Biosecurity issue           Error    asse~
+ 5 COLLECTION_MATCH_FUZZY             Collection match fuzzy      Warning  asse~
+ 6 COLLECTION_MATCH_NONE              Collection not matched      Warning  asse~
+ 7 CONTINENT_COUNTRY_MISMATCH         Continent country mismatch  Warning  asse~
+ 8 CONTINENT_DERIVED_FROM_COORDINATES Continent derived from coo~ Warning  asse~
+ 9 CONTINENT_INVALID                  Continent invalid           Warning  asse~
+10 COORDINATE_ACCURACY_INVALID        Coordinate accuracy invalid Warning  asse~
+# i 107 more rows
 \end{verbatim}
 
 Once you have decided which assertions are important for your project
-you can further refine your download.
+you can further refine your download. Here we are
+
+\hypertarget{note}{%
+\subsection{note}\label{note}}
+
+Narrowing your results to a specific spatial area- using
+\texttt{galah\_geolocate} or by regions etc, discussions around whether
+this is best to be placed in this chapter to assist with expaning scope
+has been raised.
 
 \bookmarksetup{startatroot}
 
@@ -890,6 +1055,39 @@ metadata. All Darwin Core term definitions can be found
 \texttt{Ctrl/CMD\ F} and searching your variable name on the
 \href{https://dwc.tdwg.org/terms/}{webpage}. Don't hesitate to Google
 variable names if you are unsure what they represent.
+
+If you're using data from particular institutions it's worth checking
+the metadata for the entire dataset to delineate if there is extra
+information about the data which might limit what you can do with the
+data. You could google the dataset name, or search the
+dataset/institution on the ALA. The metadata on the ALA is submitted
+with the data, it's not always of high standard which is why it's worth
+investigating externally, an example of some good metadata is
+\href{https://collections.ala.org.au/public/show/dr14760}{FrogID from
+the Australian Museum}. A benefit to reading metadata is understanding
+the limitations of your dataset. From reading FrogID's metadata (Rowley
+and Callaghan 2020), you'll find:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The data is acoustic data, the majority of the species recorded are
+  therefore male
+\item
+  Because this is citizen science data, it is especially biased towards
+  populated areas
+\item
+  Audio is recorded via a smartphone app, the authors recommend if you
+  require high coordinate precision to filter data to
+  \texttt{geographic\ uncertainty\ of\ \textless{}3000m}
+\item
+  The data is presence only data
+\end{enumerate}
+
+Metadata can also be useful for understanding the license that the data
+falls under, this is mostly relevant for using multimedia associated
+with the data.
 
 \hypertarget{initial-inspection}{%
 \section{Initial inspection}\label{initial-inspection}}
@@ -1123,13 +1321,16 @@ lastInterpreted & 0 & 1.00 & 2023-01-24 14:57:46 & 2023-02-14 01:52:09 &
 \bottomrule()
 \end{longtable}
 
+\hypertarget{structural-inconsistencies}{%
+\section{Structural inconsistencies}\label{structural-inconsistencies}}
+
 \hypertarget{string-inconsistencies}{%
-\section{String inconsistencies}\label{string-inconsistencies}}
+\subsection{String inconsistencies}\label{string-inconsistencies}}
 
 String inconsistencies include mispellings, capitalisation errors,
 misplaced punctuations or trailing white spaces. We will use the
 \texttt{janitor} R package to explore whether our data has any of these
-issues. The function \texttt{tably} will compute a counts and percent of
+issues. The function \texttt{tabyl} will compute a counts and percent of
 total rows for each unique value.
 
 We recommend \texttt{tabyl-ing} any character strings that are relevant
@@ -1173,7 +1374,7 @@ in alphabetical order.
 18 Cape Province         1 0.0000798      0.000112
 19 Central             113 0.00901        0.0126  
 20 Central Equatoria     2 0.000160       0.000223
-# ... with 163 more rows
+# i 163 more rows
 \end{verbatim}
 
 From the \texttt{tabyl} output, we can see there are few different
@@ -1275,7 +1476,7 @@ highly recommend this
  8 Mpumalanga       Mpumalanga         
  9 KwaZulu-Natal    KwaZulu-Natal      
 10 Manicaland       Manicaland         
-# ... with 172 more rows
+# i 172 more rows
 \end{verbatim}
 
 \begin{Shaded}
@@ -1314,7 +1515,7 @@ highly recommend this
 18 Central             113 0.00901        0.0126  
 19 Central Equatoria     2 0.000160       0.000223
 20 Central Province      4 0.000319       0.000446
-# ... with 161 more rows
+# i 161 more rows
 \end{verbatim}
 
 There are some other issues that can be corrected in a similar approach:
@@ -1338,163 +1539,378 @@ consolidate similar values. Googling and looking at Wikipedia's sources
 are good places to find resources that you can verify accepted state and
 province names.
 
-\hypertarget{missing-data}{%
-\section{Missing data}\label{missing-data}}
-
-(I wonder if this is really the place for this or better to just do this
-in the Spatial chapter)
-
-\begin{itemize}
-\tightlist
-\item
-  Remove records with no coordinates
-\end{itemize}
-
-\hypertarget{quick-visualiations}{%
-\section{Quick visualiations}\label{quick-visualiations}}
-
-A graphic plot of your data can be very telling and can help you spot
-potential errors that may be due to formatting.
-
-\hypertarget{ggally}{%
-\subsection{GGally}\label{ggally}}
-
-A visual inspection of your entire dataset can save time and solve
-easy-to-spot errors.
-
-\hypertarget{quick-map}{%
-\subsection{Quick map}\label{quick-map}}
-
-(I wonder if this is really the place for this or better to just do this
-in the Spatial chapter)
-
-A simple way to visualize your data is to plot it on a map.
-
-\begin{itemize}
-\tightlist
-\item
-  Fix minor coordinates errors, such as inverted or badly formatted
-\end{itemize}
-
-\hypertarget{notes}{%
-\subsection{Notes}\label{notes}}
-
-Metadata can sometimes provide insights to the limitations of your data.
-For example\ldots{} {[}Margot do you have concrete examples from your
-reading?{]}
-
 \bookmarksetup{startatroot}
 
 \hypertarget{sec-standardise-taxonomy}{%
 \chapter{Taxonomy}\label{sec-standardise-taxonomy}}
 
-New species are being discovered and described all the time. The rapid
-rise of analytical tools, especially in molecular biology can make it
-difficult to keep up with taxonomic literature. Species historically
-described solely on morphological characteristics are being
-re-classified post genomic/population genetics, and integrative
-taxonomy, an approach which integrates information from multiple areas
-which can be used to delimit and describe new species (Garraffoni et al.
-2019).
+Advances in taxonomy, especially in molecular biology has allowed
+researchers to describe new species more efficiently than ever before
+(Garraffoni et al. 2019). Modern approaches has also enabled
+reclassification of organisms that have been incorrectly described in
+the past. Unfortunately, multiple names (synonyms) for the same organism
+can arise when taxonomy is not unanimously agreed upon by researchers.
+The complex and dynamic nature of taxonomy makes working with
+biodiversity data challenging. In this chapter we will go through some
+approaches with cleaning taxonomic data and dealing with synonyms.
 
-Taxonomy is dynamic, data can therefore be inconsistent between
-databases and across timescales. Additionally the scientific community
-do not always agree on the classification of species, this results in
-multiple phylogenetic trees for the same species or arrays of
-subspecies.
+\hypertarget{taxonomy-preclean}{%
+\section{Taxonomy preclean}\label{taxonomy-preclean}}
 
-\hypertarget{naming-authorities}{%
-\section{Naming authorities}\label{naming-authorities}}
+Similar to what we did in the previous chapter, we will apply a broad
+sweep pre-clean to taxonomic data. This will make dealing with synonyms
+go as smoothly as possible.
 
-\hypertarget{what-is-a-naming-authority}{%
-\subsection{What is a naming
-authority}\label{what-is-a-naming-authority}}
+The process is to first identify the issue, correct it, check it, and
+then document the changes. The goal is to standardise and correct as
+many errors issues before removing records.
 
-\textbf{I think it's worth actually defining this very clearly because
-its not common knowledge}
+\hypertarget{higher-taxonomy}{%
+\subsection{Higher taxonomy}\label{higher-taxonomy}}
 
-\hypertarget{naming-authorities-and-taxonomy-in-biodiversity-databases}{%
-\section{Naming authorities and taxonomy in biodiversity
-databases}\label{naming-authorities-and-taxonomy-in-biodiversity-databases}}
+Higher taxonomy such as phylum and class may be used to group species
+for analysis or data visualisations. Its important to check the spelling
+and formatting of these columns. Its always good to start with some a
+useful table of counts for each taxonomic level. Keep an eye out for
+spelling errors, formatting issues and missing data. Note that
+\texttt{NA} in the output represents missing
 
-\#\#note this section might be best placed somewhere else I'm not sure
+As an example:
 
-When you download data from different databases you might be faced with
-inconsistencies between the datasets. This is a challenge that data
-aggregators face when ingesting and aggregating data. This is a large
-task with lots of heterogeneity and can lead to errors along the way. To
-help deal with naming inconsistencies, naming authorities are used by
-online biodiversity databases in order to classify species {[}REF{]}.
-Different databases might use different naming authorities, and you
-might not agree with their classifications. There may be other issues
-you are not aware of: For example, the ALA uses multiple naming
-authorities in a hierarchical format:
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(janitor)}
 
-\#note image is from a helpfile I wrote- we can re-do it so it's
-consistent with the style of this document
+\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(class) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tabyl}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
-\includegraphics{./images/image-1066364510.png}
+\begin{verbatim}
+              .    n     percent valid_percent
+    Cycadopsida    3 0.001443001   0.001447178
+  Equisetopsida  192 0.092352092   0.092619392
+ Lycopodiopsida   10 0.004810005   0.004823927
+  Magnoliopsida 1841 0.885521886   0.888084901
+      Pinopsida    5 0.002405002   0.002411963
+ Polypodiopsida   22 0.010582011   0.010612639
+           <NA>    6 0.002886003            NA
+\end{verbatim}
 
-While this is in theory how the ALAs backbone is built, issues can occur
-with aggregation leading to potentially serious problems with the
-taxonomic structure. In addition data can be parsed incorrectly, and the
-process isn't transparent. Meaning that when the taxonomic backbone is
-updated, the elements that have changed are untraceable. These issues
-are not specific to ALA taxonomy, but occur in varying forms among data
-aggregators.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(order) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
-With all that, open source data has many pros, so how does one deal with
-taxonomic inconsistencies to get the most accurate data in the end?
+\begin{verbatim}
+                .   n      percent valid_percent
+      Alismatales   9 0.0043290043   0.004702194
+          Apiales  38 0.0182780183   0.019853710
+      Asparagales  64 0.0307840308   0.033437827
+        Asterales 178 0.0856180856   0.092998955
+ Austrobaileyales   6 0.0028860029   0.003134796
+      Brassicales   1 0.0004810005   0.000522466
+\end{verbatim}
 
-\hypertarget{choosing-your-own-naming-authority}{%
-\subsection{Choosing your own naming
-authority}\label{choosing-your-own-naming-authority}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(genus) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tail}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
-Using a naming authority is a great way to make decisions surrounding
-taxonomic categorizations of open source biodiversity data. Accurate
-species delimitation is crucial for adequate conservation management and
-understanding evolutionary processes (Mace 2004). Species-level lists
-are the foundation of conservation decisions, such as is the IUCN Red
-List (\textbf{melville21?}). However, deciding what naming authority to
-use can be challenging and time consuming.
+\begin{verbatim}
+            .  n     percent valid_percent
+ Wahlenbergia  3 0.001443001   0.001482946
+   Westringia  5 0.002405002   0.002471577
+    Xanthosia 12 0.005772006   0.005931784
+        Xyris  4 0.001924002   0.001977261
+       Zieria 13 0.006253006   0.006426100
+         <NA> 56 0.026936027            NA
+\end{verbatim}
 
-What naming authority you choose can be dictated by:
+\hypertarget{missing-higher-taxonomy}{%
+\subsubsection*{Missing higher taxonomy}\label{missing-higher-taxonomy}}
+\addcontentsline{toc}{subsubsection}{Missing higher taxonomy}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Are you looking at a single species, or single genus (Taxonomic)
-\item
-  Are you looking at all species in a certain region (spatial)
-\end{enumerate}
+If you noticed you have missing data in these columns, you can usually
+back fill this information using your
+\href{link\%20back\%20to\%20section}{chosen naming authority} or
+retrieving this information from a living atlas such as the ALA.
 
-The difference in scope might influence if you choose to use a naming
-authority from a taxonomic society group or multiple broad sources.
+The code below demonstrates how you can isolate the
+\texttt{scientific\_names} of taxa with missing XX data and getting
+taxonomic information from ALA
 
-A knowledge of taxonomy assist your ability to verify the data you are
-working with. For this, different organizations provide updated lists of
-species or even details of the taxonomic history of a species. Checking
-changes in taxonomy can be helpful when interpreting old data which may
-have species names you don't recognize. Changes in taxonomy, such as
-species split, new higher level classification (as genera), or species
-descriptions, highlight the importance of keeping up-to-date with
-taxonomic literature. This can be achieved by consulting the literature.
-Most taxonomic society groups release annual updates on taxonomy.
+(Example WORK IN PROGRESS, need better fake data, Inverts?) Seperate
+chunk where message = TRUE for hits
 
-In Australia, the \href{https://www.anbg.gov.au/apni/}{Australian Plant
-Name Index (APNI)} is the primary naming authority for plants. With the
-\href{https://biodiversity.org.au/afd/home}{Australian Faunal Directory
-(AFD)} the main taxonomic catalog for animal species. These authorities
-provide a list of accepted and authoritative names as a template. If
-you're unsure what naming authority to use and you're looking at
-Australian species, the APNI and the AFD are a good place to start,
-especially if the data you're investigating covers a wide range of taxa.
-If you're investigating specific taxa it's worth checking when the
-taxonomy was last updated in the APNI or AFD, especially if you know
-there has been recent changes. If you want to investigate closer, we've
-provided some links to society groups, in some cases these can be more
-up to date that the APNI or AFD.
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(galah)}
+
+\CommentTok{\# These are the taxa missing \textasciigrave{}genus\textasciigrave{} information}
+\NormalTok{to\_search }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(order)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(species) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{()}
+
+\NormalTok{to\_search}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 43 x 1
+   species              
+   <chr>                
+ 1 Pultenaea polifolia  
+ 2 Acacia mabellae      
+ 3 Hovea pedunculata    
+ 4 Acacia echinula      
+ 5 Acacia hamiltoniana  
+ 6 Adenochilus nortonii 
+ 7 Acacia filicifolia   
+ 8 Dillwynia brunioides 
+ 9 Bossiaea rupicola    
+10 Almaleea subumbellata
+# i 33 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{search\_taxa}\NormalTok{(to\_search)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 43 x 1
+   search_term          
+   <chr>                
+ 1 Pultenaea polifolia  
+ 2 Acacia mabellae      
+ 3 Hovea pedunculata    
+ 4 Acacia echinula      
+ 5 Acacia hamiltoniana  
+ 6 Adenochilus nortonii 
+ 7 Acacia filicifolia   
+ 8 Dillwynia brunioides 
+ 9 Bossiaea rupicola    
+10 Almaleea subumbellata
+# i 33 more rows
+\end{verbatim}
+
+\hypertarget{insufficient-taxonomic-rank}{%
+\subsubsection*{Insufficient taxonomic
+rank}\label{insufficient-taxonomic-rank}}
+\addcontentsline{toc}{subsubsection}{Insufficient taxonomic rank}
+
+If a record is not identified down to the taxonomic level that needed
+for the study e.g.~species, then the record should be removed.
+
+(Remember to go back to download or scope section to tell users to
+download taxonRank)
+
+During your data download, ensure you have requested for the column
+\href{https://dwc.tdwg.org/terms/\#dwc:taxonRank}{\texttt{taxonRank}},
+this variable tells us the taxonomic rank of the most specific name in
+the scientificName.
+
+(Come back to this example, perhaps needs spatial focus in a given area
+and then download everything in there and exclude anything that
+taxonRank is not species)
+
+\hypertarget{inconsistent-taxonomy}{%
+\subsubsection{Inconsistent taxonomy}\label{inconsistent-taxonomy}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Orchid as an example }
+\CommentTok{\# Read in problem child data and show}
+
+\CommentTok{\# Group by species and count unique values for higher taxonomy}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{capitalisation}{%
+\subsection{Capitalisation}\label{capitalisation}}
+
+Normally higher taxonomy are capitalised e.g.~Myrtaceae or Aves.
+Capitalisation errors are usually quick to spot when you print the data
+object. Alternatively you can try using \texttt{str\_subset} on columns
+you expect to have capital letters.
+
+The code below subsets out unique values for the variable \texttt{class}
+that have upper case letters. Notice that no matches are found
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+
+\FunctionTok{str\_subset}\NormalTok{(}\FunctionTok{unique}\NormalTok{(bees}\SpecialCharTok{$}\NormalTok{class), }\StringTok{"[:upper:]"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+character(0)
+\end{verbatim}
+
+We can confirm that there are no upper case matches by subsetting unique
+values that have lower case letters to see what is going on. This shows
+us that Insecta is inputted entirely in lowercase.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{str\_subset}\NormalTok{(}\FunctionTok{unique}\NormalTok{(bees}\SpecialCharTok{$}\NormalTok{class), }\StringTok{"[:lower:]"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "insecta"
+\end{verbatim}
+
+We can correct the lower case formatting as below, remember to check the
+fix before overwriting/removing the erroneous column(s)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bees }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class\_corrected =} \FunctionTok{str\_to\_sentence}\NormalTok{(class)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"class"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1,139 x 2
+   class   class_corrected
+   <chr>   <chr>          
+ 1 insecta Insecta        
+ 2 insecta Insecta        
+ 3 insecta Insecta        
+ 4 insecta Insecta        
+ 5 insecta Insecta        
+ 6 insecta Insecta        
+ 7 insecta Insecta        
+ 8 insecta Insecta        
+ 9 insecta Insecta        
+10 insecta Insecta        
+# i 1,129 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bees\_corrected }\OtherTok{\textless{}{-}}\NormalTok{ bees }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class\_corrected =} \FunctionTok{str\_to\_sentence}\NormalTok{(class)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{class) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# Remove erroreous column }
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{class =}\NormalTok{ class\_corrected) }\CommentTok{\# Rename corrected column as the new \textquotesingle{}class\textquotesingle{}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{seperators}{%
+\subsection{Seperators}\label{seperators}}
+
+In a taxonomic data, separators such as, spaces and underscore are found
+in scientific names and are used to delineate the genus and
+\href{https://dwc.tdwg.org/terms/\#dwc:specificEpithet}{species name}.
+While it is personal choice which separator you use, it is good practice
+to be consistent with your choice. Consistency ensures that unique
+values of scientific name truly reflects unique species and not due to
+inconsistencies.
+
+Try \texttt{tabyl-ing} your taxonomic columns to check if you have any
+inconsistencies first
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(scientific\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tibble}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 631 x 3
+   .                                       n  percent
+   <chr>                               <int>    <dbl>
+ 1 Acacia alaticaulis                      2 0.000962
+ 2 Acacia barringtonensis                  2 0.000962
+ 3 Acacia beadleana                        2 0.000962
+ 4 Acacia betchei                          4 0.00192 
+ 5 Acacia brunioides subsp. brunioides     6 0.00289 
+ 6 Acacia brunioides subsp. granitica      1 0.000481
+ 7 Acacia bulgaensis                       2 0.000962
+ 8 Acacia cangaiensis                      5 0.00241 
+ 9 Acacia chalkeri                         4 0.00192 
+10 Acacia clunies-rossiae                  1 0.000481
+# i 621 more rows
+\end{verbatim}
+
+Consistent taxonomic formatting may not be an issue if you are
+downloading data from one single source such as the ALA where scientific
+names are already formatted consistently e.g.~``Moloch horridus''. This
+may not be the case when consolidating data from multiple sources.
+
+Below is code to create an underscore scientific name from one that is
+separated with a space. Remember to check your changes
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plants\_updated }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{scientific\_name\_undersc =} \FunctionTok{str\_replace\_all}\NormalTok{(scientific\_name, }\StringTok{" "}\NormalTok{, }\StringTok{"\_"}\NormalTok{)) }
+
+\NormalTok{plants\_updated }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{pull}\NormalTok{(scientific\_name\_undersc) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{tibble}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 631 x 3
+   .                                       n  percent
+   <chr>                               <int>    <dbl>
+ 1 Acacia_alaticaulis                      2 0.000962
+ 2 Acacia_barringtonensis                  2 0.000962
+ 3 Acacia_beadleana                        2 0.000962
+ 4 Acacia_betchei                          4 0.00192 
+ 5 Acacia_brunioides_subsp._brunioides     6 0.00289 
+ 6 Acacia_brunioides_subsp._granitica      1 0.000481
+ 7 Acacia_bulgaensis                       2 0.000962
+ 8 Acacia_cangaiensis                      5 0.00241 
+ 9 Acacia_chalkeri                         4 0.00192 
+10 Acacia_clunies-rossiae                  1 0.000481
+# i 621 more rows
+\end{verbatim}
+
+\hypertarget{synonyms}{%
+\section{Synonyms}\label{synonyms}}
+
+Synonyms are not straightforward when working with open source
+biodiversity data. Data infrastructures have their own taxonomic systems
+which may not be accepted by researchers or consistent with your chosen
+\href{link_back}{naming authority}. For these reasons, its important to
+flag and correct synonyms in a clear manner while keeping in mind that
+there is no universal or perfect solution. We recommend being explicit
+and consistent with your decisions about synonyms and keeping a good
+record of the changes to aid transparency and reproducibility.
+
+Often naming authorities will have one they deem as accepted, and list
+others as synonyms. Here is an
+\href{https://biodiversity.org.au/afd/taxa/Egernia/names}{example} (How
+do people retrieve these from the AFD?)
+
+\{Taxize\}
+
+\hypertarget{input-from-experts}{%
+\section{Input from experts}\label{input-from-experts}}
 
 \hypertarget{australian-taxonomic-society-groups}{%
 \subsection{Australian taxonomic society
@@ -1549,326 +1965,222 @@ groups}\label{australian-taxonomic-society-groups}}
   microbes - \href{https://www.itis.gov/}{Integrated Taxonomic
   Information System, ITIS}
 \item
-  Global taxonomic catalogue -
+  Global taxonomic catalogue
+\item
   \href{https://www.catalogueoflife.org/}{Catalogue of Life}
 \end{itemize}
 
-\hypertarget{what-to-do-with-the-naming-authority}{%
-\section{What to do with the naming
-authority}\label{what-to-do-with-the-naming-authority}}
+\hypertarget{notes}{%
+\section{Notes}\label{notes}}
 
-Now that you've chosen a naming authority you can use it to ensure
-consistency across your data set, but also check you haven't missed any
-species data from your download.
-
-\hypertarget{synonyms}{%
-\section{Synonyms}\label{synonyms}}
-
-There are two main types of taxonomic synonyms: \textbf{heterotypic} and
-\textbf{homotypic.} The type of synonym might dictate how you handle it.
-
-Homotypic: a name base on the same type as that of another name,
-objective synonym {[}IAPT{]}
-
-Heterotypic: a name based on a type different from that of another name
-referring to the same taxon {[}IAPT{]}
-
-Synonyms can be annoying to deal with when working with open source
-data, and they can appear because of multiple reasons
+\hypertarget{this-has-lots-all-meaning}{%
+\subsubsection{This has lots all
+meaning}\label{this-has-lots-all-meaning}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Taxonomy changes over time, a record from the 1950s might have a name
-  that is no longer used for the species
-\item
-  The scientific community doesn't always agree, there may be multiple
-  names, and taxonomic classifications for the same species
+  Downloading higher taxon data (kingdom:class) and then filtering for
+  what you need, as disparities are less common at higher levels (????
+  Check with Martin)
 \end{enumerate}
-
-Often naming authorities will have one they deem as accepted, and list
-others as synonyms. Biodiversity data repositories will have a preferred
-name according to the naming authority they use and display species data
-under this name with synonyms listed. Sometimes data doesn't parse
-correctly or maybe the data provider you're using recognizes the names
-as different species. Because of this it can be worth with:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Downloading higher taxon data and then filtering for what you need, as
-  disparities are less common at higher levels
-\item
-  Include synonyms of the species names you're interested in your
-  download
-\item
-  Download the original inputted name in fields such as
-  ``verbatimScientificName'' which reflects a pre-parsed scientific
-  name. This can be useful if conducting a spatial analyses
-\end{enumerate}
-
-Understanding if a species name has synonyms can also be useful for
-accessing literature. For example some \emph{Eucaluptus} species have
-been re-classified and old literature might refer to an old name you
-were unaware of. This can increase your access to potentially seminal
-literature about a species {[}REF{]}.
-
-\hypertarget{standardize-taxonomy}{%
-\section{Standardize taxonomy}\label{standardize-taxonomy}}
-
-The following steps assume that the taxonomic history of the included
-species is known and correct and out-of-date names and synonymy have
-been fixed.
-
-Ensure that the spelling is correct and fix errors as they appear. It is
-essential to decide on a standard way to record the scientific names and
-be consistent. For example, start with upper case and separate the names
-with an underline e.g.~``Moloch\_horridus''.
-
-It is also important to check the taxonomic hierarchy, make sure it's
-correct and nothing is missing, such as family, and order. You can often
-fill this information in using your chosen naming authority or referring
-back to an atlas such as the ALA.
-
-It's best practice to standardise and fix what you can before you start
-removing anything, this decreases the chance of removing more records
-than you need to.
-
-\begin{itemize}
-\item
-  Remove non-identifiable specimens: If a species is not discernible
-  after checking spelling and taxonomy, then it should be removed.
-\item
-  Remove records with insufficient taxon identification: If a record is
-  not identified down to the species level and this level of detail is
-  needed for the study, then the record should be removed.
-\item
-  Remove records with miss-identified taxonomy: Incorrectly identified
-  species, or unrecognized species names compared to a naming authority,
-  should be removed.
-
-  Note: Incorrectly identified specimens can be difficult to identify
-  with open source biodiversity data. Often these will be picked up by
-  1) an image of the species in question which does not match 2) If you
-  notice a species outside of its geographic range, this could be a true
-  outlier, it could be a spatial error, or it could be a different
-  species. (\textbf{see --- for more info})
-\end{itemize}
-
-\hypertarget{optional-taxonomic-cleaning}{%
-\subsection{Optional taxonomic
-cleaning}\label{optional-taxonomic-cleaning}}
-
-The following steps may not apply to your research interests, however
-this type of cleaning is commonly required.
-
-\begin{itemize}
-\item
-  Remove non-native species: This step is a common requirement. A list
-  can be obtained from the \href{https://griis.org/}{Global Register of
-  Introduced and Invasive Species (GRIIS)}
-\item
-  Remove domesticated specimens, sightings of dogs, cats, but also
-  garden species (\textbf{elaborate})
-\item
-  Remove extinct species: if you don't have a year filter on your data
-  you might have records of species that have become extinct in more
-  recent years.
-\item
-  Remove specific taxa/life stages depending on the study: For example,
-  if working with terrestrial data, it is necessary to remove marine
-  taxa.
-\end{itemize}
-
-\hypertarget{merge-datasets-from-different-infrastructures}{%
-\section{Merge datasets from different
-infrastructures}\label{merge-datasets-from-different-infrastructures}}
-
-(Park this for now may come after naming authority)
-
-If you have downloaded data from different sources, you likely will need
-to collate your data into a singular database.
-
-When combining data from multiple places, it is important to standardize
-the data fields and merge the data carefully (Ribeiro et al. 2022).
-There is a chance data will be incorrectly formatted and/or mislabeled.
-
-One of the main issues you might face if you've sourced data from
-different organisations/people is that higher taxonomy may not match- if
-this is the case, take a look at the ``taxonomy'' chapter for more
-information on how to deal with inconsistent taxonomy before merging!
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\DocumentationTok{\#\#example on formatting consistency, merging data together etc}
-\end{Highlighting}
-\end{Shaded}
 
 \bookmarksetup{startatroot}
 
 \hypertarget{sec-spatial}{%
 \chapter{Spatial data}\label{sec-spatial}}
 
-Now that you've been through the taxonomic cleaning steps it's time to
-clean up the spatial element. Now is a great time to plot your data onto
-a map again. Spatial errors are much easier to spot from a visual
-perspective. You may have flagged some records as being taxonomically
-incorrect, and it's important to keep those in mind as you go through
-these steps, you might come across more.
+You've been through the taxonomic cleaning steps so now it's time to
+clean up the spatial element. You may have flagged records as being
+taxonomically incorrect, it's important to keep those in mind as you go
+through the spatial cleaning steps as you might learn more about those
+records. We will discuss some different ways to check for spatial
+outliers as well as the removal of records in certain geographic areas
+known to be problematic.
 
-\hypertarget{coordinate-correction}{%
-\subsection{Coordinate correction}\label{coordinate-correction}}
+\hypertarget{quick-visualisation}{%
+\section{Quick visualisation}\label{quick-visualisation}}
 
-(\textbf{some of this is in the download chapter-unsure if we want to
-move it or keep it})
-
-You may have already fixed up some of these when you first downloaded
-your data, but now it's time to be more rigorous. As always we'll start
-with fixing data before discarding, many coordinates issues can be
-solved with data manipulation instead of discarding data:
-
-\begin{itemize}
-\item
-  Correct flipped coordinates: Flipped coordinates typically appear as a
-  clustering of points, whereby swapping the latitude and longitude will
-  place the coordinates where they are expected.
-
-  \emph{example map of some flipped coordinates (what to look for)}
-\item
-  Correct poorly formatted coordinates: Different datasets can provide
-  coordinates in different formats, so it is crucial to correct the
-  format of the coordinates before discarding any points.
-\item
-  Correct numerical sign confusion: As with flipped coordinates, if
-  there is a clustering of points mirrored to another hemisphere,
-  consider swapping the sign and correct rather than discarding the
-  points.
-
-  \emph{example map, like coordinates off the coast of japan}
-\item
-  Check for records with coordinates in a different country than is
-  listed in the country field: The coordinates could be wrong or just
-  the country listed. Note that the country should only be changed to
-  match the coordinates if the data is trustworthy.
-\item
-  (\textbf{Correct/check for records with locality but no
-  occurrence/georeference (if possible): If you have a good locality,
-  consider georeferencing for coordinates rather than discarding the
-  missing data entry. If the locality is not precise, this will likely
-  yield lower-quality data points.}) unsure of this step if we want to
-  go into georeferencing? or maybe point people to another resource
-\end{itemize}
+Now is a great time to plot your data onto a map again. Spatial errors
+are much easier to spot from a visual perspective.
 
 \hypertarget{coordinate-precision}{%
-\subsection{Coordinate precision}\label{coordinate-precision}}
+\section{Coordinate precision}\label{coordinate-precision}}
 
-Open source biodiversity data will be collected from many people with
-different tools and expertise, some record coordinates may have been
-recorded with a phone, some with a GPS, and some maybe just from a place
-name and coordinates added after the fact. Depending on the level of
-precision you need, you might consider discarding data that is not
-precise enough, or removing decimal places for data you know could not
-be that precise. At the ALA there is a ``cooridnateprecision''/
-``coordinateUncertainityIn Meters'' column you can download with the
-data which can sometime help discern the accuracy of the data (worth
-noting it's not always completed).
+Open access data will be collected from many people using different
+tools with varying expertise, some record coordinates may have been
+recorded with a phone, some with a GPS, or a place name and coordinates
+added after the fact. Depending on the level of precision you need, you
+might consider discarding data of lower precision, or removing decimal
+places for data you know could not be that precise. At the ALA there is
+a ``cooridnateprecision''/ ``coordinateUncertainityIn Meters'' assertion
+(\uline{see assertion section to download these with the data)}
 
 \includegraphics{./images/image-613988507.png}
 
 https://xkcd.wtf/2170/
 
-Realistically you will probably be working with between 2 and 5 decimal
-places. Studies often have different precision cut-offs. For example,
-coordinate precision below 100km represents the grain size of many
-macroecological analyses. Some studies have used a cut-off of spatial
-resolution \textgreater25,000m or precision with less than three decimal
-places (\textbf{add a reference here}). It is important to note that
-rasterized collections often have a significant proportion of records
-that might have low coordinate precision. Understanding the level of
-quality you need is important before removing/keeping large volumes of
-data.
+Coordinate precision below 100km represents the grain size of many
+macroecological analyses {[}Zizka et al. (2020b){]}. Some studies have
+used a cut-off of spatial resolution \textgreater25,000m or precision
+with less than three decimal places (\textbf{add a reference here}). It
+is important to note that rasterized collections often have a
+significant proportion of records that might have low coordinate
+precision. Understanding the level of quality you need is important
+before removing/keeping large volumes of data.
 
-\begin{itemize}
-\item
-  How to filter by \# of decimal places
-\end{itemize}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#How to filter by number of decimal places}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{coordinate-correction}{%
+\section{Coordinate correction}\label{coordinate-correction}}
+
+Some of these steps may have been completed in a pre-cleaning step,
+however it's now time to be more rigorous. As always we'll start with
+fixing data before discarding, many coordinates issues can be solved
+with data manipulation instead of discarding:
+
+\textbf{Flipped coordinates:} Flipped coordinates typically appear as a
+clustering of points, whereby swapping the latitude and longitude will
+place the coordinates where they are expected.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#example map of some flipped coordinates (what to look for)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Numerical sign confusion:} As with flipped coordinates, if there
+is a clustering of points mirrored to another hemisphere, consider
+swapping the sign and correct rather than discarding the points.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#example map, like coordinates off the coast of japan}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Country field doesn't match coordinates:} The coordinates could
+be wrong or just the country listed.
 
 \hypertarget{coordinate-cleaning}{%
-\subsection{Coordinate cleaning}\label{coordinate-cleaning}}
+\section{Coordinate cleaning}\label{coordinate-cleaning}}
 
-Now that you've gone through and fixed what you can, it's time to remove
-records that still have errors. This doesn't mean removing outliers,
-we'll talk about those later.
+Once you have fixed everything you can, it's time to remove records that
+still have errors. This doesn't mean removing all outliers, you must
+have more than ``it's far away from the others'' to justify a records
+removal.
 
-\begin{itemize}
-\item
-  Remove records with null or missing coordinates. This will be records
-  missing partial or complete information. Missing values can cause
-  errors, many analytical tools do not respond well to missing values.
-  If you can't find the information elsewhere, it's best to remove it.
-\item
-  Remove records where longitude and latitude are equal: High likelihood
-  that this is not where the record was recorded and, therefore, should
-  be checked and (possibly) removed.
-\item
-  Remove records with zero coordinates {[}that could not be
-  georeferenced{]}: When plotting it on a map, zero coordinates will be
-  found around the point at zero latitudes and longitudes. These records
-  will not accurately represent their valid location and must be
-  removed.
-\item
-  Remove records plotted away from the known area of distribution of the
-  species. It is essential to check the metadata to ensure that it is a
-  data entry error and not a real outlier. In some cases, it's worth
-  checking the literature before discarding records like these. These
-  can also be mis-identified species, if you're working with data from
-  many species, and you find a species point in amongst the
-  environmental bounds of a similar looking species it might be worth
-  going back to the original record and taking a closer look. However,
-  if no images exist it might be difficult to determine if it is a
-  taxonomic or spatial issue.
+\textbf{Remove records with null or missing coordinates:} This will be
+records missing partial or complete information. Missing values can
+cause errors, many analytical tools do not respond well to missing
+values. If you can't find the information elsewhere, it's best to remove
+it.
 
-  There are several ways of dealing with this issue, but one option can
-  be to mask data to remove points from falling off a determined area.
-\item
-  Remove records with coordinates assigned to country and province
-  centroids: There are many fonts that deal with centroid data, such as
-  Centre of Country, botanic gardens, zoos, country capitals,
-  biodiversity institutions, urban areas, and gbif headquarters. This
-  issue can happen for several reasons and sometimes can be tricky to
-  spot. Exploratory visuals can help support findings, making it easier
-  to spot clusterings of points.
+\textbf{Remove records where longitude and latitude are equal:} High
+likelihood that this is not where the record was recorded and, check
+first, however likely will need to remove
 
-  Centroids are common when records are being assigned from
-  georeferencing based on vague locality descriptions or from incorrect
-  georeferencing. Sometimes, records are erroneously entered with the
-  physical location of the specimen or because they represent
-  individuals from captivity or horticulture, which were not clearly
-  labeled as such.
+\textbf{Remove records with zero coordinates:} When plotting it on a
+map, zero coordinates will be found around the point at zero latitudes
+and longitudes. These records will not accurately represent their valid
+location and must be removed.
 
-  In a few cases, zoos and botanic gardens might be where the record was
-  sighted. However, in this case, it is not naturally occurring and
-  should be removed. Records in urban areas may not want to be removed
-  by everyone, but it is essential to note that it could be old data or
-  have vague locality descriptions.
-\end{itemize}
+Remove records plotted away from the known area of distribution of the
+species. It is essential to check the metadata to ensure that it is a
+data entry error and not a real outlier. In some cases, it's worth
+checking the literature before discarding records like these. These can
+also be mis-identified species, if you're working with data from many
+species, and you find a species point in amongst the environmental
+bounds of a similar looking species it might be worth going back to the
+original record and taking a closer look. However, if no images exist it
+might be difficult to determine if it is a taxonomic or spatial
+issue.There are several ways of dealing with this issue, but one option
+can be to mask data to remove points from falling off a determined area.
+--\textgreater{} unsure about this bit
 
-\begin{itemize}
-\tightlist
-\item
-  Remove records outside of the country of interest: In some cases,
-  records outside the country of origin may be outliers. In other cases,
-  they may be perfectly valid. It is important to analyze case-by-case
-  and remove the record if necessary.
-\end{itemize}
+\hypertarget{optional-record-removal}{%
+\section{Optional record removal}\label{optional-record-removal}}
+
+Remove records with coordinates assigned to country and province
+centroids: such as Centre of Country, botanic gardens, zoos, country
+capitals, biodiversity institutions, urban areas, and gbif headquarters.
+In some cases these records will haven actually been recorded at a zoo
+for example, in other cases this is often incorrectly georeferenced
+records. They can be tricky to spot but there are a few packages that
+deal with centroid data. Exploratory visuals can also help support
+findings, making it easier to spot clusterings of points.
+
+Centroids are common when records are being assigned from georeferencing
+based on vague locality descriptions or from incorrect georeferencing.
+Sometimes, records are erroneously entered with the physical location of
+the specimen or because they represent individuals from captivity or
+horticulture, which were not clearly labeled as such.
+
+In a few cases, zoos and botanic gardens might be where the record was
+sighted. However, in this case, it is not naturally occurring and should
+be removed. Records in urban areas may not want to be removed by
+everyone, but it is essential to note that it could be old data or have
+vague locality descriptions.
+
+Remove records outside of the country of interest: In some cases,
+records outside the country of origin may be outliers. In other cases,
+they may be perfectly valid. It is important to analyze case-by-case and
+remove the record if necessary.
 
 \hypertarget{checklist-of-data-standardization}{%
 \section{Checklist of data
 standardization}\label{checklist-of-data-standardization}}
 
-Add here a downloadable checklist of issues to be checked.
+\bookmarksetup{startatroot}
+
+\hypertarget{notes-1}{%
+\chapter{Notes}\label{notes-1}}
+
+\hypertarget{missing-data}{%
+\section{Missing data}\label{missing-data}}
+
+(I wonder if this is really the place for this or better to just do this
+in the Spatial chapter)
+
+\begin{itemize}
+\tightlist
+\item
+  Remove records with no coordinates
+\end{itemize}
+
+\hypertarget{quick-visualiations}{%
+\section{Quick visualiations}\label{quick-visualiations}}
+
+A graphic plot of your data can be very telling and can help you spot
+potential errors that may be due to formatting.
+
+\hypertarget{ggally}{%
+\subsection{GGally}\label{ggally}}
+
+A visual inspection of your entire dataset can save time and solve
+easy-to-spot errors.
+
+\hypertarget{quick-map}{%
+\subsection{Quick map}\label{quick-map}}
+
+(I wonder if this is really the place for this or better to just do this
+in the Spatial chapter)
+
+A simple way to visualize your data is to plot it on a map.
+
+\begin{itemize}
+\tightlist
+\item
+  Fix minor coordinates errors, such as inverted or badly formatted
+\end{itemize}
+
+\hypertarget{section}{%
+\subsection{}\label{section}}
 
 \bookmarksetup{startatroot}
 
@@ -1933,8 +2245,8 @@ with some being more difficult to work with than others.
 
 \bookmarksetup{startatroot}
 
-\hypertarget{outliers-and-final-checks}{%
-\chapter{Outliers and final checks}\label{outliers-and-final-checks}}
+\hypertarget{outliers}{%
+\chapter{Outliers}\label{outliers}}
 
 \#note from meeting with Martin this section might include some alpha
 hull examples for how to detect outliers, or how they can skew your
@@ -1948,12 +2260,23 @@ specimens, etc
 (\#note to double check what i wrote for support article around
 inconsistent sampling and open source data)
 
-\bookmarksetup{startatroot}
+\begin{itemize}
+\item
+  Alpha hull (some example species - check cailtin chat history)
+\item
+  SDM Shandiya?
+\item
+  Remove records with miss-identified taxonomy: Incorrectly identified
+  species, or unrecognized species names compared to a naming authority,
+  should be removed.
+\end{itemize}
 
-\hypertarget{work-example}{%
-\chapter{Work Example}\label{work-example}}
-
-Include here an workable example (maybe using galah?)
+Incorrectly identified specimens can be difficult to identify with open
+source biodiversity data. Often these will be picked up by 1) an image
+of the species in question which does not match 2) If you notice a
+species outside of its geographic range, this could be a true outlier,
+it could be a spatial error, or it could be a different species.
+(\textbf{see --- for more info})
 
 \bookmarksetup{startatroot}
 
@@ -1962,6 +2285,8 @@ Include here an workable example (maybe using galah?)
 
 \begin{itemize}
 \tightlist
+\item
+  final checks as a way summarise the book
 \item
   nice diagram
 \item
@@ -2121,19 +2446,17 @@ Aaron Greenville, Libby Rumpff, and John C. Z. Woinarski. 2022.
 2019--2020 {Australian} Megafires.''} \emph{Global Ecology and
 Biogeography} n/a (n/a). \url{https://doi.org/10.1111/geb.13550}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-ribeiro_bdc_2022}{}}%
-Ribeiro, Bruno R., Santiago José Elías Velazco, Karlo Guidoni-Martins,
-Geiziane Tessarolo, Lucas Jardim, Steven P. Bachman, and Rafael Loyola.
-2022. {``Bdc: {A} Toolkit for Standardizing, Integrating and Cleaning
-Biodiversity Data.''} \emph{Methods in Ecology and Evolution} 13 (7):
-1421--28. \url{https://doi.org/10.1111/2041-210X.13868}.
-
 \leavevmode\vadjust pre{\hypertarget{ref-rodrigues_species_2022}{}}%
 Rodrigues, Arthur Vinicius, Gabriel Nakamura, Vanessa Graziele
 Staggemeier, and Leandro Duarte. 2022. {``Species Misidentification
 Affects Biodiversity Metrics: {Dealing} with This Issue Using the New
 {R} Package {naturaList}.''} \emph{Ecological Informatics} 69 (July):
 101625. \url{https://doi.org/10.1016/j.ecoinf.2022.101625}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-rowley2020frogid}{}}%
+Rowley, Jodi JL, and Corey T Callaghan. 2020. {``The FrogID Dataset:
+Expert-Validated Occurrence Records of Australia's Frogs Collected by
+Citizen Scientists.''} \emph{ZooKeys} 912: 139.
 
 \leavevmode\vadjust pre{\hypertarget{ref-simoes2018utility}{}}%
 Simões, Marianna VP, and A Townsend Peterson. 2018. {``Utility and

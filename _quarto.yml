@@ -21,12 +21,12 @@ book:
     - download-data.qmd
     - preclean.qmd
     - taxonomy.qmd
+    - taxonomy-2.qmd
     - spatial.qmd
     - duplicates.qmd
     - outliers.qmd
-    - summary.qmd
-    - appendix.qmd
     - references.qmd
+    - appendix.qmd
 
 bibliography: references.bib
 

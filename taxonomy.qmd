@@ -214,6 +214,11 @@ Often naming authorities will have one they deem as accepted, and list others as
 
 {Taxize}
 
+```{r}
+worrms::wm_synonyms(id = 105706)
+```
+
+
 
 
 ## Input from experts
