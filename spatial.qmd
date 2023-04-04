@@ -18,7 +18,7 @@ Open access data will be collected from many people using different tools with v
 
 https://xkcd.wtf/2170/
 
-Coordinate precision below 100km represents the grain size of many macroecological analyses \[@zizka2020\]. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places (**add a reference here**). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
+Coordinate precision below 100km represents the grain size of many macroecological analyses [@zizka2020]. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places (**add a reference here**). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
 
 ```{r}
 #How to filter by number of decimal places
@@ -28,19 +28,36 @@ Coordinate precision below 100km represents the grain size of many macroecologic
 
 Some of these steps may have been completed in a pre-cleaning step, however it's now time to be more rigorous. As always we'll start with fixing data before discarding, many coordinates issues can be solved with data manipulation instead of discarding:
 
-**Flipped coordinates:** Flipped coordinates typically appear as a clustering of points, whereby swapping the latitude and longitude will place the coordinates where they are expected.
+**Flipped coordinates:** Flipped coordinates typically appear as a clustering of points, whereby swapping the latitude and longitude will place the coordinates where they are expected. [@jin2020]
 
 ```{r}
-#example map of some flipped coordinates (what to look for)
+#example map of some flipped coordinates (what to look for) 
+# https://www.gbif.org/occurrence/3013406216 this has flipped coordinates, which GBIF has corrected
+# https://www.gbif.org/occurrence/search?q=mammalia&continent=SOUTH_AMERICA&has_coordinate=true&has_geospatial_issue=false&issue=PRESUMED_SWAPPED_COORDINATE&advanced=1. ## the issue and flag is called 'presumed swapped coordinate' 
 ```
 
 **Numerical sign confusion:** As with flipped coordinates, if there is a clustering of points mirrored to another hemisphere, consider swapping the sign and correct rather than discarding the points.
 
 ```{r}
 #example map, like coordinates off the coast of japan
+
+# https://biocache.ala.org.au/occurrences/search?q=lsid%3Ahttps%3A%2F%2Fid.biodiversity.org.au%2Ftaxon%2Fapni%2F51360942&qualityProfile=CSDM&radius=50&lat=35.66845370835343&lon=138.9990234375#tab_recordsView
+
+# eucs <- galah_call() %>% 
+#  galah_identify("Eucalyptus") %>%
+#  galah_filter( year == 2005, 
+#             dataResourceName == "The University of Melbourne Herbarium (MELU) AVH data") %>%
+#  atlas_occurrences()
+
 ```
 
 **Country field doesn't match coordinates:** The coordinates could be wrong or just the country listed.
+
+```{r}
+## this doesnt seem to be very common- atleast not in ALA data- because there is no neighboring country
+# https://biocache.ala.org.au/occurrences/a34fca43-9e7c-4b37-8fe4-07cc18369465 Australian coordinates, country listed as Trinidad and Tobago
+# https://www.gbif.org/occurrence/search?advanced=true&continent=SOUTH_AMERICA&geometry=POLYGON((-78.74961%20-8.25249,-76.29838%20-8.25249,-76.29838%20-4.74121,-78.74961%20-4.74121,-78.74961%20-8.25249))&has_coordinate=true&issue=COUNTRY_MISMATCH&locale=en&q=reptilia   # GBIF example- reptiles located in Peru, originally recorded as Ecuador
+```
 
 ## Coordinate cleaning
 
@@ -51,6 +68,13 @@ Once you have fixed everything you can, it's time to remove records that still h
 **Remove records where longitude and latitude are equal:** High likelihood that this is not where the record was recorded and, check first, however likely will need to remove
 
 **Remove records with zero coordinates:** When plotting it on a map, zero coordinates will be found around the point at zero latitudes and longitudes. These records will not accurately represent their valid location and must be removed.
+```{r}
+#zero coordinates acacia 
+
+#https://biocache.ala.org.au/occurrences/search?q=lsid%3Ahttps%3A%2F%2Fid.biodiversity.org.au%2Ftaxon%2Fapni%2F51382879&disableAllQualityFilters=true&qualityProfile=ALA&fq=spatiallyValid%3A%22false%22&radius=25&lat=-0.024032592068740033&lon=-0.06591796875#tab_recordsView 
+```
+
+
 
 ```{r}
 
@@ -78,8 +102,8 @@ Remove records outside of the country of interest: In some cases, records outsid
 
 ## Checklist of data standardization
 
-
 # Notes
+
 ## Missing data
 
 (I wonder if this is really the place for this or better to just do this in the Spatial chapter)
