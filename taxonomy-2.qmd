@@ -4,7 +4,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Extended Taxonomy
+# Taxonomy II
 
 ```{r, setup, include=FALSE}
 
@@ -222,27 +222,38 @@ filter(str_detect(genus, pattern = regex(paste0(extinct_genus, collapse="|")))) 
 check
 ```
 
-Another option is to use the IUCN 
+Another option is to use the IUCN to retrieve a list of extinct species
 
 https://apiv3.iucnredlist.org/api/v3/docs#species-category
 https://docs.ropensci.org/crul/articles/crul.html
 
 ```{r, eval=FALSE}
 library(rredlist)
+library(skimr)
 
 # Create IUCN token
-usethis::edit_r_environ()
-rredlist::rl_use_iucn()
+rredlist::rl_use_iucn() # Application can take a day or two!
+usethis::edit_r_environ() # Place the approved token in your R environment
 
-rl_sp_category_('EX')
+extinct_iucn <- rl_sp_category('EX')
+skim(extinct_iucn)
+
+extinct_sp <- extinct_iucn$result |> tibble() # Note these are extinct species across the globe
+
+# Find matches
+inverts |> filter(scientificName %in% extinct_sp$scientific_name) # No matches
 ```
 
 ### Certain lifestges
 
-sex, reproductive condition
-
 ```{r}
-# lifeStage
+bilby <- galah_call() |> 
+  galah_identify("Macrotis lagotis") |> 
+  galah_filter(year == 2022) |> 
+  galah_select(group = "basic", sex, lifeStage, reproductiveCondition) |> 
+  atlas_occurrences()
+
+
 ```
 
 ### Marine species
