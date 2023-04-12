@@ -10,7 +10,6 @@
   oneside]{scrreprt}
 
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -20,6 +19,10 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else  
+    % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -39,7 +42,7 @@
 \makeatother
 \usepackage{xcolor}
 \usepackage[left=1in,marginparwidth=2.0666666666667in,textwidth=4.1333333333333in,marginparsep=0.3in]{geometry}
-\usepackage[normalem]{ulem}
+\usepackage{soul}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
@@ -187,10 +190,12 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 \makeatletter
-\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
 \makeatother
 \makeatletter
 \@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
 \makeatother
 \makeatletter
 \@ifpackageloaded{sidenotes}{}{\usepackage{sidenotes}}
@@ -219,7 +224,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, borderline west={3pt}{0pt}{shadecolor}, interior hidden, boxrule=0pt, sharp corners, breakable, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, frame hidden, boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, enhanced]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -494,7 +499,7 @@ unit. This could be a threatened species or a broad taxonomic group. The
 download query is performed using the scientific name or name of the
 taxonomic group.
 
-\includegraphics{./scope_files/figure-pdf/unnamed-chunk-1-1.pdf}
+\includegraphics{scope_files/figure-pdf/unnamed-chunk-1-1.pdf}
 
 \marginnote{\begin{footnotesize}
 
@@ -504,7 +509,7 @@ Curious what \emph{Lampromicra senator} looks like?
 
 {\centering 
 
-\href{https://images.ala.org.au/store/4/8/8/4/1f4fc763-d21f-4e5d-b803-f931a4c14884/tms/3/2/1.png}{\includegraphics[width=8.33333in,height=\textheight]{./images/Lampromicra.jpeg}}
+\href{https://images.ala.org.au/store/4/8/8/4/1f4fc763-d21f-4e5d-b803-f931a4c14884/tms/3/2/1.png}{\includegraphics[width=8.33333in,height=\textheight]{images/Lampromicra.jpeg}}
 
 }
 
@@ -523,7 +528,7 @@ In this case, the region name or area boundaries can be used to delimit
 the area of interest. The example below shows all Insecta orders in the
 state of Tasmania in Australia
 
-\includegraphics{./scope_files/figure-pdf/unnamed-chunk-2-1.pdf}
+\includegraphics{scope_files/figure-pdf/unnamed-chunk-2-1.pdf}
 
 \hypertarget{naming-authorities}{%
 \section{Naming authorities}\label{naming-authorities}}
@@ -597,7 +602,7 @@ authorities in a hierarchical format:
 (note image is from a helpfile I wrote- we can re-do it so it's
 consistent with the style of this document)
 
-\includegraphics{./images/image-1066364510.png}
+\includegraphics{images/image-1066364510.png}
 
 With all that, open source data has many pros, so how does one deal with
 taxonomic inconsistencies to get the most accurate data in the end?
@@ -1118,8 +1123,11 @@ Here is the \texttt{skimr} report for our African elephant dataset we
 
 \begin{longtable}[]{@{}ll@{}}
 \caption{Data summary}\tabularnewline
-\toprule()
+\toprule\noalign{}
+\endfirsthead
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Name & african\_ele \\
 Number of rows & 12537 \\
 Number of columns & 50 \\
@@ -1131,7 +1139,6 @@ numeric & 15 \\
 POSIXct & 3 \\
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ & \\
 Group variables & None \\
-\bottomrule()
 \end{longtable}
 
 \textbf{Variable type: character}
@@ -1145,7 +1152,7 @@ Group variables & None \\
   >{\raggedleft\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0659}}
   >{\raggedleft\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.0989}}
   >{\raggedleft\arraybackslash}p{(\columnwidth - 14\tabcolsep) * \real{0.1209}}@{}}
-\toprule()
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 skim\_variable
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
@@ -1163,8 +1170,10 @@ n\_unique
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 whitespace
 \end{minipage} \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 datasetKey & 0 & 1.00 & 36 & 36 & 0 & 132 & 0 \\
 occurrenceID & 708 & 0.94 & 1 & 81 & 0 & 11787 & 0 \\
 kingdom & 0 & 1.00 & 8 & 8 & 0 & 1 & 0 \\
@@ -1197,18 +1206,18 @@ recordedBy & 2138 & 0.83 & 1 & 160 & 0 & 1972 & 0 \\
 establishmentMeans & 12249 & 0.02 & 6 & 6 & 0 & 1 & 0 \\
 mediaType & 5021 & 0.60 & 5 & 16 & 0 & 4 & 0 \\
 issue & 397 & 0.97 & 15 & 191 & 0 & 130 & 0 \\
-\bottomrule()
 \end{longtable}
 
 \textbf{Variable type: logical}
 
 \begin{longtable}[]{@{}lrrrl@{}}
-\toprule()
+\toprule\noalign{}
 skim\_variable & n\_missing & complete\_rate & mean & count \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 typeStatus & 12537 & 0 & NaN & : \\
-\bottomrule()
 \end{longtable}
 
 \textbf{Variable type: numeric}
@@ -1225,7 +1234,7 @@ typeStatus & 12537 & 0 & NaN & : \\
   >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.0850}}
   >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.0850}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.0392}}@{}}
-\toprule()
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 skim\_variable
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
@@ -1249,8 +1258,10 @@ p100
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 hist
 \end{minipage} \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 gbifID & 0 & 1.00 & 2535815516.94 & 960444243.67 & 49926810.00 &
 1802649142.00 & 2465251941.00 & 3.351048e+09 & 4.029318e+09 & ▁▅▇▅▇ \\
 individualCount & 10226 & 0.18 & 4.81 & 14.03 & 0.00 & 1.00 & 1.00 &
@@ -1281,7 +1292,6 @@ taxonKey & 0 & 1.00 & 2517047.48 & 747546.46 & 2435350.00 & 2435350.00 &
 2435350.00 & 2.435350e+06 & 1.150335e+07 & ▇▁▁▁▁ \\
 speciesKey & 0 & 1.00 & 2435350.00 & 0.00 & 2435350.00 & 2435350.00 &
 2435350.00 & 2.435350e+06 & 2.435350e+06 & ▁▁▇▁▁ \\
-\bottomrule()
 \end{longtable}
 
 \textbf{Variable type: POSIXct}
@@ -1294,7 +1304,7 @@ speciesKey & 0 & 1.00 & 2435350.00 & 0.00 & 2435350.00 & 2435350.00 &
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1835}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1835}}
   >{\raggedleft\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0826}}@{}}
-\toprule()
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 skim\_variable
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
@@ -1310,15 +1320,16 @@ median
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 n\_unique
 \end{minipage} \\
-\midrule()
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 eventDate & 997 & 0.92 & 1799-01-01 00:00:00 & 2023-02-07 09:17:14 &
 2016-02-07 12:00:00 & 8324 \\
 dateIdentified & 4150 & 0.67 & 1783-01-01 00:00:00 & 2023-02-07 21:51:36
 & 2020-04-16 19:35:25 & 7242 \\
 lastInterpreted & 0 & 1.00 & 2023-01-24 14:57:46 & 2023-02-14 01:52:09 &
 2023-02-13 16:01:27 & 10885 \\
-\bottomrule()
 \end{longtable}
 
 \hypertarget{structural-inconsistencies}{%
@@ -1590,13 +1601,13 @@ As an example:
 
 \begin{verbatim}
               .    n     percent valid_percent
-    Cycadopsida    3 0.001443001   0.001447178
-  Equisetopsida  192 0.092352092   0.092619392
- Lycopodiopsida   10 0.004810005   0.004823927
-  Magnoliopsida 1841 0.885521886   0.888084901
-      Pinopsida    5 0.002405002   0.002411963
- Polypodiopsida   22 0.010582011   0.010612639
-           <NA>    6 0.002886003            NA
+    Cycadopsida    2 0.000962001   0.000965717
+  Equisetopsida  169 0.081289081   0.081603090
+ Lycopodiopsida   14 0.006734007   0.006760019
+  Magnoliopsida 1870 0.899470899   0.902945437
+      Pinopsida    3 0.001443001   0.001448576
+ Polypodiopsida   13 0.006253006   0.006277161
+           <NA>    8 0.003848004            NA
 \end{verbatim}
 
 \begin{Shaded}
@@ -1609,13 +1620,13 @@ As an example:
 \end{Shaded}
 
 \begin{verbatim}
-                .   n      percent valid_percent
-      Alismatales   9 0.0043290043   0.004702194
-          Apiales  38 0.0182780183   0.019853710
-      Asparagales  64 0.0307840308   0.033437827
-        Asterales 178 0.0856180856   0.092998955
- Austrobaileyales   6 0.0028860029   0.003134796
-      Brassicales   1 0.0004810005   0.000522466
+                .   n     percent valid_percent
+      Alismatales   4 0.001924002   0.002160994
+          Apiales  31 0.014911015   0.016747704
+      Asparagales  68 0.032708033   0.036736899
+        Asterales 163 0.078403078   0.088060508
+ Austrobaileyales   7 0.003367003   0.003781740
+       Canellales   3 0.001443001   0.001620746
 \end{verbatim}
 
 \begin{Shaded}
@@ -1628,13 +1639,13 @@ As an example:
 \end{Shaded}
 
 \begin{verbatim}
-            .  n     percent valid_percent
- Wahlenbergia  3 0.001443001   0.001482946
-   Westringia  5 0.002405002   0.002471577
-    Xanthosia 12 0.005772006   0.005931784
-        Xyris  4 0.001924002   0.001977261
-       Zieria 13 0.006253006   0.006426100
-         <NA> 56 0.026936027            NA
+          .  n     percent valid_percent
+      Viola  3 0.001443001   0.001493280
+ Westringia  9 0.004329004   0.004479841
+  Xanthosia 10 0.004810005   0.004977601
+      Xyris  3 0.001443001   0.001493280
+     Zieria 10 0.004810005   0.004977601
+       <NA> 70 0.033670034            NA
 \end{verbatim}
 
 \hypertarget{missing-higher-taxonomy}{%
@@ -1668,20 +1679,20 @@ chunk where message = TRUE for hits
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 43 x 1
-   species              
-   <chr>                
- 1 Pultenaea polifolia  
- 2 Acacia mabellae      
- 3 Hovea pedunculata    
- 4 Acacia echinula      
- 5 Acacia hamiltoniana  
- 6 Adenochilus nortonii 
- 7 Acacia filicifolia   
- 8 Dillwynia brunioides 
- 9 Bossiaea rupicola    
-10 Almaleea subumbellata
-# i 33 more rows
+# A tibble: 52 x 1
+   species               
+   <chr>                 
+ 1 Hovea similis         
+ 2 Acacia matthewii      
+ 3 Mirbelia confertiflora
+ 4 Pultenaea polifolia   
+ 5 Pultenaea vrolandii   
+ 6 Acacia echinula       
+ 7 Podolobium aestivum   
+ 8 Thelychiton speciosus 
+ 9 Acacia subtilinervis  
+10 Acacia obtusifolia    
+# i 42 more rows
 \end{verbatim}
 
 \begin{Shaded}
@@ -1691,20 +1702,20 @@ chunk where message = TRUE for hits
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 43 x 1
-   search_term          
-   <chr>                
- 1 Pultenaea polifolia  
- 2 Acacia mabellae      
- 3 Hovea pedunculata    
- 4 Acacia echinula      
- 5 Acacia hamiltoniana  
- 6 Adenochilus nortonii 
- 7 Acacia filicifolia   
- 8 Dillwynia brunioides 
- 9 Bossiaea rupicola    
-10 Almaleea subumbellata
-# i 33 more rows
+# A tibble: 52 x 1
+   search_term           
+   <chr>                 
+ 1 Hovea similis         
+ 2 Acacia matthewii      
+ 3 Mirbelia confertiflora
+ 4 Pultenaea polifolia   
+ 5 Pultenaea vrolandii   
+ 6 Acacia echinula       
+ 7 Podolobium aestivum   
+ 8 Thelychiton speciosus 
+ 9 Acacia subtilinervis  
+10 Acacia obtusifolia    
+# i 42 more rows
 \end{verbatim}
 
 \hypertarget{insufficient-taxonomic-rank}{%
@@ -1837,20 +1848,20 @@ inconsistencies first
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 631 x 3
+# A tibble: 633 x 3
    .                                       n  percent
    <chr>                               <int>    <dbl>
- 1 Acacia alaticaulis                      2 0.000962
+ 1 Acacia asparagoides                     2 0.000962
  2 Acacia barringtonensis                  2 0.000962
- 3 Acacia beadleana                        2 0.000962
- 4 Acacia betchei                          4 0.00192 
- 5 Acacia brunioides subsp. brunioides     6 0.00289 
- 6 Acacia brunioides subsp. granitica      1 0.000481
+ 3 Acacia betchei                          5 0.00241 
+ 4 Acacia blayana                          1 0.000481
+ 5 Acacia brunioides                       1 0.000481
+ 6 Acacia brunioides subsp. brunioides     9 0.00433 
  7 Acacia bulgaensis                       2 0.000962
- 8 Acacia cangaiensis                      5 0.00241 
- 9 Acacia chalkeri                         4 0.00192 
-10 Acacia clunies-rossiae                  1 0.000481
-# i 621 more rows
+ 8 Acacia cangaiensis                      1 0.000481
+ 9 Acacia chalkeri                         1 0.000481
+10 Acacia clandullensis                    2 0.000962
+# i 623 more rows
 \end{verbatim}
 
 Consistent taxonomic formatting may not be an issue if you are
@@ -1874,20 +1885,20 @@ separated with a space. Remember to check your changes
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 631 x 3
+# A tibble: 633 x 3
    .                                       n  percent
    <chr>                               <int>    <dbl>
- 1 Acacia_alaticaulis                      2 0.000962
+ 1 Acacia_asparagoides                     2 0.000962
  2 Acacia_barringtonensis                  2 0.000962
- 3 Acacia_beadleana                        2 0.000962
- 4 Acacia_betchei                          4 0.00192 
- 5 Acacia_brunioides_subsp._brunioides     6 0.00289 
- 6 Acacia_brunioides_subsp._granitica      1 0.000481
+ 3 Acacia_betchei                          5 0.00241 
+ 4 Acacia_blayana                          1 0.000481
+ 5 Acacia_brunioides                       1 0.000481
+ 6 Acacia_brunioides_subsp._brunioides     9 0.00433 
  7 Acacia_bulgaensis                       2 0.000962
- 8 Acacia_cangaiensis                      5 0.00241 
- 9 Acacia_chalkeri                         4 0.00192 
-10 Acacia_clunies-rossiae                  1 0.000481
-# i 621 more rows
+ 8 Acacia_cangaiensis                      1 0.000481
+ 9 Acacia_chalkeri                         1 0.000481
+10 Acacia_clandullensis                    2 0.000962
+# i 623 more rows
 \end{verbatim}
 
 \hypertarget{synonyms}{%
@@ -1908,6 +1919,25 @@ others as synonyms. Here is an
 do people retrieve these from the AFD?)
 
 \{Taxize\}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{worrms}\SpecialCharTok{::}\FunctionTok{wm\_synonyms}\NormalTok{(}\AttributeTok{id =} \DecValTok{105706}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 27
+  AphiaID url   scientificname authority status unacceptreason taxonRankID rank 
+    <int> <chr> <chr>          <chr>     <chr>  <chr>                <int> <chr>
+1  148832 http~ Rhiniodontidae Müller &~ unacc~ synonym                140 Fami~
+# i 19 more variables: valid_AphiaID <int>, valid_name <chr>,
+#   valid_authority <chr>, parentNameUsageID <int>, kingdom <chr>,
+#   phylum <chr>, class <chr>, order <chr>, family <chr>, genus <lgl>,
+#   citation <chr>, lsid <chr>, isMarine <lgl>, isBrackish <lgl>,
+#   isFreshwater <lgl>, isTerrestrial <int>, isExtinct <lgl>, match_type <chr>,
+#   modified <chr>
+\end{verbatim}
 
 \hypertarget{input-from-experts}{%
 \section{Input from experts}\label{input-from-experts}}
@@ -1986,6 +2016,457 @@ meaning}\label{this-has-lots-all-meaning}}
   Check with Martin)
 \end{enumerate}
 
+\#\#fiddling with fake data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plants }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/Curated\_Plant\_and\_Invertebrate\_Data\_for\_Bushfire\_Modelling/vascularplant.data.csv"}\NormalTok{)}
+
+
+\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(record\_id}\SpecialCharTok{:}\NormalTok{longitude\_used) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{latitude =}\NormalTok{ latitude\_used,}
+         \AttributeTok{longitude =}\NormalTok{ longitude\_used) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{sample\_frac}\NormalTok{(}\FloatTok{0.05}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{write\_csv\_arrow}\NormalTok{(}\AttributeTok{sink =} \StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/dap/plant\_subset.csv"}\NormalTok{)}
+
+\NormalTok{plants }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/dap/plant\_subset.csv"}\NormalTok{)}
+
+\DocumentationTok{\#\#\# Making some fake missing data}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+\NormalTok{tobemissing }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(order }\SpecialCharTok{==} \StringTok{"Fabales"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{sample\_frac}\NormalTok{(}\FloatTok{0.15}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(scientific\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{unique}\NormalTok{()}
+
+\NormalTok{plants }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{order =} \FunctionTok{ifelse}\NormalTok{(scientific\_name }\SpecialCharTok{\%in\%}\NormalTok{ tobemissing, }\ConstantTok{NA}\NormalTok{, order)) }\CommentTok{\# 40 species}
+
+\CommentTok{\#try inverts }
+\NormalTok{inverts}\OtherTok{\textless{}{-}}\FunctionTok{read\_csv}\NormalTok{(}\StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/Curated\_Plant\_and\_Invertebrate\_Data\_for\_Bushfire\_Modelling/invertebrate.data.csv"}\NormalTok{)}
+
+
+\NormalTok{inverts }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(record\_id}\SpecialCharTok{:}\NormalTok{longitude) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{sample\_frac}\NormalTok{(}\FloatTok{0.01}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{write\_csv\_arrow}\NormalTok{(}\AttributeTok{sink =} \StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/dap/invert\_subset.csv"}\NormalTok{)}
+
+\NormalTok{inverts }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/dap/invert\_subset.csv"}\NormalTok{)}
+
+\DocumentationTok{\#\#\# Making some fake missing data}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{5}\NormalTok{)}
+
+\NormalTok{tobemissing }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(class }\SpecialCharTok{==} \StringTok{"Arachnida"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{sample\_frac}\NormalTok{(}\FloatTok{0.3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(scientific\_name) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{unique}\NormalTok{()}
+
+\NormalTok{inverts }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class =} \FunctionTok{ifelse}\NormalTok{(scientific\_name }\SpecialCharTok{\%in\%}\NormalTok{ tobemissing, }\ConstantTok{NA}\NormalTok{, class))}
+
+\CommentTok{\#try and backfill}
+\NormalTok{to\_search }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(class)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(scientific\_name) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{()}
+
+\NormalTok{to\_search}\OtherTok{\textless{}{-}}\NormalTok{ to\_search}\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{scientificName =}\NormalTok{ scientific\_name)}
+
+\NormalTok{back\_filled\_arachnida}\OtherTok{\textless{}{-}}\NormalTok{galah}\SpecialCharTok{::}\FunctionTok{search\_taxa}\NormalTok{(to\_search) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tibble}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{taxonomy-ii}{%
+\chapter{Taxonomy II}\label{taxonomy-ii}}
+
+\hypertarget{joining-datasets-from-different-infrastructures}{%
+\section{Joining datasets from different
+infrastructures}\label{joining-datasets-from-different-infrastructures}}
+
+If you have downloaded data from different sources, you likely will need
+to collate your data into a singular database. It is important to make
+sure fields that have the same, are indeed the same variable, so prior
+to merging - take the time cross check the meta-data from different data
+providers (Ribeiro et al. 2022).
+
+\hypertarget{variable-names-and-case-format}{%
+\subsection{Variable names and case
+format}\label{variable-names-and-case-format}}
+
+Data providers will have their own naming conventions for variables. For
+example, World Register of Marine Species uses a combination of lower
+case e.g scientific\_name and camel case e.g isExtinct. While the naming
+authority - Australian Fauna Directory (AFD) uses upper, snake case
+e.g.~SCIENTIFIC\_NAME. What format you choose is a matter of personal
+preference, the key is to be consistent.
+
+Here we will subset the variables we want, reformat them to the lower
+snake case names and then join by \texttt{VALID\_NAME}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(stringr)}
+
+\NormalTok{habitat\_data }\OtherTok{\textless{}{-}}\NormalTok{ worms }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{select}\NormalTok{(valid\_name, }\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"is"}\NormalTok{)) }
+
+\FunctionTok{names}\NormalTok{(habitat\_data)[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{] }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "isMarine"      "isBrackish"    "isFreshwater"  "isTerrestrial"
+[5] "isExtinct"    
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new\_names }\OtherTok{\textless{}{-}} \FunctionTok{str\_split}\NormalTok{(}\FunctionTok{names}\NormalTok{(habitat\_data)[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{], }\AttributeTok{pattern =}  \StringTok{"(?\textless{}=[a{-}z])(?=[A{-}Z])"}\NormalTok{, }\AttributeTok{n =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}  \CommentTok{\# Seperate where case cases from lower to upper i.e. camel case}
+  \FunctionTok{map}\NormalTok{(}\AttributeTok{.x =}\NormalTok{ ., }
+      \AttributeTok{.f =} \SpecialCharTok{\textasciitilde{}}\FunctionTok{tolower}\NormalTok{(.x)) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# Convert to all lower case}
+    \FunctionTok{map}\NormalTok{(}\AttributeTok{.x =}\NormalTok{ ., }
+      \AttributeTok{.f =} \SpecialCharTok{\textasciitilde{}}\FunctionTok{str\_flatten}\NormalTok{(.x, }\StringTok{"\_"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}  \CommentTok{\# Bind the two seperated elements}
+  \FunctionTok{unlist}\NormalTok{()}
+  
+\NormalTok{new\_names}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "is_marine"      "is_brackish"    "is_freshwater"  "is_terrestrial"
+[5] "is_extinct"    
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Replace old with new}
+\FunctionTok{names}\NormalTok{(habitat\_data)[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ new\_names}
+
+\CommentTok{\# Join habitat data by VALID\_NAME}
+\NormalTok{afd }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{left\_join}\NormalTok{(habitat\_data, }\AttributeTok{by =} \FunctionTok{join\_by}\NormalTok{(VALID\_NAME }\SpecialCharTok{==}\NormalTok{ valid\_name))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 49 x 37
+   GROUP_NAME HIGHER_CLASSIFICATION    KINGDOM PHYLUM SUBPHYLUM SUPERCLASS CLASS
+   <chr>      <chr>                    <chr>   <chr>  <chr>     <lgl>      <chr>
+ 1 ANNELIDA   Phylum ANNELIDA, Class ~ ANIMAL~ ANNEL~ <NA>      NA         POLY~
+ 2 ARTHROPODA Phylum ARTHROPODA, Subp~ ANIMAL~ ARTHR~ CRUSTACEA NA         MAXI~
+ 3 ARTHROPODA Phylum ARTHROPODA, Subp~ ANIMAL~ ARTHR~ CRUSTACEA NA         MALA~
+ 4 ARTHROPODA Phylum ARTHROPODA, Subp~ ANIMAL~ ARTHR~ HEXAPODA  NA         INSE~
+ 5 ARTHROPODA Phylum ARTHROPODA, Subp~ ANIMAL~ ARTHR~ CRUSTACEA NA         MALA~
+ 6 ARTHROPODA Phylum ARTHROPODA, Subp~ ANIMAL~ ARTHR~ HEXAPODA  NA         INSE~
+ 7 ARTHROPODA Phylum ARTHROPODA, Subp~ ANIMAL~ ARTHR~ CRUSTACEA NA         MALA~
+ 8 ARTHROPODA Phylum ARTHROPODA, Subp~ ANIMAL~ ARTHR~ CRUSTACEA NA         MALA~
+ 9 ARTHROPODA Phylum ARTHROPODA, Subp~ ANIMAL~ ARTHR~ CRUSTACEA NA         MALA~
+10 ARTHROPODA Phylum ARTHROPODA, Subp~ ANIMAL~ ARTHR~ CRUSTACEA NA         OSTR~
+# i 39 more rows
+# i 30 more variables: SUBCLASS <chr>, SUPERORDER <chr>, ORDER <chr>,
+#   SUBORDER <chr>, SUPERFAMILY <chr>, FAMILY <chr>, SUBFAMILY <chr>,
+#   SUPERTRIBE <lgl>, TRIBE <chr>, SUBTRIBE <lgl>, GENUS <chr>,
+#   SUB_GENUS <chr>, SPECIES <chr>, SUB_SPECIES <chr>, AUTHOR <chr>,
+#   YEAR <dbl>, CHANGED_COMBINATION <chr>, VALID_NAME <chr>,
+#   COMPLETE_NAME <chr>, SYNONYMS <chr>, CHANGED_COMB_NAMES <chr>, ...
+\end{verbatim}
+
+One issue you might face is that higher taxonomy from different
+providers may not match. If this is the case, we suggest choosing the
+data provider with the higher taxonomy that is consistent with your
+naming authority and use it to back fill the higher taxonomy of the
+other data sources
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{higher\_taxonomy }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(scientificName) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{distinct}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{search\_taxa}\NormalTok{()}
+
+\NormalTok{higher\_taxonomy}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 36 x 15
+   search_term     scientific_name scientific_name_auth~1 taxon_concept_id rank 
+   <chr>           <chr>           <chr>                  <chr>            <chr>
+ 1 Palirhoeus eat~ Palirhoeus eat~ (C.O. Waterhouse, 187~ https://biodive~ spec~
+ 2 Lasaea austral~ Lasaea austral~ (Lamarck, 1818)        https://biodive~ spec~
+ 3 Turbonilla tia~ Turbonilla tia~ May, 1911              https://biodive~ spec~
+ 4 Tucetona flabe~ Tucetona flabe~ (Tenison-Woods, 1878)  https://biodive~ spec~
+ 5 Achelia transf~ Achelia transf~ Stock, 1973            https://biodive~ spec~
+ 6 Coralliophila ~ Coralliophila ~ Kosuge, 1986           https://biodive~ spec~
+ 7 Amphitethya st~ Amphitethya st~ (Carter, 1886)         https://biodive~ spec~
+ 8 Australocyther~ Australocyther~ McKenzie, 1967         https://biodive~ spec~
+ 9 Plesiopenaeus ~ Plesiopenaeus ~ (Spence Bate, 1881)    https://biodive~ spec~
+10 Chlorodiloma c~ Chlorodiloma c~ (Philippi, 1849)       https://biodive~ spec~
+# i 26 more rows
+# i abbreviated name: 1: scientific_name_authorship
+# i 10 more variables: match_type <chr>, kingdom <chr>, phylum <chr>,
+#   class <chr>, order <chr>, family <chr>, genus <chr>, species <chr>,
+#   issues <chr>, vernacular_name <chr>
+\end{verbatim}
+
+Remember to always check your changes after!
+
+\hypertarget{extended-taxonomic-cleaning}{%
+\section{Extended taxonomic
+cleaning}\label{extended-taxonomic-cleaning}}
+
+Depending on your project's data scope, it may be necessary to remove
+certain groups of taxa. Below, we have provided a few examples. We will
+also briefly showcase \texttt{CoordinateCleaner} a useful R package for
+removing XX records.
+
+\hypertarget{introduced-or-invasive-species}{%
+\subsection{Introduced or Invasive
+species}\label{introduced-or-invasive-species}}
+
+Remove non-native species: This step is a common requirement. A list can
+be obtained from the \href{https://griis.org/download}{Global Register
+of Introduced and Invasive Species (GRIIS)}. The downloads are sorted my
+country. Once this list is read into R, you can proceed to exclude
+invasive species from your data as below:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(here)}
+
+\NormalTok{griis\_ls }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\FunctionTok{here}\NormalTok{(}\StringTok{"data/lists/GRIIS\_Australia\_20230331{-}121730.csv"}\NormalTok{))}
+
+\FunctionTok{glimpse}\NormalTok{(griis\_ls)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 2,979
+Columns: 16
+$ scientific_name                  <chr> "Oenothera longiflora L.", "Lampranth~
+$ scientific_name_type             <chr> "species", "species", "species", "spe~
+$ kingdom                          <chr> "Plantae", "Plantae", "Plantae", "Pla~
+$ establishment_means              <chr> "alien", "alien", "alien", "alien", "~
+$ is_invasive                      <chr> "null", "null", "null", "null", "null~
+$ occurrence_status                <chr> "present", "present", "present", "pre~
+$ checklist.name                   <chr> "Australia", "Australia", "Australia"~
+$ checklist.iso_countrycode_alpha3 <chr> "AUS", "AUS", "AUS", "AUS", "AUS", "A~
+$ accepted_name.species            <chr> "Oenothera longiflora", "Lampranthus ~
+$ accepted_name.kingdom            <chr> "Plantae", "Plantae", "Plantae", "Pla~
+$ accepted_name.phylum             <chr> "Tracheophyta", "Tracheophyta", "Trac~
+$ accepted_name.class              <chr> "Magnoliopsida", "Magnoliopsida", "Ma~
+$ accepted_name.order              <chr> "Myrtales", "Caryophyllales", "Erical~
+$ accepted_name.family             <chr> "Onagraceae", "Aizoaceae", "Ericaceae~
+$ accepted_name.habitat            <chr> "[\"terrestrial\"]", "[\"terrestrial\~
+$ accepted_name                    <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Note which species matched with GRIIS list}
+\NormalTok{matches }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(scientific\_name }\SpecialCharTok{\%in\%}\NormalTok{ griis\_ls}\SpecialCharTok{$}\NormalTok{accepted\_name.species)}
+\NormalTok{matches}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 13
+  record_id    scientific_name vernacular_name kingdom phylum class order family
+  <chr>        <chr>           <chr>           <chr>   <chr>  <chr> <chr> <chr> 
+1 c4a99881-6b~ Lysimachia jap~ Creeping Loose~ Plantae Trach~ Magn~ Eric~ Primu~
+2 143089c7-45~ Lysimachia jap~ Creeping Loose~ Plantae Trach~ Magn~ Eric~ Primu~
+# i 5 more variables: genus <chr>, species <chr>, subspecies <chr>,
+#   latitude <dbl>, longitude <dbl>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Exclude GRIIS matches}
+\NormalTok{plants\_no\_griis }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{ scientific\_name }\SpecialCharTok{\%in\%}\NormalTok{ matches)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{domesticated-species}{%
+\subsection{Domesticated species}\label{domesticated-species}}
+
+Remove domesticated specimens, sightings of dogs, cats, but also garden
+species.
+
+\hypertarget{extinct-species}{%
+\subsection{Extinct species}\label{extinct-species}}
+
+In most cases, a year filter during in your download query should remove
+\emph{most} extinct species.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(worrms)}
+
+\NormalTok{my\_species }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(scientificName) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{unique}\NormalTok{()}
+
+\NormalTok{extinct\_check }\OtherTok{\textless{}{-}} \FunctionTok{map\_dfr}\NormalTok{(my\_species,}
+       \FunctionTok{possibly}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{worrms}\SpecialCharTok{::}\FunctionTok{wm\_records\_name}\NormalTok{(}\AttributeTok{name =}\NormalTok{ .x) }\SpecialCharTok{|\textgreater{}} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{search\_term =}\NormalTok{ .x))}
+\NormalTok{)}
+
+\NormalTok{extinct\_check }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(isExtinct }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+If you are concerned that a year filter didn't capture all you extinct
+species, you can try the Interim Register of Marine and Nonmarine Genera
+\href{https://www.irmng.org/}{(IRMNG)}. The list is comprehensive and
+actively maintained, the only caveat is that a lot of its data doesn't
+go down to species level. As such, we recommend using the following
+approach to find \emph{potentially extinct} taxa and futher investigate
+the records that we are flagged.
+
+The required files can be downloadedfrom
+\href{https://www.irmng.org/export/}{here}. Once you have unzipped the
+file in your projected directory, we need to process the list a
+littlerbefore we use it to exclude extinct species.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(data.table)}
+\FunctionTok{library}\NormalTok{(janitor)}
+
+\CommentTok{\# Taxonomic info}
+\NormalTok{irmng\_taxa }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\StringTok{"data/lists/irmng/irmng\_taxon.txt"}\NormalTok{, }\AttributeTok{na.strings =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{))}
+
+\CommentTok{\# Species profile}
+\NormalTok{irmng\_sp }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\StringTok{"data/lists/irmng/irmng\_speciesprofile.txt"}\NormalTok{, }\AttributeTok{na.strings =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{))}
+
+\CommentTok{\# Precleaning }
+\NormalTok{awc\_pattern }\OtherTok{\textless{}{-}} \StringTok{"(awaiting allocation)"}
+\NormalTok{insed\_pattern }\OtherTok{\textless{}{-}} \StringTok{"incertae sedis"}
+
+\NormalTok{cleaned\_irmng\_taxa }\OtherTok{\textless{}{-}}\NormalTok{ irmng\_taxa }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class =} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{str\_detect}\NormalTok{(class, }\AttributeTok{pattern =} \FunctionTok{paste0}\NormalTok{(awc\_pattern,}\StringTok{"|"}\NormalTok{, insed\_pattern)),}
+                        \FunctionTok{word}\NormalTok{(class), class) }\CommentTok{\# Remove pesky values}
+\NormalTok{         ) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(taxonomicStatus }\SpecialCharTok{==} \StringTok{"accepted"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Filter to accepted names }
+  \FunctionTok{filter}\NormalTok{(kingdom }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"Animalia"}\NormalTok{, }\StringTok{"Plantae"}\NormalTok{),}
+         \SpecialCharTok{!}\NormalTok{ kingdom }\SpecialCharTok{==} \StringTok{"Questionable / non{-}biota (fossil)"}\NormalTok{) }\CommentTok{\# Filter to Animal and plants {-} change if working with other kingdoms}
+
+\CommentTok{\# Join with species profile, remove pesky values and filter to extinct taxa }
+\NormalTok{extinct\_irmng }\OtherTok{\textless{}{-}}\NormalTok{ irmng\_taxa }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{left\_join}\NormalTok{(irmng\_sp, }\AttributeTok{by =} \StringTok{"taxonID"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{ scientificName }\SpecialCharTok{==} \StringTok{"Questionable / non{-}biota (fossil)"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(isExtinct }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{) }
+
+\CommentTok{\# Summary of extinct species by taxonRank}
+\NormalTok{extinct\_irmng}\SpecialCharTok{$}\NormalTok{taxonRank }\SpecialCharTok{|\textgreater{}} \FunctionTok{tabyl}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ extinct_irmng$taxonRank      n      percent
+                   Class     90 7.725123e-04
+                  Family   8317 7.138872e-02
+                   Genus 107162 9.198218e-01
+                   Order    910 7.810958e-03
+                  Phylum     18 1.545025e-04
+                Subclass      4 3.433388e-05
+               Subphylum      1 8.583470e-06
+             Superfamily      1 8.583470e-06
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create genus }
+\NormalTok{inverts }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{genus =} \FunctionTok{word}\NormalTok{(scientificName, }\DecValTok{1}\NormalTok{)) }
+
+\CommentTok{\# Extract unique extinct genus and remove genus that have punctuation in them}
+\NormalTok{extinct\_genus }\OtherTok{\textless{}{-}}\NormalTok{ extinct\_irmng }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{drop\_na}\NormalTok{(genus) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{str\_detect}\NormalTok{(genus, }\AttributeTok{pattern =} \FunctionTok{regex}\NormalTok{(}\StringTok{"[:punct:]"}\NormalTok{))) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(genus) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unique}\NormalTok{() }
+ 
+\CommentTok{\# Check if there are any matches at genus level}
+\NormalTok{check }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{|\textgreater{}} 
+\FunctionTok{filter}\NormalTok{(}\FunctionTok{str\_detect}\NormalTok{(genus, }\AttributeTok{pattern =} \FunctionTok{regex}\NormalTok{(}\FunctionTok{paste0}\NormalTok{(extinct\_genus, }\AttributeTok{collapse=}\StringTok{"|"}\NormalTok{)))) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(scientificName) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{unique}\NormalTok{() }
+
+\NormalTok{check}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Palirhoeus eatoni"                "Coralliophila tetragona"         
+[3] "Halobates (Halobates) acherontis"
+\end{verbatim}
+
+Another option is to use the IUCN to retrieve a list of extinct species
+
+https://apiv3.iucnredlist.org/api/v3/docs\#species-category
+https://docs.ropensci.org/crul/articles/crul.html
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rredlist)}
+\FunctionTok{library}\NormalTok{(skimr)}
+
+\CommentTok{\# Create IUCN token}
+\NormalTok{rredlist}\SpecialCharTok{::}\FunctionTok{rl\_use\_iucn}\NormalTok{() }\CommentTok{\# Application can take a day or two!}
+\NormalTok{usethis}\SpecialCharTok{::}\FunctionTok{edit\_r\_environ}\NormalTok{() }\CommentTok{\# Place the approved token in your R environment}
+
+\NormalTok{extinct\_iucn }\OtherTok{\textless{}{-}} \FunctionTok{rl\_sp\_category}\NormalTok{(}\StringTok{\textquotesingle{}EX\textquotesingle{}}\NormalTok{)}
+\FunctionTok{skim}\NormalTok{(extinct\_iucn)}
+
+\NormalTok{extinct\_sp }\OtherTok{\textless{}{-}}\NormalTok{ extinct\_iucn}\SpecialCharTok{$}\NormalTok{result }\SpecialCharTok{|\textgreater{}} \FunctionTok{tibble}\NormalTok{() }\CommentTok{\# Note these are extinct species across the globe}
+
+\CommentTok{\# Find matches}
+\NormalTok{inverts }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(scientificName }\SpecialCharTok{\%in\%}\NormalTok{ extinct\_sp}\SpecialCharTok{$}\NormalTok{scientific\_name) }\CommentTok{\# No matches}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{certain-lifestges}{%
+\subsection{Certain lifestges}\label{certain-lifestges}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(galah)}
+
+\FunctionTok{galah\_config}\NormalTok{(}\AttributeTok{email =} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"ALA\_EMAIL"}\NormalTok{),}
+             \AttributeTok{atlas =} \StringTok{"Australia"}\NormalTok{)}
+
+\NormalTok{bilby }\OtherTok{\textless{}{-}} \FunctionTok{galah\_call}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_identify}\NormalTok{(}\StringTok{"Macrotis lagotis"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_filter}\NormalTok{(year }\SpecialCharTok{==} \DecValTok{2022}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_select}\NormalTok{(}\AttributeTok{group =} \StringTok{"basic"}\NormalTok{, sex, lifeStage, reproductiveCondition) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{atlas\_occurrences}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Checking queue
+Current queue size: 1 inqueue . running .
+\end{verbatim}
+
+\hypertarget{marine-species}{%
+\subsection{Marine species}\label{marine-species}}
+
+\begin{itemize}
+\tightlist
+\item
+  Remove specific taxa/ depending on the study: For example, if working
+  with terrestrial data, it is necessary to remove marine taxa.
+\end{itemize}
+
+\hypertarget{coordinatecleaner}{%
+\subsection{CoordinateCleaner}\label{coordinatecleaner}}
+
 \bookmarksetup{startatroot}
 
 \hypertarget{sec-spatial}{%
@@ -2015,20 +2496,20 @@ added after the fact. Depending on the level of precision you need, you
 might consider discarding data of lower precision, or removing decimal
 places for data you know could not be that precise. At the ALA there is
 a ``cooridnateprecision''/ ``coordinateUncertainityIn Meters'' assertion
-(\uline{see assertion section to download these with the data)}
+(\ul{see assertion section to download these with the data)}
 
-\includegraphics{./images/image-613988507.png}
+\includegraphics{images/image-613988507.png}
 
 https://xkcd.wtf/2170/
 
 Coordinate precision below 100km represents the grain size of many
-macroecological analyses {[}Zizka et al. (2020b){]}. Some studies have
-used a cut-off of spatial resolution \textgreater25,000m or precision
-with less than three decimal places (\textbf{add a reference here}). It
-is important to note that rasterized collections often have a
-significant proportion of records that might have low coordinate
-precision. Understanding the level of quality you need is important
-before removing/keeping large volumes of data.
+macroecological analyses (Zizka et al. 2020b). Some studies have used a
+cut-off of spatial resolution \textgreater25,000m or precision with less
+than three decimal places (\textbf{add a reference here}). It is
+important to note that rasterized collections often have a significant
+proportion of records that might have low coordinate precision.
+Understanding the level of quality you need is important before
+removing/keeping large volumes of data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2046,11 +2527,13 @@ with data manipulation instead of discarding:
 
 \textbf{Flipped coordinates:} Flipped coordinates typically appear as a
 clustering of points, whereby swapping the latitude and longitude will
-place the coordinates where they are expected.
+place the coordinates where they are expected. (Jin and Yang 2020b)
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\#example map of some flipped coordinates (what to look for)}
+\CommentTok{\#example map of some flipped coordinates (what to look for) }
+\CommentTok{\# https://www.gbif.org/occurrence/3013406216 this has flipped coordinates, which GBIF has corrected}
+\CommentTok{\# https://www.gbif.org/occurrence/search?q=mammalia\&continent=SOUTH\_AMERICA\&has\_coordinate=true\&has\_geospatial\_issue=false\&issue=PRESUMED\_SWAPPED\_COORDINATE\&advanced=1. \#\# the issue and flag is called \textquotesingle{}presumed swapped coordinate\textquotesingle{} }
 \end{Highlighting}
 \end{Shaded}
 
@@ -2061,34 +2544,59 @@ swapping the sign and correct rather than discarding the points.
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\#example map, like coordinates off the coast of japan}
+
+\CommentTok{\# https://biocache.ala.org.au/occurrences/search?q=lsid\%3Ahttps\%3A\%2F\%2Fid.biodiversity.org.au\%2Ftaxon\%2Fapni\%2F51360942\&qualityProfile=CSDM\&radius=50\&lat=35.66845370835343\&lon=138.9990234375\#tab\_recordsView}
+
+\CommentTok{\# eucs \textless{}{-} galah\_call() \%\textgreater{}\% }
+\CommentTok{\#  galah\_identify("Eucalyptus") \%\textgreater{}\%}
+\CommentTok{\#  galah\_filter( year == 2005, }
+\CommentTok{\#             dataResourceName == "The University of Melbourne Herbarium (MELU) AVH data") \%\textgreater{}\%}
+\CommentTok{\#  atlas\_occurrences()}
 \end{Highlighting}
 \end{Shaded}
 
 \textbf{Country field doesn't match coordinates:} The coordinates could
 be wrong or just the country listed.
 
-\hypertarget{coordinate-cleaning}{%
-\section{Coordinate cleaning}\label{coordinate-cleaning}}
+\hypertarget{this-doesnt-seem-to-be-very-common--atleast-not-in-ala-data--because-there-is-no-neighboring-country}{%
+\section{this doesnt seem to be very common- atleast not in ALA data-
+because there is no neighboring
+country}\label{this-doesnt-seem-to-be-very-common--atleast-not-in-ala-data--because-there-is-no-neighboring-country}}
 
-Once you have fixed everything you can, it's time to remove records that
-still have errors. This doesn't mean removing all outliers, you must
-have more than ``it's far away from the others'' to justify a records
-removal.
+\bookmarksetup{startatroot}
 
-\textbf{Remove records with null or missing coordinates:} This will be
-records missing partial or complete information. Missing values can
-cause errors, many analytical tools do not respond well to missing
-values. If you can't find the information elsewhere, it's best to remove
-it.
+\hypertarget{httpsbiocache.ala.org.auoccurrencesa34fca43-9e7c-4b37-8fe4-07cc18369465-australian-coordinates-country-listed-as-trinidad-and-tobago}{%
+\chapter{https://biocache.ala.org.au/occurrences/a34fca43-9e7c-4b37-8fe4-07cc18369465
+Australian coordinates, country listed as Trinidad and
+Tobago}\label{httpsbiocache.ala.org.auoccurrencesa34fca43-9e7c-4b37-8fe4-07cc18369465-australian-coordinates-country-listed-as-trinidad-and-tobago}}
 
-\textbf{Remove records where longitude and latitude are equal:} High
-likelihood that this is not where the record was recorded and, check
-first, however likely will need to remove
+\bookmarksetup{startatroot}
 
-\textbf{Remove records with zero coordinates:} When plotting it on a
-map, zero coordinates will be found around the point at zero latitudes
-and longitudes. These records will not accurately represent their valid
-location and must be removed.
+\hypertarget{httpswww.gbif.orgoccurrencesearchadvancedtruecontinentsouth_americageometrypolygon-78.7496120-8.25249-76.2983820-8.25249-76.2983820-4.74121-78.7496120-4.74121-78.7496120-8.25249has_coordinatetrueissuecountry_mismatchlocaleenqreptilia-gbif-example--reptiles-located-in-peru-originally-recorded-as-ecuador}{%
+\chapter{https://www.gbif.org/occurrence/search?advanced=true\&continent=SOUTH\_AMERICA\&geometry=POLYGON((-78.74961\%20-8.25249,-76.29838\%20-8.25249,-76.29838\%20-4.74121,-78.74961\%20-4.74121,-78.74961\%20-8.25249))\&has\_coordinate=true\&issue=COUNTRY\_MISMATCH\&locale=en\&q=reptilia
+\# GBIF example- reptiles located in Peru, originally recorded as
+Ecuador}\label{httpswww.gbif.orgoccurrencesearchadvancedtruecontinentsouth_americageometrypolygon-78.7496120-8.25249-76.2983820-8.25249-76.2983820-4.74121-78.7496120-4.74121-78.7496120-8.25249has_coordinatetrueissuecountry_mismatchlocaleenqreptilia-gbif-example--reptiles-located-in-peru-originally-recorded-as-ecuador}}
+
+\begin{verbatim}
+
+## Coordinate cleaning
+
+Once you have fixed everything you can, it's time to remove records that still have errors. This doesn't mean removing all outliers, you must have more than "it's far away from the others" to justify a records removal.
+
+**Remove records with null or missing coordinates:** This will be records missing partial or complete information. Missing values can cause errors, many analytical tools do not respond well to missing values. If you can't find the information elsewhere, it's best to remove it.
+
+**Remove records where longitude and latitude are equal:** High likelihood that this is not where the record was recorded and, check first, however likely will need to remove
+
+**Remove records with zero coordinates:** When plotting it on a map, zero coordinates will be found around the point at zero latitudes and longitudes. These records will not accurately represent their valid location and must be removed.
+::: {.cell}
+
+```{.r .cell-code}
+#zero coordinates acacia 
+
+#https://biocache.ala.org.au/occurrences/search?q=lsid%3Ahttps%3A%2F%2Fid.biodiversity.org.au%2Ftaxon%2Fapni%2F51382879&disableAllQualityFilters=true&qualityProfile=ALA&fq=spatiallyValid%3A%22false%22&radius=25&lat=-0.024032592068740033&lon=-0.06591796875#tab_recordsView 
+\end{verbatim}
+
+:::
 
 Remove records plotted away from the known area of distribution of the
 species. It is essential to check the metadata to ensure that it is a
@@ -2206,10 +2714,21 @@ with some being more difficult to work with than others.
   UID, same coordinates, same species. They don't always impact
   modelling. Although they can impact sampling bias and increase
   computational burden for no added benefit so it's best to remove them
-  (Jin and Yang 2020; J. R. Marsh et al. 2022).
+  (Jin and Yang 2020a; J. R. Marsh et al. 2022).
 
   Removing true duplicates where the UID is the same is quite
   straightforward and is a common step before mapping biodiversity data.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#assertions: duplicateType "DIFFERENT\_DATASET"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
 \item
   Different UID Same species, same coordinates, yet different year.
 
@@ -2220,6 +2739,12 @@ with some being more difficult to work with than others.
   it's continued presence- this is most likely for plants\ldots there
   are cases where you'll still want to remove the
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#assertions: duplicate\_status "ASSOCIATED"}
+\end{Highlighting}
+\end{Shaded}
+
   b) Herbarium duplicates: same year, same collector, however different
   UID and minor differences in locality, coordinate precision. These can
   be more difficult to decipher, and we've called them Herbarium
@@ -2228,8 +2753,18 @@ with some being more difficult to work with than others.
   different UIDs. Additionally because the data is potentially being
   inputted by different people the discrepancies this causes can make
   them difficult to spot {[}REF bob pers com{]}.
+\end{enumerate}
 
-  \#\#example from bobs data
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#assertions: duplicateType "DIFFERENT\_DATASET"}
+\CommentTok{\#assertions: isDuplicateOf "DIFFERENT\_DATASET"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
 \item
   Spatial thinning = records located close to each other
 
@@ -2280,70 +2815,115 @@ it could be a spatial error, or it could be a different species.
 
 \bookmarksetup{startatroot}
 
-\hypertarget{summary}{%
-\chapter{Summary}\label{summary}}
+\hypertarget{sec-references}{%
+\chapter{References}\label{sec-references}}
 
-\begin{itemize}
-\tightlist
-\item
-  final checks as a way summarise the book
-\item
-  nice diagram
-\item
-  decide where to refer to the R packages
-\item
-  add references
-\end{itemize}
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-fuhrding-potschkat_influence_2022}{}}%
+Führding-Potschkat, Petra, Holger Kreft, and Stefanie M. Ickert-Bond.
+2022. {``Influence of Different Data Cleaning Solutions of
+Point-Occurrence Records on Downstream Macroecological Diversity
+Models.''} \emph{Ecology and Evolution} 12 (8): e9168.
+\url{https://doi.org/10.1002/ece3.9168}.
 
-\hypertarget{extra-notes}{%
-\section{Extra notes}\label{extra-notes}}
+\leavevmode\vadjust pre{\hypertarget{ref-garraffoni2019integrative}{}}%
+Garraffoni, André RS, Thiago Q Araújo, Anete P Lourenço, Loretta Guidi,
+and Maria Balsamo. 2019. {``Integrative Taxonomy of a New Redudasys
+Species (Gastrotricha: Macrodasyida) Sheds Light on the Invasion of
+Fresh Water Habitats by Macrodasyids.''} \emph{Scientific Reports} 9
+(1): 2067.
 
-Now that the data is cleaned and standardized, extra work can be done to
-guarantee the data quality. These steps will depend on the kind of study
-being conducted.
+\leavevmode\vadjust pre{\hypertarget{ref-godfree_implications_2021}{}}%
+Godfree, Robert C., Nunzio Knerr, Francisco Encinas-Viso, David
+Albrecht, David Bush, D. Christine Cargill, Mark Clements, et al. 2021.
+{``Implications of the 2019--2020 Megafires for the Biogeography and
+Conservation of {Australian} Vegetation.''} \emph{Nature Communications}
+12 (1): 1023. \url{https://doi.org/10.1038/s41467-021-21266-5}.
 
-\begin{itemize}
-\item
-  Remove duplicates: Data duplication is common when combining data from
-  multiple sources. In most part of the cases, you will want to remove
-  duplicate data, as it just increase you data size without bringing in
-  any relevant information. It can also make analysis faster and more
-  efficient.
-\item
-  Bias correction: Account for sampling bias.
-\item
-  Scrutinise outliers: Outliers can be true outliers or data errors.
-  True outliers are not necessarily to be removed. This could represent
-  misidentified specimens, etc.
-\item
-  Format data: Subset, specify data source as ALA, indicate sensitive
-  species, assign habitat column, rearrange and name columns.
-\item
-  Study region: Important if you need to crop data to the region or to
-  work out the current range, background region, and projection region.
-\item
-  Assign quality levels to data: If you need help with specific data,
-  assigning quality level metrics for taxonomy and geographical
-  dimensions can be good.
-\item
-  Manually identify and remove false positives: False positives that may
-  have been overlooked by automated error removal, based on the
-  knowledge that they are in the records.
-\item
-  Remove records with an individual count of less than 1 or more than
-  99: Records may be unsuitable if the number of recorded individuals is
-  0 or the count is too high (data entry or data-basing problems),
-  indicate records from dna barcoding and in some cases indicate records
-  of absence.
-\item
-  Consider species with fewer records: Depending of the the type of
-  analysis to be conducted, as in the case of Species Distribution
-  Modelling, the number of distribution points available can influence
-  the quality of the results.
-\item
-  Reach out and ask questions: When preparing occurrence data for
-  modeling it can be helpful to speak to experts in the field.
-\end{itemize}
+\leavevmode\vadjust pre{\hypertarget{ref-gueta_quantifying_2016}{}}%
+Gueta, Tomer, and Yohay Carmel. 2016. {``Quantifying the Value of
+User-Level Data Cleaning for Big Data: {A} Case Study Using Mammal
+Distribution Models.''} \emph{Ecological Informatics} 34 (July):
+139--45. \url{https://doi.org/10.1016/j.ecoinf.2016.06.001}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-jin_bdcleaner_2020}{}}%
+Jin, Jing, and Jun Yang. 2020a. {``{BDcleaner}: {A} Workflow for
+Cleaning Taxonomic and Geographic Errors in Occurrence Data Archived in
+Biodiversity Databases.''} \emph{Global Ecology and Conservation} 21
+(March): e00852. \url{https://doi.org/10.1016/j.gecco.2019.e00852}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-jin2020}{}}%
+---------. 2020b. {``BDcleaner: A Workflow for Cleaning Taxonomic and
+Geographic Errors in Occurrence Data Archived in Biodiversity
+Databases.''} \emph{Global Ecology and Conservation} 21 (March): e00852.
+\url{https://doi.org/10.1016/j.gecco.2019.e00852}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-kuralt}{}}%
+Kuralt, Zan. n.d. {``GBIF Data for Species Distribution Modelling: A
+Case Study of Lithobius Erythrocephalus (Chilopoda: Lithobiidae).''}
+\url{http://rstudio-pubs-static.s3.amazonaws.com/415459_61fae98ff3984241bd5f7f31da425c98.html}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-mace2004role}{}}%
+Mace, Georgina M. 2004. {``The Role of Taxonomy in Species
+Conservation.''} \emph{Philosophical Transactions of the Royal Society
+of London. Series B: Biological Sciences} 359 (1444): 711--19.
+
+\leavevmode\vadjust pre{\hypertarget{ref-marsh2021}{}}%
+Marsh, Jess, Payal Bal, Hannah Fraser, Kate Umbers, Aaron Greenville,
+Libby Rumpff, and John Woinarski. 2021. {``Assessment of the Impacts of
+the 2019-20 Wildfires of Southern and Eastern Australia on Invertebrate
+Species Final Report.''}
+
+\leavevmode\vadjust pre{\hypertarget{ref-marsh_accounting_2022}{}}%
+Marsh, Jessica R., Payal Bal, Hannah Fraser, Kate Umbers, Tanya Latty,
+Aaron Greenville, Libby Rumpff, and John C. Z. Woinarski. 2022.
+{``Accounting for the Neglected: {Invertebrate} Species and the
+2019--2020 {Australian} Megafires.''} \emph{Global Ecology and
+Biogeography} n/a (n/a). \url{https://doi.org/10.1111/geb.13550}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-ribeiro_bdc_2022}{}}%
+Ribeiro, Bruno R., Santiago José Elías Velazco, Karlo Guidoni-Martins,
+Geiziane Tessarolo, Lucas Jardim, Steven P. Bachman, and Rafael Loyola.
+2022. {``Bdc: {A} Toolkit for Standardizing, Integrating and Cleaning
+Biodiversity Data.''} \emph{Methods in Ecology and Evolution} 13 (7):
+1421--28. \url{https://doi.org/10.1111/2041-210X.13868}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-rodrigues_species_2022}{}}%
+Rodrigues, Arthur Vinicius, Gabriel Nakamura, Vanessa Graziele
+Staggemeier, and Leandro Duarte. 2022. {``Species Misidentification
+Affects Biodiversity Metrics: {Dealing} with This Issue Using the New
+{R} Package {naturaList}.''} \emph{Ecological Informatics} 69 (July):
+101625. \url{https://doi.org/10.1016/j.ecoinf.2022.101625}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-rowley2020frogid}{}}%
+Rowley, Jodi JL, and Corey T Callaghan. 2020. {``The FrogID Dataset:
+Expert-Validated Occurrence Records of Australia's Frogs Collected by
+Citizen Scientists.''} \emph{ZooKeys} 912: 139.
+
+\leavevmode\vadjust pre{\hypertarget{ref-simoes2018utility}{}}%
+Simões, Marianna VP, and A Townsend Peterson. 2018. {``Utility and
+Limitations of Climate-Matching Approaches in Detecting Different Types
+of Spatial Errors in Biodiversity Data.''} \emph{Insect Conservation and
+Diversity} 11 (5): 407--14.
+
+\leavevmode\vadjust pre{\hypertarget{ref-streamdna_sharing_2020}{}}%
+streamdna. 2020. {``Sharing Is {Caring}: {Working} with {Other} People's
+{Data}.''}
+\url{https://methodsblog.com/2020/09/04/sharing-is-caring-working-with-other-peoples-data/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-zizka_no_2020}{}}%
+Zizka, Alexander, Fernanda Antunes Carvalho, Alice Calvente, Mabel Rocio
+Baez-Lizarazo, Andressa Cabral, Jéssica Fernanda Ramos Coelho, Matheus
+Colli-Silva, Mariana Ramos Fantinati, Moabe F Fernandes, and Thais
+Ferreira-Araújo. 2020a. {``No One-Size-Fits-All Solution to Clean
+{GBIF}.''} \emph{PeerJ} 8: e9916.
+
+\leavevmode\vadjust pre{\hypertarget{ref-zizka2020}{}}%
+---------. 2020b. {``No One-Size-Fits-All Solution to Clean GBIF.''}
+\emph{PeerJ} 8: e9916.
+
+\end{CSLReferences}
 
 \bookmarksetup{startatroot}
 
@@ -2382,105 +2962,6 @@ All steps for acquiring and cleaning data were then looked at together
 in order to understand what were essential steps, versus what was done
 in certain use cases. We also investigated the order in which steps were
 undertaken to develop the most streamlined process for this book.
-
-\bookmarksetup{startatroot}
-
-\hypertarget{sec-references}{%
-\chapter{References}\label{sec-references}}
-
-\hypertarget{refs}{}
-\begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-fuhrding-potschkat_influence_2022}{}}%
-Führding-Potschkat, Petra, Holger Kreft, and Stefanie M. Ickert-Bond.
-2022. {``Influence of Different Data Cleaning Solutions of
-Point-Occurrence Records on Downstream Macroecological Diversity
-Models.''} \emph{Ecology and Evolution} 12 (8): e9168.
-\url{https://doi.org/10.1002/ece3.9168}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-garraffoni2019integrative}{}}%
-Garraffoni, André RS, Thiago Q Araújo, Anete P Lourenço, Loretta Guidi,
-and Maria Balsamo. 2019. {``Integrative Taxonomy of a New Redudasys
-Species (Gastrotricha: Macrodasyida) Sheds Light on the Invasion of
-Fresh Water Habitats by Macrodasyids.''} \emph{Scientific Reports} 9
-(1): 2067.
-
-\leavevmode\vadjust pre{\hypertarget{ref-godfree_implications_2021}{}}%
-Godfree, Robert C., Nunzio Knerr, Francisco Encinas-Viso, David
-Albrecht, David Bush, D. Christine Cargill, Mark Clements, et al. 2021.
-{``Implications of the 2019--2020 Megafires for the Biogeography and
-Conservation of {Australian} Vegetation.''} \emph{Nature Communications}
-12 (1): 1023. \url{https://doi.org/10.1038/s41467-021-21266-5}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-gueta_quantifying_2016}{}}%
-Gueta, Tomer, and Yohay Carmel. 2016. {``Quantifying the Value of
-User-Level Data Cleaning for Big Data: {A} Case Study Using Mammal
-Distribution Models.''} \emph{Ecological Informatics} 34 (July):
-139--45. \url{https://doi.org/10.1016/j.ecoinf.2016.06.001}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-jin_bdcleaner_2020}{}}%
-Jin, Jing, and Jun Yang. 2020. {``{BDcleaner}: {A} Workflow for Cleaning
-Taxonomic and Geographic Errors in Occurrence Data Archived in
-Biodiversity Databases.''} \emph{Global Ecology and Conservation} 21
-(March): e00852. \url{https://doi.org/10.1016/j.gecco.2019.e00852}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-kuralt}{}}%
-Kuralt, Zan. n.d. {``GBIF Data for Species Distribution Modelling: A
-Case Study of Lithobius Erythrocephalus (Chilopoda: Lithobiidae).''}
-\url{http://rstudio-pubs-static.s3.amazonaws.com/415459_61fae98ff3984241bd5f7f31da425c98.html}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-mace2004role}{}}%
-Mace, Georgina M. 2004. {``The Role of Taxonomy in Species
-Conservation.''} \emph{Philosophical Transactions of the Royal Society
-of London. Series B: Biological Sciences} 359 (1444): 711--19.
-
-\leavevmode\vadjust pre{\hypertarget{ref-marsh2021}{}}%
-Marsh, Jess, Payal Bal, Hannah Fraser, Kate Umbers, Aaron Greenville,
-Libby Rumpff, and John Woinarski. 2021. {``Assessment of the Impacts of
-the 2019-20 Wildfires of Southern and Eastern Australia on Invertebrate
-Species Final Report.''}
-
-\leavevmode\vadjust pre{\hypertarget{ref-marsh_accounting_2022}{}}%
-Marsh, Jessica R., Payal Bal, Hannah Fraser, Kate Umbers, Tanya Latty,
-Aaron Greenville, Libby Rumpff, and John C. Z. Woinarski. 2022.
-{``Accounting for the Neglected: {Invertebrate} Species and the
-2019--2020 {Australian} Megafires.''} \emph{Global Ecology and
-Biogeography} n/a (n/a). \url{https://doi.org/10.1111/geb.13550}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-rodrigues_species_2022}{}}%
-Rodrigues, Arthur Vinicius, Gabriel Nakamura, Vanessa Graziele
-Staggemeier, and Leandro Duarte. 2022. {``Species Misidentification
-Affects Biodiversity Metrics: {Dealing} with This Issue Using the New
-{R} Package {naturaList}.''} \emph{Ecological Informatics} 69 (July):
-101625. \url{https://doi.org/10.1016/j.ecoinf.2022.101625}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-rowley2020frogid}{}}%
-Rowley, Jodi JL, and Corey T Callaghan. 2020. {``The FrogID Dataset:
-Expert-Validated Occurrence Records of Australia's Frogs Collected by
-Citizen Scientists.''} \emph{ZooKeys} 912: 139.
-
-\leavevmode\vadjust pre{\hypertarget{ref-simoes2018utility}{}}%
-Simões, Marianna VP, and A Townsend Peterson. 2018. {``Utility and
-Limitations of Climate-Matching Approaches in Detecting Different Types
-of Spatial Errors in Biodiversity Data.''} \emph{Insect Conservation and
-Diversity} 11 (5): 407--14.
-
-\leavevmode\vadjust pre{\hypertarget{ref-streamdna_sharing_2020}{}}%
-streamdna. 2020. {``Sharing Is {Caring}: {Working} with {Other} People's
-{Data}.''}
-\url{https://methodsblog.com/2020/09/04/sharing-is-caring-working-with-other-peoples-data/}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-zizka_no_2020}{}}%
-Zizka, Alexander, Fernanda Antunes Carvalho, Alice Calvente, Mabel Rocio
-Baez-Lizarazo, Andressa Cabral, Jéssica Fernanda Ramos Coelho, Matheus
-Colli-Silva, Mariana Ramos Fantinati, Moabe F Fernandes, and Thais
-Ferreira-Araújo. 2020a. {``No One-Size-Fits-All Solution to Clean
-{GBIF}.''} \emph{PeerJ} 8: e9916.
-
-\leavevmode\vadjust pre{\hypertarget{ref-zizka2020}{}}%
----------. 2020b. {``No One-Size-Fits-All Solution to Clean GBIF.''}
-\emph{PeerJ} 8: e9916.
-
-\end{CSLReferences}
 
 
 

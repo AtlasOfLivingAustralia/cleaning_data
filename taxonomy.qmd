@@ -258,7 +258,7 @@ worrms::wm_synonyms(id = 105706)
 
 
 ##fiddling with fake data 
-```{r}
+```{r, eval=FALSE}
 
 plants <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
 

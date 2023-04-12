@@ -246,13 +246,41 @@ inverts |> filter(scientificName %in% extinct_sp$scientific_name) # No matches
 
 ### Certain lifestges
 
-```{r}
+```{r, eval=FALSE}
+library(galah)
+library(skimr)
+
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             atlas = "Australia")
+
 bilby <- galah_call() |> 
   galah_identify("Macrotis lagotis") |> 
   galah_filter(year == 2022) |> 
   galah_select(group = "basic", sex, lifeStage, reproductiveCondition) |> 
   atlas_occurrences()
 
+skim()
+```
+
+```{r, echo=FALSE}
+library(galah)
+library(skimr)
+library(arrow)
+
+# galah_config(email = Sys.getenv("ALA_EMAIL"),
+#              atlas = "Australia")
+
+# bilby <- galah_call() |> 
+#   galah_identify("Macrotis lagotis") |> 
+#   galah_filter(year == 2022) |> 
+#   galah_select(group = "basic", sex, lifeStage, reproductiveCondition) |> 
+#   atlas_occurrences()
+# 
+#write_parquet(bilby, sink = "data/galah/bilby.parquet" )
+
+bilby <- open_dataset("data/galah/bilby.parquet", format = "parquet") |> collect()
+
+bilby 
 
 ```
 
