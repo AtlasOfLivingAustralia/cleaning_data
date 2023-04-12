@@ -55,8 +55,6 @@ Some of these steps may have been completed in a pre-cleaning step, however it's
 
 ```{r}
 
-
-```
 ## this doesnt seem to be very common- atleast not in ALA data- because there is no neighboring country
 # https://biocache.ala.org.au/occurrences/a34fca43-9e7c-4b37-8fe4-07cc18369465 Australian coordinates, country listed as Trinidad and Tobago
 # https://www.gbif.org/occurrence/search?advanced=true&continent=SOUTH_AMERICA&geometry=POLYGON((-78.74961%20-8.25249,-76.29838%20-8.25249,-76.29838%20-4.74121,-78.74961%20-4.74121,-78.74961%20-8.25249))&has_coordinate=true&issue=COUNTRY_MISMATCH&locale=en&q=reptilia   # GBIF example- reptiles located in Peru, originally recorded as Ecuador
@@ -134,3 +132,11 @@ A simple way to visualize your data is to plot it on a map.
 ```
 
 ### 
+
+### CoordinateCleaner
+
+<!-- Move to spatial? -->
+
+```{r}
+
+```

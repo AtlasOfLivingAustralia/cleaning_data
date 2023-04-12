@@ -139,37 +139,14 @@ matches
 plants_no_griis <- plants |> filter(! scientific_name %in% matches)
 ```
 
-### Domesticated species
-
-Remove domesticated specimens, sightings of dogs, cats, but also garden species.
-
-```{r}
-
-```
-
-
 ### Extinct species 
 
-In most cases, a year filter during in your download query should remove  _most_ extinct species. 
+In most cases, a year filter during in your download query should remove  _most_ extinct species.
 
-```{r, eval=FALSE}
-library(worrms)
-
-my_species <- inverts |> 
-  pull(scientificName) |>
-  unique()
-
-extinct_check <- map_dfr(my_species,
-       possibly(~worrms::wm_records_name(name = .x) |> mutate(search_term = .x))
-)
-
-extinct_check |> filter(isExtinct == TRUE)
-```
-
-If you are concerned that a year filter didn't capture all you extinct species, you can try the 
+You want to cross check for extinct species using the
 Interim Register of Marine and Nonmarine Genera [(IRMNG)](https://www.irmng.org/). The list is comprehensive and actively maintained, the only caveat is that a lot of its data doesn't go down to species level. As such, we recommend using the following approach to find _potentially extinct_ taxa and futher investigate the records that we are flagged.
 
-The required files can be downloadedfrom [here](https://www.irmng.org/export/). Once you have unzipped the file in your projected directory, we need to process the list a littlerbefore we use it to exclude extinct species.  
+The required files can be downloaded from [here](https://www.irmng.org/export/). Once you have unzipped the file in your projected directory, we need to process the list a littlerbefore we use it to exclude extinct species.  
 
 ```{r}
 library(data.table)
@@ -222,7 +199,7 @@ filter(str_detect(genus, pattern = regex(paste0(extinct_genus, collapse="|")))) 
 check
 ```
 
-Another option is to use the IUCN to retrieve a list of extinct species
+Alternatively, you can use the IUCN to retrieve a list of extinct species that are in their database
 
 https://apiv3.iucnredlist.org/api/v3/docs#species-category
 https://docs.ropensci.org/crul/articles/crul.html
@@ -259,7 +236,7 @@ bilby <- galah_call() |>
   galah_select(group = "basic", sex, lifeStage, reproductiveCondition) |> 
   atlas_occurrences()
 
-skim()
+bilby |> filter(!sex == "MALE")
 ```
 
 ```{r, echo=FALSE}
@@ -270,36 +247,47 @@ library(arrow)
 # galah_config(email = Sys.getenv("ALA_EMAIL"),
 #              atlas = "Australia")
 
-# bilby <- galah_call() |> 
-#   galah_identify("Macrotis lagotis") |> 
-#   galah_filter(year == 2022) |> 
-#   galah_select(group = "basic", sex, lifeStage, reproductiveCondition) |> 
+# bilby <- galah_call() |>
+#   galah_identify("Macrotis lagotis") |>
+#   galah_filter(sex != "") |>
+#   galah_select(group = "basic", sex, lifeStage, reproductiveCondition) |>
 #   atlas_occurrences()
 # 
 #write_parquet(bilby, sink = "data/galah/bilby.parquet" )
 
 bilby <- open_dataset("data/galah/bilby.parquet", format = "parquet") |> collect()
 
-bilby 
-
+bilby |> filter(!sex == "MALE")
 ```
 
 ### Marine species
 
--   Remove specific taxa/ depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.
+Remove specific taxa/ depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.
 
 ```{r}
+library(worrms)
 
+# Obtain species list
+my_species <- inverts |> 
+  pull(scientificName) |>
+  unique()
+
+# Query WoRMs
+marine_check <- map_dfr(my_species,
+       possibly(~worrms::wm_records_name(name = .x) |> mutate(search_term = .x))
+)
+
+# Filter species that are TRUE for isMarine
+marine_inverts <- marine_check |> 
+  filter(isMarine == TRUE) |> 
+  select(search_term)
+
+# Exclude marine invertebrates
+inverts |> filter(!scientificName %in% marine_inverts)
 ```
 
 
-### CoordinateCleaner
 
-<!-- Move to spatial? -->
-
-```{r}
-
-```
 
 
 
