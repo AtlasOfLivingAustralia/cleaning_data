@@ -35,3 +35,7 @@ All steps for acquiring and cleaning data were then looked at together
 in order to understand what were essential steps, versus what was done
 in certain use cases. We also investigated the order in which steps were
 undertaken to develop the most streamlined process for this book.
+
+![](images/complex_workflow.png)
+![](images/simplified_workflow.png)
+
