@@ -77,3 +77,8 @@ Rstudio is an integrated development environment (IDE) for R programming. Downlo
 #### Windows {.unnumbered}
 
 #### Mac {.unnumbered}
+
+## How to use this book 
+
+There is no one size fits all workflow, not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don't recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) 
+![](images/data.cleaning-Page-2.drawio.png)
