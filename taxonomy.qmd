@@ -28,124 +28,47 @@ library(tidyverse)
 
 # inverts <- open_dataset("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv", format = "csv")
 # 
-# inverts %>% 
-#   filter(family == "apidae") %>% 
+# inverts |> 
+#   filter(family == "apidae") |> 
 #   write_parquet(sink = "data/dap/bees.parquet")
 
 bees <- read_parquet("data/dap/bees.parquet")
 
 plants <- read_csv("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
 
-plants %>%
-  select(record_id:longitude_used) %>%
+plants |>
+  select(record_id:longitude_used) |>
   rename(latitude = latitude_used,
-         longitude = longitude_used) %>%
-  sample_frac(0.05) %>%
+         longitude = longitude_used) |>
+  sample_frac(0.05) |>
   write_csv_arrow(sink = "data/dap/plants_subset.csv")
 
 plants <- read_csv("data/dap/plants_subset.csv")
 
 ### Making some fake missing data
 set.seed(5)
-tobemissing <- plants %>%
-  filter(order == "Fabales") %>%
-  sample_frac(0.15) %>%
-  pull(scientific_name) %>%
+tobemissing <- plants |>
+  filter(order == "Fabales") |>
+  sample_frac(0.15) |>
+  pull(scientific_name) |>
   unique()
 
-plants <- plants %>%
+plants <- plants |>
   mutate(order = ifelse(scientific_name %in% tobemissing, NA, order)) # 40 species
 
 ```
 
-Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before [@garraffoni2019integrative]. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers. The complex and dynamic nature of taxonomy makes working with biodiversity data challenging. In this chapter we will go through some approaches with cleaning taxonomic data and dealing with synonyms. 
+Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before [@garraffoni2019integrative]. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers. 
 
-<!-- Outline of section:  -->
-<!-- Synonyms what are they and why is it a problem
-<!-- solution -->
-<!--  Clean:  never will be perfect, so long as your process and decisions are  and documented and transparent consistent --> 
-<!-- taxonomy preclean -->
-<!--     synonyms standardisation -->
-<!--     taxonomic input from experts -->
+Harmonising taxonomic names is a prevalent and complex issue and so far, no unifying solution has been put forward --- making research with biodiversity data challenging. A potential solution would require pulling together domain knowledge from experts and compiling a database for where taxonomic history for describe species is traceable and linked with published literature. 
 
+While there is no perfect solution, some tips, tricks and tools do exist. In this chapter we will go through some of these to clean taxonomic data and deal with synonyms. 
 
 ## Taxonomy preclean 
 
 Similar to what we did in the previous chapter, we will apply a broad sweep pre-clean to taxonomic data. This will make dealing with synonyms go as smoothly as possible.
 
 The process is to first identify the issue, correct it, check it, and then document the changes. The goal is to standardise and correct as many errors issues before removing records. 
-
-### Higher taxonomy 
-
-Higher taxonomy such as phylum and class may be used to group species for analysis or data visualisations. Its important to check the spelling and formatting of these columns. 
-Its always good to start with some a useful table of counts for each taxonomic level. Keep an eye out for spelling errors, formatting issues and missing data. Note that `NA` in the output represents missing
-
-As an example:
-
-```{r}
-library(tidyverse)
-library(janitor)
-
-plants %>% 
-  pull(class) %>% 
-  tabyl()
-
-plants %>% 
-  pull(order) %>% 
-  tabyl() %>% 
-  head()
-
-plants %>% 
-  pull(genus) %>% 
-  tabyl() %>% 
-  tail()
-```
-
-#### Missing higher taxonomy {.unnumbered}
-
-If you noticed you have missing data in these columns, you can usually back fill this information using your [chosen naming authority](link back to section) or retrieving this information from a living atlas such as the ALA. 
-
-The code below demonstrates how you can isolate the `scientific_names` of taxa with missing XX data and getting taxonomic information from ALA
-
-(Example WORK IN PROGRESS, need better fake data, Inverts?)
-Seperate chunk where message = TRUE for hits
-```{r}
-library(galah)
-
-# These are the taxa missing `genus` information
-to_search <- plants %>% 
-  filter(is.na(order)) %>% 
-  select(species) %>% 
-  distinct()
-
-to_search
-
-search_taxa(to_search)
-```
-
-#### Insufficient taxonomic rank {.unnumbered}
-
-If a record is not identified down to the taxonomic level that needed for the study e.g. species, then the record should be removed.
-
-(Remember to go back to download or scope section to tell users to download taxonRank)
-
-During your data download, ensure you have requested for the column [`taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank), this variable tells us the taxonomic rank of the most specific name in the scientificName.
-
-(Come back to this example, perhaps needs spatial focus in a given area and then download everything in there and exclude anything that taxonRank is not species)
-
-```{r}
-
-
-```
-
-#### Inconsistent taxonomy
-
-```{r}
-# Orchid as an example 
-# Read in problem child data and show
-
-# Group by species and count unique values for higher taxonomy
-```
 
 ### Capitalisation 
 
@@ -168,13 +91,13 @@ str_subset(unique(bees$class), "[:lower:]")
 We can correct the lower case formatting as below, remember to check the fix before overwriting/removing the erroneous column(s)
 
 ```{r}
-bees %>% 
-  mutate(class_corrected = str_to_sentence(class)) %>%
+bees |> 
+  mutate(class_corrected = str_to_sentence(class)) |>
   select(starts_with("class"))
 
-bees_corrected <- bees %>% 
-  mutate(class_corrected = str_to_sentence(class)) %>% 
-  select(-class) %>% # Remove erroreous column 
+bees_corrected <- bees |> 
+  mutate(class_corrected = str_to_sentence(class)) |> 
+  select(-class) |> # Remove erroreous column 
   rename(class = class_corrected) # Rename corrected column as the new 'class'
 ```
 
@@ -185,9 +108,9 @@ In a taxonomic data, separators such as, spaces and underscore are found in scie
 Try `tabyl-ing` your taxonomic columns to check if you have any inconsistencies first
 
 ```{r}
-plants %>% 
-  pull(scientific_name) %>% 
-  tabyl() %>% 
+plants |> 
+  pull(scientific_name) |> 
+  tabyl() |> 
   tibble()
 ```
 
@@ -196,30 +119,164 @@ Consistent taxonomic formatting may not be an issue if you are downloading data 
 Below is code to create an underscore scientific name from one that is separated with a space. Remember to check your changes
 
 ```{r}
-plants_updated <- plants %>% 
+plants_updated <- plants |> 
   mutate(scientific_name_undersc = str_replace_all(scientific_name, " ", "_")) 
 
-plants_updated %>% 
-  pull(scientific_name_undersc) %>% 
-  tabyl() %>% 
+plants_updated |> 
+  pull(scientific_name_undersc) |> 
+  tabyl() |> 
   tibble()
+```
+
+### Higher taxonomy 
+
+Higher taxonomy such as phylum and class may be used to group species for analysis or data visualisations. Its important to check the spelling and formatting of these columns. 
+Its always good to start with some a useful table of counts for each taxonomic level. Keep an eye out for spelling errors, formatting issues and missing data. Note that `NA` in the output represents missing
+
+As an example:
+
+```{r}
+library(tidyverse)
+library(janitor)
+
+plants |> 
+  pull(class) |> 
+  tabyl()
+
+plants |> 
+  pull(order) |> 
+  tabyl() |> 
+  head()
+
+plants |> 
+  pull(genus) |> 
+  tabyl() |> 
+  tail()
+```
+
+#### Missing higher taxonomy {.unnumbered}
+
+If you noticed you have missing data in these columns, you can usually back fill this information using your [chosen naming authority](link back to section) or retrieving this information from a living atlas such as the ALA. 
+
+The code below demonstrates how you can isolate the `scientific_names` of taxa with missing data and searching for taxonomic information from ALA
+
+<!-- (Example WORK IN PROGRESS, need better fake data, Inverts?) -->
+<!-- Seperate chunk where message = TRUE for hits -->
+```{r}
+library(galah)
+
+# These are the taxa missing `genus` information
+to_search <- plants |> 
+  filter(is.na(order)) |> 
+  select(species) |> 
+  distinct()
+
+to_search
+
+search_taxa(to_search)
+```
+
+#### Insufficient taxonomic rank {.unnumbered}
+
+If a record is not identified down to the taxonomic level that needed for the study e.g. species, then the record should be removed.
+
+During your data download, ensure you have requested for the column [`taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank), this variable tells us the lowest level of `scientificName`.
+
+
+```{r, eval=FALSE}
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             atlas = "Australia")
+
+honeyeaters <- galah_call() |> 
+  galah_identify("Meliphagidae") |> 
+  galah_filter(year == 2012 & stateProvince == "New South Wales") |> 
+  galah_select(group = "basic", taxonRank) |> 
+  atlas_occurrences()
+
+honeyeaters$taxonRank |> unique()
+
+honeyeaters |> filter(taxonRank == "species")
+```
+
+```{r}
+library(arrow)
+library(dplyr)
+
+# honeyeaters <- galah_call() |> 
+#   galah_identify("Meliphagidae") |> 
+#   galah_filter(year == 2012 & stateProvince == "New South Wales") |> 
+#   galah_select(group = "basic", taxonRank) |> 
+#   atlas_occurrences()
+# 
+# write_parquet(honeyeaters, "data/galah/honeyeater")
+
+open_dataset("data/galah/honeyeater") |> collect()
+
+honeyeaters$taxonRank |> unique()
+
+honeyeaters |> filter(taxonRank == "species")
+```
+
+#### Inconsistent higher taxonomy {.unnumbered}
+
+```{r}
+plants <- read_csv("data/dap/vascularplant.data.csv")
+
+plants |> 
+  select(phylum:species, scientific_name) |> 
+  distinct() |> 
+  group_by(species) |> 
+  summarise(n_class = length(unique(class))) |> 
+  filter(n_class > 1) 
+
+inconsistent_taxa <- plants |> 
+  select(phylum:species, scientific_name) |> 
+  distinct() |> 
+  group_by(species) |> 
+  summarise(n_class = length(unique(class))) |> 
+  filter(n_class > 1) |> 
+  pull(species) 
+
+plants |> filter(species %in% inconsistent_taxa) |> 
+  select(phylum:species, scientific_name) |> 
+  arrange(species) |> 
+  distinct() 
 ```
 
 ## Synonyms
 
-Synonyms are not straightforward when working with open source biodiversity data. Data infrastructures have their own taxonomic systems which may not be accepted by researchers or consistent with your chosen [naming authority](link_back). For these reasons, its important to flag and correct synonyms in a clear manner while keeping in mind that there is no universal or perfect solution. We recommend being explicit and consistent with your decisions about synonyms and keeping a good record of the changes to aid transparency and reproducibility. 
-
-Often naming authorities will have one they deem as accepted, and list others as synonyms. Here is an [example](https://biodiversity.org.au/afd/taxa/Egernia/names) (How do people retrieve these from the AFD?)
+Synonyms is a complex issue when working with open source biodiversity data. Data infrastructures have their own taxonomic systems which may not be accepted by researchers or consistent with your chosen [naming authority](link_back). 
 
 
-{Taxize}
+Keeping in mind that there is no universal or solution to synonymy, it is important to flag and correct synonyms in a clear and consistent manner. We recommend being explicit with your decisions about which names are retained and keeping a good record of the changes to aid transparency and reproducibility. 
+
+#### Naming authority {.unnumbered}
+
+Often naming authorities will have one they deem as accepted, and list others as synonyms. Here is an [example](https://biodiversity.org.au/afd/taxa/Egernia/names) 
+<!-- How do people retrieve these from the AFD? -->
+
+
+```{r}
+afd <- read_csv("data/naming/afd.csv")
+
+names(afd)
+
+afd |> 
+select(VALID_NAME, SPECIES, COMPLETE_NAME, SYNONYMS)
+```
+
+#### {WoRMs} {.unnumbered}
 
 ```{r}
 worrms::wm_synonyms(id = 105706)
 ```
 
 
+#### {taxize} {.unnumbered}
 
+```{r}
+library(taxize)
+```
 
 ## Input from experts
 
@@ -252,44 +309,39 @@ worrms::wm_synonyms(id = 105706)
 
 ## Notes
 
-#### This has lots all meaning
-
-1.  Downloading higher taxon data (kingdom:class) and then filtering for what you need, as disparities are less common at higher levels (???? Check with Martin)
-
-
 ##fiddling with fake data 
 ```{r, eval=FALSE}
 
 plants <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
 
 
-plants %>%
-  select(record_id:longitude_used) %>%
+plants |>
+  select(record_id:longitude_used) |>
   rename(latitude = latitude_used,
-         longitude = longitude_used) %>%
-  sample_frac(0.05) %>%
+         longitude = longitude_used) |>
+  sample_frac(0.05) |>
   write_csv_arrow(sink = "/Users/sch609/Documents/Github/cleaning_data/ignore/dap/plant_subset.csv")
 
 plants <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/dap/plant_subset.csv")
 
 ### Making some fake missing data
 set.seed(5)
-tobemissing <- plants %>%
-  filter(order == "Fabales") %>%
-  sample_frac(0.15) %>%
-  pull(scientific_name) %>%
+tobemissing <- plants |>
+  filter(order == "Fabales") |>
+  sample_frac(0.15) |>
+  pull(scientific_name) |>
   unique()
 
-plants <- plants %>%
+plants <- plants |>
   mutate(order = ifelse(scientific_name %in% tobemissing, NA, order)) # 40 species
 
 #try inverts 
 inverts<-read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv")
 
 
-inverts %>%
-  select(record_id:longitude) %>%
-  sample_frac(0.01) %>%
+inverts |>
+  select(record_id:longitude) |>
+  sample_frac(0.01) |>
   write_csv_arrow(sink = "/Users/sch609/Documents/Github/cleaning_data/ignore/dap/invert_subset.csv")
 
 inverts <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/dap/invert_subset.csv")
@@ -297,25 +349,25 @@ inverts <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/dap/inv
 ### Making some fake missing data
 set.seed(5)
 
-tobemissing <- inverts %>%
-  filter(class == "Arachnida") %>%
-  sample_frac(0.3) %>%
-  pull(scientific_name) %>%
+tobemissing <- inverts |>
+  filter(class == "Arachnida") |>
+  sample_frac(0.3) |>
+  pull(scientific_name) |>
   unique()
 
-inverts <- inverts %>%
+inverts <- inverts |>
   mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
 
 #try and backfill
-to_search <- inverts %>% 
-  filter(is.na(class)) %>% 
-  select(scientific_name) %>% 
+to_search <- inverts |> 
+  filter(is.na(class)) |> 
+  select(scientific_name) |> 
   distinct()
 
-to_search<- to_search%>%
+to_search<- to_search|>
   rename(scientificName = scientific_name)
 
-back_filled_arachnida<-galah::search_taxa(to_search) %>% tibble()
+back_filled_arachnida<-galah::search_taxa(to_search) |> tibble()
 
 ```
 
