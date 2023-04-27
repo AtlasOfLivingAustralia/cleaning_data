@@ -184,6 +184,8 @@ During your data download, ensure you have requested for the column [`taxonRank`
 
 
 ```{r, eval=FALSE}
+library(galah)
+
 galah_config(email = Sys.getenv("ALA_EMAIL"),
              atlas = "Australia")
 
@@ -202,12 +204,12 @@ honeyeaters |> filter(taxonRank == "species")
 library(arrow)
 library(dplyr)
 
-# honeyeaters <- galah_call() |> 
-#   galah_identify("Meliphagidae") |> 
-#   galah_filter(year == 2012 & stateProvince == "New South Wales") |> 
-#   galah_select(group = "basic", taxonRank) |> 
+# honeyeaters <- galah_call() |>
+#   galah_identify("Meliphagidae") |>
+#   galah_filter(year == 2012 & stateProvince == "New South Wales") |>
+#   galah_select(group = "basic", taxonRank) |>
 #   atlas_occurrences()
-# 
+
 # write_parquet(honeyeaters, "data/galah/honeyeater")
 
 open_dataset("data/galah/honeyeater") |> collect()
@@ -219,9 +221,13 @@ honeyeaters |> filter(taxonRank == "species")
 
 #### Inconsistent higher taxonomy {.unnumbered}
 
+A great approach to detect inconsistencies in your taxonomic data is to compute counts for each level of taxonomic rank. These counts act as a check for you to verify that the data is in line with your expectation. This is particularly important when combining data from different sources where their taxonomy might vary. If you have detected inconsistencies as we have done below, you will have to correct accordingly, either by consulting a taxonomic expert or a naming authority and ensure this is reported in your methods.
+
+
 ```{r}
 plants <- read_csv("data/dap/vascularplant.data.csv")
 
+# Get counts for every species where they have more than 1 class
 plants |> 
   select(phylum:species, scientific_name) |> 
   distinct() |> 
@@ -229,6 +235,7 @@ plants |>
   summarise(n_class = length(unique(class))) |> 
   filter(n_class > 1) 
 
+# Get the species that have more than 1 class
 inconsistent_taxa <- plants |> 
   select(phylum:species, scientific_name) |> 
   distinct() |> 
@@ -237,6 +244,7 @@ inconsistent_taxa <- plants |>
   filter(n_class > 1) |> 
   pull(species) 
 
+# Filter species that have more than 1 class
 plants |> filter(species %in% inconsistent_taxa) |> 
   select(phylum:species, scientific_name) |> 
   arrange(species) |> 
@@ -258,17 +266,67 @@ Often naming authorities will have one they deem as accepted, and list others as
 
 ```{r}
 afd <- read_csv("data/naming/afd.csv")
+str(afd)
 
-names(afd)
-
-afd |> 
+# Select relevant columns
+names <- afd |> 
 select(VALID_NAME, SPECIES, COMPLETE_NAME, SYNONYMS)
+
+# Determine if COMPLETE_NAME == SYNONYMS
+# If match is TRUE or NA then not a synonym
+names |> 
+  mutate(match = COMPLETE_NAME == SYNONYMS) |> 
+  pull(match) |> 
+  tabyl()
+
+# Break up SYNONYMS column
+split_names <- names |> group_split(VALID_NAME)
+
+# As an example
+# Make SYNONYMS long data
+long_syn <- split_names |>
+  pluck(46) |> 
+  pull(SYNONYMS) |> 
+  str_split(pattern = ";") |> 
+  pluck(1) |> 
+  str_trim() |> 
+  as_tibble() |> 
+  rename(SYNONYMS = value) 
+
+# Split at Authority
+x <- split_names |>
+  pluck(46) |> 
+  pull(SYNONYMS) |> 
+  str_split(pattern = ";") |> 
+  pluck(1) |> 
+  str_trim() |> 
+  str_match(pattern = regex("(?s)^(\\S+(?:\\s+\\S+)?)?(?:\\s+(.+))?"))
+
+long_syn_split <- long_syn |> 
+  mutate(SYN_NAME = x[,2],
+         SYN_AUTHORITY = x[,3])
+
+# Bind it with original names
+split_names |>
+  pluck(46) |> 
+  select(-SYNONYMS) |> 
+  bind_cols(long_syn_split)
+  
+
+  
 ```
 
 #### {WoRMs} {.unnumbered}
 
 ```{r}
-worrms::wm_synonyms(id = 105706)
+library(worrms)
+
+marine_sp <- read_csv("data/worms/worms.csv")
+
+marine_sp |> 
+  slice(1) |>
+  pull(AphiaID) |> 
+  wm_synonyms()
 ```
 
 
