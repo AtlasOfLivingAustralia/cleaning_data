@@ -98,7 +98,6 @@ african_ele <- galah_call() %>%
   atlas_occurrences()
 
 arrow::write_parquet(african_ele, "data/gbif/elephant")
-write_csv(african_ele, "data/gbif/elephant.csv")
 ```
 
 ```{r, echo = FALSE, eval = TRUE}

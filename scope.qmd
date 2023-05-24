@@ -19,6 +19,7 @@ library(dplyr)
 library(ggplot2)
 library(tidyverse) # group of packages
 library(ozmaps)
+library(arrow)
 ```
 
 # Data scope
@@ -38,7 +39,7 @@ Where the aim of the study is to gather data on a specific taxonomic unit. This 
 
 ```{r}
 #map Lampromicra senator
-lampromicra <- read_csv("data/galah/lampromicra.csv")
+lampromicra <- open_dataset("data/galah/lampromicra") |> collect()
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 
  ggplot() +
@@ -68,7 +69,7 @@ Where the aim is to obtain data for targeted taxa in a given location. In this c
 <!-- Note that we are plotting only 10% of all dataset here  -->
 
 ```{r}
-insects <- read_csv("data/galah/insects.csv")
+insects <- open_dataset("data/galah/insects") |> collect()
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 
 ggplot() +
