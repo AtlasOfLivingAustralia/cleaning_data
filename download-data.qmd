@@ -98,6 +98,7 @@ african_ele <- galah_call() %>%
   atlas_occurrences()
 
 arrow::write_parquet(african_ele, "data/gbif/elephant")
+write_csv(african_ele, "data/gbif/elephant.csv")
 ```
 
 ```{r, echo = FALSE, eval = TRUE}
@@ -128,8 +129,9 @@ read_parquet("data/galah/pink_robin")
 
 ### Spatial focus
 
-Work in progess
-Read in shpfile, transform to polygon
+<!-- Work in progess -->
+<!-- Narrowing your results to a specific spatial area- using `galah_geolocate` or by regions etc, discussions around whether this is best to be placed in this chapter to assist with expaning scope has been raised.  -->
+<!-- Read in shpfile, transform to polygon -->
 
 ```{r}
 
@@ -241,32 +243,50 @@ Data infrastructures use assertions to internally grade the quality, completenes
 show_all("assertions") 
 ```
 
-Once you have decided which assertions are important for your project you can further refine your download. Here we are 
+Once you have decided which assertions are important for your project you can further refine your download. To retrieve all the assertions for your query use `galah_select(group = "assertions")`
+
+<!-- Explain:  -->
+<!-- Assertions are logical flags, TRUE is presence of issue denoted in column name -->
+<!-- User to choose which ones are relevant to their project and filter in query -->
+<!-- For exclusions using multiple assertions (Currently throws errors, need to think carefully about != means for logical assertions...) -->
 
 ```{r}
-nice_inverts <- galah_call() %>% 
-    galah_filter(
-      taxonConceptID == galah_identify("Animalia")$identifier, 
-      taxonConceptID != galah_identify("Chordata")$identifier, 
-      basisOfRecord == specimen_only, # Filters to specimen only
-      identificationIncorrect == FALSE,
-      year == 2022) %>% 
-  atlas_occurrences()
-
-
-galah_call() %>% 
+probin_assertions <- galah_call() %>% 
   galah_identify("Petroica rodinogaster") %>% 
   galah_filter(basisOfRecord == tractable_records) %>% 
   galah_select(group = "assertions") %>% 
-  atlas_occurrences() -> x
+  atlas_occurrences() 
 
-# Come back to this later, biocache busy
+# Preview all the assertions
+colnames(probin_assertions)
+
+# A quick way to check which assertions contain TRUEs
+probin_assertions |> select(-recordID) |> colSums()
+
+# Requery for single assertion
+probin_subset <- galah_call() %>% 
+  galah_identify("Petroica rodinogaster") %>% 
+  galah_filter(basisOfRecord == tractable_records,
+               identificationIncorrect == FALSE) %>% 
+  galah_select(group = "basic") %>% 
+  atlas_counts() 
+
+
+# For exclusions using multiple assertions [Currently throws errors, need to think carefully about != means for logical assertions...]
+# assertions <- c("UNKNOWN_KINGDOM", "identificationIncorrect",
+#                    "COORDINATE_PRECISION_MISMATCH", "MISSING_GEODETICDATUM")
+# 
+# galah_call() %>%
+#   galah_identify("Petroica rodinogaster") %>%
+#   galah_filter(basisOfRecord == tractable_records,
+#                assertions != IA_assertions) %>%
+#   atlas_counts()
 ```
 
 
-### note 
 
-Narrowing your results to a specific spatial area- using `galah_geolocate` or by regions etc, discussions around whether this is best to be placed in this chapter to assist with expaning scope has been raised. 
+
+
 
  
  

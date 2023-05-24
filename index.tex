@@ -224,7 +224,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[breakable, frame hidden, boxrule=0pt, interior hidden, borderline west={3pt}{0pt}{shadecolor}, sharp corners, enhanced]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}, interior hidden, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -467,6 +467,18 @@ programming. Download and install Rstudio for your operating system
 \hypertarget{mac-1}{%
 \subsubsection*{Mac}\label{mac-1}}
 \addcontentsline{toc}{subsubsection}{Mac}
+
+\hypertarget{how-to-use-this-book}{%
+\section{How to use this book}\label{how-to-use-this-book}}
+
+There is no one size fits all workflow, not all steps are relevant
+and/or possible. Through examining the literature we found steps were
+frequently done in completely different orders depending on the nature
+of the study and the area of expertise possessed. Because of this, we
+don't recommend you use this book in a linear fashion. However some
+steps logically come first, you might need to go back to them after
+completely another (fig x)
+\includegraphics{images/data.cleaning-Page-2.drawio.png}
 
 \bookmarksetup{startatroot}
 
@@ -1601,13 +1613,13 @@ As an example:
 
 \begin{verbatim}
               .    n     percent valid_percent
-    Cycadopsida    2 0.000962001   0.000965717
-  Equisetopsida  169 0.081289081   0.081603090
- Lycopodiopsida   14 0.006734007   0.006760019
-  Magnoliopsida 1870 0.899470899   0.902945437
-      Pinopsida    3 0.001443001   0.001448576
- Polypodiopsida   13 0.006253006   0.006277161
-           <NA>    8 0.003848004            NA
+    Cycadopsida    2 0.000962001   0.000965251
+  Equisetopsida  162 0.077922078   0.078185328
+ Lycopodiopsida   12 0.005772006   0.005791506
+  Magnoliopsida 1872 0.900432900   0.903474903
+      Pinopsida    6 0.002886003   0.002895753
+ Polypodiopsida   18 0.008658009   0.008687259
+           <NA>    7 0.003367003            NA
 \end{verbatim}
 
 \begin{Shaded}
@@ -1620,13 +1632,13 @@ As an example:
 \end{Shaded}
 
 \begin{verbatim}
-                .   n     percent valid_percent
-      Alismatales   4 0.001924002   0.002160994
-          Apiales  31 0.014911015   0.016747704
-      Asparagales  68 0.032708033   0.036736899
-        Asterales 163 0.078403078   0.088060508
- Austrobaileyales   7 0.003367003   0.003781740
-       Canellales   3 0.001443001   0.001620746
+                .   n      percent valid_percent
+      Alismatales   1 0.0004810005  0.0005307856
+          Apiales  36 0.0173160173  0.0191082803
+      Asparagales  61 0.0293410293  0.0323779193
+        Asterales 168 0.0808080808  0.0891719745
+ Austrobaileyales   4 0.0019240019  0.0021231423
+      Brassicales   1 0.0004810005  0.0005307856
 \end{verbatim}
 
 \begin{Shaded}
@@ -1639,13 +1651,13 @@ As an example:
 \end{Shaded}
 
 \begin{verbatim}
-          .  n     percent valid_percent
-      Viola  3 0.001443001   0.001493280
- Westringia  9 0.004329004   0.004479841
-  Xanthosia 10 0.004810005   0.004977601
-      Xyris  3 0.001443001   0.001493280
-     Zieria 10 0.004810005   0.004977601
-       <NA> 70 0.033670034            NA
+            .  n      percent valid_percent
+ Wahlenbergia  1 0.0004810005  0.0004985045
+   Westringia  4 0.0019240019  0.0019940179
+    Xanthosia  6 0.0028860029  0.0029910269
+        Xyris  1 0.0004810005  0.0004985045
+       Zieria 14 0.0067340067  0.0069790628
+         <NA> 73 0.0351130351            NA
 \end{verbatim}
 
 \hypertarget{missing-higher-taxonomy}{%
@@ -1679,20 +1691,20 @@ chunk where message = TRUE for hits
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 52 x 1
+# A tibble: 46 x 1
    species               
    <chr>                 
- 1 Hovea similis         
- 2 Acacia matthewii      
- 3 Mirbelia confertiflora
- 4 Pultenaea polifolia   
- 5 Pultenaea vrolandii   
- 6 Acacia echinula       
- 7 Podolobium aestivum   
- 8 Thelychiton speciosus 
- 9 Acacia subtilinervis  
-10 Acacia obtusifolia    
-# i 42 more rows
+ 1 Gompholobium uncinatum
+ 2 Acacia obtusifolia    
+ 3 Hibbertia cistiflora  
+ 4 Almaleea incurvata    
+ 5 Acacia filicifolia    
+ 6 Acacia subtilinervis  
+ 7 Hovea pannosa         
+ 8 Pultenaea capitellata 
+ 9 Thelychiton speciosus 
+10 Acacia mabellae       
+# i 36 more rows
 \end{verbatim}
 
 \begin{Shaded}
@@ -1702,20 +1714,20 @@ chunk where message = TRUE for hits
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 52 x 1
+# A tibble: 46 x 1
    search_term           
    <chr>                 
- 1 Hovea similis         
- 2 Acacia matthewii      
- 3 Mirbelia confertiflora
- 4 Pultenaea polifolia   
- 5 Pultenaea vrolandii   
- 6 Acacia echinula       
- 7 Podolobium aestivum   
- 8 Thelychiton speciosus 
- 9 Acacia subtilinervis  
-10 Acacia obtusifolia    
-# i 42 more rows
+ 1 Gompholobium uncinatum
+ 2 Acacia obtusifolia    
+ 3 Hibbertia cistiflora  
+ 4 Almaleea incurvata    
+ 5 Acacia filicifolia    
+ 6 Acacia subtilinervis  
+ 7 Hovea pannosa         
+ 8 Pultenaea capitellata 
+ 9 Thelychiton speciosus 
+10 Acacia mabellae       
+# i 36 more rows
 \end{verbatim}
 
 \hypertarget{insufficient-taxonomic-rank}{%
@@ -1848,20 +1860,20 @@ inconsistencies first
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 633 x 3
+# A tibble: 630 x 3
    .                                       n  percent
    <chr>                               <int>    <dbl>
- 1 Acacia asparagoides                     2 0.000962
- 2 Acacia barringtonensis                  2 0.000962
- 3 Acacia betchei                          5 0.00241 
- 4 Acacia blayana                          1 0.000481
- 5 Acacia brunioides                       1 0.000481
- 6 Acacia brunioides subsp. brunioides     9 0.00433 
- 7 Acacia bulgaensis                       2 0.000962
- 8 Acacia cangaiensis                      1 0.000481
- 9 Acacia chalkeri                         1 0.000481
-10 Acacia clandullensis                    2 0.000962
-# i 623 more rows
+ 1 Acacia asparagoides                     1 0.000481
+ 2 Acacia barakulensis                     1 0.000481
+ 3 Acacia barringtonensis                  6 0.00289 
+ 4 Acacia beadleana                        2 0.000962
+ 5 Acacia betchei                          3 0.00144 
+ 6 Acacia brunioides subsp. brunioides     3 0.00144 
+ 7 Acacia brunioides subsp. granitica      1 0.000481
+ 8 Acacia bulgaensis                       2 0.000962
+ 9 Acacia cangaiensis                      2 0.000962
+10 Acacia clunies-rossiae                  1 0.000481
+# i 620 more rows
 \end{verbatim}
 
 Consistent taxonomic formatting may not be an issue if you are
@@ -1885,20 +1897,20 @@ separated with a space. Remember to check your changes
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 633 x 3
+# A tibble: 630 x 3
    .                                       n  percent
    <chr>                               <int>    <dbl>
- 1 Acacia_asparagoides                     2 0.000962
- 2 Acacia_barringtonensis                  2 0.000962
- 3 Acacia_betchei                          5 0.00241 
- 4 Acacia_blayana                          1 0.000481
- 5 Acacia_brunioides                       1 0.000481
- 6 Acacia_brunioides_subsp._brunioides     9 0.00433 
- 7 Acacia_bulgaensis                       2 0.000962
- 8 Acacia_cangaiensis                      1 0.000481
- 9 Acacia_chalkeri                         1 0.000481
-10 Acacia_clandullensis                    2 0.000962
-# i 623 more rows
+ 1 Acacia_asparagoides                     1 0.000481
+ 2 Acacia_barakulensis                     1 0.000481
+ 3 Acacia_barringtonensis                  6 0.00289 
+ 4 Acacia_beadleana                        2 0.000962
+ 5 Acacia_betchei                          3 0.00144 
+ 6 Acacia_brunioides_subsp._brunioides     3 0.00144 
+ 7 Acacia_brunioides_subsp._granitica      1 0.000481
+ 8 Acacia_bulgaensis                       2 0.000962
+ 9 Acacia_cangaiensis                      2 0.000962
+10 Acacia_clunies-rossiae                  1 0.000481
+# i 620 more rows
 \end{verbatim}
 
 \hypertarget{synonyms}{%
@@ -2275,11 +2287,10 @@ $ accepted_name                    <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 2 x 13
+# A tibble: 1 x 13
   record_id    scientific_name vernacular_name kingdom phylum class order family
   <chr>        <chr>           <chr>           <chr>   <chr>  <chr> <chr> <chr> 
-1 c4a99881-6b~ Lysimachia jap~ Creeping Loose~ Plantae Trach~ Magn~ Eric~ Primu~
-2 143089c7-45~ Lysimachia jap~ Creeping Loose~ Plantae Trach~ Magn~ Eric~ Primu~
+1 e2b65eed-08~ Lysimachia for~ Swamp Tiger Ta~ Plantae Trach~ Magn~ Eric~ Primu~
 # i 5 more variables: genus <chr>, species <chr>, subspecies <chr>,
 #   latitude <dbl>, longitude <dbl>
 \end{verbatim}
@@ -2291,43 +2302,20 @@ $ accepted_name                    <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{domesticated-species}{%
-\subsection{Domesticated species}\label{domesticated-species}}
-
-Remove domesticated specimens, sightings of dogs, cats, but also garden
-species.
-
 \hypertarget{extinct-species}{%
 \subsection{Extinct species}\label{extinct-species}}
 
 In most cases, a year filter during in your download query should remove
 \emph{most} extinct species.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(worrms)}
+You want to cross check for extinct species using the Interim Register
+of Marine and Nonmarine Genera \href{https://www.irmng.org/}{(IRMNG)}.
+The list is comprehensive and actively maintained, the only caveat is
+that a lot of its data doesn't go down to species level. As such, we
+recommend using the following approach to find \emph{potentially
+extinct} taxa and futher investigate the records that we are flagged.
 
-\NormalTok{my\_species }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{|\textgreater{}} 
-  \FunctionTok{pull}\NormalTok{(scientificName) }\SpecialCharTok{|\textgreater{}}
-  \FunctionTok{unique}\NormalTok{()}
-
-\NormalTok{extinct\_check }\OtherTok{\textless{}{-}} \FunctionTok{map\_dfr}\NormalTok{(my\_species,}
-       \FunctionTok{possibly}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{worrms}\SpecialCharTok{::}\FunctionTok{wm\_records\_name}\NormalTok{(}\AttributeTok{name =}\NormalTok{ .x) }\SpecialCharTok{|\textgreater{}} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{search\_term =}\NormalTok{ .x))}
-\NormalTok{)}
-
-\NormalTok{extinct\_check }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(isExtinct }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-If you are concerned that a year filter didn't capture all you extinct
-species, you can try the Interim Register of Marine and Nonmarine Genera
-\href{https://www.irmng.org/}{(IRMNG)}. The list is comprehensive and
-actively maintained, the only caveat is that a lot of its data doesn't
-go down to species level. As such, we recommend using the following
-approach to find \emph{potentially extinct} taxa and futher investigate
-the records that we are flagged.
-
-The required files can be downloadedfrom
+The required files can be downloaded from
 \href{https://www.irmng.org/export/}{here}. Once you have unzipped the
 file in your projected directory, we need to process the list a
 littlerbefore we use it to exclude extinct species.
@@ -2406,7 +2394,8 @@ littlerbefore we use it to exclude extinct species.
 [3] "Halobates (Halobates) acherontis"
 \end{verbatim}
 
-Another option is to use the IUCN to retrieve a list of extinct species
+Alternatively, you can use the IUCN to retrieve a list of extinct
+species that are in their database
 
 https://apiv3.iucnredlist.org/api/v3/docs\#species-category
 https://docs.ropensci.org/crul/articles/crul.html
@@ -2436,6 +2425,7 @@ https://docs.ropensci.org/crul/articles/crul.html
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(galah)}
+\FunctionTok{library}\NormalTok{(skimr)}
 
 \FunctionTok{galah\_config}\NormalTok{(}\AttributeTok{email =} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"ALA\_EMAIL"}\NormalTok{),}
              \AttributeTok{atlas =} \StringTok{"Australia"}\NormalTok{)}
@@ -2445,27 +2435,79 @@ https://docs.ropensci.org/crul/articles/crul.html
   \FunctionTok{galah\_filter}\NormalTok{(year }\SpecialCharTok{==} \DecValTok{2022}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{galah\_select}\NormalTok{(}\AttributeTok{group =} \StringTok{"basic"}\NormalTok{, sex, lifeStage, reproductiveCondition) }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{atlas\_occurrences}\NormalTok{()}
+
+\NormalTok{bilby }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{sex }\SpecialCharTok{==} \StringTok{"MALE"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-
-Checking queue
-Current queue size: 1 inqueue . running .
+# A tibble: 35 x 11
+   decimalLatitude decimalLongitude eventDate           scientificName  
+             <dbl>            <dbl> <dttm>              <chr>           
+ 1           -34.2             143. 2022-06-16 14:00:00 Macrotis lagotis
+ 2           -34.2             143. 2022-06-14 14:00:00 Macrotis lagotis
+ 3           -34.2             143. 2022-03-22 13:00:00 Macrotis lagotis
+ 4           -34.2             143. 2022-03-22 13:00:00 Macrotis lagotis
+ 5           -34.2             143. 2022-03-22 13:00:00 Macrotis lagotis
+ 6           -34.2             143. 2022-03-23 13:00:00 Macrotis lagotis
+ 7           -34.2             143. 2022-03-21 13:00:00 Macrotis lagotis
+ 8           -34.2             143. 2022-06-12 14:00:00 Macrotis lagotis
+ 9           -34.2             143. 2022-03-23 13:00:00 Macrotis lagotis
+10           -34.2             143. 2022-06-12 14:00:00 Macrotis lagotis
+# i 25 more rows
+# i 7 more variables: taxonConceptID <chr>, recordID <chr>,
+#   dataResourceName <chr>, occurrenceStatus <chr>, sex <chr>, lifeStage <lgl>,
+#   reproductiveCondition <chr>
 \end{verbatim}
 
 \hypertarget{marine-species}{%
 \subsection{Marine species}\label{marine-species}}
 
-\begin{itemize}
-\tightlist
-\item
-  Remove specific taxa/ depending on the study: For example, if working
-  with terrestrial data, it is necessary to remove marine taxa.
-\end{itemize}
+Remove specific taxa/ depending on the study: For example, if working
+with terrestrial data, it is necessary to remove marine taxa.
 
-\hypertarget{coordinatecleaner}{%
-\subsection{CoordinateCleaner}\label{coordinatecleaner}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(worrms)}
+
+\CommentTok{\# Obtain species list}
+\NormalTok{my\_species }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(scientificName) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{unique}\NormalTok{()}
+
+\CommentTok{\# Query WoRMs}
+\NormalTok{marine\_check }\OtherTok{\textless{}{-}} \FunctionTok{map\_dfr}\NormalTok{(my\_species,}
+       \FunctionTok{possibly}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{worrms}\SpecialCharTok{::}\FunctionTok{wm\_records\_name}\NormalTok{(}\AttributeTok{name =}\NormalTok{ .x) }\SpecialCharTok{|\textgreater{}} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{search\_term =}\NormalTok{ .x))}
+\NormalTok{)}
+
+\CommentTok{\# Filter species that are TRUE for isMarine}
+\NormalTok{marine\_inverts }\OtherTok{\textless{}{-}}\NormalTok{ marine\_check }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(isMarine }\SpecialCharTok{==} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(search\_term)}
+
+\CommentTok{\# Exclude marine invertebrates}
+\NormalTok{inverts }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\NormalTok{scientificName }\SpecialCharTok{\%in\%}\NormalTok{ marine\_inverts)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2,612 x 9
+   decimalLatitude decimalLongitude eventDate           scientificName   
+             <dbl>            <dbl> <dttm>              <chr>            
+ 1           -46.9             37.8 1984-09-01 00:00:00 Palirhoeus eatoni
+ 2           -46.9             37.8 1983-04-01 00:00:00 Palirhoeus eatoni
+ 3           -46.9             37.9 1986-04-01 00:00:00 Palirhoeus eatoni
+ 4           -46.6             38.0 1985-04-01 00:00:00 Palirhoeus eatoni
+ 5           -46.6             38.0 1984-04-01 00:00:00 Palirhoeus eatoni
+ 6           -46.6             38.0 1984-09-01 00:00:00 Palirhoeus eatoni
+ 7           -46.6             38.0 1983-05-01 00:00:00 Palirhoeus eatoni
+ 8           -43.6            148.  NA                  Lasaea australis 
+ 9           -43.6            147.  2008-12-27 13:00:00 Lasaea australis 
+10           -43.6            147.  2008-12-27 13:00:00 Lasaea australis 
+# i 2,602 more rows
+# i 5 more variables: taxonConceptID <chr>, recordID <chr>,
+#   dataResourceName <chr>, occurrenceStatus <chr>, genus <chr>
+\end{verbatim}
 
 \bookmarksetup{startatroot}
 
@@ -2558,45 +2600,44 @@ swapping the sign and correct rather than discarding the points.
 \textbf{Country field doesn't match coordinates:} The coordinates could
 be wrong or just the country listed.
 
-\hypertarget{this-doesnt-seem-to-be-very-common--atleast-not-in-ala-data--because-there-is-no-neighboring-country}{%
-\section{this doesnt seem to be very common- atleast not in ALA data-
-because there is no neighboring
-country}\label{this-doesnt-seem-to-be-very-common--atleast-not-in-ala-data--because-there-is-no-neighboring-country}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# this doesnt seem to be very common{-} atleast not in ALA data{-} because there is no neighboring country}
+\CommentTok{\# https://biocache.ala.org.au/occurrences/a34fca43{-}9e7c{-}4b37{-}8fe4{-}07cc18369465 Australian coordinates, country listed as Trinidad and Tobago}
+\CommentTok{\# https://www.gbif.org/occurrence/search?advanced=true\&continent=SOUTH\_AMERICA\&geometry=POLYGON(({-}78.74961\%20{-}8.25249,{-}76.29838\%20{-}8.25249,{-}76.29838\%20{-}4.74121,{-}78.74961\%20{-}4.74121,{-}78.74961\%20{-}8.25249))\&has\_coordinate=true\&issue=COUNTRY\_MISMATCH\&locale=en\&q=reptilia   \# GBIF example{-} reptiles located in Peru, originally recorded as Ecuador}
+\end{Highlighting}
+\end{Shaded}
 
-\bookmarksetup{startatroot}
+\hypertarget{coordinate-cleaning}{%
+\section{Coordinate cleaning}\label{coordinate-cleaning}}
 
-\hypertarget{httpsbiocache.ala.org.auoccurrencesa34fca43-9e7c-4b37-8fe4-07cc18369465-australian-coordinates-country-listed-as-trinidad-and-tobago}{%
-\chapter{https://biocache.ala.org.au/occurrences/a34fca43-9e7c-4b37-8fe4-07cc18369465
-Australian coordinates, country listed as Trinidad and
-Tobago}\label{httpsbiocache.ala.org.auoccurrencesa34fca43-9e7c-4b37-8fe4-07cc18369465-australian-coordinates-country-listed-as-trinidad-and-tobago}}
+Once you have fixed everything you can, it's time to remove records that
+still have errors. This doesn't mean removing all outliers, you must
+have more than ``it's far away from the others'' to justify a records
+removal.
 
-\bookmarksetup{startatroot}
+\textbf{Remove records with null or missing coordinates:} This will be
+records missing partial or complete information. Missing values can
+cause errors, many analytical tools do not respond well to missing
+values. If you can't find the information elsewhere, it's best to remove
+it.
 
-\hypertarget{httpswww.gbif.orgoccurrencesearchadvancedtruecontinentsouth_americageometrypolygon-78.7496120-8.25249-76.2983820-8.25249-76.2983820-4.74121-78.7496120-4.74121-78.7496120-8.25249has_coordinatetrueissuecountry_mismatchlocaleenqreptilia-gbif-example--reptiles-located-in-peru-originally-recorded-as-ecuador}{%
-\chapter{https://www.gbif.org/occurrence/search?advanced=true\&continent=SOUTH\_AMERICA\&geometry=POLYGON((-78.74961\%20-8.25249,-76.29838\%20-8.25249,-76.29838\%20-4.74121,-78.74961\%20-4.74121,-78.74961\%20-8.25249))\&has\_coordinate=true\&issue=COUNTRY\_MISMATCH\&locale=en\&q=reptilia
-\# GBIF example- reptiles located in Peru, originally recorded as
-Ecuador}\label{httpswww.gbif.orgoccurrencesearchadvancedtruecontinentsouth_americageometrypolygon-78.7496120-8.25249-76.2983820-8.25249-76.2983820-4.74121-78.7496120-4.74121-78.7496120-8.25249has_coordinatetrueissuecountry_mismatchlocaleenqreptilia-gbif-example--reptiles-located-in-peru-originally-recorded-as-ecuador}}
+\textbf{Remove records where longitude and latitude are equal:} High
+likelihood that this is not where the record was recorded and, check
+first, however likely will need to remove
 
-\begin{verbatim}
+\textbf{Remove records with zero coordinates:} When plotting it on a
+map, zero coordinates will be found around the point at zero latitudes
+and longitudes. These records will not accurately represent their valid
+location and must be removed.
 
-## Coordinate cleaning
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#zero coordinates acacia }
 
-Once you have fixed everything you can, it's time to remove records that still have errors. This doesn't mean removing all outliers, you must have more than "it's far away from the others" to justify a records removal.
-
-**Remove records with null or missing coordinates:** This will be records missing partial or complete information. Missing values can cause errors, many analytical tools do not respond well to missing values. If you can't find the information elsewhere, it's best to remove it.
-
-**Remove records where longitude and latitude are equal:** High likelihood that this is not where the record was recorded and, check first, however likely will need to remove
-
-**Remove records with zero coordinates:** When plotting it on a map, zero coordinates will be found around the point at zero latitudes and longitudes. These records will not accurately represent their valid location and must be removed.
-::: {.cell}
-
-```{.r .cell-code}
-#zero coordinates acacia 
-
-#https://biocache.ala.org.au/occurrences/search?q=lsid%3Ahttps%3A%2F%2Fid.biodiversity.org.au%2Ftaxon%2Fapni%2F51382879&disableAllQualityFilters=true&qualityProfile=ALA&fq=spatiallyValid%3A%22false%22&radius=25&lat=-0.024032592068740033&lon=-0.06591796875#tab_recordsView 
-\end{verbatim}
-
-:::
+\CommentTok{\#https://biocache.ala.org.au/occurrences/search?q=lsid\%3Ahttps\%3A\%2F\%2Fid.biodiversity.org.au\%2Ftaxon\%2Fapni\%2F51382879\&disableAllQualityFilters=true\&qualityProfile=ALA\&fq=spatiallyValid\%3A\%22false\%22\&radius=25\&lat={-}0.024032592068740033\&lon={-}0.06591796875\#tab\_recordsView }
+\end{Highlighting}
+\end{Shaded}
 
 Remove records plotted away from the known area of distribution of the
 species. It is essential to check the metadata to ensure that it is a
@@ -2689,6 +2730,9 @@ A simple way to visualize your data is to plot it on a map.
 
 \hypertarget{section}{%
 \subsection{}\label{section}}
+
+\hypertarget{coordinatecleaner}{%
+\subsection{CoordinateCleaner}\label{coordinatecleaner}}
 
 \bookmarksetup{startatroot}
 
@@ -2962,6 +3006,9 @@ All steps for acquiring and cleaning data were then looked at together
 in order to understand what were essential steps, versus what was done
 in certain use cases. We also investigated the order in which steps were
 undertaken to develop the most streamlined process for this book.
+
+\includegraphics{images/complex_workflow.png}
+\includegraphics{images/simplified_workflow.png}
 
 
 

@@ -22,40 +22,57 @@ options(tidyverse.quiet = TRUE)
 
 library(arrow)
 library(tidyverse)
+library(janitor)
 ```
 
-```{r loaddata, include=FALSE}
-
+```{r}
+#To create data used in this chapter
+#
 # inverts <- open_dataset("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv", format = "csv")
 # 
 # inverts |> 
 #   filter(family == "apidae") |> 
 #   write_parquet(sink = "data/dap/bees.parquet")
+#
+# Smaller subset of the dataset
+# set.seed(5)
 
+# inverts |>
+#   collect() |> 
+#   sample_frac(0.05) |>
+#   write_parquet(sink = "data/dap/inverts_subset")
+
+
+# Plants data with errors
+# plants <- read_csv("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
+# 
+# plants |>
+#   select(record_id:longitude_used) |>
+#   rename(latitude = latitude_used,
+#          longitude = longitude_used) |>
+#   sample_frac(0.05) |>
+#   write_parquet("data/dap/plants_subset")
+```
+
+
+```{r loaddata, include=FALSE}
 bees <- read_parquet("data/dap/bees.parquet")
 
-plants <- read_csv("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
+plants <- open_dataset("data/dap/plants_subset", 
+             format = "parquet") |> collect()
 
-plants |>
-  select(record_id:longitude_used) |>
-  rename(latitude = latitude_used,
-         longitude = longitude_used) |>
-  sample_frac(0.05) |>
-  write_csv_arrow(sink = "data/dap/plants_subset.csv")
+### Making some fake missing data for inverts in Class column
+inverts <- open_dataset("data/dap/inverts_subset") |> collect()
 
-plants <- read_csv("data/dap/plants_subset.csv")
-
-### Making some fake missing data
 set.seed(5)
-tobemissing <- plants |>
-  filter(order == "Fabales") |>
-  sample_frac(0.15) |>
+tobemissing <- inverts |>
+  filter(class == "arachnida") |>
+  sample_frac(0.3) |>
   pull(scientific_name) |>
   unique()
 
-plants <- plants |>
-  mutate(order = ifelse(scientific_name %in% tobemissing, NA, order)) # 40 species
-
+inverts <- inverts |>
+  mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
 ```
 
 Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before [@garraffoni2019integrative]. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers. 
@@ -108,6 +125,8 @@ In a taxonomic data, separators such as, spaces and underscore are found in scie
 Try `tabyl-ing` your taxonomic columns to check if you have any inconsistencies first
 
 ```{r}
+library(janitor)
+
 plants |> 
   pull(scientific_name) |> 
   tabyl() |> 
@@ -165,15 +184,22 @@ The code below demonstrates how you can isolate the `scientific_names` of taxa w
 ```{r}
 library(galah)
 
-# These are the taxa missing `genus` information
-to_search <- plants |> 
-  filter(is.na(order)) |> 
-  select(species) |> 
+# Configure galah to point to Australia node
+galah_config(atlas = "Australia",
+             email = Sys.getenv("ALA_EMAIL"))
+
+# These are the taxa missing `class` information
+to_search <- inverts |> 
+  filter(is.na(class)) |> 
+  select(scientific_name) |> 
   distinct()
 
-to_search
+# Reformat scientific_name to scientificName as the latter is the ALA format
+backfilled_taxa <- to_search|>
+  rename(scientificName = scientific_name) |> 
+  search_taxa(to_search) |> tibble()
 
-search_taxa(to_search)
+backfilled_taxa
 ```
 
 #### Insufficient taxonomic rank {.unnumbered}
@@ -212,7 +238,7 @@ library(dplyr)
 
 # write_parquet(honeyeaters, "data/galah/honeyeater")
 
-open_dataset("data/galah/honeyeater") |> collect()
+honeyeaters <- open_dataset("data/galah/honeyeater") |> collect()
 
 honeyeaters$taxonRank |> unique()
 
@@ -225,8 +251,6 @@ A great approach to detect inconsistencies in your taxonomic data is to compute 
 
 
 ```{r}
-plants <- read_csv("data/dap/vascularplant.data.csv")
-
 # Get counts for every species where they have more than 1 class
 plants |> 
   select(phylum:species, scientific_name) |> 
@@ -311,9 +335,7 @@ split_names |>
   pluck(46) |> 
   select(-SYNONYMS) |> 
   bind_cols(long_syn_split)
-  
 
-  
 ```
 
 #### {WoRMs} {.unnumbered}
@@ -364,68 +386,4 @@ library(taxize)
 
 - [Catalogue of Life](https://www.catalogueoflife.org/)
 
-
-## Notes
-
-##fiddling with fake data 
-```{r, eval=FALSE}
-
-plants <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
-
-
-plants |>
-  select(record_id:longitude_used) |>
-  rename(latitude = latitude_used,
-         longitude = longitude_used) |>
-  sample_frac(0.05) |>
-  write_csv_arrow(sink = "/Users/sch609/Documents/Github/cleaning_data/ignore/dap/plant_subset.csv")
-
-plants <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/dap/plant_subset.csv")
-
-### Making some fake missing data
-set.seed(5)
-tobemissing <- plants |>
-  filter(order == "Fabales") |>
-  sample_frac(0.15) |>
-  pull(scientific_name) |>
-  unique()
-
-plants <- plants |>
-  mutate(order = ifelse(scientific_name %in% tobemissing, NA, order)) # 40 species
-
-#try inverts 
-inverts<-read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv")
-
-
-inverts |>
-  select(record_id:longitude) |>
-  sample_frac(0.01) |>
-  write_csv_arrow(sink = "/Users/sch609/Documents/Github/cleaning_data/ignore/dap/invert_subset.csv")
-
-inverts <- read_csv("/Users/sch609/Documents/Github/cleaning_data/ignore/dap/invert_subset.csv")
-
-### Making some fake missing data
-set.seed(5)
-
-tobemissing <- inverts |>
-  filter(class == "Arachnida") |>
-  sample_frac(0.3) |>
-  pull(scientific_name) |>
-  unique()
-
-inverts <- inverts |>
-  mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
-
-#try and backfill
-to_search <- inverts |> 
-  filter(is.na(class)) |> 
-  select(scientific_name) |> 
-  distinct()
-
-to_search<- to_search|>
-  rename(scientificName = scientific_name)
-
-back_filled_arachnida<-galah::search_taxa(to_search) |> tibble()
-
-```
 

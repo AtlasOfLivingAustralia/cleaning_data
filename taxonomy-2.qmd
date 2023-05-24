@@ -22,7 +22,12 @@ options(tidyverse.quiet = TRUE)
 
 library(tidyverse)
 library(galah)
+```
 
+```{r, include=FALSE}
+## To create data used in this chapter
+
+## A subset of worms
 # worms <- read_csv("~/Dropbox/1 - ALA/Projects/data_cleaning_workflows/data/worms/worrms_marine_splist.csv")
 # 
 # set.seed(123)
@@ -33,17 +38,14 @@ library(galah)
 # 
 # write_csv(worms_mini, "data/worms/worms.csv")
 
-# WORMS dataset
-worms <- read_csv("data/worms/worms.csv")
-
+## A subset of AFD
 # afd <- read_csv("~/Dropbox/1 - ALA/Projects/data_cleaning_workflows/ignore/data/AFD_checklist_clean.csv")
 # 
 # afd %>% filter(VALID_NAME %in% unique(worms$scientificname)) %>%
 #   write_csv("data/naming/afd.csv")
 
-# AFD dataset
-afd <- read_csv("data/naming/afd.csv")
 
+## Some inverts data
 # galah_config(atlas = "Australia",
 #              email = Sys.getenv("ALA_EMAIL"))
 # 
@@ -53,14 +55,44 @@ afd <- read_csv("data/naming/afd.csv")
 #   galah_select(group = "basic") %>%
 #   atlas_occurrences()
 # 
-# write_csv(inverts, "data/galah/inverts.csv")
+# arrow::write_parquet(inverts, "data/galah/inverts")
+
+## Bilby data 
+# galah_config(email = Sys.getenv("ALA_EMAIL"),
+#              atlas = "Australia")
+
+# bilby <- galah_call() |>
+#   galah_identify("Macrotis lagotis") |>
+#   galah_filter(sex != "") |>
+#   galah_select(group = "basic", sex, lifeStage, reproductiveCondition) |>
+#   atlas_occurrences()
+# 
+#write_parquet(bilby, sink = "data/galah/bilby.parquet")
+
+## IRMG ist subset
+# set.seed(5)
+# irmng_taxa <- fread("data/lists/IRMNG_genera_DwCA_2023-05-19/taxon.txt", na.strings = c(""), quote="") |>
+#   sample_frac(0.2)|>
+#   write_parquet("data/lists/IRMNG_genera_DwCA_2023-05-19/taxon_subset")
+```
+
+```{r, include=FALSE}
+# Load in data needed for the chapter
+
+# WORMS dataset
+worms <- read_csv("data/worms/worms.csv")
+
+# AFD dataset
+afd <- read_csv("data/naming/afd.csv")
 
 # Inverts
-inverts <- read_csv("data/galah/inverts.csv")
+inverts <- open_dataset("data/dap/inverts") |> collect()
 
 # Plants
-plants <- read_csv("data/dap/plants_subset.csv")
+plants <- open_dataset("data/dap/plants_subset") |> collect()
 ```
+
+
 
 ## Joining datasets from different infrastructures
 
@@ -144,20 +176,28 @@ plants_no_griis <- plants |> filter(! scientific_name %in% matches)
 In most cases, a year filter during in your download query should remove  _most_ extinct species.
 
 You want to cross check for extinct species using the
-Interim Register of Marine and Nonmarine Genera [(IRMNG)](https://www.irmng.org/). The list is comprehensive and actively maintained, the only caveat is that a lot of its data doesn't go down to species level. As such, we recommend using the following approach to find _potentially extinct_ taxa and futher investigate the records that we are flagged.
+Interim Register of Marine and Nonmarine Genera [(IRMNG)](https://www.irmng.org/). The list is comprehensive and actively maintained, the only caveat is that a lot of its data doesn't go down to species level. As such, we recommend using the following approach to find _potentially extinct_ taxa and further investigate the records that we are flagged.
 
-The required files can be downloaded from [here](https://www.irmng.org/export/). Once you have unzipped the file in your projected directory, we need to process the list a littlerbefore we use it to exclude extinct species.  
+The required files are organised by year and can be downloaded from [here](https://www.irmng.org/export/). Once you have unzipped the file in your projected directory, we need to process the list a littlerbefore we use it to exclude extinct species.  
 
-```{r}
+```{r, eval=FALSE}
 library(data.table)
 library(janitor)
 
 # Taxonomic info
-irmng_taxa <- fread("data/lists/irmng/irmng_taxon.txt", na.strings = c(""))
+irmng_taxa <- fread("data/lists/IRMNG_genera_DwCA_2023-05-19/taxon.txt", na.strings = c(""), quote="")
 
 # Species profile
-irmng_sp <- fread("data/lists/irmng/irmng_speciesprofile.txt", na.strings = c(""))
+irmng_sp <- fread("data/lists/IRMNG_genera_DwCA_2023-05-19/speciesprofile.txt", na.strings = c(""), quote="")
+```
 
+```{r, include=FALSE}
+irmng_taxa <- open_dataset("data/lists/IRMNG_genera_DwCA_2023-05-19/taxon_subset") |> collect()
+
+irmng_sp <- open_dataset("data/lists/IRMNG_genera_DwCA_2023-05-19/speciesprofile") |> collect()
+```
+
+```{r}
 # Precleaning 
 awc_pattern <- "(awaiting allocation)"
 insed_pattern <- "incertae sedis"
@@ -198,6 +238,9 @@ filter(str_detect(genus, pattern = regex(paste0(extinct_genus, collapse="|")))) 
 
 check
 ```
+
+
+
 
 Alternatively, you can use the IUCN to retrieve a list of extinct species that are in their database
 
@@ -243,17 +286,6 @@ bilby |> filter(!sex == "MALE")
 library(galah)
 library(skimr)
 library(arrow)
-
-# galah_config(email = Sys.getenv("ALA_EMAIL"),
-#              atlas = "Australia")
-
-# bilby <- galah_call() |>
-#   galah_identify("Macrotis lagotis") |>
-#   galah_filter(sex != "") |>
-#   galah_select(group = "basic", sex, lifeStage, reproductiveCondition) |>
-#   atlas_occurrences()
-# 
-#write_parquet(bilby, sink = "data/galah/bilby.parquet" )
 
 bilby <- open_dataset("data/galah/bilby.parquet", format = "parquet") |> collect()
 

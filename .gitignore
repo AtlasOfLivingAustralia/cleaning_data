@@ -2,7 +2,6 @@
 # Specific files/folders #
 ##########################
 _book/
-data/
 output/
 docs/
 scripts/archive/

@@ -38,7 +38,7 @@ Where the aim of the study is to gather data on a specific taxonomic unit. This 
 
 ```{r}
 #map Lampromicra senator
-lampromicra <- arrow::read_parquet(here("data", "galah", "lampromicra"))
+lampromicra <- read_csv("data/galah/lampromicra.csv")
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 
  ggplot() +
@@ -65,8 +65,10 @@ Curious what *Lampromicra senator* looks like?
 
 Where the aim is to obtain data for targeted taxa in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest. The example below shows all Insecta orders in the state of Tasmania in Australia
 
+<!-- Note that we are plotting only 10% of all dataset here  -->
+
 ```{r}
-insects <- arrow::read_parquet(here("data", "galah","insects"))
+insects <- read_csv("data/galah/insects.csv")
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 
 ggplot() +
@@ -123,6 +125,8 @@ With all that, open source data has many pros, so how does one deal with taxonom
 While this is in theory how the ALAs backbone is built, issues can occur with aggregation leading to potentially serious problems with the taxonomic structure. In addition data can be parsed incorrectly, and the process isn't transparent. Meaning that when the taxonomic backbone is updated, the elements that have changed are untraceable. These issues are not specific to ALA taxonomy, but occur in varying forms among data aggregators.
 
 ```{r, include=FALSE}
+# Code to generate data that is in this page
+
 # galah_config(email = ALA_mail, atlas = "Australia")
 
 # lampromicra <- galah_call() %>%
@@ -140,6 +144,7 @@ While this is in theory how the ALAs backbone is built, issues can occur with ag
 #    galah_select(group = "basic", order) |>
 #   atlas_occurrences()
 # 
-# arrow::write_parquet(insects, "data/galah/insects")
+# insects |> 
+#   arrow::write_parquet("data/galah/insects")
 
 ```
