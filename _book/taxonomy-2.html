@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ALA Data Cleaning - 6&nbsp; Taxonomy II</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./spatial.html" rel="next">
+<link href="./taxonomy.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./taxonomy-2.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Taxonomy II</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">ALA Data Cleaning</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data scope</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./download-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download occurrence data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preclean.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Precleaning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./taxonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./taxonomy-2.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Taxonomy II</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spatial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./duplicates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#joining-datasets-from-different-infrastructures" id="toc-joining-datasets-from-different-infrastructures" class="nav-link active" data-scroll-target="#joining-datasets-from-different-infrastructures"><span class="header-section-number">6.1</span> Joining datasets from different infrastructures</a>
+  <ul class="collapse">
+  <li><a href="#variable-names-and-case-format" id="toc-variable-names-and-case-format" class="nav-link" data-scroll-target="#variable-names-and-case-format"><span class="header-section-number">6.1.1</span> Variable names and case format</a></li>
+  </ul></li>
+  <li><a href="#extended-taxonomic-cleaning" id="toc-extended-taxonomic-cleaning" class="nav-link" data-scroll-target="#extended-taxonomic-cleaning"><span class="header-section-number">6.2</span> Extended taxonomic cleaning</a>
+  <ul class="collapse">
+  <li><a href="#introduced-or-invasive-species" id="toc-introduced-or-invasive-species" class="nav-link" data-scroll-target="#introduced-or-invasive-species"><span class="header-section-number">6.2.1</span> Introduced or Invasive species</a></li>
+  <li><a href="#extinct-species" id="toc-extinct-species" class="nav-link" data-scroll-target="#extinct-species"><span class="header-section-number">6.2.2</span> Extinct species</a></li>
+  <li><a href="#certain-lifestges" id="toc-certain-lifestges" class="nav-link" data-scroll-target="#certain-lifestges"><span class="header-section-number">6.2.3</span> Certain lifestges</a></li>
+  <li><a href="#marine-species" id="toc-marine-species" class="nav-link" data-scroll-target="#marine-species"><span class="header-section-number">6.2.4</span> Marine species</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Taxonomy II</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="joining-datasets-from-different-infrastructures" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="joining-datasets-from-different-infrastructures"><span class="header-section-number">6.1</span> Joining datasets from different infrastructures</h2>
+<p>If you have downloaded data from different sources, you likely will need to collate your data into a singular database. It is important to make sure fields that have the same, are indeed the same variable, so prior to merging - take the time cross check the meta-data from different data providers <span class="citation" data-cites="ribeiro_bdc_2022">(<a href="references.html#ref-ribeiro_bdc_2022" role="doc-biblioref">Ribeiro et al. 2022</a>)</span>.</p>
+<section id="variable-names-and-case-format" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="variable-names-and-case-format"><span class="header-section-number">6.1.1</span> Variable names and case format</h3>
+<p>Data providers will have their own naming conventions for variables. For example, World Register of Marine Species uses a combination of lower case e.g scientific_name and camel case e.g isExtinct. While the naming authority - Australian Fauna Directory (AFD) uses upper, snake case e.g.&nbsp;SCIENTIFIC_NAME. What format you choose is a matter of personal preference, the key is to be consistent.</p>
+<p>Here we will subset the variables we want, reformat them to the lower snake case names and then join by <code>VALID_NAME</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>habitat_data <span class="ot">&lt;-</span> worms <span class="sc">%&gt;%</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(valid_name, <span class="fu">starts_with</span>(<span class="st">"is"</span>)) </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(habitat_data)[<span class="sc">-</span><span class="dv">1</span>] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "isMarine"      "isBrackish"    "isFreshwater"  "isTerrestrial"
+[5] "isExtinct"    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>new_names <span class="ot">&lt;-</span> <span class="fu">str_split</span>(<span class="fu">names</span>(habitat_data)[<span class="sc">-</span><span class="dv">1</span>], <span class="at">pattern =</span>  <span class="st">"(?&lt;=[a-z])(?=[A-Z])"</span>, <span class="at">n =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span>  <span class="co"># Seperate where case cases from lower to upper i.e. camel case</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="at">.x =</span> ., </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">.f =</span> <span class="sc">~</span><span class="fu">tolower</span>(.x)) <span class="sc">%&gt;%</span> <span class="co"># Convert to all lower case</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map</span>(<span class="at">.x =</span> ., </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">.f =</span> <span class="sc">~</span><span class="fu">str_flatten</span>(.x, <span class="st">"_"</span>)) <span class="sc">%&gt;%</span>  <span class="co"># Bind the two seperated elements</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>()</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>new_names</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "is_marine"      "is_brackish"    "is_freshwater"  "is_terrestrial"
+[5] "is_extinct"    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace old with new</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(habitat_data)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> new_names</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Join habitat data by VALID_NAME</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>afd <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(habitat_data, <span class="at">by =</span> <span class="fu">join_by</span>(VALID_NAME <span class="sc">==</span> valid_name))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 49 × 37
+   GROUP_NAME HIGHER_CLASSIFICATION    KINGDOM PHYLUM SUBPHYLUM SUPERCLASS CLASS
+   &lt;chr&gt;      &lt;chr&gt;                    &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;lgl&gt;      &lt;chr&gt;
+ 1 ANNELIDA   Phylum ANNELIDA, Class … ANIMAL… ANNEL… &lt;NA&gt;      NA         POLY…
+ 2 ARTHROPODA Phylum ARTHROPODA, Subp… ANIMAL… ARTHR… CRUSTACEA NA         MAXI…
+ 3 ARTHROPODA Phylum ARTHROPODA, Subp… ANIMAL… ARTHR… CRUSTACEA NA         MALA…
+ 4 ARTHROPODA Phylum ARTHROPODA, Subp… ANIMAL… ARTHR… HEXAPODA  NA         INSE…
+ 5 ARTHROPODA Phylum ARTHROPODA, Subp… ANIMAL… ARTHR… CRUSTACEA NA         MALA…
+ 6 ARTHROPODA Phylum ARTHROPODA, Subp… ANIMAL… ARTHR… HEXAPODA  NA         INSE…
+ 7 ARTHROPODA Phylum ARTHROPODA, Subp… ANIMAL… ARTHR… CRUSTACEA NA         MALA…
+ 8 ARTHROPODA Phylum ARTHROPODA, Subp… ANIMAL… ARTHR… CRUSTACEA NA         MALA…
+ 9 ARTHROPODA Phylum ARTHROPODA, Subp… ANIMAL… ARTHR… CRUSTACEA NA         MALA…
+10 ARTHROPODA Phylum ARTHROPODA, Subp… ANIMAL… ARTHR… CRUSTACEA NA         OSTR…
+# ℹ 39 more rows
+# ℹ 30 more variables: SUBCLASS &lt;chr&gt;, SUPERORDER &lt;chr&gt;, ORDER &lt;chr&gt;,
+#   SUBORDER &lt;chr&gt;, SUPERFAMILY &lt;chr&gt;, FAMILY &lt;chr&gt;, SUBFAMILY &lt;chr&gt;,
+#   SUPERTRIBE &lt;lgl&gt;, TRIBE &lt;chr&gt;, SUBTRIBE &lt;lgl&gt;, GENUS &lt;chr&gt;,
+#   SUB_GENUS &lt;chr&gt;, SPECIES &lt;chr&gt;, SUB_SPECIES &lt;chr&gt;, AUTHOR &lt;chr&gt;,
+#   YEAR &lt;dbl&gt;, CHANGED_COMBINATION &lt;chr&gt;, VALID_NAME &lt;chr&gt;,
+#   COMPLETE_NAME &lt;chr&gt;, SYNONYMS &lt;chr&gt;, CHANGED_COMB_NAMES &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>One issue you might face is that higher taxonomy from different providers may not match. If this is the case, we suggest choosing the data provider with the higher taxonomy that is consistent with your naming authority and use it to back fill the higher taxonomy of the other data sources</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>higher_taxonomy <span class="ot">&lt;-</span> inverts <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">search_taxa</span>()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>higher_taxonomy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 36 × 15
+   search_term     scientific_name scientific_name_auth…¹ taxon_concept_id rank 
+   &lt;chr&gt;           &lt;chr&gt;           &lt;chr&gt;                  &lt;chr&gt;            &lt;chr&gt;
+ 1 Palirhoeus eat… Palirhoeus eat… (C.O. Waterhouse, 187… https://biodive… spec…
+ 2 Lasaea austral… Lasaea austral… (Lamarck, 1818)        https://biodive… spec…
+ 3 Turbonilla tia… Turbonilla tia… May, 1911              https://biodive… spec…
+ 4 Tucetona flabe… Tucetona flabe… (Tenison-Woods, 1878)  https://biodive… spec…
+ 5 Achelia transf… Achelia transf… Stock, 1973            https://biodive… spec…
+ 6 Coralliophila … Coralliophila … Kosuge, 1986           https://biodive… spec…
+ 7 Amphitethya st… Amphitethya st… (Carter, 1886)         https://biodive… spec…
+ 8 Australocyther… Australocyther… McKenzie, 1967         https://biodive… spec…
+ 9 Plesiopenaeus … Plesiopenaeus … (Spence Bate, 1881)    https://biodive… spec…
+10 Chlorodiloma c… Chlorodiloma c… (Philippi, 1849)       https://biodive… spec…
+# ℹ 26 more rows
+# ℹ abbreviated name: ¹​scientific_name_authorship
+# ℹ 10 more variables: match_type &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;,
+#   class &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   issues &lt;chr&gt;, vernacular_name &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Remember to always check your changes after!</p>
+</section>
+</section>
+<section id="extended-taxonomic-cleaning" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="extended-taxonomic-cleaning"><span class="header-section-number">6.2</span> Extended taxonomic cleaning</h2>
+<p>Depending on your project’s data scope, it may be necessary to remove certain groups of taxa. Below, we have provided a few examples. We will also briefly showcase <code>CoordinateCleaner</code> a useful R package for removing XX records.</p>
+<section id="introduced-or-invasive-species" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="introduced-or-invasive-species"><span class="header-section-number">6.2.1</span> Introduced or Invasive species</h3>
+<p>Remove non-native species: This step is a common requirement. A list can be obtained from the <a href="https://griis.org/download">Global Register of Introduced and Invasive Species (GRIIS)</a>. The downloads are sorted my country. Once this list is read into R, you can proceed to exclude invasive species from your data as below:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>griis_ls <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data/lists/GRIIS_Australia_20230331-121730.csv"</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(griis_ls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,979
+Columns: 16
+$ scientific_name                  &lt;chr&gt; "Oenothera longiflora L.", "Lampranth…
+$ scientific_name_type             &lt;chr&gt; "species", "species", "species", "spe…
+$ kingdom                          &lt;chr&gt; "Plantae", "Plantae", "Plantae", "Pla…
+$ establishment_means              &lt;chr&gt; "alien", "alien", "alien", "alien", "…
+$ is_invasive                      &lt;chr&gt; "null", "null", "null", "null", "null…
+$ occurrence_status                &lt;chr&gt; "present", "present", "present", "pre…
+$ checklist.name                   &lt;chr&gt; "Australia", "Australia", "Australia"…
+$ checklist.iso_countrycode_alpha3 &lt;chr&gt; "AUS", "AUS", "AUS", "AUS", "AUS", "A…
+$ accepted_name.species            &lt;chr&gt; "Oenothera longiflora", "Lampranthus …
+$ accepted_name.kingdom            &lt;chr&gt; "Plantae", "Plantae", "Plantae", "Pla…
+$ accepted_name.phylum             &lt;chr&gt; "Tracheophyta", "Tracheophyta", "Trac…
+$ accepted_name.class              &lt;chr&gt; "Magnoliopsida", "Magnoliopsida", "Ma…
+$ accepted_name.order              &lt;chr&gt; "Myrtales", "Caryophyllales", "Erical…
+$ accepted_name.family             &lt;chr&gt; "Onagraceae", "Aizoaceae", "Ericaceae…
+$ accepted_name.habitat            &lt;chr&gt; "[\"terrestrial\"]", "[\"terrestrial\…
+$ accepted_name                    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note which species matched with GRIIS list</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>matches <span class="ot">&lt;-</span> plants <span class="sc">|&gt;</span> <span class="fu">filter</span>(scientific_name <span class="sc">%in%</span> griis_ls<span class="sc">$</span>accepted_name.species)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>matches</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 13
+  record_id    scientific_name vernacular_name kingdom phylum class order family
+  &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; 
+1 94df1223-4c… Lysimachia jap… Creeping Loose… Plantae Trach… Magn… Eric… Primu…
+2 8055e15e-36… Lysimachia jap… Creeping Loose… Plantae Trach… Magn… Eric… Primu…
+# ℹ 5 more variables: genus &lt;chr&gt;, species &lt;chr&gt;, subspecies &lt;chr&gt;,
+#   latitude &lt;dbl&gt;, longitude &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exclude GRIIS matches</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plants_no_griis <span class="ot">&lt;-</span> plants <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span> scientific_name <span class="sc">%in%</span> matches)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="extinct-species" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="extinct-species"><span class="header-section-number">6.2.2</span> Extinct species</h3>
+<p>In most cases, a year filter during in your download query should remove <em>most</em> extinct species.</p>
+<p>You want to cross check for extinct species using the Interim Register of Marine and Nonmarine Genera <a href="https://www.irmng.org/">(IRMNG)</a>. The list is comprehensive and actively maintained, the only caveat is that a lot of its data doesn’t go down to species level. As such, we recommend using the following approach to find <em>potentially extinct</em> taxa and further investigate the records that we are flagged.</p>
+<p>The required files are organised by year and can be downloaded from <a href="https://www.irmng.org/export/">here</a>. Once you have unzipped the file in your projected directory, we need to process the list a littlerbefore we use it to exclude extinct species.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Taxonomic info</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>irmng_taxa <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"data/lists/IRMNG_genera_DwCA_2023-05-19/taxon.txt"</span>, <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">""</span>), <span class="at">quote=</span><span class="st">""</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Species profile</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>irmng_sp <span class="ot">&lt;-</span> <span class="fu">fread</span>(<span class="st">"data/lists/IRMNG_genera_DwCA_2023-05-19/speciesprofile.txt"</span>, <span class="at">na.strings =</span> <span class="fu">c</span>(<span class="st">""</span>), <span class="at">quote=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Precleaning </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>awc_pattern <span class="ot">&lt;-</span> <span class="st">"(awaiting allocation)"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>insed_pattern <span class="ot">&lt;-</span> <span class="st">"incertae sedis"</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>cleaned_irmng_taxa <span class="ot">&lt;-</span> irmng_taxa <span class="sc">|&gt;</span> </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="fu">ifelse</span>(<span class="fu">str_detect</span>(class, <span class="at">pattern =</span> <span class="fu">paste0</span>(awc_pattern,<span class="st">"|"</span>, insed_pattern)),</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">word</span>(class), class) <span class="co"># Remove pesky values</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>         ) <span class="sc">|&gt;</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxonomicStatus <span class="sc">==</span> <span class="st">"accepted"</span>) <span class="sc">|&gt;</span> <span class="co"># Filter to accepted names </span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(kingdom <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Animalia"</span>, <span class="st">"Plantae"</span>),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span> kingdom <span class="sc">==</span> <span class="st">"Questionable / non-biota (fossil)"</span>) <span class="co"># Filter to Animal and plants - change if working with other kingdoms</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Join with species profile, remove pesky values and filter to extinct taxa </span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>extinct_irmng <span class="ot">&lt;-</span> irmng_taxa <span class="sc">|&gt;</span> </span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(irmng_sp, <span class="at">by =</span> <span class="st">"taxonID"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span> scientificName <span class="sc">==</span> <span class="st">"Questionable / non-biota (fossil)"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(isExtinct <span class="sc">==</span> <span class="cn">TRUE</span>) </span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of extinct species by taxonRank</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>extinct_irmng<span class="sc">$</span>taxonRank <span class="sc">|&gt;</span> <span class="fu">tabyl</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> extinct_irmng$taxonRank     n      percent
+                   Class    14 5.926177e-04
+                  Family  1675 7.090247e-02
+                   Genus 21718 9.193193e-01
+              Infraclass     1 4.232983e-05
+                   Order   210 8.889265e-03
+                  Phylum     4 1.693193e-04
+                Subclass     2 8.465967e-05</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create genus </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>inverts <span class="ot">&lt;-</span> inverts <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">genus =</span> <span class="fu">word</span>(scientificName, <span class="dv">1</span>)) </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract unique extinct genus and remove genus that have punctuation in them</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>extinct_genus <span class="ot">&lt;-</span> extinct_irmng <span class="sc">|&gt;</span> </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(genus) <span class="sc">|&gt;</span> </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">str_detect</span>(genus, <span class="at">pattern =</span> <span class="fu">regex</span>(<span class="st">"[:punct:]"</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(genus) <span class="sc">|&gt;</span> </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if there are any matches at genus level</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>check <span class="ot">&lt;-</span> inverts <span class="sc">|&gt;</span> </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(<span class="fu">str_detect</span>(genus, <span class="at">pattern =</span> <span class="fu">regex</span>(<span class="fu">paste0</span>(extinct_genus, <span class="at">collapse=</span><span class="st">"|"</span>)))) <span class="sc">|&gt;</span> </span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(scientificName) <span class="sc">|&gt;</span> </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() </span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Halobates (Halobates) acherontis"</code></pre>
+</div>
+</div>
+<p>Alternatively, you can use the IUCN to retrieve a list of extinct species that are in their database</p>
+<p>https://apiv3.iucnredlist.org/api/v3/docs#species-category https://docs.ropensci.org/crul/articles/crul.html</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rredlist)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create IUCN token</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>rredlist<span class="sc">::</span><span class="fu">rl_use_iucn</span>() <span class="co"># Application can take a day or two!</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_environ</span>() <span class="co"># Place the approved token in your R environment</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>extinct_iucn <span class="ot">&lt;-</span> <span class="fu">rl_sp_category</span>(<span class="st">'EX'</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(extinct_iucn)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>extinct_sp <span class="ot">&lt;-</span> extinct_iucn<span class="sc">$</span>result <span class="sc">|&gt;</span> <span class="fu">tibble</span>() <span class="co"># Note these are extinct species across the globe</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Find matches</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>inverts <span class="sc">|&gt;</span> <span class="fu">filter</span>(scientificName <span class="sc">%in%</span> extinct_sp<span class="sc">$</span>scientific_name) <span class="co"># No matches</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="certain-lifestges" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="certain-lifestges"><span class="header-section-number">6.2.3</span> Certain lifestges</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ALA_EMAIL"</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">atlas =</span> <span class="st">"Australia"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>bilby <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Macrotis lagotis"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_filter</span>(year <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, sex, lifeStage, reproductiveCondition) <span class="sc">|&gt;</span> </span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>bilby <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span>sex <span class="sc">==</span> <span class="st">"MALE"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 35 × 11
+   decimalLatitude decimalLongitude eventDate           scientificName  
+             &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;           
+ 1           -34.2             143. 2022-06-16 14:00:00 Macrotis lagotis
+ 2           -34.2             143. 2022-06-14 14:00:00 Macrotis lagotis
+ 3           -34.2             143. 2022-03-22 13:00:00 Macrotis lagotis
+ 4           -34.2             143. 2022-03-22 13:00:00 Macrotis lagotis
+ 5           -34.2             143. 2022-03-22 13:00:00 Macrotis lagotis
+ 6           -34.2             143. 2022-03-23 13:00:00 Macrotis lagotis
+ 7           -34.2             143. 2022-03-21 13:00:00 Macrotis lagotis
+ 8           -34.2             143. 2022-06-12 14:00:00 Macrotis lagotis
+ 9           -34.2             143. 2022-03-23 13:00:00 Macrotis lagotis
+10           -34.2             143. 2022-06-12 14:00:00 Macrotis lagotis
+# ℹ 25 more rows
+# ℹ 7 more variables: taxonConceptID &lt;chr&gt;, recordID &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, sex &lt;chr&gt;, lifeStage &lt;lgl&gt;,
+#   reproductiveCondition &lt;chr&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="marine-species" class="level3" data-number="6.2.4">
+<h3 data-number="6.2.4" class="anchored" data-anchor-id="marine-species"><span class="header-section-number">6.2.4</span> Marine species</h3>
+<p>Remove specific taxa/ depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worrms)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Obtain species list</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>my_species <span class="ot">&lt;-</span> inverts <span class="sc">|&gt;</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(scientificName) <span class="sc">|&gt;</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Query WoRMs</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>marine_check <span class="ot">&lt;-</span> <span class="fu">map_dfr</span>(my_species,</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>       <span class="fu">possibly</span>(<span class="sc">~</span>worrms<span class="sc">::</span><span class="fu">wm_records_name</span>(<span class="at">name =</span> .x) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">search_term =</span> .x))</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter species that are TRUE for isMarine</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>marine_inverts <span class="ot">&lt;-</span> marine_check <span class="sc">|&gt;</span> </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(isMarine <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(search_term)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Exclude marine invertebrates</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>inverts <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span>scientificName <span class="sc">%in%</span> marine_inverts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,637 × 9
+   decimalLatitude decimalLongitude eventDate           scientificName   
+             &lt;dbl&gt;            &lt;dbl&gt; &lt;dttm&gt;              &lt;chr&gt;            
+ 1           -46.9             37.8 1983-04-01 00:00:00 Palirhoeus eatoni
+ 2           -46.9             37.8 1984-09-01 00:00:00 Palirhoeus eatoni
+ 3           -46.9             37.9 1986-04-01 00:00:00 Palirhoeus eatoni
+ 4           -46.6             38.0 1985-04-01 00:00:00 Palirhoeus eatoni
+ 5           -46.6             38.0 1983-05-01 00:00:00 Palirhoeus eatoni
+ 6           -46.6             38.0 1984-09-01 00:00:00 Palirhoeus eatoni
+ 7           -46.6             38.0 1984-04-01 00:00:00 Palirhoeus eatoni
+ 8           -43.6            148.  NA                  Lasaea australis 
+ 9           -43.6            147.  2008-12-28 00:00:00 Lasaea australis 
+10           -43.6            147.  2008-12-28 00:00:00 Lasaea australis 
+# ℹ 2,627 more rows
+# ℹ 5 more variables: taxonConceptID &lt;chr&gt;, recordID &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, genus &lt;chr&gt;</code></pre>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-ribeiro_bdc_2022" class="csl-entry" role="listitem">
+Ribeiro, Bruno R., Santiago José Elías Velazco, Karlo Guidoni-Martins, Geiziane Tessarolo, Lucas Jardim, Steven P. Bachman, and Rafael Loyola. 2022. <span>“Bdc: <span>A</span> Toolkit for Standardizing, Integrating and Cleaning Biodiversity Data.”</span> <em>Methods in Ecology and Evolution</em> 13 (7): 1421–28. <a href="https://doi.org/10.1111/2041-210X.13868">https://doi.org/10.1111/2041-210X.13868</a>.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./taxonomy.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Taxonomy</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./spatial.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial data</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Data Cleaning booklet is a product of the Atlas of Living Australia.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>
