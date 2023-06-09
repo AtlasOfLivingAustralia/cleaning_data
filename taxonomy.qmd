@@ -296,7 +296,7 @@ marine_sp |>
 
 #### {taxize} {.unnumbered}
 
-{taxize} allows users to search over many taxonomic data sources for species names (scientific and common) to resolve synonymy. The `gnr_resolve()` function matches your supplied list with XX, XX, XX and scores from 0 - 1 to illustrate how well matched your name is to these soources. 
+{taxize} allows users to search over many taxonomic data sources for species names (scientific and common) to resolve synonymy. The `gnr_resolve()` function matches your supplied list with up to 118 data sources including GBIF, Catalogue of Life, World Register of Marine Species and many more. The function scores how well matched your name is to these sources. 
 
 ```{r}
 library(taxize)
@@ -306,8 +306,12 @@ afd <- read_csv("data/naming/afd.csv")
 unique(afd$VALID_NAME)
 
 # Resolve names
-temp <- gnr_resolve(unique(afd$VALID_NAME)[1:5], resolve_once = TRUE) 
-temp |> print(n = 100)
+resolved <- gnr_resolve(unique(afd$VALID_NAME), best_match_only = TRUE) 
+resolved |> print(n = 50)
+
+# Retrieve synonyms
+tsn <- get_tsn(unique(afd$VALID_NAME)[1:5])
+synonyms(tsn)
 
 
 ```
