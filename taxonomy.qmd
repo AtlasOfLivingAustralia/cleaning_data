@@ -25,7 +25,7 @@ library(tidyverse)
 library(janitor)
 ```
 
-```{r}
+```{r, include=FALSE}
 #To create data used in this chapter
 #
 # inverts <- open_dataset("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv", format = "csv")
@@ -54,7 +54,6 @@ library(janitor)
 #   write_parquet("data/dap/plants_subset")
 ```
 
-
 ```{r loaddata, include=FALSE}
 bees <- read_parquet("data/dap/bees.parquet")
 
@@ -75,21 +74,21 @@ inverts <- inverts |>
   mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
 ```
 
-Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before [@garraffoni2019integrative]. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers. 
+Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before [@garraffoni2019integrative]. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers.
 
-Harmonising taxonomic names is a prevalent and complex issue and so far, no unifying solution has been put forward --- making research with biodiversity data challenging. A potential solution would require pulling together domain knowledge from experts and compiling a database for where taxonomic history for describe species is traceable and linked with published literature. 
+Harmonising taxonomic names is a prevalent and complex issue and so far, no unifying solution has been put forward --- making research with biodiversity data challenging. A potential solution would require pulling together domain knowledge from experts and compiling a database for where taxonomic history for describe species is traceable and linked with published literature.
 
-While there is no perfect solution, some tips, tricks and tools do exist. In this chapter we will go through some of these to clean taxonomic data and deal with synonyms. 
+While there is no perfect solution, some tips, tricks and tools do exist. In this chapter we will go through some of these to clean taxonomic data and deal with synonyms.
 
-## Taxonomy preclean 
+## Taxonomy preclean
 
 Similar to what we did in the previous chapter, we will apply a broad sweep pre-clean to taxonomic data. This will make dealing with synonyms go as smoothly as possible.
 
-The process is to first identify the issue, correct it, check it, and then document the changes. The goal is to standardise and correct as many errors issues before removing records. 
+The process is to first identify the issue, correct it, check it, and then document the changes. The goal is to standardise and correct as many errors issues before removing records.
 
-### Capitalisation 
+### Capitalisation
 
-Normally higher taxonomy are capitalised e.g. Myrtaceae or Aves. Capitalisation errors are usually quick to spot when you print the data object. Alternatively you can try using `str_subset` on columns you expect to have capital letters. 
+Normally higher taxonomy are capitalised e.g. Myrtaceae or Aves. Capitalisation errors are usually quick to spot when you print the data object. Alternatively you can try using `str_subset` on columns you expect to have capital letters.
 
 The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found
 
@@ -120,7 +119,7 @@ bees_corrected <- bees |>
 
 ### Seperators
 
-In a taxonomic data, separators such as, spaces and underscore are found in scientific names and are used to delineate the genus and [species name](https://dwc.tdwg.org/terms/#dwc:specificEpithet). While it is personal choice which separator you use, it is good practice to be consistent with your choice. Consistency ensures that unique values of scientific name truly reflects unique species and not due to inconsistencies. 
+In a taxonomic data, separators such as, spaces and underscore are found in scientific names and are used to delineate the genus and [species name](https://dwc.tdwg.org/terms/#dwc:specificEpithet). While it is personal choice which separator you use, it is good practice to be consistent with your choice. Consistency ensures that unique values of scientific name truly reflects unique species and not due to inconsistencies.
 
 Try `tabyl-ing` your taxonomic columns to check if you have any inconsistencies first
 
@@ -147,10 +146,9 @@ plants_updated |>
   tibble()
 ```
 
-### Higher taxonomy 
+### Higher taxonomy
 
-Higher taxonomy such as phylum and class may be used to group species for analysis or data visualisations. Its important to check the spelling and formatting of these columns. 
-Its always good to start with some a useful table of counts for each taxonomic level. Keep an eye out for spelling errors, formatting issues and missing data. Note that `NA` in the output represents missing
+Higher taxonomy such as phylum and class may be used to group species for analysis or data visualisations. Its important to check the spelling and formatting of these columns. Its always good to start with some a useful table of counts for each taxonomic level. Keep an eye out for spelling errors, formatting issues and missing data. Note that `NA` in the output represents missing
 
 As an example:
 
@@ -175,12 +173,14 @@ plants |>
 
 #### Missing higher taxonomy {.unnumbered}
 
-If you noticed you have missing data in these columns, you can usually back fill this information using your [chosen naming authority](link back to section) or retrieving this information from a living atlas such as the ALA. 
+If you noticed you have missing data in these columns, you can usually back fill this information using your [chosen naming authority](link%20back%20to%20section) or retrieving this information from a living atlas such as the ALA.
 
 The code below demonstrates how you can isolate the `scientific_names` of taxa with missing data and searching for taxonomic information from ALA
 
 <!-- (Example WORK IN PROGRESS, need better fake data, Inverts?) -->
+
 <!-- Seperate chunk where message = TRUE for hits -->
+
 ```{r}
 library(galah)
 
@@ -207,7 +207,6 @@ backfilled_taxa
 If a record is not identified down to the taxonomic level that needed for the study e.g. species, then the record should be removed.
 
 During your data download, ensure you have requested for the column [`taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank), this variable tells us the lowest level of `scientificName`.
-
 
 ```{r, eval=FALSE}
 library(galah)
@@ -249,7 +248,6 @@ honeyeaters |> filter(taxonRank == "species")
 
 A great approach to detect inconsistencies in your taxonomic data is to compute counts for each level of taxonomic rank. These counts act as a check for you to verify that the data is in line with your expectation. This is particularly important when combining data from different sources where their taxonomy might vary. If you have detected inconsistencies as we have done below, you will have to correct accordingly, either by consulting a taxonomic expert or a naming authority and ensure this is reported in your methods.
 
-
 ```{r}
 # Get counts for every species where they have more than 1 class
 plants |> 
@@ -277,68 +275,13 @@ plants |> filter(species %in% inconsistent_taxa) |>
 
 ## Synonyms
 
-Synonyms is a complex issue when working with open source biodiversity data. Data infrastructures have their own taxonomic systems which may not be accepted by researchers or consistent with your chosen [naming authority](link_back). 
+Synonyms is a complex issue when working with open source biodiversity data. Data infrastructures have their own taxonomic systems which may not align with researchers' view or consistent with your chosen [naming authority](link_back).
 
+Keeping in mind that there is no universal solution to synonymy. Best practice is to flag and correct synonyms in a clear and consistent manner. We recommend being explicit with your decisions about which names are retained and keeping a good record of the changes to aid transparency and reproducibility.
 
-Keeping in mind that there is no universal or solution to synonymy, it is important to flag and correct synonyms in a clear and consistent manner. We recommend being explicit with your decisions about which names are retained and keeping a good record of the changes to aid transparency and reproducibility. 
+#### {worrms} {.unnumbered}
 
-#### Naming authority {.unnumbered}
-
-Often naming authorities will have one they deem as accepted, and list others as synonyms. Here is an [example](https://biodiversity.org.au/afd/taxa/Egernia/names) 
-<!-- How do people retrieve these from the AFD? -->
-
-
-```{r}
-afd <- read_csv("data/naming/afd.csv")
-str(afd)
-
-# Select relevant columns
-names <- afd |> 
-select(VALID_NAME, SPECIES, COMPLETE_NAME, SYNONYMS)
-
-# Determine if COMPLETE_NAME == SYNONYMS
-# If match is TRUE or NA then not a synonym
-names |> 
-  mutate(match = COMPLETE_NAME == SYNONYMS) |> 
-  pull(match) |> 
-  tabyl()
-
-# Break up SYNONYMS column
-split_names <- names |> group_split(VALID_NAME)
-
-# As an example
-# Make SYNONYMS long data
-long_syn <- split_names |>
-  pluck(46) |> 
-  pull(SYNONYMS) |> 
-  str_split(pattern = ";") |> 
-  pluck(1) |> 
-  str_trim() |> 
-  as_tibble() |> 
-  rename(SYNONYMS = value) 
-
-# Split at Authority
-x <- split_names |>
-  pluck(46) |> 
-  pull(SYNONYMS) |> 
-  str_split(pattern = ";") |> 
-  pluck(1) |> 
-  str_trim() |> 
-  str_match(pattern = regex("(?s)^(\\S+(?:\\s+\\S+)?)?(?:\\s+(.+))?"))
-
-long_syn_split <- long_syn |> 
-  mutate(SYN_NAME = x[,2],
-         SYN_AUTHORITY = x[,3])
-
-# Bind it with original names
-split_names |>
-  pluck(46) |> 
-  select(-SYNONYMS) |> 
-  bind_cols(long_syn_split)
-
-```
-
-#### {WoRMs} {.unnumbered}
+The [{worrms}](https://docs.ropensci.org/worrms/) is the R interface to the World Register of Marine Species and has a ability to cross check synonyms with their database for taxa that has an `AphiaID`. The function will return synonymous record(s) associated with another different AphiaID. 
 
 ```{r}
 library(worrms)
@@ -346,19 +289,32 @@ library(worrms)
 marine_sp <- read_csv("data/worms/worms.csv")
 
 marine_sp |> 
-  slice(1) |>
+  slice(7) |>
   pull(AphiaID) |> 
   wm_synonyms()
 ```
 
-
 #### {taxize} {.unnumbered}
+
+{taxize} allows users to search over many taxonomic data sources for species names (scientific and common) to resolve synonymy. The `gnr_resolve()` function matches your supplied list with XX, XX, XX and scores from 0 - 1 to illustrate how well matched your name is to these soources. 
 
 ```{r}
 library(taxize)
+
+# Read in a naming authority list
+afd <- read_csv("data/naming/afd.csv")
+unique(afd$VALID_NAME)
+
+# Resolve names
+temp <- gnr_resolve(unique(afd$VALID_NAME)[1:5], resolve_once = TRUE) 
+temp |> print(n = 100)
+
+
 ```
 
 ## Input from experts
+
+Programmatic solutions for resolving synonymy can only go so far. Seeking validation from experts is sensible if your goal is to obtain a high quality species list. Museums or taxonomic societies are extensive sources of knowledge. Below we have provided a list of some of Australian taxonomic society groups. 
 
 ### Australian taxonomic society groups
 
@@ -376,14 +332,12 @@ library(taxize)
 -   Malacology - [The Malacological Society of Australasia](https://www.malsocaus.org/)\
 -   Nematology - [Australasian Association of Nematologists](https://www.nematologists.org.au/)
 
-### Global taxonomy 
+### Global taxonomy
 
 -   GBIF uses 100 different sources to assemble - [their global taxonomic backbone](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c)
 
 -   Authoritative taxonomic information on plants, animals, fungi, and microbes - [Integrated Taxonomic Information System, ITIS](https://www.itis.gov/)
 
--   Global taxonomic catalogue 
+-   Global taxonomic catalogue
 
-- [Catalogue of Life](https://www.catalogueoflife.org/)
-
-
+-   [Catalogue of Life](https://www.catalogueoflife.org/)
