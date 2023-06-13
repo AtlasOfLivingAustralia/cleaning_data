@@ -4,15 +4,19 @@ You've been through the taxonomic cleaning steps so now it's time to clean up th
 
 ## Quick visualisation
 
-Now is a great time to plot your data onto a map again. Spatial errors are much easier to spot from a visual perspective.
+One of the most straightforward ways to check for spatial errors is to plot your data onto a map. More obvious spatial errors are much easier to spot visually.
 
 ```{r}
 
 ```
 
+<!-- This is a good first step but needs to be guided into the following ones. Not sure what the map looks like, but it might be good to make another map that puts boxes around some obvious ones you can see and why -->
+
 ## Coordinate precision
 
-Open access data will be collected from many people using different tools with varying expertise, some record coordinates may have been recorded with a phone, some with a GPS, or a place name and coordinates added after the fact. Depending on the level of precision you need, you might consider discarding data of lower precision, or removing decimal places for data you know could not be that precise. At the ALA there is a "cooridnateprecision"/ "coordinateUncertainityIn Meters" assertion ([see assertion section to download these with the data)]{.underline}
+Data from different sources are collected by different people often using differing tools. For example, some might record coordinates with a tool with high precision like a phone or a GPS, whereas others might record coordinates with low precision by manually recording a place name or writing coordinates after the fact.
+
+Depending on the level of precision to answer your research question, <!--# the following two options are opposites, and it's weird to have them together because they solve the problem very differently. Maybe use these ideas like subsections and describe when you might choose to do one or the other? --> you might consider discarding data of lower precision, or removing decimal places for data you know could not be that precise. At the ALA there is a "cooridnateprecision"/ "coordinateUncertainityIn Meters" assertion ([see assertion section to download these with the data)]{.underline}
 
 ![](images/image-613988507.png)
 
@@ -69,13 +73,12 @@ Once you have fixed everything you can, it's time to remove records that still h
 **Remove records where longitude and latitude are equal:** High likelihood that this is not where the record was recorded and, check first, however likely will need to remove
 
 **Remove records with zero coordinates:** When plotting it on a map, zero coordinates will be found around the point at zero latitudes and longitudes. These records will not accurately represent their valid location and must be removed.
+
 ```{r}
 #zero coordinates acacia 
 
 #https://biocache.ala.org.au/occurrences/search?q=lsid%3Ahttps%3A%2F%2Fid.biodiversity.org.au%2Ftaxon%2Fapni%2F51382879&disableAllQualityFilters=true&qualityProfile=ALA&fq=spatiallyValid%3A%22false%22&radius=25&lat=-0.024032592068740033&lon=-0.06591796875#tab_recordsView 
 ```
-
-
 
 ```{r}
 
@@ -83,11 +86,19 @@ Once you have fixed everything you can, it's time to remove records that still h
 
 Remove records plotted away from the known area of distribution of the species. It is essential to check the metadata to ensure that it is a data entry error and not a real outlier. In some cases, it's worth checking the literature before discarding records like these. These can also be mis-identified species, if you're working with data from many species, and you find a species point in amongst the environmental bounds of a similar looking species it might be worth going back to the original record and taking a closer look. However, if no images exist it might be difficult to determine if it is a taxonomic or spatial issue.There are several ways of dealing with this issue, but one option can be to mask data to remove points from falling off a determined area. --\> unsure about this bit
 
+**I'm not sure I understand what the above means. But I think in general for less obvious errors, it's best to suggest that before data analysis (and honestly, before seeing the data at all), people should determine whether there is an upper bound to remove coordinates (like a 95% confidence interval, or within xx km of an accepted expert distribution). Then run whatever model or test with the complete data and with the reduced data. If it makes a difference, probably make an informed decision based on literature of which results to use as the "main" findings.**
+
+**Having written this out, a brief discussion about this rather than any suggestions is probably all that's in scope for this book**
+
+**The final decisions depend on the species, research question, model parameters etc**
+
 ```{r}
 
 ```
 
 ## Optional record removal
+
+**Not sure why the below is optional? I think a lot of national or global analyses would require some kind of data cleaning for this**
 
 Remove records with coordinates assigned to country and province centroids: such as Centre of Country, botanic gardens, zoos, country capitals, biodiversity institutions, urban areas, and gbif headquarters. In some cases these records will haven actually been recorded at a zoo for example, in other cases this is often incorrectly georeferenced records. They can be tricky to spot but there are a few packages that deal with centroid data. Exploratory visuals can also help support findings, making it easier to spot clusterings of points.
 
