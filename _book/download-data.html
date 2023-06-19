@@ -458,8 +458,8 @@ div.csl-indent {
 <p>Refining your download query ensures higher quality data and also reduces the download size as many data infrastructures impose constraints to download size. Below we have illustrated how you can refine your query a few quality measures using <code>galah_filter</code>.</p>
 <section id="by-year" class="level4" data-number="3.5.0.1">
 <h4 data-number="3.5.0.1" class="anchored" data-anchor-id="by-year"><span class="header-section-number">3.5.0.1</span> By Year</h4>
-<p>Generally, old data records tend to be insufficient or less reliable as taxonomic knowledge and GPS tools were not readily available. For this reason, many users consider removing all occurrence records before a certain year to increase data precision <span class="citation" data-cites="gueta_quantifying_2016 marsh_accounting_2022">(<a href="references.html#ref-gueta_quantifying_2016" role="doc-biblioref">Gueta and Carmel 2016</a>; <a href="references.html#ref-marsh_accounting_2022" role="doc-biblioref">Marsh et al. 2022</a>)</span> .</p>
-<p>Choosing the year ‘cut-off’ is relatively arbitary, but the most commonly used year is 1945 <span class="citation" data-cites="zizka_no_2020 fuhrding-potschkat_influence_2022">(<a href="references.html#ref-zizka_no_2020" role="doc-biblioref">Zizka et al. 2020</a>; <a href="references.html#ref-fuhrding-potschkat_influence_2022" role="doc-biblioref">Führding-Potschkat, Kreft, and Ickert-Bond 2022</a>)</span>, although some studies discard all data collected before 1990 <span class="citation" data-cites="gueta_quantifying_2016 marsh_accounting_2022">(<a href="references.html#ref-gueta_quantifying_2016" role="doc-biblioref">Gueta and Carmel 2016</a>; <a href="references.html#ref-marsh_accounting_2022" role="doc-biblioref">Marsh et al. 2022</a>)</span>.</p>
+<p>Generally, old data records tend to be insufficient or less reliable as taxonomic knowledge and GPS tools were not readily available. For this reason, many users consider removing all occurrence records before a certain year to increase data precision <span class="citation" data-cites="gueta_quantifying_2016 marsh_accounting_2022">(<a href="#ref-gueta_quantifying_2016" role="doc-biblioref">Gueta and Carmel 2016</a>; <a href="#ref-marsh_accounting_2022" role="doc-biblioref">Marsh et al. 2022</a>)</span> .</p>
+<p>Choosing the year ‘cut-off’ is relatively arbitary, but the most commonly used year is 1945 <span class="citation" data-cites="zizka_no_2020 fuhrding-potschkat_influence_2022">(<a href="#ref-zizka_no_2020" role="doc-biblioref">Zizka et al. 2020</a>; <a href="#ref-fuhrding-potschkat_influence_2022" role="doc-biblioref">Führding-Potschkat, Kreft, and Ickert-Bond 2022</a>)</span>, although some studies discard all data collected before 1990 <span class="citation" data-cites="gueta_quantifying_2016 marsh_accounting_2022">(<a href="#ref-gueta_quantifying_2016" role="doc-biblioref">Gueta and Carmel 2016</a>; <a href="#ref-marsh_accounting_2022" role="doc-biblioref">Marsh et al. 2022</a>)</span>.</p>
 <p>Here we will narrow the Pink Robin query from above to records after 1945 using <code>galah_filter</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pink_robin_post1945 <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span> </span>
@@ -470,7 +470,7 @@ div.csl-indent {
 </section>
 <section id="basis-of-record" class="level4" data-number="3.5.0.2">
 <h4 data-number="3.5.0.2" class="anchored" data-anchor-id="basis-of-record"><span class="header-section-number">3.5.0.2</span> Basis of record</h4>
-<p>Basis of record is a <a href="https://dwc.tdwg.org/terms/#dwc:basisOfRecord">Darwin Core term</a> that refers to the specific nature of the occurrence record. It can be used to refine your data download and ensure consistency when consolidating data from multiple organisations <span class="citation" data-cites="fuhrding-potschkat_influence_2022">(<a href="references.html#ref-fuhrding-potschkat_influence_2022" role="doc-biblioref">Führding-Potschkat, Kreft, and Ickert-Bond 2022</a>)</span>.</p>
+<p>Basis of record is a <a href="https://dwc.tdwg.org/terms/#dwc:basisOfRecord">Darwin Core term</a> that refers to the specific nature of the occurrence record. It can be used to refine your data download and ensure consistency when consolidating data from multiple organisations <span class="citation" data-cites="fuhrding-potschkat_influence_2022">(<a href="#ref-fuhrding-potschkat_influence_2022" role="doc-biblioref">Führding-Potschkat, Kreft, and Ickert-Bond 2022</a>)</span>.</p>
 <p>There are 6 different classes for basis of record:</p>
 <ul>
 <li>Living Specimen - a specimen that is alive, e.g.&nbsp;a living plant in a national park</li>
@@ -481,7 +481,7 @@ div.csl-indent {
 <li>Human Observation - an output of human observation process e.g.&nbsp;evidence of an occurrence taken from field notes or an occurrence without any physical evidence</li>
 <li>Machine Observation - An output of a machine observation process e.g.&nbsp;a photograph, a video, an audio recording, a remote sensing image or an occurrence record based on telemetry.</li>
 </ul>
-<p>Depending on your data scope, it may be practical to limit data that can be traced to a physical specimen or observation <span class="citation" data-cites="godfree_implications_2021">(<a href="references.html#ref-godfree_implications_2021" role="doc-biblioref">Godfree et al. 2021</a>)</span>, which we do for the Pink Robin below</p>
+<p>Depending on your data scope, it may be practical to limit data that can be traced to a physical specimen or observation <span class="citation" data-cites="godfree_implications_2021">(<a href="#ref-godfree_implications_2021" role="doc-biblioref">Godfree et al. 2021</a>)</span>, which we do for the Pink Robin below</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tractable_records <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"LIVING_SPECIMEN"</span>, </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"PRESERVED_SPECIMEN"</span>, </span>
@@ -523,7 +523,7 @@ div.csl-indent {
 <!-- For exclusions using multiple assertions (Currently throws errors, need to think carefully about != means for logical assertions...) -->
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-fuhrding-potschkat_influence_2022" class="csl-entry" role="listitem">
 Führding-Potschkat, Petra, Holger Kreft, and Stefanie M. Ickert-Bond. 2022. <span>“Influence of Different Data Cleaning Solutions of Point-Occurrence Records on Downstream Macroecological Diversity Models.”</span> <em>Ecology and Evolution</em> 12 (8): e9168. <a href="https://doi.org/10.1002/ece3.9168">https://doi.org/10.1002/ece3.9168</a>.
 </div>

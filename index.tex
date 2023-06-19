@@ -224,7 +224,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, breakable, enhanced, borderline west={3pt}{0pt}{shadecolor}, interior hidden, sharp corners, boxrule=0pt]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, breakable, frame hidden, boxrule=0pt, sharp corners, borderline west={3pt}{0pt}{shadecolor}, interior hidden]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -316,20 +316,23 @@ Authors listed in alphabetic order:\\
 \chapter{Introduction}\label{introduction}}
 
 \begin{quote}
-``Garbage in, garbage out''
+``Garbage in, garbage out'' - George Fuechsel, IBM computer programmer
 \end{quote}
 
-The idea of flawed or sub-par input data produces nonsensical output is
-one that is well known in many scientific disciplines. In biodiversity
-research, scientists often have to collate large amounts of open access
-data from various sources to address their research question. This can
-be challenging as the quality of data can vary depending on the
-provider.
+The idea that using flawed or nonsensical data as input produces output
+of similar quality is one that is well known in many scientific
+disciplines. In ecology and biodiversity research, however, scientists
+are often at risk of unintentionally using flawed or nonsensical data
+because they must bring together lots of data from many sources to
+address their research questions. These data are rarely easy to combine.
+Data from different sources vary widely in their structure and quality.
+As a result, collating them into something usable to answer a research
+question can be challenging.
 
-Data cleaning is therefore an essential step in biodiversity research.
-The process of identifying and fixing incorrect or doubtful data can
-improve data quality and the validity of scientific findings. (Rodrigues
-et al. 2022).
+\textbf{Data cleaning}, the process of identifying and fixing incorrect
+or doubtful data, is an essential step in ecology and biodiversity
+research. Data cleaning improves data quality and the validity of
+scientific findings (Rodrigues et al. 2022).
 
 This book will guide you through how to acquire and clean open access
 biodiversity data in R. We will be working with point-based species
@@ -361,14 +364,14 @@ To begin working with open access data we'll teach you how to:
 
 \begin{itemize}
 \item
-  narrowing your data scope
+  Narrow your data scope
 \item
   Import data
 \item
-  pre-cleaning steps, such as tidying and familiarise with meta-data
+  Tidy and familiarise yourself with meta-data
 \end{itemize}
 
-Once data has been imported and formatted correctly we'll dive into the
+Once data have been imported and formatted correctly we'll dive into the
 major cleaning steps. We will focus on how to deal with taxonomic and
 spatial issues with biodiversity data.
 
@@ -407,8 +410,8 @@ spatial issues with biodiversity data.
 \hypertarget{what-you-wont-learn}{%
 \section{What you won't learn}\label{what-you-wont-learn}}
 
-There are many important subject areas which this book will not cover.
-We won't be teaching you:
+There are many important subject areas that this book will not cover. We
+won't be teaching you:
 
 \begin{itemize}
 \tightlist
@@ -417,7 +420,7 @@ We won't be teaching you:
 \item
   How to run a species distribution model
 \item
-  Hypothesis testing
+  Hypothesis testing or experimental design
 \end{itemize}
 
 \hypertarget{prerequisites}{%
@@ -831,8 +834,6 @@ that, we will download all records for the Pink Robin.
 \hypertarget{spatial-focus}{%
 \subsection{Spatial focus}\label{spatial-focus}}
 
-Work in progess Read in shpfile, transform to polygon
-
 \hypertarget{choosing-specific-data-columns}{%
 \section{Choosing specific data
 columns}\label{choosing-specific-data-columns}}
@@ -1038,15 +1039,8 @@ descriptions using:
 \end{verbatim}
 
 Once you have decided which assertions are important for your project
-you can further refine your download. Here we are
-
-\hypertarget{note}{%
-\subsection{note}\label{note}}
-
-Narrowing your results to a specific spatial area- using
-\texttt{galah\_geolocate} or by regions etc, discussions around whether
-this is best to be placed in this chapter to assist with expaning scope
-has been raised.
+you can further refine your download. To retrieve all the assertions for
+your query use \texttt{galah\_select(group\ =\ "assertions")}
 
 \bookmarksetup{startatroot}
 
@@ -1573,9 +1567,17 @@ researchers to describe new species more efficiently than ever before
 reclassification of organisms that have been incorrectly described in
 the past. Unfortunately, multiple names (synonyms) for the same organism
 can arise when taxonomy is not unanimously agreed upon by researchers.
-The complex and dynamic nature of taxonomy makes working with
-biodiversity data challenging. In this chapter we will go through some
-approaches with cleaning taxonomic data and dealing with synonyms.
+
+Harmonising taxonomic names is a prevalent and complex issue and so far,
+no unifying solution has been put forward --- making research with
+biodiversity data challenging. A potential solution would require
+pulling together domain knowledge from experts and compiling a database
+for where taxonomic history for describe species is traceable and linked
+with published literature.
+
+While there is no perfect solution, some tips, tricks and tools do
+exist. In this chapter we will go through some of these to clean
+taxonomic data and deal with synonyms.
 
 \hypertarget{taxonomy-preclean}{%
 \section{Taxonomy preclean}\label{taxonomy-preclean}}
@@ -1587,180 +1589,6 @@ go as smoothly as possible.
 The process is to first identify the issue, correct it, check it, and
 then document the changes. The goal is to standardise and correct as
 many errors issues before removing records.
-
-\hypertarget{higher-taxonomy}{%
-\subsection{Higher taxonomy}\label{higher-taxonomy}}
-
-Higher taxonomy such as phylum and class may be used to group species
-for analysis or data visualisations. Its important to check the spelling
-and formatting of these columns. Its always good to start with some a
-useful table of counts for each taxonomic level. Keep an eye out for
-spelling errors, formatting issues and missing data. Note that
-\texttt{NA} in the output represents missing
-
-As an example:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidyverse)}
-\FunctionTok{library}\NormalTok{(janitor)}
-
-\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{pull}\NormalTok{(class) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{tabyl}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-              .    n     percent valid_percent
-    Cycadopsida    2 0.000962001   0.000965251
-  Equisetopsida  162 0.077922078   0.078185328
- Lycopodiopsida   12 0.005772006   0.005791506
-  Magnoliopsida 1872 0.900432900   0.903474903
-      Pinopsida    6 0.002886003   0.002895753
- Polypodiopsida   18 0.008658009   0.008687259
-           <NA>    7 0.003367003            NA
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{pull}\NormalTok{(order) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{head}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-                .   n      percent valid_percent
-      Alismatales   1 0.0004810005  0.0005307856
-          Apiales  36 0.0173160173  0.0191082803
-      Asparagales  61 0.0293410293  0.0323779193
-        Asterales 168 0.0808080808  0.0891719745
- Austrobaileyales   4 0.0019240019  0.0021231423
-      Brassicales   1 0.0004810005  0.0005307856
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{pull}\NormalTok{(genus) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{tail}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-            .  n      percent valid_percent
- Wahlenbergia  1 0.0004810005  0.0004985045
-   Westringia  4 0.0019240019  0.0019940179
-    Xanthosia  6 0.0028860029  0.0029910269
-        Xyris  1 0.0004810005  0.0004985045
-       Zieria 14 0.0067340067  0.0069790628
-         <NA> 73 0.0351130351            NA
-\end{verbatim}
-
-\hypertarget{missing-higher-taxonomy}{%
-\subsubsection*{Missing higher taxonomy}\label{missing-higher-taxonomy}}
-\addcontentsline{toc}{subsubsection}{Missing higher taxonomy}
-
-If you noticed you have missing data in these columns, you can usually
-back fill this information using your
-\href{link\%20back\%20to\%20section}{chosen naming authority} or
-retrieving this information from a living atlas such as the ALA.
-
-The code below demonstrates how you can isolate the
-\texttt{scientific\_names} of taxa with missing XX data and getting
-taxonomic information from ALA
-
-(Example WORK IN PROGRESS, need better fake data, Inverts?) Seperate
-chunk where message = TRUE for hits
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(galah)}
-
-\CommentTok{\# These are the taxa missing \textasciigrave{}genus\textasciigrave{} information}
-\NormalTok{to\_search }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(order)) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{select}\NormalTok{(species) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{distinct}\NormalTok{()}
-
-\NormalTok{to\_search}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-# A tibble: 46 x 1
-   species               
-   <chr>                 
- 1 Gompholobium uncinatum
- 2 Acacia obtusifolia    
- 3 Hibbertia cistiflora  
- 4 Almaleea incurvata    
- 5 Acacia filicifolia    
- 6 Acacia subtilinervis  
- 7 Hovea pannosa         
- 8 Pultenaea capitellata 
- 9 Thelychiton speciosus 
-10 Acacia mabellae       
-# i 36 more rows
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{search\_taxa}\NormalTok{(to\_search)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-# A tibble: 46 x 1
-   search_term           
-   <chr>                 
- 1 Gompholobium uncinatum
- 2 Acacia obtusifolia    
- 3 Hibbertia cistiflora  
- 4 Almaleea incurvata    
- 5 Acacia filicifolia    
- 6 Acacia subtilinervis  
- 7 Hovea pannosa         
- 8 Pultenaea capitellata 
- 9 Thelychiton speciosus 
-10 Acacia mabellae       
-# i 36 more rows
-\end{verbatim}
-
-\hypertarget{insufficient-taxonomic-rank}{%
-\subsubsection*{Insufficient taxonomic
-rank}\label{insufficient-taxonomic-rank}}
-\addcontentsline{toc}{subsubsection}{Insufficient taxonomic rank}
-
-If a record is not identified down to the taxonomic level that needed
-for the study e.g.~species, then the record should be removed.
-
-(Remember to go back to download or scope section to tell users to
-download taxonRank)
-
-During your data download, ensure you have requested for the column
-\href{https://dwc.tdwg.org/terms/\#dwc:taxonRank}{\texttt{taxonRank}},
-this variable tells us the taxonomic rank of the most specific name in
-the scientificName.
-
-(Come back to this example, perhaps needs spatial focus in a given area
-and then download everything in there and exclude anything that
-taxonRank is not species)
-
-\hypertarget{inconsistent-taxonomy}{%
-\subsubsection{Inconsistent taxonomy}\label{inconsistent-taxonomy}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Orchid as an example }
-\CommentTok{\# Read in problem child data and show}
-
-\CommentTok{\# Group by species and count unique values for higher taxonomy}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{capitalisation}{%
 \subsection{Capitalisation}\label{capitalisation}}
@@ -1804,8 +1632,8 @@ fix before overwriting/removing the erroneous column(s)
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{bees }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class\_corrected =} \FunctionTok{str\_to\_sentence}\NormalTok{(class)) }\SpecialCharTok{\%\textgreater{}\%}
+\NormalTok{bees }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class\_corrected =} \FunctionTok{str\_to\_sentence}\NormalTok{(class)) }\SpecialCharTok{|\textgreater{}}
   \FunctionTok{select}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"class"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
@@ -1829,9 +1657,9 @@ fix before overwriting/removing the erroneous column(s)
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{bees\_corrected }\OtherTok{\textless{}{-}}\NormalTok{ bees }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class\_corrected =} \FunctionTok{str\_to\_sentence}\NormalTok{(class)) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{class) }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\# Remove erroreous column }
+\NormalTok{bees\_corrected }\OtherTok{\textless{}{-}}\NormalTok{ bees }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class\_corrected =} \FunctionTok{str\_to\_sentence}\NormalTok{(class)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{class) }\SpecialCharTok{|\textgreater{}} \CommentTok{\# Remove erroreous column }
   \FunctionTok{rename}\NormalTok{(}\AttributeTok{class =}\NormalTok{ class\_corrected) }\CommentTok{\# Rename corrected column as the new \textquotesingle{}class\textquotesingle{}}
 \end{Highlighting}
 \end{Shaded}
@@ -1852,28 +1680,30 @@ inconsistencies first
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{pull}\NormalTok{(scientific\_name) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+\FunctionTok{library}\NormalTok{(janitor)}
+
+\NormalTok{plants }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(scientific\_name) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{tibble}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 630 x 3
-   .                                       n  percent
+# A tibble: 623 x 3
+   `pull(plants, scientific_name)`         n  percent
    <chr>                               <int>    <dbl>
- 1 Acacia asparagoides                     1 0.000481
+ 1 Acacia asparagoides                     2 0.000962
  2 Acacia barakulensis                     1 0.000481
- 3 Acacia barringtonensis                  6 0.00289 
- 4 Acacia beadleana                        2 0.000962
- 5 Acacia betchei                          3 0.00144 
- 6 Acacia brunioides subsp. brunioides     3 0.00144 
- 7 Acacia brunioides subsp. granitica      1 0.000481
- 8 Acacia bulgaensis                       2 0.000962
- 9 Acacia cangaiensis                      2 0.000962
-10 Acacia clunies-rossiae                  1 0.000481
-# i 620 more rows
+ 3 Acacia barringtonensis                  2 0.000962
+ 4 Acacia beadleana                        1 0.000481
+ 5 Acacia betchei                          6 0.00289 
+ 6 Acacia blayana                          2 0.000962
+ 7 Acacia brunioides                       1 0.000481
+ 8 Acacia brunioides subsp. brunioides     6 0.00289 
+ 9 Acacia brunioides subsp. granitica      1 0.000481
+10 Acacia bulgaensis                       3 0.00144 
+# i 613 more rows
 \end{verbatim}
 
 Consistent taxonomic formatting may not be an issue if you are
@@ -1886,73 +1716,516 @@ separated with a space. Remember to check your changes
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{plants\_updated }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{plants\_updated }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{scientific\_name\_undersc =} \FunctionTok{str\_replace\_all}\NormalTok{(scientific\_name, }\StringTok{" "}\NormalTok{, }\StringTok{"\_"}\NormalTok{)) }
 
-\NormalTok{plants\_updated }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{pull}\NormalTok{(scientific\_name\_undersc) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{plants\_updated }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(scientific\_name\_undersc) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
   \FunctionTok{tibble}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 630 x 3
-   .                                       n  percent
-   <chr>                               <int>    <dbl>
- 1 Acacia_asparagoides                     1 0.000481
- 2 Acacia_barakulensis                     1 0.000481
- 3 Acacia_barringtonensis                  6 0.00289 
- 4 Acacia_beadleana                        2 0.000962
- 5 Acacia_betchei                          3 0.00144 
- 6 Acacia_brunioides_subsp._brunioides     3 0.00144 
- 7 Acacia_brunioides_subsp._granitica      1 0.000481
- 8 Acacia_bulgaensis                       2 0.000962
- 9 Acacia_cangaiensis                      2 0.000962
-10 Acacia_clunies-rossiae                  1 0.000481
-# i 620 more rows
+# A tibble: 623 x 3
+   `pull(plants_updated, scientific_name_undersc)`     n  percent
+   <chr>                                           <int>    <dbl>
+ 1 Acacia_asparagoides                                 2 0.000962
+ 2 Acacia_barakulensis                                 1 0.000481
+ 3 Acacia_barringtonensis                              2 0.000962
+ 4 Acacia_beadleana                                    1 0.000481
+ 5 Acacia_betchei                                      6 0.00289 
+ 6 Acacia_blayana                                      2 0.000962
+ 7 Acacia_brunioides                                   1 0.000481
+ 8 Acacia_brunioides_subsp._brunioides                 6 0.00289 
+ 9 Acacia_brunioides_subsp._granitica                  1 0.000481
+10 Acacia_bulgaensis                                   3 0.00144 
+# i 613 more rows
+\end{verbatim}
+
+\hypertarget{higher-taxonomy}{%
+\subsection{Higher taxonomy}\label{higher-taxonomy}}
+
+Higher taxonomy such as phylum and class may be used to group species
+for analysis or data visualisations. Its important to check the spelling
+and formatting of these columns. Its always good to start with some a
+useful table of counts for each taxonomic level. Keep an eye out for
+spelling errors, formatting issues and missing data. Note that
+\texttt{NA} in the output represents missing
+
+As an example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(janitor)}
+
+\NormalTok{plants }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(class) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ pull(plants, class)    n     percent valid_percent
+         Cycadopsida    4 0.001924002   0.001937046
+       Equisetopsida  202 0.097162097   0.097820823
+      Lycopodiopsida   10 0.004810005   0.004842615
+       Magnoliopsida 1822 0.876382876   0.882324455
+           Pinopsida    2 0.000962001   0.000968523
+      Polypodiopsida   25 0.012025012   0.012106538
+                <NA>   14 0.006734007            NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plants }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(order) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{head}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ pull(plants, order)   n     percent valid_percent
+         Alismatales   6 0.002886003   0.002939735
+             Apiales  36 0.017316017   0.017638413
+         Asparagales  67 0.032227032   0.032827046
+           Asterales 158 0.075998076   0.077413033
+    Austrobaileyales   6 0.002886003   0.002939735
+          Canellales   5 0.002405002   0.002449780
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plants }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(genus) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tabyl}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{tail}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ pull(plants, genus)  n     percent valid_percent
+               Viola  5 0.002405002   0.002501251
+          Westringia 12 0.005772006   0.006003002
+           Xanthosia  9 0.004329004   0.004502251
+               Xyris  4 0.001924002   0.002001001
+              Zieria 14 0.006734007   0.007003502
+                <NA> 80 0.038480038            NA
+\end{verbatim}
+
+\hypertarget{missing-higher-taxonomy}{%
+\subsubsection*{Missing higher taxonomy}\label{missing-higher-taxonomy}}
+\addcontentsline{toc}{subsubsection}{Missing higher taxonomy}
+
+If you noticed you have missing data in these columns, you can usually
+back fill this information using your
+\href{link\%20back\%20to\%20section}{chosen naming authority} or
+retrieving this information from a living atlas such as the ALA.
+
+The code below demonstrates how you can isolate the
+\texttt{scientific\_names} of taxa with missing data and searching for
+taxonomic information from ALA
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(galah)}
+
+\CommentTok{\# Configure galah to point to Australia node}
+\FunctionTok{galah\_config}\NormalTok{(}\AttributeTok{atlas =} \StringTok{"Australia"}\NormalTok{,}
+             \AttributeTok{email =} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"ALA\_EMAIL"}\NormalTok{))}
+
+\CommentTok{\# These are the taxa missing \textasciigrave{}class\textasciigrave{} information}
+\NormalTok{to\_search }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(class)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(scientific\_name) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{distinct}\NormalTok{()}
+
+\CommentTok{\# Reformat scientific\_name to scientificName as the latter is the ALA format}
+\NormalTok{backfilled\_taxa }\OtherTok{\textless{}{-}}\NormalTok{ to\_search}\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{scientificName =}\NormalTok{ scientific\_name) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{search\_taxa}\NormalTok{(to\_search) }\SpecialCharTok{|\textgreater{}} \FunctionTok{tibble}\NormalTok{()}
+
+\NormalTok{backfilled\_taxa}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 818 x 15
+   search_term     scientific_name scientific_name_auth~1 taxon_concept_id rank 
+   <chr>           <chr>           <chr>                  <chr>            <chr>
+ 1 Idiosoma manst~ Idiosoma manst~ (Pocock, 1897)         https://biodive~ spec~
+ 2 Holonuncia rec~ Holonuncia rec~ Hunt, 1992             https://biodive~ spec~
+ 3 Trachycosmus s~ Trachycosmus s~ Simon, 1893            https://biodive~ spec~
+ 4 Pseudotyrannoc~ Pseudotyrannoc~ Beier, 1971            https://biodive~ spec~
+ 5 Phryganoporus ~ Phryganoporus ~ (L. Koch, 1872)        https://biodive~ spec~
+ 6 Latrodectus ha~ Latrodectus ha~ Thorell, 1870          https://biodive~ spec~
+ 7 Ascoschoengast~ Ascoschoengast~ (Hirst, 1915)          https://biodive~ spec~
+ 8 Chrestobunus f~ Chrestobunus f~ Hickman, 1958          https://biodive~ spec~
+ 9 Supunna picta   Nyssus colorip~ Walckenaer, 1805       https://biodive~ spec~
+10 Tasmanicosa le~ Tasmanicosa le~ (Thorell, 1870)        https://biodive~ spec~
+# i 808 more rows
+# i abbreviated name: 1: scientific_name_authorship
+# i 10 more variables: match_type <chr>, kingdom <chr>, phylum <chr>,
+#   class <chr>, order <chr>, family <chr>, genus <chr>, species <chr>,
+#   issues <chr>, vernacular_name <chr>
+\end{verbatim}
+
+\hypertarget{insufficient-taxonomic-rank}{%
+\subsubsection*{Insufficient taxonomic
+rank}\label{insufficient-taxonomic-rank}}
+\addcontentsline{toc}{subsubsection}{Insufficient taxonomic rank}
+
+If a record is not identified down to the taxonomic level that needed
+for the study e.g.~species, then the record should be removed.
+
+During your data download, ensure you have requested for the column
+\href{https://dwc.tdwg.org/terms/\#dwc:taxonRank}{\texttt{taxonRank}},
+this variable tells us the lowest level of \texttt{scientificName}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(galah)}
+
+\FunctionTok{galah\_config}\NormalTok{(}\AttributeTok{email =} \FunctionTok{Sys.getenv}\NormalTok{(}\StringTok{"ALA\_EMAIL"}\NormalTok{),}
+             \AttributeTok{atlas =} \StringTok{"Australia"}\NormalTok{)}
+
+\NormalTok{honeyeaters }\OtherTok{\textless{}{-}} \FunctionTok{galah\_call}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_identify}\NormalTok{(}\StringTok{"Meliphagidae"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_filter}\NormalTok{(year }\SpecialCharTok{==} \DecValTok{2012} \SpecialCharTok{\&}\NormalTok{ stateProvince }\SpecialCharTok{==} \StringTok{"New South Wales"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_select}\NormalTok{(}\AttributeTok{group =} \StringTok{"basic"}\NormalTok{, taxonRank) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{atlas\_occurrences}\NormalTok{()}
+
+\NormalTok{honeyeaters}\SpecialCharTok{$}\NormalTok{taxonRank }\SpecialCharTok{|\textgreater{}} \FunctionTok{unique}\NormalTok{()}
+
+\NormalTok{honeyeaters }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(taxonRank }\SpecialCharTok{==} \StringTok{"species"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(arrow)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# honeyeaters \textless{}{-} galah\_call() |\textgreater{}}
+\CommentTok{\#   galah\_identify("Meliphagidae") |\textgreater{}}
+\CommentTok{\#   galah\_filter(year == 2012 \& stateProvince == "New South Wales") |\textgreater{}}
+\CommentTok{\#   galah\_select(group = "basic", taxonRank) |\textgreater{}}
+\CommentTok{\#   atlas\_occurrences()}
+
+\CommentTok{\# write\_parquet(honeyeaters, "data/galah/honeyeater")}
+
+\NormalTok{honeyeaters }\OtherTok{\textless{}{-}} \FunctionTok{open\_dataset}\NormalTok{(}\StringTok{"data/galah/honeyeater"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} \FunctionTok{collect}\NormalTok{()}
+
+\NormalTok{honeyeaters}\SpecialCharTok{$}\NormalTok{taxonRank }\SpecialCharTok{|\textgreater{}} \FunctionTok{unique}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "species"    "genus"      "subgenus"   "subspecies" "family"    
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{honeyeaters }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(taxonRank }\SpecialCharTok{==} \StringTok{"species"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 43,684 x 9
+   decimalLatitude decimalLongitude eventDate           scientificName          
+             <dbl>            <dbl> <dttm>              <chr>                   
+ 1           -37.4             150. 2012-09-26 14:00:00 Meliphaga (Meliphaga) l~
+ 2           -37.4             150. 2012-09-26 14:00:00 Acanthorhynchus tenuiro~
+ 3           -37.4             150. 2012-04-07 14:00:00 Acanthorhynchus tenuiro~
+ 4           -37.4             150. 2012-04-07 14:00:00 Nesoptilotis leucotis   
+ 5           -37.4             150. 2012-04-07 14:00:00 Phylidonyris (Meliornis~
+ 6           -37.4             150. 2012-04-07 14:00:00 Phylidonyris (Phylidony~
+ 7           -37.4             150. 2012-04-07 14:00:00 Nesoptilotis leucotis   
+ 8           -37.4             150. 2012-04-07 14:00:00 Phylidonyris (Meliornis~
+ 9           -37.4             150. 2012-04-07 14:00:00 Melithreptus (Melithrep~
+10           -37.4             150. 2012-04-07 14:00:00 Acanthorhynchus tenuiro~
+# i 43,674 more rows
+# i 5 more variables: taxonConceptID <chr>, recordID <chr>,
+#   dataResourceName <chr>, occurrenceStatus <chr>, taxonRank <chr>
+\end{verbatim}
+
+\hypertarget{inconsistent-higher-taxonomy}{%
+\subsubsection*{Inconsistent higher
+taxonomy}\label{inconsistent-higher-taxonomy}}
+\addcontentsline{toc}{subsubsection}{Inconsistent higher taxonomy}
+
+A great approach to detect inconsistencies in your taxonomic data is to
+compute counts for each level of taxonomic rank. These counts act as a
+check for you to verify that the data is in line with your expectation.
+This is particularly important when combining data from different
+sources where their taxonomy might vary. If you have detected
+inconsistencies as we have done below, you will have to correct
+accordingly, either by consulting a taxonomic expert or a naming
+authority and ensure this is reported in your methods.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Get counts for every species where they have more than 1 class}
+\NormalTok{plants }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(phylum}\SpecialCharTok{:}\NormalTok{species, scientific\_name) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{distinct}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(species) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n\_class =} \FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(class))) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(n\_class }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 2
+  species               n_class
+  <chr>                   <int>
+1 Allocasuarina distyla       2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Get the species that have more than 1 class}
+\NormalTok{inconsistent\_taxa }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(phylum}\SpecialCharTok{:}\NormalTok{species, scientific\_name) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{distinct}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{group\_by}\NormalTok{(species) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n\_class =} \FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(class))) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(n\_class }\SpecialCharTok{\textgreater{}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{pull}\NormalTok{(species) }
+
+\CommentTok{\# Filter species that have more than 1 class}
+\NormalTok{plants }\SpecialCharTok{|\textgreater{}} \FunctionTok{filter}\NormalTok{(species }\SpecialCharTok{\%in\%}\NormalTok{ inconsistent\_taxa) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{select}\NormalTok{(phylum}\SpecialCharTok{:}\NormalTok{species, scientific\_name) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{arrange}\NormalTok{(species) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{distinct}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 7
+  phylum       class         order   family        genus species scientific_name
+  <chr>        <chr>         <chr>   <chr>         <chr> <chr>   <chr>          
+1 Tracheophyta Magnoliopsida Fagales Casuarinaceae Allo~ Alloca~ Allocasuarina ~
+2 Tracheophyta Equisetopsida Fagales Casuarinaceae Allo~ Alloca~ Allocasuarina ~
 \end{verbatim}
 
 \hypertarget{synonyms}{%
 \section{Synonyms}\label{synonyms}}
 
-Synonyms are not straightforward when working with open source
-biodiversity data. Data infrastructures have their own taxonomic systems
-which may not be accepted by researchers or consistent with your chosen
-\href{link_back}{naming authority}. For these reasons, its important to
-flag and correct synonyms in a clear manner while keeping in mind that
-there is no universal or perfect solution. We recommend being explicit
-and consistent with your decisions about synonyms and keeping a good
-record of the changes to aid transparency and reproducibility.
+Synonyms is a complex issue when working with open source biodiversity
+data. Data infrastructures have their own taxonomic systems which may
+not align with researchers' view or consistent with your chosen
+\href{link_back}{naming authority}.
 
-Often naming authorities will have one they deem as accepted, and list
-others as synonyms. Here is an
-\href{https://biodiversity.org.au/afd/taxa/Egernia/names}{example} (How
-do people retrieve these from the AFD?)
+Keeping in mind that there is no universal solution to synonymy. Best
+practice is to flag and correct synonyms in a clear and consistent
+manner. We recommend being explicit with your decisions about which
+names are retained and keeping a good record of the changes to aid
+transparency and reproducibility.
 
-\{Taxize\}
+\hypertarget{worrms}{%
+\subsubsection*{\{worrms\}}\label{worrms}}
+\addcontentsline{toc}{subsubsection}{\{worrms\}}
+
+The \href{https://docs.ropensci.org/worrms/}{\{worrms\}} is the R
+interface to the World Register of Marine Species and has a ability to
+cross check synonyms with their database for taxa that has an
+\texttt{AphiaID}. The function will return synonymous record(s)
+associated with another different AphiaID.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{worrms}\SpecialCharTok{::}\FunctionTok{wm\_synonyms}\NormalTok{(}\AttributeTok{id =} \DecValTok{105706}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(worrms)}
+
+\NormalTok{marine\_sp }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/worms/worms.csv"}\NormalTok{)}
+
+\NormalTok{marine\_sp }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{slice}\NormalTok{(}\DecValTok{7}\NormalTok{) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{pull}\NormalTok{(AphiaID) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{wm\_synonyms}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 # A tibble: 1 x 27
   AphiaID url   scientificname authority status unacceptreason taxonRankID rank 
-    <int> <chr> <chr>          <chr>     <chr>  <chr>                <int> <chr>
-1  148832 http~ Rhiniodontidae Müller &~ unacc~ synonym                140 Fami~
+    <int> <chr> <chr>          <chr>     <chr>  <lgl>                <int> <chr>
+1  453207 http~ Goniosoma ina~ Walker, ~ super~ NA                     220 Spec~
 # i 19 more variables: valid_AphiaID <int>, valid_name <chr>,
 #   valid_authority <chr>, parentNameUsageID <int>, kingdom <chr>,
-#   phylum <chr>, class <chr>, order <chr>, family <chr>, genus <lgl>,
-#   citation <chr>, lsid <chr>, isMarine <lgl>, isBrackish <lgl>,
-#   isFreshwater <lgl>, isTerrestrial <int>, isExtinct <lgl>, match_type <chr>,
+#   phylum <chr>, class <chr>, order <chr>, family <chr>, genus <chr>,
+#   citation <chr>, lsid <chr>, isMarine <int>, isBrackish <int>,
+#   isFreshwater <int>, isTerrestrial <int>, isExtinct <int>, match_type <chr>,
 #   modified <chr>
+\end{verbatim}
+
+\hypertarget{taxize}{%
+\subsubsection*{\{taxize\}}\label{taxize}}
+\addcontentsline{toc}{subsubsection}{\{taxize\}}
+
+\{taxize\} allows users to search over many taxonomic data sources for
+species names (scientific and common) to resolve synonymy. The
+\texttt{gnr\_resolve()} function matches your supplied list with up to
+118 data sources including GBIF, Catalogue of Life, World Register of
+Marine Species and many more. The function scores how well matched your
+name is to these sources.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(taxize)}
+
+\CommentTok{\# Read in a naming authority list}
+\NormalTok{afd }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/naming/afd.csv"}\NormalTok{)}
+\FunctionTok{unique}\NormalTok{(afd}\SpecialCharTok{$}\NormalTok{VALID\_NAME)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "Prosphaerosyllis battiri"         "Clavellopsis parasargi"          
+ [3] "Platypontonia hyotis"             "Palirhoeus eatoni"               
+ [5] "Diastylis kapalae"                "Xenobates chinai"                
+ [7] "Paratanais gaspodei"              "Paradexamine flindersi"          
+ [9] "Prostebbingia brevicornis"        "Cythere lactea"                  
+[11] "Cythere melobesioides"            "Achelia transfugoides"           
+[13] "Halobates (Halobates) acherontis" "Quadraceps hopkinsi apophoretus" 
+[15] "Anabarhynchus striatus"           "Australocytheridea vandenboldi"  
+[17] "Enigmaplax littoralis"            "Hyphalus insularis"              
+[19] "Plesiopenaeus armatus"            "Uroptychus brucei"               
+[21] "Caligus dasyaticus"               "Coralliophila tetragona"         
+[23] "Triphora alveolata"               "Clavus obliquatus"               
+[25] "Naria beckii"                     "Pharaonella rostrata"            
+[27] "Lasaea australis"                 "Cadulus rudmani"                 
+[29] "Bembicium flavescens"             "Mormula philippiana"             
+[31] "Turbonilla tiara"                 "Chlorodiloma crinita"            
+[33] "Mitrella merita"                  "Tritonoharpa antiquata"          
+[35] "Mauritia depressa dispersa"       "Laevidentalium zeidleri"         
+[37] "Conus (Harmoniconus) musicus"     "Marionia cyanobranchiata"        
+[39] "Tucetona flabellata"              "Neochromadora bilineata"         
+[41] "Desmoscolex membranosus"          "Echeneidocoelium indicum"        
+[43] "Indodidymozoon suttiei"           "Diploproctodaeum yosogi"         
+[45] "Pseudopecoelus japonicus"         "Pedibothrium lloydae"            
+[47] "Amphitethya stipitata"            "Pseudosuberites mollis"          
+[49] "Psammochela psammodes"           
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Resolve names}
+\NormalTok{resolved }\OtherTok{\textless{}{-}} \FunctionTok{gnr\_resolve}\NormalTok{(}\FunctionTok{unique}\NormalTok{(afd}\SpecialCharTok{$}\NormalTok{VALID\_NAME), }\AttributeTok{best\_match\_only =} \ConstantTok{TRUE}\NormalTok{) }
+\NormalTok{resolved }\SpecialCharTok{|\textgreater{}} \FunctionTok{print}\NormalTok{(}\AttributeTok{n =} \DecValTok{50}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 49 x 5
+   user_supplied_name        submitted_name matched_name data_source_title score
+ * <chr>                     <chr>          <chr>        <chr>             <dbl>
+ 1 Prosphaerosyllis battiri  Prosphaerosyl~ Prosphaeros~ National Center ~ 0.988
+ 2 Clavellopsis parasargi    Clavellopsis ~ Clavellopsi~ uBio NameBank     0.988
+ 3 Platypontonia hyotis      Platypontonia~ Platyponton~ National Center ~ 0.988
+ 4 Palirhoeus eatoni         Palirhoeus ea~ Palirhoeus ~ Wikispecies       0.988
+ 5 Diastylis kapalae         Diastylis kap~ Diastylis k~ Encyclopedia of ~ 0.988
+ 6 Xenobates chinai          Xenobates chi~ Xenobates c~ Encyclopedia of ~ 0.988
+ 7 Paratanais gaspodei       Paratanais ga~ Paratanais ~ Wikispecies       0.988
+ 8 Paradexamine flindersi    Paradexamine ~ Paradexamin~ Encyclopedia of ~ 0.988
+ 9 Prostebbingia brevicornis Prostebbingia~ Prostebbing~ Encyclopedia of ~ 0.988
+10 Cythere lactea            Cythere lactea Cythere lac~ Encyclopedia of ~ 0.988
+11 Cythere melobesioides     Cythere melob~ Cythere mel~ Encyclopedia of ~ 0.988
+12 Achelia transfugoides     Achelia trans~ Achelia tra~ National Center ~ 0.988
+13 Halobates (Halobates) ac~ Halobates (ha~ Halobates (~ CU*STAR           0.999
+14 Quadraceps hopkinsi apop~ Quadraceps ho~ Quadraceps ~ Catalogue of Lif~ 0.999
+15 Anabarhynchus striatus    Anabarhynchus~ Anabarhynch~ Encyclopedia of ~ 0.988
+16 Australocytheridea vande~ Australocythe~ Australocyt~ Encyclopedia of ~ 0.988
+17 Enigmaplax littoralis     Enigmaplax li~ Enigmaplax ~ Encyclopedia of ~ 0.988
+18 Hyphalus insularis        Hyphalus insu~ Hyphalus in~ Wikispecies       0.988
+19 Plesiopenaeus armatus     Plesiopenaeus~ Plesiopenae~ Wikispecies       0.988
+20 Uroptychus brucei         Uroptychus br~ Uroptychus ~ Wikispecies       0.988
+21 Caligus dasyaticus        Caligus dasya~ Caligus das~ Encyclopedia of ~ 0.988
+22 Coralliophila tetragona   Coralliophila~ Coralliophi~ Encyclopedia of ~ 0.988
+23 Triphora alveolata        Triphora alve~ Triphora al~ uBio NameBank     0.988
+24 Clavus obliquatus         Clavus obliqu~ Clavus obli~ Encyclopedia of ~ 0.988
+25 Naria beckii              Naria beckii   Naria beckii National Center ~ 0.988
+26 Pharaonella rostrata      Pharaonella r~ Pharaonella~ Arctos            0.988
+27 Lasaea australis          Lasaea austra~ Lasaea aust~ National Center ~ 0.988
+28 Cadulus rudmani           Cadulus rudma~ Cadulus rud~ Encyclopedia of ~ 0.988
+29 Bembicium flavescens      Bembicium fla~ Bembicium f~ National Center ~ 0.988
+30 Mormula philippiana       Mormula phili~ Mormula phi~ Encyclopedia of ~ 0.988
+31 Turbonilla tiara          Turbonilla ti~ Turbonilla ~ Encyclopedia of ~ 0.988
+32 Chlorodiloma crinita      Chlorodiloma ~ Chlorodilom~ National Center ~ 0.988
+33 Mitrella merita           Mitrella meri~ Mitrella me~ Encyclopedia of ~ 0.988
+34 Tritonoharpa antiquata    Tritonoharpa ~ Tritonoharp~ National Center ~ 0.988
+35 Mauritia depressa disper~ Mauritia depr~ Mauritia de~ National Center ~ 0.999
+36 Laevidentalium zeidleri   Laevidentaliu~ Laevidental~ Encyclopedia of ~ 0.988
+37 Conus (Harmoniconus) mus~ Conus (harmon~ Conus Linna~ Catalogue of Lif~ 0.75 
+38 Marionia cyanobranchiata  Marionia cyan~ Marionia cy~ National Center ~ 0.988
+39 Tucetona flabellata       Tucetona flab~ Tucetona fl~ Encyclopedia of ~ 0.988
+40 Neochromadora bilineata   Neochromadora~ Neochromado~ National Center ~ 0.988
+41 Desmoscolex membranosus   Desmoscolex m~ Desmoscolex~ Encyclopedia of ~ 0.988
+42 Echeneidocoelium indicum  Echeneidocoel~ Echeneidoco~ Integrated Taxon~ 0.988
+43 Indodidymozoon suttiei    Indodidymozoo~ Indodidymoz~ National Center ~ 0.988
+44 Diploproctodaeum yosogi   Diploproctoda~ Diploprocto~ Encyclopedia of ~ 0.988
+45 Pseudopecoelus japonicus  Pseudopecoelu~ Pseudopecoe~ Integrated Taxon~ 0.988
+46 Pedibothrium lloydae      Pedibothrium ~ Pedibothriu~ Encyclopedia of ~ 0.988
+47 Amphitethya stipitata     Amphitethya s~ Amphitethya~ Wikispecies       0.988
+48 Pseudosuberites mollis    Pseudosuberit~ Pseudosuber~ Encyclopedia of ~ 0.988
+49 Psammochela psammodes     Psammochela p~ Psammochela~ Wikispecies       0.988
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Retrieve synonyms}
+\NormalTok{tsn }\OtherTok{\textless{}{-}} \FunctionTok{get\_tsn}\NormalTok{(}\FunctionTok{unique}\NormalTok{(afd}\SpecialCharTok{$}\NormalTok{VALID\_NAME)[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+==  5 queries  ===============
+✖  Not Found:  Prosphaerosyllis battiri
+✖  Not Found:  Clavellopsis parasargi
+✔  Found:  Platypontonia hyotis
+✖  Not Found:  Palirhoeus eatoni
+✖  Not Found:  Diastylis kapalae
+==  Results  =================
+
+• Total: 5 
+• Found: 1 
+• Not Found: 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{synonyms}\NormalTok{(tsn)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$<NA>
+[1] NA
+
+$<NA>
+[1] NA
+
+$`612530`
+  sub_tsn acc_tsn   syn_author                  syn_name syn_tsn
+1  612530  612530 Suzuki, 1971 Platypontonia pterostreae 1191962
+
+$<NA>
+[1] NA
+
+$<NA>
+[1] NA
 \end{verbatim}
 
 \hypertarget{input-from-experts}{%
 \section{Input from experts}\label{input-from-experts}}
+
+Programmatic solutions for resolving synonymy can only go so far.
+Seeking validation from experts is sensible if your goal is to obtain a
+high quality species list. Museums or taxonomic societies are extensive
+sources of knowledge. Below we have provided a list of some of
+Australian taxonomic society groups.
 
 \hypertarget{australian-taxonomic-society-groups}{%
 \subsection{Australian taxonomic society
@@ -2011,85 +2284,6 @@ groups}\label{australian-taxonomic-society-groups}}
 \item
   \href{https://www.catalogueoflife.org/}{Catalogue of Life}
 \end{itemize}
-
-\hypertarget{notes}{%
-\section{Notes}\label{notes}}
-
-\hypertarget{this-has-lots-all-meaning}{%
-\subsubsection{This has lots all
-meaning}\label{this-has-lots-all-meaning}}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Downloading higher taxon data (kingdom:class) and then filtering for
-  what you need, as disparities are less common at higher levels (????
-  Check with Martin)
-\end{enumerate}
-
-\#\#fiddling with fake data
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{plants }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/Curated\_Plant\_and\_Invertebrate\_Data\_for\_Bushfire\_Modelling/vascularplant.data.csv"}\NormalTok{)}
-
-
-\NormalTok{plants }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(record\_id}\SpecialCharTok{:}\NormalTok{longitude\_used) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{rename}\NormalTok{(}\AttributeTok{latitude =}\NormalTok{ latitude\_used,}
-         \AttributeTok{longitude =}\NormalTok{ longitude\_used) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{sample\_frac}\NormalTok{(}\FloatTok{0.05}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{write\_csv\_arrow}\NormalTok{(}\AttributeTok{sink =} \StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/dap/plant\_subset.csv"}\NormalTok{)}
-
-\NormalTok{plants }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/dap/plant\_subset.csv"}\NormalTok{)}
-
-\DocumentationTok{\#\#\# Making some fake missing data}
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{5}\NormalTok{)}
-\NormalTok{tobemissing }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(order }\SpecialCharTok{==} \StringTok{"Fabales"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{sample\_frac}\NormalTok{(}\FloatTok{0.15}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{pull}\NormalTok{(scientific\_name) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{unique}\NormalTok{()}
-
-\NormalTok{plants }\OtherTok{\textless{}{-}}\NormalTok{ plants }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{order =} \FunctionTok{ifelse}\NormalTok{(scientific\_name }\SpecialCharTok{\%in\%}\NormalTok{ tobemissing, }\ConstantTok{NA}\NormalTok{, order)) }\CommentTok{\# 40 species}
-
-\CommentTok{\#try inverts }
-\NormalTok{inverts}\OtherTok{\textless{}{-}}\FunctionTok{read\_csv}\NormalTok{(}\StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/Curated\_Plant\_and\_Invertebrate\_Data\_for\_Bushfire\_Modelling/invertebrate.data.csv"}\NormalTok{)}
-
-
-\NormalTok{inverts }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{select}\NormalTok{(record\_id}\SpecialCharTok{:}\NormalTok{longitude) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{sample\_frac}\NormalTok{(}\FloatTok{0.01}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{write\_csv\_arrow}\NormalTok{(}\AttributeTok{sink =} \StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/dap/invert\_subset.csv"}\NormalTok{)}
-
-\NormalTok{inverts }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"/Users/sch609/Documents/Github/cleaning\_data/ignore/dap/invert\_subset.csv"}\NormalTok{)}
-
-\DocumentationTok{\#\#\# Making some fake missing data}
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{5}\NormalTok{)}
-
-\NormalTok{tobemissing }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{filter}\NormalTok{(class }\SpecialCharTok{==} \StringTok{"Arachnida"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{sample\_frac}\NormalTok{(}\FloatTok{0.3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{pull}\NormalTok{(scientific\_name) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{unique}\NormalTok{()}
-
-\NormalTok{inverts }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{class =} \FunctionTok{ifelse}\NormalTok{(scientific\_name }\SpecialCharTok{\%in\%}\NormalTok{ tobemissing, }\ConstantTok{NA}\NormalTok{, class))}
-
-\CommentTok{\#try and backfill}
-\NormalTok{to\_search }\OtherTok{\textless{}{-}}\NormalTok{ inverts }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(class)) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{select}\NormalTok{(scientific\_name) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{distinct}\NormalTok{()}
-
-\NormalTok{to\_search}\OtherTok{\textless{}{-}}\NormalTok{ to\_search}\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{rename}\NormalTok{(}\AttributeTok{scientificName =}\NormalTok{ scientific\_name)}
-
-\NormalTok{back\_filled\_arachnida}\OtherTok{\textless{}{-}}\NormalTok{galah}\SpecialCharTok{::}\FunctionTok{search\_taxa}\NormalTok{(to\_search) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{tibble}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
 
 \bookmarksetup{startatroot}
 
@@ -2287,10 +2481,11 @@ $ accepted_name                    <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, N~
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 1 x 13
+# A tibble: 2 x 13
   record_id    scientific_name vernacular_name kingdom phylum class order family
   <chr>        <chr>           <chr>           <chr>   <chr>  <chr> <chr> <chr> 
-1 e2b65eed-08~ Lysimachia for~ Swamp Tiger Ta~ Plantae Trach~ Magn~ Eric~ Primu~
+1 94df1223-4c~ Lysimachia jap~ Creeping Loose~ Plantae Trach~ Magn~ Eric~ Primu~
+2 8055e15e-36~ Lysimachia jap~ Creeping Loose~ Plantae Trach~ Magn~ Eric~ Primu~
 # i 5 more variables: genus <chr>, species <chr>, subspecies <chr>,
 #   latitude <dbl>, longitude <dbl>
 \end{verbatim}
@@ -2313,9 +2508,9 @@ of Marine and Nonmarine Genera \href{https://www.irmng.org/}{(IRMNG)}.
 The list is comprehensive and actively maintained, the only caveat is
 that a lot of its data doesn't go down to species level. As such, we
 recommend using the following approach to find \emph{potentially
-extinct} taxa and futher investigate the records that we are flagged.
+extinct} taxa and further investigate the records that we are flagged.
 
-The required files can be downloaded from
+The required files are organised by year and can be downloaded from
 \href{https://www.irmng.org/export/}{here}. Once you have unzipped the
 file in your projected directory, we need to process the list a
 littlerbefore we use it to exclude extinct species.
@@ -2326,11 +2521,15 @@ littlerbefore we use it to exclude extinct species.
 \FunctionTok{library}\NormalTok{(janitor)}
 
 \CommentTok{\# Taxonomic info}
-\NormalTok{irmng\_taxa }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\StringTok{"data/lists/irmng/irmng\_taxon.txt"}\NormalTok{, }\AttributeTok{na.strings =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{))}
+\NormalTok{irmng\_taxa }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\StringTok{"data/lists/IRMNG\_genera\_DwCA\_2023{-}05{-}19/taxon.txt"}\NormalTok{, }\AttributeTok{na.strings =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{), }\AttributeTok{quote=}\StringTok{""}\NormalTok{)}
 
 \CommentTok{\# Species profile}
-\NormalTok{irmng\_sp }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\StringTok{"data/lists/irmng/irmng\_speciesprofile.txt"}\NormalTok{, }\AttributeTok{na.strings =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{))}
+\NormalTok{irmng\_sp }\OtherTok{\textless{}{-}} \FunctionTok{fread}\NormalTok{(}\StringTok{"data/lists/IRMNG\_genera\_DwCA\_2023{-}05{-}19/speciesprofile.txt"}\NormalTok{, }\AttributeTok{na.strings =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{), }\AttributeTok{quote=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
 \CommentTok{\# Precleaning }
 \NormalTok{awc\_pattern }\OtherTok{\textless{}{-}} \StringTok{"(awaiting allocation)"}
 \NormalTok{insed\_pattern }\OtherTok{\textless{}{-}} \StringTok{"incertae sedis"}
@@ -2355,15 +2554,14 @@ littlerbefore we use it to exclude extinct species.
 \end{Shaded}
 
 \begin{verbatim}
- extinct_irmng$taxonRank      n      percent
-                   Class     90 7.725123e-04
-                  Family   8317 7.138872e-02
-                   Genus 107162 9.198218e-01
-                   Order    910 7.810958e-03
-                  Phylum     18 1.545025e-04
-                Subclass      4 3.433388e-05
-               Subphylum      1 8.583470e-06
-             Superfamily      1 8.583470e-06
+ extinct_irmng$taxonRank     n      percent
+                   Class    14 5.926177e-04
+                  Family  1675 7.090247e-02
+                   Genus 21718 9.193193e-01
+              Infraclass     1 4.232983e-05
+                   Order   210 8.889265e-03
+                  Phylum     4 1.693193e-04
+                Subclass     2 8.465967e-05
 \end{verbatim}
 
 \begin{Shaded}
@@ -2390,8 +2588,7 @@ littlerbefore we use it to exclude extinct species.
 \end{Shaded}
 
 \begin{verbatim}
-[1] "Palirhoeus eatoni"                "Coralliophila tetragona"         
-[3] "Halobates (Halobates) acherontis"
+[1] "Halobates (Halobates) acherontis"
 \end{verbatim}
 
 Alternatively, you can use the IUCN to retrieve a list of extinct
@@ -2491,20 +2688,20 @@ with terrestrial data, it is necessary to remove marine taxa.
 \end{Shaded}
 
 \begin{verbatim}
-# A tibble: 2,612 x 9
+# A tibble: 2,637 x 9
    decimalLatitude decimalLongitude eventDate           scientificName   
              <dbl>            <dbl> <dttm>              <chr>            
- 1           -46.9             37.8 1984-09-01 00:00:00 Palirhoeus eatoni
- 2           -46.9             37.8 1983-04-01 00:00:00 Palirhoeus eatoni
+ 1           -46.9             37.8 1983-04-01 00:00:00 Palirhoeus eatoni
+ 2           -46.9             37.8 1984-09-01 00:00:00 Palirhoeus eatoni
  3           -46.9             37.9 1986-04-01 00:00:00 Palirhoeus eatoni
  4           -46.6             38.0 1985-04-01 00:00:00 Palirhoeus eatoni
- 5           -46.6             38.0 1984-04-01 00:00:00 Palirhoeus eatoni
+ 5           -46.6             38.0 1983-05-01 00:00:00 Palirhoeus eatoni
  6           -46.6             38.0 1984-09-01 00:00:00 Palirhoeus eatoni
- 7           -46.6             38.0 1983-05-01 00:00:00 Palirhoeus eatoni
+ 7           -46.6             38.0 1984-04-01 00:00:00 Palirhoeus eatoni
  8           -43.6            148.  NA                  Lasaea australis 
- 9           -43.6            147.  2008-12-27 13:00:00 Lasaea australis 
-10           -43.6            147.  2008-12-27 13:00:00 Lasaea australis 
-# i 2,602 more rows
+ 9           -43.6            147.  2008-12-28 00:00:00 Lasaea australis 
+10           -43.6            147.  2008-12-28 00:00:00 Lasaea australis 
+# i 2,627 more rows
 # i 5 more variables: taxonConceptID <chr>, recordID <chr>,
 #   dataResourceName <chr>, occurrenceStatus <chr>, genus <chr>
 \end{verbatim}
@@ -2525,20 +2722,24 @@ known to be problematic.
 \hypertarget{quick-visualisation}{%
 \section{Quick visualisation}\label{quick-visualisation}}
 
-Now is a great time to plot your data onto a map again. Spatial errors
-are much easier to spot from a visual perspective.
+One of the most straightforward ways to check for spatial errors is to
+plot your data onto a map. More obvious spatial errors are much easier
+to spot visually.
 
 \hypertarget{coordinate-precision}{%
 \section{Coordinate precision}\label{coordinate-precision}}
 
-Open access data will be collected from many people using different
-tools with varying expertise, some record coordinates may have been
-recorded with a phone, some with a GPS, or a place name and coordinates
-added after the fact. Depending on the level of precision you need, you
-might consider discarding data of lower precision, or removing decimal
-places for data you know could not be that precise. At the ALA there is
-a ``cooridnateprecision''/ ``coordinateUncertainityIn Meters'' assertion
-(\ul{see assertion section to download these with the data)}
+Data from different sources are collected by different people often
+using differing tools. For example, some might record coordinates with a
+tool with high precision like a phone or a GPS, whereas others might
+record coordinates with low precision by manually recording a place name
+or writing coordinates after the fact.
+
+Depending on the level of precision to answer your research question,
+you might consider discarding data of lower precision, or removing
+decimal places for data you know could not be that precise. At the ALA
+there is a ``cooridnateprecision''/ ``coordinateUncertainityIn Meters''
+assertion (\ul{see assertion section to download these with the data)}
 
 \includegraphics{images/image-613988507.png}
 
@@ -2652,8 +2853,27 @@ issue.There are several ways of dealing with this issue, but one option
 can be to mask data to remove points from falling off a determined area.
 --\textgreater{} unsure about this bit
 
+\textbf{I'm not sure I understand what the above means. But I think in
+general for less obvious errors, it's best to suggest that before data
+analysis (and honestly, before seeing the data at all), people should
+determine whether there is an upper bound to remove coordinates (like a
+95\% confidence interval, or within xx km of an accepted expert
+distribution). Then run whatever model or test with the complete data
+and with the reduced data. If it makes a difference, probably make an
+informed decision based on literature of which results to use as the
+``main'' findings.}
+
+\textbf{Having written this out, a brief discussion about this rather
+than any suggestions is probably all that's in scope for this book}
+
+\textbf{The final decisions depend on the species, research question,
+model parameters etc}
+
 \hypertarget{optional-record-removal}{%
 \section{Optional record removal}\label{optional-record-removal}}
+
+\textbf{Not sure why the below is optional? I think a lot of national or
+global analyses would require some kind of data cleaning for this}
 
 Remove records with coordinates assigned to country and province
 centroids: such as Centre of Country, botanic gardens, zoos, country
@@ -2687,8 +2907,8 @@ standardization}\label{checklist-of-data-standardization}}
 
 \bookmarksetup{startatroot}
 
-\hypertarget{notes-1}{%
-\chapter{Notes}\label{notes-1}}
+\hypertarget{notes}{%
+\chapter{Notes}\label{notes}}
 
 \hypertarget{missing-data}{%
 \section{Missing data}\label{missing-data}}
@@ -3005,7 +3225,9 @@ processes, issues and needs.
 All steps for acquiring and cleaning data were then looked at together
 in order to understand what were essential steps, versus what was done
 in certain use cases. We also investigated the order in which steps were
-undertaken to develop the most streamlined process for this book.
+undertaken with the idea of developing a streamlined workflow. However
+the diagrams below show the complexity of this, with data cleaning being
+extremely iterative.
 
 \includegraphics{images/complex_workflow.png}
 \includegraphics{images/simplified_workflow.png}

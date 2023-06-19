@@ -273,25 +273,26 @@ div.csl-indent {
 </header>
 
 <blockquote class="blockquote">
-<p>“Garbage in, garbage out”</p>
+<p>“Garbage in, garbage out” - George Fuechsel, IBM computer programmer</p>
 </blockquote>
-<p>The idea of flawed or sub-par input data produces nonsensical output is one that is well known in many scientific disciplines. In biodiversity research, scientists often have to collate large amounts of open access data from various sources to address their research question. This can be challenging as the quality of data can vary depending on the provider.</p>
-<p>Data cleaning is therefore an essential step in biodiversity research. The process of identifying and fixing incorrect or doubtful data can improve data quality and the validity of scientific findings. <span class="citation" data-cites="rodrigues_species_2022">(<a href="references.html#ref-rodrigues_species_2022" role="doc-biblioref">Rodrigues et al., 2022</a>)</span>.</p>
+<p>The idea that using flawed or nonsensical data as input produces output of similar quality is one that is well known in many scientific disciplines. In ecology and biodiversity research, however, scientists are often at risk of unintentionally using flawed or nonsensical data because they must bring together lots of data from many sources to address their research questions. These data are rarely easy to combine. Data from different sources vary widely in their structure and quality. As a result, collating them into something usable to answer a research question can be challenging.</p>
+<p><strong>Data cleaning</strong>, the process of identifying and fixing incorrect or doubtful data, is an essential step in ecology and biodiversity research. Data cleaning improves data quality and the validity of scientific findings <span class="citation" data-cites="rodrigues_species_2022">(<a href="#ref-rodrigues_species_2022" role="doc-biblioref">Rodrigues et al., 2022</a>)</span>.</p>
 <p>This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as <a href="https://www.gbif.org/">Global Biodiversity Information Facility</a> (GBIF) and the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). We will be working with the R package <a href="https://galah.ala.org.au/"><code>galah</code></a> for accessing biodiversity data. If you have occurrence data you have personally collected, some parts of this book may still be relevant.</p>
 <p>We have included code blocks throughout this block to show you how to execute a particular task. We will point out at the beginning of the code block of any R packages that are needed for data cleaning or visualising.</p>
 <section id="what-you-will-learn-outline-of-the-book" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="what-you-will-learn-outline-of-the-book"><span class="header-section-number">1.1</span> What you will learn / Outline of the book</h2>
+<!--# Why do you load DiagrammeR explicitly here? Should it be hidden? Or loaded at all? -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># new diagram here</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DiagrammeR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To begin working with open access data we’ll teach you how to:</p>
 <ul>
-<li><p>narrowing your data scope</p></li>
+<li><p>Narrow your data scope</p></li>
 <li><p>Import data</p></li>
-<li><p>pre-cleaning steps, such as tidying and familiarise with meta-data</p></li>
+<li><p>Tidy and familiarise yourself with meta-data</p></li>
 </ul>
-<p>Once data has been imported and formatted correctly we’ll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity data.</p>
+<p>Once data have been imported and formatted correctly we’ll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity data.</p>
 <ul>
 <li>We will start with taxonomic issues
 <ul>
@@ -311,11 +312,11 @@ div.csl-indent {
 </section>
 <section id="what-you-wont-learn" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="what-you-wont-learn"><span class="header-section-number">1.2</span> What you won’t learn</h2>
-<p>There are many important subject areas which this book will not cover. We won’t be teaching you:</p>
+<p>There are many important subject areas that this book will not cover. We won’t be teaching you:</p>
 <ul>
 <li>How to clean other data types e.g.&nbsp;environmental or trait data</li>
 <li>How to run a species distribution model</li>
-<li>Hypothesis testing</li>
+<li>Hypothesis testing or experimental design</li>
 </ul>
 </section>
 <section id="prerequisites" class="level2" data-number="1.3">
@@ -351,7 +352,7 @@ div.csl-indent {
 <p>There is no one size fits all workflow, not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don’t recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) <img src="images/data.cleaning-Page-2.drawio.png" class="img-fluid"></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
 <div id="ref-rodrigues_species_2022" class="csl-entry" role="listitem">
 Rodrigues, A. V., Nakamura, G., Staggemeier, V. G., &amp; Duarte, L. (2022). Species misidentification affects biodiversity metrics: <span>Dealing</span> with this issue using the new <span>R</span> package <span class="nocase">naturaList</span>. <em>Ecological Informatics</em>, <em>69</em>, 101625. <a href="https://doi.org/10.1016/j.ecoinf.2022.101625">https://doi.org/10.1016/j.ecoinf.2022.101625</a>
 </div>

@@ -23,7 +23,6 @@ book:
     - taxonomy.qmd
     - taxonomy-2.qmd
     - spatial.qmd
-    - duplicates.qmd
     - outliers.qmd
     - references.qmd
     - appendix.qmd

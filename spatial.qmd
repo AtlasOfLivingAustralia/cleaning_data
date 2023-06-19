@@ -1,16 +1,35 @@
 # Spatial data {#sec-spatial}
 
-You've been through the taxonomic cleaning steps so now it's time to clean up the spatial element. You may have flagged records as being taxonomically incorrect, it's important to keep those in mind as you go through the spatial cleaning steps as you might learn more about those records. We will discuss some different ways to check for spatial outliers as well as the removal of records in certain geographic areas known to be problematic.
+```{r, include=FALSE}
+pacman::p_load(tidyverse, galah, arrow, ggplot2)
+
+galah_config(atlas = "Australia",
+             email = Sys.getenv("ALA_EMAIL"))
+
+```
+
+```{r,include=FALSE}
+# Data for this chapter
+acacia_serrata <- galah_call() |> 
+  galah_identify("Acacia serrata") |> 
+  galah_filter(year == 2023) |> 
+  atlas_occurrences()
+
+write_parquet(acacia_serrata, "data/galah/acacia_serrata")
+```
+
+You've been through the taxonomic cleaning steps so now it's time to clean up the spatial elements. You may have flagged records as being taxonomically incorrect, it's important to keep those in mind as you go through the spatial cleaning steps as you might learn more about those records. We will discuss some different ways to check for spatial outliers as well as the removal of records in certain geographic areas known to be problematic.
 
 ## Quick visualisation
 
 One of the most straightforward ways to check for spatial errors is to plot your data onto a map. More obvious spatial errors are much easier to spot visually.
 
+<!-- This is a good first step but needs to be guided into the following ones. Not sure what the map looks like, but it might be good to make another map that puts boxes around some obvious ones you can see and why -->
+
 ```{r}
 
 ```
 
-<!-- This is a good first step but needs to be guided into the following ones. Not sure what the map looks like, but it might be good to make another map that puts boxes around some obvious ones you can see and why -->
 
 ## Coordinate precision
 
@@ -25,7 +44,7 @@ https://xkcd.wtf/2170/
 Coordinate precision below 100km represents the grain size of many macroecological analyses [@zizka2020]. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places (**add a reference here**). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
 
 ```{r}
-#How to filter by number of decimal places
+# How to filter by number of decimal places
 ```
 
 ## Coordinate correction

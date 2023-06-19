@@ -275,7 +275,7 @@ div.csl-indent {
 
 </header>
 
-<p>Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before <span class="citation" data-cites="garraffoni2019integrative">(<a href="references.html#ref-garraffoni2019integrative" role="doc-biblioref">Garraffoni et al. 2019</a>)</span>. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers.</p>
+<p>Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before <span class="citation" data-cites="garraffoni2019integrative">(<a href="#ref-garraffoni2019integrative" role="doc-biblioref">Garraffoni et al. 2019</a>)</span>. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers.</p>
 <p>Harmonising taxonomic names is a prevalent and complex issue and so far, no unifying solution has been put forward — making research with biodiversity data challenging. A potential solution would require pulling together domain knowledge from experts and compiling a database for where taxonomic history for describe species is traceable and linked with published literature.</p>
 <p>While there is no perfect solution, some tips, tricks and tools do exist. In this chapter we will go through some of these to clean taxonomic data and deal with synonyms.</p>
 <section id="taxonomy-preclean" class="level2" data-number="5.1">
@@ -586,7 +586,7 @@ div.csl-indent {
 <p>Keeping in mind that there is no universal solution to synonymy. Best practice is to flag and correct synonyms in a clear and consistent manner. We recommend being explicit with your decisions about which names are retained and keeping a good record of the changes to aid transparency and reproducibility.</p>
 <section id="worrms" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="worrms">{worrms}</h4>
-<p>The <a href="https://docs.ropensci.org/worrms/">{worrms}</a> is the R interface to the World Register of Marine Species and has a ability to cross check synonyms with their database for taxa that has an <code>AphiaID</code>. The function will return synonymous record(s) that have a different AphiaID.</p>
+<p>The <a href="https://docs.ropensci.org/worrms/">{worrms}</a> is the R interface to the World Register of Marine Species and has a ability to cross check synonyms with their database for taxa that has an <code>AphiaID</code>. The function will return synonymous record(s) associated with another different AphiaID.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worrms)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -612,13 +612,136 @@ div.csl-indent {
 </section>
 <section id="taxize" class="level4 unnumbered">
 <h4 class="unnumbered anchored" data-anchor-id="taxize">{taxize}</h4>
+<p>{taxize} allows users to search over many taxonomic data sources for species names (scientific and common) to resolve synonymy. The <code>gnr_resolve()</code> function matches your supplied list with up to 118 data sources including GBIF, Catalogue of Life, World Register of Marine Species and many more. The function scores how well matched your name is to these sources.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(taxize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(taxize)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read in a naming authority list</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>afd <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/naming/afd.csv"</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(afd<span class="sc">$</span>VALID_NAME)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Prosphaerosyllis battiri"         "Clavellopsis parasargi"          
+ [3] "Platypontonia hyotis"             "Palirhoeus eatoni"               
+ [5] "Diastylis kapalae"                "Xenobates chinai"                
+ [7] "Paratanais gaspodei"              "Paradexamine flindersi"          
+ [9] "Prostebbingia brevicornis"        "Cythere lactea"                  
+[11] "Cythere melobesioides"            "Achelia transfugoides"           
+[13] "Halobates (Halobates) acherontis" "Quadraceps hopkinsi apophoretus" 
+[15] "Anabarhynchus striatus"           "Australocytheridea vandenboldi"  
+[17] "Enigmaplax littoralis"            "Hyphalus insularis"              
+[19] "Plesiopenaeus armatus"            "Uroptychus brucei"               
+[21] "Caligus dasyaticus"               "Coralliophila tetragona"         
+[23] "Triphora alveolata"               "Clavus obliquatus"               
+[25] "Naria beckii"                     "Pharaonella rostrata"            
+[27] "Lasaea australis"                 "Cadulus rudmani"                 
+[29] "Bembicium flavescens"             "Mormula philippiana"             
+[31] "Turbonilla tiara"                 "Chlorodiloma crinita"            
+[33] "Mitrella merita"                  "Tritonoharpa antiquata"          
+[35] "Mauritia depressa dispersa"       "Laevidentalium zeidleri"         
+[37] "Conus (Harmoniconus) musicus"     "Marionia cyanobranchiata"        
+[39] "Tucetona flabellata"              "Neochromadora bilineata"         
+[41] "Desmoscolex membranosus"          "Echeneidocoelium indicum"        
+[43] "Indodidymozoon suttiei"           "Diploproctodaeum yosogi"         
+[45] "Pseudopecoelus japonicus"         "Pedibothrium lloydae"            
+[47] "Amphitethya stipitata"            "Pseudosuberites mollis"          
+[49] "Psammochela psammodes"           </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resolve names</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(<span class="fu">unique</span>(afd<span class="sc">$</span>VALID_NAME), <span class="at">best_match_only =</span> <span class="cn">TRUE</span>) </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>resolved <span class="sc">|&gt;</span> <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 49 × 5
+   user_supplied_name        submitted_name matched_name data_source_title score
+ * &lt;chr&gt;                     &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;             &lt;dbl&gt;
+ 1 Prosphaerosyllis battiri  Prosphaerosyl… Prosphaeros… National Center … 0.988
+ 2 Clavellopsis parasargi    Clavellopsis … Clavellopsi… uBio NameBank     0.988
+ 3 Platypontonia hyotis      Platypontonia… Platyponton… National Center … 0.988
+ 4 Palirhoeus eatoni         Palirhoeus ea… Palirhoeus … Wikispecies       0.988
+ 5 Diastylis kapalae         Diastylis kap… Diastylis k… Encyclopedia of … 0.988
+ 6 Xenobates chinai          Xenobates chi… Xenobates c… Encyclopedia of … 0.988
+ 7 Paratanais gaspodei       Paratanais ga… Paratanais … Wikispecies       0.988
+ 8 Paradexamine flindersi    Paradexamine … Paradexamin… Encyclopedia of … 0.988
+ 9 Prostebbingia brevicornis Prostebbingia… Prostebbing… Encyclopedia of … 0.988
+10 Cythere lactea            Cythere lactea Cythere lac… Encyclopedia of … 0.988
+11 Cythere melobesioides     Cythere melob… Cythere mel… Encyclopedia of … 0.988
+12 Achelia transfugoides     Achelia trans… Achelia tra… National Center … 0.988
+13 Halobates (Halobates) ac… Halobates (ha… Halobates (… CU*STAR           0.999
+14 Quadraceps hopkinsi apop… Quadraceps ho… Quadraceps … Catalogue of Lif… 0.999
+15 Anabarhynchus striatus    Anabarhynchus… Anabarhynch… Encyclopedia of … 0.988
+16 Australocytheridea vande… Australocythe… Australocyt… Encyclopedia of … 0.988
+17 Enigmaplax littoralis     Enigmaplax li… Enigmaplax … Encyclopedia of … 0.988
+18 Hyphalus insularis        Hyphalus insu… Hyphalus in… Wikispecies       0.988
+19 Plesiopenaeus armatus     Plesiopenaeus… Plesiopenae… Wikispecies       0.988
+20 Uroptychus brucei         Uroptychus br… Uroptychus … Wikispecies       0.988
+21 Caligus dasyaticus        Caligus dasya… Caligus das… Encyclopedia of … 0.988
+22 Coralliophila tetragona   Coralliophila… Coralliophi… Encyclopedia of … 0.988
+23 Triphora alveolata        Triphora alve… Triphora al… uBio NameBank     0.988
+24 Clavus obliquatus         Clavus obliqu… Clavus obli… Encyclopedia of … 0.988
+25 Naria beckii              Naria beckii   Naria beckii National Center … 0.988
+26 Pharaonella rostrata      Pharaonella r… Pharaonella… Arctos            0.988
+27 Lasaea australis          Lasaea austra… Lasaea aust… National Center … 0.988
+28 Cadulus rudmani           Cadulus rudma… Cadulus rud… Encyclopedia of … 0.988
+29 Bembicium flavescens      Bembicium fla… Bembicium f… National Center … 0.988
+30 Mormula philippiana       Mormula phili… Mormula phi… Encyclopedia of … 0.988
+31 Turbonilla tiara          Turbonilla ti… Turbonilla … Encyclopedia of … 0.988
+32 Chlorodiloma crinita      Chlorodiloma … Chlorodilom… National Center … 0.988
+33 Mitrella merita           Mitrella meri… Mitrella me… Encyclopedia of … 0.988
+34 Tritonoharpa antiquata    Tritonoharpa … Tritonoharp… National Center … 0.988
+35 Mauritia depressa disper… Mauritia depr… Mauritia de… National Center … 0.999
+36 Laevidentalium zeidleri   Laevidentaliu… Laevidental… Encyclopedia of … 0.988
+37 Conus (Harmoniconus) mus… Conus (harmon… Conus Linna… Catalogue of Lif… 0.75 
+38 Marionia cyanobranchiata  Marionia cyan… Marionia cy… National Center … 0.988
+39 Tucetona flabellata       Tucetona flab… Tucetona fl… Encyclopedia of … 0.988
+40 Neochromadora bilineata   Neochromadora… Neochromado… National Center … 0.988
+41 Desmoscolex membranosus   Desmoscolex m… Desmoscolex… Encyclopedia of … 0.988
+42 Echeneidocoelium indicum  Echeneidocoel… Echeneidoco… Integrated Taxon… 0.988
+43 Indodidymozoon suttiei    Indodidymozoo… Indodidymoz… National Center … 0.988
+44 Diploproctodaeum yosogi   Diploproctoda… Diploprocto… Encyclopedia of … 0.988
+45 Pseudopecoelus japonicus  Pseudopecoelu… Pseudopecoe… Integrated Taxon… 0.988
+46 Pedibothrium lloydae      Pedibothrium … Pedibothriu… Encyclopedia of … 0.988
+47 Amphitethya stipitata     Amphitethya s… Amphitethya… Wikispecies       0.988
+48 Pseudosuberites mollis    Pseudosuberit… Pseudosuber… Encyclopedia of … 0.988
+49 Psammochela psammodes     Psammochela p… Psammochela… Wikispecies       0.988</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve synonyms</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>tsn <span class="ot">&lt;-</span> <span class="fu">get_tsn</span>(<span class="fu">unique</span>(afd<span class="sc">$</span>VALID_NAME)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══  5 queries  ═══════════════
+✖  Not Found:  Prosphaerosyllis battiri
+✖  Not Found:  Clavellopsis parasargi
+✔  Found:  Platypontonia hyotis
+✖  Not Found:  Palirhoeus eatoni
+✖  Not Found:  Diastylis kapalae
+══  Results  ═════════════════
+
+• Total: 5 
+• Found: 1 
+• Not Found: 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">synonyms</span>(tsn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$&lt;NA&gt;
+[1] NA
+
+$&lt;NA&gt;
+[1] NA
+
+$`612530`
+  sub_tsn acc_tsn   syn_author                  syn_name syn_tsn
+1  612530  612530 Suzuki, 1971 Platypontonia pterostreae 1191962
+
+$&lt;NA&gt;
+[1] NA
+
+$&lt;NA&gt;
+[1] NA</code></pre>
+</div>
 </div>
 </section>
 </section>
 <section id="input-from-experts" class="level2" data-number="5.3">
 <h2 data-number="5.3" class="anchored" data-anchor-id="input-from-experts"><span class="header-section-number">5.3</span> Input from experts</h2>
+<p>Programmatic solutions for resolving synonymy can only go so far. Seeking validation from experts is sensible if your goal is to obtain a high quality species list. Museums or taxonomic societies are extensive sources of knowledge. Below we have provided a list of some of Australian taxonomic society groups.</p>
 <section id="australian-taxonomic-society-groups" class="level3" data-number="5.3.1">
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="australian-taxonomic-society-groups"><span class="header-section-number">5.3.1</span> Australian taxonomic society groups</h3>
 <p><strong>VERTEBRATES</strong></p>
@@ -652,7 +775,7 @@ div.csl-indent {
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-garraffoni2019integrative" class="csl-entry" role="listitem">
 Garraffoni, André RS, Thiago Q Araújo, Anete P Lourenço, Loretta Guidi, and Maria Balsamo. 2019. <span>“Integrative Taxonomy of a New Redudasys Species (Gastrotricha: Macrodasyida) Sheds Light on the Invasion of Fresh Water Habitats by Macrodasyids.”</span> <em>Scientific Reports</em> 9 (1): 2067.
 </div>
