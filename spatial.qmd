@@ -1,3 +1,7 @@
+---
+bibliography: references.bib
+---
+
 # Spatial data {#sec-spatial}
 
 ```{r, include=FALSE}
@@ -30,7 +34,6 @@ One of the most straightforward ways to check for spatial errors is to plot your
 
 ```
 
-
 ## Coordinate precision
 
 Data from different sources are collected by different people often using differing tools. For example, some might record coordinates with a tool with high precision like a phone or a GPS, whereas others might record coordinates with low precision by manually recording a place name or writing coordinates after the fact.
@@ -41,7 +44,7 @@ Depending on the level of precision to answer your research question, <!--# the 
 
 https://xkcd.wtf/2170/
 
-Coordinate precision below 100km represents the grain size of many macroecological analyses [@zizka2020]. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places (**add a reference here**). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
+Coordinate precision below 100km represents the grain size of many macroecological analyses [@zizka2020]. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places [@godfree2021]. It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
 
 ```{r}
 # How to filter by number of decimal places

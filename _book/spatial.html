@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.313">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,10 +17,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -47,19 +46,48 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging-indent div.csl-entry {
+.hanging div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -73,7 +101,8 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}</style>
+}
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -83,7 +112,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./duplicates.html" rel="next">
+<link href="./outliers.html" rel="next">
 <link href="./taxonomy-2.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -121,16 +150,11 @@ div.csl-indent {
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./spatial.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial data</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial data</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
       </button>
     </div>
   </nav>
@@ -138,12 +162,12 @@ div.csl-indent {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">ALA Data Cleaning</a> 
         <div class="sidebar-tools-main">
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -151,110 +175,92 @@ div.csl-indent {
 </div>
     </div>
       </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
+      <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-        </div>
+      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./scope.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data scope</span></span></a>
+  <a href="./scope.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data scope</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./download-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download occurrence data</span></span></a>
+  <a href="./download-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download occurrence data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preclean.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Precleaning</span></span></a>
+  <a href="./preclean.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Precleaning</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  <a href="./taxonomy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Taxonomy</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./taxonomy-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Taxonomy II</span></span></a>
+  <a href="./taxonomy-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Taxonomy II</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spatial.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial data</span></span></a>
+  <a href="./spatial.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial data</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Outliers</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">References</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Appendix</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#quick-visualisation" id="toc-quick-visualisation" class="nav-link active" data-scroll-target="#quick-visualisation"><span class="header-section-number">7.1</span> Quick visualisation</a></li>
-  <li><a href="#coordinate-precision" id="toc-coordinate-precision" class="nav-link" data-scroll-target="#coordinate-precision"><span class="header-section-number">7.2</span> Coordinate precision</a></li>
-  <li><a href="#coordinate-correction" id="toc-coordinate-correction" class="nav-link" data-scroll-target="#coordinate-correction"><span class="header-section-number">7.3</span> Coordinate correction</a></li>
-  <li><a href="#coordinate-cleaning" id="toc-coordinate-cleaning" class="nav-link" data-scroll-target="#coordinate-cleaning"><span class="header-section-number">7.4</span> Coordinate cleaning</a></li>
-  <li><a href="#optional-record-removal" id="toc-optional-record-removal" class="nav-link" data-scroll-target="#optional-record-removal"><span class="header-section-number">7.5</span> Optional record removal</a></li>
-  <li><a href="#checklist-of-data-standardization" id="toc-checklist-of-data-standardization" class="nav-link" data-scroll-target="#checklist-of-data-standardization"><span class="header-section-number">7.6</span> Checklist of data standardization</a></li>
-  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes"><span class="header-section-number">8</span> Notes</a>
+  <li><a href="#quick-visualisation" id="toc-quick-visualisation" class="nav-link active" data-scroll-target="#quick-visualisation"><span class="toc-section-number">7.1</span>  Quick visualisation</a></li>
+  <li><a href="#coordinate-precision" id="toc-coordinate-precision" class="nav-link" data-scroll-target="#coordinate-precision"><span class="toc-section-number">7.2</span>  Coordinate precision</a></li>
+  <li><a href="#coordinate-correction" id="toc-coordinate-correction" class="nav-link" data-scroll-target="#coordinate-correction"><span class="toc-section-number">7.3</span>  Coordinate correction</a></li>
+  <li><a href="#coordinate-cleaning" id="toc-coordinate-cleaning" class="nav-link" data-scroll-target="#coordinate-cleaning"><span class="toc-section-number">7.4</span>  Coordinate cleaning</a></li>
+  <li><a href="#optional-record-removal" id="toc-optional-record-removal" class="nav-link" data-scroll-target="#optional-record-removal"><span class="toc-section-number">7.5</span>  Optional record removal</a></li>
+  <li><a href="#checklist-of-data-standardization" id="toc-checklist-of-data-standardization" class="nav-link" data-scroll-target="#checklist-of-data-standardization"><span class="toc-section-number">7.6</span>  Checklist of data standardization</a></li>
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes"><span class="toc-section-number">8</span>  Notes</a>
   <ul class="collapse">
-  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data"><span class="header-section-number">8.1</span> Missing data</a></li>
-  <li><a href="#quick-visualiations" id="toc-quick-visualiations" class="nav-link" data-scroll-target="#quick-visualiations"><span class="header-section-number">8.2</span> Quick visualiations</a>
+  <li><a href="#missing-data" id="toc-missing-data" class="nav-link" data-scroll-target="#missing-data"><span class="toc-section-number">8.1</span>  Missing data</a></li>
+  <li><a href="#quick-visualiations" id="toc-quick-visualiations" class="nav-link" data-scroll-target="#quick-visualiations"><span class="toc-section-number">8.2</span>  Quick visualiations</a>
   <ul class="collapse">
-  <li><a href="#ggally" id="toc-ggally" class="nav-link" data-scroll-target="#ggally"><span class="header-section-number">8.2.1</span> GGally</a></li>
-  <li><a href="#quick-map" id="toc-quick-map" class="nav-link" data-scroll-target="#quick-map"><span class="header-section-number">8.2.2</span> Quick map</a></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">8.2.3</span> </a></li>
-  <li><a href="#coordinatecleaner" id="toc-coordinatecleaner" class="nav-link" data-scroll-target="#coordinatecleaner"><span class="header-section-number">8.2.4</span> CoordinateCleaner</a></li>
+  <li><a href="#ggally" id="toc-ggally" class="nav-link" data-scroll-target="#ggally"><span class="toc-section-number">8.2.1</span>  GGally</a></li>
+  <li><a href="#quick-map" id="toc-quick-map" class="nav-link" data-scroll-target="#quick-map"><span class="toc-section-number">8.2.2</span>  Quick map</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="toc-section-number">8.2.3</span>  </a></li>
+  <li><a href="#coordinatecleaner" id="toc-coordinatecleaner" class="nav-link" data-scroll-target="#coordinatecleaner"><span class="toc-section-number">8.2.4</span>  CoordinateCleaner</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -265,7 +271,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-spatial" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial data</span></span></h1>
+<h1 class="title"><span id="sec-spatial" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial data</span></span></h1>
 </div>
 
 
@@ -280,11 +286,14 @@ div.csl-indent {
 
 </header>
 
-<p>You’ve been through the taxonomic cleaning steps so now it’s time to clean up the spatial element. You may have flagged records as being taxonomically incorrect, it’s important to keep those in mind as you go through the spatial cleaning steps as you might learn more about those records. We will discuss some different ways to check for spatial outliers as well as the removal of records in certain geographic areas known to be problematic.</p>
+<p>You’ve been through the taxonomic cleaning steps so now it’s time to clean up the spatial elements. You may have flagged records as being taxonomically incorrect, it’s important to keep those in mind as you go through the spatial cleaning steps as you might learn more about those records. We will discuss some different ways to check for spatial outliers as well as the removal of records in certain geographic areas known to be problematic.</p>
 <section id="quick-visualisation" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="quick-visualisation"><span class="header-section-number">7.1</span> Quick visualisation</h2>
 <p>One of the most straightforward ways to check for spatial errors is to plot your data onto a map. More obvious spatial errors are much easier to spot visually.</p>
 <!-- This is a good first step but needs to be guided into the following ones. Not sure what the map looks like, but it might be good to make another map that puts boxes around some obvious ones you can see and why -->
+<div class="cell">
+
+</div>
 </section>
 <section id="coordinate-precision" class="level2" data-number="7.2">
 <h2 data-number="7.2" class="anchored" data-anchor-id="coordinate-precision"><span class="header-section-number">7.2</span> Coordinate precision</h2>
@@ -292,15 +301,15 @@ div.csl-indent {
 <p>Depending on the level of precision to answer your research question, <!--# the following two options are opposites, and it's weird to have them together because they solve the problem very differently. Maybe use these ideas like subsections and describe when you might choose to do one or the other? --> you might consider discarding data of lower precision, or removing decimal places for data you know could not be that precise. At the ALA there is a “cooridnateprecision”/ “coordinateUncertainityIn Meters” assertion (<u>see assertion section to download these with the data)</u></p>
 <p><img src="images/image-613988507.png" class="img-fluid"></p>
 <p>https://xkcd.wtf/2170/</p>
-<p>Coordinate precision below 100km represents the grain size of many macroecological analyses <span class="citation" data-cites="zizka2020">(<a href="#ref-zizka2020" role="doc-biblioref">Zizka et al. 2020</a>)</span>. Some studies have used a cut-off of spatial resolution &gt;25,000m or precision with less than three decimal places (<strong>add a reference here</strong>). It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.</p>
+<p>Coordinate precision below 100km represents the grain size of many macroecological analyses <span class="citation" data-cites="zizka2020">(<a href="references.html#ref-zizka2020" role="doc-biblioref">Zizka et al. 2020</a>)</span>. Some studies have used a cut-off of spatial resolution &gt;25,000m or precision with less than three decimal places <span class="citation" data-cites="godfree2021">(<a href="references.html#ref-godfree2021" role="doc-biblioref">Godfree et al. 2021</a>)</span>. It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How to filter by number of decimal places</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How to filter by number of decimal places</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="coordinate-correction" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="coordinate-correction"><span class="header-section-number">7.3</span> Coordinate correction</h2>
 <p>Some of these steps may have been completed in a pre-cleaning step, however it’s now time to be more rigorous. As always we’ll start with fixing data before discarding, many coordinates issues can be solved with data manipulation instead of discarding:</p>
-<p><strong>Flipped coordinates:</strong> Flipped coordinates typically appear as a clustering of points, whereby swapping the latitude and longitude will place the coordinates where they are expected. <span class="citation" data-cites="jin2020">(<a href="#ref-jin2020" role="doc-biblioref">Jin and Yang 2020</a>)</span></p>
+<p><strong>Flipped coordinates:</strong> Flipped coordinates typically appear as a clustering of points, whereby swapping the latitude and longitude will place the coordinates where they are expected. <span class="citation" data-cites="jin2020">(<a href="references.html#ref-jin2020" role="doc-biblioref">Jin and Yang 2020</a>)</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#example map of some flipped coordinates (what to look for) </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.gbif.org/occurrence/3013406216 this has flipped coordinates, which GBIF has corrected</span></span>
@@ -336,10 +345,16 @@ div.csl-indent {
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#https://biocache.ala.org.au/occurrences/search?q=lsid%3Ahttps%3A%2F%2Fid.biodiversity.org.au%2Ftaxon%2Fapni%2F51382879&amp;disableAllQualityFilters=true&amp;qualityProfile=ALA&amp;fq=spatiallyValid%3A%22false%22&amp;radius=25&amp;lat=-0.024032592068740033&amp;lon=-0.06591796875#tab_recordsView </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+
+</div>
 <p>Remove records plotted away from the known area of distribution of the species. It is essential to check the metadata to ensure that it is a data entry error and not a real outlier. In some cases, it’s worth checking the literature before discarding records like these. These can also be mis-identified species, if you’re working with data from many species, and you find a species point in amongst the environmental bounds of a similar looking species it might be worth going back to the original record and taking a closer look. However, if no images exist it might be difficult to determine if it is a taxonomic or spatial issue.There are several ways of dealing with this issue, but one option can be to mask data to remove points from falling off a determined area. –&gt; unsure about this bit</p>
 <p><strong>I’m not sure I understand what the above means. But I think in general for less obvious errors, it’s best to suggest that before data analysis (and honestly, before seeing the data at all), people should determine whether there is an upper bound to remove coordinates (like a 95% confidence interval, or within xx km of an accepted expert distribution). Then run whatever model or test with the complete data and with the reduced data. If it makes a difference, probably make an informed decision based on literature of which results to use as the “main” findings.</strong></p>
 <p><strong>Having written this out, a brief discussion about this rather than any suggestions is probably all that’s in scope for this book</strong></p>
 <p><strong>The final decisions depend on the species, research question, model parameters etc</strong></p>
+<div class="cell">
+
+</div>
 </section>
 <section id="optional-record-removal" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="optional-record-removal"><span class="header-section-number">7.5</span> Optional record removal</h2>
@@ -348,6 +363,9 @@ div.csl-indent {
 <p>Centroids are common when records are being assigned from georeferencing based on vague locality descriptions or from incorrect georeferencing. Sometimes, records are erroneously entered with the physical location of the specimen or because they represent individuals from captivity or horticulture, which were not clearly labeled as such.</p>
 <p>In a few cases, zoos and botanic gardens might be where the record was sighted. However, in this case, it is not naturally occurring and should be removed. Records in urban areas may not want to be removed by everyone, but it is essential to note that it could be old data or have vague locality descriptions.</p>
 <p>Remove records outside of the country of interest: In some cases, records outside the country of origin may be outliers. In other cases, they may be perfectly valid. It is important to analyze case-by-case and remove the record if necessary.</p>
+<div class="cell">
+
+</div>
 </section>
 <section id="checklist-of-data-standardization" class="level2" data-number="7.6">
 <h2 data-number="7.6" class="anchored" data-anchor-id="checklist-of-data-standardization"><span class="header-section-number">7.6</span> Checklist of data standardization</h2>
@@ -375,6 +393,9 @@ div.csl-indent {
 <ul>
 <li>Fix minor coordinates errors, such as inverted or badly formatted</li>
 </ul>
+<div class="cell">
+
+</div>
 </section>
 <section id="section" class="level3" data-number="8.2.3">
 <h3 data-number="8.2.3" class="anchored" data-anchor-id="section"><span class="header-section-number">8.2.3</span> </h3>
@@ -382,13 +403,19 @@ div.csl-indent {
 <section id="coordinatecleaner" class="level3" data-number="8.2.4">
 <h3 data-number="8.2.4" class="anchored" data-anchor-id="coordinatecleaner"><span class="header-section-number">8.2.4</span> CoordinateCleaner</h3>
 <!-- Move to spatial? -->
+<div class="cell">
+
+</div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-jin2020" class="csl-entry" role="listitem">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
+<div id="ref-godfree2021" class="csl-entry" role="doc-biblioentry">
+Godfree, Robert C., Nunzio Knerr, Francisco Encinas-Viso, David Albrecht, David Bush, D. Christine Cargill, Mark Clements, et al. 2021. <span>“Implications of the 2019<span></span>2020 Megafires for the Biogeography and Conservation of Australian Vegetation.”</span> <em>Nature Communications</em> 12 (1): 1023. <a href="https://doi.org/10.1038/s41467-021-21266-5">https://doi.org/10.1038/s41467-021-21266-5</a>.
+</div>
+<div id="ref-jin2020" class="csl-entry" role="doc-biblioentry">
 Jin, Jing, and Jun Yang. 2020. <span>“BDcleaner: A Workflow for Cleaning Taxonomic and Geographic Errors in Occurrence Data Archived in Biodiversity Databases.”</span> <em>Global Ecology and Conservation</em> 21 (March): e00852. <a href="https://doi.org/10.1016/j.gecco.2019.e00852">https://doi.org/10.1016/j.gecco.2019.e00852</a>.
 </div>
-<div id="ref-zizka2020" class="csl-entry" role="listitem">
+<div id="ref-zizka2020" class="csl-entry" role="doc-biblioentry">
 Zizka, Alexander, Fernanda Antunes Carvalho, Alice Calvente, Mabel Rocio Baez-Lizarazo, Andressa Cabral, Jéssica Fernanda Ramos Coelho, Matheus Colli-Silva, Mariana Ramos Fantinati, Moabe F Fernandes, and Thais Ferreira-Araújo. 2020. <span>“No One-Size-Fits-All Solution to Clean GBIF.”</span> <em>PeerJ</em> 8: e9916.
 </div>
 </div>
@@ -424,23 +451,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -505,92 +518,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -637,8 +564,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./duplicates.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Duplicates</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./outliers.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Outliers</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -646,9 +573,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">Data Cleaning booklet is a product of the Atlas of Living Australia.</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
     <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>
