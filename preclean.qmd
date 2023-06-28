@@ -24,28 +24,39 @@ library(skimr)
 library(janitor)
 ```
 
-# Precleaning
+# Pre-cleaning
 
-Precleaning prepares the dataset in a general manner so that it is formatted in a logical and consistent manner. It is a 'broad sweep' procedure that allows you to familiarise with the data but it also makes the next stage of in-depth data cleaning proceed more smoothly [@streamdna_sharing_2020]. We will discuss some approaches on how to be curious with your data and how to detect and handle string inconsistencies, missing data and outliers.
+Pre-cleaning prepares the dataset(s) in a general manner to ensure logical and consistent formatting. It is a 'broad sweep' procedure that allows you to familiarise with the data, but it also makes the next stage of in-depth data cleaning proceed more smoothly [@streamdna_sharing_2020]. We will discuss some approaches on how to be curious with your data and how to detect and handle string inconsistencies or typography related errors, missing data, and outliers.
+
 
 ## Metadata
 
-Metadata describes your dataset. It defines each variable and describes its contents such as what units a variable is measured in. Data infrastructures that uses Darwin Core terms will have interoperable metadata. All Darwin Core term definitions can be found [here](https://dwc.tdwg.org/terms/), we suggest using `Ctrl/CMD F` and searching your variable name on the [webpage](https://dwc.tdwg.org/terms/). Don't hesitate to Google variable names if you are unsure what they represent.
+Metadata describes your data set: it defines each variable and its contents. This might be as simple as describing what units a variable has been measured in, but can also be the climate the occurrence was collected in and whether it is a marked outlier. **Starting the process of pre-cleaning by briefing your metadata allows you to understand the kind of data you are working with and any potential biases that may limit what you can do with it**. Similarly, these biases may need to be of consideration when creating models or when used in your work more broadly. 
 
-If you're using data from particular institutions it's worth checking the metadata for the entire dataset to delineate if there is extra information about the data which might limit what you can do with the data. You could google the dataset name, or search the dataset/institution on the ALA. The metadata on the ALA is submitted with the data, it's not always of high standard which is why it's worth investigating externally, an example of some good metadata is [FrogID from the Australian Museum](https://collections.ala.org.au/public/show/dr14760). A benefit to reading metadata is understanding the limitations of your dataset. From reading FrogID's metadata [@rowley2020frogid], you'll find:
+Data infrastructures that use Darwin Core terms will have interoperable metadata. This makes it easier to consolidate across data sets. All Darwin Core term definitions can be found [here](https://dwc.tdwg.org/terms/), we suggest using `Ctrl/CMD F` and searching your variable name on the [webpage](https://dwc.tdwg.org/terms/). Don't hesitate to Google variable names if you are unsure what they represent.
+
+It is also worth checking the metadata for the entire dataset to delineate if there is extra information about the data which may be relevant. You could Google the dataset name, or search the dataset or institution on the ALA. The metadata on the ALA is submitted with the data, of which the ALA as a repository and not an owner cannot change. This means low-quality metadata cannot necessarily be vetoed. 
+
+An example of some good metadata is [FrogID from the Australian Museum](https://collections.ala.org.au/public/show/dr14760). From reading FrogID's metadata [@rowley2020frogid], you'll find:
 
 1.  The data is acoustic data, the majority of the species recorded are therefore male
 2.  Because this is citizen science data, it is especially biased towards populated areas
 3.  Audio is recorded via a smartphone app, the authors recommend if you require high coordinate precision to filter data to `geographic uncertainty of <3000m`
 4.  The data is presence only data
 
-Metadata can also be useful for understanding the license that the data falls under, this is mostly relevant for using multimedia associated with the data.
+Metadata can also be useful for understanding the license that the data falls under. This is mostly relevant for using or republishing multimedia associated with the data.
 
 ## Initial inspection
 
 A great way to get an initial overview of your data is to use the R package `skimr`. Importantly `skimr` produces tables of descriptive statistics, such as amount of missing data, for every variable
 
-The output is also grouped by data type (numeric, character, date) so you can also check for any inconsistencies. As you are looking through the output, ask yourself whether the data is in line with your expectation. If you requested data for a group of species, are they all represented? Are the values for a variable reasonable? Looking at the quartiles will help you get the sense of the distribution of data. These considerations will help you detect potential issues in the data.
+The output is also grouped by data type (numeric, character, date) so you can also check for any inconsistencies. As you are looking through the output, ask yourself whether the data is in line with your expectations. For example:
+
+If you requested data for a group of species, are they all represented? 
+
+Are the values for a variable reasonable? Looking at the quartiles will help you get the sense of the distribution of data. 
+
+These considerations will help you detect potential issues in the data.
 
 ```{r, echo = TRUE}
 library(skimr)
@@ -63,9 +74,9 @@ skim(african_ele)
 
 ## Structural inconsistencies
 
-### String inconsistencies
+### String inconsistencies and typographical errors
 
-String inconsistencies include mispellings, capitalisation errors, misplaced punctuations or trailing white spaces. We will use the `janitor` R package to explore whether our data has any of these issues. The function `tabyl` will compute a counts and percent of total rows for each unique value.
+String inconsistencies include misspellings, capitalisation errors, misplaced punctuation or trailing white spaces. We will use the `janitor` R package to explore whether our data has any of these issues. The function `tabyl` will compute a counts and percent of total rows for each unique value.
 
 We recommend `tabyl-ing` any character strings that are relevant to your project. For example, here is the [`stateProvince`](https://dwc.tdwg.org/terms/#dwc:stateProvince) in alphabetical order.
 
