@@ -32,7 +32,7 @@
     "href": "intro.html#what-you-will-learn-outline-of-the-book",
     "title": "1  Introduction",
     "section": "1.1 What you will learn / Outline of the book",
-    "text": "1.1 What you will learn / Outline of the book\n\n\n# new diagram here\nlibrary(DiagrammeR)\n\nTo begin working with open access data we’ll teach you how to:\n\nNarrow your data scope\nImport data\nTidy and familiarise yourself with meta-data\n\nOnce data have been imported and formatted correctly we’ll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity data.\n\nWe will start with taxonomic issues\n\nTaxonomic issues\n\nnaming authorities\nsynonyms\nDuplicates\n\nSpatial data\n\nOutliers\nDuplicates"
+    "text": "1.1 What you will learn / Outline of the book\n\n\n# new diagram here\nlibrary(DiagrammeR)\n\nTo begin working with open access data we’ll teach you how to:\n\nNarrow your data scope\nImport data\nTidy and familiarise yourself with metadata\n\nOnce data have been imported and formatted correctly we’ll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity or species occurrence data.\n\nWe will start with taxonomic issues\n\nTaxonomic issues\n\nnaming authorities\nsynonyms\nDuplicates\n\nSpatial data\n\nOutliers\nDuplicates"
   },
   {
     "objectID": "intro.html#what-you-wont-learn",
@@ -46,14 +46,14 @@
     "href": "intro.html#prerequisites",
     "title": "1  Introduction",
     "section": "1.3 Prerequisites",
-    "text": "1.3 Prerequisites\n\n1.3.1 User accounts\nTo get data out of data infrastructures such as the Atlas of living Australia (ALA) or the Global Biodiversity Information (GBIF) you’ll need to first create an account. You’ll want to sign up for an account with the relevant data infrastructre, this book will use ALA and GBIF data as examples.\nAtlas of Living Australia = create an account Global Biodiversity Information Facility = create an account\n\n\n1.3.2 R\nDownload R from CRAN (the comprehensive R archive network), for your operating system, and install it on your device. Major updates for R come out yearly with a few minor releases throughout the year, so make sure to update semi regularly.\n\nWindows\n\n\nMac\n\n\n\n1.3.3 RStudio\nRstudio is an integrated development environment (IDE) for R programming. Download and install Rstudio for your operating system https://posit.co/download/rstudio-desktop/\n\nWindows\n\n\nMac"
+    "text": "1.3 Prerequisites\n\n1.3.1 User accounts\nTo get data out of data infrastructures such as the Atlas of living Australia (ALA) or the Global Biodiversity Information (GBIF) you’ll need to first create an account. You’ll want to sign up for an account with the relevant data infrastructure. This book will use ALA and GBIF data as examples.\nAtlas of Living Australia = create an account Global Biodiversity Information Facility = create an account\n\n\n1.3.2 R\nDownload R from CRAN (the comprehensive R archive network), for your operating system, and install it on your device. Major updates for R come out yearly with a few minor releases throughout the year, so make sure to update semi regularly.\n\nWindows\n\n\nMac\n\n\n\n1.3.3 RStudio\nRstudio is an integrated development environment (IDE) for R programming. Download and install Rstudio for your operating system https://posit.co/download/rstudio-desktop/\n\nWindows\n\n\nMac"
   },
   {
     "objectID": "intro.html#how-to-use-this-book",
     "href": "intro.html#how-to-use-this-book",
     "title": "1  Introduction",
     "section": "1.4 How to use this book",
-    "text": "1.4 How to use this book\nThere is no one size fits all workflow, not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don’t recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) \n\n\n\n\nRodrigues, A. V., Nakamura, G., Staggemeier, V. G., & Duarte, L. (2022). Species misidentification affects biodiversity metrics: Dealing with this issue using the new R package naturaList. Ecological Informatics, 69, 101625. https://doi.org/10.1016/j.ecoinf.2022.101625"
+    "text": "1.4 How to use this book\nThere is no one size fits all workflow and not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don’t recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) \n\n\n\n\nRodrigues, A. V., Nakamura, G., Staggemeier, V. G., & Duarte, L. (2022). Species misidentification affects biodiversity metrics: Dealing with this issue using the new R package naturaList. Ecological Informatics, 69, 101625. https://doi.org/10.1016/j.ecoinf.2022.101625"
   },
   {
     "objectID": "taxonomy.html#taxonomy-preclean",
@@ -145,5 +145,26 @@
     "title": "ALA Data Cleaning",
     "section": "Acknowledgements",
     "text": "Acknowledgements\nThis book was inspired by an Australian Research Data Commons project where our team worked closely with research partners to streamline their data cleaning workflows. This book is a collaborative effort from the Science and Decision Support team at the Atlas of Living Australia (ALA)\nAuthors listed in alphabetic order:\n- Fonti Kar\n- Jessica Fenker\n- Margot Schneider\n- Martin Westgate"
+  },
+  {
+    "objectID": "intro.html#what-you-will-learn-book-outline",
+    "href": "intro.html#what-you-will-learn-book-outline",
+    "title": "1  Introduction",
+    "section": "1.1 What you will learn: Book outline",
+    "text": "1.1 What you will learn: Book outline\n\n\n# new diagram here\nlibrary(DiagrammeR)\n\nTo begin working with open access data we’ll teach you how to:\n\nNarrow your data scope\nImport data\nTidy and familiarise yourself with metadata\n\nOnce data have been imported and formatted correctly we’ll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity or species occurrence data.\n\nWe will start with taxonomic issues\n\nTaxonomic issues\n\nnaming authorities\nsynonyms\nDuplicates\n\nSpatial data\n\nOutliers\nDuplicates"
+  },
+  {
+    "objectID": "intro.html#what-you-will-learn",
+    "href": "intro.html#what-you-will-learn",
+    "title": "1  Introduction",
+    "section": "1.1 What you will learn",
+    "text": "1.1 What you will learn\n\n\n# new diagram here\nlibrary(DiagrammeR)\n\nTo begin working with open access data we’ll teach you how to:\n\nNarrow your data scope\nImport data\nTidy and familiarise yourself with metadata\n\nOnce data have been imported and formatted correctly we’ll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity or species occurrence data.\n\nWe will start with taxonomic issues\n\nTaxonomic issues\n\nnaming authorities\nsynonyms\nDuplicates\n\nSpatial data\n\nOutliers\nDuplicates"
+  },
+  {
+    "objectID": "intro.html#what-you-will-learn-outline",
+    "href": "intro.html#what-you-will-learn-outline",
+    "title": "1  Introduction",
+    "section": "1.1 What you will learn (Outline)",
+    "text": "1.1 What you will learn (Outline)\n\n\n# new diagram here\nlibrary(DiagrammeR)\n\nTo begin working with open access data we’ll teach you how to:\n\nNarrow your data scope\nImport data\nTidy and familiarise yourself with metadata\n\nOnce data have been imported and formatted correctly we’ll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity or species occurrence data.\n\nWe will start with taxonomic issues\n\nTaxonomic issues\n\nnaming authorities\nsynonyms\nDuplicates\n\nSpatial data\n\nOutliers\nDuplicates"
   }
 ]

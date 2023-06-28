@@ -234,7 +234,7 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-you-will-learn-outline-of-the-book" id="toc-what-you-will-learn-outline-of-the-book" class="nav-link active" data-scroll-target="#what-you-will-learn-outline-of-the-book"><span class="header-section-number">1.1</span> What you will learn / Outline of the book</a></li>
+  <li><a href="#what-you-will-learn-outline" id="toc-what-you-will-learn-outline" class="nav-link active" data-scroll-target="#what-you-will-learn-outline"><span class="header-section-number">1.1</span> What you will learn (Outline)</a></li>
   <li><a href="#what-you-wont-learn" id="toc-what-you-wont-learn" class="nav-link" data-scroll-target="#what-you-wont-learn"><span class="header-section-number">1.2</span> What you won’t learn</a></li>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">1.3</span> Prerequisites</a>
   <ul class="collapse">
@@ -269,12 +269,12 @@ div.csl-indent {
 <blockquote class="blockquote">
 <p>“Garbage in, garbage out” - George Fuechsel, IBM computer programmer</p>
 </blockquote>
-<p>The idea that using flawed or nonsensical data as input produces output of similar quality is one that is well known in many scientific disciplines. In ecology and biodiversity research, however, scientists are often at risk of unintentionally using flawed or nonsensical data because they must bring together lots of data from many sources to address their research questions. These data are rarely easy to combine. Data from different sources vary widely in their structure and quality. As a result, collating them into something usable to answer a research question can be challenging.</p>
-<p><strong>Data cleaning</strong>, the process of identifying and fixing incorrect or doubtful data, is an essential step in ecology and biodiversity research. Data cleaning improves data quality and the validity of scientific findings <span class="citation" data-cites="rodrigues_species_2022">(<a href="references.html#ref-rodrigues_species_2022" role="doc-biblioref">Rodrigues et al., 2022</a>)</span>.</p>
+<p>The idea that inputting flawed or nonsensical data produces an output of similar quality is well known in many scientific disciplines. In ecology and biodiversity research, however, scientists are often at risk of unintentionally using flawed or nonsensical data because they must bring together lots of data from many sources to address their research questions. These data are rarely easy to combine. Data from different sources vary widely in their structure, formatting and quality. As a result, collating them into something usable to answer a research question can be challenging.</p>
+<p><strong>Data cleaning</strong>, the process of identifying and fixing incompatible, incorrect or doubtful data, is an essential step in ecology and biodiversity research. Data cleaning improves data quality and the validity of scientific findings <span class="citation" data-cites="rodrigues_species_2022">(<a href="references.html#ref-rodrigues_species_2022" role="doc-biblioref">Rodrigues et al., 2022</a>)</span>.</p>
 <p>This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as <a href="https://www.gbif.org/">Global Biodiversity Information Facility</a> (GBIF) and the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). We will be working with the R package <a href="https://galah.ala.org.au/"><code>galah</code></a> for accessing biodiversity data. If you have occurrence data you have personally collected, some parts of this book may still be relevant.</p>
-<p>We have included code blocks throughout this block to show you how to execute a particular task. We will point out at the beginning of the code block of any R packages that are needed for data cleaning or visualising.</p>
-<section id="what-you-will-learn-outline-of-the-book" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="what-you-will-learn-outline-of-the-book"><span class="header-section-number">1.1</span> What you will learn / Outline of the book</h2>
+<p>We have included code blocks throughout to show you how to execute a particular task. We will point out at the beginning of the code block of any R packages that are needed for data cleaning or visualising.</p>
+<section id="what-you-will-learn-outline" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="what-you-will-learn-outline"><span class="header-section-number">1.1</span> What you will learn (Outline)</h2>
 <!--# Why do you load DiagrammeR explicitly here? Should it be hidden? Or loaded at all? -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># new diagram here</span></span>
@@ -284,9 +284,9 @@ div.csl-indent {
 <ul>
 <li><p>Narrow your data scope</p></li>
 <li><p>Import data</p></li>
-<li><p>Tidy and familiarise yourself with meta-data</p></li>
+<li><p>Tidy and familiarise yourself with metadata</p></li>
 </ul>
-<p>Once data have been imported and formatted correctly we’ll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity data.</p>
+<p>Once data have been imported and formatted correctly we’ll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity or species occurrence data.</p>
 <ul>
 <li>We will start with taxonomic issues
 <ul>
@@ -317,7 +317,7 @@ div.csl-indent {
 <h2 data-number="1.3" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">1.3</span> Prerequisites</h2>
 <section id="user-accounts" class="level3" data-number="1.3.1">
 <h3 data-number="1.3.1" class="anchored" data-anchor-id="user-accounts"><span class="header-section-number">1.3.1</span> User accounts</h3>
-<p>To get data out of data infrastructures such as the Atlas of living Australia (ALA) or the Global Biodiversity Information (GBIF) you’ll need to first create an account. You’ll want to sign up for an account with the relevant data infrastructre, this book will use ALA and GBIF data as examples.</p>
+<p>To get data out of data infrastructures such as the Atlas of living Australia (ALA) or the Global Biodiversity Information (GBIF) you’ll need to first create an account. You’ll want to sign up for an account with the relevant data infrastructure. This book will use ALA and GBIF data as examples.</p>
 <p>Atlas of Living Australia = <a href="https://auth.ala.org.au/userdetails/registration/createAccount">create an account</a> Global Biodiversity Information Facility = <a href="https://www.gbif.org/user/profile">create an account</a></p>
 </section>
 <section id="r" class="level3" data-number="1.3.2">
@@ -343,7 +343,7 @@ div.csl-indent {
 </section>
 <section id="how-to-use-this-book" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="how-to-use-this-book"><span class="header-section-number">1.4</span> How to use this book</h2>
-<p>There is no one size fits all workflow, not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don’t recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) <img src="images/data.cleaning-Page-2.drawio.png" class="img-fluid"></p>
+<p>There is no one size fits all workflow and not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don’t recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) <img src="images/data.cleaning-Page-2.drawio.png" class="img-fluid"></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
