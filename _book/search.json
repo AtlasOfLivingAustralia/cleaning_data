@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "ALA Data Cleaning",
     "section": "",
-    "text": "Welcome\nData cleaning is the exploration, detection and correction of erroneous data. The standard of what ‘clean’ data looks like varies considerably across projects and data sources. This means that there is no ‘one-size-fits-all’ approach.\nOur goal in creating this resource was to assist researchers and decision makers that may have limited experience with cleaning geo-referenced biodiversity data in R.\nIn this book, we provide an overview of a typical data cleaning workflow - from acquisition, to identifying potential errors to correction. Throughout each chapter, we include practical guidelines, R code blocks and additional resources that may aid with each data cleaning step.\nThe content of this book is guided by the current state of biodiversity literature on preparing data for species distribution modelling. For more details about how this was done, please refer to the Appendix. All resources that have been consulted for this book can be found in References."
+    "text": "Welcome\nData cleaning is the exploration, detection and correction of erroneous or unsuitably formatted data. The standard of what ‘clean’ data looks like varies considerably across projects and data sources. This means that there is no ‘one-size-fits-all’ approach.\nOur goal in creating this resource is to assist researchers and decision makers that may have limited experience with cleaning geo-referenced biodiversity data in R.\nIn this book, we provide an overview of a typical data cleaning workflow - from acquisition, to identifying potential errors, and, to correction. In each chapter we include practical guidelines, R code blocks and additional resources that may aid with each data cleaning step.\nThe content of this book is guided by the current state of biodiversity literature on preparing data for species distribution modelling. For more details about how this was done, please refer to the Appendix. All resources that have been consulted for this book can be found in References."
   },
   {
     "objectID": "index.html#how-to-contribute",
     "href": "index.html#how-to-contribute",
     "title": "ALA Data Cleaning",
     "section": "How to contribute",
-    "text": "How to contribute\nWe would like to preface that we are not experts in data cleaning, but felt there was need for a consolidated resource to guide data cleaning decisions.\nWe welcome contributions to this document and suggest folks to submit pull requests at the GitHub repository of this document. Contributing guidelines can be found at XX (Maybe another section or just a MD in GitHub Repo)\nAlternatively, if you have questions please submit a GitHub issue."
+    "text": "How to contribute\nWe would like to preface that we are not experts in data cleaning, but felt there was need for a consolidated resource to guide data cleaning decisions.\nWe welcome contributions to this document and suggest anyone to submit pull requests at the GitHub repository of this document. Contributing guidelines can be found at XX (Maybe another section or just a MD in GitHub Repo)\nAlternatively, if you have questions please submit a GitHub issue."
   },
   {
     "objectID": "index.html#how-to-cite",
@@ -138,5 +138,12 @@
     "title": "7  Spatial data",
     "section": "8.2 Quick visualiations",
     "text": "8.2 Quick visualiations\nA graphic plot of your data can be very telling and can help you spot potential errors that may be due to formatting.\n\n8.2.1 GGally\nA visual inspection of your entire dataset can save time and solve easy-to-spot errors.\n\n\n8.2.2 Quick map\n(I wonder if this is really the place for this or better to just do this in the Spatial chapter)\nA simple way to visualize your data is to plot it on a map.\n\nFix minor coordinates errors, such as inverted or badly formatted\n\n\n\n\n\n\n8.2.3 \n\n\n8.2.4 CoordinateCleaner\n\n\n\n\n\n\n\n\nGodfree, Robert C., Nunzio Knerr, Francisco Encinas-Viso, David Albrecht, David Bush, D. Christine Cargill, Mark Clements, et al. 2021. “Implications of the 20192020 Megafires for the Biogeography and Conservation of Australian Vegetation.” Nature Communications 12 (1): 1023. https://doi.org/10.1038/s41467-021-21266-5.\n\n\nJin, Jing, and Jun Yang. 2020. “BDcleaner: A Workflow for Cleaning Taxonomic and Geographic Errors in Occurrence Data Archived in Biodiversity Databases.” Global Ecology and Conservation 21 (March): e00852. https://doi.org/10.1016/j.gecco.2019.e00852.\n\n\nZizka, Alexander, Fernanda Antunes Carvalho, Alice Calvente, Mabel Rocio Baez-Lizarazo, Andressa Cabral, Jéssica Fernanda Ramos Coelho, Matheus Colli-Silva, Mariana Ramos Fantinati, Moabe F Fernandes, and Thais Ferreira-Araújo. 2020. “No One-Size-Fits-All Solution to Clean GBIF.” PeerJ 8: e9916."
+  },
+  {
+    "objectID": "index.html#acknowledgements",
+    "href": "index.html#acknowledgements",
+    "title": "ALA Data Cleaning",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\nThis book was inspired by an Australian Research Data Commons project where our team worked closely with research partners to streamline their data cleaning workflows. This book is a collaborative effort from the Science and Decision Support team at the Atlas of Living Australia (ALA)\nAuthors listed in alphabetic order:\n- Fonti Kar\n- Jessica Fenker\n- Margot Schneider\n- Martin Westgate"
   }
 ]
