@@ -42,7 +42,6 @@
 \makeatother
 \usepackage{xcolor}
 \usepackage[left=1in,marginparwidth=2.0666666666667in,textwidth=4.1333333333333in,marginparsep=0.3in]{geometry}
-\usepackage{soul}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
@@ -224,7 +223,7 @@
 
 \begin{document}
 \maketitle
-\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[enhanced, breakable, frame hidden, boxrule=0pt, sharp corners, borderline west={3pt}{0pt}{shadecolor}, interior hidden]}{\end{tcolorbox}}\fi
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, enhanced, borderline west={3pt}{0pt}{shadecolor}, interior hidden, sharp corners, boxrule=0pt, breakable]}{\end{tcolorbox}}\fi
 
 \renewcommand*\contentsname{Table of contents}
 {
@@ -988,7 +987,7 @@ There are 6 different classes for basis of record:
 \end{itemize}
 
 Depending on your data scope, it may be practical to limit data that can
-be traced to a physical specimen or observation (Godfree et al. 2021),
+be traced to a physical specimen or observation (Godfree et al. 2021b),
 which we do for the Pink Robin below
 
 \begin{Shaded}
@@ -2711,52 +2710,116 @@ with terrestrial data, it is necessary to remove marine taxa.
 \hypertarget{sec-spatial}{%
 \chapter{Spatial data}\label{sec-spatial}}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(galah)}
+
+\NormalTok{banksia\_serrata }\OtherTok{\textless{}{-}} \FunctionTok{galah\_call}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_identify}\NormalTok{(}\StringTok{"banksia\_serrata"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}} \DecValTok{2022}\NormalTok{) }\SpecialCharTok{|\textgreater{}}  
+  \FunctionTok{atlas\_occurrences}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
 You've been through the taxonomic cleaning steps so now it's time to
-clean up the spatial element. You may have flagged records as being
+clean up the spatial elements. You may have flagged records as being
 taxonomically incorrect, it's important to keep those in mind as you go
 through the spatial cleaning steps as you might learn more about those
 records. We will discuss some different ways to check for spatial
 outliers as well as the removal of records in certain geographic areas
 known to be problematic.
 
-\hypertarget{quick-visualisation}{%
-\section{Quick visualisation}\label{quick-visualisation}}
-
-One of the most straightforward ways to check for spatial errors is to
-plot your data onto a map. More obvious spatial errors are much easier
-to spot visually.
-
 \hypertarget{coordinate-precision}{%
 \section{Coordinate precision}\label{coordinate-precision}}
 
-Data from different sources are collected by different people often
-using differing tools. For example, some might record coordinates with a
-tool with high precision like a phone or a GPS, whereas others might
-record coordinates with low precision by manually recording a place name
-or writing coordinates after the fact.
-
-Depending on the level of precision to answer your research question,
-you might consider discarding data of lower precision, or removing
-decimal places for data you know could not be that precise. At the ALA
-there is a ``cooridnateprecision''/ ``coordinateUncertainityIn Meters''
-assertion (\ul{see assertion section to download these with the data)}
-
-\includegraphics{images/image-613988507.png}
-
-https://xkcd.wtf/2170/
+\href{https://dwc.tdwg.org/terms/\#dwc:coordinatePrecision}{Coordinate
+precision} describes the consistency of values if one were to record the
+coordinates of the same location, multiple times. Coordinate precision
+can vary between data sources and recording equipment. For example,
+coordinates recorded with a GPS unit or a phone generally has higher
+precision compared to those manually determined from locality
+descriptions.
 
 Coordinate precision below 100km represents the grain size of many
 macroecological analyses (Zizka et al. 2020b). Some studies have used a
 cut-off of spatial resolution \textgreater25,000m or precision with less
-than three decimal places (\textbf{add a reference here}). It is
-important to note that rasterized collections often have a significant
-proportion of records that might have low coordinate precision.
-Understanding the level of quality you need is important before
-removing/keeping large volumes of data.
+than three decimal places (Godfree et al. 2021a). Rasterised collections
+often have a significant proportion of records that might have low
+coordinate precision.
+
+Depending on the scope of your research question, you may need to limit
+your occurrence data to a certain level of coordinate.
+
+We recommend first including \texttt{coordinatePrecision} in your
+download query and excluding its completeness and range before you
+exclude any data.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\#How to filter by number of decimal places}
+\FunctionTok{library}\NormalTok{(galah)}
+\FunctionTok{library}\NormalTok{(skimr)}
+
+\NormalTok{banksia\_serrata }\OtherTok{\textless{}{-}} \FunctionTok{galah\_call}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_identify}\NormalTok{(}\StringTok{"banksia\_serrata"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}} \DecValTok{2022}\NormalTok{) }\SpecialCharTok{|\textgreater{}}  
+  \FunctionTok{galah\_select}\NormalTok{(}\AttributeTok{group =} \StringTok{"basic"}\NormalTok{, coordinatePrecision) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{atlas\_occurrences}\NormalTok{()}
+
+\CommentTok{\# banksia\_serrata |\textgreater{} }
+\CommentTok{\#   select(coordinatePrecision) |\textgreater{} }
+\CommentTok{\#   skim()}
+
+\CommentTok{\# Filter by number of decimal places}
+\CommentTok{\# banksia\_serrata |\textgreater{} }
+\CommentTok{\#   filter(coordinatePrecision \textless{} XXX) }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{coordinate-uncertainty}{%
+\section{Coordinate Uncertainty}\label{coordinate-uncertainty}}
+
+Alternatively, you can refine your data using
+\href{https://dwc.tdwg.org/terms/\#dwc:coordinateUncertaintyInMeters}{coordinate
+uncertainty} which describes the possible area in meters where the true
+location is in.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{banksia\_serrata }\OtherTok{\textless{}{-}} \FunctionTok{galah\_call}\NormalTok{() }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_identify}\NormalTok{(}\StringTok{"banksia\_serrata"}\NormalTok{) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{galah\_filter}\NormalTok{(year }\SpecialCharTok{\textgreater{}} \DecValTok{2022}\NormalTok{) }\SpecialCharTok{|\textgreater{}}  
+  \FunctionTok{galah\_select}\NormalTok{(}\AttributeTok{group =} \StringTok{"basic"}\NormalTok{, coordinatePrecision, coordinateUncertaintyInMeters) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{atlas\_occurrences}\NormalTok{()}
+
+\CommentTok{\# Filter by number of decimal places}
+\CommentTok{\# banksia\_serrata |\textgreater{} }
+\CommentTok{\#   filter(coordinateUncertaintyInMeters \textless{} XXX) }
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{missing-coordinate-data}{%
+\subsection{Missing coordinate data}\label{missing-coordinate-data}}
+
+If your research question requires spatial information, then it may be
+useful to exclude records that are missing coordinates data. Many
+spatial analytical tools are not compatible with missing coordinate
+data. We recommend tallying and identifying the rows that have missing
+data before excluding.
+
+You can use \texttt{drop\_na()} to remove missing values from your
+dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# Identify missing data in coordinates}
+\NormalTok{banksia\_serrata }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{filter}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(decimalLatitude) }\SpecialCharTok{|} \FunctionTok{is.na}\NormalTok{ (decimalLongitude))}
+
+\CommentTok{\# Excluding them}
+\NormalTok{banksia\_serrata }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{drop\_na}\NormalTok{(decimalLatitude, decimalLongitude)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2770,7 +2833,7 @@ with data manipulation instead of discarding:
 
 \textbf{Flipped coordinates:} Flipped coordinates typically appear as a
 clustering of points, whereby swapping the latitude and longitude will
-place the coordinates where they are expected. (Jin and Yang 2020b)
+place the coordinates where they are expected. (Jin and Yang 2020)
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2809,6 +2872,44 @@ be wrong or just the country listed.
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{quick-visualisation}{%
+\subsection{Quick visualisation}\label{quick-visualisation}}
+
+One of the most straightforward ways to check for spatial errors is to
+plot your data onto a map. More obvious spatial errors are much easier
+to spot visually.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(ozmaps) }
+\FunctionTok{library}\NormalTok{(sf)}
+
+\CommentTok{\# Retrieve map of Australia}
+\NormalTok{aus }\OtherTok{\textless{}{-}} \FunctionTok{st\_transform}\NormalTok{(ozmap\_country, }\DecValTok{4326}\NormalTok{)}
+
+\CommentTok{\# Remove missing coordinates in Banksia data}
+\CommentTok{\# Then transform into \textquotesingle{}sf\textquotesingle{} object}
+\NormalTok{banksia\_sf }\OtherTok{\textless{}{-}}\NormalTok{ banksia\_serrata }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{drop\_na}\NormalTok{(}\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"decimal"}\NormalTok{)) }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{st\_as\_sf}\NormalTok{(}\AttributeTok{coords =} \FunctionTok{c}\NormalTok{(}\StringTok{"decimalLongitude"}\NormalTok{, }\StringTok{"decimalLatitude"}\NormalTok{), }
+           \AttributeTok{crs =} \DecValTok{4326}\NormalTok{)}
+
+\CommentTok{\# A quick plot}
+\FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{geom\_sf}\NormalTok{(}\AttributeTok{data =}\NormalTok{ aus, }\AttributeTok{colour =} \StringTok{"black"}\NormalTok{, }\AttributeTok{fill =} \ConstantTok{NA}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_sf}\NormalTok{(}\AttributeTok{data =}\NormalTok{ banksia\_sf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{spatial_files/figure-pdf/unnamed-chunk-10-1.pdf}
+
+}
+
+\end{figure}
+
 \hypertarget{coordinate-cleaning}{%
 \section{Coordinate cleaning}\label{coordinate-cleaning}}
 
@@ -2816,12 +2917,6 @@ Once you have fixed everything you can, it's time to remove records that
 still have errors. This doesn't mean removing all outliers, you must
 have more than ``it's far away from the others'' to justify a records
 removal.
-
-\textbf{Remove records with null or missing coordinates:} This will be
-records missing partial or complete information. Missing values can
-cause errors, many analytical tools do not respond well to missing
-values. If you can't find the information elsewhere, it's best to remove
-it.
 
 \textbf{Remove records where longitude and latitude are equal:} High
 likelihood that this is not where the record was recorded and, check
@@ -2840,55 +2935,42 @@ location and must be removed.
 \end{Highlighting}
 \end{Shaded}
 
-Remove records plotted away from the known area of distribution of the
-species. It is essential to check the metadata to ensure that it is a
-data entry error and not a real outlier. In some cases, it's worth
-checking the literature before discarding records like these. These can
-also be mis-identified species, if you're working with data from many
-species, and you find a species point in amongst the environmental
-bounds of a similar looking species it might be worth going back to the
-original record and taking a closer look. However, if no images exist it
-might be difficult to determine if it is a taxonomic or spatial
-issue.There are several ways of dealing with this issue, but one option
-can be to mask data to remove points from falling off a determined area.
---\textgreater{} unsure about this bit
+\hypertarget{remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species.}{%
+\section{Remove records plotted away from the known area of distribution
+of the
+species.}\label{remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species.}}
 
-\textbf{I'm not sure I understand what the above means. But I think in
-general for less obvious errors, it's best to suggest that before data
-analysis (and honestly, before seeing the data at all), people should
-determine whether there is an upper bound to remove coordinates (like a
-95\% confidence interval, or within xx km of an accepted expert
-distribution). Then run whatever model or test with the complete data
-and with the reduced data. If it makes a difference, probably make an
-informed decision based on literature of which results to use as the
-``main'' findings.}
+It is essential to check the metadata to ensure that it is a data entry
+error and not a real outlier. In some cases, it's worth checking the
+literature before discarding records like these. These can also be
+mis-identified species, if you're working with data from many species,
+and you find a species point in amongst the environmental bounds of a
+similar looking species it might be worth going back to the original
+record and taking a closer look. However, if no images exist it might be
+difficult to determine if it is a taxonomic or spatial issue.
 
-\textbf{Having written this out, a brief discussion about this rather
-than any suggestions is probably all that's in scope for this book}
-
-\textbf{The final decisions depend on the species, research question,
-model parameters etc}
-
-\hypertarget{optional-record-removal}{%
-\section{Optional record removal}\label{optional-record-removal}}
-
-\textbf{Not sure why the below is optional? I think a lot of national or
-global analyses would require some kind of data cleaning for this}
-
-Remove records with coordinates assigned to country and province
-centroids: such as Centre of Country, botanic gardens, zoos, country
-capitals, biodiversity institutions, urban areas, and gbif headquarters.
-In some cases these records will haven actually been recorded at a zoo
-for example, in other cases this is often incorrectly georeferenced
-records. They can be tricky to spot but there are a few packages that
-deal with centroid data. Exploratory visuals can also help support
-findings, making it easier to spot clusterings of points.
+\hypertarget{remove-records-with-coordinates-assigned-to-country-and-province-centroids}{%
+\subsection{Remove records with coordinates assigned to country and
+province
+centroids}\label{remove-records-with-coordinates-assigned-to-country-and-province-centroids}}
 
 Centroids are common when records are being assigned from georeferencing
 based on vague locality descriptions or from incorrect georeferencing.
 Sometimes, records are erroneously entered with the physical location of
 the specimen or because they represent individuals from captivity or
-horticulture, which were not clearly labeled as such.
+grown in horticulture, which were not clearly labelled as such.
+
+\hypertarget{remove-records-from-biological-institutions}{%
+\subsection{Remove records from biological
+institutions}\label{remove-records-from-biological-institutions}}
+
+such as botanic gardens, zoos, country capitals, biodiversity
+institutions, urban areas, and GBIF headquarters. In some cases these
+records will haven actually been recorded at a zoo for example, in other
+cases this is often incorrectly georeferenced records. They can be
+tricky to spot but there are a few packages that deal with centroid
+data. Exploratory visuals can also help support findings, making it
+easier to spot clusterings of points.
 
 In a few cases, zoos and botanic gardens might be where the record was
 sighted. However, in this case, it is not naturally occurring and should
@@ -2901,146 +2983,8 @@ records outside the country of origin may be outliers. In other cases,
 they may be perfectly valid. It is important to analyze case-by-case and
 remove the record if necessary.
 
-\hypertarget{checklist-of-data-standardization}{%
-\section{Checklist of data
-standardization}\label{checklist-of-data-standardization}}
-
-\bookmarksetup{startatroot}
-
-\hypertarget{notes}{%
-\chapter{Notes}\label{notes}}
-
-\hypertarget{missing-data}{%
-\section{Missing data}\label{missing-data}}
-
-(I wonder if this is really the place for this or better to just do this
-in the Spatial chapter)
-
-\begin{itemize}
-\tightlist
-\item
-  Remove records with no coordinates
-\end{itemize}
-
-\hypertarget{quick-visualiations}{%
-\section{Quick visualiations}\label{quick-visualiations}}
-
-A graphic plot of your data can be very telling and can help you spot
-potential errors that may be due to formatting.
-
-\hypertarget{ggally}{%
-\subsection{GGally}\label{ggally}}
-
-A visual inspection of your entire dataset can save time and solve
-easy-to-spot errors.
-
-\hypertarget{quick-map}{%
-\subsection{Quick map}\label{quick-map}}
-
-(I wonder if this is really the place for this or better to just do this
-in the Spatial chapter)
-
-A simple way to visualize your data is to plot it on a map.
-
-\begin{itemize}
-\tightlist
-\item
-  Fix minor coordinates errors, such as inverted or badly formatted
-\end{itemize}
-
-\hypertarget{section}{%
-\subsection{}\label{section}}
-
 \hypertarget{coordinatecleaner}{%
 \subsection{CoordinateCleaner}\label{coordinatecleaner}}
-
-\bookmarksetup{startatroot}
-
-\hypertarget{duplicates}{%
-\chapter{Duplicates}\label{duplicates}}
-
-Duplicates add computational burden to your analyses. Some spatial
-analyses won't run if duplicates are present as it breaks mathematical
-constraints. There are a few different categories of duplicates which
-you might encounter when working with open source biodiversity data,
-with some being more difficult to work with than others.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  True duplicates = Unique identifier (UID) is the same
-
-  True duplicates can occur for many reasons, often data is sent to the
-  state authority it was collected in as well as the authority
-  responsible for collecting the data, which is not always the same.
-  When this data is aggregated by the ALA for example, they end up with
-  multiple copies. These are true duplicates- as in they have the same
-  UID, same coordinates, same species. They don't always impact
-  modelling. Although they can impact sampling bias and increase
-  computational burden for no added benefit so it's best to remove them
-  (Jin and Yang 2020a; J. R. Marsh et al. 2022).
-
-  Removing true duplicates where the UID is the same is quite
-  straightforward and is a common step before mapping biodiversity data.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#assertions: duplicateType "DIFFERENT\_DATASET"}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{1}
-\item
-  Different UID Same species, same coordinates, yet different year.
-
-  If the UID is different, but the species name is the same and the
-  coordinates are the same this could be a couple of different things:
-
-  a) If the year is different, it's likely a true record, indicating
-  it's continued presence- this is most likely for plants\ldots there
-  are cases where you'll still want to remove the
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#assertions: duplicate\_status "ASSOCIATED"}
-\end{Highlighting}
-\end{Shaded}
-
-  b) Herbarium duplicates: same year, same collector, however different
-  UID and minor differences in locality, coordinate precision. These can
-  be more difficult to decipher, and we've called them Herbarium
-  duplicates as this is when they most commonly occur. The same specimen
-  will sometimes be sent to multiple herbariums, this results in
-  different UIDs. Additionally because the data is potentially being
-  inputted by different people the discrepancies this causes can make
-  them difficult to spot {[}REF bob pers com{]}.
-\end{enumerate}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\#assertions: duplicateType "DIFFERENT\_DATASET"}
-\CommentTok{\#assertions: isDuplicateOf "DIFFERENT\_DATASET"}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{2}
-\item
-  Spatial thinning = records located close to each other
-
-  These records are not duplicates, not the same individual, not in
-  exactly the same spot, yet close together. Think about patch of grass,
-  this isn't one plant but many all packed tightly together. This adds
-  computational burden, especially for large scale biodiversity analyses
-  and distribution modelling for many species (Zizka et al. 2020b;
-  Kuralt, n.d.). This can also be done to reduce bias associated with
-  oversampling at a small number of sites within larger species ranges
-  (Godfree et al. 2021).
-\end{enumerate}
 
 \bookmarksetup{startatroot}
 
@@ -3098,12 +3042,19 @@ Species (Gastrotricha: Macrodasyida) Sheds Light on the Invasion of
 Fresh Water Habitats by Macrodasyids.''} \emph{Scientific Reports} 9
 (1): 2067.
 
-\leavevmode\vadjust pre{\hypertarget{ref-godfree_implications_2021}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-godfree2021}{}}%
 Godfree, Robert C., Nunzio Knerr, Francisco Encinas-Viso, David
-Albrecht, David Bush, D. Christine Cargill, Mark Clements, et al. 2021.
-{``Implications of the 2019--2020 Megafires for the Biogeography and
-Conservation of {Australian} Vegetation.''} \emph{Nature Communications}
-12 (1): 1023. \url{https://doi.org/10.1038/s41467-021-21266-5}.
+Albrecht, David Bush, D. Christine Cargill, Mark Clements, et al. 2021a.
+{``Implications of the 2019{\textendash}2020 Megafires for the
+Biogeography and Conservation of Australian Vegetation.''} \emph{Nature
+Communications} 12 (1): 1023.
+\url{https://doi.org/10.1038/s41467-021-21266-5}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-godfree_implications_2021}{}}%
+---------, et al. 2021b. {``Implications of the 2019--2020 Megafires for
+the Biogeography and Conservation of {Australian} Vegetation.''}
+\emph{Nature Communications} 12 (1): 1023.
+\url{https://doi.org/10.1038/s41467-021-21266-5}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-gueta_quantifying_2016}{}}%
 Gueta, Tomer, and Yohay Carmel. 2016. {``Quantifying the Value of
@@ -3111,22 +3062,11 @@ User-Level Data Cleaning for Big Data: {A} Case Study Using Mammal
 Distribution Models.''} \emph{Ecological Informatics} 34 (July):
 139--45. \url{https://doi.org/10.1016/j.ecoinf.2016.06.001}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-jin_bdcleaner_2020}{}}%
-Jin, Jing, and Jun Yang. 2020a. {``{BDcleaner}: {A} Workflow for
-Cleaning Taxonomic and Geographic Errors in Occurrence Data Archived in
+\leavevmode\vadjust pre{\hypertarget{ref-jin2020}{}}%
+Jin, Jing, and Jun Yang. 2020. {``BDcleaner: A Workflow for Cleaning
+Taxonomic and Geographic Errors in Occurrence Data Archived in
 Biodiversity Databases.''} \emph{Global Ecology and Conservation} 21
 (March): e00852. \url{https://doi.org/10.1016/j.gecco.2019.e00852}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-jin2020}{}}%
----------. 2020b. {``BDcleaner: A Workflow for Cleaning Taxonomic and
-Geographic Errors in Occurrence Data Archived in Biodiversity
-Databases.''} \emph{Global Ecology and Conservation} 21 (March): e00852.
-\url{https://doi.org/10.1016/j.gecco.2019.e00852}.
-
-\leavevmode\vadjust pre{\hypertarget{ref-kuralt}{}}%
-Kuralt, Zan. n.d. {``GBIF Data for Species Distribution Modelling: A
-Case Study of Lithobius Erythrocephalus (Chilopoda: Lithobiidae).''}
-\url{http://rstudio-pubs-static.s3.amazonaws.com/415459_61fae98ff3984241bd5f7f31da425c98.html}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-mace2004role}{}}%
 Mace, Georgina M. 2004. {``The Role of Taxonomy in Species
@@ -3216,7 +3156,7 @@ selected first as the R environment is a rapidly evolving space. Methods
 sections outlining data cleaning protocols were read and collated into a
 database. Papers which were frequently referenced were also chosen for
 review in order to not miss older seminal papers. Additionally our
-project partners outputs (J. Marsh et al. 2021; Godfree et al. 2021)
+project partners outputs (J. Marsh et al. 2021; Godfree et al. 2021b)
 have been investigated in detail to understand and streamline their data
 cleaning processes. This has included detailed review of their code base
 as well as meetings with the authors of the papers to understand their

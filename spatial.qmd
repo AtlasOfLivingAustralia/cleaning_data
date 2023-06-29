@@ -14,12 +14,13 @@ galah_config(atlas = "Australia",
 
 ```{r,include=FALSE}
 # Data for this chapter
-banksia_serrata <- galah_call() |> 
-  galah_identify("banksia_serrata") |> 
-  galah_filter(year > 2022) |>  
-  atlas_occurrences()
+# banksia_serrata <- galah_call() |> 
+#   galah_identify("banksia_serrata") |> 
+#   galah_filter(year > 2022) |>  
+#   atlas_occurrences()
 
-write_parquet(banksia_serrata, "data/galah/banksia_serrata")
+# write_parquet(banksia_serrata, "data/galah/banksia_serrata")
+banksia_serrata <- read_parquet("data/galah/banksia_serrata")
 ```
 
 ```{r, eval=FALSE}
@@ -33,24 +34,68 @@ banksia_serrata <- galah_call() |>
 
 You've been through the taxonomic cleaning steps so now it's time to clean up the spatial elements. You may have flagged records as being taxonomically incorrect, it's important to keep those in mind as you go through the spatial cleaning steps as you might learn more about those records. We will discuss some different ways to check for spatial outliers as well as the removal of records in certain geographic areas known to be problematic.
 
+
+## Coordinate precision 
+
+[Coordinate precision](https://dwc.tdwg.org/terms/#dwc:coordinatePrecision) describes the consistency of values if one were to record the coordinates of the same location, multiple times. Coordinate precision can vary between data sources and recording equipment. For example, coordinates recorded with a GPS unit or a phone generally has higher precision compared to those manually determined from locality descriptions. 
+
+Coordinate precision below 100km represents the grain size of many macroecological analyses [@zizka2020]. <!-- I don't know if we should include this, because `coordinaatePrecision` is not given in km --> Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places [@godfree2021]. Rasterised collections often have a significant proportion of records that might have low coordinate precision. 
+
+Depending on the scope of your research question, you may need to limit your occurrence data to a certain level of coordinate. 
+
+We recommend first including `coordinatePrecision` in your download query and excluding its completeness and range before you exclude any data. 
+
+```{r, eval=FALSE}
+library(galah)
+library(skimr)
+
+banksia_serrata <- galah_call() |> 
+  galah_identify("banksia_serrata") |> 
+  galah_filter(year > 2022) |>  
+  galah_select(group = "basic", coordinatePrecision) |> 
+  atlas_occurrences()
+
+# banksia_serrata |> 
+#   select(coordinatePrecision) |> 
+#   skim()
+
+# Filter by number of decimal places
+# banksia_serrata |> 
+#   filter(coordinatePrecision < XXX) 
+```
+
+## Coordinate Uncertainty
+
+Alternatively, you can refine your data using [coordinate uncertainty](https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters) which describes the possible circular area in meters where the true location is in. 
+
+```{r, eval=FALSE}
+banksia_serrata <- galah_call() |> 
+  galah_identify("banksia_serrata") |> 
+  galah_filter(year > 2022) |>  
+  galah_select(group = "basic", coordinatePrecision, coordinateUncertaintyInMeters) |> 
+  atlas_occurrences()
+
+# Filter by number of decimal places
+# banksia_serrata |> 
+#   filter(coordinateUncertaintyInMeters < XXX) 
+```
+
 ### Missing coordinate data
 
-These are records that have partially or complete missing information in coordinates columns. While it may be possible to recover information using georeferencing techniques, this is usually an arduous process. Missing values can cause errors, many spatial analytical tools do not respond well to missing values. 
+If your research question requires spatial information, then it may be useful to exclude records that are missing coordinates data. Many spatial analytical tools are not compatible with missing coordinate data. We recommend tallying and identifying the rows that have missing data before excluding. 
 
-## Coordinate precision
+You can use `drop_na()` to remove missing values from your dataset.
 
-Data from different sources are collected by different people often using differing tools. For example, some might record coordinates with a tool with high precision like a phone or a GPS, whereas others might record coordinates with low precision by manually recording a place name or writing coordinates after the fact.
+```{r, eval=FALSE}
+library(dplyr)
 
-Depending on the level of precision to answer your research question, <!--# the following two options are opposites, and it's weird to have them together because they solve the problem very differently. Maybe use these ideas like subsections and describe when you might choose to do one or the other? --> you might consider discarding data of lower precision, or removing decimal places for data you know could not be that precise. At the ALA there is a "cooridnateprecision"/ "coordinateUncertainityIn Meters" assertion ([see assertion section to download these with the data)]{.underline}
+# Identify missing data in coordinates
+banksia_serrata |> 
+  filter(is.na(decimalLatitude) | is.na (decimalLongitude))
 
-![](images/image-613988507.png)
-
-https://xkcd.wtf/2170/
-
-Coordinate precision below 100km represents the grain size of many macroecological analyses [@zizka2020]. Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places [@godfree2021]. It is important to note that rasterized collections often have a significant proportion of records that might have low coordinate precision. Understanding the level of quality you need is important before removing/keeping large volumes of data.
-
-```{r}
-# How to filter by number of decimal places
+# Excluding them
+banksia_serrata |> 
+  drop_na(decimalLatitude, decimalLongitude)
 ```
 
 ## Coordinate correction
