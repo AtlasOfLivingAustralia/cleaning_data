@@ -31,7 +31,7 @@ Pre-cleaning prepares the dataset(s) in a general manner to ensure logical and c
 
 ## Metadata
 
-Metadata describes your data set: it defines each variable and its contents. This might be as simple as describing what units a variable has been measured in, but can also be the climate the occurrence was collected in and whether it is a marked outlier. **Starting the process of pre-cleaning by briefing your metadata allows you to understand the kind of data you are working with and any potential biases that may limit what you can do with it**. Similarly, these biases may need to be of consideration when creating models or when used in your work more broadly. 
+Metadata describes your data set: it defines each variable and its contents. This might be describing what units a variable has been measured in, or, the climate the occurrence was collected in and whether it is a marked outlier. **Starting the process of pre-cleaning by briefing your metadata allows you to understand the kind of data you are working with and any potential biases that may limit what you can do with it**. Similarly, these biases may need to be of consideration when creating models or when used in your work more broadly. 
 
 Data infrastructures that use Darwin Core terms will have interoperable metadata. This makes it easier to consolidate across data sets. All Darwin Core term definitions can be found [here](https://dwc.tdwg.org/terms/), we suggest using `Ctrl/CMD F` and searching your variable name on the [webpage](https://dwc.tdwg.org/terms/). Don't hesitate to Google variable names if you are unsure what they represent.
 
