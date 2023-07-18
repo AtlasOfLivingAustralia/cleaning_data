@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.313">
+<meta name="generator" content="quarto-1.3.321">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA Data Cleaning - 4&nbsp; Precleaning</title>
+<title>ALA Data Cleaning - 4&nbsp; Pre-cleaning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -126,7 +126,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preclean.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Precleaning</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preclean.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -185,7 +185,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./preclean.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Precleaning</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -238,7 +238,7 @@ div.csl-indent {
   <li><a href="#initial-inspection" id="toc-initial-inspection" class="nav-link" data-scroll-target="#initial-inspection"><span class="header-section-number">4.2</span> Initial inspection</a></li>
   <li><a href="#structural-inconsistencies" id="toc-structural-inconsistencies" class="nav-link" data-scroll-target="#structural-inconsistencies"><span class="header-section-number">4.3</span> Structural inconsistencies</a>
   <ul class="collapse">
-  <li><a href="#string-inconsistencies" id="toc-string-inconsistencies" class="nav-link" data-scroll-target="#string-inconsistencies"><span class="header-section-number">4.3.1</span> String inconsistencies</a></li>
+  <li><a href="#string-inconsistencies-and-typographical-errors" id="toc-string-inconsistencies-and-typographical-errors" class="nav-link" data-scroll-target="#string-inconsistencies-and-typographical-errors"><span class="header-section-number">4.3.1</span> String inconsistencies and typographical errors</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -248,7 +248,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Precleaning</span></h1>
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></h1>
 </div>
 
 
@@ -263,23 +263,28 @@ div.csl-indent {
 
 </header>
 
-<p>Precleaning prepares the dataset in a general manner so that it is formatted in a logical and consistent manner. It is a ‘broad sweep’ procedure that allows you to familiarise with the data but it also makes the next stage of in-depth data cleaning proceed more smoothly <span class="citation" data-cites="streamdna_sharing_2020">(<a href="#ref-streamdna_sharing_2020" role="doc-biblioref">streamdna 2020</a>)</span>. We will discuss some approaches on how to be curious with your data and how to detect and handle string inconsistencies, missing data and outliers.</p>
+<p>Pre-cleaning prepares the dataset(s) in a general manner to ensure logical and consistent formatting. It is a ‘broad sweep’ procedure that allows you to familiarise with the data, but it also makes the next stage of in-depth data cleaning proceed more smoothly <span class="citation" data-cites="streamdna_sharing_2020">(<a href="references.html#ref-streamdna_sharing_2020" role="doc-biblioref">streamdna 2020</a>)</span>. We will discuss some approaches on how to be curious with your data and how to detect and handle string inconsistencies or typography related errors, missing data, and outliers.</p>
 <section id="metadata" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="metadata"><span class="header-section-number">4.1</span> Metadata</h2>
-<p>Metadata describes your dataset. It defines each variable and describes its contents such as what units a variable is measured in. Data infrastructures that uses Darwin Core terms will have interoperable metadata. All Darwin Core term definitions can be found <a href="https://dwc.tdwg.org/terms/">here</a>, we suggest using <code>Ctrl/CMD F</code> and searching your variable name on the <a href="https://dwc.tdwg.org/terms/">webpage</a>. Don’t hesitate to Google variable names if you are unsure what they represent.</p>
-<p>If you’re using data from particular institutions it’s worth checking the metadata for the entire dataset to delineate if there is extra information about the data which might limit what you can do with the data. You could google the dataset name, or search the dataset/institution on the ALA. The metadata on the ALA is submitted with the data, it’s not always of high standard which is why it’s worth investigating externally, an example of some good metadata is <a href="https://collections.ala.org.au/public/show/dr14760">FrogID from the Australian Museum</a>. A benefit to reading metadata is understanding the limitations of your dataset. From reading FrogID’s metadata <span class="citation" data-cites="rowley2020frogid">(<a href="#ref-rowley2020frogid" role="doc-biblioref">Rowley and Callaghan 2020</a>)</span>, you’ll find:</p>
+<p>Metadata describes your data set: it defines each variable and its contents. This might be as simple as describing what units a variable has been measured in, but can also be the climate the occurrence was collected in and whether it is a marked outlier. <strong>Starting the process of pre-cleaning by briefing your metadata allows you to understand the kind of data you are working with and any potential biases that may limit what you can do with it</strong>. Similarly, these biases may need to be of consideration when creating models or when used in your work more broadly.</p>
+<p>Data infrastructures that use Darwin Core terms will have interoperable metadata. This makes it easier to consolidate across data sets. All Darwin Core term definitions can be found <a href="https://dwc.tdwg.org/terms/">here</a>, we suggest using <code>Ctrl/CMD F</code> and searching your variable name on the <a href="https://dwc.tdwg.org/terms/">webpage</a>. Don’t hesitate to Google variable names if you are unsure what they represent.</p>
+<p>It is also worth checking the metadata for the entire dataset to delineate if there is extra information about the data which may be relevant. You could Google the dataset name, or search the dataset or institution on the ALA. The metadata on the ALA is submitted with the data, of which the ALA as a repository and not an owner cannot change. This means low-quality metadata cannot necessarily be vetoed.</p>
+<p>An example of some good metadata is <a href="https://collections.ala.org.au/public/show/dr14760">FrogID from the Australian Museum</a>. From reading FrogID’s metadata <span class="citation" data-cites="rowley2020frogid">(<a href="references.html#ref-rowley2020frogid" role="doc-biblioref">Rowley and Callaghan 2020</a>)</span>, you’ll find:</p>
 <ol type="1">
 <li>The data is acoustic data, the majority of the species recorded are therefore male</li>
 <li>Because this is citizen science data, it is especially biased towards populated areas</li>
 <li>Audio is recorded via a smartphone app, the authors recommend if you require high coordinate precision to filter data to <code>geographic uncertainty of &lt;3000m</code></li>
 <li>The data is presence only data</li>
 </ol>
-<p>Metadata can also be useful for understanding the license that the data falls under, this is mostly relevant for using multimedia associated with the data.</p>
+<p>Metadata can also be useful for understanding the license that the data falls under. This is mostly relevant for using or republishing multimedia associated with the data.</p>
 </section>
 <section id="initial-inspection" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="initial-inspection"><span class="header-section-number">4.2</span> Initial inspection</h2>
 <p>A great way to get an initial overview of your data is to use the R package <code>skimr</code>. Importantly <code>skimr</code> produces tables of descriptive statistics, such as amount of missing data, for every variable</p>
-<p>The output is also grouped by data type (numeric, character, date) so you can also check for any inconsistencies. As you are looking through the output, ask yourself whether the data is in line with your expectation. If you requested data for a group of species, are they all represented? Are the values for a variable reasonable? Looking at the quartiles will help you get the sense of the distribution of data. These considerations will help you detect potential issues in the data.</p>
+<p>The output is also grouped by data type (numeric, character, date) so you can also check for any inconsistencies. As you are looking through the output, ask yourself whether the data is in line with your expectations. For example:</p>
+<p>If you requested data for a group of species, are they all represented?</p>
+<p>Are the values for a variable reasonable? Looking at the quartiles will help you get the sense of the distribution of data.</p>
+<p>These considerations will help you detect potential issues in the data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -980,9 +985,9 @@ div.csl-indent {
 </section>
 <section id="structural-inconsistencies" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="structural-inconsistencies"><span class="header-section-number">4.3</span> Structural inconsistencies</h2>
-<section id="string-inconsistencies" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="string-inconsistencies"><span class="header-section-number">4.3.1</span> String inconsistencies</h3>
-<p>String inconsistencies include mispellings, capitalisation errors, misplaced punctuations or trailing white spaces. We will use the <code>janitor</code> R package to explore whether our data has any of these issues. The function <code>tabyl</code> will compute a counts and percent of total rows for each unique value.</p>
+<section id="string-inconsistencies-and-typographical-errors" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="string-inconsistencies-and-typographical-errors"><span class="header-section-number">4.3.1</span> String inconsistencies and typographical errors</h3>
+<p>String inconsistencies include misspellings, capitalisation errors, misplaced punctuation or trailing white spaces. We will use the <code>janitor</code> R package to explore whether our data has any of these issues. The function <code>tabyl</code> will compute a counts and percent of total rows for each unique value.</p>
 <p>We recommend <code>tabyl-ing</code> any character strings that are relevant to your project. For example, here is the <a href="https://dwc.tdwg.org/terms/#dwc:stateProvince"><code>stateProvince</code></a> in alphabetical order.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
@@ -1143,7 +1148,7 @@ div.csl-indent {
 <p>We recommend consulting reputable sources that can help delineate or consolidate similar values. Googling and looking at Wikipedia’s sources are good places to find resources that you can verify accepted state and province names.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-rowley2020frogid" class="csl-entry" role="listitem">
 Rowley, Jodi JL, and Corey T Callaghan. 2020. <span>“The FrogID Dataset: Expert-Validated Occurrence Records of Australia’s Frogs Collected by Citizen Scientists.”</span> <em>ZooKeys</em> 912: 139.
 </div>

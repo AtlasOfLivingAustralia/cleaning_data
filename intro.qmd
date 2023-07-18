@@ -11,15 +11,15 @@ csl: methods-in-ecology-and-evolution.csl
 
 > "Garbage in, garbage out" - George Fuechsel, IBM computer programmer
 
-The idea that using flawed or nonsensical data as input produces output of similar quality is one that is well known in many scientific disciplines. In ecology and biodiversity research, however, scientists are often at risk of unintentionally using flawed or nonsensical data because they must bring together lots of data from many sources to address their research questions. These data are rarely easy to combine. Data from different sources vary widely in their structure and quality. As a result, collating them into something usable to answer a research question can be challenging.
+The idea that inputting flawed or nonsensical data produces an output of similar quality is well known in many scientific disciplines. In ecology and biodiversity research, however, scientists are often at risk of unintentionally using flawed or nonsensical data because they must bring together lots of data from many sources to address their research questions. These data are rarely easy to combine. Data from different sources vary widely in their structure, formatting and quality. As a result, collating them into something usable to answer a research question can be challenging.
 
-**Data cleaning**, the process of identifying and fixing incorrect or doubtful data, is an essential step in ecology and biodiversity research. Data cleaning improves data quality and the validity of scientific findings [@rodrigues_species_2022].
+**Data cleaning**, the process of identifying and fixing incompatible, incorrect or doubtful data, is an essential step in ecology and biodiversity research. Data cleaning improves data quality and the validity of scientific findings [@rodrigues_species_2022].
 
 This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). We will be working with the R package [`galah`](https://galah.ala.org.au/) for accessing biodiversity data. If you have occurrence data you have personally collected, some parts of this book may still be relevant.
 
-We have included code blocks throughout this block to show you how to execute a particular task. We will point out at the beginning of the code block of any R packages that are needed for data cleaning or visualising.
+We have included code blocks throughout to show you how to execute a particular task. We will point out at the beginning of the code block of any R packages that are needed for data cleaning or visualising.
 
-## What you will learn / Outline of the book
+## What you will learn (Outline)
 
 <!--# Why do you load DiagrammeR explicitly here? Should it be hidden? Or loaded at all? -->
 
@@ -36,9 +36,9 @@ To begin working with open access data we'll teach you how to:
 
 -   Import data
 
--   Tidy and familiarise yourself with meta-data
+-   Tidy and familiarise yourself with metadata
 
-Once data have been imported and formatted correctly we'll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity data.
+Once data have been imported and formatted correctly we'll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity or species occurrence data.
 
 -   We will start with taxonomic issues
     -   Taxonomic issues
@@ -61,7 +61,7 @@ There are many important subject areas that this book will not cover. We won't b
 
 ### User accounts
 
-To get data out of data infrastructures such as the Atlas of living Australia (ALA) or the Global Biodiversity Information (GBIF) you'll need to first create an account. You'll want to sign up for an account with the relevant data infrastructre, this book will use ALA and GBIF data as examples.
+To get data out of data infrastructures such as the Atlas of living Australia (ALA) or the Global Biodiversity Information (GBIF) you'll need to first create an account. You'll want to sign up for an account with the relevant data infrastructure. This book will use ALA and GBIF data as examples.
 
 Atlas of Living Australia = [create an account](https://auth.ala.org.au/userdetails/registration/createAccount) Global Biodiversity Information Facility = [create an account](https://www.gbif.org/user/profile)
 
@@ -83,4 +83,4 @@ Rstudio is an integrated development environment (IDE) for R programming. Downlo
 
 ## How to use this book
 
-There is no one size fits all workflow, not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don't recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) ![](images/data.cleaning-Page-2.drawio.png)
+There is no one size fits all workflow and not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don't recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) ![](images/data.cleaning-Page-2.drawio.png)
