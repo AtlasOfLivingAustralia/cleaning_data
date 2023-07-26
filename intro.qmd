@@ -19,35 +19,40 @@ This book will guide you through how to acquire and clean open access biodiversi
 
 We have included code blocks throughout to show you how to execute a particular task. We will point out at the beginning of the code block of any R packages that are needed for data cleaning or visualising.
 
-## What you will learn (Outline)
+## Outline: What you will learn
 
-<!--# Why do you load DiagrammeR explicitly here? Should it be hidden? Or loaded at all? -->
+Cleaning open-access biodiversity data involves a few steps:
 
-```{r}
-#| warning: false
-#| message: false
-# new diagram here
-library(DiagrammeR)
+```{mermaid}
+%%| label: fig-1
+%%| fig-cap: The cleaning process 
+%%| fig-align: center
+flowchart TB
+  A(Narrow data scope) --> B(Import data) --> C(Investigate metadata)
+  C --> D{Cleaning}
+  D --> E(Taxonomic issues)
+  D --> F(Spatial issues)
 ```
 
-To begin working with open access data we'll teach you how to:
+Once data have been narrowed, imported and formatted correctly we can then start the major cleaning steps. We will focus on how to deal with the most common issues with biodiversity data:
 
--   Narrow your data scope
+[taxonomic standardisation]{.underline} problems, such as:
 
--   Import data
+-   **varied species name synonyms**
 
--   Tidy and familiarise yourself with metadata
+-   **naming authorities and duplicates**
 
-Once data have been imported and formatted correctly we'll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity or species occurrence data.
+as well as [spatial errors and issues]{.underline}, like:
 
--   We will start with taxonomic issues
-    -   Taxonomic issues
-        -   naming authorities
-        -   synonyms
-        -   Duplicates
-    -   Spatial data
-        -   Outliers
-        -   Duplicates
+-   **suspicious outliers**
+
+-   **duplicates.**
+
+::: {.callout-important appearance="simple"}
+## Note
+
+*No one size fits all in this workflow, and not all steps are relevant or possible depending on the nature of the study or the area of expertise possessed. As such, in the literature these steps are frequently completed in entirely different orders. Therefore we don't recommend this book to be necessarily used in a linear fashion. **While some steps may logically come first, you may need to go back to them after completing another.***
+:::
 
 ## What you won't learn
 
@@ -81,6 +86,4 @@ Rstudio is an integrated development environment (IDE) for R programming. Downlo
 
 #### Mac {.unnumbered}
 
-## How to use this book
-
-There is no one size fits all workflow and not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don't recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) ![](images/data.cleaning-Page-2.drawio.png)
+![](images/data.cleaning-Page-2.drawio.png)
