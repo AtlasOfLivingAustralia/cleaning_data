@@ -22,20 +22,37 @@ library(ozmaps)
 library(arrow)
 ```
 
-# Data scope
+# Restricting or increasing data scope
 
-Data scope pertains to the type of data needed for your project. Your research question will help guide the scope of data you need.
+Data scope pertains to the type and breadth of data needed for your project.\
+\
+\*\*\* Flesh out more information here on the importance of scope \*\*\*
+
+**Your research question will help guide the scope of data you need.**
 
 Consider the following in reference to your research aim:
 
--   What is the **taxonomic** unit of your research interest? A broader genera or a species? Is it threatened?
--   What is the **spatial** scale of your project? The entire country? A specific conservation area?
+-   What is the **taxonomic** unit of your research interest?
 
-Your data scope may change according to the availability of data for certain research interests. In some instances, rare species tend to have considerably fewer records.
+    *A broader genera or a species? Is it threatened?*
+
+-   What is the **spatial** scale of your project?
+
+    *The entire country? A specific conservation area?*
+
+::: {.callout-note appearance="simple"}
+## Note
+
+Your data scope may change according to the availability of data. In some instances (for example), rare species tend to have considerably fewer records.
+:::
 
 ## Taxonomic scope
 
-Where the aim of the study is to gather data on a specific taxonomic unit. This could be a threatened species or a broad taxonomic group. The download query is performed using the scientific name, or, name of the taxonomic group.
+**When the aim is to gather data on a specific taxonomic unit, reducing or increasing the taxonomic scope is relevant.** \
+\
+This might involve understanding its' threatened species status, or, if there is leverage to increase to a broader taxonomic group. \
+\
+The first data download query is performed using the scientific name, or, name of the taxonomic group.
 
 ```{r}
 #map Lampromicra senator
@@ -64,7 +81,11 @@ Curious what *Lampromicra senator* looks like?
 
 ## Spatial scope
 
-Where the aim is to obtain data for targeted taxa in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest. The example below shows all Insect orders in the state of Tasmania in Australia:
+When the aim is to obtain data for targeted taxa in a given location.\
+\
+In this case, the region name or area boundaries can be used to delimit the area of interest. \
+\
+The example below shows all Insect orders in the state of Tasmania in Australia:
 
 <!-- Note that we are plotting only 10% of all dataset here  -->
 
@@ -88,25 +109,26 @@ ggplot() +
 ## Naming authorities
 
 <!-- Define what naming authority is -->
-<!-- How to choose -->
-<!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
-<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
 
+<!-- How to choose -->
+
+<!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
+
+<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
 
 ### Choosing your taxonomic naming authority
 
-Naming authorities are the different organisations that provide updated or revised lists of species taxonomic splits or taxonomic history following new research. Species names in these lists vary as there may be disagreements as to what distinguishes a new genus, species, subspecies etc. Open source repositories are often provided with conflicting taxonomies that leaving them open to a degree of error. 
+Naming authorities are the different organisations that provide updated or revised lists of species taxonomic splits or taxonomic history following new research. Species names in these lists vary as there may be disagreements as to what distinguishes a new genus, species, subspecies etc. Open source repositories are often provided with conflicting taxonomies that leaving them open to a degree of error.
 
 Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of open source biodiversity data. However, deciding what naming authority to use can be both challenging and time consuming. What you choose will depend on your own taxonomic research and evaluation, but, also, your scope. A **spatial** scope will have many species and may need multiple naming authorities. On the other hand, choosing a naming authority can impact your scope by shrinking or enlarging datasets.
 
-1. Checking changes in the taxonomy of your focus species can be helpful when interpreting old data which may have species names you don't recognize, or, when using data citing a different naming authority to another data set you wish to consolidate it with. This can be achieved by consulting the literature. 
+1.  Checking changes in the taxonomy of your focus species can be helpful when interpreting old data which may have species names you don't recognize, or, when using data citing a different naming authority to another data set you wish to consolidate it with. This can be achieved by consulting the literature.
 
-2. Most taxonomic society groups also release annual updates on taxonomy.
+2.  Most taxonomic society groups also release annual updates on taxonomy.
 
 In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. These authorities provide a list of accepted and authoritative names as a template. If you're unsure what naming authority to use and you're looking at Australian species, the APNI and the AFD are a good place to start, especially if the data you're investigating covers a wide range of taxa. If you're investigating specific taxa it's worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we've provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.
 
 <!-- Is the below content things that were drawn on to write the above? Including references to be inserted? If it isn't, it seems to be repeating things and could probably be deleted. I do like Margot's image though! I think generally the book needs more visuals  -->
-
 
 ## Naming authorities
 
