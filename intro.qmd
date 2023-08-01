@@ -11,76 +11,90 @@ csl: methods-in-ecology-and-evolution.csl
 
 > "Garbage in, garbage out" - George Fuechsel, IBM computer programmer
 
-The idea that inputting flawed or nonsensical data produces an output of similar quality is well known in many scientific disciplines. In ecology and biodiversity research, however, scientists are often at risk of unintentionally using flawed or nonsensical data because they must bring together lots of data from many sources to address their research questions. These data are rarely easy to combine. Data from different sources vary widely in their structure, formatting and quality. As a result, collating them into something usable to answer a research question can be challenging.
+Data from different sources vary widely in their **structure, formatting and quality**. As a result, collating and combining them into something usable to answer a research question can be both challenging and time consuming.
+
+The idea that inputting flawed or nonsensical data produces an output of similar quality is well known in many scientific disciplines. In ecology and biodiversity research, however, scientists are particularly at risk of unintentionally using poor data because they **often bring together lots of data from many sources to address their research questions.**
 
 **Data cleaning**, the process of identifying and fixing incompatible, incorrect or doubtful data, is an essential step in ecology and biodiversity research. Data cleaning improves data quality and the validity of scientific findings [@rodrigues_species_2022].
 
-This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). We will be working with the R package [`galah`](https://galah.ala.org.au/) for accessing biodiversity data. If you have occurrence data you have personally collected, some parts of this book may still be relevant.
+This book will guide you through how to acquire and clean open access biodiversity data in R. We will be working with point-based species occurrence data from online infrastructures such as [Global Biodiversity Information Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living Australia](https://www.ala.org.au/) (ALA). 
 
-We have included code blocks throughout to show you how to execute a particular task. We will point out at the beginning of the code block of any R packages that are needed for data cleaning or visualising.
+We will be working with the R package [`galah`](https://galah.ala.org.au/) for accessing biodiversity data. If you have occurrence data you have personally collected, some parts of this book may still be relevant.
 
-## What you will learn (Outline)
+We have included code blocks throughout this book to show you how to execute a particular task.
 
-<!--# Why do you load DiagrammeR explicitly here? Should it be hidden? Or loaded at all? -->
-
-```{r}
-#| warning: false
-#| message: false
-# new diagram here
-library(DiagrammeR)
+```{r, eval = FALSE}
+library(r-package)
+cleaning step |>
+  data
 ```
 
-To begin working with open access data we'll teach you how to:
+Any `R packages` that are needed for data cleaning or visualising will be noted at the beginning of the code block.
 
--   Narrow your data scope
+## Outline: What you will learn
 
--   Import data
+Cleaning open-access biodiversity data involves a few steps:
 
--   Tidy and familiarise yourself with metadata
+```{mermaid}
+%%| label: fig-1
+%%| fig-cap: The cleaning process 
+%%| fig-align: center
+flowchart TB
+  A(Narrow data scope) --> B(Import data) --> C(Investigate metadata)
+  C --> D{Cleaning}
+  D --> E(Taxonomic issues)
+  D --> F(Spatial issues)
+```
 
-Once data have been imported and formatted correctly we'll dive into the major cleaning steps. We will focus on how to deal with taxonomic and spatial issues with biodiversity or species occurrence data.
+Once data have been narrowed, imported and formatted correctly we can then start the major cleaning steps. We will focus on how to deal with the most common issues with biodiversity data:
 
--   We will start with taxonomic issues
-    -   Taxonomic issues
-        -   naming authorities
-        -   synonyms
-        -   Duplicates
-    -   Spatial data
-        -   Outliers
-        -   Duplicates
+[Taxonomic standardisation]{.underline} problems, such as:
+
+-   **varied species name synonyms**
+
+-   **naming authorities and duplicates**
+
+as well as [spatial errors and issues]{.underline}, like:
+
+-   **suspicious outliers**
+
+-   **duplicates.**
+
+::: {.callout-important appearance="simple"}
+## Important!
+
+**No one size fits all in this workflow**.
+
+In the literature, we found that data cleaning steps are frequently completed in entirely different orders. Not all steps are relevant or possible depending on the nature of the study, or, the area of expertise possessed. Therefore this book does not necessarily have to be used in a linear fashion. *While some steps may logically come first, you may need to go back to them after completing another.*
+:::
 
 ## What you won't learn
 
 There are many important subject areas that this book will not cover. We won't be teaching you:
 
--   How to clean other data types e.g. environmental or trait data
+-   How to clean environmental data that isn't occurrence / biodiversity data: e.g. trait data
 -   How to run a species distribution model
 -   Hypothesis testing or experimental design
 
 ## Prerequisites
 
+This data cleaning book assumes some basic knowledge using R and RStudio, but if you have never used R before there are a plethora of online and freely accessible resources to help you get started. 
+
 ### User accounts
 
-To get data out of data infrastructures such as the Atlas of living Australia (ALA) or the Global Biodiversity Information (GBIF) you'll need to first create an account. You'll want to sign up for an account with the relevant data infrastructure. This book will use ALA and GBIF data as examples.
+To get data out of data infrastructures such as the Atlas of living Australia (ALA) or the Global Biodiversity Information (GBIF) you'll need to first create an account. 
 
-Atlas of Living Australia = [create an account](https://auth.ala.org.au/userdetails/registration/createAccount) Global Biodiversity Information Facility = [create an account](https://www.gbif.org/user/profile)
+**You'll want to sign up for an account with the relevant data infrastructure. This book will use ALA and GBIF data as examples.**
+
+You can do this for the Atlas of Living Australia [here](https://auth.ala.org.au/userdetails/registration/createAccount) - 
+
+and for the Global Biodiversity Information Facility [here](https://www.gbif.org/user/profile).
 
 ### R
 
-Download R from [CRAN](https://cloud.r-project.org/) (the comprehensive R archive network), for your operating system, and install it on your device. Major updates for R come out yearly with a few minor releases throughout the year, so make sure to update semi regularly.
-
-#### Windows {.unnumbered}
-
-#### Mac {.unnumbered}
+Download R from [CRAN](https://cloud.r-project.org/) for your operating system and install it on your device. Major updates for R come out yearly, with a few minor releases throughout the year - so make sure to update semi regularly. 
 
 ### RStudio
 
-Rstudio is an integrated development environment (IDE) for R programming. Download and install Rstudio for your operating system <https://posit.co/download/rstudio-desktop/>
-
-#### Windows {.unnumbered}
-
-#### Mac {.unnumbered}
-
-## How to use this book
-
-There is no one size fits all workflow and not all steps are relevant and/or possible. Through examining the literature we found steps were frequently done in completely different orders depending on the nature of the study and the area of expertise possessed. Because of this, we don't recommend you use this book in a linear fashion. However some steps logically come first, you might need to go back to them after completely another (fig x) ![](images/data.cleaning-Page-2.drawio.png)
+RStudio is an integrated development environment (IDE) for R programming. R operatees within R studio, so to code, you will need both R and RStudio.
+Download and install RStudio for your operating system [here](https://posit.co/download/rstudio-desktop/).
