@@ -28,12 +28,6 @@ Data scope pertains to the type and breadth of data needed for your project.\
 \
 \*\*\* Flesh out more information here on the importance of scope \*\*\*
 
-::: {.callout-note appearance="simple"}
-## Note
-
-Your data scope may change according to the availability of data. Increasing your scope can allow for more data and a more meaningful analysis. Note, for example, that **rare species** tend to have considerably fewer records. Some **sensitive species** data is also obscured or withheld from the general public.
-:::
-
 **Your research question will help guide the scope of data you need.**
 
 Consider the following in reference to your research aim:
@@ -45,6 +39,12 @@ Consider the following in reference to your research aim:
 -   What is the **spatial** scale of your project?
 
     *The entire country? A specific conservation area?*
+
+::: {.callout-note appearance="simple"}
+## Note
+
+Your data scope may change according to the availability of data. Increasing your scope can allow for more data and (sometimes) a more meaningful analysis. Note, for example, that **rare species** tend to have considerably fewer records. Some **sensitive species** data is also obscured or withheld from the general public.
+:::
 
 ## Taxonomic scope
 
@@ -86,6 +86,7 @@ Curious what *Lampromicra senator* looks like?
 </aside>
 
 ```{r}
+#| echo: true
 #| eval: false
 #| code-fold: true
 
@@ -131,6 +132,7 @@ aus <- st_transform(ozmaps::ozmap_country, 4326)
 ```
 
 ```{r}
+#| echo: true
 #| eval: false
 #| code-fold: true
 
@@ -203,7 +205,7 @@ ggplot() +
 
 Naming authorities are the different organisations that provide updated or revised lists of species taxonomic splits or taxonomic history following new research. **Species names in these lists vary as there may be disagreements as to what distinguishes a new genus, species, subspecies etc.**
 
-Open source repositories are often provided with conflicting taxonomies that leaving them open to a degree of error.
+Open source repositories are often provided with conflicting taxonomies that leave them open to a degree of error.
 
 Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of open source biodiversity data. However, deciding what naming authority to use can be both challenging and time consuming.
 
@@ -235,8 +237,12 @@ For example, the ALA uses multiple naming authorities in a hierarchical format:
 
 (note image is from a helpfile I wrote- we can re-do it so it's consistent with the style of this document)
 
+\*\*remake this? simplify? or remove entirely\*\*
+
 ![](images/image-1066364510.png)
 
+\*\*make this shorter and include somewhere\*\*\
+\
 With all that, open source data has many pros, so how does one deal with taxonomic inconsistencies to get the most accurate data in the end?
 
 While this is in theory how the ALAs backbone is built, issues can occur with aggregation leading to potentially serious problems with the taxonomic structure. In addition data can be parsed incorrectly, and the process isn't transparent. Meaning that when the taxonomic backbone is updated, the elements that have changed are untraceable. These issues are not specific to ALA taxonomy, but occur in varying forms among data aggregators.
