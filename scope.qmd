@@ -28,6 +28,12 @@ Data scope pertains to the type and breadth of data needed for your project.\
 \
 \*\*\* Flesh out more information here on the importance of scope \*\*\*
 
+::: {.callout-note appearance="simple"}
+## Note
+
+Your data scope may change according to the availability of data. Increasing your scope can allow for more data and a more meaningful analysis. Note, for example, that **rare species** tend to have considerably fewer records. Some **sensitive species** data is also obscured or withheld from the general public.
+:::
+
 **Your research question will help guide the scope of data you need.**
 
 Consider the following in reference to your research aim:
@@ -40,22 +46,22 @@ Consider the following in reference to your research aim:
 
     *The entire country? A specific conservation area?*
 
-::: {.callout-note appearance="simple"}
-## Note
-
-Your data scope may change according to the availability of data. In some instances (for example), rare species tend to have considerably fewer records.
-:::
-
 ## Taxonomic scope
 
-**When the aim is to gather data on a specific taxonomic unit, reducing or increasing the taxonomic scope is relevant.** \
-\
-This might involve understanding its' threatened species status, or, if there is leverage to increase to a broader taxonomic group. \
-\
-The first data download query is performed using the scientific name, or, name of the taxonomic group.
+When the aim is to gather data on a specific **taxonomic unit.**
+
+**Reducing** or **increasing** your taxonomic scope may be relevant for a few reasons:
+
+-   Your research requires more data and the research question is viable at a higher taxonomic level (genus, family, order, class..)
+
+-   Species specific questions are being asked, and you need to refine your taxonomic scope.
+
+Depending on these factors your first data download query will be performed using the **scientific name** or the **taxonomic group name**.
+
+For example, if we were investigating the Green Jewel Bug versus the Red Jewel Bug at the species' level in Australia, we would use *Lampromicra senator* and *Lampromicra aerea*.
 
 ```{r}
-#map Lampromicra senator
+#map Lampromicra senator and aerea
 lampromicra <- open_dataset("data/galah/lampromicra") |> collect()
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 
@@ -79,13 +85,90 @@ Curious what *Lampromicra senator* looks like?
 
 </aside>
 
+```{r}
+#| eval: false
+#| code-fold: true
+
+library(galah)
+galah_config(email = "ALAemailaddress", atlas = "Australia")
+
+lampromicra <- galah_call() |>
+galah_identify("Lampromicra aerea", "Lampromicra senator") |>
+galah_filter( year > 1950 & year <= 2022) |>
+galah_select(group = "basic") |>
+atlas_occurrences()
+
+library(ggplot2)
+ ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = lampromicra,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = scientificName),
+    size = 2,
+  ) +
+  ylim(-45, -10) +
+  xlim(110, 155) +
+  theme_void()
+```
+
+At a wider scale we can look at that *genus* of bugs, *Lampromicra*, as a larger, encompassing **taxonomic group**.
+
+```{r}
+#map Lampromicra senator and aerea
+lampromicra <- open_dataset("data/galah/lampromicragenus") |> collect()
+aus <- st_transform(ozmaps::ozmap_country, 4326)
+
+ ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = lampromicra,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = genus),
+    size = 2,
+  ) +
+  ylim(-45, -10) +
+  xlim(110, 155) +
+  theme_void()
+```
+
+```{r}
+#| eval: false
+#| code-fold: true
+
+library(galah)
+galah_config(email = "ALAemailaddress", atlas = "Australia")
+
+lampromicra <- galah_call() |>
+galah_identify("Lampromicra") |>
+galah_filter( year > 1950 & year <= 2022) |>
+galah_select(group = "basic", genus) |>
+atlas_occurrences()
+
+library(ggplot2)
+ ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = lampromicra,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = genus),
+    size = 2,
+  ) +
+  ylim(-45, -10) +
+  xlim(110, 155) +
+  theme_void()
+```
+
 ## Spatial scope
 
-When the aim is to obtain data for targeted taxa in a given location.\
+**When the aim is to obtain data for targeted taxa in a given location.**\
 \
-In this case, the region name or area boundaries can be used to delimit the area of interest. \
+In this case:
+
+-   the **region name**, or;
+
+-   the **area boundaries**
+
+can be used to delimit the area of interest.\
 \
-The example below shows all Insect orders in the state of Tasmania in Australia:
+The example below shows all **Insect orders** in the state of Tasmania, Australia:
 
 <!-- Note that we are plotting only 10% of all dataset here  -->
 
@@ -118,27 +201,37 @@ ggplot() +
 
 ### Choosing your taxonomic naming authority
 
-Naming authorities are the different organisations that provide updated or revised lists of species taxonomic splits or taxonomic history following new research. Species names in these lists vary as there may be disagreements as to what distinguishes a new genus, species, subspecies etc. Open source repositories are often provided with conflicting taxonomies that leaving them open to a degree of error.
+Naming authorities are the different organisations that provide updated or revised lists of species taxonomic splits or taxonomic history following new research. **Species names in these lists vary as there may be disagreements as to what distinguishes a new genus, species, subspecies etc.**
 
-Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of open source biodiversity data. However, deciding what naming authority to use can be both challenging and time consuming. What you choose will depend on your own taxonomic research and evaluation, but, also, your scope. A **spatial** scope will have many species and may need multiple naming authorities. On the other hand, choosing a naming authority can impact your scope by shrinking or enlarging datasets.
+Open source repositories are often provided with conflicting taxonomies that leaving them open to a degree of error.
 
-1.  Checking changes in the taxonomy of your focus species can be helpful when interpreting old data which may have species names you don't recognize, or, when using data citing a different naming authority to another data set you wish to consolidate it with. This can be achieved by consulting the literature.
+Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of open source biodiversity data. However, deciding what naming authority to use can be both challenging and time consuming.
 
-2.  Most taxonomic society groups also release annual updates on taxonomy.
+Accurate species delimitation is also crucial for adequate conservation management and understanding evolutionary processes ([Mace 2004](http://localhost:3271/references.html#ref-mace2004role)). Species level lists are the foundation of many conservation decisions: such as the IUCN conservation status classification system. Taxonomic scope therefore has an effect on research application impacts.
 
-In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. These authorities provide a list of accepted and authoritative names as a template. If you're unsure what naming authority to use and you're looking at Australian species, the APNI and the AFD are a good place to start, especially if the data you're investigating covers a wide range of taxa. If you're investigating specific taxa it's worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we've provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.
+What you choose will depend on your own taxonomic research and evaluation, but, also, your scope.
+
+::: {.callout-note appearance="simple"}
+## Note
+
+A spatial scope will have many species and may need multiple naming authorities. Similarly, choosing a naming authority may impact your scope by shrinking or enlarging datasets in that it will exclude records outside of that authority (unless converted). **This data change might influence your choice to use a naming authority from a single taxonomic society group or multiple broad sources.**
+:::
+
+-   Check changes in the taxonomy of your focus species.
+
+    This can be helpful when interpreting old data which may have species names you don't recognize, or, when using data citing a different naming authority to another data set you wish to consolidate it with. **This can be achieved by consulting the taxonomic literature.**
+
+-   Most taxonomic society groups also release annual updates on taxonomy.
+
+In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species.
+
+These authorities provide a list of accepted and authoritative names as a template. If you're unsure what naming authority to use and you're looking at Australian species, the APNI and the AFD are a good place to start, especially if the data you're investigating covers a wide range of taxa. If you're investigating specific taxa it's worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we've provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.
+
+**insert a mapped example of data changes when changing taxonomic naming authority?**
 
 <!-- Is the below content things that were drawn on to write the above? Including references to be inserted? If it isn't, it seems to be repeating things and could probably be deleted. I do like Margot's image though! I think generally the book needs more visuals  -->
 
-## Naming authorities
-
-Accurate species delimitation is crucial for adequate conservation management and understanding evolutionary processes [@mace2004role]. Species-level lists are also the foundation of conservation decisions, such as is the IUCN Red List [@melville21].
-
-The difference in scope might influence if you choose to use a naming authority from a taxonomic society group or multiple broad sources.
-
-## Naming authorities and taxonomy in biodiversity databases
-
-When you download data from different databases you might be faced with inconsistencies between the datasets. This is a challenge that data aggregators face when ingesting and aggregating data. This is a large task with lots of heterogeneity and can lead to errors along the way. To help deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species \[REF\]. Different databases might use different naming authorities, and you might not agree with their classifications. There may be other issues you are not aware of: For example, the ALA uses multiple naming authorities in a hierarchical format:
+For example, the ALA uses multiple naming authorities in a hierarchical format:
 
 (note image is from a helpfile I wrote- we can re-do it so it's consistent with the style of this document)
 
