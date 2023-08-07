@@ -22,21 +22,21 @@ library(ozmaps)
 library(arrow)
 ```
 
-# Restricting or increasing data scope
+# Data scope
 
-Data scope pertains to the type and breadth of data needed for your project.\
-\
-\*\*\* Flesh out more information here on the importance of scope \*\*\*
+Data scope refers to the type and breadth of data needed for your project. [Defining your scope let's you...*good things*]. [Without defining your data scope, you might not answer the question you set out to answer.]
+<!-- some suggestions in brackets. This will probably be the level of detail that you need.  -->
 
 **Your research question will help guide the scope of data you need.**
 
+
 Consider the following in reference to your research aim:
 
--   What is the **taxonomic** unit of your research interest?
+-   What is the **taxonomic** unit of your research question?
 
     *A broader genera or a species? Is it threatened?*
 
--   What is the **spatial** scale of your project?
+-   What is the **spatial** scale of your research question?
 
     *The entire country? A specific conservation area?*
 
@@ -46,11 +46,14 @@ Consider the following in reference to your research aim:
 Your data scope may change according to the availability of data. Increasing your scope can allow for more data and (sometimes) a more meaningful analysis. Note, for example, that **rare species** tend to have considerably fewer records. Some **sensitive species** data is also obscured or withheld from the general public.
 :::
 
+<!-- I see what you are getting at with the above note, but I don't know that increasing the scope of your data is the write suggestion. It's mostly just a consequence of less data, rather than a solution, that you might have to rethink your question when there is less data. If you want to study a rare species, it's not useful to be so broad about your question to not learn anything new about the rare species of interest. Maybe try rewriting to not suggest what to do about this problem, but just make people aware that this can happen  -->
+
+
 ## Taxonomic scope
 
-When the aim is to gather data on a specific **taxonomic unit.**
+<!-- I don't think the tone is quite right on this section and might need some massaging to get right. I think we are trying to suggest that investigating what data is available is a necessary first step to understand how detailed you can get about a specific question. Then you should think critically about whether the available data is suitable. If it's viable to increase data scope, then this might be a useful way to increase data (but at the expense of granularity of detail)   -->
 
-**Reducing** or **increasing** your taxonomic scope may be relevant for a few reasons:
+When the aim is to gather data on a specific taxonomic unit, **reducing** or **increasing** your taxonomic scope may be relevant for a few reasons:
 
 -   Your research requires more data and the research question is viable at a higher taxonomic level (genus, family, order, class..)
 
@@ -160,9 +163,9 @@ library(ggplot2)
 
 ## Spatial scope
 
-**When the aim is to obtain data for targeted taxa in a given location.**\
-\
-In this case:
+<!-- Same suggestion as in the above chapter that this might need some rewording to show how investigating data at different spatial scales is useful for defining what scope is realistic for your project/question. The goal (I think) might be to similarly show a preview of what investigating data by different sized regions might be useful (or checking which regions have the most data, and just working in that area).  -->
+
+When the aim is to obtain data for targeted taxa in a given location, [it might be useful to see how much data there is at different spatial scales.]
 
 -   the **region name**, or;
 
@@ -203,21 +206,23 @@ ggplot() +
 
 ### Choosing your taxonomic naming authority
 
-Naming authorities are the different organisations that provide updated or revised lists of species taxonomic splits or taxonomic history following new research. **Species names in these lists vary as there may be disagreements as to what distinguishes a new genus, species, subspecies etc.**
+Naming authorities are the different organisations that provide updated or revised lists of species, and where they fit on the taxonomic tree <!--Is this definition from somewhere? Might be good to try to find one (though in a quick google, this isn't easy-->. Species names in these lists vary as there may be disagreements as to what distinguishes a new genus, species, subspecies etc. <!--Again, might be good to find this from somewhere else because I don't think that's necessarily always why - some groups consider higher taxonomic clades unified or separate, so it's not just species/genera-->
 
-Open source repositories are often provided with conflicting taxonomies that leave them open to a degree of error.
+Open source repositories are often provided with conflicting taxonomies that leave them open to a degree of error <!--Not sure if you wrote this but I think it's not clear what this means? I think this is referring to the fact that open source repositories might contain data from many taxonomies so they need to be checked and mapped according to one to avoid errors?-->.
 
 Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of open source biodiversity data. However, deciding what naming authority to use can be both challenging and time consuming.
 
 Accurate species delimitation is also crucial for adequate conservation management and understanding evolutionary processes ([Mace 2004](http://localhost:3271/references.html#ref-mace2004role)). Species level lists are the foundation of many conservation decisions: such as the IUCN conservation status classification system. Taxonomic scope therefore has an effect on research application impacts.
 
-What you choose will depend on your own taxonomic research and evaluation, but, also, your scope.
+What you choose will depend on your own taxonomic research and evaluation, but also your scope.
 
 ::: {.callout-note appearance="simple"}
 ## Note
 
 A spatial scope will have many species and may need multiple naming authorities. Similarly, choosing a naming authority may impact your scope by shrinking or enlarging datasets in that it will exclude records outside of that authority (unless converted). **This data change might influence your choice to use a naming authority from a single taxonomic society group or multiple broad sources.**
 :::
+
+<!-- I don't think I understand the above suggestion? I think you need to choose one authority to work from, but some might be more difficult to work with than others. In general, there is usually one or two authorities that are broadly agreed upon, so this shouldn't be too difficult. I'd suggest removing the note. -->
 
 -   Check changes in the taxonomy of your focus species.
 
@@ -231,6 +236,10 @@ These authorities provide a list of accepted and authoritative names as a templa
 
 **insert a mapped example of data changes when changing taxonomic naming authority?**
 
+<!-- The above seems like a difficult ask. Maybe we can find a good example from somewhere online? Maybe we can ask Fonti whether she had something in mind? I think we need an example of a group where this happens, and then create a small taxonomic tree to show these differences -->
+
+
+
 <!-- Is the below content things that were drawn on to write the above? Including references to be inserted? If it isn't, it seems to be repeating things and could probably be deleted. I do like Margot's image though! I think generally the book needs more visuals  -->
 
 For example, the ALA uses multiple naming authorities in a hierarchical format:
@@ -240,6 +249,8 @@ For example, the ALA uses multiple naming authorities in a hierarchical format:
 \*\*remake this? simplify? or remove entirely\*\*
 
 ![](images/image-1066364510.png)
+
+<!-- Looking at this with fresh eyes makes me realise how much this overcomplicates what is communicated in this section. All we are trying to do is provide some examples of taxonomic authorities that a data infrastructure like the ALA uses, and that it's worth double checking this when you download open source data. I think this should be reduced to a table with only the left column included. -->
 
 \*\*make this shorter and include somewhere\*\*\
 \
