@@ -24,8 +24,8 @@ library(arrow)
 
 # Data scope
 
-Data scope refers to the type and breadth of data needed for your project. [Defining your scope let's you...*good things*]. [Without defining your data scope, you might not answer the question you set out to answer.]
-<!-- some suggestions in brackets. This will probably be the level of detail that you need.  -->
+Data scope refers to the type and breadth of data needed for your project. Defining your scope makes it clear what data will need to be collected or retrieved in order to answer your research question and will streamline your research process. 
+
 
 **Your research question will help guide the scope of data you need.**
 
@@ -43,11 +43,8 @@ Consider the following in reference to your research aim:
 ::: {.callout-note appearance="simple"}
 ## Note
 
-Your data scope may change according to the availability of data. Increasing your scope can allow for more data and (sometimes) a more meaningful analysis. Note, for example, that **rare species** tend to have considerably fewer records. Some **sensitive species** data is also obscured or withheld from the general public.
+Your data scope may change according to the availability of data. While the species could be predicted to occur across wide area, data on your species may only be available in a certain locality of that area, or, records could be limited due to the rarity or difficulty of surveying the species. Biodiversity data of this nature can be analysed in a few ways (e.g. [using alpha or convex hulls)](https://labs.ala.org.au/posts/2022-10-12_alpha-hulls/post.html).
 :::
-
-<!-- I see what you are getting at with the above note, but I don't know that increasing the scope of your data is the write suggestion. It's mostly just a consequence of less data, rather than a solution, that you might have to rethink your question when there is less data. If you want to study a rare species, it's not useful to be so broad about your question to not learn anything new about the rare species of interest. Maybe try rewriting to not suggest what to do about this problem, but just make people aware that this can happen  -->
-
 
 ## Taxonomic scope
 
