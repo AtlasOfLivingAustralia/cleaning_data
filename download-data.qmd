@@ -19,41 +19,45 @@ library(dplyr)
 library(arrow)
 ```
 
-# Download occurrence data {#sec-download-data} 
+# Download data {#sec-download-data} 
 
-Once you have decided on your data scope, we can precede to downloading the data. We will introduce a few common data infrastructures that offer open access biodiversity data and highlight some considerations when choosing one in the context of your data scope. We will then discuss some obstacles when consolidating data from multiple sources and the importance of metadata. 
+Once we have decided on our data scope, we can precede to download data. In this section, we will introduce a few common data infrastructures that offer open access biodiversity data and highlight some considerations when choosing one in the context of your data scope. We will then discuss some obstacles when consolidating data from multiple sources and the importance of metadata. 
 
 ## Where to get data from
 
-The [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/) network consists of a series of ‘node’ organisations who collate biodiversity data from their own countries, with GBIF acting as an overarching organisation to store data from all nodes. Users that are interested in obtaining data that has global coverage may want to download directly from GBIF. 
+### Global
 
-Alternatively, using a *regional node* may be more relevant if your project is at a smaller scale. For example, the [Atlas of Living Australia (ALA)](www.ala.org.au) is the Australian node to GBIF and aggregates data from a broad range of providers such as government initiatives, museums, and universities. Importantly, the ALA uses their own taxonomic system and may vary with other data infrastructures. To find other nodes, check out this [page](https://www.gbif.org/the-gbif-network)
+The [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/), and international network and data infrastructure, stores global biodiversity data from many sources around the world. GBIF consists of a series of ‘node’ organisations who collate biodiversity data from their own regions and countries, with GBIF acting as an overarching organisation to store data from all nodes. Users that are interested in obtaining data that has global coverage may want to download directly from GBIF. 
 
-If your project relates to citizen science then [iNaturalist](https://www.inaturalist.org/) may be a good option for accessing crowd-sourced data of species observations.
+### Regional
 
-## Downloading data
+Alternatively, using a *regional node* may be more relevant if your project is at a smaller scale. For example, the [Atlas of Living Australia (ALA)](www.ala.org.au) is the Australian node, [Sistema de Informação sobre a Biodiversidade Brasileira (SiBBr)](https://www.sibbr.gov.br/) is the Brazilian node, and [GBIF Sweden](https://www.gbif.se/) is the Swedish node. Living Atlases like the ALA ingest and aggregate data from a broad range of providers such as government monitoring programs, museums and herbaria, research projects and citizen science initiatives. 
 
-### Taxonomic focus
+To see what national and regional nodes exist, check out [this page](https://www.gbif.org/the-gbif-network).
 
-## Query with choosen naming authority
+Some regional nodes like the ALA and SiBBr use their own taxonomic backbone for classification, which might differ from the taxonomic backbone of other regional or global infrastructures like GBIF. These taxonomic classifications can be useful for classifying local flora and fauna, and accepted by experts of the region. It's worth being aware of what @sec-namingauthorities are used to error caused by classification later on.
 
-(May go before download data or used after download to refine, improve download)
+### Data providers
+
+If your project relates to data from a specific data provider, it might be best to download data directly from the source. For example, a common source of citizen science species observation data is [iNaturalist](https://www.inaturalist.org/). Downloading directly from the data provider may ensure you don't have any stray data from other sources.
+
+<!-- this is a relatively small, uncomprehensive list. Do we want to expand to spatial data? Should we give more examples of websites or packages that contain these data? --> 
+
+
+## How to download data
+
+### Using taxonomic information
+
+#### Naming authorities {#sec-namingauthorities}
+
+Main point: It's worth being aware of what naming authority your taxonomic backbone uses. In some taxonomic groups, these can vary widely. Double checking your data after your download to make sure the classifications you expect are what you have will help prevent errors later on. Otherwise, you can re-code data with incorrect classification manually.
 
 Now that you've chosen a naming authority you can use it to ensure consistency across your data set, but also check you haven't missed any species data from your download.
 
-### Getting higher taxonomy
 
- Downloading higher taxon data (kingdom:class) and then filtering for what you need, as disparities are less common at higher levels (???? Check with Martin)
+#### Searching by classification
 
-
-```{r}
-
-```
-
-### Getting all taxonomy relevant columns
-
-
-  Include the original name that was recorded by the data provider in your download. This is often referred to as `verbatimScientificName`. or vernacularname
+Include the original name that was recorded by the data provider in your download. This is often referred to as `verbatimScientificName`. or vernacularname
 
 
 
@@ -67,7 +71,15 @@ Now that you've chosen a naming authority you can use it to ensure consistency a
 2.  Include synonyms of the species names you're interested in your download
 
 ```{r}
+#| eval: true
+#| echo: true
+library(galah)
+library(gt)
 
+galah_call() |>
+  galah_filter(year > 2019) |>
+  atlas_counts() |>
+  gt()
 ```
 
 
@@ -126,11 +138,15 @@ arrow::write_parquet(pink_robin, "data/galah/pink_robin")
 read_parquet("data/galah/pink_robin")
 ```
 
-### Spatial focus
+### Using spatial information
 
 <!-- Work in progess -->
 <!-- Narrowing your results to a specific spatial area- using `galah_geolocate` or by regions etc, discussions around whether this is best to be placed in this chapter to assist with expaning scope has been raised.  -->
 <!-- Read in shpfile, transform to polygon -->
+
+#### Searching by region
+
+#### Searching with a shapefile
 
 ```{r}
 
@@ -152,6 +168,8 @@ galah_call() |>
 
 
 ## Choosing specific data columns
+
+<!-- This shouldn't be its own section. This is a tool, not necessarily a topic. This information can be worked into another section, but definitely doesn't deserve its own heading -->
 
 By default, `atlas_occurrences` will return a tibble with a selection of columns containing taxonomic and spatial data as well as other metadata. Alternatively, you can use `galah_select` to subset the columns that are relevant for your work. To see all available fields you can choose from:
 
@@ -185,9 +203,13 @@ arrow::write_parquet(pink_robin_projfields, "data/galah/probin_fields")
 read_parquet("data/galah/probin_fields")
 ```
 
+
+
 ## Refining your data download
 
-Open access biodiversity data comes from many different providers such as universities, research institutes (museums and herbariums), government and the general public. As such, data type and quality can vary considerably. For example, museums harbour older records that are associated with a preserved specimen, whereas citizen sourced data are often images captured from a smart phone. 
+<!-- I think this information belongs in the Data Scope chapter. The chapter might even be renamed to "Investigating data", or something. But breaking data down like this by year & data type is how a person checks what is available and makes decisions about what data to include or omit. This also introduces useful tools like `filter()` and `group_by()` + `count()` early on in the workflow  -->
+
+Open access biodiversity data comes from many different data sources, (eg. government monitoring programs, museums, herbaria, research projects, citizen science apps). As such, data type and quality can vary considerably. For example, museums harbour older records that are associated with a preserved specimens. These data often contain lots of extra information (metadata) about a specific specimen and its location. Alternatively, data sourced from citizen science apps like iNaturalist or eBird are associated with images or sounds captured from a smart phone. These data might contain less metadata of each observation, but, thanks to phones' accurate location services, are quite accurate about the time and location of an observation. 
 
 Refining your download query ensures higher quality data and also reduces the download size as many data infrastructures impose constraints to download size. Below we have illustrated how you can refine your query a few quality measures using `galah_filter`. 
 
