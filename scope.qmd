@@ -20,45 +20,46 @@ library(ggplot2)
 library(tidyverse) # group of packages
 library(ozmaps)
 library(arrow)
+library(rmapshaper)
 ```
 
 # Data scope
 
-Data scope refers to the type and breadth of data needed for your project. Defining your scope makes it clear what data will need to be collected or retrieved in order to answer your research question and will streamline your research process. 
+Data scope refers to the type and breadth of data needed for your project.
 
+Defining your scope is an essential part of forming a research question, ultimately impacting what data you will use in your project. Depending on the data available your scope and research question may change. 
 
-**Your research question will help guide the scope of data you need.**
+For example, while your species could be **predicted to occur across a wide area**, data may only be **available in a certain locality** of that area. Records might be limited due to the rarity or difficulty of surveying the species.
 
+Biodiversity data of this nature can be analysed, but, depending on your question and the context, it is worth assessing whether this will reduce the granularity of your research. In other words, at this point you will need to think critically about how a shift in scope may impact your analysis.
 
-Consider the following in reference to your research aim:
+Important questions to ask yourself are:
 
--   What is the **taxonomic** unit of your research question?
+-   What is the **taxonomic** unit of your proposed research question?
 
-    *A broader genera or a species? Is it threatened?*
+    *A broader genera or a species? Is it threatened or sensitive?*
 
--   What is the **spatial** scale of your research question?
+-   What is the **spatial** scale of your proposed research question?
 
     *The entire country? A specific conservation area?*
-
-::: {.callout-note appearance="simple"}
-## Note
-
-Your data scope may change according to the availability of data. While the species could be predicted to occur across wide area, data on your species may only be available in a certain locality of that area, or, records could be limited due to the rarity or difficulty of surveying the species. Biodiversity data of this nature can be analysed in a few ways (e.g. [using alpha or convex hulls)](https://labs.ala.org.au/posts/2022-10-12_alpha-hulls/post.html).
-:::
 
 ## Taxonomic scope
 
 <!-- I don't think the tone is quite right on this section and might need some massaging to get right. I think we are trying to suggest that investigating what data is available is a necessary first step to understand how detailed you can get about a specific question. Then you should think critically about whether the available data is suitable. If it's viable to increase data scope, then this might be a useful way to increase data (but at the expense of granularity of detail)   -->
 
-When the aim is to gather data on a specific taxonomic unit, **reducing** or **increasing** your taxonomic scope may be relevant for a few reasons:
+Taxonomy is a way that we categorise and name organisms. It is a process that allows us to both distinguish and relate different species to one another. 
 
--   Your research requires more data and the research question is viable at a higher taxonomic level (genus, family, order, class..)
+It is always worth investigating *how much* data is available on your taxonomic unit of interest before you start your analysis. 
 
--   Species specific questions are being asked, and you need to refine your taxonomic scope.
+ **Reducing** or **increasing** your taxonomic scope may be relevant for a few reasons:
 
-Depending on these factors your first data download query will be performed using the **scientific name** or the **taxonomic group name**.
+- Specific questions are being asked, and you need to refine your taxonomic scope so that the data only includes the targeted group.
 
-For example, if we were investigating the Green Jewel Bug versus the Red Jewel Bug at the species' level in Australia, we would use *Lampromicra senator* and *Lampromicra aerea*.
+-   Your research requires more data and the research question or analysis is viable at a higher taxonomic level or grouping (genus, family, order, class..). 
+
+Let's say we wanted to investigate the Green Jewel Bug and the Red Jewel Bug in Australia. We have no research question just yet. 
+
+To construct a query, use their scientific names  *Lampromicra senator* and *Lampromicra aerea*. 
 
 ```{r}
 #map Lampromicra senator and aerea
@@ -89,6 +90,7 @@ Curious what *Lampromicra senator* looks like?
 #| echo: true
 #| eval: false
 #| code-fold: true
+aus <- st_transform(ozmaps::ozmap_country, 4326)
 
 library(galah)
 galah_config(email = "ALAemailaddress", atlas = "Australia")
@@ -112,7 +114,7 @@ library(ggplot2)
   theme_void()
 ```
 
-At a wider scale we can look at that *genus* of bugs, *Lampromicra*, as a larger, encompassing **taxonomic group**.
+Now let's look at the Lampronica genus in Australia as a whole. 
 
 ```{r}
 #map Lampromicra senator and aerea
@@ -130,6 +132,7 @@ aus <- st_transform(ozmaps::ozmap_country, 4326)
   xlim(110, 155) +
   theme_void()
 ```
+
 
 ```{r}
 #| echo: true
@@ -158,18 +161,28 @@ library(ggplot2)
   theme_void()
 ```
 
+The sample data here looks very similar to our species-level sample. 
+
+Looking at our data frame, there are around 40 more occurrence records in the genus level data. These might be occurrence records that have only been able to be identified to the genus level, or, they could be a cluster of another Lampromicra species that we have not queried here. 
+
+Regardless, this is a good example of where you might make the decision to use species level data even if your research question addresses the genus level. There doesn't seem to be a large proportion of data only identified to the genus level (40 at most). In this case, refining your data to a species level will allow you to investigate genus related questions as well as allow a finer-grain analysis of species level distributions if found to be relevant to your analysis at any point. Alternatively, you could  note this distinction between the genus and species level data and download them both. 
+
+
 ## Spatial scope
 
 <!-- Same suggestion as in the above chapter that this might need some rewording to show how investigating data at different spatial scales is useful for defining what scope is realistic for your project/question. The goal (I think) might be to similarly show a preview of what investigating data by different sized regions might be useful (or checking which regions have the most data, and just working in that area).  -->
 
-When the aim is to obtain data for targeted taxa in a given location, [it might be useful to see how much data there is at different spatial scales.]
+It is also useful to investigate how much data there are at different spatial scales for your research.
 
--   the **region name**, or;
+If your proposed research question is restricted to a particular area, you will need to adjust your spatial scope accordingly. Keep in mind though that some areas or regions might have more data than others for a variety of reasons.  
 
--   the **area boundaries**
+To define a spatial scope, you can:
 
-can be used to delimit the area of interest.\
-\
+-   Outline the  **region name** in your data query (only download data in that region)
+
+-   Delineate **area boundaries** around your data (download a larger scale of data and draw boundaries)
+
+
 The example below shows all **Insect orders** in the state of Tasmania, Australia:
 
 <!-- Note that we are plotting only 10% of all dataset here  -->
@@ -190,6 +203,49 @@ ggplot() +
   theme_void()
 
 ```
+
+
+
+```{r}
+```
+
+
+
+
+
+
+```{r}
+ibra_shp <- st_read(here("data",
+                         "shapefiles",
+                         "IBRA7_regions",
+                         "ibra7_regions.shp"),
+                    quiet = TRUE) |> 
+  ms_simplify(keep = 0.1)
+
+
+insects <- open_dataset("data/galah/insects") |> collect()
+aus <- st_transform(ozmaps::ozmap_country, 4326)
+
+ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = insects,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = order),
+    size = 0.3,
+  ) +
+  geom_sf(data = ibra_shp, color = "black", fill = NA) +
+  xlim(144.7, 148.5) +
+  theme_void()
+```
+
+
+
+
+
+
+
+
+
 
 ## Naming authorities
 
@@ -234,8 +290,6 @@ These authorities provide a list of accepted and authoritative names as a templa
 **insert a mapped example of data changes when changing taxonomic naming authority?**
 
 <!-- The above seems like a difficult ask. Maybe we can find a good example from somewhere online? Maybe we can ask Fonti whether she had something in mind? I think we need an example of a group where this happens, and then create a small taxonomic tree to show these differences -->
-
-
 
 <!-- Is the below content things that were drawn on to write the above? Including references to be inserted? If it isn't, it seems to be repeating things and could probably be deleted. I do like Margot's image though! I think generally the book needs more visuals  -->
 
