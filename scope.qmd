@@ -20,20 +20,25 @@ library(ggplot2)
 library(tidyverse) # group of packages
 library(ozmaps)
 library(arrow)
-library(rmapshaper)
+library(gt)
+library(galah)
 ```
 
 # Data scope
 
 Data scope refers to the type and breadth of data needed for your project.
 
-Defining your scope is an essential part of forming a research question, ultimately impacting what data you will use in your project. Depending on the data available your scope and research question may change. 
+Defining your scope is an essential part of forming a research question, ultimately impacting what data you will use in your project. Depending on the data available your scope and research question may change.
 
-For example, while your species could be **predicted to occur across a wide area**, data may only be **available in a certain locality** of that area. Records might be limited due to the rarity or difficulty of surveying the species.
+For example, while your species could be **predicted to occur across a wide area**, data may only be **available in a certain locality** of that area. Records might be limited due to the rarity or difficulty of surveying the species. 
 
 Biodiversity data of this nature can be analysed, but, depending on your question and the context, it is worth assessing whether this will reduce the granularity of your research. In other words, at this point you will need to think critically about how a shift in scope may impact your analysis.
 
-Important questions to ask yourself are:
+To start considering a scope important questions to ask yourself are:
+
+-   What time period (or **temporal unit**) of data do you need for your research question?
+
+    *What data is too old?*
 
 -   What is the **taxonomic** unit of your proposed research question?
 
@@ -43,30 +48,71 @@ Important questions to ask yourself are:
 
     *The entire country? A specific conservation area?*
 
+## Temporal scope
+
+Scoping your data to the **time unit** of interest is an important step. You *can* download all available data and filter after the fact, but depending on the species you are downloading, you might find your download query to be very large which will increase your overall data processing time.
+
+Let's say we wanted to investigate how many insects have been observed this year (so far) in Australia.
+
+```{r}
+#| echo: true
+#| eval: false
+galah_call() |>
+  galah_identify("insecta") |>
+  galah_filter(year == 2023) |>
+  atlas_counts()
+```
+
+Here, we can retrieve a *count* for how much insect data there is currently marked as using {galah}.
+
+```{r}
+#| echo: false
+#| code-fold: true
+gt(read_parquet("data/galah/insectcount2023"))
+```
+
+To obtain a data frame of individual occurrences and metadata that will be valuable for analysis (or plotting on a map), use `atlas_occurrences` in {galah} instead of `atlas_counts`. 
+
+```{r}
+#| echo: true
+#| eval: false
+ galah_call() |>
+  galah_identify("insecta") |>
+  galah_filter(year == 2023) |>
+  atlas_occurrences()
+```
+
+```{r}
+#| echo: false
+#| code-fold: true
+gt(read_parquet("data/galah/insectoccurrences2023"))
+```
+
+
 ## Taxonomic scope
 
 <!-- I don't think the tone is quite right on this section and might need some massaging to get right. I think we are trying to suggest that investigating what data is available is a necessary first step to understand how detailed you can get about a specific question. Then you should think critically about whether the available data is suitable. If it's viable to increase data scope, then this might be a useful way to increase data (but at the expense of granularity of detail)   -->
 
-Taxonomy is a way that we categorise and name organisms. It is a process that allows us to both distinguish and relate different species to one another. 
+Taxonomy is a way that we categorise and name organisms. It is a process that allows us to both distinguish and relate different species to one another.
 
-It is always worth investigating *how much* data is available on your taxonomic unit of interest before you start your analysis. 
+It is always worth investigating *how much* data is available on your taxonomic unit of interest before you start your analysis.
 
- **Reducing** or **increasing** your taxonomic scope may be relevant for a few reasons:
+**Reducing** or **increasing** your taxonomic scope may be relevant for a few reasons:
 
-- Specific questions are being asked, and you need to refine your taxonomic scope so that the data only includes the targeted group.
+-   Specific questions are being asked, and you need to refine your taxonomic scope so that the data only includes the targeted group.
 
--   Your research requires more data and the research question or analysis is viable at a higher taxonomic level or grouping (genus, family, order, class..). 
+-   Your research requires more data and the research question or analysis is viable at a higher taxonomic level or grouping (genus, family, order, class..).
 
-Let's say we wanted to investigate the Green Jewel Bug and the Red Jewel Bug in Australia. We have no research question just yet. 
+Let's say we wanted to just wanted to investigate the Green Jewel Bug and the Red Jewel Bug in Australia. We have no research question just yet.
 
-To construct a query, use their scientific names  *Lampromicra senator* and *Lampromicra aerea*. 
+To construct a query, use their scientific names *Lampromicra senator* and *Lampromicra aerea*.
 
 ```{r}
 #map Lampromicra senator and aerea
 lampromicra <- open_dataset("data/galah/lampromicra") |> collect()
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 
- ggplot() +
+ggplot() +
   geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
   geom_point(
     data = lampromicra,
@@ -114,17 +160,17 @@ library(ggplot2)
   theme_void()
 ```
 
-Now let's look at the Lampronica genus in Australia as a whole. 
+Now let's look at the Lampronica genus in Australia as a whole.
 
 ```{r}
 #map Lampromicra senator and aerea
-lampromicra <- open_dataset("data/galah/lampromicragenus") |> collect()
+lampromicragenus <- open_dataset("data/galah/lampromicragenus") |> collect()
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 
- ggplot() +
+ggplot() +
   geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
   geom_point(
-    data = lampromicra,
+    data = lampromicragenus,
     mapping = aes(x = decimalLongitude, y = decimalLatitude, color = genus),
     size = 2,
   ) +
@@ -132,7 +178,6 @@ aus <- st_transform(ozmaps::ozmap_country, 4326)
   xlim(110, 155) +
   theme_void()
 ```
-
 
 ```{r}
 #| echo: true
@@ -142,10 +187,10 @@ aus <- st_transform(ozmaps::ozmap_country, 4326)
 library(galah)
 galah_config(email = "ALAemailaddress", atlas = "Australia")
 
-lampromicra <- galah_call() |>
+lampromicragenus <- galah_call() |>
 galah_identify("Lampromicra") |>
 galah_filter( year > 1950 & year <= 2022) |>
-galah_select(group = "basic", genus) |>
+galah_select(group = "basic") |>
 atlas_occurrences()
 
 library(ggplot2)
@@ -161,11 +206,100 @@ library(ggplot2)
   theme_void()
 ```
 
-The sample data here looks very similar to our species-level sample. 
+The sample data here looks very similar to our species-level sample.
 
-Looking at our data frame, there are around 40 more occurrence records in the genus level data. These might be occurrence records that have only been able to be identified to the genus level, or, they could be a cluster of another Lampromicra species that we have not queried here. 
+Looking at our data frame, there are around 40 more occurrence records in the genus level data. These might be occurrence records that have only been able to be identified to the genus level, or, they could be a cluster of another Lampromicra species that we have not queried here.
 
-Regardless, this is a good example of where you might make the decision to use species level data even if your research question addresses the genus level. There doesn't seem to be a large proportion of data only identified to the genus level (40 at most). In this case, refining your data to a species level will allow you to investigate genus related questions as well as allow a finer-grain analysis of species level distributions if found to be relevant to your analysis at any point. Alternatively, you could  note this distinction between the genus and species level data and download them both. 
+***** include data frame comparison here? ******* and/or patchwork of two plots next to one another? 
+
+
+Regardless, this is a good example of where you might make the decision to use species level data even if your research question addresses the genus level. 
+
+There doesn't seem to be a large proportion of data only identified to the genus level (if true ~ 40 at most). 
+
+In this case, refining the data to a species level will allow you to investigate genus related questions as well as allow a finer-grain analysis of species level distributions if it is to be found to be relevant to your analysis at any point. Alternatively, you could note this distinction between the genus and species level data and hold separate data frames for this analysis. 
+
+**At this point you might decide that there isn't enough data for your research and you want to increase your scope. We could shift our question to assess the distribution of *Lampromicra* within its broader family of genera (*Scutelleridae*).**
+
+Here's how that might look: 
+
+
+```{r}
+#| eval: false
+#| echo: true
+ scutelleridae <- galah_call() |>
+  galah_identify("Scutelleridae") |>
+  galah_select(recordID, scientificName, family, genus, eventDate, decimalLongitude, decimalLatitude) |>
+  atlas_occurrences()
+```
+
+
+```{r}
+#map Lampromicra against Scutelleridae
+scutelleridae <- open_dataset("data/galah/scutelleridae") |> collect()
+aus <- st_transform(ozmaps::ozmap_country, 4326)
+
+ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = scutelleridae,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = family),
+    size = 2,
+  ) +
+  geom_point(
+    data = subset(scutelleridae, genus == "Lampromicra"),  # Subset for Lampromicra
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = "Lampromicra"),  # Use a consistent color
+    size = 3,
+    shape = 16,  # Use a different shape for highlighting
+    show.legend = TRUE,  # Show this layer in the legend
+  ) +
+  scale_color_manual(
+    values = c("#B30000", "#FF9999"),  # Define colors for legend entries
+    labels = c("Lampromicra (genus)", "Scutelleridae (family)"),  # Define legend labels
+  ) +
+  labs(color = "") +
+  ylim(-45, -10) +
+  xlim(110, 155) +
+  theme_void()
+```
+
+```{r}
+#| echo: true
+#| eval: false
+#| code-fold: true
+
+library(galah)
+galah_config(email = "ALAemailaddress", atlas = "Australia")
+
+scutelleridae <- galah_call() |>
+  galah_identify("Scutelleridae") |>
+  galah_select(recordID, scientificName, family, genus, eventDate, decimalLongitude, decimalLatitude) |>
+  atlas_occurrences()
+
+ggplot() +
+  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
+  geom_point(
+    data = scutelleridae,
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = family),
+    size = 2,
+  ) +
+  geom_point(
+    data = subset(scutelleridae, genus == "Lampromicra"),  # Subset for Lampromicra
+    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = "Lampromicra"),  # Use a consistent color
+    size = 3,
+    shape = 16,  # Use a different shape for highlighting
+    show.legend = TRUE,  # Show this layer in the legend
+  ) +
+  scale_color_manual(
+    values = c("#B30000", "#FF9999"),  # Define colors for legend entries
+    labels = c("Lampromicra (genus)", "Scutelleridae (family)"),  # Define legend labels
+  ) +
+  labs(color = "") +
+  ylim(-45, -10) +
+  xlim(110, 155) +
+  theme_void()
+```
+
 
 
 ## Spatial scope
@@ -174,14 +308,13 @@ Regardless, this is a good example of where you might make the decision to use s
 
 It is also useful to investigate how much data there are at different spatial scales for your research.
 
-If your proposed research question is restricted to a particular area, you will need to adjust your spatial scope accordingly. Keep in mind though that some areas or regions might have more data than others for a variety of reasons.  
+If your proposed research question is restricted to a particular area, you will need to adjust your spatial scope accordingly. Keep in mind though that some areas or regions might have more data than others for a variety of reasons.
 
 To define a spatial scope, you can:
 
--   Outline the  **region name** in your data query (only download data in that region)
+-   Outline the **region name** in your data query (only download data in that region)
 
 -   Delineate **area boundaries** around your data (download a larger scale of data and draw boundaries)
-
 
 The example below shows all **Insect orders** in the state of Tasmania, Australia:
 
@@ -201,50 +334,12 @@ ggplot() +
   ylim(-44, -39) +
   xlim(144.7, 148.5) +
   theme_void()
-
 ```
 
+**** show how to retrieve a data frame from Tasmania of only records within a select IBRA region, then give a visual example of this ~ zooming ~ in to an IBRA region w. selected data **** 
 
 
-```{r}
-```
-
-
-
-
-
-
-```{r}
-ibra_shp <- st_read(here("data",
-                         "shapefiles",
-                         "IBRA7_regions",
-                         "ibra7_regions.shp"),
-                    quiet = TRUE) |> 
-  ms_simplify(keep = 0.1)
-
-
-insects <- open_dataset("data/galah/insects") |> collect()
-aus <- st_transform(ozmaps::ozmap_country, 4326)
-
-ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = insects,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = order),
-    size = 0.3,
-  ) +
-  geom_sf(data = ibra_shp, color = "black", fill = NA) +
-  xlim(144.7, 148.5) +
-  theme_void()
-```
-
-
-
-
-
-
-
-
+** below to be moved ** 
 
 
 ## Naming authorities
