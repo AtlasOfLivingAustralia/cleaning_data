@@ -27,7 +27,7 @@ Once we have decided on our data scope, we can precede to download data. In this
 
 ### Global
 
-The [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/), and international network and data infrastructure, stores global biodiversity data from many sources around the world. GBIF consists of a series of ‘node’ organisations who collate biodiversity data from their own regions and countries, with GBIF acting as an overarching organisation to store data from all nodes. Users that are interested in obtaining data that has global coverage may want to download directly from GBIF. 
+The [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/), an international network and data infrastructure, stores global biodiversity data from many sources around the world. GBIF consists of a series of ‘node’ organisations who collate biodiversity data from their own regions and countries, with GBIF acting as an overarching organisation to store data from all nodes. Users that are interested in obtaining data that has global coverage may want to download directly from GBIF. 
 
 ### Regional
 
@@ -39,7 +39,7 @@ Some regional nodes like the ALA and SiBBr use their own taxonomic backbone for 
 
 ### Data providers
 
-If your project relates to data from a specific data provider, it might be best to download data directly from the source. For example, a common source of citizen science species observation data is [iNaturalist](https://www.inaturalist.org/). Downloading directly from the data provider may ensure you don't have any stray data from other sources.
+If your project relates to data from a specific data provider, it might be best to download data directly from the source. For example, a common citizen science tool to collect species observations is [iNaturalist](https://www.inaturalist.org/). Downloading directly from the data provider may ensure you don't have any stray data from other sources.
 
 <!-- this is a relatively small, uncomprehensive list. Do we want to expand to spatial data? Should we give more examples of websites or packages that contain these data? --> 
 
@@ -146,11 +146,38 @@ read_parquet("data/galah/pink_robin")
 
 #### Searching by region
 
-#### Searching with a shapefile
+One way to download data is by filtering to an area of interest using fields already in the ALA and {galah}.
 
 ```{r}
+# Show how to download data in galah by finding a field (like by state/territory or smaller region)
+```
 
+#### Searching by bounding box
 
+Another way to download data is by filtering to return observations within a bounding box. 
+
+```{r}
+# Show how to download data in galah with a bounding box
+```
+
+This can be useful when you want to be sure to include records on the border or just outside the border of a defined region (which might affect predictions of where species live in a model).
+
+It can also be useful if you want to filter data yourself.
+
+#### Searching with a shapefile
+
+You can use a **shapefile** to filter observations. Shapefiles are [a file with points to make an outline, they can be simple or complex].
+
+```{r}
+# Show a wkt string constructed as a polygon & a count of points
+# Show a complex shapefile polygon & a count of points
+```
+
+In R, using shapefiles requires using a package for handling spatial data like the {sf} package. [This is because the sf package helps transform & edit our shapefile to be plotted using longitude and latitude using a specified coordinate reference system - define.]
+
+Here is a simple polygon we have constructed for a theoretical "site A". We use `st_as_sf()` and `st_set_crs()` from the convert our shapefile to a spatial object in R, then set its coordinate reference system. This allows us to plot this object with {ggplot2}.
+
+```{r}
 my_polygon <- tibble(site = "A",
        geometry = "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))")
 
@@ -165,6 +192,9 @@ galah_call() |>
   galah_geolocate(wkt) |>
   atlas_species()
 ```
+
+Using shapefiles allows us to return data for very specific shapes, and are useful for long-term analyses of observations in specific regions or areas.
+
 
 
 ## Choosing specific data columns
