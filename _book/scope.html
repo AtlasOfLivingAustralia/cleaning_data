@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.321">
+<meta name="generator" content="quarto-1.3.290">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,26 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -145,13 +160,13 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./download-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download occurrence data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./preclean.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Precleaning</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -200,19 +215,16 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#taxonomic-scope" id="toc-taxonomic-scope" class="nav-link active" data-scroll-target="#taxonomic-scope"><span class="header-section-number">2.1</span> Taxonomic scope</a></li>
-  <li><a href="#spatial-scope" id="toc-spatial-scope" class="nav-link" data-scroll-target="#spatial-scope"><span class="header-section-number">2.2</span> Spatial scope</a></li>
-  <li><a href="#naming-authorities" id="toc-naming-authorities" class="nav-link" data-scroll-target="#naming-authorities"><span class="header-section-number">2.3</span> Naming authorities</a>
-  <ul class="collapse">
-  <li><a href="#choosing-your-taxonomic-naming-authority" id="toc-choosing-your-taxonomic-naming-authority" class="nav-link" data-scroll-target="#choosing-your-taxonomic-naming-authority"><span class="header-section-number">2.3.1</span> Choosing your taxonomic naming authority</a></li>
-  </ul></li>
-  <li><a href="#naming-authorities-1" id="toc-naming-authorities-1" class="nav-link" data-scroll-target="#naming-authorities-1"><span class="header-section-number">2.4</span> Naming authorities</a></li>
-  <li><a href="#naming-authorities-and-taxonomy-in-biodiversity-databases" id="toc-naming-authorities-and-taxonomy-in-biodiversity-databases" class="nav-link" data-scroll-target="#naming-authorities-and-taxonomy-in-biodiversity-databases"><span class="header-section-number">2.5</span> Naming authorities and taxonomy in biodiversity databases</a></li>
+  <li><a href="#an-example-question" id="toc-an-example-question" class="nav-link active" data-scroll-target="#an-example-question"><span class="header-section-number">2.1</span> An example question</a></li>
+  <li><a href="#temporal-scope" id="toc-temporal-scope" class="nav-link" data-scroll-target="#temporal-scope"><span class="header-section-number">2.2</span> Temporal scope</a></li>
+  <li><a href="#taxonomic-scope" id="toc-taxonomic-scope" class="nav-link" data-scroll-target="#taxonomic-scope"><span class="header-section-number">2.3</span> Taxonomic scope</a></li>
+  <li><a href="#spatial-scope" id="toc-spatial-scope" class="nav-link" data-scroll-target="#spatial-scope"><span class="header-section-number">2.4</span> Spatial scope</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.5</span> Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -231,78 +243,281 @@ div.csl-indent {
 
 </header>
 
-<p>Data scope pertains to the type of data needed for your project. Your research question will help guide the scope of data you need.</p>
-<p>Consider the following in reference to your research aim:</p>
+<p>Data scope refers to the type and breadth of data needed for your project. Defining your scope is an essential part of forming a research question, ultimately impacting what data you will use in your project. Depending on the data available, your scope and research question may change.</p>
+<p>For example, you might have a question about several species in the same area. However, data for one or more of those species could be limited because observations are rare, surveying the area where it lives is difficult, or only several historical records exist.</p>
+<p>Without narrowing your data scope, you might find yourself downloading more data than you need, which can needlessly increase how much time is spent processing data prior to analyses. Alternatively, you might find there isn’t enough data to answer your question.</p>
+<p>It’s worth thinking critically about whether the amount of data available will allow you to sufficiently answer your research question.</p>
+<p>To start, some initial questions you might ask are:</p>
 <ul>
-<li>What is the <strong>taxonomic</strong> unit of your research interest? A broader genera or a species? Is it threatened?</li>
-<li>What is the <strong>spatial</strong> scale of your project? The entire country? A specific conservation area?</li>
+<li><p>What is the <strong>temporal</strong> unit relevant for your research question?</p>
+<p><em>Am I only interested in more recent data? Is there data that are too old to be relevant for my question?</em></p></li>
+<li><p>What is the <strong>taxonomic</strong> unit of your proposed research question?</p>
+<p><em>Is my question specific to one or more species in the same taxonomic group? Does it compare between higher taxonomic levels like genus, family or order?</em></p></li>
+<li><p>What is the <strong>spatial</strong> scale of your proposed research question?</p>
+<p><em>Is my question relevant at a global or national level, or is it specific to a region or ecosystem?</em></p></li>
 </ul>
-<p>Your data scope may change according to the availability of data for certain research interests. In some instances, rare species tend to have considerably fewer records.</p>
-<section id="taxonomic-scope" class="level2 page-columns page-full" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="taxonomic-scope"><span class="header-section-number">2.1</span> Taxonomic scope</h2>
-<p>Where the aim of the study is to gather data on a specific taxonomic unit. This could be a threatened species or a broad taxonomic group. The download query is performed using the scientific name, or, name of the taxonomic group.</p>
+<p>Questions like these will help you define what data is most relevant for your research question, and help you begin to think about how much evidence available, and the trade-offs you might make between the specificity of your question and the certainty of your answer.</p>
+<section id="an-example-question" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="an-example-question"><span class="header-section-number">2.1</span> An example question</h2>
+<p>As an example, let’s imagine we were interested in understanding more about the distribution of several Jewel beetles in the genus <em>Lampromicra</em>. Let’s see some ways we might investigate what data are available about them in Australia.</p>
+<div class="quarto-layout-panel">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/1/e/8/9cb8bae2-fba0-45fa-bbfc-6e5fc8588e17/original"></p>
+</div>
+<div class="quarto-figure-spacer quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<p>&nbsp;</p>
+</div>
+</div>
+</div>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/8ad5f2ca-3e69-4665-bf6f-da1054538ab2">Curious what a Jewel beetle looks like? Here is a <em>Lampromicra senator</em> perched on a leaf by Matthew Connors CC-BY-NC 4.0 (Int)</a></p>
+</div>
+</section>
+<section id="temporal-scope" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="temporal-scope"><span class="header-section-number">2.2</span> Temporal scope</h2>
+<p>A good first step to understanding what data are available is to check how many observations there are over different time periods. We can check how many total observations there are in the Atlas of Living Australia (the largest biodiversity data aggregator in Australia) with the following query:</p>
 <div class="cell">
-<div class="cell-output-display">
-<p><img src="scope_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="576"></p>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">atlas_counts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+      count
+      &lt;int&gt;
+1 125686851</code></pre>
 </div>
 </div>
-<aside>
-<p>Curious what <em>Lampromicra senator</em> looks like?</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://images.ala.org.au/store/4/8/8/4/1f4fc763-d21f-4e5d-b803-f931a4c14884/tms/3/2/1.png"><img src="images/Lampromicra.jpeg" class="img-fluid figure-img" width="800"></a></p>
-<p></p><figcaption class="figure-caption">Lampromicra senator perched on a leaf by Dexmond Wells CC-BY-NC 4.0</figcaption><p></p>
-</figure>
-</div>
-</aside>
-</section>
-<section id="spatial-scope" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="spatial-scope"><span class="header-section-number">2.2</span> Spatial scope</h2>
-<p>Where the aim is to obtain data for targeted taxa in a given location. In this case, the region name or area boundaries can be used to delimit the area of interest. The example below shows all Insecta orders in the state of Tasmania in Australia</p>
-<!-- Note that we are plotting only 10% of all dataset here  -->
+<p>Now let’s check how many total insect records there are.</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"insecta"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+    count
+    &lt;int&gt;
+1 5458391</code></pre>
+</div>
+</div>
+<p>Now let’s see how many insects have been observed each year over the last 10 years. We’ll order this by descending year using <code>dplyr::arrange()</code> and <code>dplyr::desc()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"insecta"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2013</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 2
+   year   count
+   &lt;chr&gt;  &lt;int&gt;
+ 1 2023  281187
+ 2 2022  446391
+ 3 2021  354985
+ 4 2020  263757
+ 5 2019  185097
+ 6 2018  228057
+ 7 2017  194184
+ 8 2016  169418
+ 9 2015  124221
+10 2014  126431
+11 2013  115521</code></pre>
+</div>
+</div>
+<p>Now that we have an idea of the total amount of data in the Atlas of Living Australia, let’s try checking how many observations exist of the genus <em>Lampromicra</em>. We’ll first make sure the scientific name <em>Lampromicra</em> returns the taxon information we expect with <code>search_taxa()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">search_taxa</span>(<span class="st">"Lampromicra"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 13
+  search_term scientific_name scientific_name_authorship taxon_concept_id  rank 
+  &lt;chr&gt;       &lt;chr&gt;           &lt;chr&gt;                      &lt;chr&gt;             &lt;chr&gt;
+1 Lampromicra Lampromicra     Stål, 1873                 https://biodiver… genus
+# ℹ 8 more variables: match_type &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;,
+#   class &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, issues &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>This looks correct! Next let’s see how many total observations there are of <em>Lampromicra</em> and how many observations there were in each of the last 10 years.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Lampromicra"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  count
+  &lt;int&gt;
+1  1240</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Lampromicra"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2013</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_group_by</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 2
+   year  count
+   &lt;chr&gt; &lt;int&gt;
+ 1 2023    107
+ 2 2022    229
+ 3 2021    218
+ 4 2020    150
+ 5 2019     75
+ 6 2018     53
+ 7 2017     44
+ 8 2016     42
+ 9 2015     13
+10 2014     14
+11 2013      6</code></pre>
+</div>
+</div>
+<p>There are a growing number of observations from 2012 to 2023 of Jewel beetles in the Atlas of Living Australia, with fewer than 100 observations each year prior to 2020.</p>
+<p>With this information, we might choose to combine data from all years in our analysis (rather than separating them by year). Alternatively, we might decide to only include data since 2020, which might be sufficient to represent where <em>Lampromicra</em> are found and be more relevant because they are more recent observations. These are decisions that might affect the granularity of the research question we ask.</p>
+</section>
+<section id="taxonomic-scope" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="taxonomic-scope"><span class="header-section-number">2.3</span> Taxonomic scope</h2>
+<p>Taxonomy refers to way by which we classify an organism and its relationship to all other organisms. Typically, your research question be concerned with one or more taxonomic groups, ranging from a single species to an entire kingdom (e.g.&nbsp;<em>Plantae</em>).</p>
+<p>In our example, we are interested in understanding more about Jewel beetles in the genus <em>Lampromicra</em>.</p>
+<p>We first might want to know what species there are in the genus <em>Lampromicra</em> and view some additional taxonomic information about them. We can do this by adding <code>atlas_species()</code> to the end of a query in {galah}.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You will need to add an email address <a href="https://auth.ala.org.au/userdetails/registration/createAccount">registered with the Atlas of Living Australia</a> in <code>galah_config()</code> to download species information.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ALA_EMAIL"</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Lampromicra"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_species</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(family<span class="sc">:</span>species_guid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 5
+  family        genus       species             author            species_guid  
+  &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;               &lt;chr&gt;             &lt;chr&gt;         
+1 Scutelleridae Lampromicra Lampromicra senator (Fabricius, 1803) https://biodi…
+2 Scutelleridae Lampromicra Lampromicra aerea   (Distant, 1892)   https://biodi…
+3 Scutelleridae Lampromicra Lampromicra regia   Bergroth, 1895    https://biodi…</code></pre>
+</div>
+</div>
+<p>Our query returned three species in the genus <em>Lampromicra</em>. We can enter the urls returned under <code>species_guid</code> in a web browser if we wished to know more information about any of them.</p>
+<p>We might also wish to check the total number of observations of each of these species. We can check this by grouping our counts by species using <code>galah_group_by(species)</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Lampromicra"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_group_by</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  species             count
+  &lt;chr&gt;               &lt;int&gt;
+1 Lampromicra senator  1008
+2 Lampromicra aerea     162
+3 Lampromicra regia      13</code></pre>
+</div>
+</div>
+<p>Our result shows that the majority of observations of <em>Lampromicra</em> are of the species <em>Lampromicra senator</em>.</p>
+<p>Given this information, we might consider whether our question needs to be made at the species level, or whether we might increase the taxonomic scope to the genus or family level to use more data. Ultimately, the taxonomic scope of your data will depend on how important it is to your question to compare specific taxonomic groups.</p>
+</section>
+<section id="spatial-scope" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="spatial-scope"><span class="header-section-number">2.4</span> Spatial scope</h2>
+<p>It’s useful to investigate the spatial range of available data for your taxonomic group(s) of interest. How specific your question can be may change depending on whether the majority of data is in only a few locations or evenly spread over the entire distribution of a species or taxonomic group.</p>
+<p>For our example question about <em>Lampromicra</em>, we may wish to map where observations in Australia have been made. We can do this by using the {ozmaps} package to download a nice map of Australia, plot it with <code>sf::geom_sf()</code>, and add our observation points on top with <code>geom_point()</code>. We can separate the colours of our points by setting <code>colour = scientificName</code> within the <code>aes()</code> of <code>geom_point()</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You will need to add an email address <a href="https://auth.ala.org.au/userdetails/registration/createAccount">registered with the Atlas of Living Australia</a> in <code>galah_config()</code> to download species information.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># old fonti code. not sure why it's saved?</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># beatles &lt;- open_dataset("data/galah/lampromicra") |&gt; collect() </span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ozmaps)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(paletteer) <span class="co"># colour palettes</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Download data</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ALA_EMAIL"</span>))</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>beetles <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"lampromicra"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>() <span class="co"># remove any NA values</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Get map of australia, set to correct projection for data</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>aus <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ozmaps<span class="sc">::</span>ozmap_country, <span class="dv">4326</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Map</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus, </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>, </span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">"white"</span>, </span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> beetles,</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude, </span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>                           <span class="at">y =</span> decimalLatitude, </span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>                           <span class="at">colour =</span> scientificName),</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="fl">1.8</span>,</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>             <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_paletteer_d</span>(<span class="st">"feathers::eastern_rosella"</span>) <span class="sc">+</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">155</span>), </span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>           <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">45</span>, <span class="sc">-</span><span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="scope_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="576"></p>
+<p><img src="scope_files/figure-html/unnamed-chunk-8-1.png" class="quarto-discovered-preview-image img-fluid" width="576"></p>
 </div>
 </div>
+<p>Plotting our points shows us that observations are spread along the northern and eastern coasts of Australia. We can also see that some observations are only identified to the genus level (e.g.&nbsp;<em>Lampromicra</em>), rather than to a specific species (e.g.&nbsp;<em>Lampromicra aerea</em>).</p>
+<p>There are several places on the east coast of Australia where there are clumps of overlapping points. It’s difficult to tell how many observations there really are in those areas. To investigate, we can create use ggdfdf from the <a href="https://github.com/LKremer/ggpointdensity">{ggpointdensity package}</a> to get an idea of the <em>density</em> of overlapping points.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpointdensity)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus, </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">"white"</span>, </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_pointdensity</span>(<span class="at">data =</span> beetles,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">y =</span> decimalLatitude)) <span class="sc">+</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_paletteer_c</span>(<span class="st">"viridis::plasma"</span>) <span class="sc">+</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">110</span>, <span class="dv">155</span>), </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">45</span>, <span class="sc">-</span><span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="scope_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="576"></p>
+</div>
+</div>
+<p>Adding the density of overlapping points to our map allows us to see that there is one area with many more observations—more than 400 observations are found in the light yellow area!</p>
+<p>Using this information, we might decide to make our research question more specific to the region where there are the most records of <em>Lampromicra</em>. Alternatively, we might decide that there isn’t enough data to make accurate estimates about <em>Lampromicra</em>. Depending on the spatial specificity of your question, you might have to adjust your data scope or your question accordingly.</p>
 </section>
-<section id="naming-authorities" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="naming-authorities"><span class="header-section-number">2.3</span> Naming authorities</h2>
-<!-- Define what naming authority is -->
-<!-- How to choose -->
-<!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
-<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
-<section id="choosing-your-taxonomic-naming-authority" class="level3" data-number="2.3.1">
-<h3 data-number="2.3.1" class="anchored" data-anchor-id="choosing-your-taxonomic-naming-authority"><span class="header-section-number">2.3.1</span> Choosing your taxonomic naming authority</h3>
-<p>Naming authorities are the different organisations that provide updated or revised lists of species taxonomic splits or taxonomic history following new research. Species names in these lists vary as there may be disagreements as to what distinguishes a new genus, species, subspecies etc. Open source repositories are often provided with conflicting taxonomies that leaving them open to a degree of error.</p>
-<p>Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of open source biodiversity data. However, deciding what naming authority to use can be both challenging and time consuming. What you choose will depend on your own taxonomic research and evaluation, but, also, your scope. A <strong>spatial</strong> scope will have many species and may need multiple naming authorities. On the other hand, choosing a naming authority can impact your scope by shrinking or enlarging datasets.</p>
-<ol type="1">
-<li><p>Checking changes in the taxonomy of your focus species can be helpful when interpreting old data which may have species names you don’t recognize, or, when using data citing a different naming authority to another data set you wish to consolidate it with. This can be achieved by consulting the literature.</p></li>
-<li><p>Most taxonomic society groups also release annual updates on taxonomy.</p></li>
-</ol>
-<p>In Australia, the <a href="https://www.anbg.gov.au/apni/">Australian Plant Name Index (APNI)</a> is the primary naming authority for plants. With the <a href="https://biodiversity.org.au/afd/home">Australian Faunal Directory (AFD)</a> the main taxonomic catalog for animal species. These authorities provide a list of accepted and authoritative names as a template. If you’re unsure what naming authority to use and you’re looking at Australian species, the APNI and the AFD are a good place to start, especially if the data you’re investigating covers a wide range of taxa. If you’re investigating specific taxa it’s worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we’ve provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.</p>
-<!-- Is the below content things that were drawn on to write the above? Including references to be inserted? If it isn't, it seems to be repeating things and could probably be deleted. I do like Margot's image though! I think generally the book needs more visuals  -->
-</section>
-</section>
-<section id="naming-authorities-1" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="naming-authorities-1"><span class="header-section-number">2.4</span> Naming authorities</h2>
-<p>Accurate species delimitation is crucial for adequate conservation management and understanding evolutionary processes <span class="citation" data-cites="mace2004role">(<a href="references.html#ref-mace2004role" role="doc-biblioref">Mace 2004</a>)</span>. Species-level lists are also the foundation of conservation decisions, such as is the IUCN Red List <span class="citation" data-cites="melville21">(<a href="references.html#ref-melville21" role="doc-biblioref"><strong>melville21?</strong></a>)</span>.</p>
-<p>The difference in scope might influence if you choose to use a naming authority from a taxonomic society group or multiple broad sources.</p>
-</section>
-<section id="naming-authorities-and-taxonomy-in-biodiversity-databases" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="naming-authorities-and-taxonomy-in-biodiversity-databases"><span class="header-section-number">2.5</span> Naming authorities and taxonomy in biodiversity databases</h2>
-<p>When you download data from different databases you might be faced with inconsistencies between the datasets. This is a challenge that data aggregators face when ingesting and aggregating data. This is a large task with lots of heterogeneity and can lead to errors along the way. To help deal with naming inconsistencies, naming authorities are used by online biodiversity databases in order to classify species [REF]. Different databases might use different naming authorities, and you might not agree with their classifications. There may be other issues you are not aware of: For example, the ALA uses multiple naming authorities in a hierarchical format:</p>
-<p>(note image is from a helpfile I wrote- we can re-do it so it’s consistent with the style of this document)</p>
-<p><img src="images/image-1066364510.png" class="img-fluid"></p>
-<p>With all that, open source data has many pros, so how does one deal with taxonomic inconsistencies to get the most accurate data in the end?</p>
-<p>While this is in theory how the ALAs backbone is built, issues can occur with aggregation leading to potentially serious problems with the taxonomic structure. In addition data can be parsed incorrectly, and the process isn’t transparent. Meaning that when the taxonomic backbone is updated, the elements that have changed are untraceable. These issues are not specific to ALA taxonomy, but occur in varying forms among data aggregators.</p>
+<section id="summary" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.5</span> Summary</h2>
+<p>This chapter has demonstrated some ways to initially investigate the data available to answer a research question using the {galah} package. This is just a small example of how you might go about interogating the data to think critically about your data scope.</p>
+<p>The next chapter will explain how you can download and save your data set to begin the first step of your analysis.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-mace2004role" class="csl-entry" role="listitem">
-Mace, Georgina M. 2004. <span>“The Role of Taxonomy in Species Conservation.”</span> <em>Philosophical Transactions of the Royal Society of London. Series B: Biological Sciences</em> 359 (1444): 711–19.
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
@@ -547,7 +762,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./download-data.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download occurrence data</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

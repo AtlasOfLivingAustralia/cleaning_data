@@ -4,407 +4,244 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r, setup, include=FALSE}
+```{r setup}
+#| include: false
 knitr::opts_chunk$set(
   comment = '', 
   fig.width = 6, 
-  fig.height = 6,
-  echo = FALSE,
-  warning = FALSE
+  fig.height = 6
 )
 
 library(here)
 library(sf)
-library(dplyr)
-library(ggplot2)
 library(tidyverse) # group of packages
 library(ozmaps)
 library(arrow)
 library(gt)
 library(galah)
+library(paletteer)
+galah_config(verbose = FALSE)
 ```
 
 # Data scope
 
-Data scope refers to the type and breadth of data needed for your project.
+Data scope refers to the type and breadth of data needed for your project. Defining your scope is an essential part of forming a research question, ultimately impacting what data you will use in your project. Depending on the data available, your scope and research question may change.
 
-Defining your scope is an essential part of forming a research question, ultimately impacting what data you will use in your project. Depending on the data available your scope and research question may change.
+For example, you might have a question about several species in the same area. However, data for one or more of those species could be limited because observations are rare, surveying the area where it lives is difficult, or only several historical records exist. 
 
-For example, while your species could be **predicted to occur across a wide area**, data may only be **available in a certain locality** of that area. Records might be limited due to the rarity or difficulty of surveying the species. 
+Without narrowing your data scope, you might find yourself downloading more data than you need, which can needlessly increase how much time is spent processing data prior to analyses. Alternatively, you might find there isn't enough data to answer your question.
 
-Biodiversity data of this nature can be analysed, but, depending on your question and the context, it is worth assessing whether this will reduce the granularity of your research. In other words, at this point you will need to think critically about how a shift in scope may impact your analysis.
+It's worth thinking critically about whether the amount of data available will allow you to sufficiently answer your research question.
 
-To start considering a scope important questions to ask yourself are:
+To start, some initial questions you might ask are:
 
--   What time period (or **temporal unit**) of data do you need for your research question?
+-   What is the **temporal** unit relevant for your research question?
 
-    *What data is too old?*
+    *Am I only interested in more recent data? Is there data that are too old to be relevant for my question?*
 
 -   What is the **taxonomic** unit of your proposed research question?
 
-    *A broader genera or a species? Is it threatened or sensitive?*
+    *Is my question specific to one or more species in the same taxonomic group? Does it compare between higher taxonomic levels like genus, family or order?*
 
 -   What is the **spatial** scale of your proposed research question?
 
-    *The entire country? A specific conservation area?*
+    *Is my question relevant at a global or national level, or is it specific to a region or ecosystem?*
+
+Questions like these will help you define what data is most relevant for your research question, and help you begin to think about how much evidence available, and the trade-offs you might make between the specificity of your question and the certainty of your answer.
+
+
+## An example question
+
+As an example, let's imagine we were interested in understanding more about the distribution of several Jewel beetles in the genus *Lampromicra*. Let's see some ways we might investigate what data are available about them in Australia.
+
+:::{layout="[-1, 1, -1]"}
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/1/e/8/9cb8bae2-fba0-45fa-bbfc-6e5fc8588e17/original"></img>
+:::
+::: {.figure-caption}
+[Curious what a Jewel beetle looks like? Here is a *Lampromicra senator* perched on a leaf by Matthew Connors CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/8ad5f2ca-3e69-4665-bf6f-da1054538ab2)
+:::
 
 ## Temporal scope
 
-Scoping your data to the **time unit** of interest is an important step. You *can* download all available data and filter after the fact, but depending on the species you are downloading, you might find your download query to be very large which will increase your overall data processing time.
-
-Let's say we wanted to investigate how many insects have been observed this year (so far) in Australia.
+A good first step to understanding what data are available is to check how many observations there are over different time periods. We can check how many total observations there are in the Atlas of Living Australia (the largest biodiversity data aggregator in Australia) with the following query:
 
 ```{r}
-#| echo: true
-#| eval: false
+#| warning: false
+#| message: false
+library(galah)
+
+atlas_counts()
+```
+
+Now let's check how many total insect records there are.
+
+```{r}
 galah_call() |>
   galah_identify("insecta") |>
-  galah_filter(year == 2023) |>
   atlas_counts()
 ```
 
-Here, we can retrieve a *count* for how much insect data there is currently marked as using {galah}.
+Now let's see how many insects have been observed each year over the last 10 years. We'll order this by descending year using `dplyr::arrange()` and `dplyr::desc()`.
 
 ```{r}
-#| echo: false
-#| code-fold: true
-gt(read_parquet("data/galah/insectcount2023"))
-```
+#| warning: false
+#| message: false
+library(dplyr)
 
-To obtain a data frame of individual occurrences and metadata that will be valuable for analysis (or plotting on a map), use `atlas_occurrences` in {galah} instead of `atlas_counts`. 
-
-```{r}
-#| echo: true
-#| eval: false
- galah_call() |>
+galah_call() |>
   galah_identify("insecta") |>
-  galah_filter(year == 2023) |>
-  atlas_occurrences()
+  galah_filter(year >= 2013) |>
+  galah_group_by(year) |>
+  atlas_counts() |>
+  dplyr::arrange(dplyr::desc(year))
 ```
+
+Now that we have an idea of the total amount of data in the Atlas of Living Australia, let's try checking how many observations exist of the genus *Lampromicra*. We'll first make sure the scientific name *Lampromicra* returns the taxon information we expect with `search_taxa()`.
 
 ```{r}
-#| echo: false
-#| code-fold: true
-gt(read_parquet("data/galah/insectoccurrences2023"))
+search_taxa("Lampromicra")
 ```
 
+This looks correct! Next let's see how many total observations there are of *Lampromicra* and how many observations there were in each of the last 10 years.
+
+```{r}
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  atlas_counts()
+
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  galah_filter(year >= 2013) |>
+  galah_group_by(year) |>
+  atlas_counts() |>
+  dplyr::arrange(dplyr::desc(year))
+```
+
+There are a growing number of observations from 2012 to 2023 of Jewel beetles in the Atlas of Living Australia, with fewer than 100 observations each year prior to 2020. 
+
+With this information, we might choose to combine data from all years in our analysis (rather than separating them by year). Alternatively, we might decide to only include data since 2020, which might be sufficient to represent where *Lampromicra* are found and be more relevant because they are more recent observations. These are decisions that might affect the granularity of the research question we ask.
 
 ## Taxonomic scope
 
-<!-- I don't think the tone is quite right on this section and might need some massaging to get right. I think we are trying to suggest that investigating what data is available is a necessary first step to understand how detailed you can get about a specific question. Then you should think critically about whether the available data is suitable. If it's viable to increase data scope, then this might be a useful way to increase data (but at the expense of granularity of detail)   -->
+Taxonomy refers to way by which we classify an organism and its relationship to all other organisms. Typically, your research question be concerned with one or more taxonomic groups, ranging from a single species to an entire kingdom (e.g. *Plantae*). 
 
-Taxonomy is a way that we categorise and name organisms. It is a process that allows us to both distinguish and relate different species to one another.
+In our example, we are interested in understanding more about Jewel beetles in the genus *Lampromicra*.
 
-It is always worth investigating *how much* data is available on your taxonomic unit of interest before you start your analysis.
+We first might want to know what species there are in the genus *Lampromicra* and view some additional taxonomic information about them. We can do this by adding `atlas_species()` to the end of a query in {galah}.
 
-**Reducing** or **increasing** your taxonomic scope may be relevant for a few reasons:
-
--   Specific questions are being asked, and you need to refine your taxonomic scope so that the data only includes the targeted group.
-
--   Your research requires more data and the research question or analysis is viable at a higher taxonomic level or grouping (genus, family, order, class..).
-
-Let's say we wanted to just wanted to investigate the Green Jewel Bug and the Red Jewel Bug in Australia. We have no research question just yet.
-
-To construct a query, use their scientific names *Lampromicra senator* and *Lampromicra aerea*.
+:::{.callout-note}
+You will need to add an email address [registered with the Atlas of Living Australia](https://auth.ala.org.au/userdetails/registration/createAccount) in `galah_config()` to download species information.
+:::
 
 ```{r}
-#map Lampromicra senator and aerea
-lampromicra <- open_dataset("data/galah/lampromicra") |> collect()
-aus <- st_transform(ozmaps::ozmap_country, 4326)
+galah_config(email = Sys.getenv("ALA_EMAIL"))
 
-ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = lampromicra,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = scientificName),
-    size = 2,
-  ) +
-  ylim(-45, -10) +
-  xlim(110, 155) +
-  theme_void()
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  atlas_species() |>
+  select(family:species_guid)
 ```
 
-<aside>
+Our query returned three species in the genus *Lampromicra*. We can enter the urls returned under `species_guid` in a web browser if we wished to know more information about any of them.
 
-Curious what *Lampromicra senator* looks like?
-
-[![Lampromicra senator perched on a leaf by Dexmond Wells CC-BY-NC 4.0](images/Lampromicra.jpeg){width="800"}](https://images.ala.org.au/store/4/8/8/4/1f4fc763-d21f-4e5d-b803-f931a4c14884/tms/3/2/1.png)
-
-</aside>
+We might also wish to check the total number of observations of each of these species. We can check this by grouping our counts by species using `galah_group_by(species)`
 
 ```{r}
-#| echo: true
-#| eval: false
-#| code-fold: true
-aus <- st_transform(ozmaps::ozmap_country, 4326)
-
-library(galah)
-galah_config(email = "ALAemailaddress", atlas = "Australia")
-
-lampromicra <- galah_call() |>
-galah_identify("Lampromicra aerea", "Lampromicra senator") |>
-galah_filter( year > 1950 & year <= 2022) |>
-galah_select(group = "basic") |>
-atlas_occurrences()
-
-library(ggplot2)
- ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = lampromicra,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = scientificName),
-    size = 2,
-  ) +
-  ylim(-45, -10) +
-  xlim(110, 155) +
-  theme_void()
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  galah_group_by(species) |>
+  atlas_counts()
 ```
 
-Now let's look at the Lampronica genus in Australia as a whole.
+Our result shows that the majority of observations of *Lampromicra* are of the species *Lampromicra senator*. 
 
-```{r}
-#map Lampromicra senator and aerea
-lampromicragenus <- open_dataset("data/galah/lampromicragenus") |> collect()
-aus <- st_transform(ozmaps::ozmap_country, 4326)
-
-ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = lampromicragenus,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = genus),
-    size = 2,
-  ) +
-  ylim(-45, -10) +
-  xlim(110, 155) +
-  theme_void()
-```
-
-```{r}
-#| echo: true
-#| eval: false
-#| code-fold: true
-
-library(galah)
-galah_config(email = "ALAemailaddress", atlas = "Australia")
-
-lampromicragenus <- galah_call() |>
-galah_identify("Lampromicra") |>
-galah_filter( year > 1950 & year <= 2022) |>
-galah_select(group = "basic") |>
-atlas_occurrences()
-
-library(ggplot2)
- ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = lampromicra,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = genus),
-    size = 2,
-  ) +
-  ylim(-45, -10) +
-  xlim(110, 155) +
-  theme_void()
-```
-
-The sample data here looks very similar to our species-level sample.
-
-Looking at our data frame, there are around 40 more occurrence records in the genus level data. These might be occurrence records that have only been able to be identified to the genus level, or, they could be a cluster of another Lampromicra species that we have not queried here.
-
-***** include data frame comparison here? ******* and/or patchwork of two plots next to one another? 
-
-
-Regardless, this is a good example of where you might make the decision to use species level data even if your research question addresses the genus level. 
-
-There doesn't seem to be a large proportion of data only identified to the genus level (if true ~ 40 at most). 
-
-In this case, refining the data to a species level will allow you to investigate genus related questions as well as allow a finer-grain analysis of species level distributions if it is to be found to be relevant to your analysis at any point. Alternatively, you could note this distinction between the genus and species level data and hold separate data frames for this analysis. 
-
-**At this point you might decide that there isn't enough data for your research and you want to increase your scope. We could shift our question to assess the distribution of *Lampromicra* within its broader family of genera (*Scutelleridae*).**
-
-Here's how that might look: 
-
-
-```{r}
-#| eval: false
-#| echo: true
- scutelleridae <- galah_call() |>
-  galah_identify("Scutelleridae") |>
-  galah_select(recordID, scientificName, family, genus, eventDate, decimalLongitude, decimalLatitude) |>
-  atlas_occurrences()
-```
-
-
-```{r}
-#map Lampromicra against Scutelleridae
-scutelleridae <- open_dataset("data/galah/scutelleridae") |> collect()
-aus <- st_transform(ozmaps::ozmap_country, 4326)
-
-ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = scutelleridae,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = family),
-    size = 2,
-  ) +
-  geom_point(
-    data = subset(scutelleridae, genus == "Lampromicra"),  # Subset for Lampromicra
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = "Lampromicra"),  # Use a consistent color
-    size = 3,
-    shape = 16,  # Use a different shape for highlighting
-    show.legend = TRUE,  # Show this layer in the legend
-  ) +
-  scale_color_manual(
-    values = c("#B30000", "#FF9999"),  # Define colors for legend entries
-    labels = c("Lampromicra (genus)", "Scutelleridae (family)"),  # Define legend labels
-  ) +
-  labs(color = "") +
-  ylim(-45, -10) +
-  xlim(110, 155) +
-  theme_void()
-```
-
-```{r}
-#| echo: true
-#| eval: false
-#| code-fold: true
-
-library(galah)
-galah_config(email = "ALAemailaddress", atlas = "Australia")
-
-scutelleridae <- galah_call() |>
-  galah_identify("Scutelleridae") |>
-  galah_select(recordID, scientificName, family, genus, eventDate, decimalLongitude, decimalLatitude) |>
-  atlas_occurrences()
-
-ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = scutelleridae,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = family),
-    size = 2,
-  ) +
-  geom_point(
-    data = subset(scutelleridae, genus == "Lampromicra"),  # Subset for Lampromicra
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, color = "Lampromicra"),  # Use a consistent color
-    size = 3,
-    shape = 16,  # Use a different shape for highlighting
-    show.legend = TRUE,  # Show this layer in the legend
-  ) +
-  scale_color_manual(
-    values = c("#B30000", "#FF9999"),  # Define colors for legend entries
-    labels = c("Lampromicra (genus)", "Scutelleridae (family)"),  # Define legend labels
-  ) +
-  labs(color = "") +
-  ylim(-45, -10) +
-  xlim(110, 155) +
-  theme_void()
-```
-
+Given this information, we might consider whether our question needs to be made at the species level, or whether we might increase the taxonomic scope to the genus or family level to use more data. Ultimately, the taxonomic scope of your data will depend on how important it is to your question to compare specific taxonomic groups.
 
 
 ## Spatial scope
 
-<!-- Same suggestion as in the above chapter that this might need some rewording to show how investigating data at different spatial scales is useful for defining what scope is realistic for your project/question. The goal (I think) might be to similarly show a preview of what investigating data by different sized regions might be useful (or checking which regions have the most data, and just working in that area).  -->
+It's useful to investigate the spatial range of available data for your taxonomic group(s) of interest. How specific your question can be may change depending on whether the majority of data is in only a few locations or evenly spread over the entire distribution of a species or taxonomic group.
 
-It is also useful to investigate how much data there are at different spatial scales for your research.
+For our example question about *Lampromicra*, we may wish to map where observations in Australia have been made. We can do this by using the {ozmaps} package to download a nice map of Australia, plot it with `sf::geom_sf()`, and add our observation points on top with `geom_point()`. We can separate the colours of our points by setting `colour = scientificName` within the `aes()` of `geom_point()`.
 
-If your proposed research question is restricted to a particular area, you will need to adjust your spatial scope accordingly. Keep in mind though that some areas or regions might have more data than others for a variety of reasons.
-
-To define a spatial scope, you can:
-
--   Outline the **region name** in your data query (only download data in that region)
-
--   Delineate **area boundaries** around your data (download a larger scale of data and draw boundaries)
-
-The example below shows all **Insect orders** in the state of Tasmania, Australia:
-
-<!-- Note that we are plotting only 10% of all dataset here  -->
+:::{.callout-note}
+You will need to add an email address [registered with the Atlas of Living Australia](https://auth.ala.org.au/userdetails/registration/createAccount) in `galah_config()` to download species information.
+:::
 
 ```{r}
-insects <- open_dataset("data/galah/insects") |> collect()
+# old fonti code. not sure why it's saved?
+# beatles <- open_dataset("data/galah/lampromicra") |> collect() 
+library(ozmaps)
+library(sf)
+library(ggplot2)
+library(paletteer) # colour palettes
+
+# Download data
+galah_config(email = Sys.getenv("ALA_EMAIL"))
+
+beetles <- galah_call() |>
+  galah_identify("lampromicra") |>
+  atlas_occurrences() |>
+  tidyr::drop_na() # remove any NA values
+
+# Get map of australia, set to correct projection for data
 aus <- st_transform(ozmaps::ozmap_country, 4326)
 
+# Map
 ggplot() +
-  geom_sf(data = aus, size = 0.05, fill = "#B7CD96") +
-  geom_point(
-    data = insects,
-    mapping = aes(x = decimalLongitude, y = decimalLatitude, colour = order),
-    size = 0.3,
-  ) +
-  ylim(-44, -39) +
-  xlim(144.7, 148.5) +
+  geom_sf(data = aus, 
+          colour = "grey60", 
+          fill = "white", 
+          alpha = 0.2) +
+  geom_point(data = beetles,
+             mapping = aes(x = decimalLongitude, 
+                           y = decimalLatitude, 
+                           colour = scientificName),
+             size = 1.8,
+             alpha = 0.6) +
+  scale_color_paletteer_d("feathers::eastern_rosella") +
+  coord_sf(xlim = c(110, 155), 
+           ylim = c(-45, -10)) +
   theme_void()
 ```
 
-**** show how to retrieve a data frame from Tasmania of only records within a select IBRA region, then give a visual example of this ~ zooming ~ in to an IBRA region w. selected data **** 
+
+Plotting our points shows us that observations are spread along the northern and eastern coasts of Australia. We can also see that some observations are only identified to the genus level (e.g. *Lampromicra*), rather than to a specific species (e.g. *Lampromicra aerea*).
+
+There are several places on the east coast of Australia where there are clumps of overlapping points. It's difficult to tell how many observations there really are in those areas. To investigate, we can create use ggdfdf from the [{ggpointdensity package}](https://github.com/LKremer/ggpointdensity) to get an idea of the *density* of overlapping points.
+
+```{r}
+library(ggpointdensity)
+
+ggplot() +
+  geom_sf(data = aus, 
+          colour = "grey60", 
+          fill = "white", 
+          alpha = 0.2) +
+  geom_pointdensity(data = beetles,
+                    mapping = aes(x = decimalLongitude,
+                                  y = decimalLatitude)) +
+  scale_color_paletteer_c("viridis::plasma") +
+  coord_sf(xlim = c(110, 155), 
+           ylim = c(-45, -10)) +
+  theme_void()
+```
+
+Adding the density of overlapping points to our map allows us to see that there is one area with many more observations—more than 400 observations are found in the light yellow area!
+
+Using this information, we might decide to make our research question more specific to the region where there are the most records of *Lampromicra*. Alternatively, we might decide that there isn't enough data to make accurate estimates about *Lampromicra*. Depending on the spatial specificity of your question, you might have to adjust your data scope or your question accordingly.
+
+## Summary
+
+This chapter has demonstrated some ways to initially investigate the data available to answer a research question using the {galah} package. This is just a small example of how you might go about interogating the data to think critically about your data scope.
+
+The next chapter will explain how you can download and save your data set to begin the first step of your analysis.
 
 
-** below to be moved ** 
-
-
-## Naming authorities
-
-<!-- Define what naming authority is -->
-
-<!-- How to choose -->
-
-<!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
-
-<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
-
-### Choosing your taxonomic naming authority
-
-Naming authorities are the different organisations that provide updated or revised lists of species, and where they fit on the taxonomic tree <!--Is this definition from somewhere? Might be good to try to find one (though in a quick google, this isn't easy-->. Species names in these lists vary as there may be disagreements as to what distinguishes a new genus, species, subspecies etc. <!--Again, might be good to find this from somewhere else because I don't think that's necessarily always why - some groups consider higher taxonomic clades unified or separate, so it's not just species/genera-->
-
-Open source repositories are often provided with conflicting taxonomies that leave them open to a degree of error <!--Not sure if you wrote this but I think it's not clear what this means? I think this is referring to the fact that open source repositories might contain data from many taxonomies so they need to be checked and mapped according to one to avoid errors?-->.
-
-Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of open source biodiversity data. However, deciding what naming authority to use can be both challenging and time consuming.
-
-Accurate species delimitation is also crucial for adequate conservation management and understanding evolutionary processes ([Mace 2004](http://localhost:3271/references.html#ref-mace2004role)). Species level lists are the foundation of many conservation decisions: such as the IUCN conservation status classification system. Taxonomic scope therefore has an effect on research application impacts.
-
-What you choose will depend on your own taxonomic research and evaluation, but also your scope.
-
-::: {.callout-note appearance="simple"}
-## Note
-
-A spatial scope will have many species and may need multiple naming authorities. Similarly, choosing a naming authority may impact your scope by shrinking or enlarging datasets in that it will exclude records outside of that authority (unless converted). **This data change might influence your choice to use a naming authority from a single taxonomic society group or multiple broad sources.**
-:::
-
-<!-- I don't think I understand the above suggestion? I think you need to choose one authority to work from, but some might be more difficult to work with than others. In general, there is usually one or two authorities that are broadly agreed upon, so this shouldn't be too difficult. I'd suggest removing the note. -->
-
--   Check changes in the taxonomy of your focus species.
-
-    This can be helpful when interpreting old data which may have species names you don't recognize, or, when using data citing a different naming authority to another data set you wish to consolidate it with. **This can be achieved by consulting the taxonomic literature.**
-
--   Most taxonomic society groups also release annual updates on taxonomy.
-
-In Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species.
-
-These authorities provide a list of accepted and authoritative names as a template. If you're unsure what naming authority to use and you're looking at Australian species, the APNI and the AFD are a good place to start, especially if the data you're investigating covers a wide range of taxa. If you're investigating specific taxa it's worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we've provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.
-
-**insert a mapped example of data changes when changing taxonomic naming authority?**
-
-<!-- The above seems like a difficult ask. Maybe we can find a good example from somewhere online? Maybe we can ask Fonti whether she had something in mind? I think we need an example of a group where this happens, and then create a small taxonomic tree to show these differences -->
-
-<!-- Is the below content things that were drawn on to write the above? Including references to be inserted? If it isn't, it seems to be repeating things and could probably be deleted. I do like Margot's image though! I think generally the book needs more visuals  -->
-
-For example, the ALA uses multiple naming authorities in a hierarchical format:
-
-(note image is from a helpfile I wrote- we can re-do it so it's consistent with the style of this document)
-
-\*\*remake this? simplify? or remove entirely\*\*
-
-![](images/image-1066364510.png)
-
-<!-- Looking at this with fresh eyes makes me realise how much this overcomplicates what is communicated in this section. All we are trying to do is provide some examples of taxonomic authorities that a data infrastructure like the ALA uses, and that it's worth double checking this when you download open source data. I think this should be reduced to a table with only the left column included. -->
-
-\*\*make this shorter and include somewhere\*\*\
-\
-With all that, open source data has many pros, so how does one deal with taxonomic inconsistencies to get the most accurate data in the end?
-
-While this is in theory how the ALAs backbone is built, issues can occur with aggregation leading to potentially serious problems with the taxonomic structure. In addition data can be parsed incorrectly, and the process isn't transparent. Meaning that when the taxonomic backbone is updated, the elements that have changed are untraceable. These issues are not specific to ALA taxonomy, but occur in varying forms among data aggregators.
 
 ```{r, include=FALSE}
+# old fonti code to get data that she saved
+
 # Code to generate data that is in this page
 
 # galah_config(email = ALA_mail, atlas = "Australia")

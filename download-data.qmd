@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 library(galah)
 library(dplyr)
 library(arrow)
+library(gt)
 ```
 
 # Download data {#sec-download-data} 
@@ -50,7 +51,35 @@ If your project relates to data from a specific data provider, it might be best 
 
 #### Naming authorities {#sec-namingauthorities}
 
-Main point: It's worth being aware of what naming authority your taxonomic backbone uses. In some taxonomic groups, these can vary widely. Double checking your data after your download to make sure the classifications you expect are what you have will help prevent errors later on. Otherwise, you can re-code data with incorrect classification manually.
+<!-- Define what naming authority is -->
+
+<!-- How to choose -->
+
+<!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
+
+<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
+
+<!-- Note from Dax here! I think putting too much detail here will be very offputting, but knowing about naming authorities and being aware that it's something you need to check is important to speak about at this point in the book. I think it might be best to vaguely explain what a naming authority is, and that there are many of them because taxonomy is hard. Then extra information can be placed in an appendix at the end of the chapter? Or at the end of the book? At the moment, I've pasted what I think is excess information at the bottom of the chapter. --> 
+
+<!-- Main point: It's worth being aware of what naming authority your taxonomic backbone uses. In some taxonomic groups, these can vary widely. Double checking your data after your download to make sure the classifications you expect are what you have will help prevent errors later on. Otherwise, you can re-code data with incorrect classification manually. --> 
+
+### Choosing your taxonomic naming authority
+
+Naming authorities are the people or organisations that create updated or revised lists of species, and where they fit on the taxonomic tree. Species names and taxonomic groups in these lists vary as there may be disagreements between lists about what distinguishes a new genus, species, subspecies etc. Taxonomy is hard!
+
+Some data (especially from open source repositories) can contain data with conflicting taxonomies from different naming authorities. This difference can cause unexpected errors later in an analysis if you are unaware of which naming authorities were used in your data.
+
+Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of biodiversity data. 
+
+Before starting your analysis, it's useful to:
+
+  - Be aware of which naming authority is accepted for your taxonomic group of interest.
+  - Check changes in the taxonomy of your focus species.
+  - Double check for updates, as most taxonomic society groups also release annual updates on taxonomy.
+
+In the Atlas of Living Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. For a full list, see the [appendix](#appendixNamingAuthorities).
+
+Data that does not match the preferred naming authority or contains data from multiple naming authorities may need to be matched to a single taxonomic backbone <!-- might be worth showing how in an appendix--> .
 
 Now that you've chosen a naming authority you can use it to ensure consistency across your data set, but also check you haven't missed any species data from your download.
 
@@ -58,8 +87,6 @@ Now that you've chosen a naming authority you can use it to ensure consistency a
 #### Searching by classification
 
 Include the original name that was recorded by the data provider in your download. This is often referred to as `verbatimScientificName`. or vernacularname
-
-
 
 ```{r}
 # Orchid as an example 
@@ -74,12 +101,10 @@ Include the original name that was recorded by the data provider in your downloa
 #| eval: true
 #| echo: true
 library(galah)
-library(gt)
 
 galah_call() |>
   galah_filter(year > 2019) |>
-  atlas_counts() |>
-  gt()
+  atlas_counts()
 ```
 
 
@@ -140,6 +165,7 @@ read_parquet("data/galah/pink_robin")
 
 ### Using spatial information
 
+<!-- Fonti notes:-->
 <!-- Work in progess -->
 <!-- Narrowing your results to a specific spatial area- using `galah_geolocate` or by regions etc, discussions around whether this is best to be placed in this chapter to assist with expaning scope has been raised.  -->
 <!-- Read in shpfile, transform to polygon -->
@@ -199,7 +225,7 @@ Using shapefiles allows us to return data for very specific shapes, and are usef
 
 ## Choosing specific data columns
 
-<!-- This shouldn't be its own section. This is a tool, not necessarily a topic. This information can be worked into another section, but definitely doesn't deserve its own heading -->
+<!-- Dax note: This shouldn't be its own section. This is a tool, not necessarily a topic. This information can be worked into another section, but definitely doesn't deserve its own heading -->
 
 By default, `atlas_occurrences` will return a tibble with a selection of columns containing taxonomic and spatial data as well as other metadata. Alternatively, you can use `galah_select` to subset the columns that are relevant for your work. To see all available fields you can choose from:
 
@@ -234,10 +260,12 @@ read_parquet("data/galah/probin_fields")
 ```
 
 
+<!-- Dax note: I got to here with structuring the sections. Feel free to disagree and move things around -->
+
 
 ## Refining your data download
 
-<!-- I think this information belongs in the Data Scope chapter. The chapter might even be renamed to "Investigating data", or something. But breaking data down like this by year & data type is how a person checks what is available and makes decisions about what data to include or omit. This also introduces useful tools like `filter()` and `group_by()` + `count()` early on in the workflow  -->
+<!-- Dax note: I have moved some of the below info (basically everything in By Year) into the previous chapter. Not sure what to do about Basis of Record, though. Perhaps we can rework this into the Pre-cleaning chapter? -->
 
 Open access biodiversity data comes from many different data sources, (eg. government monitoring programs, museums, herbaria, research projects, citizen science apps). As such, data type and quality can vary considerably. For example, museums harbour older records that are associated with a preserved specimens. These data often contain lots of extra information (metadata) about a specific specimen and its location. Alternatively, data sourced from citizen science apps like iNaturalist or eBird are associated with images or sounds captured from a smart phone. These data might contain less metadata of each observation, but, thanks to phones' accurate location services, are quite accurate about the time and location of an observation. 
 
@@ -336,7 +364,21 @@ probin_subset <- galah_call() %>%
 
 
 
+# Appendix: Naming Authorities {#appendixNamingAuthorities}
 
+Accurate species delimitation is also crucial for adequate conservation management and understanding evolutionary processes ([Mace 2004](http://localhost:3271/references.html#ref-mace2004role)). Species level lists are the foundation of many conservation decisions: such as the IUCN conservation status classification system. Taxonomic scope therefore has an effect on research application impacts.
+
+Deciding what naming authority to use can be challenging. What you choose will depend on your own taxonomic research and evaluation, but also your research scope.
+
+The Atlas of Living Australia uses the following priority list of naming authorities:
+
+<!-- Dax note: I think that this information should be put in a simpler table and maybe just link out to all of the authority websites. It's just so much information in one graphic, so I think adding links would be a easy compromise? -->
+![](images/image-1066364510.png)
+
+These authorities provide a list of accepted and authoritative names as a template. If you're unsure what naming authority to use and you're looking at Australian species, the APNI and the AFD are a good place to start, especially if the data you're investigating covers a wide range of taxa. If you're investigating specific taxa it's worth checking when the taxonomy was last updated in the APNI or AFD, especially if you know there has been recent changes. If you want to investigate closer, we've provided some links to society groups, in some cases these can be more up to date that the APNI or AFD.
+
+<!-- Fonti/Margot suggestion. Dax thinks that this could be a nice idea, even if it was just a tiny example of how to do fuzzy matching, or some resources to help people get started with this-->
+**insert a mapped example of data changes when changing taxonomic naming authority?**
 
 
  
