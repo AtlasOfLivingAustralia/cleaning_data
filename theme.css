@@ -1,0 +1,16 @@
+
+.clipped {
+  clip-path: circle();
+}
+
+img.rounded {
+  object-fit: cover;
+  border-radius: 10% !important;
+  height: 300px;
+  width: 300px;
+}
+
+.figure-caption {
+  text-align: center;
+  font-size: .8rem;
+}
