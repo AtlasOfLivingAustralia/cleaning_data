@@ -20,6 +20,8 @@ library(arrow)
 library(gt)
 library(galah)
 library(paletteer)
+library(viridis)
+library(rmapshaper)
 galah_config(verbose = FALSE)
 ```
 
@@ -31,7 +33,7 @@ For example, you might have a question about several species in the same area. H
 
 Without narrowing your data scope, you might find yourself downloading more data than you need, which can needlessly increase how much time is spent processing data prior to analyses. Alternatively, you might find there isn't enough data to answer your question.
 
-It's worth thinking critically about whether the amount of data available will allow you to sufficiently answer your research question.
+While there are workable methods to analyse small sets of biodiversity data (e.g. [hulls](https://labs.ala.org.au/posts/2022-10-12_alpha-hulls/post.html)), it's worth thinking critically about whether the amount of data available will allow you to sufficiently answer your research question.
 
 To start, some initial questions you might ask are:
 
@@ -64,6 +66,12 @@ As an example, let's imagine we were interested in understanding more about the 
 ## Temporal scope
 
 A good first step to understanding what data are available is to check how many observations there are over different time periods. We can check how many total observations there are in the Atlas of Living Australia (the largest biodiversity data aggregator in Australia) with the following query:
+
+```{r}
+library(galah)
+```
+
+
 
 ```{r}
 #| warning: false
@@ -123,7 +131,7 @@ With this information, we might choose to combine data from all years in our ana
 
 ## Taxonomic scope
 
-Taxonomy refers to way by which we classify an organism and its relationship to all other organisms. Typically, your research question be concerned with one or more taxonomic groups, ranging from a single species to an entire kingdom (e.g. *Plantae*). 
+Taxonomy refers to ways by which we classify an organism and its relationship to all other organisms. Typically, your research question will be concerned with one or more taxonomic groups, ranging from a single species to an entire kingdom (e.g. *Plantae*). 
 
 In our example, we are interested in understanding more about Jewel beetles in the genus *Lampromicra*.
 
@@ -134,7 +142,7 @@ You will need to add an email address [registered with the Atlas of Living Austr
 :::
 
 ```{r}
-galah_config(email = Sys.getenv("ALA_EMAIL"))
+galah_config(email = "oliviajane.t@hotmail.com")
 
 galah_call() |>
   galah_identify("Lampromicra") |>
@@ -169,6 +177,7 @@ You will need to add an email address [registered with the Atlas of Living Austr
 :::
 
 ```{r}
+#| code-fold: true
 # old fonti code. not sure why it's saved?
 # beatles <- open_dataset("data/galah/lampromicra") |> collect() 
 library(ozmaps)
@@ -177,7 +186,7 @@ library(ggplot2)
 library(paletteer) # colour palettes
 
 # Download data
-galah_config(email = Sys.getenv("ALA_EMAIL"))
+galah_config(email = "oliviajane.t@hotmail.com") 
 
 beetles <- galah_call() |>
   galah_identify("lampromicra") |>
@@ -211,6 +220,7 @@ Plotting our points shows us that observations are spread along the northern and
 There are several places on the east coast of Australia where there are clumps of overlapping points. It's difficult to tell how many observations there really are in those areas. To investigate, we can create use ggdfdf from the [{ggpointdensity package}](https://github.com/LKremer/ggpointdensity) to get an idea of the *density* of overlapping points.
 
 ```{r}
+#| code-fold: true
 library(ggpointdensity)
 
 ggplot() +
@@ -229,7 +239,134 @@ ggplot() +
 
 Adding the density of overlapping points to our map allows us to see that there is one area with many more observations—more than 400 observations are found in the light yellow area!
 
-Using this information, we might decide to make our research question more specific to the region where there are the most records of *Lampromicra*. Alternatively, we might decide that there isn't enough data to make accurate estimates about *Lampromicra*. Depending on the spatial specificity of your question, you might have to adjust your data scope or your question accordingly.
+Using this information, we might decide to make our research question more specific to the region where there are the most records of *Lampromicra*.
+
+Let's have a look at these records in the context of their IBRA bioregions (distinct areas defined on a common climate, geology, landform, native vegetation and species information). 
+
+To find out what region(s) the genus *Lampromicra* is  most common, you can `group_by` the IBRA region field code in {galah} (use `search_fields` to see others).
+
+
+```{r}
+ibra_counts <- galah_call() |>
+  galah_identify("Lampromicra") |>
+  galah_group_by("cl1048") |>    # IBRA regions
+  atlas_counts()
+
+gt(head(ibra_counts))
+```
+
+
+<aside> 
+
+**South Eastern Queensland** (red), **Sydney Basin** (green)
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+shapefile <- st_read(here("data",
+                          "shapefiles",
+                          "IBRA7_regions",
+                          "ibra7_regions.shp"), 
+                     quiet = TRUE) |> 
+  ms_simplify(keep = 0.1)
+
+#IBRA Regions
+ggplot() +
+  geom_sf(data = shapefile %>% filter(REG_NAME_7 == "South Eastern Queensland"),
+          aes(fill = "red"),  
+          colour = "black", 
+          alpha = 0.7) +
+  geom_sf(data = shapefile %>% filter(REG_NAME_7 == "Sydney Basin"),
+          aes(fill = "green"),  
+          colour = "black", 
+          alpha = 0.2) +
+  geom_sf(data = shapefile %>% filter(REG_NAME_7 != c("South Eastern Queensland", "Sydney Basin")),
+          aes(fill = "white"),  
+          colour = "grey60", 
+          alpha = 0.2) +
+  geom_point(data = beetles,
+             mapping = aes(x = decimalLongitude,
+                           y = decimalLatitude),
+             size = 0.05) +
+  coord_sf(xlim = c(110, 155), 
+           ylim = c(-45, -10)) +
+  scale_fill_identity() +
+  theme_void()
+```
+
+</aside> 
+
+Looks like South Eastern Queensland has the most records followed by Sydney Basin. 
+
+This could be due to sampling bias in that Brisbane and Sydney are large metropolis areas. You might choose to investigate [this bias further](https://labs.ala.org.au/posts/2022-07-22_sample-bias/post.html). 
+
+```{r}
+#| code-fold: true
+#| column: page
+#| fig-align: center
+#| layout-nrow: 1
+#| message: false
+#| warning: false
+
+shapefile <- st_read(here("data",
+                          "shapefiles",
+                          "IBRA7_regions",
+                          "ibra7_regions.shp"), 
+                     quiet = TRUE) |> 
+  ms_simplify(keep = 0.1)
+
+
+# South Eastern Queensland
+ggplot() +
+  geom_sf(data = shapefile %>% filter(REG_NAME_7 == "South Eastern Queensland"),
+          aes(fill = "red"),  
+          colour = "grey60", 
+          alpha = 0.7) +
+  geom_sf(data = shapefile %>% filter(REG_NAME_7 != "South Eastern Queensland"),
+          aes(fill = "white"),  
+          colour = "grey60", 
+          alpha = 0.2) +
+  geom_point(data = beetles,
+             mapping = aes(x = decimalLongitude,
+                           y = decimalLatitude),
+             size = 0.5) +
+  coord_sf(xlim = c(140, 155), 
+           ylim = c(-30, -10)) +
+  scale_fill_identity() +
+  theme_void()
+
+# Sydney Basin
+ggplot() +
+  geom_sf(data = aus, 
+          colour = "grey60", 
+          fill = "white", 
+          alpha = 0.2) +
+  geom_sf(data = shapefile %>% filter(REG_NAME_7 == "Sydney Basin"),
+          aes(fill = "green"),  
+          colour = "grey60", 
+          alpha = 0.7) +
+  geom_sf(data = shapefile %>% filter(REG_NAME_7 != "Sydney Basin"),
+          aes(fill = "white"),  
+          colour = "grey60", 
+          alpha = 0.2) +
+  geom_point(data = beetles,
+             mapping = aes(x = decimalLongitude,
+                           y = decimalLatitude),
+             size = 0.5) +
+  coord_sf(xlim = c(145, 155), 
+           ylim = c(-37, -30)) +
+  scale_fill_identity() + 
+  theme_void()
+```
+
+
+Alternatively, we might decide that there isn't enough data (or data of a good enough quality) to make accurate estimates about *Lampromicra*. 
+
+Depending on the spatial specificity of your question, you might have to adjust your data scope or your question accordingly.
+
+
 
 ## Summary
 
