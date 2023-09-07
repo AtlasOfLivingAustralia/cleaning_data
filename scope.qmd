@@ -217,7 +217,7 @@ ggplot() +
 
 Plotting our points shows us that observations are spread along the northern and eastern coasts of Australia. We can also see that some observations are only identified to the genus level (e.g. *Lampromicra*), rather than to a specific species (e.g. *Lampromicra aerea*).
 
-There are several places on the east coast of Australia where there are clumps of overlapping points. It's difficult to tell how many observations there really are in those areas. To investigate, we can create use ggdfdf from the [{ggpointdensity package}](https://github.com/LKremer/ggpointdensity) to get an idea of the *density* of overlapping points.
+There are several places on the east coast of Australia where there are clumps of overlapping points. It's difficult to tell how many observations there really are in those areas. To investigate, we can recreate this into a point density plot using the [{ggpointdensity package}](https://github.com/LKremer/ggpointdensity). 
 
 ```{r}
 #| code-fold: true
