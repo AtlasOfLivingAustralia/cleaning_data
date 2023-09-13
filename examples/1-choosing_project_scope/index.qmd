@@ -1,0 +1,121 @@
+---
+title: "Choosing your project scope"
+author: "Margot, Fonti, Olivia"
+date: "2023-09-12"
+categories: [Preparation]
+image: "image.jpg"
+order: 1
+---
+
+*This section copied from `scope.qmd`*
+
+As an example, let's imagine we were interested in understanding more about the distribution of several Jewel beetles in the genus *Lampromicra*. Let's see some ways we might investigate what data are available about them in Australia.
+
+:::{layout="[-1, 1, -1]"}
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/1/e/8/9cb8bae2-fba0-45fa-bbfc-6e5fc8588e17/original"></img>
+:::
+::: {.figure-caption}
+[Curious what a Jewel beetle looks like? Here is a *Lampromicra senator* perched on a leaf by Matthew Connors CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/8ad5f2ca-3e69-4665-bf6f-da1054538ab2)
+:::
+
+## Temporal scope
+
+A good first step to understanding what data are available is to check how many observations there are over different time periods. We can check how many total observations there are in the Atlas of Living Australia (the largest biodiversity data aggregator in Australia) with the following query:
+
+```{r}
+library(galah)
+```
+
+
+
+```{r}
+#| warning: false
+#| message: false
+library(galah)
+
+atlas_counts()
+```
+
+Now let's check how many total insect records there are.
+
+```{r}
+galah_call() |>
+  galah_identify("insecta") |>
+  atlas_counts()
+```
+
+Now let's see how many insects have been observed each year over the last 10 years. We'll order this by descending year using `dplyr::arrange()` and `dplyr::desc()`.
+
+```{r}
+#| warning: false
+#| message: false
+library(dplyr)
+
+galah_call() |>
+  galah_identify("insecta") |>
+  galah_filter(year >= 2013) |>
+  galah_group_by(year) |>
+  atlas_counts() |>
+  dplyr::arrange(dplyr::desc(year))
+```
+
+Now that we have an idea of the total amount of data in the Atlas of Living Australia, let's try checking how many observations exist of the genus *Lampromicra*. We'll first make sure the scientific name *Lampromicra* returns the taxon information we expect with `search_taxa()`.
+
+```{r}
+search_taxa("Lampromicra")
+```
+
+This looks correct! Next let's see how many total observations there are of *Lampromicra* and how many observations there were in each of the last 10 years.
+
+```{r}
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  atlas_counts()
+
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  galah_filter(year >= 2013) |>
+  galah_group_by(year) |>
+  atlas_counts() |>
+  dplyr::arrange(dplyr::desc(year))
+```
+
+There are a growing number of observations from 2012 to 2023 of Jewel beetles in the Atlas of Living Australia, with fewer than 100 observations each year prior to 2020. 
+
+With this information, we might choose to combine data from all years in our analysis (rather than separating them by year). Alternatively, we might decide to only include data since 2020, which might be sufficient to represent where *Lampromicra* are found and be more relevant because they are more recent observations. These are decisions that might affect the granularity of the research question we ask.
+
+## Taxonomic scope
+
+Taxonomy refers to ways by which we classify an organism and its relationship to all other organisms. Typically, your research question will be concerned with one or more taxonomic groups, ranging from a single species to an entire kingdom (e.g. *Plantae*). 
+
+In our example, we are interested in understanding more about Jewel beetles in the genus *Lampromicra*.
+
+We first might want to know what species there are in the genus *Lampromicra* and view some additional taxonomic information about them. We can do this by adding `atlas_species()` to the end of a query in {galah}.
+
+:::{.callout-note}
+You will need to add an email address [registered with the Atlas of Living Australia](https://auth.ala.org.au/userdetails/registration/createAccount) in `galah_config()` to download species information.
+:::
+
+```{r, eval = FALSE}
+galah_config(email = "oliviajane.t@hotmail.com")
+
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  atlas_species() |>
+  select(family:species_guid)
+```
+
+Our query returned three species in the genus *Lampromicra*. We can enter the urls returned under `species_guid` in a web browser if we wished to know more information about any of them.
+
+We might also wish to check the total number of observations of each of these species. We can check this by grouping our counts by species using `galah_group_by(species)`
+
+```{r}
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  galah_group_by(species) |>
+  atlas_counts()
+```
+
+Our result shows that the majority of observations of *Lampromicra* are of the species *Lampromicra senator*. 
+
+Given this information, we might consider whether our question needs to be made at the species level, or whether we might increase the taxonomic scope to the genus or family level to use more data. Ultimately, the taxonomic scope of your data will depend on how important it is to your question to compare specific taxonomic groups.

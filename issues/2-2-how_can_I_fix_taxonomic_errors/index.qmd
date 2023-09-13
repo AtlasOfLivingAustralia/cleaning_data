@@ -1,0 +1,53 @@
+---
+title: "How can I fix taxonomic errors?"
+author: "Margot, Fonti, Olivia"
+date: "2023-09-12"
+categories: [Preparation, Cleaning]
+image: "image.jpg"
+order: 2.2
+---
+
+Advances in taxonomy, drawing on developments in molecular biology, has allowed researchers to describe new species more efficiently than ever before [@garraffoni2019integrative]. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers.
+
+Harmonising taxonomic names is a prevalent and complex issue and so far, no unifying solution has been put forward --- making research with biodiversity data challenging. A potential solution would require pulling together domain knowledge from experts and compiling a database for where taxonomic history for describe species is traceable and linked with published literature.
+
+For now, users of occurrence data tend to have zero or more of the following problems:
+
+-   the names being used for a particular group do not conform with their expectations or experience
+-   placement within the taxonomic hierarchy is incorrect or inconsistent
+-   data are missing that shouldn't be
+
+Below we'll go through these in turn.
+
+### I don't agree with the names in this dataset
+
+All data aggregators make some effort to standardise the taxonomic information associated with the occurrences they are given by data providers. In practice, this consists of harmonsing according to a taxonomy provided by one or more taxonomic naming authorities.
+
+Naming authorities are the people or organisations that create updated or revised lists of species, and where they fit on the taxonomic tree. In the Atlas of Living Australia, for example, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. Species names and taxonomic groups in these lists vary as there may be disagreements between lists about what distinguishes a new genus, species, subspecies and so forth.
+
+If you disaggree with the naming authority being used in your chosen data repository, there are a few steps you can take, you can choose another authority and seek to map the provided values to your preferred list of names. Before starting this exercise, it's useful to:
+
+-   Be aware of which naming authority is accepted for your taxonomic group of interest.
+-   Check changes in the taxonomy of your focus species.
+-   Double check for updates, as many taxonomic society groups also release annual updates on taxonomy.
+
+### The relationships between taxa are incorrectly represented
+
+This can happen because more than one taxonomic authority is present in your dataset, or because data have been added without reconciling inconsistent taxonomies. This can sometimes be seen by taxonomic levels being in the wrong place, e.g.
+
+```{r}
+library(galah)
+galah_call() |>
+  galah_group_by(kingdom) |>
+  atlas_counts()
+```
+
+As you can see, some of these fields are 'correct' kingdoms, while others are obsolete ('Protista'), invalid ('Viroid'), or potentially valid but not Kingdoms ('Archaea', 'Bacteria'). Identifying and rectifying these issues is part of [exploratory data analysis](link_to_eda_tutorial).
+
+### Some taxa lack information at one or more points in the taxonomic hierarchy
+
+*not much non-codey content on this yet*
+
+## Input from experts
+
+Programmatic solutions for resolving synonymy can only go so far. Seeking validation from experts is sensible if your goal is to obtain a high quality species list. Museums or taxonomic societies are extensive sources of knowledge. Below we have provided a list of some of Australian taxonomic society groups.

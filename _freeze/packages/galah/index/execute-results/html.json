@@ -1,0 +1,14 @@
+{
+  "hash": "8c9d72395e8d872aa575c68ff14e5566",
+  "result": {
+    "markdown": "---\ntitle: \"galah\"\nauthor: \"Martin Westgate\"\ndate: \"2023-09-12\"\ncategories: [data]\nimage: \"logo.png\"\n---\n\n\nThis is a post with executable code.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n1 + 1\n```\n\n::: {.cell-output .cell-output-stdout}\n```\n[1] 2\n```\n:::\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

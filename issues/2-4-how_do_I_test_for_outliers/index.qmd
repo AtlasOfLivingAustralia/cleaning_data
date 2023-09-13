@@ -1,0 +1,92 @@
+---
+title: "How do I test for outliers?"
+author: "Margot, Fonti, Olivia"
+date: "2023-09-12"
+categories: [Analysis]
+image: "image.jpg"
+order: 2.4
+---
+
+Outlier detection is a huge problem, both within the subdomain of statistical biogeography, and more broadly within statistics and machine learning. As it relates to the issue of species distribution modelling, the problem can be framed as seeking to distinguish between several possible hypotheses as to whether the combination of species identity and location represented in an occurrence record is 'correct' or not. This can be thought of as a contingency table:
+
+```{=html}
+<table>
+ <thead>
+    <tr>
+      <th></th>
+      <th>Incorrect location</th>
+      <th>Correct location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Incorrect species</b></td>
+      <td>Cryptic outlier: determining what aspects of the record are correct or incorrect may be impossible. Unless higher certainty cna be achieved the point should be removed.</td>
+      <td>Taxonomic misidentification: The point is valid but misidentified; avoiding this form of outlier is the purpose of the debate regarding museum vs citizen science records.</td>
+    </tr>
+    <tr>
+      <td><b>Correct species</b></td>
+      <td>Traditional outlier: the occurrence records a true observation whose location is unknown or poorly recorded or transcribed. This point should only be excluded if the correct location cannot be ascertained.</td>
+      <td>Not an outlier: A correct observation, albeit in an uexpected place, that should not be excluded.</td>
+    </tr>
+  </tbody>
+</table>
+```
+Choosing between these hypotheses is challenging. There are statistical methods that can help, but ultimately, making an assessment of the likelihood that an occurrence is 'correct' requires a high degree of expert knowledge and probabalistic judgment.
+
+*This section copied from `spatial.qmd`*
+
+### Quick visualisation
+
+One of the most straightforward ways to check for spatial errors is to plot your data onto a map. More obvious spatial errors are much easier to spot visually.
+
+<!-- This is a good first step but needs to be guided into the following ones. Not sure what the map looks like, but it might be good to make another map that puts boxes around some obvious ones you can see and why -->
+
+```{r, eval = FALSE}
+library(ggplot2)
+library(ozmaps) 
+library(sf)
+
+# Retrieve map of Australia
+aus <- st_transform(ozmap_country, 4326)
+
+# Remove missing coordinates in Banksia data
+# Then transform into 'sf' object
+banksia_sf <- banksia_serrata |> 
+  drop_na(starts_with("decimal")) |> 
+  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), 
+           crs = 4326)
+
+# A quick plot
+ggplot() + 
+  geom_sf(data = aus, colour = "black", fill = NA) + 
+  geom_sf(data = banksia_sf)
+```
+
+*below here retained but requires revision*
+
+## Remove records plotted away from the known area of distribution of the species.
+
+It is essential to check the metadata to ensure that it is a data entry error and not a real outlier. In some cases, it's worth checking the literature before discarding records like these. These can also be mis-identified species, if you're working with data from many species, and you find a species point in amongst the environmental bounds of a similar looking species it might be worth going back to the original record and taking a closer look. However, if no images exist it might be difficult to determine if it is a taxonomic or spatial issue.
+
+<!-- I'm not sure I understand what the above means. But I think in general for less obvious errors, it's best to suggest that before data analysis (and honestly, before seeing the data at all), people should determine whether there is an upper bound to remove coordinates (like a 95% confidence interval, or within xx km of an accepted expert distribution). Then run whatever model or test with the complete data and with the reduced data. If it makes a difference, probably make an informed decision based on literature of which results to use as the "main" findings. -->
+
+<!-- Having written this out, a brief discussion about this rather than any suggestions is probably all that's in scope for this book -->
+
+<!-- The final decisions depend on the species, research question, model parameters etc -->
+
+*This section copied from `outliers.qmd`*
+
+#note from meeting with Martin this section might include some alpha hull examples for how to detect outliers, or how they can skew your data, in addition to maybe an SDM for outlier detection [@simoes2018utility] even if we won't be teaching people how to run an SDM
+
+Outliers can be true outliers or data errors, true outliers are not necessarily to be removed. This could represent mis-identified specimens, etc
+
+(#note to double check what i wrote for support article around inconsistent sampling and open source data)
+
+- Alpha hull (some example species - check cailtin chat history)
+
+- SDM Shandiya? 
+
+-   Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed.
+
+Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1) an image of the species in question which does not match 2) If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)

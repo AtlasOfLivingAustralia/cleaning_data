@@ -1,0 +1,48 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/post-with-code/index.html",
+      "/posts/welcome/index.html"
+    ]
+  },
+  {
+    "listing": "/packages.html",
+    "items": [
+      "/packages/CoordinateCleaner/index.html",
+      "/packages/galah/index.html"
+    ]
+  },
+  {
+    "listing": "/stages.html",
+    "items": [
+      "/stages/1-1-where_to_get_occurrence_data/index.html",
+      "/stages/1-2-do_I_need_to_use_code/index.html",
+      "/stages/1-3-how_to_decide_what_data_I_need/index.html",
+      "/stages/1-4-should_I_use_citizen_science_obs/index.html",
+      "/stages/2-1-how_do_I_check_for_errors/index.html"
+    ]
+  },
+  {
+    "listing": "/examples.html",
+    "items": [
+      "/examples/1-choosing_project_scope/index.html",
+      "/examples/2-downloading_occurrences/index.html",
+      "/examples/3-exploratory_data_analysis/index.html",
+      "/examples/4-taxonomic_cleaning/index.html"
+    ]
+  },
+  {
+    "listing": "/issues.html",
+    "items": [
+      "/issues/1-1-where_to_get_occurrence_data/index.html",
+      "/issues/1-2-do_I_need_to_use_code/index.html",
+      "/issues/1-3-how_to_decide_what_data_I_need/index.html",
+      "/issues/1-4-should_I_use_citizen_science_obs/index.html",
+      "/issues/2-1-how_do_I_check_for_inaccurate_records/index.html",
+      "/issues/2-2-how_can_I_fix_taxonomic_errors/index.html",
+      "/issues/2-3-how_precise_are the_points_on_my_map/index.html",
+      "/issues/2-4-how_do_I_test_for_outliers/index.html"
+    ]
+  }
+]

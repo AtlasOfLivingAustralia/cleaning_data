@@ -1,0 +1,201 @@
+---
+title: "Taxonomic cleaning"
+author: "Margot, Fonti, Olivia"
+date: "2023-09-12"
+categories: [Cleaning]
+image: "image.jpg"
+order: 4
+---
+
+*This section copied from `taxonomy.qmd`*
+
+Similar to what we did in the previous chapter, we will apply a broad sweep pre-clean to taxonomic data. This will make dealing with synonyms go as smoothly as possible.
+
+The process is to first identify the issue, correct it, check it, and then document the changes. The goal is to standardise and correct as many errors issues before removing records.
+
+### Capitalisation
+
+Normally higher taxonomy are capitalised e.g. Myrtaceae or Aves. Capitalisation errors are usually quick to spot when you print the data object. Alternatively you can try using `str_subset` on columns you expect to have capital letters.
+
+The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found
+
+```{r, eval=FALSE}
+library(tidyverse)
+
+str_subset(unique(bees$class), "[:upper:]")
+```
+
+We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that Insecta is inputted entirely in lowercase.
+
+```{r, eval=FALSE}
+str_subset(unique(bees$class), "[:lower:]") 
+```
+
+We can correct the lower case formatting as below, remember to check the fix before overwriting/removing the erroneous column(s)
+
+```{r, eval=FALSE}
+bees |> 
+  mutate(class_corrected = str_to_sentence(class)) |>
+  select(starts_with("class"))
+
+bees_corrected <- bees |> 
+  mutate(class_corrected = str_to_sentence(class)) |> 
+  select(-class) |> # Remove erroreous column 
+  rename(class = class_corrected) # Rename corrected column as the new 'class'
+```
+
+### Seperators
+
+In a taxonomic data, separators such as, spaces and underscore are found in scientific names and are used to delineate the genus and [species name](https://dwc.tdwg.org/terms/#dwc:specificEpithet). While it is personal choice which separator you use, it is good practice to be consistent with your choice. Consistency ensures that unique values of scientific name truly reflects unique species and not due to inconsistencies.
+
+Try `tabyl-ing` your taxonomic columns to check if you have any inconsistencies first
+
+```{r, eval=FALSE}
+library(janitor)
+
+plants |> 
+  pull(scientific_name) |> 
+  tabyl() |> 
+  tibble()
+```
+
+Consistent taxonomic formatting may not be an issue if you are downloading data from one single source such as the ALA where scientific names are already formatted consistently e.g. "Moloch horridus". This may not be the case when consolidating data from multiple sources.
+
+Below is code to create an underscore scientific name from one that is separated with a space. Remember to check your changes
+
+```{r, eval=FALSE}
+plants_updated <- plants |> 
+  mutate(scientific_name_undersc = str_replace_all(scientific_name, " ", "_")) 
+
+plants_updated |> 
+  pull(scientific_name_undersc) |> 
+  tabyl() |> 
+  tibble()
+```
+
+### Higher taxonomy
+
+Higher taxonomy such as phylum and class may be used to group species for analysis or data visualisations. Its important to check the spelling and formatting of these columns. Its always good to start with some a useful table of counts for each taxonomic level. Keep an eye out for spelling errors, formatting issues and missing data. Note that `NA` in the output represents missing
+
+As an example:
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(janitor)
+
+plants |> 
+  pull(class) |> 
+  tabyl()
+
+plants |> 
+  pull(order) |> 
+  tabyl() |> 
+  head()
+
+plants |> 
+  pull(genus) |> 
+  tabyl() |> 
+  tail()
+```
+
+#### Missing higher taxonomy {.unnumbered}
+
+If you noticed you have missing data in these columns, you can usually back fill this information using your [chosen naming authority](link%20back%20to%20section) or retrieving this information from a living atlas such as the ALA.
+
+The code below demonstrates how you can isolate the `scientific_names` of taxa with missing data and searching for taxonomic information from ALA
+
+<!-- (Example WORK IN PROGRESS, need better fake data, Inverts?) -->
+
+<!-- Seperate chunk where message = TRUE for hits -->
+
+```{r, eval=FALSE}
+library(galah)
+
+# Configure galah to point to Australia node
+galah_config(atlas = "Australia",
+             email = Sys.getenv("ALA_EMAIL"))
+
+# These are the taxa missing `class` information
+to_search <- inverts |> 
+  filter(is.na(class)) |> 
+  select(scientific_name) |> 
+  distinct()
+
+# Reformat scientific_name to scientificName as the latter is the ALA format
+backfilled_taxa <- to_search|>
+  rename(scientificName = scientific_name) |> 
+  search_taxa(to_search) |> tibble()
+
+backfilled_taxa
+```
+
+#### Insufficient taxonomic rank {.unnumbered}
+
+If a record is not identified down to the taxonomic level that needed for the study e.g. species, then the record should be removed.
+
+During your data download, ensure you have requested for the column [`taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank), this variable tells us the lowest level of `scientificName`.
+
+```{r, eval=FALSE}
+library(galah)
+
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             atlas = "Australia")
+
+honeyeaters <- galah_call() |> 
+  galah_identify("Meliphagidae") |> 
+  galah_filter(year == 2012 & stateProvince == "New South Wales") |> 
+  galah_select(group = "basic", taxonRank) |> 
+  atlas_occurrences()
+
+honeyeaters$taxonRank |> unique()
+
+honeyeaters |> filter(taxonRank == "species")
+```
+
+```{r, eval=FALSE}
+library(arrow)
+library(dplyr)
+
+# honeyeaters <- galah_call() |>
+#   galah_identify("Meliphagidae") |>
+#   galah_filter(year == 2012 & stateProvince == "New South Wales") |>
+#   galah_select(group = "basic", taxonRank) |>
+#   atlas_occurrences()
+
+# write_parquet(honeyeaters, "data/galah/honeyeater")
+
+honeyeaters <- open_dataset("data/galah/honeyeater") |> collect()
+
+honeyeaters$taxonRank |> unique()
+
+honeyeaters |> filter(taxonRank == "species")
+```
+
+#### Inconsistent higher taxonomy {.unnumbered}
+
+A great approach to detect inconsistencies in your taxonomic data is to compute counts for each level of taxonomic rank. These counts act as a check for you to verify that the data is in line with your expectation. This is particularly important when combining data from different sources where their taxonomy might vary. If you have detected inconsistencies as we have done below, you will have to correct accordingly, either by consulting a taxonomic expert or a naming authority and ensure this is reported in your methods.
+
+```{r, eval=FALSE}
+# Get counts for every species where they have more than 1 class
+plants |> 
+  select(phylum:species, scientific_name) |> 
+  distinct() |> 
+  group_by(species) |> 
+  summarise(n_class = length(unique(class))) |> 
+  filter(n_class > 1) 
+
+# Get the species that have more than 1 class
+inconsistent_taxa <- plants |> 
+  select(phylum:species, scientific_name) |> 
+  distinct() |> 
+  group_by(species) |> 
+  summarise(n_class = length(unique(class))) |> 
+  filter(n_class > 1) |> 
+  pull(species) 
+
+# Filter species that have more than 1 class
+plants |> filter(species %in% inconsistent_taxa) |> 
+  select(phylum:species, scientific_name) |> 
+  arrange(species) |> 
+  distinct() 
+```

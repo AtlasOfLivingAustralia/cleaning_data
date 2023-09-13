@@ -1,0 +1,20 @@
+---
+title: "Do I need to use code?"
+author: "Margot, Fonti, Olivia"
+date: "2023-09-12"
+categories: [Preparation]
+image: "image.jpg"
+order: 1.2
+---
+
+Yes and no. You can get data from the living atlases, or from GBIF, without writing any code. But code will help you manage the amount of data they give you. In this book we focus on data manipulation with R; but there are other choices available that might suit your needs better.
+
+
+### R
+
+Download R from [CRAN](https://cloud.r-project.org/) for your operating system and install it on your device. Major updates for R come out yearly, with a few minor releases throughout the year - so make sure to update semi regularly. 
+
+### RStudio
+
+RStudio is an integrated development environment (IDE) for R programming. R operatees within R studio, so to code, you will need both R and RStudio.
+Download and install RStudio for your operating system [here](https://posit.co/download/rstudio-desktop/).

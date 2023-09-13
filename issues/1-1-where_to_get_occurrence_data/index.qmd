@@ -1,0 +1,31 @@
+---
+title: "Where do I get occurrence data?"
+author: "Margot, Fonti, Olivia"
+date: "2023-09-12"
+categories: [Preparation]
+image: "image.jpg"
+order: 1.1
+---
+
+*This section copied from `download-data.qmd`*
+
+## Data providers
+
+If your project relates to data from a specific data provider, it might be best to download data directly from the source. For example, a common citizen science tool to collect species observations is [iNaturalist](https://www.inaturalist.org/). Downloading directly from the data provider may ensure you don't have any stray data from other sources.
+
+*example packages: integrate with text*
+
+-   [`rinat`](https://docs.ropensci.org/rinat/) an interface to iNaturalist observations
+-   [`rebird`](https://docs.ropensci.org/rebird/) an interface with the eBird webservices.
+
+## Data aggregators
+
+Data aggregators collect data from providers and aggregate it into a collective dataset. The smallest organisations to do this are GBIFs 'regional nodes'. For example, the [Atlas of Living Australia (ALA)](www.ala.org.au) is the Australian node, [Sistema de Informação sobre a Biodiversidade Brasileira (SiBBr)](https://www.sibbr.gov.br/) is the Brazilian node, and [GBIF Sweden](https://www.gbif.se/) is the Swedish node. Living Atlases like the ALA ingest and aggregate data from a broad range of providers such as government monitoring programs, museums and herbaria, research projects and citizen science initiatives.
+
+To see what national and regional nodes exist, check out [this page](https://www.gbif.org/the-gbif-network).
+
+Some regional nodes like the ALA and SiBBr use their own taxonomic backbone for classification, which might differ from the taxonomic backbone of other regional or global infrastructures like GBIF. These taxonomic classifications can be useful for classifying local flora and fauna, and accepted by experts of the region. It's worth being aware of what @sec-namingauthorities are used to error caused by classification later on.
+
+The umbrella organisation that aggregates data from the regional nodes is the [Global Biodiversity Information Facility (GBIF)](https://www.gbif.org/), an international network and data infrastructure that stores global biodiversity data from many sources around the world. Users that are interested in obtaining data that has global coverage may want to download directly from GBIF.
+
+In this page we will use [`galah`](https://galah.ala.org.au/index.html), because it links to a number living Atlases, as well as GBIF. [`rgbif`](https://docs.ropensci.org/rgbif/) is an alternative if you want global data only.

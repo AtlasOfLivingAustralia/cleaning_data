@@ -1,0 +1,11 @@
+---
+title: "galah"
+subtitle: Download Biodiversity Data from the GBIF Node Network
+author: "Martin Westgate"
+date: "2023-07-01"
+categories: [data]
+image: "logo.png"
+---
+
+`{galah}` is produced by the Atlas of Living Australia, and provides a tidy
+syntax for downloading data from the ALA, GBIF, and other living atlases.

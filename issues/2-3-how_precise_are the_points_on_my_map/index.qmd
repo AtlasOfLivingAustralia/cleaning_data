@@ -1,0 +1,72 @@
+---
+title: "How precise are the points on my map?"
+author: "Margot, Fonti, Olivia"
+date: "2023-09-12"
+categories: [Cleaning]
+image: "image.jpg"
+order: 2.3
+---
+Different records have been collected by different people using different methods. It is perhaps unsurprising, therefore, that not all occurrences can be pinpointed to a specific spatial location with equal precision.
+
+*This section copied from `spatial.qmd`*
+
+## Coordinate precision 
+
+[Coordinate precision](https://dwc.tdwg.org/terms/#dwc:coordinatePrecision) describes the consistency of values if one were to record the coordinates of the same location, multiple times. Coordinate precision can vary between data sources and recording equipment. For example, coordinates recorded with a GPS unit or a phone generally has higher precision compared to those manually determined from locality descriptions. 
+
+Coordinate precision below 100km represents the grain size of many macroecological analyses [@zizka2020]. <!-- I don't know if we should include this, because `coordinaatePrecision` is not given in km --> Some studies have used a cut-off of spatial resolution \>25,000m or precision with less than three decimal places [@godfree2021]. Rasterised collections often have a significant proportion of records that might have low coordinate precision. 
+
+Depending on the scope of your research question, you may need to limit your occurrence data to a certain level of precision. We recommend first including `coordinatePrecision` in your download query and excluding its completeness and range before you exclude any data. 
+
+```{r, eval=FALSE}
+library(galah)
+library(skimr)
+
+banksia_serrata <- galah_call() |> 
+  galah_identify("banksia_serrata") |> 
+  galah_filter(year > 2022) |>  
+  galah_select(group = "basic", coordinatePrecision) |> 
+  atlas_occurrences()
+
+# banksia_serrata |> 
+#   select(coordinatePrecision) |> 
+#   skim()
+
+# Filter by number of decimal places
+# banksia_serrata |> 
+#   filter(coordinatePrecision < XXX) 
+```
+
+## Coordinate Uncertainty
+
+Alternatively, you can refine your data using [coordinate uncertainty](https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters) which describes the possible circular area in meters where the true location is in. 
+
+```{r, eval=FALSE}
+banksia_serrata <- galah_call() |> 
+  galah_identify("banksia_serrata") |> 
+  galah_filter(year > 2022) |>  
+  galah_select(group = "basic", coordinatePrecision, coordinateUncertaintyInMeters) |> 
+  atlas_occurrences()
+
+# Filter by number of decimal places
+# banksia_serrata |> 
+#   filter(coordinateUncertaintyInMeters < XXX) 
+```
+
+### Missing coordinate data
+
+If your research question requires spatial information, then it may be useful to exclude records that are missing coordinates data. Many spatial analytical tools are not compatible with missing coordinate data. We recommend tallying and identifying the rows that have missing data before excluding. 
+
+You can use `drop_na()` to remove missing values from your dataset.
+
+```{r, eval=FALSE}
+library(dplyr)
+
+# Identify missing data in coordinates
+banksia_serrata |> 
+  filter(is.na(decimalLatitude) | is.na (decimalLongitude))
+
+# Excluding them
+banksia_serrata |> 
+  drop_na(decimalLatitude, decimalLongitude)
+```

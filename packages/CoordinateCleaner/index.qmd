@@ -1,0 +1,14 @@
+---
+title: "CoordinateCleaner"
+subtitle: Automated Cleaning of Occurrence Records from Biological Collections
+maintainer: "Alexander Zizka"
+date: "2023-07-01"
+categories: [cleaning]
+image: "logo.png"
+---
+
+https://doi.org/10.1111/2041-210X.13152
+
+https://github.com/ropensci/CoordinateCleaner/
+
+https://cran.r-project.org/package=CoordinateCleaner
