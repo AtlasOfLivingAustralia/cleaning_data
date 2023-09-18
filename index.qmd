@@ -3,6 +3,9 @@ title: "Cleaning occurrence data"
 title-block-banner: true
 ---
 
-Add a diagram and some text here
+ This site contains resources for working with occurrence data from living atlases. This is for anyone who needs to download, tidy, and transform species occurrence records. This process, often broadly referred to as *data cleaning*, may vary based on the source of the data, or according to the aims of the project. There is no one-size-fits-all approach, which is reflected in the way this site is structured.  
+
+
+Add a diagram and some more text here
 
 Example of an internal link: [galah](/packages/galah/index.html)
