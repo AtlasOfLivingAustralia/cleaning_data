@@ -1,35 +1,76 @@
 # Welcome {.unnumbered}
 
-Data cleaning is the exploration, detection and correction of erroneous or unsuitably formatted data. The standard of what 'clean' data looks like varies considerably across projects and data sources. This means that there is no 'one-size-fits-all' approach.
+<!-- This website contains resources for working with occurrence data from
+living atlases. It is suitable for those who wish to learn to download, tidy,
+and transform species occurrence records. This process, often broadly referred
+to as *data cleaning*, may vary based on the source of the data, or according to
+the aims of the project. Therefore, there is no one-size-fits-all approach,
+which is reflected in the way this site is structured.  
+Add a diagram and some more text here. -->
 
-Our goal in creating this resource is to assist researchers and decision makers that may have limited experience with cleaning geo-referenced biodiversity data in R.
+Data cleaning is the exploration, detection and correction of data which may be
+errornous, unsuitably formatted, or otherwise unsuited for use in your project.
+The definition of 'clean' data therefore varies depending on the project and
+data sources, and as such there is no 'one-size-fits-all' approach.
+Nevertheless, there are some common processes and concepts that can be applied
+to many data cleaning workflows. 
 
-In this book, we provide an overview of a typical data cleaning workflow - from acquisition, to identifying potential errors, and, to correction. In each chapter we include practical guidelines, R code blocks and additional resources that may aid with each data cleaning step.
+However, these processes typically require the use of a programming language,
+which can be a barrier of entry for many. Therefore, our goal in creating this
+resource is to assist researchers and decision makers that may have limited
+experience with cleaning geo-referenced biodiversity data. The language used
+will be R, which is commonly used in ecological projects, and has a rich
+ecosystem of packages for data cleaning.
 
-The content of this book is guided by the current state of biodiversity literature on preparing data for species distribution modelling. For more details about how this was done, please refer to the [Appendix](appendix.qmd). All resources that have been consulted for this book can be found in [References](references.qmd). 
+In this book, we provide an overview of a typical data cleaning workflow - from
+acquisition, identifying potential errors, to correction. These processes are
+broken down into chapters, whithin each we include practical guidelines, example
+R code, and additional resources that may aid with each data cleaning step.
+
+The content of this book was informed by the current state of biodiversity
+literature surrounding data preparation for species distribution modelling. For more
+details about how this was done, please refer to the [Appendix](appendix.qmd).
+All resources that were used can be found in the
+[References](references.qmd) page. 
 
 ## How to contribute
 
-We would like to preface that we are not experts in data cleaning, but felt there was need for a consolidated resource to guide data cleaning decisions.
+We would like to preface that we are not experts in data cleaning, but felt
+there was need for a consolidated resource to guide data cleaning decisions.
 
-We welcome contributions to this document and suggest anyone to submit pull requests at the [GitHub repository](https://github.com/AtlasOfLivingAustralia/cleaning_data) of this document. Contributing guidelines can be found at XX (Maybe another section or just a MD in GitHub Repo)
-
-Alternatively, if you have questions please submit a [GitHub issue](https://github.com/AtlasOfLivingAustralia/cleaning_data/issues).
-
+Contributions to this document are welcome. For any questions, feedback, or
+other issues, please open an issue on our [GitHub
+repository](https://github.com/AtlasOfLivingAustralia/cleaning_data/issues). If you
+would like to make
+changes to the content of the website, you are welcome to submit a pull request containing
+your proposed changes. Please note, it is considered best practice to open an
+issue before working on a pull request, to allow discussion surrounding the
+proposed changes. Our contributing guidelines can be found [here](https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/CONTRIBUTING.md).
+  
 ## How to cite
 
-TO COME BACK TO THIS LATER Refer to this when creating this section(https://ardc.edu.au/resource/citing-software/)
+TO COME BACK TO THIS LATER Refer to this when creating this
+section(https://ardc.edu.au/resource/citing-software/)
 
-You can cite this document:
+You can cite this book as:
+Kar, F., Fenker, J., Schneider, M., Westgate, M. (2023). Cleaning biodiversity
+data in R. Retrieved Month dd, yyyy, from https://atlasoflivingaustralia.github.io/cleaning_data/
+
+<!-- Just a placeholder licence -->
+<!-- actual repository should also contain a licence doc; preferably matching I think -->
+This book is available free to read, and is licenced under the (Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International
+License)[https://creativecommons.org/licenses/by-nc-sa/4.0/] 
 
 ## Acknowledgements {.unnumbered}
 
-This book was inspired by an [Australian Research Data Commons](https://ardc.edu.au/) project where our team worked closely with research partners to streamline their data cleaning workflows. This book is a collaborative effort from the Science and Decision Support team at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/)
+This book was inspired by an [Australian Research Data
+Commons](https://ardc.edu.au/) project where our team worked closely with
+research partners to streamline their data cleaning workflows. This book is a
+collaborative effort from the Science and Decision Support team at the [Atlas of
+Living Australia (ALA)](https://www.ala.org.au/)
 
-Authors listed in alphabetic order:\
-- Fonti Kar\
-- Jessica Fenker\
-- Margot Schneider\
-- Martin Westgate
+Authors listed in alphabetic order:\ - Fonti Kar\ - Jessica Fenker\ - Margot
+Schneider\ - Martin Westgate
 
 
