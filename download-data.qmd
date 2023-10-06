@@ -51,23 +51,9 @@ If your project relates to data from a specific data provider, it might be best 
 
 #### Naming authorities {#sec-namingauthorities}
 
-<!-- Define what naming authority is -->
+**Naming authorities** are the people or organisations that create updated or revised lists of species, and where they fit on the taxonomic tree. Species names and taxonomic groups in these lists can vary when there are disagreements about what distinguishes a new genus, species, subspecies etc. Taxonomy is hard!
 
-<!-- How to choose -->
-
-<!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
-
-<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
-
-<!-- Note from Dax here! I think putting too much detail here will be very offputting, but knowing about naming authorities and being aware that it's something you need to check is important to speak about at this point in the book. I think it might be best to vaguely explain what a naming authority is, and that there are many of them because taxonomy is hard. Then extra information can be placed in an appendix at the end of the chapter? Or at the end of the book? At the moment, I've pasted what I think is excess information at the bottom of the chapter. --> 
-
-<!-- Main point: It's worth being aware of what naming authority your taxonomic backbone uses. In some taxonomic groups, these can vary widely. Double checking your data after your download to make sure the classifications you expect are what you have will help prevent errors later on. Otherwise, you can re-code data with incorrect classification manually. --> 
-
-### Choosing your taxonomic naming authority
-
-Naming authorities are the people or organisations that create updated or revised lists of species, and where they fit on the taxonomic tree. Species names and taxonomic groups in these lists vary as there may be disagreements between lists about what distinguishes a new genus, species, subspecies etc. Taxonomy is hard!
-
-Some data (especially from open source repositories) can contain data with conflicting taxonomies from different naming authorities. This difference can cause unexpected errors later in an analysis if you are unaware of which naming authorities were used in your data.
+Some data (especially from open source repositories) can contain data with conflicting taxonomies from different naming authorities. Different taxonomies can cause unexpected errors later in an analysis if you are unaware of which naming authorities were used in your data.
 
 Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of biodiversity data. 
 
@@ -79,27 +65,66 @@ Before starting your analysis, it's useful to:
 
 In the Atlas of Living Australia, the [Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/) is the primary naming authority for plants. With the [Australian Faunal Directory (AFD)](https://biodiversity.org.au/afd/home) the main taxonomic catalog for animal species. For a full list, see the [appendix](#appendixNamingAuthorities).
 
-Data that does not match the preferred naming authority or contains data from multiple naming authorities may need to be matched to a single taxonomic backbone <!-- might be worth showing how in an appendix--> .
+Data that doesn't match your preferred naming authority or contains data from multiple naming authorities may need to be matched to a single taxonomic backbone <!-- might be worth showing how in an appendix-->.
 
-Now that you've chosen a naming authority you can use it to ensure consistency across your data set, but also check you haven't missed any species data from your download.
+<!-- In appendix, it's worth showing a few things: -->
+<!--   how to query with your ideal species list, some systems fuzzy match and will have synonyms -->
+
+<!--     getting all the name columns including your own preferred naming authority to check if you back correct -->
 
 
 #### Searching by classification
 
-Include the original name that was recorded by the data provider in your download. This is often referred to as `verbatimScientificName`. or vernacularname
+To search by a taxonomic classification, include the original name that was recorded by the data provider in your download.
 
 ```{r}
 # Orchid as an example 
 # Read in problem child data and show
 
 # Group by species and count unique values for higher taxonomy
+
 ```
 
-2.  Include synonyms of the species names you're interested in your download
+Orchids (family *Orchidaceae*) are one taxonomic clade that naming authorities have (famously) differing opinions about taxonomic classification. Comparing the scientific name originally provided with the observation by the data provider (i.e. `raw_scientificName`) compared to the name held within the Atlas of Living Australia (i.e. `scientificName) we are likely to notice some differences.
+
+For example, say we were interested in downloading observations of *Dendrobium*, one of the largest genera of Orchids. Let's download occurrence data of this genus using galah, and add `raw_scientificName` & `taxonomicStatus` information columns to our download.
+
+```{r}
+library(galah)
+galah_config(email = "dax.kellie@csiro.au", verbose = FALSE)
+
+# Download Dendrobium occurrences
+orchids <- galah_call() |>
+  galah_identify("Dendrobium") |>
+  galah_select(group = "basic", raw_scientificName, taxonomicStatus) |>
+  atlas_occurrences()
+```
+
+If we filter our data to data without an "accepted" taxonomic status and compare a random group of names (rows 30 to 50), we'll see a few names with differing names between the `raw_scientificName` and `scientificName`
+
+```{r}
+orchids |> 
+  filter(
+    is.na(taxonomicStatus), # return names that aren't flagged as "accepted"
+    !scientificName %in% raw_scientificName
+    ) |>
+  select(scientificName, raw_scientificName) |>
+  slice(30:50)
+
+```
+
+Lucky for us, the Atlas of Living Austrlaia accounts for some of these differences when storing their data to help standardise these data taxonomically. However, this isn't always the case for every taxonomic clade. Searching by classification is a good first step when you expect to find certain taxonomic classifications within your data set.
+
+It's useful to include synonyms of the species names you're interested in your download to ensure you return the data you are interested in.
 
 ```{r}
 #| eval: true
 #| echo: true
+
+search_taxa("Dendrobium keffordii")
+search_taxa("Grastidium baileyi")
+
+## Not sure what was meant to happen here
 library(galah)
 
 galah_call() |>
