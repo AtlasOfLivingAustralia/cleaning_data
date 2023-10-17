@@ -1,0 +1,62 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Temporal scope
+
+A good first step to understanding what data are available is to check how many
+observations there are over different time periods. We can check how many total
+observations there are in the Atlas of Living Australia (the largest
+biodiversity data aggregator in Australia) with the following query:
+
+```{r} library(galah) ```
+
+
+
+```{r} #| warning: false #| message: false library(galah)
+
+atlas_counts() ```
+
+Now let's check how many total insect records there are.
+
+```{r} galah_call() |> galah_identify("insecta") |> atlas_counts() ```
+
+Now let's see how many insects have been observed each year over the last 10
+years. We'll order this by descending year using `dplyr::arrange()` and
+`dplyr::desc()`.
+
+```{r} #| warning: false #| message: false library(dplyr)
+
+galah_call() |> galah_identify("insecta") |> galah_filter(year >= 2013) |>
+  galah_group_by(year) |> atlas_counts() |> dplyr::arrange(dplyr::desc(year))
+  ```
+
+Now that we have an idea of the total amount of data in the Atlas of Living
+Australia, let's try checking how many observations exist of the genus
+*Lampromicra*. We'll first make sure the scientific name *Lampromicra* returns
+the taxon information we expect with `search_taxa()`.
+
+```{r} search_taxa("Lampromicra") ```
+
+This looks correct! Next let's see how many total observations there are of
+*Lampromicra* and how many observations there were in each of the last 10 years.
+
+```{r} galah_call() |> galah_identify("Lampromicra") |> atlas_counts()
+
+galah_call() |> galah_identify("Lampromicra") |> galah_filter(year >= 2013) |>
+  galah_group_by(year) |> atlas_counts() |> dplyr::arrange(dplyr::desc(year))
+  ```
+
+There are a growing number of observations from 2012 to 2023 of Jewel beetles in
+the Atlas of Living Australia, with fewer than 100 observations each year prior
+to 2020. 
+
+With this information, we might choose to combine data from all years in our
+analysis (rather than separating them by year). Alternatively, we might decide
+to only include data since 2020, which might be sufficient to represent where
+*Lampromicra* are found and be more relevant because they are more recent
+observations. These are decisions that might affect the granularity of the
+research question we ask.
+

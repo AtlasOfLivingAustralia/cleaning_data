@@ -1,0 +1,51 @@
+# Overview and structure {.unnumbered}
+
+This book will guide you through how to acquire and clean open access
+biodiversity data in R.
+
+The common steps associated with cleaning open-access biodiversity data are
+covered in this book:
+
+- data scope
+- downloading data
+- exploring data and metadata
+- cleaning data:
+  - general cleaning
+  - taxonomic names
+  - spatial data
+
+We place particular emphasis on some of the most common issues encountered with
+biodiversity data:
+
+[Taxonomic standardisation]{.underline} problems, such as:
+
+- **varied species name synonyms**
+
+- **naming authorities and duplicates**
+
+as well as [spatial errors and issues]{.underline}, like:
+
+- **suspicious outliers**
+
+- **duplicates.**
+
+::: {.callout-warning appearance="simple"} 
+
+**There is no one size fits all workflow**.
+
+In the literature, we found that data cleaning steps are frequently completed in
+entirely different orders. Not all steps are relevant or possible depending on
+the nature of the study, or, the area of expertise possessed. Therefore this
+book does not necessarily have to be used in a linear fashion. *While some steps
+may logically come first, you may need to go back to them after completing
+another.*
+
+:::
+
+
+There are many important subject areas that this book will not cover. We won't
+be teaching you:
+
+-   How to clean environmental data that isn't occurrence / biodiversity data:
+e.g. trait data -   How to run a species distribution model -   Hypothesis
+testing or experimental design

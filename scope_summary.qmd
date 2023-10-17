@@ -1,0 +1,9 @@
+## Data scope summary
+
+This section has demonstrated some ways to initially investigate the data
+available to answer a research question using the {galah} package. This is just
+a small example of how you might go about interogating the data to think
+critically about your data scope.
+
+The next chapter will explain how you can download and save your data set to
+begin the first step of your analysis.

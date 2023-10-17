@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA Data Cleaning - 3&nbsp; Download data</title>
+<title>ALA Data Cleaning - 2&nbsp; Download data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -124,11 +124,11 @@ div.csl-indent {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 20,
   "language": {
     "search-no-results-text": "No results",
@@ -146,13 +146,40 @@ div.csl-indent {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark border-bottom">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ALA Data Cleaning</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download data</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Download data</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -160,21 +187,9 @@ div.csl-indent {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">ALA Data Cleaning</a> 
-        <div class="sidebar-tools-main">
-  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
-  <div class="quarto-reader-toggle-btn">
-  <i class="bi"></i>
-  </div>
-</a>
-</div>
-    </div>
-      </div>
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
       <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -182,61 +197,86 @@ div.csl-indent {
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome</a>
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">Introduction</a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Getting started</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./scope.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data scope</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./scope.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">| include: false</span></a>
+  <a href="./download-data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Download data</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./download-data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download data</span></a>
+  <a href="./preclean.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Data cleaning</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preclean.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></a>
+  <a href="./taxonomy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Taxonomy</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./taxonomy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Taxonomy</span></a>
+  <a href="./taxonomy-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Taxonomy II</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./taxonomy-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Taxonomy II</span></a>
+  <a href="./spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Spatial data</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial data</span></a>
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Outliers</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Outliers</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Appendix</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Appendix</span></a>
-  </div>
-</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -246,21 +286,21 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#where-to-get-data-from" id="toc-where-to-get-data-from" class="nav-link active" data-scroll-target="#where-to-get-data-from"><span class="toc-section-number">3.1</span>  Where to get data from</a>
+  <li><a href="#where-to-get-data-from" id="toc-where-to-get-data-from" class="nav-link active" data-scroll-target="#where-to-get-data-from"><span class="toc-section-number">2.1</span>  Where to get data from</a>
   <ul class="collapse">
-  <li><a href="#global" id="toc-global" class="nav-link" data-scroll-target="#global"><span class="toc-section-number">3.1.1</span>  Global</a></li>
-  <li><a href="#regional" id="toc-regional" class="nav-link" data-scroll-target="#regional"><span class="toc-section-number">3.1.2</span>  Regional</a></li>
-  <li><a href="#data-providers" id="toc-data-providers" class="nav-link" data-scroll-target="#data-providers"><span class="toc-section-number">3.1.3</span>  Data providers</a></li>
+  <li><a href="#global" id="toc-global" class="nav-link" data-scroll-target="#global"><span class="toc-section-number">2.1.1</span>  Global</a></li>
+  <li><a href="#regional" id="toc-regional" class="nav-link" data-scroll-target="#regional"><span class="toc-section-number">2.1.2</span>  Regional</a></li>
+  <li><a href="#data-providers" id="toc-data-providers" class="nav-link" data-scroll-target="#data-providers"><span class="toc-section-number">2.1.3</span>  Data providers</a></li>
   </ul></li>
-  <li><a href="#how-to-download-data" id="toc-how-to-download-data" class="nav-link" data-scroll-target="#how-to-download-data"><span class="toc-section-number">3.2</span>  How to download data</a>
+  <li><a href="#how-to-download-data" id="toc-how-to-download-data" class="nav-link" data-scroll-target="#how-to-download-data"><span class="toc-section-number">2.2</span>  How to download data</a>
   <ul class="collapse">
-  <li><a href="#using-taxonomic-information" id="toc-using-taxonomic-information" class="nav-link" data-scroll-target="#using-taxonomic-information"><span class="toc-section-number">3.2.1</span>  Using taxonomic information</a></li>
-  <li><a href="#choosing-your-taxonomic-naming-authority" id="toc-choosing-your-taxonomic-naming-authority" class="nav-link" data-scroll-target="#choosing-your-taxonomic-naming-authority"><span class="toc-section-number">3.2.2</span>  Choosing your taxonomic naming authority</a></li>
-  <li><a href="#using-spatial-information" id="toc-using-spatial-information" class="nav-link" data-scroll-target="#using-spatial-information"><span class="toc-section-number">3.2.3</span>  Using spatial information</a></li>
+  <li><a href="#using-taxonomic-information" id="toc-using-taxonomic-information" class="nav-link" data-scroll-target="#using-taxonomic-information"><span class="toc-section-number">2.2.1</span>  Using taxonomic information</a></li>
+  <li><a href="#choosing-your-taxonomic-naming-authority" id="toc-choosing-your-taxonomic-naming-authority" class="nav-link" data-scroll-target="#choosing-your-taxonomic-naming-authority"><span class="toc-section-number">2.2.2</span>  Choosing your taxonomic naming authority</a></li>
+  <li><a href="#using-spatial-information" id="toc-using-spatial-information" class="nav-link" data-scroll-target="#using-spatial-information"><span class="toc-section-number">2.2.3</span>  Using spatial information</a></li>
   </ul></li>
-  <li><a href="#choosing-specific-data-columns" id="toc-choosing-specific-data-columns" class="nav-link" data-scroll-target="#choosing-specific-data-columns"><span class="toc-section-number">3.3</span>  Choosing specific data columns</a></li>
-  <li><a href="#refining-your-data-download" id="toc-refining-your-data-download" class="nav-link" data-scroll-target="#refining-your-data-download"><span class="toc-section-number">3.4</span>  Refining your data download</a></li>
-  <li><a href="#appendixNamingAuthorities" id="toc-appendixNamingAuthorities" class="nav-link" data-scroll-target="#appendixNamingAuthorities"><span class="toc-section-number">4</span>  Appendix: Naming Authorities</a></li>
+  <li><a href="#choosing-specific-data-columns" id="toc-choosing-specific-data-columns" class="nav-link" data-scroll-target="#choosing-specific-data-columns"><span class="toc-section-number">2.3</span>  Choosing specific data columns</a></li>
+  <li><a href="#refining-your-data-download" id="toc-refining-your-data-download" class="nav-link" data-scroll-target="#refining-your-data-download"><span class="toc-section-number">2.4</span>  Refining your data download</a></li>
+  <li><a href="#appendixNamingAuthorities" id="toc-appendixNamingAuthorities" class="nav-link" data-scroll-target="#appendixNamingAuthorities"><span class="toc-section-number">3</span>  Appendix: Naming Authorities</a></li>
   </ul>
 </nav>
     </div>
@@ -269,7 +309,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-download-data" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Download data</span></span></h1>
+<h1 class="title"><span id="sec-download-data" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Download data</span></span></h1>
 </div>
 
 
@@ -284,30 +324,30 @@ div.csl-indent {
 </header>
 
 <p>Once we have decided on our data scope, we can precede to download data. In this section, we will introduce a few common data infrastructures that offer open access biodiversity data and highlight some considerations when choosing one in the context of your data scope. We will then discuss some obstacles when consolidating data from multiple sources and the importance of metadata.</p>
-<section id="where-to-get-data-from" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="where-to-get-data-from"><span class="header-section-number">3.1</span> Where to get data from</h2>
-<section id="global" class="level3" data-number="3.1.1">
-<h3 data-number="3.1.1" class="anchored" data-anchor-id="global"><span class="header-section-number">3.1.1</span> Global</h3>
+<section id="where-to-get-data-from" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="where-to-get-data-from"><span class="header-section-number">2.1</span> Where to get data from</h2>
+<section id="global" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="global"><span class="header-section-number">2.1.1</span> Global</h3>
 <p>The <a href="https://www.gbif.org/">Global Biodiversity Information Facility (GBIF)</a>, an international network and data infrastructure, stores global biodiversity data from many sources around the world. GBIF consists of a series of ‘node’ organisations who collate biodiversity data from their own regions and countries, with GBIF acting as an overarching organisation to store data from all nodes. Users that are interested in obtaining data that has global coverage may want to download directly from GBIF.</p>
 </section>
-<section id="regional" class="level3" data-number="3.1.2">
-<h3 data-number="3.1.2" class="anchored" data-anchor-id="regional"><span class="header-section-number">3.1.2</span> Regional</h3>
+<section id="regional" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="regional"><span class="header-section-number">2.1.2</span> Regional</h3>
 <p>Alternatively, using a <em>regional node</em> may be more relevant if your project is at a smaller scale. For example, the <a href="www.ala.org.au">Atlas of Living Australia (ALA)</a> is the Australian node, <a href="https://www.sibbr.gov.br/">Sistema de Informação sobre a Biodiversidade Brasileira (SiBBr)</a> is the Brazilian node, and <a href="https://www.gbif.se/">GBIF Sweden</a> is the Swedish node. Living Atlases like the ALA ingest and aggregate data from a broad range of providers such as government monitoring programs, museums and herbaria, research projects and citizen science initiatives.</p>
 <p>To see what national and regional nodes exist, check out <a href="https://www.gbif.org/the-gbif-network">this page</a>.</p>
-<p>Some regional nodes like the ALA and SiBBr use their own taxonomic backbone for classification, which might differ from the taxonomic backbone of other regional or global infrastructures like GBIF. These taxonomic classifications can be useful for classifying local flora and fauna, and accepted by experts of the region. It’s worth being aware of what <a href="#sec-namingauthorities"><span class="quarto-unresolved-ref">sec-namingauthorities</span></a> are used to error caused by classification later on.</p>
+<p>Some regional nodes like the ALA and SiBBr use their own taxonomic backbone for classification, which might differ from the taxonomic backbone of other regional or global infrastructures like GBIF. These taxonomic classifications can be useful for classifying local flora and fauna, and accepted by experts of the region. It’s worth being aware of what <a href="#sec-namingauthorities"><span>Section&nbsp;2.2.1.1</span></a> are used to error caused by classification later on.</p>
 </section>
-<section id="data-providers" class="level3" data-number="3.1.3">
-<h3 data-number="3.1.3" class="anchored" data-anchor-id="data-providers"><span class="header-section-number">3.1.3</span> Data providers</h3>
+<section id="data-providers" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="data-providers"><span class="header-section-number">2.1.3</span> Data providers</h3>
 <p>If your project relates to data from a specific data provider, it might be best to download data directly from the source. For example, a common citizen science tool to collect species observations is <a href="https://www.inaturalist.org/">iNaturalist</a>. Downloading directly from the data provider may ensure you don’t have any stray data from other sources.</p>
 <!-- this is a relatively small, uncomprehensive list. Do we want to expand to spatial data? Should we give more examples of websites or packages that contain these data? -->
 </section>
 </section>
-<section id="how-to-download-data" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="how-to-download-data"><span class="header-section-number">3.2</span> How to download data</h2>
-<section id="using-taxonomic-information" class="level3" data-number="3.2.1">
-<h3 data-number="3.2.1" class="anchored" data-anchor-id="using-taxonomic-information"><span class="header-section-number">3.2.1</span> Using taxonomic information</h3>
-<section id="sec-namingauthorities" class="level4" data-number="3.2.1.1">
-<h4 data-number="3.2.1.1" class="anchored" data-anchor-id="sec-namingauthorities"><span class="header-section-number">3.2.1.1</span> Naming authorities</h4>
+<section id="how-to-download-data" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="how-to-download-data"><span class="header-section-number">2.2</span> How to download data</h2>
+<section id="using-taxonomic-information" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="using-taxonomic-information"><span class="header-section-number">2.2.1</span> Using taxonomic information</h3>
+<section id="sec-namingauthorities" class="level4" data-number="2.2.1.1">
+<h4 data-number="2.2.1.1" class="anchored" data-anchor-id="sec-namingauthorities"><span class="header-section-number">2.2.1.1</span> Naming authorities</h4>
 <!-- Define what naming authority is -->
 <!-- How to choose -->
 <!--   query with your ideal species list, some systems fuzzy match and will have synonyms -->
@@ -316,8 +356,8 @@ div.csl-indent {
 <!-- Main point: It's worth being aware of what naming authority your taxonomic backbone uses. In some taxonomic groups, these can vary widely. Double checking your data after your download to make sure the classifications you expect are what you have will help prevent errors later on. Otherwise, you can re-code data with incorrect classification manually. -->
 </section>
 </section>
-<section id="choosing-your-taxonomic-naming-authority" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="choosing-your-taxonomic-naming-authority"><span class="header-section-number">3.2.2</span> Choosing your taxonomic naming authority</h3>
+<section id="choosing-your-taxonomic-naming-authority" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="choosing-your-taxonomic-naming-authority"><span class="header-section-number">2.2.2</span> Choosing your taxonomic naming authority</h3>
 <p>Naming authorities are the people or organisations that create updated or revised lists of species, and where they fit on the taxonomic tree. Species names and taxonomic groups in these lists vary as there may be disagreements between lists about what distinguishes a new genus, species, subspecies etc. Taxonomy is hard!</p>
 <p>Some data (especially from open source repositories) can contain data with conflicting taxonomies from different naming authorities. This difference can cause unexpected errors later in an analysis if you are unaware of which naming authorities were used in your data.</p>
 <p>Choosing a naming authority is, then, one one way to make decisions surrounding taxonomic categorisations of biodiversity data.</p>
@@ -330,8 +370,8 @@ div.csl-indent {
 <p>In the Atlas of Living Australia, the <a href="https://www.anbg.gov.au/apni/">Australian Plant Name Index (APNI)</a> is the primary naming authority for plants. With the <a href="https://biodiversity.org.au/afd/home">Australian Faunal Directory (AFD)</a> the main taxonomic catalog for animal species. For a full list, see the <a href="#appendixNamingAuthorities">appendix</a>.</p>
 <p>Data that does not match the preferred naming authority or contains data from multiple naming authorities may need to be matched to a single taxonomic backbone <!-- might be worth showing how in an appendix--> .</p>
 <p>Now that you’ve chosen a naming authority you can use it to ensure consistency across your data set, but also check you haven’t missed any species data from your download.</p>
-<section id="searching-by-classification" class="level4" data-number="3.2.2.1">
-<h4 data-number="3.2.2.1" class="anchored" data-anchor-id="searching-by-classification"><span class="header-section-number">3.2.2.1</span> Searching by classification</h4>
+<section id="searching-by-classification" class="level4" data-number="2.2.2.1">
+<h4 data-number="2.2.2.1" class="anchored" data-anchor-id="searching-by-classification"><span class="header-section-number">2.2.2.1</span> Searching by classification</h4>
 <p>Include the original name that was recorded by the data provider in your download. This is often referred to as <code>verbatimScientificName</code>. or vernacularname</p>
 <div class="cell">
 
@@ -349,34 +389,36 @@ div.csl-indent {
 <pre><code># A tibble: 1 × 1
      count
      &lt;int&gt;
-1 26609964</code></pre>
+1 26671180</code></pre>
 </div>
 </div>
 <p>Many developers have created R packages to interact with each data infrastructures’s API to aid access to biodiversity data. Here are a few examples, we recommend taking a look at each package’s documentation to choose one that suits your project.</p>
 <ul>
 <li><a href="https://docs.ropensci.org/rgbif/"><code>rgbif</code></a> an interface to GBIF</li>
-<li><a href="https://galah.ala.org.au/index.html"><code>galah</code></a> an interface to a number living Atlases, as well as GBIF</li>
+<li><a href="https://galah.ala.org.au/index.html"><code>galah</code></a> an interface to a number of living Atlases, as well as GBIF</li>
 <li><a href="https://docs.ropensci.org/rinat/"><code>rinat</code></a> an interface to iNaturalist observations</li>
 <li><a href="https://docs.ropensci.org/rebird/"><code>rebird</code></a> an interface with the eBird webservices.</li>
 <li><a href="https://docs.ropensci.org/spocc/"><code>spocc</code></a> a R package to query and collect species occurrence data from various sources including <a href="https://github.com/ropensci/rvertnet">VertNet</a>, <a href="http://www.idigbio.org/">iDigBio</a> and others.</li>
 </ul>
 <p>One benefit of using <code>galah</code> is that enables users to acquire not only species occurrence records but also taxonomic information, or associated media such as images or sounds. Below we have included some code blocks for downloading occurrence data with <code>galah</code> from GBIF and a Spain node.</p>
 </section>
-<section id="gbif-data-via-galah" class="level4" data-number="3.2.2.2">
-<h4 data-number="3.2.2.2" class="anchored" data-anchor-id="gbif-data-via-galah"><span class="header-section-number">3.2.2.2</span> GBIF data via <code>galah</code></h4>
+<section id="gbif-data-via-galah" class="level4" data-number="2.2.2.2">
+<h4 data-number="2.2.2.2" class="anchored" data-anchor-id="gbif-data-via-galah"><span class="header-section-number">2.2.2.2</span> GBIF data via <code>galah</code></h4>
 <p>First, we have to configure <code>galah</code>. This is where you supply your account credentials and set the atlas to a particular region. See <code>?galah_config</code> for more configuration options. You can <a href="https://docs.ropensci.org/rgbif/articles/gbif_credentials.html">save these credentials</a> in your <code>.Renviron</code> so you don’t have to enter it explicitly in code.</p>
 <p>We will be downloading all occurrences for the African Elephant from GBIF. This may take a while as it is around 12,000 records. Once downloaded, you can save the records locally in your desired format. For larger downloads, we recommend saving the data as <code>parquets</code> using <code>arrow::write_parquet</code></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ALA_EMAIL"</span>),</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">username =</span> <span class="fu">Sys.getenv</span>(<span class="st">"GBIF_USER"</span>),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">password =</span> <span class="fu">Sys.getenv</span>(<span class="st">"GBIF_PWD"</span>),</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">atlas =</span> <span class="st">"Global"</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>african_ele <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Loxodonta africana"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(african_ele, <span class="st">"data/gbif/elephant"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">email =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ALA_EMAIL"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">username =</span> <span class="fu">Sys.getenv</span>(<span class="st">"GBIF_USER"</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">password =</span> <span class="fu">Sys.getenv</span>(<span class="st">"GBIF_PWD"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">atlas =</span> <span class="st">"Global"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>african_ele <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Loxodonta africana"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>arrow<span class="sc">::</span><span class="fu">write_parquet</span>(african_ele, <span class="st">"data/gbif/elephant"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -403,16 +445,18 @@ div.csl-indent {
 </div>
 </div>
 </section>
-<section id="regional-node-via-galah" class="level4" data-number="3.2.2.3">
-<h4 data-number="3.2.2.3" class="anchored" data-anchor-id="regional-node-via-galah"><span class="header-section-number">3.2.2.3</span> Regional node via <code>galah</code></h4>
+<section id="regional-node-via-galah" class="level4" data-number="2.2.2.3">
+<h4 data-number="2.2.2.3" class="anchored" data-anchor-id="regional-node-via-galah"><span class="header-section-number">2.2.2.3</span> Regional node via <code>galah</code></h4>
 <p>In order to access data from the Australia node, we will need to reconfigure <code>galah</code> so that our query points to Australia. After that, we will download all records for the Pink Robin.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ALA_EMAIL"</span>), </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">atlas =</span> <span class="st">"Australia"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>pink_robin <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Petroica rodinogaster"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  atlas_occurrences</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">email =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ALA_EMAIL"</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">atlas =</span> <span class="st">"Australia"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>pink_robin <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Petroica rodinogaster"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 
@@ -439,21 +483,21 @@ div.csl-indent {
 </div>
 </section>
 </section>
-<section id="using-spatial-information" class="level3" data-number="3.2.3">
-<h3 data-number="3.2.3" class="anchored" data-anchor-id="using-spatial-information"><span class="header-section-number">3.2.3</span> Using spatial information</h3>
+<section id="using-spatial-information" class="level3" data-number="2.2.3">
+<h3 data-number="2.2.3" class="anchored" data-anchor-id="using-spatial-information"><span class="header-section-number">2.2.3</span> Using spatial information</h3>
 <!-- Fonti notes:-->
 <!-- Work in progess -->
 <!-- Narrowing your results to a specific spatial area- using `galah_geolocate` or by regions etc, discussions around whether this is best to be placed in this chapter to assist with expaning scope has been raised.  -->
 <!-- Read in shpfile, transform to polygon -->
-<section id="searching-by-region" class="level4" data-number="3.2.3.1">
-<h4 data-number="3.2.3.1" class="anchored" data-anchor-id="searching-by-region"><span class="header-section-number">3.2.3.1</span> Searching by region</h4>
+<section id="searching-by-region" class="level4" data-number="2.2.3.1">
+<h4 data-number="2.2.3.1" class="anchored" data-anchor-id="searching-by-region"><span class="header-section-number">2.2.3.1</span> Searching by region</h4>
 <p>One way to download data is by filtering to an area of interest using fields already in the ALA and {galah}.</p>
 <div class="cell">
 
 </div>
 </section>
-<section id="searching-by-bounding-box" class="level4" data-number="3.2.3.2">
-<h4 data-number="3.2.3.2" class="anchored" data-anchor-id="searching-by-bounding-box"><span class="header-section-number">3.2.3.2</span> Searching by bounding box</h4>
+<section id="searching-by-bounding-box" class="level4" data-number="2.2.3.2">
+<h4 data-number="2.2.3.2" class="anchored" data-anchor-id="searching-by-bounding-box"><span class="header-section-number">2.2.3.2</span> Searching by bounding box</h4>
 <p>Another way to download data is by filtering to return observations within a bounding box.</p>
 <div class="cell">
 
@@ -461,8 +505,8 @@ div.csl-indent {
 <p>This can be useful when you want to be sure to include records on the border or just outside the border of a defined region (which might affect predictions of where species live in a model).</p>
 <p>It can also be useful if you want to filter data yourself.</p>
 </section>
-<section id="searching-with-a-shapefile" class="level4" data-number="3.2.3.3">
-<h4 data-number="3.2.3.3" class="anchored" data-anchor-id="searching-with-a-shapefile"><span class="header-section-number">3.2.3.3</span> Searching with a shapefile</h4>
+<section id="searching-with-a-shapefile" class="level4" data-number="2.2.3.3">
+<h4 data-number="2.2.3.3" class="anchored" data-anchor-id="searching-with-a-shapefile"><span class="header-section-number">2.2.3.3</span> Searching with a shapefile</h4>
 <p>You can use a <strong>shapefile</strong> to filter observations. Shapefiles are [a file with points to make an outline, they can be simple or complex].</p>
 <div class="cell">
 
@@ -476,14 +520,14 @@ div.csl-indent {
 </section>
 </section>
 </section>
-<section id="choosing-specific-data-columns" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="choosing-specific-data-columns"><span class="header-section-number">3.3</span> Choosing specific data columns</h2>
+<section id="choosing-specific-data-columns" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="choosing-specific-data-columns"><span class="header-section-number">2.3</span> Choosing specific data columns</h2>
 <!-- Dax note: This shouldn't be its own section. This is a tool, not necessarily a topic. This information can be worked into another section, but definitely doesn't deserve its own heading -->
 <p>By default, <code>atlas_occurrences</code> will return a tibble with a selection of columns containing taxonomic and spatial data as well as other metadata. Alternatively, you can use <code>galah_select</code> to subset the columns that are relevant for your work. To see all available fields you can choose from:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_all</span>(fields) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_all</span>(fields)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 626 × 4
+<pre><code># A tibble: 628 × 4
    id                  description                                   type  link 
    &lt;chr&gt;               &lt;chr&gt;                                         &lt;chr&gt; &lt;chr&gt;
  1 _nest_parent_       &lt;NA&gt;                                          fiel… &lt;NA&gt; 
@@ -496,24 +540,26 @@ div.csl-indent {
  8 annotationsDoi      &lt;NA&gt;                                          fiel… &lt;NA&gt; 
  9 annotationsUid      &lt;NA&gt;                                          fiel… &lt;NA&gt; 
 10 assertionUserId     User ID of the person who has made an assert… fiel… &lt;NA&gt; 
-# ℹ 616 more rows</code></pre>
+# ℹ 618 more rows</code></pre>
 </div>
 </div>
 <p>Here, we will choose a smaller subsets of 8 columns to download for the Pink Robin</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>project_fields <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"recordID"</span>,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"eventDate"</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"year"</span>, </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"basisOfRecord"</span>, </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"occurrenceStatus"</span>,</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"scientificName"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"decimalLatitude"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"decimalLongitude"</span>)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>pink_robin_projfields <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Petroica rodinogaster"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_select</span>(project_fields) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>project_fields <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"recordID"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"eventDate"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"year"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"basisOfRecord"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"occurrenceStatus"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"scientificName"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"decimalLatitude"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"decimalLongitude"</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>pink_robin_projfields <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Petroica rodinogaster"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_select</span>(project_fields) <span class="sc">%&gt;%</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 
@@ -540,26 +586,26 @@ div.csl-indent {
 </div>
 <!-- Dax note: I got to here with structuring the sections. Feel free to disagree and move things around -->
 </section>
-<section id="refining-your-data-download" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="refining-your-data-download"><span class="header-section-number">3.4</span> Refining your data download</h2>
+<section id="refining-your-data-download" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="refining-your-data-download"><span class="header-section-number">2.4</span> Refining your data download</h2>
 <!-- Dax note: I have moved some of the below info (basically everything in By Year) into the previous chapter. Not sure what to do about Basis of Record, though. Perhaps we can rework this into the Pre-cleaning chapter? -->
 <p>Open access biodiversity data comes from many different data sources, (eg. government monitoring programs, museums, herbaria, research projects, citizen science apps). As such, data type and quality can vary considerably. For example, museums harbour older records that are associated with a preserved specimens. These data often contain lots of extra information (metadata) about a specific specimen and its location. Alternatively, data sourced from citizen science apps like iNaturalist or eBird are associated with images or sounds captured from a smart phone. These data might contain less metadata of each observation, but, thanks to phones’ accurate location services, are quite accurate about the time and location of an observation.</p>
 <p>Refining your download query ensures higher quality data and also reduces the download size as many data infrastructures impose constraints to download size. Below we have illustrated how you can refine your query a few quality measures using <code>galah_filter</code>.</p>
-<section id="by-year" class="level4" data-number="3.4.0.1">
-<h4 data-number="3.4.0.1" class="anchored" data-anchor-id="by-year"><span class="header-section-number">3.4.0.1</span> By Year</h4>
-<p>Generally, old data records tend to be insufficient or less reliable as taxonomic knowledge and GPS tools were not readily available. For this reason, many users consider removing all occurrence records before a certain year to increase data precision <span class="citation" data-cites="gueta_quantifying_2016 marsh_accounting_2022">(<a href="#ref-gueta_quantifying_2016" role="doc-biblioref">Gueta and Carmel 2016</a>; <a href="#ref-marsh_accounting_2022" role="doc-biblioref">Marsh et al. 2022</a>)</span> .</p>
-<p>Choosing the year ‘cut-off’ is relatively arbitary, but the most commonly used year is 1945 <span class="citation" data-cites="zizka_no_2020 fuhrding-potschkat_influence_2022">(<a href="#ref-zizka_no_2020" role="doc-biblioref">Zizka et al. 2020</a>; <a href="#ref-fuhrding-potschkat_influence_2022" role="doc-biblioref">Führding-Potschkat, Kreft, and Ickert-Bond 2022</a>)</span>, although some studies discard all data collected before 1990 <span class="citation" data-cites="gueta_quantifying_2016 marsh_accounting_2022">(<a href="#ref-gueta_quantifying_2016" role="doc-biblioref">Gueta and Carmel 2016</a>; <a href="#ref-marsh_accounting_2022" role="doc-biblioref">Marsh et al. 2022</a>)</span>.</p>
+<section id="by-year" class="level4" data-number="2.4.0.1">
+<h4 data-number="2.4.0.1" class="anchored" data-anchor-id="by-year"><span class="header-section-number">2.4.0.1</span> By Year</h4>
+<p>Generally, old data records tend to be insufficient or less reliable as taxonomic knowledge and GPS tools were not readily available. For this reason, many users consider removing all occurrence records before a certain year to increase data precision <span class="citation" data-cites="gueta_quantifying_2016 marsh_accounting_2022">(<a href="references.html#ref-gueta_quantifying_2016" role="doc-biblioref">Gueta and Carmel 2016</a>; <a href="references.html#ref-marsh_accounting_2022" role="doc-biblioref">Marsh et al. 2022</a>)</span> .</p>
+<p>Choosing the year ‘cut-off’ is relatively arbitary, but the most commonly used year is 1945 <span class="citation" data-cites="zizka_no_2020 fuhrding-potschkat_influence_2022">(<a href="references.html#ref-zizka_no_2020" role="doc-biblioref">Zizka et al. 2020</a>; <a href="references.html#ref-fuhrding-potschkat_influence_2022" role="doc-biblioref">Führding-Potschkat, Kreft, and Ickert-Bond 2022</a>)</span>, although some studies discard all data collected before 1990 <span class="citation" data-cites="gueta_quantifying_2016 marsh_accounting_2022">(<a href="references.html#ref-gueta_quantifying_2016" role="doc-biblioref">Gueta and Carmel 2016</a>; <a href="references.html#ref-marsh_accounting_2022" role="doc-biblioref">Marsh et al. 2022</a>)</span>.</p>
 <p>Here we will narrow the Pink Robin query from above to records after 1945 using <code>galah_filter</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pink_robin_post1945 <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Petroica rodinogaster"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_filter</span>(year <span class="sc">&gt;</span> <span class="dv">1945</span>) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>pink_robin_post1945 <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Petroica rodinogaster"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_filter</span>(year <span class="sc">&gt;</span> <span class="dv">1945</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="basis-of-record" class="level4" data-number="3.4.0.2">
-<h4 data-number="3.4.0.2" class="anchored" data-anchor-id="basis-of-record"><span class="header-section-number">3.4.0.2</span> Basis of record</h4>
-<p>Basis of record is a <a href="https://dwc.tdwg.org/terms/#dwc:basisOfRecord">Darwin Core term</a> that refers to the specific nature of the occurrence record. It can be used to refine your data download and ensure consistency when consolidating data from multiple organisations <span class="citation" data-cites="fuhrding-potschkat_influence_2022">(<a href="#ref-fuhrding-potschkat_influence_2022" role="doc-biblioref">Führding-Potschkat, Kreft, and Ickert-Bond 2022</a>)</span>.</p>
+<section id="basis-of-record" class="level4" data-number="2.4.0.2">
+<h4 data-number="2.4.0.2" class="anchored" data-anchor-id="basis-of-record"><span class="header-section-number">2.4.0.2</span> Basis of record</h4>
+<p>Basis of record is a <a href="https://dwc.tdwg.org/terms/#dwc:basisOfRecord">Darwin Core term</a> that refers to the specific nature of the occurrence record. It can be used to refine your data download and ensure consistency when consolidating data from multiple organisations <span class="citation" data-cites="fuhrding-potschkat_influence_2022">(<a href="references.html#ref-fuhrding-potschkat_influence_2022" role="doc-biblioref">Führding-Potschkat, Kreft, and Ickert-Bond 2022</a>)</span>.</p>
 <p>There are 6 different classes for basis of record:</p>
 <ul>
 <li>Living Specimen - a specimen that is alive, e.g.&nbsp;a living plant in a national park</li>
@@ -570,24 +616,26 @@ div.csl-indent {
 <li>Human Observation - an output of human observation process e.g.&nbsp;evidence of an occurrence taken from field notes or an occurrence without any physical evidence</li>
 <li>Machine Observation - An output of a machine observation process e.g.&nbsp;a photograph, a video, an audio recording, a remote sensing image or an occurrence record based on telemetry.</li>
 </ul>
-<p>Depending on your data scope, it may be practical to limit data that can be traced to a physical specimen or observation <span class="citation" data-cites="godfree_implications_2021">(<a href="#ref-godfree_implications_2021" role="doc-biblioref">Godfree et al. 2021</a>)</span>, which we do for the Pink Robin below</p>
+<p>Depending on your data scope, it may be practical to limit data that can be traced to a physical specimen or observation <span class="citation" data-cites="godfree_implications_2021">(<a href="references.html#ref-godfree_implications_2021" role="doc-biblioref">Godfree et al. 2021</a>)</span>, which we do for the Pink Robin below</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tractable_records <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"LIVING_SPECIMEN"</span>, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"PRESERVED_SPECIMEN"</span>, </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"MATERIAL_SAMPLE"</span>, </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"MACHINE_OBSERVATION"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>pink_robin_tractable <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Petroica rodinogaster"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_filter</span>(basisOfRecord <span class="sc">==</span> tractable_records) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tractable_records <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"LIVING_SPECIMEN"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PRESERVED_SPECIMEN"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MATERIAL_SAMPLE"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MACHINE_OBSERVATION"</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>pink_robin_tractable <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Petroica rodinogaster"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_filter</span>(basisOfRecord <span class="sc">==</span> tractable_records) <span class="sc">%&gt;%</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="assertions" class="level4" data-number="3.4.0.3">
-<h4 data-number="3.4.0.3" class="anchored" data-anchor-id="assertions"><span class="header-section-number">3.4.0.3</span> Assertions</h4>
+<section id="assertions" class="level4" data-number="2.4.0.3">
+<h4 data-number="2.4.0.3" class="anchored" data-anchor-id="assertions"><span class="header-section-number">2.4.0.3</span> Assertions</h4>
 <p>Data infrastructures use assertions to internally grade the quality, completeness and consistency of each occurrence record. Assertions take values of either 1 or 0, indicating the presence or absence of the data quality issue. Note that assertions may vary depending what atlas you have configured to. You can see the available assertions and their descriptions using:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_all</span>(<span class="st">"assertions"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_all</span>(<span class="st">"assertions"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 114 × 4
    id                                 description                 category type 
@@ -615,8 +663,8 @@ div.csl-indent {
 </div>
 </section>
 </section>
-<section id="appendixNamingAuthorities" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Appendix: Naming Authorities</h1>
+<section id="appendixNamingAuthorities" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Appendix: Naming Authorities</h1>
 <p>Accurate species delimitation is also crucial for adequate conservation management and understanding evolutionary processes (<a href="http://localhost:3271/references.html#ref-mace2004role">Mace 2004</a>). Species level lists are the foundation of many conservation decisions: such as the IUCN conservation status classification system. Taxonomic scope therefore has an effect on research application impacts.</p>
 <p>Deciding what naming authority to use can be challenging. What you choose will depend on your own taxonomic research and evaluation, but also your research scope.</p>
 <p>The Atlas of Living Australia uses the following priority list of naming authorities:</p>
@@ -628,7 +676,7 @@ div.csl-indent {
 <p><strong>insert a mapped example of data changes when changing taxonomic naming authority?</strong></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography" style="display: none">
 <div id="ref-fuhrding-potschkat_influence_2022" class="csl-entry" role="doc-biblioentry">
 Führding-Potschkat, Petra, Holger Kreft, and Stefanie M. Ickert-Bond. 2022. <span>“Influence of Different Data Cleaning Solutions of Point-Occurrence Records on Downstream Macroecological Diversity Models.”</span> <em>Ecology and Evolution</em> 12 (8): e9168. <a href="https://doi.org/10.1002/ece3.9168">https://doi.org/10.1002/ece3.9168</a>.
 </div>
@@ -749,19 +797,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./scope.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">| include: false</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data scope</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./preclean.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">Data Cleaning booklet is a product of the Atlas of Living Australia.</div>   
+    <div class="nav-footer-left">The Data Cleaning booklet is a product of the Atlas of Living Australia.</div>   
     <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>

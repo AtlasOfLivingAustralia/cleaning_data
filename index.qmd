@@ -1,4 +1,4 @@
-# Welcome {.unnumbered}
+# Preface {.unnumbered}
 
 <!-- This website contains resources for working with occurrence data from
 living atlases. It is suitable for those who wish to learn to download, tidy,
@@ -33,6 +33,11 @@ details about how this was done, please refer to the [Appendix](appendix.qmd).
 All resources that were used can be found in the
 [References](references.qmd) page. 
 
+## Who is this book for?
+
+- getting started and getting an overview of steps with examples
+- quick reference
+
 ## How to contribute
 
 We would like to preface that we are not experts in data cleaning, but felt
@@ -49,28 +54,26 @@ proposed changes. Our contributing guidelines can be found [here](https://github
   
 ## How to cite
 
-TO COME BACK TO THIS LATER Refer to this when creating this
-section(https://ardc.edu.au/resource/citing-software/)
-
 You can cite this book as:
 Kar, F., Fenker, J., Schneider, M., Westgate, M. (2023). Cleaning biodiversity
 data in R. Retrieved Month dd, yyyy, from https://atlasoflivingaustralia.github.io/cleaning_data/
 
 <!-- Just a placeholder licence -->
 <!-- actual repository should also contain a licence doc; preferably matching I think -->
-This book is available free to read, and is licenced under the (Creative Commons
-Attribution-NonCommercial-ShareAlike 4.0 International
-License)[https://creativecommons.org/licenses/by-nc-sa/4.0/] 
+This book is available free to read, and is licenced under the 
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/) 
 
 ## Acknowledgements {.unnumbered}
 
 This book was inspired by an [Australian Research Data
 Commons](https://ardc.edu.au/) project where our team worked closely with
 research partners to streamline their data cleaning workflows. This book is a
-collaborative effort from the Science and Decision Support team at the [Atlas of
-Living Australia (ALA)](https://www.ala.org.au/)
+collaborative effort from the Science and Decision Support team at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/)
 
 Authors listed in alphabetic order:\ - Fonti Kar\ - Jessica Fenker\ - Margot
 Schneider\ - Martin Westgate
 
 
+- TODO:
+- the preface or somewhere should have a little background on who, why, types of
+research etc. The title is also just data cleaning perhaps need more specific 

@@ -4,11 +4,13 @@ editor_options:
   chunk_output_type: console
 ---
 
+# Data scope
+
 ```{r setup}
 #| include: false
 knitr::opts_chunk$set(
-  comment = '', 
-  fig.width = 6, 
+  comment = "",
+  fig.width = 6,
   fig.height = 6
 )
 
@@ -25,354 +27,77 @@ library(rmapshaper)
 galah_config(verbose = FALSE)
 ```
 
-# Data scope
+Data scope refers to the type and extent of data needed for your project.
+Defining your scope is an essential part of forming a research question,
+ultimately impacting what data you will use in your project. Availability of
+data may therefore influence your scope and research question.
 
-Data scope refers to the type and breadth of data needed for your project. Defining your scope is an essential part of forming a research question, ultimately impacting what data you will use in your project. Depending on the data available, your scope and research question may change.
+For example, you might have a question about several species in the same area.
+However, data for one or more of those species could be limited because
+observations are rare, surveying the area where it lives is difficult, or only
+several historical records exist. 
 
-For example, you might have a question about several species in the same area. However, data for one or more of those species could be limited because observations are rare, surveying the area where it lives is difficult, or only several historical records exist. 
+Without narrowing your data scope, you might find yourself downloading more data
+than you need, which can needlessly increase how much time is spent processing
+data prior to analyses. Alternatively, you might find there isn't enough data to
+answer your question.
 
-Without narrowing your data scope, you might find yourself downloading more data than you need, which can needlessly increase how much time is spent processing data prior to analyses. Alternatively, you might find there isn't enough data to answer your question.
-
-While there are workable methods to analyse small sets of biodiversity data (e.g. [hulls](https://labs.ala.org.au/posts/2022-10-12_alpha-hulls/post.html)), it's worth thinking critically about whether the amount of data available will allow you to sufficiently answer your research question.
+While there are workable methods to analyse small sets of biodiversity data
+(e.g. [hulls](https://labs.ala.org.au/posts/2022-10-12_alpha-hulls/post.html)),
+it's worth thinking critically about whether the amount of data available will
+allow you to sufficiently answer your research question.
 
 To start, some initial questions you might ask are:
 
 -   What is the **temporal** unit relevant for your research question?
 
-    *Am I only interested in more recent data? Is there data that are too old to be relevant for my question?*
+    *Am I only interested in more recent data? Is there data that are too old to
+    be relevant for my question?*
 
 -   What is the **taxonomic** unit of your proposed research question?
 
-    *Is my question specific to one or more species in the same taxonomic group? Does it compare between higher taxonomic levels like genus, family or order?*
+    *Is my question specific to one or more species in the same taxonomic group?
+    Does it compare between higher taxonomic levels like genus, family or
+    order?*
 
 -   What is the **spatial** scale of your proposed research question?
 
-    *Is my question relevant at a global or national level, or is it specific to a region or ecosystem?*
+    *Is my question relevant at a global or national level, or is it specific to
+    a region or ecosystem?*
 
-Questions like these will help you define what data is most relevant for your research question, and help you begin to think about how much evidence available, and the trade-offs you might make between the specificity of your question and the certainty of your answer.
+Questions like these will help you define what data is most relevant for your
+research question, and help you begin to think about how much evidence
+available, and the trade-offs you might make between the specificity of your
+question and the certainty of your answer.
 
 
-## An example question
+## Demonstration
 
-As an example, let's imagine we were interested in understanding more about the distribution of several Jewel beetles in the genus *Lampromicra*. Let's see some ways we might investigate what data are available about them in Australia.
+As an example, let's imagine we were interested in understanding more about the
+distribution of several Jewel beetles in the genus *Lampromicra*. Let's see some
+ways we might investigate what data are available about them in Australia.
 
 :::{layout="[-1, 1, -1]"}
+
 <img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/1/e/8/9cb8bae2-fba0-45fa-bbfc-6e5fc8588e17/original"></img>
+
 :::
+
 ::: {.figure-caption}
-[Curious what a Jewel beetle looks like? Here is a *Lampromicra senator* perched on a leaf by Matthew Connors CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/8ad5f2ca-3e69-4665-bf6f-da1054538ab2)
+
+[Curious what a Jewel beetle looks like? Here is a *Lampromicra senator* perched
+on a leaf by Matthew Connors CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/8ad5f2ca-3e69-4665-bf6f-da1054538ab2)
+
 :::
 
-## Temporal scope
 
-A good first step to understanding what data are available is to check how many observations there are over different time periods. We can check how many total observations there are in the Atlas of Living Australia (the largest biodiversity data aggregator in Australia) with the following query:
 
-```{r}
-library(galah)
-```
 
 
 
-```{r}
-#| warning: false
-#| message: false
-library(galah)
 
-atlas_counts()
-```
 
-Now let's check how many total insect records there are.
-
-```{r}
-galah_call() |>
-  galah_identify("insecta") |>
-  atlas_counts()
-```
-
-Now let's see how many insects have been observed each year over the last 10 years. We'll order this by descending year using `dplyr::arrange()` and `dplyr::desc()`.
-
-```{r}
-#| warning: false
-#| message: false
-library(dplyr)
-
-galah_call() |>
-  galah_identify("insecta") |>
-  galah_filter(year >= 2013) |>
-  galah_group_by(year) |>
-  atlas_counts() |>
-  dplyr::arrange(dplyr::desc(year))
-```
-
-Now that we have an idea of the total amount of data in the Atlas of Living Australia, let's try checking how many observations exist of the genus *Lampromicra*. We'll first make sure the scientific name *Lampromicra* returns the taxon information we expect with `search_taxa()`.
-
-```{r}
-search_taxa("Lampromicra")
-```
-
-This looks correct! Next let's see how many total observations there are of *Lampromicra* and how many observations there were in each of the last 10 years.
-
-```{r}
-galah_call() |>
-  galah_identify("Lampromicra") |>
-  atlas_counts()
-
-galah_call() |>
-  galah_identify("Lampromicra") |>
-  galah_filter(year >= 2013) |>
-  galah_group_by(year) |>
-  atlas_counts() |>
-  dplyr::arrange(dplyr::desc(year))
-```
-
-There are a growing number of observations from 2012 to 2023 of Jewel beetles in the Atlas of Living Australia, with fewer than 100 observations each year prior to 2020. 
-
-With this information, we might choose to combine data from all years in our analysis (rather than separating them by year). Alternatively, we might decide to only include data since 2020, which might be sufficient to represent where *Lampromicra* are found and be more relevant because they are more recent observations. These are decisions that might affect the granularity of the research question we ask.
-
-## Taxonomic scope
-
-Taxonomy refers to ways by which we classify an organism and its relationship to all other organisms. Typically, your research question will be concerned with one or more taxonomic groups, ranging from a single species to an entire kingdom (e.g. *Plantae*). 
-
-In our example, we are interested in understanding more about Jewel beetles in the genus *Lampromicra*.
-
-We first might want to know what species there are in the genus *Lampromicra* and view some additional taxonomic information about them. We can do this by adding `atlas_species()` to the end of a query in {galah}.
-
-:::{.callout-note}
-You will need to add an email address [registered with the Atlas of Living Australia](https://auth.ala.org.au/userdetails/registration/createAccount) in `galah_config()` to download species information.
-:::
-
-```{r}
-galah_config(email = "oliviajane.t@hotmail.com")
-
-galah_call() |>
-  galah_identify("Lampromicra") |>
-  atlas_species() |>
-  select(family:species_guid)
-```
-
-Our query returned three species in the genus *Lampromicra*. We can enter the urls returned under `species_guid` in a web browser if we wished to know more information about any of them.
-
-We might also wish to check the total number of observations of each of these species. We can check this by grouping our counts by species using `galah_group_by(species)`
-
-```{r}
-galah_call() |>
-  galah_identify("Lampromicra") |>
-  galah_group_by(species) |>
-  atlas_counts()
-```
-
-Our result shows that the majority of observations of *Lampromicra* are of the species *Lampromicra senator*. 
-
-Given this information, we might consider whether our question needs to be made at the species level, or whether we might increase the taxonomic scope to the genus or family level to use more data. Ultimately, the taxonomic scope of your data will depend on how important it is to your question to compare specific taxonomic groups.
-
-
-## Spatial scope
-
-It's useful to investigate the spatial range of available data for your taxonomic group(s) of interest. How specific your question can be may change depending on whether the majority of data is in only a few locations or evenly spread over the entire distribution of a species or taxonomic group.
-
-For our example question about *Lampromicra*, we may wish to map where observations in Australia have been made. We can do this by using the {ozmaps} package to download a nice map of Australia, plot it with `sf::geom_sf()`, and add our observation points on top with `geom_point()`. We can separate the colours of our points by setting `colour = scientificName` within the `aes()` of `geom_point()`.
-
-:::{.callout-note}
-You will need to add an email address [registered with the Atlas of Living Australia](https://auth.ala.org.au/userdetails/registration/createAccount) in `galah_config()` to download species information.
-:::
-
-```{r}
-#| code-fold: true
-# old fonti code. not sure why it's saved?
-# beatles <- open_dataset("data/galah/lampromicra") |> collect() 
-library(ozmaps)
-library(sf)
-library(ggplot2)
-library(paletteer) # colour palettes
-
-# Download data
-galah_config(email = "oliviajane.t@hotmail.com") 
-
-beetles <- galah_call() |>
-  galah_identify("lampromicra") |>
-  atlas_occurrences() |>
-  tidyr::drop_na() # remove any NA values
-
-# Get map of australia, set to correct projection for data
-aus <- st_transform(ozmaps::ozmap_country, 4326)
-
-# Map
-ggplot() +
-  geom_sf(data = aus, 
-          colour = "grey60", 
-          fill = "white", 
-          alpha = 0.2) +
-  geom_point(data = beetles,
-             mapping = aes(x = decimalLongitude, 
-                           y = decimalLatitude, 
-                           colour = scientificName),
-             size = 1.8,
-             alpha = 0.6) +
-  scale_color_paletteer_d("feathers::eastern_rosella") +
-  coord_sf(xlim = c(110, 155), 
-           ylim = c(-45, -10)) +
-  theme_void()
-```
-
-
-Plotting our points shows us that observations are spread along the northern and eastern coasts of Australia. We can also see that some observations are only identified to the genus level (e.g. *Lampromicra*), rather than to a specific species (e.g. *Lampromicra aerea*).
-
-There are several places on the east coast of Australia where there are clumps of overlapping points. It's difficult to tell how many observations there really are in those areas. To investigate, we can recreate this into a point density plot using the [{ggpointdensity package}](https://github.com/LKremer/ggpointdensity). 
-
-```{r}
-#| code-fold: true
-library(ggpointdensity)
-
-ggplot() +
-  geom_sf(data = aus, 
-          colour = "grey60", 
-          fill = "white", 
-          alpha = 0.2) +
-  geom_pointdensity(data = beetles,
-                    mapping = aes(x = decimalLongitude,
-                                  y = decimalLatitude)) +
-  scale_color_paletteer_c("viridis::plasma") +
-  coord_sf(xlim = c(110, 155), 
-           ylim = c(-45, -10)) +
-  theme_void()
-```
-
-Adding the density of overlapping points to our map allows us to see that there is one area with many more observations—more than 400 observations are found in the light yellow area!
-
-Using this information, we might decide to make our research question more specific to the region where there are the most records of *Lampromicra*.
-
-Let's have a look at these records in the context of their IBRA bioregions (distinct areas defined on a common climate, geology, landform, native vegetation and species information). 
-
-To find out what region(s) the genus *Lampromicra* is  most common, you can `group_by` the IBRA region field code in {galah} (use `search_fields` to see others).
-
-
-```{r}
-ibra_counts <- galah_call() |>
-  galah_identify("Lampromicra") |>
-  galah_group_by("cl1048") |>    # IBRA regions
-  atlas_counts()
-
-gt(head(ibra_counts))
-```
-
-
-<aside> 
-
-**South Eastern Queensland** (red), **Sydney Basin** (green)
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-
-shapefile <- st_read(here("data",
-                          "shapefiles",
-                          "IBRA7_regions",
-                          "ibra7_regions.shp"), 
-                     quiet = TRUE) |> 
-  ms_simplify(keep = 0.1)
-
-#IBRA Regions
-ggplot() +
-  geom_sf(data = shapefile %>% filter(REG_NAME_7 == "South Eastern Queensland"),
-          aes(fill = "red"),  
-          colour = "black", 
-          alpha = 0.7) +
-  geom_sf(data = shapefile %>% filter(REG_NAME_7 == "Sydney Basin"),
-          aes(fill = "green"),  
-          colour = "black", 
-          alpha = 0.2) +
-  geom_sf(data = shapefile %>% filter(REG_NAME_7 != c("South Eastern Queensland", "Sydney Basin")),
-          aes(fill = "white"),  
-          colour = "grey60", 
-          alpha = 0.2) +
-  geom_point(data = beetles,
-             mapping = aes(x = decimalLongitude,
-                           y = decimalLatitude),
-             size = 0.05) +
-  coord_sf(xlim = c(110, 155), 
-           ylim = c(-45, -10)) +
-  scale_fill_identity() +
-  theme_void()
-```
-
-</aside> 
-
-Looks like South Eastern Queensland has the most records followed by Sydney Basin. 
-
-This could be due to sampling bias in that Brisbane and Sydney are large metropolis areas. You might choose to investigate [this bias further](https://labs.ala.org.au/posts/2022-07-22_sample-bias/post.html). 
-
-```{r}
-#| code-fold: true
-#| column: page
-#| fig-align: center
-#| layout-nrow: 1
-#| message: false
-#| warning: false
-
-shapefile <- st_read(here("data",
-                          "shapefiles",
-                          "IBRA7_regions",
-                          "ibra7_regions.shp"), 
-                     quiet = TRUE) |> 
-  ms_simplify(keep = 0.1)
-
-
-# South Eastern Queensland
-ggplot() +
-  geom_sf(data = shapefile %>% filter(REG_NAME_7 == "South Eastern Queensland"),
-          aes(fill = "red"),  
-          colour = "grey60", 
-          alpha = 0.7) +
-  geom_sf(data = shapefile %>% filter(REG_NAME_7 != "South Eastern Queensland"),
-          aes(fill = "white"),  
-          colour = "grey60", 
-          alpha = 0.2) +
-  geom_point(data = beetles,
-             mapping = aes(x = decimalLongitude,
-                           y = decimalLatitude),
-             size = 0.5) +
-  coord_sf(xlim = c(140, 155), 
-           ylim = c(-30, -10)) +
-  scale_fill_identity() +
-  theme_void()
-
-# Sydney Basin
-ggplot() +
-  geom_sf(data = aus, 
-          colour = "grey60", 
-          fill = "white", 
-          alpha = 0.2) +
-  geom_sf(data = shapefile %>% filter(REG_NAME_7 == "Sydney Basin"),
-          aes(fill = "green"),  
-          colour = "grey60", 
-          alpha = 0.7) +
-  geom_sf(data = shapefile %>% filter(REG_NAME_7 != "Sydney Basin"),
-          aes(fill = "white"),  
-          colour = "grey60", 
-          alpha = 0.2) +
-  geom_point(data = beetles,
-             mapping = aes(x = decimalLongitude,
-                           y = decimalLatitude),
-             size = 0.5) +
-  coord_sf(xlim = c(145, 155), 
-           ylim = c(-37, -30)) +
-  scale_fill_identity() + 
-  theme_void()
-```
-
-
-Alternatively, we might decide that there isn't enough data (or data of a good enough quality) to make accurate estimates about *Lampromicra*. 
-
-Depending on the spatial specificity of your question, you might have to adjust your data scope or your question accordingly.
-
-
-
-## Summary
-
-This chapter has demonstrated some ways to initially investigate the data available to answer a research question using the {galah} package. This is just a small example of how you might go about interogating the data to think critically about your data scope.
-
-The next chapter will explain how you can download and save your data set to begin the first step of your analysis.
 
 
 
@@ -389,7 +114,7 @@ The next chapter will explain how you can download and save your data set to beg
 #   galah_filter( year > 1950 & year <= 2022)%>%
 #   galah_select(group = "basic")%>%
 #   atlas_occurrences()
-# 
+#
 # arrow::write_parquet(lampromicra, "data/galah/lampromicra")
 #
 # insects <- galah_call() |>
@@ -397,8 +122,8 @@ The next chapter will explain how you can download and save your data set to beg
 #   galah_filter(stateProvince == "Tasmania") |>
 #    galah_select(group = "basic", order) |>
 #   atlas_occurrences()
-# 
-# insects |> 
+#
+# insects |>
 #   arrow::write_parquet("data/galah/insects")
 
 ```

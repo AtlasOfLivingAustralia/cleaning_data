@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ALA Data Cleaning - 3&nbsp; Spatial scope</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./scope_summary.html" rel="next">
+<link href="./scope_taxonomic.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark border-bottom">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ALA Data Cleaning</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Spatial scope</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./index.html" class="sidebar-item-text sidebar-link">Preface</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./scope.html" class="sidebar-item-text sidebar-link">Data scope</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_temporal.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temporal scope</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_taxonomic.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Taxonomic scope</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_spatial.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Spatial scope</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data scope summary</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Open source biodiversity data</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./open_data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Open source data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./download-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Download data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./preclean.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Data cleaning</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./taxonomy.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomy</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./taxonomy-2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Taxonomy II</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spatial.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Spatial data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Outliers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Appendix</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#download-data-galah_configemail-oliviajane.thotmail.com" id="toc-download-data-galah_configemail-oliviajane.thotmail.com" class="nav-link active" data-scroll-target="#download-data-galah_configemail-oliviajane.thotmail.com"><span class="toc-section-number">4</span>  Download data galah_config(email = “oliviajane.t@hotmail.com”)</a></li>
+  <li><a href="#get-map-of-australia-set-to-correct-projection-for-data-aus--" id="toc-get-map-of-australia-set-to-correct-projection-for-data-aus--" class="nav-link" data-scroll-target="#get-map-of-australia-set-to-correct-projection-for-data-aus--"><span class="toc-section-number">5</span>  Get map of australia, set to correct projection for data aus &lt;-</a></li>
+  <li><a href="#map-ggplot-geom_sf-data-aus-colour-grey60-fill-white-alpha" id="toc-map-ggplot-geom_sf-data-aus-colour-grey60-fill-white-alpha" class="nav-link" data-scroll-target="#map-ggplot-geom_sf-data-aus-colour-grey60-fill-white-alpha"><span class="toc-section-number">6</span>  Map ggplot() + geom_sf( data = aus, colour = “grey60”, fill = “white”, alpha =</a></li>
+  <li><a href="#ibra-regions-ggplot-geom_sf-data-shapefile-filterreg_name_7" id="toc-ibra-regions-ggplot-geom_sf-data-shapefile-filterreg_name_7" class="nav-link" data-scroll-target="#ibra-regions-ggplot-geom_sf-data-shapefile-filterreg_name_7"><span class="toc-section-number">7</span>  IBRA Regions ggplot() + geom_sf( data = shapefile %&gt;% filter(REG_NAME_7 ==</a></li>
+  <li><a href="#south-eastern-queensland-ggplot-geom_sf-data-shapefile" id="toc-south-eastern-queensland-ggplot-geom_sf-data-shapefile" class="nav-link" data-scroll-target="#south-eastern-queensland-ggplot-geom_sf-data-shapefile"><span class="toc-section-number">8</span>  South Eastern Queensland ggplot() + geom_sf( data = shapefile %&gt;%</a></li>
+  <li><a href="#sydney-basin-ggplot-geom_sf-data-aus-colour-grey60-fill" id="toc-sydney-basin-ggplot-geom_sf-data-aus-colour-grey60-fill" class="nav-link" data-scroll-target="#sydney-basin-ggplot-geom_sf-data-aus-colour-grey60-fill"><span class="toc-section-number">9</span>  Sydney Basin ggplot() + geom_sf( data = aus, colour = “grey60”, fill =</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Spatial scope</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>It’s useful to investigate the spatial range of available data for your taxonomic group(s) of interest. How specific your question can be may change depending on whether the majority of data is in only a few locations or evenly spread over the entire distribution of a species or taxonomic group.</p>
+<p>For our example question about <em>Lampromicra</em>, we may wish to map where observations in Australia have been made. We can do this by using the {ozmaps} package to download a nice map of Australia, plot it with <code>sf::geom_sf()</code>, and add our observation points on top with <code>geom_point()</code>. We can separate the colours of our points by setting <code>colour = scientificName</code> within the <code>aes()</code> of <code>geom_point()</code>.</p>
+<p>:::{.callout-note} You will need to add an email address <a href="https://auth.ala.org.au/userdetails/registration/createAccount">registered with the Atlas of Living Australia</a> in <code>galah_config()</code> to download species information. :::</p>
+<p>```{r} #| code-fold: true # old fonti code. not sure why it’s saved? # beatles &lt;- open_dataset(“data/galah/lampromicra”) |&gt; collect() library(ozmaps) library(sf) library(ggplot2) library(paletteer) # colour palettes</p>
+<section id="download-data-galah_configemail-oliviajane.thotmail.com" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Download data galah_config(email = “oliviajane.t@hotmail.com”)</h1>
+<p>beetles &lt;- galah_call() |&gt; galah_identify(“lampromicra”) |&gt; atlas_occurrences() |&gt; tidyr::drop_na() # remove any NA values</p>
+</section>
+<section id="get-map-of-australia-set-to-correct-projection-for-data-aus--" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Get map of australia, set to correct projection for data aus &lt;-</h1>
+<p>st_transform(ozmaps::ozmap_country, 4326)</p>
+</section>
+<section id="map-ggplot-geom_sf-data-aus-colour-grey60-fill-white-alpha" class="level1 page-columns page-full" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Map ggplot() + geom_sf( data = aus, colour = “grey60”, fill = “white”, alpha =</h1>
+<p>0.2 ) + geom_point( data = beetles, mapping = aes( x = decimalLongitude, y = decimalLatitude, colour = scientificName ), size = 1.8, alpha = 0.6 ) + scale_color_paletteer_d(“feathers::eastern_rosella”) + coord_sf( xlim = c(110, 155), ylim = c(-45, -10) ) + theme_void() ```</p>
+<p>Plotting our points shows us that observations are spread along the northern and eastern coasts of Australia. We can also see that some observations are only identified to the genus level (e.g.&nbsp;<em>Lampromicra</em>), rather than to a specific species (e.g.&nbsp;<em>Lampromicra aerea</em>).</p>
+<p>There are several places on the east coast of Australia where there are clumps of overlapping points. It’s difficult to tell how many observations there really are in those areas. To investigate, we can recreate this into a point density plot using the <a href="https://github.com/LKremer/ggpointdensity">{ggpointdensity package}</a>.</p>
+<p>```{r} #| code-fold: true library(ggpointdensity)</p>
+<p>ggplot() + geom_sf( data = aus, colour = “grey60”, fill = “white”, alpha = 0.2 ) + geom_pointdensity( data = beetles, mapping = aes( x = decimalLongitude, y = decimalLatitude ) ) + scale_color_paletteer_c(“viridis::plasma”) + coord_sf( xlim = c(110, 155), ylim = c(-45, -10) ) + theme_void() ```</p>
+<p>Adding the density of overlapping points to our map allows us to see that there is one area with many more observations—more than 400 observations are found in the light yellow area!</p>
+<p>Using this information, we might decide to make our research question more specific to the region where there are the most records of <em>Lampromicra</em>.</p>
+<p>Let’s have a look at these records in the context of their IBRA bioregions (distinct areas defined on a common climate, geology, landform, native vegetation and species information).</p>
+<p>To find out what region(s) the genus <em>Lampromicra</em> is most common, you can <code>group_by</code> the IBRA region field code in {galah} (use <code>search_fields</code> to see others).</p>
+<p>```{r} ibra_counts &lt;- galah_call() |&gt; galah_identify(“Lampromicra”) |&gt; galah_group_by(“cl1048”) |&gt; # IBRA regions atlas_counts()</p>
+<p>gt(head(ibra_counts)) ```</p>
+<aside>
+<p><strong>South Eastern Queensland</strong> (red), <strong>Sydney Basin</strong> (green)</p>
+<p>```{r} #| echo: false #| message: false #| warning: false</p>
+<p>shapefile &lt;- st_read( here( “data”, “shapefiles”, “IBRA7_regions”, “ibra7_regions.shp” ), quiet = TRUE ) |&gt; ms_simplify(keep = 0.1)</p>
+</aside></section>
+<section id="ibra-regions-ggplot-geom_sf-data-shapefile-filterreg_name_7" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> IBRA Regions ggplot() + geom_sf( data = shapefile %&gt;% filter(REG_NAME_7 ==</h1>
+<p>“South Eastern Queensland”), aes(fill = “red”), colour = “black”, alpha = 0.7 ) + geom_sf( data = shapefile %&gt;% filter(REG_NAME_7 == “Sydney Basin”), aes(fill = “green”), colour = “black”, alpha = 0.2 ) + geom_sf( data = shapefile %&gt;% filter(REG_NAME_7 != c(“South Eastern Queensland”, “Sydney Basin”)), aes(fill = “white”), colour = “grey60”, alpha = 0.2 ) + geom_point( data = beetles, mapping = aes( x = decimalLongitude, y = decimalLatitude ), size = 0.05 ) + coord_sf( xlim = c(110, 155), ylim = c(-45, -10) ) + scale_fill_identity() + theme_void() ```</p>
+
+<p>Looks like South Eastern Queensland has the most records followed by Sydney Basin.</p>
+<p>This could be due to sampling bias in that Brisbane and Sydney are large metropolis areas. You might choose to investigate <a href="https://labs.ala.org.au/posts/2022-07-22_sample-bias/post.html">this bias further</a>.</p>
+<p>```{r} #| code-fold: true #| column: page #| fig-align: center #| layout-nrow: 1 #| message: false #| warning: false</p>
+<p>shapefile &lt;- st_read( here( “data”, “shapefiles”, “IBRA7_regions”, “ibra7_regions.shp” ), quiet = TRUE ) |&gt; ms_simplify(keep = 0.1)</p>
+</section>
+<section id="south-eastern-queensland-ggplot-geom_sf-data-shapefile" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> South Eastern Queensland ggplot() + geom_sf( data = shapefile %&gt;%</h1>
+<p>filter(REG_NAME_7 == “South Eastern Queensland”), aes(fill = “red”), colour = “grey60”, alpha = 0.7 ) + geom_sf( data = shapefile %&gt;% filter(REG_NAME_7 != “South Eastern Queensland”), aes(fill = “white”), colour = “grey60”, alpha = 0.2 ) + geom_point( data = beetles, mapping = aes( x = decimalLongitude, y = decimalLatitude ), size = 0.5 ) + coord_sf( xlim = c(140, 155), ylim = c(-30, -10) ) + scale_fill_identity() + theme_void()</p>
+</section>
+<section id="sydney-basin-ggplot-geom_sf-data-aus-colour-grey60-fill" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Sydney Basin ggplot() + geom_sf( data = aus, colour = “grey60”, fill =</h1>
+<p>“white”, alpha = 0.2 ) + geom_sf( data = shapefile %&gt;% filter(REG_NAME_7 == “Sydney Basin”), aes(fill = “green”), colour = “grey60”, alpha = 0.7 ) + geom_sf( data = shapefile %&gt;% filter(REG_NAME_7 != “Sydney Basin”), aes(fill = “white”), colour = “grey60”, alpha = 0.2 ) + geom_point( data = beetles, mapping = aes( x = decimalLongitude, y = decimalLatitude ), size = 0.5 ) + coord_sf( xlim = c(145, 155), ylim = c(-37, -30) ) + scale_fill_identity() + theme_void() ```</p>
+<p>Alternatively, we might decide that there isn’t enough data (or data of a good enough quality) to make accurate estimates about <em>Lampromicra</em>.</p>
+<p>Depending on the spatial specificity of your question, you might have to adjust your data scope or your question accordingly.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./scope_taxonomic.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Taxonomic scope</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./scope_summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data scope summary</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">The Data Cleaning booklet is a product of the Atlas of Living Australia.</div>   
+    <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+
+</body></html>

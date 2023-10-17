@@ -6,8 +6,8 @@ editor_options:
 ```{r, setup, include=FALSE}
 
 knitr::opts_chunk$set(
-  comment = '', 
-  fig.width = 6, 
+  comment = "",
+  fig.width = 6,
   fig.height = 6,
   eval = FALSE,
   echo = FALSE,
@@ -89,7 +89,7 @@ Now that you've chosen a naming authority you can use it to ensure consistency a
 Include the original name that was recorded by the data provider in your download. This is often referred to as `verbatimScientificName`. or vernacularname
 
 ```{r}
-# Orchid as an example 
+# Orchid as an example
 # Read in problem child data and show
 
 # Group by species and count unique values for higher taxonomy
@@ -111,7 +111,7 @@ galah_call() |>
 Many developers have created R packages to interact with each data infrastructures's API to aid access to biodiversity data. Here are a few examples, we recommend taking a look at each package's documentation to choose one that suits your project. 
 
 - [`rgbif`](https://docs.ropensci.org/rgbif/) an interface to GBIF
-- [`galah`](https://galah.ala.org.au/index.html)  an interface to a number living Atlases, as well as GBIF
+- [`galah`](https://galah.ala.org.au/index.html)  an interface to a number of living Atlases, as well as GBIF
 - [`rinat`](https://docs.ropensci.org/rinat/) an interface to iNaturalist observations
 - [`rebird`](https://docs.ropensci.org/rebird/) an interface with the eBird webservices.
 - [`spocc`](https://docs.ropensci.org/spocc/) a R package to query and collect species occurrence data from various sources including [VertNet](https://github.com/ropensci/rvertnet), [iDigBio](http://www.idigbio.org/) and others.
@@ -125,13 +125,15 @@ First, we have to configure `galah`. This is where you supply your account crede
 We will be downloading all occurrences for the African Elephant from GBIF. This may take a while as it is around 12,000 records. Once downloaded, you can save the records locally in your desired format. For larger downloads, we recommend saving the data as `parquets` using `arrow::write_parquet`
 
 ```{r, echo = TRUE}
-galah_config(email = Sys.getenv("ALA_EMAIL"),
-             username = Sys.getenv("GBIF_USER"),
-             password = Sys.getenv("GBIF_PWD"),
-             atlas = "Global")
+galah_config(
+  email = Sys.getenv("ALA_EMAIL"),
+  username = Sys.getenv("GBIF_USER"),
+  password = Sys.getenv("GBIF_PWD"),
+  atlas = "Global"
+)
 
-african_ele <- galah_call() %>% 
-  galah_identify("Loxodonta africana") %>% 
+african_ele <- galah_call() %>%
+  galah_identify("Loxodonta africana") %>%
   atlas_occurrences()
 
 arrow::write_parquet(african_ele, "data/gbif/elephant")
@@ -147,12 +149,14 @@ read_parquet("data/gbif/elephant")
 In order to access data from the Australia node, we will need to reconfigure `galah` so that our query points to Australia. After that, we will download all records for the Pink Robin.
 
 ```{r, echo = TRUE}
-galah_config(email = Sys.getenv("ALA_EMAIL"), 
-             atlas = "Australia")
+galah_config(
+  email = Sys.getenv("ALA_EMAIL"),
+  atlas = "Australia"
+)
 
-pink_robin <- galah_call() %>% 
-  galah_identify("Petroica rodinogaster") %>% 
-  atlas_occurrences
+pink_robin <- galah_call() %>%
+  galah_identify("Petroica rodinogaster") %>%
+  atlas_occurrences()
 ```
 
 ```{r}
@@ -204,11 +208,13 @@ In R, using shapefiles requires using a package for handling spatial data like t
 Here is a simple polygon we have constructed for a theoretical "site A". We use `st_as_sf()` and `st_set_crs()` from the convert our shapefile to a spatial object in R, then set its coordinate reference system. This allows us to plot this object with {ggplot2}.
 
 ```{r}
-my_polygon <- tibble(site = "A",
-       geometry = "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))")
+my_polygon <- tibble(
+  site = "A",
+  geometry = "POLYGON((131.36328125 -22.506468769126,135.23046875 -23.396716654542,134.17578125 -27.287832521411,127.40820312499 -26.661206402316,128.111328125 -21.037340349154,131.36328125 -22.506468769126))"
+)
 
 my_polygon_sf <- st_as_sf(my_polygon, wkt = "geometry") %>%
-  st_set_crs(4326) 
+  st_set_crs(4326)
 
 ggplot() +
   geom_sf(data = my_polygon_sf)
@@ -230,24 +236,26 @@ Using shapefiles allows us to return data for very specific shapes, and are usef
 By default, `atlas_occurrences` will return a tibble with a selection of columns containing taxonomic and spatial data as well as other metadata. Alternatively, you can use `galah_select` to subset the columns that are relevant for your work. To see all available fields you can choose from:
 
 ```{r, echo = TRUE, eval = TRUE}
-show_all(fields) 
+show_all(fields)
 ```
 
 Here, we will choose a smaller subsets of 8 columns to download for the Pink Robin
 
 ```{r, echo = TRUE}
-project_fields <- c("recordID",
-                    "eventDate",
-                    "year", 
-                    "basisOfRecord", 
-                    "occurrenceStatus",
-                    "scientificName",
-                    "decimalLatitude",
-                    "decimalLongitude")
+project_fields <- c(
+  "recordID",
+  "eventDate",
+  "year",
+  "basisOfRecord",
+  "occurrenceStatus",
+  "scientificName",
+  "decimalLatitude",
+  "decimalLongitude"
+)
 
-pink_robin_projfields <- galah_call() %>% 
-  galah_identify("Petroica rodinogaster") %>% 
-  galah_select(project_fields) %>% 
+pink_robin_projfields <- galah_call() %>%
+  galah_identify("Petroica rodinogaster") %>%
+  galah_select(project_fields) %>%
   atlas_occurrences()
 ```
 
@@ -280,9 +288,9 @@ Choosing the year 'cut-off' is relatively arbitary, but the most commonly used y
 Here we will narrow the Pink Robin query from above to records after 1945 using `galah_filter`:
 
 ```{r, echo = TRUE}
-pink_robin_post1945 <- galah_call() %>% 
-  galah_identify("Petroica rodinogaster") %>% 
-  galah_filter(year > 1945) %>% 
+pink_robin_post1945 <- galah_call() %>%
+  galah_identify("Petroica rodinogaster") %>%
+  galah_filter(year > 1945) %>%
   atlas_occurrences()
 ```
 
@@ -303,14 +311,16 @@ There are 6 different classes for basis of record:
 Depending on your data scope, it may be practical to limit data that can be traced to a physical specimen or observation [@godfree_implications_2021], which we do for the Pink Robin below
 
 ```{r, echo=TRUE}
-tractable_records <- c("LIVING_SPECIMEN", 
-                       "PRESERVED_SPECIMEN", 
-                       "MATERIAL_SAMPLE", 
-                       "MACHINE_OBSERVATION")
+tractable_records <- c(
+  "LIVING_SPECIMEN",
+  "PRESERVED_SPECIMEN",
+  "MATERIAL_SAMPLE",
+  "MACHINE_OBSERVATION"
+)
 
-pink_robin_tractable <- galah_call() %>% 
-  galah_identify("Petroica rodinogaster") %>% 
-  galah_filter(basisOfRecord == tractable_records) %>% 
+pink_robin_tractable <- galah_call() %>%
+  galah_identify("Petroica rodinogaster") %>%
+  galah_filter(basisOfRecord == tractable_records) %>%
   atlas_occurrences()
 ```
 
@@ -319,7 +329,7 @@ pink_robin_tractable <- galah_call() %>%
 Data infrastructures use assertions to internally grade the quality, completeness and consistency of each occurrence record. Assertions take values of either 1 or 0, indicating the presence or absence of the data quality issue. Note that assertions may vary depending what atlas you have configured to. You can see the available assertions and their descriptions using:
 
 ```{r, eval = TRUE, echo=TRUE}
-show_all("assertions") 
+show_all("assertions")
 ```
 
 Once you have decided which assertions are important for your project you can further refine your download. To retrieve all the assertions for your query use `galah_select(group = "assertions")`
@@ -330,31 +340,35 @@ Once you have decided which assertions are important for your project you can fu
 <!-- For exclusions using multiple assertions (Currently throws errors, need to think carefully about != means for logical assertions...) -->
 
 ```{r}
-probin_assertions <- galah_call() %>% 
-  galah_identify("Petroica rodinogaster") %>% 
-  galah_filter(basisOfRecord == tractable_records) %>% 
-  galah_select(group = "assertions") %>% 
-  atlas_occurrences() 
+probin_assertions <- galah_call() %>%
+  galah_identify("Petroica rodinogaster") %>%
+  galah_filter(basisOfRecord == tractable_records) %>%
+  galah_select(group = "assertions") %>%
+  atlas_occurrences()
 
 # Preview all the assertions
 colnames(probin_assertions)
 
 # A quick way to check which assertions contain TRUEs
-probin_assertions |> select(-recordID) |> colSums()
+probin_assertions |>
+  select(-recordID) |>
+  colSums()
 
 # Requery for single assertion
-probin_subset <- galah_call() %>% 
-  galah_identify("Petroica rodinogaster") %>% 
-  galah_filter(basisOfRecord == tractable_records,
-               identificationIncorrect == FALSE) %>% 
-  galah_select(group = "basic") %>% 
-  atlas_counts() 
+probin_subset <- galah_call() %>%
+  galah_identify("Petroica rodinogaster") %>%
+  galah_filter(
+    basisOfRecord == tractable_records,
+    identificationIncorrect == FALSE
+  ) %>%
+  galah_select(group = "basic") %>%
+  atlas_counts()
 
 
 # For exclusions using multiple assertions [Currently throws errors, need to think carefully about != means for logical assertions...]
 # assertions <- c("UNKNOWN_KINGDOM", "identificationIncorrect",
 #                    "COORDINATE_PRECISION_MISMATCH", "MISSING_GEODETICDATUM")
-# 
+#
 # galah_call() %>%
 #   galah_identify("Petroica rodinogaster") %>%
 #   galah_filter(basisOfRecord == tractable_records,

@@ -4,22 +4,53 @@ project:
 book:
   title: "ALA Data Cleaning"
   reader-mode: true
+  page-navigation: true
+  back-to-top-navigation: true
 #  author: "Atlas of Living Australia"
 #  date: "18/11/2022"
+  navbar:
+    background: none
+    search: true
+    left:
+      - text: "Home"
+        file: index.qmd
+    pinned: false
+  sidebar:
+    title: "ALA Data Cleaning"
+    style: docked
+    background: none
+
   page-footer:
     left: |
-      Data Cleaning booklet is a product of the Atlas of Living Australia.
+      The Data Cleaning booklet is a product of the Atlas of Living Australia.
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.
 
   cover-image: images/book_cover2.jpg 
 
+  # Have the option to add introductory pages for the parts 
+  # as in, part: preface.qmd
   chapters:
-    - index.qmd
-    - intro.qmd
-    - scope.qmd
+  - part: index.qmd
+    chapters:
+    - overview.qmd
+    - how_to_use.md
+  - part: intro.qmd
+    chapters:
+    - open_data.qmd
+
+  - part: scope.qmd
+    chapters:
+    - scope_temporal.qmd
+    - scope_taxonomic.qmd
+    - scope_spatial.qmd
+    - scope_summary.qmd
+  - part: "Open source biodiversity data"
+    chapters:
     - download-data.qmd
     - preclean.qmd
+  - part: "Data cleaning"
+    chapters:
     - taxonomy.qmd
     - taxonomy-2.qmd
     - spatial.qmd

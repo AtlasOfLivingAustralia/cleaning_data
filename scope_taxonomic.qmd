@@ -1,0 +1,49 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Taxonomic scope
+
+Taxonomy refers to ways by which we classify an organism and its relationship to
+all other organisms. Typically, your research question will be concerned with
+one or more taxonomic groups, ranging from a single species to an entire kingdom
+(e.g. *Plantae*). 
+
+In our example, we are interested in understanding more about Jewel beetles in
+the genus *Lampromicra*.
+
+We first might want to know what species there are in the genus *Lampromicra*
+and view some additional taxonomic information about them. We can do this by
+adding `atlas_species()` to the end of a query in {galah}.
+
+:::{.callout-note} You will need to add an email address [registered with the
+Atlas of Living
+Australia](https://auth.ala.org.au/userdetails/registration/createAccount) in
+`galah_config()` to download species information. :::
+
+```{r} galah_config(email = "youremail@here.com")
+
+galah_call() |> galah_identify("Lampromicra") |> atlas_species() |>
+  select(family:species_guid) ```
+
+Our query returned three species in the genus *Lampromicra*. We can enter the
+urls returned under `species_guid` in a web browser if we wished to know more
+information about any of them.
+
+We might also wish to check the total number of observations of each of these
+species. We can check this by grouping our counts by species using
+`galah_group_by(species)`
+
+```{r} galah_call() |> galah_identify("Lampromicra") |> galah_group_by(species)
+|> atlas_counts() ```
+
+Our result shows that the majority of observations of *Lampromicra* are of the
+species *Lampromicra senator*. 
+
+Given this information, we might consider whether our question needs to be made
+at the species level, or whether we might increase the taxonomic scope to the
+genus or family level to use more data. Ultimately, the taxonomic scope of your
+data will depend on how important it is to your question to compare specific
+taxonomic groups.

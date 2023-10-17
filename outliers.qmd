@@ -1,19 +1,70 @@
 # Outliers
+<!-- Notes -->
+<!-- support article around inconsistent sampling and open source data -->
 
-#note from meeting with Martin this section might include some alpha hull examples for how to detect outliers, or how they can skew your data, in addition to maybe an SDM for outlier detection [@simoes2018utility] even if we won't be teaching people how to run an SDM
+An outlier is a point located at a significant distance from the majority of the
+species' distribution or available data points. Outliers can be true outliers or
+data errors. Data errors can be caused by a variety of factors including
+mis-identified specimens or incorrect georeferencing. In the absence of a data
+error however, these outliers are considered to be a true point, and are not
+necessary to remove.
 
-Outliers can be true outliers or data errors, true outliers are not necessarily to be removed. This could represent mis-identified specimens, etc
+Open source data issues.
 
-(#note to double check what i wrote for support article around inconsistent sampling and open source data)
+"The Atlas of Living Australia is a data aggregator, we collate data from our
+providers making them available to our users. The ALA does not own the data we
+display. The data we receive come in different forms and of different qualities,
+bringing many challenges. Data errors can occur in multiple places from data
+collection through the ingestion process. Understanding that not all errors are
+the same can help users work with the data they receive from us. "
+
+"Conversely, others conclude that in a large majority of cases, high quantity,
+low quality data produce similar results to that of lower quantity, high quality
+data (Aceves-Bueno et al., 2017). Poor quality data have also been used to
+cost-effectively estimate risk levels for data deficient species using a double
+sampling methodology (see Bland et al., 2015). However, to date, the general
+consensus within the conservation community favors the use of high quality data
+(Cayuela et al., 2009; Wood, Sullivan, Lliff, Fink, & Kelling, 2011) "
+
+With broad data accumulation data quality can be impacted. In response GBIF
+flags potential errors through its data validator
+(https://www.gbif.org/tools/data-validator). This is an automated process
+providing information on geographic discrepancies (e.g., whether coordinates
+fall within a stated country), meta-data structure and formatting issues, and
+suggests how the user may improve the quality of the data and associated
+meta-data before use. 
 
 - Alpha hull (some example species - check cailtin chat history)
-
-- SDM Shandiya? 
+alpha hull
+examples for how to detect outliers, or how they can skew your data. 
 
 -   Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed.
 
-Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1) an image of the species in question which does not match 2) If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)
+Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1: an image of the species in question which does not match 2: If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)
 
-```{r}
+## Alternative methods
 
-```
+Here we document some other existing methods that can be used for outlier
+detection, and their limitations.
+
+-  Species Distribution Modelling for outlier detection: 
+    - [@simoes2018utility](https://doi.org/10.1111/icad.12288)
+    - Maxiomum Entropy modelling (MaxEnt) was used to model habitat suitability
+    for five species of leaf beetles in the genus *Mesomphalia*
+    - The method relies on the assumption that an errornous point will have a
+    lower habitat suitability value than a true point. 
+    - For their dataset, the method was useful for identifying geographical
+    position errors, but not species level identification errors.
+
+<!-- I think this study / method also has some limitations - it relies on the
+assumption that you are able to sensibly model the habitat suitability of your
+species, with available environmental data and occurrence records. It would be
+unsuitable for somebody with limited experience in SDMs. What environmental data
+to use for predictors, what time scale - does it match your points, what spatial
+scale and importance of scale, this isn't discussed. Their models have
+suspiciously high AUC values, seems overfit. The claim that the method should be
+more efficient in larger datasets is unsubstantiated. How do you verify the
+results? All you know is that the habitat suitability is lower than expected
+relative to your other samples. It could be due to sampling bias, and
+underrepresented environmental areas. How exactly would you determine the
+cut-off for identifying outliers? Not discussed.  -->
