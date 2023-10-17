@@ -25,6 +25,7 @@ book:
     - spatial.qmd
     - outliers.qmd
     - references.qmd
+    - packages.qmd
     - appendix.qmd
 
 bibliography: references.bib
