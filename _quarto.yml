@@ -8,6 +8,8 @@ book:
   back-to-top-navigation: true
 #  author: "Atlas of Living Australia"
 #  date: "18/11/2022"
+  output-dir: docs
+  code-annotations: below
   navbar:
     background: none
     search: true
@@ -34,11 +36,9 @@ book:
   - part: index.qmd
     chapters:
     - overview.qmd
-    - how_to_use.md
-  - part: intro.qmd
-    chapters:
-    - open_data.qmd
-
+    - how_to_use.qmd
+    - requirements.md
+  - intro.qmd
   - part: scope.qmd
     chapters:
     - scope_temporal.qmd

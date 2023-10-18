@@ -1,0 +1,28 @@
+---
+code-annotations: hover
+---
+
+# How to use this book {.unnumbered}
+
+This book provides an overview of biodiversity data cleaning using the R
+programming language. Demonstrations and instructions are accompanied by
+code blocks, which show how a particular task was executed. Code blocks may also
+include comments which are preceded by a `#` symbol, and are not executed by R:
+
+```r
+# This is a code block with a comment
+library(package)
+plot(data)
+```
+
+Some code blocks may also be annotated, to help explain the sequence of steps:
+
+```r
+# This is a code block with annotation
+cars |> # <1>
+  filter(cars$speed > 20) |> # <2>
+  summary() # <3>
+```
+1. Start building a data query
+2. Narrow the query with taxonomic identifiers
+3. Return the count of records

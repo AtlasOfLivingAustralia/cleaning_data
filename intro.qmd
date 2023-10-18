@@ -11,17 +11,32 @@ csl: methods-in-ecology-and-evolution.csl
 
 > "Garbage in, garbage out" - George Fuechsel, IBM computer programmer
 
-Data from different sources vary widely in their **structure, formatting and
-quality**. As a result, collating and combining them into something usable to
-answer a research question can be both challenging and time consuming.
+There is an ever growing interest and need in understanding spatial and temporal
+patterns of biodiversity across the globe. To this end, georeferenced
+biodiversity data are often used for a variety of ecological questions, such as
+in species species distribution modelling, conservation planning, and invasive
+species monitoring to name a few. 
 
-The idea that inputting flawed or nonsensical data produces an output of similar
-quality is well known in many scientific disciplines. In ecology and
-biodiversity research, however, scientists are particularly at risk of
-unintentionally using poor data because they **often bring together lots of data
-from many sources to address their research questions.**
+Open source biodiversity datasets are widely available online, which are
+invaluable and often essentialresources for such investigations. However, it is
+well known in many scientific displines that inputting flawed or nonsensical
+data produces an output of similar quality. In ecology and biodiversity
+research, scientists are particularly at risk of unintentionally using poor data
+because they **often bring together large amounts of data from many sources to
+address their research questions.** Data from different sources vary widely in
+their **structure, formatting and quality**. As a result, correctly collating
+and combining them can be both challenging and time consuming. Besides this,
+georeferenced biodiversity data itself can pose several challenges, as issues
+can range from simple formatting errors, to taxonomic inconsistencies and
+spatial errors. 
+
+Biodiversity data aggregation services employ automated quality control
+procedures to identify and flag potential errors. However, these services deal
+with high volumes of data, and not all issues can be identified. Therefore it is
+always recommoneded that users of biodiversity data **perform their own quality
+control** before using any open source biodiversity data in their research.  
 
 **Data cleaning**, the process of identifying and fixing incompatible, incorrect
-or doubtful data, is an essential step in ecology and biodiversity research.
-Data cleaning improves data quality and the validity of scientific findings
-[@rodrigues_species_2022].
+or doubtful data, is therefore an essential step in ecology and biodiversity
+research. Employing suitable data cleaning procedures will improve data quality
+and the validity of scientific findings [@rodrigues_species_2022].

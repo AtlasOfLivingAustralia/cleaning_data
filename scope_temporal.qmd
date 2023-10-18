@@ -6,22 +6,64 @@ editor_options:
 
 # Temporal scope
 
-A good first step to understanding what data are available is to check how many
-observations there are over different time periods. We can check how many total
-observations there are in the Atlas of Living Australia (the largest
-biodiversity data aggregator in Australia) with the following query:
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(
+  comment = "",
+  fig.width = 6,
+  fig.height = 6
+)
+```
 
-```{r} library(galah) ```
+```{r}
+#| code-fold: true
+#| code-summary: "Load required packages"
+#| message: false
+library(here)
+library(sf)
+library(tidyverse) # group of packages
+library(ozmaps)
+library(arrow)
+library(gt)
+library(galah)
+library(paletteer)
+library(viridis)
+library(rmapshaper)
+# TODO maybe move down, or split up to only used packages for each section so
+# they are stand alone
+```
 
+```{r}
+#| include: false
+galah_config(verbose = FALSE)
+```
 
+A good first step to understanding what data are available is to check the
+number of observations across different time periods. To do this, we are using
+the `galah` package to query the Atlas of Living Australia, which is the largest
+biodiversity data aggregator in Australia.
 
-```{r} #| warning: false #| message: false library(galah)
+The `atlas_counts()` function returns a count of records. By itself, it returns
+a count of all records in the Atlas of Living Australia.
 
-atlas_counts() ```
+```{r} 
+#| warning: false
+#| message: false
+library(galah)
+atlas_counts()
+```
 
-Now let's check how many total insect records there are.
+We can narrow this query using `galah` helper functions. In this case, we narrow
+the search to only include insects. 
 
-```{r} galah_call() |> galah_identify("insecta") |> atlas_counts() ```
+```{r} 
+galah_call() |> # <1>
+  galah_identify("insecta") |> # <2>
+  atlas_counts() # <3>
+```
+1. Start building a data query
+2. Narrow the query with taxonomic identifiers
+3. Return the count of records
 
 Now let's see how many insects have been observed each year over the last 10
 years. We'll order this by descending year using `dplyr::arrange()` and
@@ -29,8 +71,12 @@ years. We'll order this by descending year using `dplyr::arrange()` and
 
 ```{r} #| warning: false #| message: false library(dplyr)
 
-galah_call() |> galah_identify("insecta") |> galah_filter(year >= 2013) |>
-  galah_group_by(year) |> atlas_counts() |> dplyr::arrange(dplyr::desc(year))
+galah_call() |>
+  galah_identify("insecta") |>
+  galah_filter(year >= 2013) |>
+  galah_group_by(year) |>
+  atlas_counts() |>
+  dplyr::arrange(dplyr::desc(year))
   ```
 
 Now that we have an idea of the total amount of data in the Atlas of Living
@@ -45,8 +91,12 @@ This looks correct! Next let's see how many total observations there are of
 
 ```{r} galah_call() |> galah_identify("Lampromicra") |> atlas_counts()
 
-galah_call() |> galah_identify("Lampromicra") |> galah_filter(year >= 2013) |>
-  galah_group_by(year) |> atlas_counts() |> dplyr::arrange(dplyr::desc(year))
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  galah_filter(year >= 2013) |>
+  galah_group_by(year) |>
+  atlas_counts() |>
+  dplyr::arrange(dplyr::desc(year))
   ```
 
 There are a growing number of observations from 2012 to 2023 of Jewel beetles in
