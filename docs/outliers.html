@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA Data Cleaning - 10&nbsp; Outliers</title>
+<title>ALA Data Cleaning - 11&nbsp; Outliers</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -121,7 +121,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./taxonomy.html">Data cleaning</a></li><li class="breadcrumb-item"><a href="./outliers.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Outliers</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./metadata.html">Data cleaning</a></li><li class="breadcrumb-item"><a href="./outliers.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Outliers</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -229,7 +229,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./preclean.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Initial inspection</span></span></a>
   </div>
 </li>
       </ul>
@@ -245,38 +245,44 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./taxonomy-2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomy II</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Taxonomy II</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Spatial data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./outliers.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
       </ul>
@@ -291,7 +297,7 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#alternative-methods" id="toc-alternative-methods" class="nav-link active" data-scroll-target="#alternative-methods"><span class="header-section-number">10.1</span> Alternative methods</a></li>
+  <li><a href="#alternative-methods" id="toc-alternative-methods" class="nav-link active" data-scroll-target="#alternative-methods"><span class="header-section-number">11.1</span> Alternative methods</a></li>
   </ul>
 </nav>
     </div>
@@ -300,7 +306,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Outliers</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Outliers</span></h1>
 </div>
 
 
@@ -323,8 +329,8 @@ div.csl-indent {
 <li><p>Remove records with miss-identified taxonomy: Incorrectly identified species, or unrecognized species names compared to a naming authority, should be removed.</p></li>
 </ul>
 <p>Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1: an image of the species in question which does not match 2: If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (<strong>see — for more info</strong>)</p>
-<section id="alternative-methods" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="alternative-methods"><span class="header-section-number">10.1</span> Alternative methods</h2>
+<section id="alternative-methods" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="alternative-methods"><span class="header-section-number">11.1</span> Alternative methods</h2>
 <p>Here we document some other existing methods that can be used for outlier detection, and their limitations.</p>
 <ul>
 <li>Species Distribution Modelling for outlier detection:
@@ -594,12 +600,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./spatial.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Spatial data</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Spatial data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">References</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

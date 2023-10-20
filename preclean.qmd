@@ -7,8 +7,8 @@ editor_options:
 ```{r, setup, include=FALSE}
 
 knitr::opts_chunk$set(
-  comment = '', 
-  fig.width = 6, 
+  comment = "",
+  fig.width = 6,
   fig.height = 6,
   eval = FALSE,
   echo = FALSE,
@@ -24,39 +24,21 @@ library(skimr)
 library(janitor)
 ```
 
-# Pre-cleaning
-
-Pre-cleaning prepares the dataset(s) in a general manner to ensure logical and consistent formatting. It is a 'broad sweep' procedure that allows you to familiarise with the data, but it also makes the next stage of in-depth data cleaning proceed more smoothly [@streamdna_sharing_2020]. We will discuss some approaches on how to be curious with your data and how to detect and handle string inconsistencies or typography related errors, missing data, and outliers.
-
-
-## Metadata
-
-Metadata describes your data set: it defines each variable and its contents. This might be describing what units a variable has been measured in, or, the climate the occurrence was collected in and whether it is a marked outlier. **Starting the process of pre-cleaning by briefing your metadata allows you to understand the kind of data you are working with and any potential biases that may limit what you can do with it**. Similarly, these biases may need to be of consideration when creating models or when used in your work more broadly. 
-
-Data infrastructures that use Darwin Core terms will have interoperable metadata. This makes it easier to consolidate across data sets. All Darwin Core term definitions can be found [here](https://dwc.tdwg.org/terms/), we suggest using `Ctrl/CMD F` and searching your variable name on the [webpage](https://dwc.tdwg.org/terms/). Don't hesitate to Google variable names if you are unsure what they represent.
-
-It is also worth checking the metadata for the entire dataset to delineate if there is extra information about the data which may be relevant. You could Google the dataset name, or search the dataset or institution on the ALA. The metadata on the ALA is submitted with the data, of which the ALA as a repository and not an owner cannot change. This means low-quality metadata cannot necessarily be vetoed. 
-
-An example of some good metadata is [FrogID from the Australian Museum](https://collections.ala.org.au/public/show/dr14760). From reading FrogID's metadata [@rowley2020frogid], you'll find:
-
-1.  The data is acoustic data, the majority of the species recorded are therefore male
-2.  Because this is citizen science data, it is especially biased towards populated areas
-3.  Audio is recorded via a smartphone app, the authors recommend if you require high coordinate precision to filter data to `geographic uncertainty of <3000m`
-4.  The data is presence only data
-
-Metadata can also be useful for understanding the license that the data falls under. This is mostly relevant for using or republishing multimedia associated with the data.
-
 ## Initial inspection
 
-A great way to get an initial overview of your data is to use the R package `skimr`. Importantly `skimr` produces tables of descriptive statistics, such as amount of missing data, for every variable
+Before diving into cleaning, it is always a good idea to start by familiarising
+yourself with the data. A great way to get an initial overview of your data is
+to use the R package `skimr`, which provides tables of descriptive statistics,
+such as amount of missing data, for each variable. The output is also grouped by
+data type (numeric, character, date) so you can also check for any
+inconsistencies. 
 
-The output is also grouped by data type (numeric, character, date) so you can also check for any inconsistencies. As you are looking through the output, ask yourself whether the data is in line with your expectations. For example:
-
-If you requested data for a group of species, are they all represented? 
-
-Are the values for a variable reasonable? Looking at the quartiles will help you get the sense of the distribution of data. 
-
-These considerations will help you detect potential issues in the data.
+As you are looking through the output, ask yourself whether the data is in line
+with your expectations.If you requested data for a group of species, are they
+all represented? Are the values for a variable reasonable? Looking at the
+quartiles can help you get the sense of the distribution of data. These
+considerations will help you detect potential issues in the data. Make sure you
+take note of any issues you find, to investigate further and later address. 
 
 ```{r, echo = TRUE}
 library(skimr)
@@ -64,7 +46,8 @@ library(skimr)
 skim(african_ele)
 ```
 
-Here is the `skimr` report for our African elephant dataset we [downloaded earlier](download-data.qmd)
+Here is the `skimr` report for our African elephant dataset we [downloaded
+earlier](download-data.qmd). #todo more info needed 
 
 ```{r, eval = TRUE}
 african_ele <- read_parquet("data/gbif/elephant")
@@ -76,29 +59,39 @@ skim(african_ele)
 
 ### String inconsistencies and typographical errors
 
-String inconsistencies include misspellings, capitalisation errors, misplaced punctuation or trailing white spaces. We will use the `janitor` R package to explore whether our data has any of these issues. The function `tabyl` will compute a counts and percent of total rows for each unique value.
+String inconsistencies include misspellings, capitalisation errors, misplaced
+punctuation or trailing white spaces. We will use the `janitor` R package to
+explore whether our data has any of these issues. The function `tabyl` will
+compute a counts and percent of total rows for each unique value.
 
-We recommend `tabyl-ing` any character strings that are relevant to your project. For example, here is the [`stateProvince`](https://dwc.tdwg.org/terms/#dwc:stateProvince) in alphabetical order.
+We recommend `tabyl-ing` any character strings that are relevant to your
+project. For example, here is the
+[`stateProvince`](https://dwc.tdwg.org/terms/#dwc:stateProvince) in alphabetical
+order.
 
 ```{r, echo = TRUE}
 library(janitor)
 
 african_ele %>%
-  pull(stateProvince) %>% 
-  tabyl() %>% 
-  tibble() %>% 
+  pull(stateProvince) %>%
+  tabyl() %>%
+  tibble() %>%
   print(n = 20)
 ```
 
 ```{r, eval = TRUE}
 african_ele %>%
-  pull(stateProvince) %>% 
-  tabyl() %>% 
-  tibble() %>% 
+  pull(stateProvince) %>%
+  tabyl() %>%
+  tibble() %>%
   print(n = 20)
 ```
 
-From the `tabyl` output, we can see there are few different variations of `Province`, `Prov.`, `Prov`. As an example, we will correct these with the `tidyverse` packages `stringr`, `dplyr`, `tidyr` as well as `glue`. If you are not very familiar with regular expressions, we highly recommend this [cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)
+From the `tabyl` output, we can see there are few different variations of
+`Province`, `Prov.`, `Prov`. As an example, we will correct these with the
+`tidyverse` packages `stringr`, `dplyr`, `tidyr` as well as `glue`. If you are
+not very familiar with regular expressions, we highly recommend this
+[cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)
 
 ```{r, eval = TRUE, echo = TRUE}
 library(tidyverse)
@@ -106,7 +99,7 @@ library(glue)
 
 # Create a regular expression to match Prov. and Prov
 # The pattern below means Prov that is NOT followed by any lowercase letters
-pattern = regex("Prov(?![:lower:])")
+pattern <- regex("Prov(?![:lower:])")
 
 # Use `str_subset` to pull out the cases that match our pattern
 # Confirm that these are the problematic ones
@@ -116,38 +109,38 @@ typos_provinces <- str_subset(african_ele$stateProvince, pattern = pattern)
 
 # Create a new variable `stateProvince_clean` using `mutate`, `if_else`, `str_detect` and `glue`
 # `str_detect` will evaluate values of `stateProvince` that matches our pattern we defined earlier.
-# Matches will return TRUE, non-matches will return FALSE. 
-# The `if_else` will then evaluate these logicals (TRUE/FALSE/NA) 
+# Matches will return TRUE, non-matches will return FALSE.
+# The `if_else` will then evaluate these logicals (TRUE/FALSE/NA)
 # for TRUE values, the `glue` function will take the first part of the province name enclosed in and join it with word Province.
 # for FALSE values , it will just take the corresponding value in stateProvince
 # Note that we are assigning these changes to a new object (`african_ele_2`)
-african_ele_2 <- african_ele %>% 
+african_ele_2 <- african_ele %>%
   mutate(stateProvince_clean = if_else(str_detect(stateProvince, pattern = pattern),
-                                      true = glue('{word(stateProvince, sep = " P")} Province'),
-                                      false = stateProvince)
-         ) 
+    true = glue('{word(stateProvince, sep = " P")} Province'),
+    false = stateProvince
+  ))
 
 # Once we've made the correction we want to check we've done it correctly.
 # ALWAYS CHECK YOUR CORRECTIONS
 # Use the `select` function to isolate columns that `starts_with` "stateProvince"
-# Use the `filter` function to subset our the problematic provinces 
-african_ele_2 %>% 
-  select(starts_with("stateProvince")) %>% 
+# Use the `filter` function to subset our the problematic provinces
+african_ele_2 %>%
+  select(starts_with("stateProvince")) %>%
   filter(stateProvince %in% typos_provinces)
 
 # Its good practice to check the other values were not affected by your corrections
 # Here we are removing the NA with `drop_na` and subsetting unique rows with `distinct`
-african_ele_2 %>% 
-  select(starts_with("stateProvince")) %>% 
-  drop_na() %>% 
-  distinct() 
+african_ele_2 %>%
+  select(starts_with("stateProvince")) %>%
+  drop_na() %>%
+  distinct()
 
 # Final check
 # Check with the original code that detected the issue
 african_ele_2 %>%
-  pull(stateProvince_clean) %>% 
-  tabyl() %>% 
-  tibble() %>% 
+  pull(stateProvince_clean) %>%
+  tabyl() %>%
+  tibble() %>%
   print(n = 20)
 ```
 
@@ -158,5 +151,7 @@ There are some other issues that can be corrected in a similar approach:
 -   `Atacora` and `Atakora`
 -   `Coastal Province` and `Coastal`
 
-We recommend consulting reputable sources that can help delineate or consolidate similar values. Googling and looking at Wikipedia's sources are good places to find resources that you can verify accepted state and province names.
+We recommend consulting reputable sources that can help delineate or consolidate
+similar values. Googling and looking at Wikipedia's sources are good places to
+find resources that you can verify accepted state and province names.
 

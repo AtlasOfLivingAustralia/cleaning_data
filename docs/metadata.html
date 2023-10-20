@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA Data Cleaning</title>
+<title>ALA Data Cleaning - 7&nbsp; Metadata</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,7 +49,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./overview.html" rel="next">
+<link href="./taxonomy.html" rel="next">
+<link href="./preclean.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -101,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./metadata.html">Data cleaning</a></li><li class="breadcrumb-item"><a href="./metadata.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Metadata</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -123,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./index.html" class="sidebar-item-text sidebar-link active">
+            <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -225,7 +245,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./metadata.html" class="sidebar-item-text sidebar-link">
+  <a href="./metadata.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Metadata</span></span></a>
   </div>
 </li>
@@ -273,26 +293,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
-  <ul class="collapse">
-  <li><a href="#who-is-this-book-for" id="toc-who-is-this-book-for" class="nav-link" data-scroll-target="#who-is-this-book-for">Who is this book for?</a></li>
-  <li><a href="#how-to-contribute" id="toc-how-to-contribute" class="nav-link" data-scroll-target="#how-to-contribute">How to contribute</a></li>
-  <li><a href="#how-to-cite" id="toc-how-to-cite" class="nav-link" data-scroll-target="#how-to-cite">How to cite</a></li>
-  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ALA Data Cleaning</h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Metadata</span></h1>
 </div>
 
 
@@ -307,52 +315,24 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1><p><img src="images/book_cover2.jpg" title="ALA Data Cleaning" class="quarto-cover-image img-fluid"></p>
-
-<!-- This website contains resources for working with occurrence data from
-living atlases. It is suitable for those who wish to learn to download, tidy,
-and transform species occurrence records. This process, often broadly referred
-to as *data cleaning*, may vary based on the source of the data, or according to
-the aims of the project. Therefore, there is no one-size-fits-all approach,
-which is reflected in the way this site is structured.  
-Add a diagram and some more text here. -->
-<p>Data cleaning is the exploration, detection and correction of data which may be errornous, unsuitably formatted, or otherwise unsuited for use in your project. The definition of ‘clean’ data therefore varies depending on the project and data sources, and as such there is no ‘one-size-fits-all’ approach. Nevertheless, there are some common processes and concepts that can be applied to many data cleaning workflows.</p>
-<p>However, these processes typically require the use of a programming language, which can be a barrier of entry for many. Therefore, our goal in creating this resource is to assist researchers and decision makers that may have limited experience with cleaning geo-referenced biodiversity data. The language used will be R, which is commonly used in ecological projects, and has a rich ecosystem of packages for data cleaning.</p>
-<p>In this book, we provide an overview of a typical data cleaning workflow - from acquisition, identifying potential errors, to correction. These processes are broken down into chapters, whithin each we include practical guidelines, example R code, and additional resources that may aid with each data cleaning step.</p>
-<p>The content of this book was informed by the current state of biodiversity literature surrounding data preparation for species distribution modelling. For more details about how this was done, please refer to the <a href="./appendix.html">Appendix</a>. All resources that were used can be found in the <a href="./references.html">References</a> page.</p>
-<section id="who-is-this-book-for" class="level2">
-<h2 class="anchored" data-anchor-id="who-is-this-book-for">Who is this book for?</h2>
-<ul>
-<li>getting started and getting an overview of steps with examples</li>
-<li>quick reference</li>
-</ul>
-</section>
-<section id="how-to-contribute" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-contribute">How to contribute</h2>
-<p>We would like to preface that we are not experts in data cleaning, but felt there was need for a consolidated resource to guide data cleaning decisions.</p>
-<p>Contributions to this document are welcome. For any questions, feedback, or other issues, please open an issue on our <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/issues">GitHub repository</a>. If you would like to make changes to the content of the website, you are welcome to submit a pull request containing your proposed changes. Please note, it is considered best practice to open an issue before working on a pull request, to allow discussion surrounding the proposed changes. Our contributing guidelines can be found <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/CONTRIBUTING.md">here</a>.</p>
-</section>
-<section id="how-to-cite" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-cite">How to cite</h2>
-<p>You can cite this book as: Kar, F., Fenker, J., Schneider, M., Westgate, M. (2023). Cleaning biodiversity data in R. Retrieved Month dd, yyyy, from https://atlasoflivingaustralia.github.io/cleaning_data/</p>
-<!-- Just a placeholder licence -->
-<!-- actual repository should also contain a licence doc; preferably matching I think -->
-<p>This book is available free to read, and is licenced under the <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a></p>
-</section>
-<section id="acknowledgements" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
-<p>This book was inspired by an <a href="https://ardc.edu.au/">Australian Research Data Commons</a> project where our team worked closely with research partners to streamline their data cleaning workflows. This book is a collaborative effort from the Science and Decision Support team at the <a href="https://www.ala.org.au/">Atlas of Living Australia (ALA)</a></p>
-<p>Authors listed in alphabetic order:&nbsp;- Fonti Kar&nbsp;- Jessica Fenker&nbsp;- Margot Schneider&nbsp;- Martin Westgate</p>
-<ul>
-<li>TODO:</li>
-<li>the preface or somewhere should have a little background on who, why, types of research etc. The title is also just data cleaning perhaps need more specific</li>
-</ul>
+<p>Metadata describes your data set: it defines each variable and its contents. This might be describing what units a variable has been measured in, or, the climate the occurrence was collected in and whether it is a marked outlier. <strong>Starting the process of pre-cleaning by briefing your metadata allows you to understand the kind of data you are working with and any potential biases that may limit what you can do with it</strong>. Similarly, these biases may need to be of consideration when creating models or when used in your work more broadly.</p>
+<p>Data infrastructures that use Darwin Core terms will have interoperable metadata. This makes it easier to consolidate across data sets. All Darwin Core term definitions can be found <a href="https://dwc.tdwg.org/terms/">here</a>, we suggest using <code>Ctrl/CMD F</code> and searching your variable name on the <a href="https://dwc.tdwg.org/terms/">webpage</a>. Don’t hesitate to Google variable names if you are unsure what they represent.</p>
+<p>It is also worth checking the metadata for the entire dataset to delineate if there is extra information about the data which may be relevant. You could Google the dataset name, or search the dataset or institution on the ALA. The metadata on the ALA is submitted with the data, of which the ALA as a repository and not an owner cannot change. This means low-quality metadata cannot necessarily be vetoed.</p>
+<p>An example of well formatted metadata is <a href="https://collections.ala.org.au/public/show/dr14760">FrogID from the Australian Museum</a>. From reading FrogID’s metadata <span class="citation" data-cites="rowley2020frogid">(<a href="references.html#ref-rowley2020frogid" role="doc-biblioref">Rowley and Callaghan 2020</a>)</span>, you’ll find:</p>
+<ol type="1">
+<li>The data is acoustic data, the majority of the species recorded are therefore male</li>
+<li>Because this is citizen science data, it is especially biased towards populated areas</li>
+<li>Audio is recorded via a smartphone app, and so the authors recommend to filter data to <code>geographic uncertainty of &lt;3000m</code> if you require high coordinate precision</li>
+<li>The data is presence only data</li>
+</ol>
+<p>Metadata can also be useful for understanding the license that the data falls under. This is mostly relevant for using or republishing multimedia associated with the data.</p>
 
 
-</section>
-</section>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-rowley2020frogid" class="csl-entry" role="listitem">
+Rowley, Jodi JL, and Corey T Callaghan. 2020. <span>“The FrogID Dataset: Expert-Validated Occurrence Records of Australia’s Frogs Collected by Citizen Scientists.”</span> <em>ZooKeys</em> 912: 139.
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -590,10 +570,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./preclean.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Initial inspection</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./overview.html" class="pagination-link">
-        <span class="nav-page-text">Overview and structure</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./taxonomy.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomy</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

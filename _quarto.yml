@@ -50,6 +50,7 @@ book:
     - preclean.qmd
   - part: "Data cleaning"
     chapters:
+    - metadata.qmd
     - taxonomy.qmd
     - taxonomy-2.qmd
     - spatial.qmd

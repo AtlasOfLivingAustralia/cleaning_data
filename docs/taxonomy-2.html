@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA Data Cleaning - 8&nbsp; Taxonomy II</title>
+<title>ALA Data Cleaning - 9&nbsp; Taxonomy II</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -155,7 +155,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./taxonomy.html">Data cleaning</a></li><li class="breadcrumb-item"><a href="./taxonomy-2.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomy II</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./metadata.html">Data cleaning</a></li><li class="breadcrumb-item"><a href="./taxonomy-2.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Taxonomy II</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -263,7 +263,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./preclean.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Pre-cleaning</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Initial inspection</span></span></a>
   </div>
 </li>
       </ul>
@@ -279,38 +279,44 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./metadata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Metadata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./taxonomy-2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomy II</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Taxonomy II</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./spatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Spatial data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Spatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
       </ul>
@@ -325,16 +331,16 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#joining-datasets-from-different-infrastructures" id="toc-joining-datasets-from-different-infrastructures" class="nav-link active" data-scroll-target="#joining-datasets-from-different-infrastructures"><span class="header-section-number">8.1</span> Joining datasets from different infrastructures</a>
+  <li><a href="#joining-datasets-from-different-infrastructures" id="toc-joining-datasets-from-different-infrastructures" class="nav-link active" data-scroll-target="#joining-datasets-from-different-infrastructures"><span class="header-section-number">9.1</span> Joining datasets from different infrastructures</a>
   <ul class="collapse">
-  <li><a href="#variable-names-and-case-format" id="toc-variable-names-and-case-format" class="nav-link" data-scroll-target="#variable-names-and-case-format"><span class="header-section-number">8.1.1</span> Variable names and case format</a></li>
+  <li><a href="#variable-names-and-case-format" id="toc-variable-names-and-case-format" class="nav-link" data-scroll-target="#variable-names-and-case-format"><span class="header-section-number">9.1.1</span> Variable names and case format</a></li>
   </ul></li>
-  <li><a href="#extended-taxonomic-cleaning" id="toc-extended-taxonomic-cleaning" class="nav-link" data-scroll-target="#extended-taxonomic-cleaning"><span class="header-section-number">8.2</span> Extended taxonomic cleaning</a>
+  <li><a href="#extended-taxonomic-cleaning" id="toc-extended-taxonomic-cleaning" class="nav-link" data-scroll-target="#extended-taxonomic-cleaning"><span class="header-section-number">9.2</span> Extended taxonomic cleaning</a>
   <ul class="collapse">
-  <li><a href="#introduced-or-invasive-species" id="toc-introduced-or-invasive-species" class="nav-link" data-scroll-target="#introduced-or-invasive-species"><span class="header-section-number">8.2.1</span> Introduced or Invasive species</a></li>
-  <li><a href="#extinct-species" id="toc-extinct-species" class="nav-link" data-scroll-target="#extinct-species"><span class="header-section-number">8.2.2</span> Extinct species</a></li>
-  <li><a href="#certain-lifestges" id="toc-certain-lifestges" class="nav-link" data-scroll-target="#certain-lifestges"><span class="header-section-number">8.2.3</span> Certain lifestges</a></li>
-  <li><a href="#marine-species" id="toc-marine-species" class="nav-link" data-scroll-target="#marine-species"><span class="header-section-number">8.2.4</span> Marine species</a></li>
+  <li><a href="#introduced-or-invasive-species" id="toc-introduced-or-invasive-species" class="nav-link" data-scroll-target="#introduced-or-invasive-species"><span class="header-section-number">9.2.1</span> Introduced or Invasive species</a></li>
+  <li><a href="#extinct-species" id="toc-extinct-species" class="nav-link" data-scroll-target="#extinct-species"><span class="header-section-number">9.2.2</span> Extinct species</a></li>
+  <li><a href="#certain-lifestges" id="toc-certain-lifestges" class="nav-link" data-scroll-target="#certain-lifestges"><span class="header-section-number">9.2.3</span> Certain lifestges</a></li>
+  <li><a href="#marine-species" id="toc-marine-species" class="nav-link" data-scroll-target="#marine-species"><span class="header-section-number">9.2.4</span> Marine species</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -344,7 +350,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomy II</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Taxonomy II</span></h1>
 </div>
 
 
@@ -359,11 +365,11 @@ div.csl-indent {
 
 </header>
 
-<section id="joining-datasets-from-different-infrastructures" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="joining-datasets-from-different-infrastructures"><span class="header-section-number">8.1</span> Joining datasets from different infrastructures</h2>
+<section id="joining-datasets-from-different-infrastructures" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="joining-datasets-from-different-infrastructures"><span class="header-section-number">9.1</span> Joining datasets from different infrastructures</h2>
 <p>If you have downloaded data from different sources, you likely will need to collate your data into a singular database. It is important to make sure fields that have the same, are indeed the same variable, so prior to merging - take the time cross check the meta-data from different data providers <span class="citation" data-cites="ribeiro_bdc_2022">(<a href="references.html#ref-ribeiro_bdc_2022" role="doc-biblioref">Ribeiro et al. 2022</a>)</span>.</p>
-<section id="variable-names-and-case-format" class="level3" data-number="8.1.1">
-<h3 data-number="8.1.1" class="anchored" data-anchor-id="variable-names-and-case-format"><span class="header-section-number">8.1.1</span> Variable names and case format</h3>
+<section id="variable-names-and-case-format" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="variable-names-and-case-format"><span class="header-section-number">9.1.1</span> Variable names and case format</h3>
 <p>Data providers will have their own naming conventions for variables. For example, World Register of Marine Species uses a combination of lower case e.g scientific_name and camel case e.g isExtinct. While the naming authority - Australian Fauna Directory (AFD) uses upper, snake case e.g.&nbsp;SCIENTIFIC_NAME. What format you choose is a matter of personal preference, the key is to be consistent.</p>
 <p>Here we will subset the variables we want, reformat them to the lower snake case names and then join by <code>VALID_NAME</code></p>
 <div class="cell">
@@ -449,11 +455,11 @@ div.csl-indent {
 <p>Remember to always check your changes after!</p>
 </section>
 </section>
-<section id="extended-taxonomic-cleaning" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="extended-taxonomic-cleaning"><span class="header-section-number">8.2</span> Extended taxonomic cleaning</h2>
+<section id="extended-taxonomic-cleaning" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="extended-taxonomic-cleaning"><span class="header-section-number">9.2</span> Extended taxonomic cleaning</h2>
 <p>Depending on your project’s data scope, it may be necessary to remove certain groups of taxa. Below, we have provided a few examples. We will also briefly showcase <code>CoordinateCleaner</code> a useful R package for removing XX records.</p>
-<section id="introduced-or-invasive-species" class="level3" data-number="8.2.1">
-<h3 data-number="8.2.1" class="anchored" data-anchor-id="introduced-or-invasive-species"><span class="header-section-number">8.2.1</span> Introduced or Invasive species</h3>
+<section id="introduced-or-invasive-species" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="introduced-or-invasive-species"><span class="header-section-number">9.2.1</span> Introduced or Invasive species</h3>
 <p>Remove non-native species: This step is a common requirement. A list can be obtained from the <a href="https://griis.org/download">Global Register of Introduced and Invasive Species (GRIIS)</a>. The downloads are sorted my country. Once this list is read into R, you can proceed to exclude invasive species from your data as below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -498,8 +504,8 @@ $ accepted_name                    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, N
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plants_no_griis <span class="ot">&lt;-</span> plants <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="sc">!</span> scientific_name <span class="sc">%in%</span> matches)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="extinct-species" class="level3" data-number="8.2.2">
-<h3 data-number="8.2.2" class="anchored" data-anchor-id="extinct-species"><span class="header-section-number">8.2.2</span> Extinct species</h3>
+<section id="extinct-species" class="level3" data-number="9.2.2">
+<h3 data-number="9.2.2" class="anchored" data-anchor-id="extinct-species"><span class="header-section-number">9.2.2</span> Extinct species</h3>
 <p>In most cases, a year filter during in your download query should remove <em>most</em> extinct species.</p>
 <p>You want to cross check for extinct species using the Interim Register of Marine and Nonmarine Genera <a href="https://www.irmng.org/">(IRMNG)</a>. The list is comprehensive and actively maintained, the only caveat is that a lot of its data doesn’t go down to species level. As such, we recommend using the following approach to find <em>potentially extinct</em> taxa and further investigate the records that we are flagged.</p>
 <p>The required files are organised by year and can be downloaded from <a href="https://www.irmng.org/export/">here</a>. Once you have unzipped the file in your projected directory, we need to process the list a littlerbefore we use it to exclude extinct species.</p>
@@ -585,8 +591,8 @@ $ accepted_name                    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, N
 <span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>inverts <span class="sc">|&gt;</span> <span class="fu">filter</span>(scientificName <span class="sc">%in%</span> extinct_sp<span class="sc">$</span>scientific_name) <span class="co"># No matches</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="certain-lifestges" class="level3" data-number="8.2.3">
-<h3 data-number="8.2.3" class="anchored" data-anchor-id="certain-lifestges"><span class="header-section-number">8.2.3</span> Certain lifestges</h3>
+<section id="certain-lifestges" class="level3" data-number="9.2.3">
+<h3 data-number="9.2.3" class="anchored" data-anchor-id="certain-lifestges"><span class="header-section-number">9.2.3</span> Certain lifestges</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
@@ -624,8 +630,8 @@ $ accepted_name                    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, N
 </div>
 </div>
 </section>
-<section id="marine-species" class="level3" data-number="8.2.4">
-<h3 data-number="8.2.4" class="anchored" data-anchor-id="marine-species"><span class="header-section-number">8.2.4</span> Marine species</h3>
+<section id="marine-species" class="level3" data-number="9.2.4">
+<h3 data-number="9.2.4" class="anchored" data-anchor-id="marine-species"><span class="header-section-number">9.2.4</span> Marine species</h3>
 <p>Remove specific taxa/ depending on the study: For example, if working with terrestrial data, it is necessary to remove marine taxa.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worrms)</span>
@@ -913,12 +919,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./taxonomy.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Taxonomy</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomy</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./spatial.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Spatial data</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Spatial data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
