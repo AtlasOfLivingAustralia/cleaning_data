@@ -15,48 +15,44 @@ knitr::opts_chunk$set(
 )
 ```
 
+A good first step to understanding what data are available is to check the
+number of observations across different time periods. To do this, we are using
+the `galah` package to query the Atlas of Living Australia (ALA), which is the
+largest biodiversity data aggregator in Australia. 
+
+First we load the `galah` package, and provide our registered ALA email
+address to the `galah_config()` function. 
+
 ```{r}
 #| code-fold: true
 #| code-summary: "Load required packages"
 #| message: false
-library(here)
-library(sf)
-library(tidyverse) # group of packages
-library(ozmaps)
-library(arrow)
-library(gt)
 library(galah)
-library(paletteer)
-library(viridis)
-library(rmapshaper)
-# TODO maybe move down, or split up to only used packages for each section so
-# they are stand alone
+library(tidyverse) # group of packages
+```
+
+```{r}
+#| eval: false
+# Provide your registered ALA email address
+galah_config(email = "youremail@here.com")
 ```
 
 ```{r}
 #| include: false
 galah_config(verbose = FALSE)
+galah_config(email = "oliviajane.t@hotmail.com")
 ```
 
-A good first step to understanding what data are available is to check the
-number of observations across different time periods. To do this, we are using
-the `galah` package to query the Atlas of Living Australia, which is the largest
-biodiversity data aggregator in Australia.
-
-The `atlas_counts()` function returns a count of records. By itself, it returns
-a count of all records in the Atlas of Living Australia.
-
+ The `atlas_counts()` function returns a count of records. By itself, it returns
+a count of all records in the Atlas of Living Australia, but we can narrow this query using `galah` helper functions. In this case, we narrow
+the search to only include insects. 
 ```{r} 
 #| warning: false
 #| message: false
-library(galah)
+# Query all records
 atlas_counts()
-```
 
-We can narrow this query using `galah` helper functions. In this case, we narrow
-the search to only include insects. 
-
-```{r} 
+# Query only insects
 galah_call() |> # <1>
   galah_identify("insecta") |> # <2>
   atlas_counts() # <3>
@@ -69,15 +65,16 @@ Now let's see how many insects have been observed each year over the last 10
 years. We'll order this by descending year using `dplyr::arrange()` and
 `dplyr::desc()`.
 
-```{r} #| warning: false #| message: false library(dplyr)
-
+```{r} 
+#| warning: false 
+#| message: false 
 galah_call() |>
   galah_identify("insecta") |>
   galah_filter(year >= 2013) |>
   galah_group_by(year) |>
   atlas_counts() |>
   dplyr::arrange(dplyr::desc(year))
-  ```
+```
 
 Now that we have an idea of the total amount of data in the Atlas of Living
 Australia, let's try checking how many observations exist of the genus
@@ -89,7 +86,10 @@ the taxon information we expect with `search_taxa()`.
 This looks correct! Next let's see how many total observations there are of
 *Lampromicra* and how many observations there were in each of the last 10 years.
 
-```{r} galah_call() |> galah_identify("Lampromicra") |> atlas_counts()
+```{r} 
+galah_call() |> 
+  galah_identify("Lampromicra") |> 
+  atlas_counts()
 
 galah_call() |>
   galah_identify("Lampromicra") |>

@@ -1,51 +1,46 @@
 # Overview and structure {.unnumbered}
 
-This book will guide you through how to acquire and clean open access
-biodiversity data in R.
+This book acts as a general guide on downloading and cleaning biodiversity data
+using R. If you are new to working with biodiversity data in R, or hoping to add
+some tips and code examples to your toolbox, then this book is for you. However,
+this is not a guide to R itself, and so a basic familiarity with the language is
+recommended. 
 
-The common steps associated with cleaning open-access biodiversity data are
-covered in this book:
+We will cover the most common steps associated with cleaning open-access
+georeferenced biodiversity data, broken down into three sections. An overview of
+the three sections and what they cover:
 
-- data scope
-- downloading data
-- exploring data and metadata
-- cleaning data:
-  - general cleaning
-  - taxonomic names
-  - spatial data
+-  **Data scope** 
+  - What is data scope?
+  - How to determine the termporal, taxonomic, and spatial scope of available
+  data for your study 
+- **Accessing data** 
+  - Where to get data from?
+  - How to download data using R
+  - How to refine download queries
+  - First steps in data inspection
+- **Data cleaning** 
+  - String manipulation
+  - Taxonomic standardisation (synonyms, naming authorities, duplicates)
+  - Spatial data cleaning
+  - Outlier detection
 
-We place particular emphasis on some of the most common issues encountered with
-biodiversity data:
+The areas of research and uses of biodiversity data are many and varied. Here we
+have focused on just one facet - downloading and cleaning georeferenced
+occurrence / biodiversity data. As such, this book will not cover:
 
-[Taxonomic standardisation]{.underline} problems, such as:
-
-- **varied species name synonyms**
-
-- **naming authorities and duplicates**
-
-as well as [spatial errors and issues]{.underline}, like:
-
-- **suspicious outliers**
-
-- **duplicates.**
+- Hypothesis testing or experimental design
+- How to clean environmental data that is not occurrence / biodiversity data (e.g. trait data) 
+- How to perform analyses (e.g. species distribution modelling) 
 
 ::: {.callout-warning appearance="simple"} 
 
 **There is no one size fits all workflow**.
 
-In the literature, we found that data cleaning steps are frequently completed in
-entirely different orders. Not all steps are relevant or possible depending on
-the nature of the study, or, the area of expertise possessed. Therefore this
-book does not necessarily have to be used in a linear fashion. *While some steps
-may logically come first, you may need to go back to them after completing
-another.*
+Data cleaning steps are frequently completed in entirely different orders, and
+this is just one example of a data cleaning workflow. Although it is possible to
+follow this book sequentially, this book does not have to be used in a linear
+fashion. *While some steps may logically come first, they may need to be
+revisited after completing another.*
 
 :::
-
-
-There are many important subject areas that this book will not cover. We won't
-be teaching you:
-
--   How to clean environmental data that isn't occurrence / biodiversity data:
-e.g. trait data -   How to run a species distribution model -   Hypothesis
-testing or experimental design

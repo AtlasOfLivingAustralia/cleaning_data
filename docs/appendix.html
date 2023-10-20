@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA Data Cleaning - Introduction</title>
+<title>ALA Data Cleaning - 12&nbsp; Appendix</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -49,8 +49,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./scope.html" rel="next">
-<link href="./requirements.html" rel="prev">
+<link href="./references.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -60,6 +59,9 @@ div.csl-indent {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -121,7 +123,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Introduction</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./taxonomy.html">Data cleaning</a></li><li class="breadcrumb-item"><a href="./appendix.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Appendix</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -172,7 +174,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -275,7 +277,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link">
+  <a href="./appendix.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
@@ -294,7 +296,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introduction</h1>
+<h1 class="title"><span id="sec-appendix" class="quarto-section-identifier"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Appendix</span></span></h1>
 </div>
 
 
@@ -309,18 +311,24 @@ div.csl-indent {
 
 </header>
 
-<blockquote class="blockquote">
-<p>“Garbage in, garbage out” - George Fuechsel, IBM computer programmer</p>
-</blockquote>
-<p>There is an ever growing interest and need in understanding spatial and temporal patterns of biodiversity across the globe. To this end, georeferenced biodiversity data are often used for a variety of ecological questions, such as in species species distribution modelling, conservation planning, and invasive species monitoring to name a few.</p>
-<p>Open source biodiversity datasets are widely available online, which are invaluable and often essentialresources for such investigations. However, it is well known in many scientific displines that inputting flawed or nonsensical data produces an output of similar quality. In ecology and biodiversity research, scientists are particularly at risk of unintentionally using poor data because they <strong>often bring together large amounts of data from many sources to address their research questions.</strong> Data from different sources vary widely in their <strong>structure, formatting and quality</strong>. As a result, correctly collating and combining them can be both challenging and time consuming. Besides this, georeferenced biodiversity data itself can pose several challenges, as issues can range from simple formatting errors, to taxonomic inconsistencies and spatial errors.</p>
-<p>Biodiversity data aggregation services employ automated quality control procedures to identify and flag potential errors. However, these services deal with high volumes of data, and not all issues can be identified. Therefore it is always recommoneded that users of biodiversity data <strong>perform their own quality control</strong> before using any open source biodiversity data in their research.</p>
-<p><strong>Data cleaning</strong>, the process of identifying and fixing incompatible, incorrect or doubtful data, is therefore an essential step in ecology and biodiversity research. Employing suitable data cleaning procedures will improve data quality and the validity of scientific findings <span class="citation" data-cites="rodrigues_species_2022">(<a href="references.html#ref-rodrigues_species_2022" role="doc-biblioref">Rodrigues et al., 2022</a>)</span>.</p>
+<p>We don’t claim to be experts in data cleaning, therefore in order to ensure content for this book was current and relevant we undertook an informal literature review of both peer reviewed and grey literature. Key themes searched were:</p>
+<ol type="1">
+<li><p>Cleaning data for species distribution models</p></li>
+<li><p>Cleaning open biodiversity data</p></li>
+<li><p>Australian and global naming authorities</p></li>
+<li><p>R packages for biodiversity data cleaning</p></li>
+</ol>
+<p>As this was not a comprehensive literature review recent papers were selected first as the R environment is a rapidly evolving space. Methods sections outlining data cleaning protocols were read and collated into a database. Papers which were frequently referenced were also chosen for review in order to not miss older seminal papers. Additionally our project partners outputs <span class="citation" data-cites="marsh2021 godfree_implications_2021">(<a href="references.html#ref-marsh2021" role="doc-biblioref">Marsh et al. 2021</a>; <a href="references.html#ref-godfree_implications_2021" role="doc-biblioref">Godfree et al. 2021</a>)</span> have been investigated in detail to understand and streamline their data cleaning processes. This has included detailed review of their code base as well as meetings with the authors of the papers to understand their processes, issues and needs.</p>
+<p>All steps for acquiring and cleaning data were then looked at together in order to understand what were essential steps, versus what was done in certain use cases. We also investigated the order in which steps were undertaken with the idea of developing a streamlined workflow. However the diagrams below show the complexity of this, with data cleaning being extremely iterative.</p>
+<p><a href="images/complex_workflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="images/complex_workflow.png" class="img-fluid"></a> <a href="images/simplified_workflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="images/simplified_workflow.png" class="img-fluid"></a></p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list" style="display: none">
-<div id="ref-rodrigues_species_2022" class="csl-entry" role="listitem">
-Rodrigues, A. V., Nakamura, G., Staggemeier, V. G., &amp; Duarte, L. (2022). Species misidentification affects biodiversity metrics: <span>Dealing</span> with this issue using the new <span>R</span> package <span class="nocase">naturaList</span>. <em>Ecological Informatics</em>, <em>69</em>, 101625. <a href="https://doi.org/10.1016/j.ecoinf.2022.101625">https://doi.org/10.1016/j.ecoinf.2022.101625</a>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-godfree_implications_2021" class="csl-entry" role="listitem">
+Godfree, Robert C., Nunzio Knerr, Francisco Encinas-Viso, David Albrecht, David Bush, D. Christine Cargill, Mark Clements, et al. 2021. <span>“Implications of the 2019–2020 Megafires for the Biogeography and Conservation of <span>Australian</span> Vegetation.”</span> <em>Nature Communications</em> 12 (1): 1023. <a href="https://doi.org/10.1038/s41467-021-21266-5">https://doi.org/10.1038/s41467-021-21266-5</a>.
+</div>
+<div id="ref-marsh2021" class="csl-entry" role="listitem">
+Marsh, Jess, Payal Bal, Hannah Fraser, Kate Umbers, Aaron Greenville, Libby Rumpff, and John Woinarski. 2021. <span>“Assessment of the Impacts of the 2019-20 Wildfires of Southern and Eastern Australia on Invertebrate Species Final Report.”</span>
 </div>
 </div>
 
@@ -560,14 +568,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./requirements.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Requirements</span>
+      <a href="./references.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">References</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./scope.html" class="pagination-link">
-        <span class="nav-page-text">Data scope</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -580,6 +585,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","loop":true,"openEffect":"zoom","selector":".lightbox"});</script>
 
 
 

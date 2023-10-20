@@ -11,33 +11,58 @@ all other organisms. Typically, your research question will be concerned with
 one or more taxonomic groups, ranging from a single species to an entire kingdom
 (e.g. *Plantae*). 
 
-In our example, we are interested in understanding more about Jewel beetles in
-the genus *Lampromicra*.
+Following on with our example, we are interested in understanding more about
+Jewel beetles in the genus *Lampromicra*.
 
 We first might want to know what species there are in the genus *Lampromicra*
 and view some additional taxonomic information about them. We can do this by
 adding `atlas_species()` to the end of a query in {galah}.
 
-:::{.callout-note} You will need to add an email address [registered with the
+:::{.callout-note} 
+
+You will need to add an email address [registered with the
 Atlas of Living
 Australia](https://auth.ala.org.au/userdetails/registration/createAccount) in
-`galah_config()` to download species information. :::
+`galah_config()` to download species information. 
 
-```{r} galah_config(email = "youremail@here.com")
+:::
 
-galah_call() |> galah_identify("Lampromicra") |> atlas_species() |>
-  select(family:species_guid) ```
+```{r} 
+library(galah)
+```
 
-Our query returned three species in the genus *Lampromicra*. We can enter the
-urls returned under `species_guid` in a web browser if we wished to know more
-information about any of them.
+```{r}
+#| eval: false
+# Provide your registered ALA email address
+galah_config(email = "youremail@here.com")
+```
+
+```{r}
+#| include: false
+galah_config(verbose = FALSE)
+galah_config(email = "oliviajane.t@hotmail.com")
+```
+
+```{r}
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  atlas_species() |>
+  select(family:species_guid)
+```
+
+Our query returned three species in the genus *Lampromicra*. The URLs returned
+under `species_guid` can be entered in a web browser to see more information. 
 
 We might also wish to check the total number of observations of each of these
 species. We can check this by grouping our counts by species using
 `galah_group_by(species)`
 
-```{r} galah_call() |> galah_identify("Lampromicra") |> galah_group_by(species)
-|> atlas_counts() ```
+```{r} 
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  galah_group_by(species) |>
+  atlas_counts()
+```
 
 Our result shows that the majority of observations of *Lampromicra* are of the
 species *Lampromicra senator*. 

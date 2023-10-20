@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: docs
 
 book:
   title: "ALA Data Cleaning"
@@ -8,8 +9,6 @@ book:
   back-to-top-navigation: true
 #  author: "Atlas of Living Australia"
 #  date: "18/11/2022"
-  output-dir: docs
-  code-annotations: below
   navbar:
     background: none
     search: true
@@ -45,7 +44,7 @@ book:
     - scope_taxonomic.qmd
     - scope_spatial.qmd
     - scope_summary.qmd
-  - part: "Open source biodiversity data"
+  - part: "Accessing biodiversity data"
     chapters:
     - download-data.qmd
     - preclean.qmd

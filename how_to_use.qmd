@@ -1,5 +1,6 @@
 ---
-code-annotations: hover
+code-annotations: below
+df-print: kable
 ---
 
 # How to use this book {.unnumbered}
@@ -15,14 +16,20 @@ library(package)
 plot(data)
 ```
 
-Some code blocks may also be annotated, to help explain the sequence of steps:
+When performing a sequence of related actions, we use the native R pipe operator
+`|>`. This allows multiple operations to be performed, without needing to save
+the intermediate results to a variable. You can learn more about the pipe in the
+[R for Data Science](https://r4ds.hadley.nz/data-transform.html#sec-the-pipe)
+book. Some code blocks may also be **annotated**, to help explain the sequence
+of steps. See the below example which uses the native R pipe, and is annotated:
 
-```r
+```{r}
 # This is a code block with annotation
-cars |> # <1>
-  filter(cars$speed > 20) |> # <2>
-  summary() # <3>
+mtcars |> # <1>
+   dplyr::group_by(cyl) |> # <2>
+   dplyr::summarise(mpg = mean(mpg)) # <3>
 ```
-1. Start building a data query
-2. Narrow the query with taxonomic identifiers
-3. Return the count of records
+1. Using the pipe operator to pass the `mtcars` data frame to the `group_by()` function
+2. Grouping the data frame by the `cyl` variable
+3. Print a summary of the filtered data frame using the `summarise()` function
+
