@@ -45,6 +45,7 @@ library(rmapshaper)
 
 ```{r}
 #| eval: false
+# Provide your registered ALA email address
 galah_config(email = "youremail@here.com")
 ```
 
@@ -188,12 +189,13 @@ ggplot() +
 
 </aside> 
 
-Looks like South East Queensland has the most records followed by Sydney
-Basin. 
-
-This could be due to sampling bias in that Brisbane and Sydney are large
-metropolitan areas. You might choose to investigate [this bias
-further](https://labs.ala.org.au/posts/2022-07-22_sample-bias/post.html). 
+We can see that South East Queensland has the most records followed by Sydney
+Basin. At this point, it would be useful to know if this is because of a
+sampling bias towards these large metropolitan areas, or if *Lampromicra* is
+actually more common in these areas. We will not cover the process here, but
+see this article on [quantifying geographic sampling bias with
+{sampbias}](https://labs.ala.org.au/posts/2022-07-22_sample-bias/post.html) to
+learn more.
 
 ```{r}
 #| code-fold: true
