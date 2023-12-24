@@ -9,9 +9,6 @@ mis-identified specimens or incorrect georeferencing. In the absence of a data
 error however, these outliers are considered to be a true point, and are not
 necessary to remove.
 
-
-
-
 - Alpha hull (some example species - check cailtin chat history)
 alpha hull
 examples for how to detect outliers, or how they can skew your data. 

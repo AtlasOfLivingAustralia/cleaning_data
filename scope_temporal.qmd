@@ -4,7 +4,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Temporal scope
+# Temporal scope {#sec-temporal-scope}
 
 ```{r setup}
 #| include: false
@@ -97,7 +97,7 @@ galah_call() |>
   galah_group_by(year) |>
   atlas_counts() |>
   dplyr::arrange(dplyr::desc(year))
-  ```
+```
 
 There are a growing number of observations from 2012 to 2023 of Jewel beetles in
 the Atlas of Living Australia, with fewer than 100 observations each year prior

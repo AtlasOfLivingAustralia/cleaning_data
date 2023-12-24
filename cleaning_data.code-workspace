@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../notes"
+		}
+	],
+  "settings": {
+    "quarto.path": "/usr/local/bin/quarto",
+    "todo-tree.tree.showBadges": true
+  }
+}

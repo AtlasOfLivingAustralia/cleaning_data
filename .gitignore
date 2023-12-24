@@ -60,3 +60,5 @@ Thumbs.db
 .Rproj.user
 
 /.quarto/
+.favorites.json
+.vscode/settings.json

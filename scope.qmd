@@ -71,7 +71,6 @@ on a leaf by Matthew Connors CC-BY-NC 4.0
 :::
 
 
-
 ```{r, include=FALSE}
 # old fonti code to get data that she saved
 
@@ -96,5 +95,6 @@ on a leaf by Matthew Connors CC-BY-NC 4.0
 #
 # insects |>
 #   arrow::write_parquet("data/galah/insects")
-
 ```
+
+
