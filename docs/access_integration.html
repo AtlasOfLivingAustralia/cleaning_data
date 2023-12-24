@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.510">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ALA Data Cleaning - 8&nbsp; Dataset integration</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cleaning_intro.html" rel="next">
+<link href="./access_inspect.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="theme.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg border-bottom" data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ALA Data Cleaning</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./access_intro.html">Accessing biodiversity data</a></li><li class="breadcrumb-item"><a href="./access_integration.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dataset integration</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./scope.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data scope</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_temporal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temporal scope</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_taxonomic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Taxonomic scope</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_spatial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Spatial scope</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data scope summary</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./access_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing biodiversity data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./access_taxonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Taxnomy and open source data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./access_download.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Download data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./access_inspect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Initial inspection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./access_integration.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dataset integration</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./cleaning_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning biodiversity data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">8.1</span> Setup</a></li>
+  <li><a href="#inspecting-our-datasets" id="toc-inspecting-our-datasets" class="nav-link" data-scroll-target="#inspecting-our-datasets"><span class="header-section-number">8.2</span> Inspecting our datasets</a></li>
+  <li><a href="#selecting-and-renaming-columns" id="toc-selecting-and-renaming-columns" class="nav-link" data-scroll-target="#selecting-and-renaming-columns"><span class="header-section-number">8.3</span> Selecting and renaming columns</a></li>
+  <li><a href="#merging-datasets" id="toc-merging-datasets" class="nav-link" data-scroll-target="#merging-datasets"><span class="header-section-number">8.4</span> Merging datasets</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8.5</span> Summary</a></li>
+  <li><a href="#advanced-technique" id="toc-advanced-technique" class="nav-link" data-scroll-target="#advanced-technique"><span class="header-section-number">8.6</span> Advanced technique</a></li>
+  <li><a href="#alternative-method-spocc-package" id="toc-alternative-method-spocc-package" class="nav-link" data-scroll-target="#alternative-method-spocc-package"><span class="header-section-number">8.7</span> Alternative method: spocc package</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./access_intro.html">Accessing biodiversity data</a></li><li class="breadcrumb-item"><a href="./access_integration.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dataset integration</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dataset integration</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<style type="text/css">
+.output-green {
+  background-color: lightgreen;
+  border-radius: 4px;
+}
+</style>
+</div>
+<p>When working with biodiversity data it can be common to have data from multiple sources. Here we will discuss the common obstacles faced when consolidating data from multiple sources, and present a basic integration workflow of merging two single species datasets.</p>
+<section id="setup" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="setup"><span class="header-section-number">8.1</span> Setup</h2>
+<details>
+<summary>
+To see the download process for example data expand here.
+</summary>
+<p>We will download data for the species <em>Litoria chloris</em> from the ALA and GBIF using the <code>galah</code> package. For the download request to ALA the <code>galah_select()</code> is used to return specific fields (see: <a href="https://galah.ala.org.au/R/reference/galah_select.html">Specify fields for occurrence download — galah_select</a>). This is a project specific decision and these fields are used as an example.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Define a character vector of fields to return…</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>ala_fields <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"kingdom"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"taxonRank"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"phylum"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"class"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"order"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"family"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"genus"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"species"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"taxonRank"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"countryCode"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"locality"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="st">"stateProvince"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">"coordinateUncertaintyInMeters"</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="st">"coordinatePrecision"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"license"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="st">"occurrenceID"</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Set <code>galah_config()</code> options and download data from ALA…</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"galah"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">atlas =</span> <span class="st">"Australia"</span>) <span class="co"># default</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ALA_EMAIL"</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ala_data <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Litoria chloris"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_select</span>(basisOfRecord, <span class="fu">all_of</span>(ala_fields), <span class="at">group =</span> <span class="st">"basic"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Set <code>galah_config()</code> options and download data from GBIF…</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For GBIF, a username and password are required</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">atlas =</span> <span class="st">"Global"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">username =</span> <span class="fu">Sys.getenv</span>(<span class="st">"GBIF_USER"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">email =</span> <span class="fu">Sys.getenv</span>(<span class="st">"GBIF_EMAIL"</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">password =</span> <span class="fu">Sys.getenv</span>(<span class="st">"GBIF_PWD"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Atlas selected: Global Biodiversity Information Facility (GBIF) [Global]</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Search the species name to get the GBIF taxon key</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">search_taxa</span>(<span class="st">"Litoria chloris"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 18%">
+<col style="width: 8%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 6%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 3%">
+<col style="width: 7%">
+<col style="width: 4%">
+<col style="width: 9%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">search_term</th>
+<th style="text-align: right;">taxon_concept_id</th>
+<th style="text-align: left;">scientific_name</th>
+<th style="text-align: left;">canonical_name</th>
+<th style="text-align: left;">rank</th>
+<th style="text-align: left;">status</th>
+<th style="text-align: left;">match_type</th>
+<th style="text-align: left;">kingdom</th>
+<th style="text-align: left;">phylum</th>
+<th style="text-align: left;">order</th>
+<th style="text-align: left;">family</th>
+<th style="text-align: left;">genus</th>
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Litoria chloris</td>
+<td style="text-align: right;">2427866</td>
+<td style="text-align: left;">Litoria chloris (Boulenger, 1892)</td>
+<td style="text-align: left;">Litoria chloris</td>
+<td style="text-align: left;">SPECIES</td>
+<td style="text-align: left;">SYNONYM</td>
+<td style="text-align: left;">EXACT</td>
+<td style="text-align: left;">Animalia</td>
+<td style="text-align: left;">Chordata</td>
+<td style="text-align: left;">Anura</td>
+<td style="text-align: left;">Pelodryadidae</td>
+<td style="text-align: left;">Ranoidea</td>
+<td style="text-align: left;">Ranoidea chloris</td>
+<td style="text-align: left;">Amphibia</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details class="code-fold">
+<summary>Set <code>galah_config()</code> options and download data from GBIF…</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Download data</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>gbif_data <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"2427866"</span>, <span class="at">search =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## This query will return 3,733 records</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Checking queue</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  succeeded</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</details>
+</section>
+<section id="inspecting-our-datasets" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="inspecting-our-datasets"><span class="header-section-number">8.2</span> Inspecting our datasets</h2>
+<p>The example data we are using (see setup) was downloaded from GBIF and from Atlas of Living Australia (ALA). Each dataset contains records of a single species, <em>Litoria chloris</em>.</p>
+<p>First, we add a new column to each dataset called source, which acts as an identifier. This isn’t required but its a simple way to keep track of where each record came from after the data has been merged.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add identifier column to each dataset</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ala_data<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">"ALA"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>gbif_data<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">"GBIF"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To merge datasets, we need to understand what variables are in each dataset, and how they are formatted.</p>
+<ul>
+<li>How many columns does each dataset have?</li>
+<li>What are the column names?</li>
+<li>Do the column names match between the two datasets?</li>
+<li>What are the data types of each column?</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Take a glimpse at the data</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(ala_data)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Rows: 3,995</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Columns: 25</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="do">## $ decimalLatitude               &lt;dbl&gt; -34.91394, -34.91394, -34.87318, -34.873…</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="do">## $ decimalLongitude              &lt;dbl&gt; 150.5402, 150.5402, 150.4640, 150.4640, …</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="do">## $ eventDate                     &lt;dttm&gt; 2020-02-13, 2020-02-13, 2021-10-22, 202…</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="do">## $ scientificName                &lt;chr&gt; "Litoria chloris", "Litoria chloris", "L…</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="do">## $ taxonConceptID                &lt;chr&gt; "https://biodiversity.org.au/afd/taxa/f5…</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="do">## $ recordID                      &lt;chr&gt; "ca28eeb2-5416-4049-a354-1d1dfb194be3", …</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="do">## $ dataResourceName              &lt;chr&gt; "NSW BioNet Atlas", "FrogID", "FrogID", …</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="do">## $ occurrenceStatus              &lt;chr&gt; "PRESENT", "PRESENT", "PRESENT", "PRESEN…</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="do">## $ basisOfRecord                 &lt;chr&gt; "HUMAN_OBSERVATION", "OCCURRENCE", "OCCU…</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="do">## $ kingdom                       &lt;chr&gt; "Animalia", "Animalia", "Animalia", "Ani…</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="do">## $ taxonRank                     &lt;chr&gt; "species", "species", "species", "specie…</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="do">## $ phylum                        &lt;chr&gt; "Chordata", "Chordata", "Chordata", "Cho…</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="do">## $ class                         &lt;chr&gt; "Amphibia", "Amphibia", "Amphibia", "Amp…</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="do">## $ order                         &lt;chr&gt; "Anura", "Anura", "Anura", "Anura", "Anu…</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="do">## $ family                        &lt;chr&gt; "Hylidae", "Hylidae", "Hylidae", "Hylida…</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="do">## $ genus                         &lt;chr&gt; "Litoria", "Litoria", "Litoria", "Litori…</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="do">## $ species                       &lt;chr&gt; "Litoria chloris", "Litoria chloris", "L…</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="do">## $ countryCode                   &lt;chr&gt; "AU", "AU", "AU", "AU", "AU", "AU", "AU"…</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="do">## $ locality                      &lt;chr&gt; "locality withheld", NA, NA, "locality w…</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="do">## $ stateProvince                 &lt;chr&gt; "New South Wales", "New South Wales", "N…</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a><span class="do">## $ coordinateUncertaintyInMeters &lt;dbl&gt; 34.28, 34.28, 10.00, 10.00, 48.00, 48.00…</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="do">## $ coordinatePrecision           &lt;dbl&gt; 1e-09, NA, NA, 1e-09, NA, 1e-09, 1e-09, …</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="do">## $ `dcterms:license`             &lt;chr&gt; "CC-BY 4.0 (Int)", "CC-BY-NC 4.0 (Int)",…</span></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="do">## $ occurrenceID                  &lt;chr&gt; "urn:catalog:NSW Dept of Planning, Indus…</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="do">## $ source                        &lt;chr&gt; "ALA", "ALA", "ALA", "ALA", "ALA", "ALA"…</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">glimpse</span>(gbif_data)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="do">## Rows: 3,733</span></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Columns: 51</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="do">## $ gbifID                           &lt;dbl&gt; 864931363, 864930363, 692133811, 6920…</span></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="do">## $ datasetKey                       &lt;chr&gt; "0debafd0-6c8a-11de-8225-b8a03c50a862…</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a><span class="do">## $ occurrenceID                     &lt;chr&gt; "e710bb1f-21dc-4330-a9e2-da7362d32b88…</span></span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a><span class="do">## $ kingdom                          &lt;chr&gt; "Animalia", "Animalia", "Animalia", "…</span></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="do">## $ phylum                           &lt;chr&gt; "Chordata", "Chordata", "Chordata", "…</span></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="do">## $ class                            &lt;chr&gt; "Amphibia", "Amphibia", "Amphibia", "…</span></span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="do">## $ order                            &lt;chr&gt; "Anura", "Anura", "Anura", "Anura", "…</span></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="do">## $ family                           &lt;chr&gt; "Pelodryadidae", "Pelodryadidae", "Pe…</span></span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a><span class="do">## $ genus                            &lt;chr&gt; "Ranoidea", "Ranoidea", "Ranoidea", "…</span></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a><span class="do">## $ species                          &lt;chr&gt; "Litoria chloris", "Litoria chloris",…</span></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="do">## $ infraspecificEpithet             &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a><span class="do">## $ taxonRank                        &lt;chr&gt; "SPECIES", "SPECIES", "SPECIES", "SPE…</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="do">## $ scientificName                   &lt;chr&gt; "Litoria chloris (Boulenger, 1892)", …</span></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="do">## $ verbatimScientificName           &lt;chr&gt; "Litoria chloris", "Litoria chloris",…</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="do">## $ verbatimScientificNameAuthorship &lt;chr&gt; "(Boulenger, 1893)", "(Boulenger, 189…</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="do">## $ countryCode                      &lt;chr&gt; "AU", "AU", "AU", "AU", "AU", "AU", "…</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="do">## $ locality                         &lt;chr&gt; "Nemarotu, Wilsons Creek via Mullumbi…</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="do">## $ stateProvince                    &lt;chr&gt; "New South Wales", "New South Wales",…</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="do">## $ occurrenceStatus                 &lt;chr&gt; "PRESENT", "PRESENT", "PRESENT", "PRE…</span></span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a><span class="do">## $ individualCount                  &lt;dbl&gt; NA, NA, 1, 1, NA, NA, NA, NA, NA, NA,…</span></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a><span class="do">## $ publishingOrgKey                 &lt;chr&gt; "64bd66c1-e7d3-48d0-9462-488729aed122…</span></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="do">## $ decimalLatitude                  &lt;dbl&gt; -28.56670, -28.56670, -32.30000, -26.…</span></span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a><span class="do">## $ decimalLongitude                 &lt;dbl&gt; 153.4000, 153.4000, 152.4333, 151.633…</span></span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a><span class="do">## $ coordinateUncertaintyInMeters    &lt;dbl&gt; 5000, 5000, 50000, 50000, NA, NA, NA,…</span></span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a><span class="do">## $ coordinatePrecision              &lt;dbl&gt; 0.01667, 0.01667, NA, NA, NA, NA, NA,…</span></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="do">## $ elevation                        &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="do">## $ elevationAccuracy                &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a><span class="do">## $ depth                            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="do">## $ depthAccuracy                    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="do">## $ eventDate                        &lt;dttm&gt; 1987-03-05, 1983-11-30, NA, NA, NA, …</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="do">## $ day                              &lt;dbl&gt; 5, 30, NA, NA, NA, NA, NA, NA, NA, 23…</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="do">## $ month                            &lt;dbl&gt; 3, 11, NA, NA, NA, NA, NA, NA, NA, 2,…</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="do">## $ year                             &lt;dbl&gt; 1987, 1983, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a><span class="do">## $ taxonKey                         &lt;dbl&gt; 2427866, 2427866, 2427866, 2427866, 2…</span></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="do">## $ speciesKey                       &lt;dbl&gt; 10759325, 10759325, 10759325, 1075932…</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a><span class="do">## $ basisOfRecord                    &lt;chr&gt; "MACHINE_OBSERVATION", "MACHINE_OBSER…</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a><span class="do">## $ institutionCode                  &lt;chr&gt; "ANWC", "ANWC", "WAM", "WAM", "SAMA",…</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="do">## $ collectionCode                   &lt;chr&gt; "Sounds", "Sounds", "REPT", "REPT", "…</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a><span class="do">## $ catalogNumber                    &lt;chr&gt; "X06195", "X04978", "R68284", "R42442…</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a><span class="do">## $ recordNumber                     &lt;chr&gt; "CDMNo A20 ProgNo 04", "CDMNo A8 Prog…</span></span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a><span class="do">## $ identifiedBy                     &lt;chr&gt; NA, NA, "MAHONEY, M.", "LIEM, D.S.", …</span></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a><span class="do">## $ dateIdentified                   &lt;dttm&gt; NA, NA, 1980-01-01, 1973-01-01, NA, …</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="do">## $ license                          &lt;chr&gt; "CC_BY_4_0", "CC_BY_4_0", "CC_BY_4_0"…</span></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="do">## $ rightsHolder                     &lt;chr&gt; "CSIRO", "CSIRO", NA, NA, NA, NA, NA,…</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a><span class="do">## $ recordedBy                       &lt;chr&gt; "Stewart, D.", "Stewart, D.", "Mahone…</span></span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a><span class="do">## $ typeStatus                       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a><span class="do">## $ establishmentMeans               &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="do">## $ lastInterpreted                  &lt;dttm&gt; 2023-11-29 14:54:09, 2023-11-29 14:5…</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a><span class="do">## $ mediaType                        &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, "…</span></span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a><span class="do">## $ issue                            &lt;chr&gt; "CONTINENT_DERIVED_FROM_COORDINATES;T…</span></span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a><span class="do">## $ source                           &lt;chr&gt; "GBIF", "GBIF", "GBIF", "GBIF", "GBIF…</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">colnames</span>(ala_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 25</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">colnames</span>(gbif_data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 51</code></pre>
+</div>
+</div>
+<p>Comparing the column names is important because the function we will use merges data based on shared column names. Therefore, we want any shared variables across datasets, such as scentific name or decimal coordinates, to also have the same column name in both dataframes. If a column containing latitude values is named <code>Latitude</code> in one dataset and <code>latitude</code> in the other, the final dataset will have two columns, instead of one single latitude column.</p>
+<p>Here we will show how to do a quick inspection using the base <code>intersect()</code> and <code>setdiff()</code> functions, but there are some great packages available to conduct a more complete comparison, such as the waldo package, or the Arsenal package’s <code>comparedf()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># waldo::compare(ala_data, gbif_data, max_diffs = 100)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Quick comparison</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>common_cols <span class="ot">&lt;-</span> <span class="fu">intersect</span>(<span class="fu">names</span>(ala_data), <span class="fu">names</span>(gbif_data))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Find columns unique to each dataset</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>unique_ala_data <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(ala_data), <span class="fu">names</span>(gbif_data))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>unique_gbif_data <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(gbif_data), <span class="fu">names</span>(ala_data))</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Number of common columns: %i"</span>, <span class="fu">length</span>(common_cols))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Number of common columns: 21"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Common column names: %s"</span>, <span class="fu">paste</span>(common_cols, <span class="at">collapse =</span> <span class="st">", "</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Common column names: decimalLatitude, decimalLongitude, eventDate, scientificName, occurrenceStatus, basisOfRecord, kingdom, taxonRank, phylum, class, order, family, genus, species, countryCode, locality, stateProvince, coordinateUncertaintyInMeters, coordinatePrecision, occurrenceID, source"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Columns unique to ala_data: %s"</span>, unique_ala_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Columns unique to ala_data: taxonConceptID"  
+[2] "Columns unique to ala_data: recordID"        
+[3] "Columns unique to ala_data: dataResourceName"
+[4] "Columns unique to ala_data: dcterms:license" </code></pre>
+</div>
+</div>
+</section>
+<section id="selecting-and-renaming-columns" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="selecting-and-renaming-columns"><span class="header-section-number">8.3</span> Selecting and renaming columns</h2>
+<p>Subset each dataset, selecting only the columns or variables that you want to have in the final dataset. Merging a subset of only the needed columns can reduce clutter in the merged dataset.</p>
+<p>This is just an example of selecting columns; the columns you select will depend on your requirements:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>columns_keep_data_A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"column1"</span>, <span class="st">"column2"</span>, <span class="st">"column3"</span>, <span class="st">"column4"</span>, <span class="st">"column5"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>data_A_subset <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(data_A, <span class="fu">all_of</span>(columns_keep_data_A))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Repeat for the other dataset. Remember, your column names may differ between datasets, so you should refer to your comparisons to determine which name to use when selecting for each dataset, and then rename those columns to match the first dataset. The order of operations here is subset -&gt; conform names -&gt; merge.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>columns_keep_data_B <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"column_a"</span>, <span class="st">"column_s"</span>, <span class="st">"column_d"</span>, <span class="st">"column_f"</span>, <span class="st">"column_g"</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>data_B_subset <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(data_B, <span class="fu">all_of</span>(columns_keep_data_B))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>data_B_subset_renamed <span class="ot">&lt;-</span> dyplr<span class="sc">::</span><span class="fu">rename</span>(data_B_subset,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">column1 =</span> column_a,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">column2 =</span> column_s,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">column3 =</span> column_d,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">column4 =</span> column_f,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">column5 =</span> column_g</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note, instead of renaming columns to match a particular dataset, you can of course pick your own column naming scheme, and rename the other datasets to match.</p>
+</div>
+</div>
+</section>
+<section id="merging-datasets" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="merging-datasets"><span class="header-section-number">8.4</span> Merging datasets</h2>
+<p>We can merge the datasets using <code>dplyr::bind_rows()</code>. This function binds data frames on top of each other, by matching columns by name. Dataframes that were missing columns present in another dataframe will have <code>NA</code> values for that column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(ala_data, gbif_data)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(merged_data, <span class="st">"data/galah/chloris.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>bind_rows()</code> function requires columns of the same name to have the same data type. If you get an error, check the data types of the flagged columns in each of your datasets and conform them to the same data type.</p>
+</div>
+</div>
+<p>After mering datasets, you may see many rows of NA values, depending on whether those columns were shared or not. This is a good time to look through the merged dataset and check if the merge went as expected. You can start by using the inspection code or packages mentioned above. Note that some of these steps are also cleaning steps that will be repeated later in detail. The focus here is primarily to identify any obvious merge issues that can be resolved before moving on.</p>
+<p>Some things to check are: - Are there any columns missing that should be present? - Are there any columns that should be present but are missing? - Are there any unexpected columns that you didn’t intend to include? - Are there any unexpected values, such as NA values in columns that you expected to be shared and have values for all records?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for missing values</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(source) <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)),</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">.names =</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>      <span class="st">"na_in_{.col}"</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># reshape for easier comparison</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>source, <span class="at">names_to =</span> <span class="st">"column"</span>, <span class="at">names_prefix =</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>      <span class="st">"source_"</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> source, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add percentage #TODO</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">percentage =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> (GBIF <span class="sc">+</span> ALA) <span class="sc">/</span> <span class="fu">nrow</span>(merged_data), <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(percentage)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(percentage <span class="sc">&lt;</span> <span class="dv">55</span> <span class="sc">&amp;</span> percentage <span class="sc">&gt;</span> <span class="dv">45</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   column                                   ALA  GBIF percentage
+   &lt;chr&gt;                                  &lt;int&gt; &lt;int&gt;      &lt;dbl&gt;
+ 1 na_in_day                               3995   228       54.6
+ 2 na_in_month                             3995   225       54.6
+ 3 na_in_year                              3995   121       53.3
+ 4 na_in_verbatimScientificNameAuthorship  3995    89       52.8
+ 5 na_in_issue                             3995    53       52.4
+ 6 na_in_gbifID                            3995     0       51.7
+ 7 na_in_datasetKey                        3995     0       51.7
+ 8 na_in_verbatimScientificName            3995     0       51.7
+ 9 na_in_publishingOrgKey                  3995     0       51.7
+10 na_in_taxonKey                          3995     0       51.7</code></pre>
+</div>
+</div>
+<p>This is one approach that can help - looking at columns ~50% missing to track down potential merge issues (expected a column to be shared and merged but it is missing values in the merged dataset). This method is also generally useful for detecting missing values in columns, which is discussed later in the book.</p>
+</section>
+<section id="summary" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">8.5</span> Summary</h2>
+<p>We have briefly introduced how to merge two disparate datasets, including a few data checking producedures relevant to merging data. But it should be noted that some of these checks are generally useful during the data cleaning process, and will appear throughout the book.</p>
+</section>
+<section id="advanced-technique" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="advanced-technique"><span class="header-section-number">8.6</span> Advanced technique</h2>
+<p>Performing checks and operations on more than one dataset using separate objects like we have shown above is a good way to get started. A more efficient option can be to use a list of datasets and perform operations on the list, particuarly when integrating many datasets. Using a list reduces the potential for mistakes that can occur when duplicating code. Another option would be a for loop, or the <code>purrr</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Examples on how to get started with a list of datasets:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>datasets <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ala =</span> ala_data,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gbif =</span> gbif_data</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the number of records in each dataset</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(datasets, nrow)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the number of columns in each dataset</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(datasets, ncol)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the column names in each dataset</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(datasets, colnames)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># With apply functions we can operate over list elements with custom functions</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>datasets_source <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">names</span>(datasets), <span class="cf">function</span>(name) {</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  datasets[[name]]<span class="sc">$</span>source <span class="ot">&lt;-</span> name</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  datasets[[name]]</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="alternative-method-spocc-package" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="alternative-method-spocc-package"><span class="header-section-number">8.7</span> Alternative method: spocc package</h2>
+<p>Using <code>spocc</code> package to download data from GBIF and ALA with a combined query:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spocc)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">occ</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">query =</span> <span class="st">"Litoria chloris"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">from =</span> <span class="fu">c</span>(<span class="st">"gbif"</span>, <span class="st">"ala"</span>),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">gbifopts =</span> <span class="fu">list</span>(<span class="at">hasCoordinate =</span> <span class="cn">TRUE</span>), <span class="at">limit =</span> <span class="dv">10</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(out<span class="sc">$</span>gbif<span class="sc">$</span>data[[<span class="dv">1</span>]], <span class="dv">3</span>) <span class="co"># / out$ala$data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 74
+  name           longitude latitude issues prov  key   scientificName datasetKey
+  &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;          &lt;chr&gt;     
+1 Litoria chlor…      153.    -28.2 cdc    gbif  3909… Litoria chlor… e3ce628e-…
+2 Litoria chlor…      154.    -28.5 cdc    gbif  3749… Litoria chlor… e3ce628e-…
+3 Litoria chlor…      153     -30.5 cdc    gbif  3909… Litoria chlor… e3ce628e-…
+# ℹ 66 more variables: publishingOrgKey &lt;chr&gt;, installationKey &lt;chr&gt;,
+#   hostingOrganizationKey &lt;chr&gt;, publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;,
+#   lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;, basisOfRecord &lt;chr&gt;,
+#   occurrenceStatus &lt;chr&gt;, taxonKey &lt;int&gt;, kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;,
+#   classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;, genusKey &lt;int&gt;,
+#   speciesKey &lt;int&gt;, acceptedTaxonKey &lt;int&gt;, acceptedScientificName &lt;chr&gt;,
+#   kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, …</code></pre>
+</div>
+</div>
+<p>The <code>occ2df()</code> function converts the results into a single data frame. Note: this function doesn’t handle duplicate observations, you still need to check for duplicates and decide how to handle them (see duplicates section #TODO link).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>out_data <span class="ot">&lt;-</span> <span class="fu">occ2df</span>(out, <span class="at">what =</span> <span class="st">"data"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(out_data, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 6
+  name                              longitude latitude prov  date       key     
+  &lt;chr&gt;                                 &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;date&gt;     &lt;chr&gt;   
+1 Litoria chloris (Boulenger, 1892)      153.    -28.2 gbif  2022-02-20 3909517…
+2 Litoria chloris (Boulenger, 1892)      154.    -28.5 gbif  2022-02-09 3749064…
+3 Litoria chloris (Boulenger, 1892)      153     -30.5 gbif  2022-03-03 3909507…</code></pre>
+</div>
+</div>
+<p>This is a fast way to get started, but it doesn’t include all returned data columns. If we need those columns, we can manually bind the data from each source.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>occ_ala <span class="ot">&lt;-</span> <span class="fu">occ2df</span>(out<span class="sc">$</span>ala)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>occ_gbif <span class="ot">&lt;-</span> <span class="fu">occ2df</span>(out<span class="sc">$</span>gbif)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># bind_occ &lt;- dplyr::bind_rows(occ_ala, occ_gbif)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here we get a helpful error. The <code>bind_rows</code> function requires columns of the same name to have the same data type, and the error message tells us that month is a character in one dataset and an integer in the other. We can solve this by converting one of the columns to match, and try again.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(occ_ala<span class="sc">$</span>recordedBy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>occ_ala<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">as.integer</span>(occ_ala<span class="sc">$</span>month)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># recordedBy column is also different so we will fix this as well</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(occ_ala<span class="sc">$</span>recordedBy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "list"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>occ_ala<span class="sc">$</span>recordedBy <span class="ot">&lt;-</span> <span class="fu">as.character</span>(occ_ala<span class="sc">$</span>recordedBy)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Now we can successfully bind the data</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>bind_occ <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(occ_ala, occ_gbif)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we inspect the <code>bind_occ</code> data set for any issues (using techniques discussed above). Some examples:</p>
+<p>The field <code>class</code> has a typo in one dataset, the result is that our data contains one column <code>classs</code> and one <code>class</code>. We can fix this with the <code>coalesce()</code> function from <code>dplyr</code>. This finds the first non-missing value at each position. We can then remove <code>classs</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>bind_occ<span class="sc">$</span>class <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">coalesce</span>(bind_occ<span class="sc">$</span>class, bind_occ<span class="sc">$</span>classs)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>bind_occ <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">select</span>(bind_occ, <span class="sc">-</span>classs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>There are NA values for scientificName from the ALA. But we also have column <code>species</code> with values for both datasets, so this is not an issue here, we can just use <code>species</code>.</p>
+<p>Looking at the species column, there are two different names. This is because the ALA taxonomic backbone for fauna is the Australian Faunal Directory (AFD), while GBIF uses a taxonomic backbone of their own. In this case, GBIF recognised our query for <em>Litoria chloris</em> as a synonym of <em>Ranoidea chloris</em>. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> We will talk more about taxonomy issues like this and how to approach them later in the book.</p>
+
+
+</section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>If you’re interested, phylogenetic papers in recent years proposed taxonomic changes to Hylidae. However these changes have not been adopted by the AFD at this point in time, preferring to maintain the traditional and imperfect Litoria pending a detailed revision of Australian hylids that is in progress.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./access_inspect.html" class="pagination-link  aria-label=" &lt;span="" inspection&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Initial inspection</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cleaning_intro.html" class="pagination-link" aria-label="Cleaning biodiversity data">
+        <span class="nav-page-text">Cleaning biodiversity data</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>The Data Cleaning booklet is a product of the Atlas of Living Australia.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

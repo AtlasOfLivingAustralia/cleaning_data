@@ -2,7 +2,7 @@
 # Specific files/folders #
 ##########################
 output/
-docs/
+# docs/
 scripts/archive/
 scripts/mbraby/
 scripts/extras/
@@ -60,3 +60,5 @@ Thumbs.db
 .Rproj.user
 
 /.quarto/
+.favorites.json
+.vscode/settings.json

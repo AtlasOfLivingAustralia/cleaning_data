@@ -1,0 +1,39 @@
+---
+theme: custom.scss
+---
+
+# Duplicates and missing records
+
+<!-- Read below but on second thoughts this could go with the standardisation
+page. Idea being just to have a straightforward reference pages of these key
+steps -->
+
+<!-- Notes/Andrew: This stuff is covered in various parts of the book of course its pretty
+common but i thought it would be good to have a kind of straight forward
+reference on these concepts. Like checking for missingness in different ways to
+more complex cases perhaps like i have a these X amount of records and these
+ones have missing something and these ones have missing something else so how
+can i decide what to drop, in these specific contexts. I think it would be good
+for cases  where you have limited records and you can't afford to just drop
+evertying maybe. I don't know. -->
+
+## Check for duplicate records
+
+Duplicates records can happen when using aggregated data sources. In this
+section we will cover detection and handling of duplicate records. 
+
+```{r}
+# Check for duplicate records across the dataset
+# duplicated_records <- merged_data[duplicated(merged_data), ]
+# Targeted checks
+# duplicated_records[which(duplicated(merged_data$occurrenceID)), ]
+```
+
+## Check for missing records
+
+```{r}
+library(skimr)
+iris %>%
+  skim() %>%
+  dplyr::filter(n_missing > 0)
+```

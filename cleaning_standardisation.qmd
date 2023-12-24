@@ -1,0 +1,103 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# General utility functions
+
+<!-- Notes/Andrew: Just some mostly incomplete stuff I think is basic or else
+doesnt have a home elsewhere yet. Some concepts are like what was in the old
+precleaning page, but precleaning isn't a real thing its just cleaning -->
+
+Here we will explore a few simple ways to identify and rectify the more obvious
+or common sources of inconsistency.
+
+## Setup
+
+```{r}
+library("galah")
+galah_config(atlas = "Australia") # default
+galah_config(email = Sys.getenv("ALA_EMAIL"))
+```
+
+```{r}
+result <- galah_call() |>
+  galah_identify("Litoria") |>
+  galah_filter(year >= 2020, cl22 == "Tasmania") |>
+  atlas_occurrences()
+result |> head()
+```
+
+## Dates
+
+Some use cases may require dates beyond a simple year value. Standardising dates
+involves ensuring that the variables in a dataset have values that conform to a
+consistent and standard format.  An example of unstandardised data is having
+varied date formats (e.g. DD/MM/YYYY for some entries and MM/DD/YYYY for
+others). This may be necessary when integrating data from multiple sources, but
+it is important to remember that there can be inconsistencies even within a
+single source dataset.
+
+## Column classes 
+
+We can check for obvious inconsistencies using the classes of each column. We
+can do this with summary tables like a `skimr` report, or with base R. Below is
+a simple example where our `decimalLatitude` column is numeric, which is what we
+expect so in this case there is no problem. But as an example, if we change just
+one of the values to a degrees minutes seconds format, we can see that the class
+for the column changes to character. 
+
+```{r}
+sapply(result, class)
+# Change one of the values to a degrees minutes seconds format
+result$decimalLatitude[5] <- "40° 51' 59 N"
+sapply(result, class)
+```
+
+## Unexpected values
+
+* Checking for unexpected values: this is a generic method but the resolution
+logic depends on the issue (taxonomic, categories, strings, etc.)
+  * Context: a merged dataset pertaining to a single species (using data frame
+  from cleaning_integration.qmd). Species is L. chloris
+    * Assumption: species column contains only one species
+      * Method: `unique(merged_data$species)`
+      * Result: two species names
+      * Resolution: conform to one species name (assign)
+    * Assumption: country code contains only one country
+      * Method: `unique(merged_data$country_code)`
+      * Result: AU, NA, JP
+      * Resolution: Investigate NA and assign, investigate JP since chloris is
+      an Australian species
+
+```{r}
+library(dplyr)
+merged_data <- read.csv("data/galah/chloris.csv")
+
+unique(merged_data$countryCode)
+
+merged_data[which(merged_data$countryCode == "JP"), ]
+
+# where should the point be? can check the `locality` column and coordinates
+
+merged_data[which(merged_data$countryCode == "JP"), ]$decimalLatitude
+merged_data[which(merged_data$countryCode == "JP"), ]$decimalLongitude
+merged_data[which(merged_data$countryCode == "JP"), ]$locality
+
+# mt bucca is in australia but the coordinates are incorrect
+# the latitude is missing an "-"
+# we can fix this and check the result (#TODO map vis)
+fixed <- merged_data %>%
+  mutate(decimalLatitude = ifelse(countryCode == "JP", paste0(
+    "-",
+    decimalLatitude
+  ), decimalLatitude)) %>%
+  mutate(countryCode = ifelse(countryCode == "JP", "AU", countryCode))
+```
+
+## Summary
+
+In this chapter, we learned a few basic checks for cleaning datasets, including
+methods to detect inconsistencies in date formats, coordinate systems, and
+units.
+

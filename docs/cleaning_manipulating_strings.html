@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.510">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ALA Data Cleaning - 11&nbsp; Strings</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./cleaning_taxonomy.html" rel="next">
+<link href="./cleaning_duplicates.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg border-bottom" data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ALA Data Cleaning</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Cleaning biodiversity data</a></li><li class="breadcrumb-item"><a href="./cleaning_manipulating_strings.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Strings</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./scope.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data scope</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_temporal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Temporal scope</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_taxonomic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Taxonomic scope</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_spatial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Spatial scope</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./scope_summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data scope summary</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./access_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Accessing biodiversity data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./access_taxonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Taxnomy and open source data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./access_download.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Download data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./access_inspect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Initial inspection</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./access_integration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dataset integration</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./cleaning_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning biodiversity data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./appendix.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#basic-string-manipulation" id="toc-basic-string-manipulation" class="nav-link active" data-scroll-target="#basic-string-manipulation"><span class="header-section-number">11.1</span> Basic string manipulation</a></li>
+  <li><a href="#matching" id="toc-matching" class="nav-link" data-scroll-target="#matching"><span class="header-section-number">11.2</span> Matching</a>
+  <ul class="collapse">
+  <li><a href="#basic-matching" id="toc-basic-matching" class="nav-link" data-scroll-target="#basic-matching"><span class="header-section-number">11.2.1</span> Basic matching</a></li>
+  <li><a href="#regex-matching" id="toc-regex-matching" class="nav-link" data-scroll-target="#regex-matching"><span class="header-section-number">11.2.2</span> Regex matching</a></li>
+  <li><a href="#replacements" id="toc-replacements" class="nav-link" data-scroll-target="#replacements"><span class="header-section-number">11.2.3</span> Replacements</a></li>
+  </ul></li>
+  <li><a href="#case-style" id="toc-case-style" class="nav-link" data-scroll-target="#case-style"><span class="header-section-number">11.3</span> Case style</a></li>
+  <li><a href="#simple-case-study" id="toc-simple-case-study" class="nav-link" data-scroll-target="#simple-case-study"><span class="header-section-number">11.4</span> Simple case study</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Cleaning biodiversity data</a></li><li class="breadcrumb-item"><a href="./cleaning_manipulating_strings.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Strings</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Strings</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!--                              Notes/Andrew:                              -->
+<!------------------------------------------------------------------------------
+There is content here sourced from taxonomy 1 and 2. 
+
+ISSUE: I didn't have time to change the data used for most of the prexisting
+code chunks, but the data used should be clear and reproducible. Before
+it was hidden, and some aren't reproducible in a clear way - there is no
+information I can see on what the `plants` dataset is, except I see it first
+appears in a hidden code chunk in taxonomy 1, but the origin is a csv. It should
+be transparent where data comes from or else use galah downloads so its all
+visible to user and reproducible.
+------------------------------------------------------------------------------->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load in data needed for the chapter</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># WORMS dataset</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>worms <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/worms/worms.csv"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(worms)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  AphiaID                                                             url
+1  436020  https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=436020
+2  403784  https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=403784
+3  549234  https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=549234
+4  877992  https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=877992
+5  406921  https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=406921
+6 1542242 https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=1542242
+           scientificname                                      authority
+1 Epideira beachportensis                         Cotton &amp; Godfrey, 1938
+2    Austroharpa learorum                            Hart &amp; Limpus, 1998
+3      Tipimegus thalerus                       Barnard &amp; Drummond, 1978
+4  Semivermilia lylevaili Kupriyanova, Sun, ten Hove, Wong &amp; Rouse, 2015
+5  Copidognathus vulgaris                                  Bartsch, 1998
+6   Hancockcandonopsis io                                Karanovic, 2018
+    status unacceptreason taxonRankID    rank valid_AphiaID
+1 accepted           &lt;NA&gt;         220 Species        436020
+2 accepted           &lt;NA&gt;         220 Species        403784
+3 accepted           &lt;NA&gt;         220 Species        549234
+4 accepted           &lt;NA&gt;         220 Species        877992
+5 accepted           &lt;NA&gt;         220 Species        406921
+6 accepted           &lt;NA&gt;         220 Species       1542242
+               valid_name                                valid_authority
+1 Epideira beachportensis                         Cotton &amp; Godfrey, 1938
+2    Austroharpa learorum                            Hart &amp; Limpus, 1998
+3      Tipimegus thalerus                       Barnard &amp; Drummond, 1978
+4  Semivermilia lylevaili Kupriyanova, Sun, ten Hove, Wong &amp; Rouse, 2015
+5  Copidognathus vulgaris                                  Bartsch, 1998
+6   Hancockcandonopsis io                                Karanovic, 2018
+  parentNameUsageID  kingdom     phylum        class          order
+1            432453 Animalia   Mollusca   Gastropoda  Neogastropoda
+2            403782 Animalia   Mollusca   Gastropoda  Neogastropoda
+3            549107 Animalia Arthropoda Malacostraca      Amphipoda
+4            129579 Animalia   Annelida   Polychaeta      Sabellida
+5            114765 Animalia Arthropoda    Arachnida Trombidiformes
+6           1541895 Animalia Arthropoda    Ostracoda     Podocopida
+           family              genus
+1   Horaiclavidae           Epideira
+2        Harpidae        Austroharpa
+3 Phoxocephalidae          Tipimegus
+4      Serpulidae       Semivermilia
+5     Halacaridae      Copidognathus
+6      Candonidae Hancockcandonopsis
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        citation
+1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    MolluscaBase eds. (2022). MolluscaBase. Epideira beachportensis Cotton &amp; Godfrey, 1938. Accessed through: World Register of Marine Species at: https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=436020 on 2022-09-05
+2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          MolluscaBase eds. (2022). MolluscaBase. Austroharpa learorum Hart &amp; Limpus, 1998. Accessed through: World Register of Marine Species at: https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=403784 on 2022-09-05
+3 Horton, T.; Lowry, J.; De Broyer, C.; Bellan-Santini, D.; Coleman, C.O.; Corbari, L.; Costello, M.J.; Daneliya, M.; Dauvin, J.-C.; Fišer, C.; Gasca, R.; Grabowski, M.; Guerra-García, J.M.; Hendrycks, E.; Hughes, L.; Jaume, D.; Jazdzewski, K.; Kim, Y.-H.; King, R.; Krapp-Schickel, T.; LeCroy, S.; Lörz, A.-N.; Mamos, T.; Senna, A.R.; Serejo, C.; Sket, B.; Souza-Filho, J.F.; Tandberg, A.H.; Thomas, J.D.; Thurston, M.; Vader, W.; Väinölä, R.; Vonk, R.; White, K.; Zeidler, W. (2022). World Amphipoda Database. Tipimegus thalerus Barnard &amp; Drummond, 1978. Accessed through: World Register of Marine Species at: https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=549234 on 2022-09-05
+4                                                                                                                                                                                                                                                                                                                                                                                                                                     Read, G.; Fauchald, K. (Ed.) (2022). World Polychaeta Database. Semivermilia lylevaili Kupriyanova, Sun, ten Hove, Wong &amp; Rouse, 2015. Accessed through: World Register of Marine Species at: https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=877992 on 2022-09-05
+5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  WoRMS (2022). Copidognathus vulgaris Bartsch, 1998. Accessed at: https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=406921 on 2022-09-05
+6                                                                                                                                                                                                                                                                                                                                                                                                                                        Brandão, S.N.; Antonietto, L.S; Nery, D.G.; Karanovic, I. (2022). World Ostracoda Database. Hancockcandonopsis io Karanovic, 2018. Accessed through: World Register of Marine Species at: https://www.marinespecies.org/aphia.php?p=taxdetails&amp;id=1542242 on 2022-09-05
+                                        lsid isMarine isBrackish isFreshwater
+1  urn:lsid:marinespecies.org:taxname:436020        1         NA           NA
+2  urn:lsid:marinespecies.org:taxname:403784        1         NA           NA
+3  urn:lsid:marinespecies.org:taxname:549234        1          0            0
+4  urn:lsid:marinespecies.org:taxname:877992        1          0            0
+5  urn:lsid:marinespecies.org:taxname:406921        1          0            0
+6 urn:lsid:marinespecies.org:taxname:1542242        0          1            0
+  isTerrestrial isExtinct match_type             modified
+1            NA        NA      exact 2018-01-24T20:56:42Z
+2            NA        NA      exact 2009-06-16T13:49:29Z
+3             0        NA      exact 2010-12-01T07:38:59Z
+4             0         0      exact 2016-06-02T01:46:31Z
+5             0        NA      exact 2009-06-29T09:58:55Z
+6             0         0      exact 2021-09-22T11:02:34Z</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AFD dataset</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>afd <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/naming/afd.csv"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverts</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>inverts <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">open_dataset</span>(<span class="st">"data/galah/inverts"</span>) <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">collect</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plants</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plants <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">open_dataset</span>(<span class="st">"data/dap/plants_subset"</span>) <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Andrew: New example data for this chapter for some parts</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">atlas   =</span> <span class="st">"Australia"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">email   =</span> <span class="fu">Sys.getenv</span>(<span class="st">"ALA_EMAIL"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Dendrolagus"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Checking queue
+Current queue size: 1 inqueue .</code></pre>
+</div>
+</div>
+<section id="basic-string-manipulation" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="basic-string-manipulation"><span class="header-section-number">11.1</span> Basic string manipulation</h2>
+<p>The <code>stringr</code> package provides a number of useful functions for manipulating strings, many of which are useful when dealing with biodiversity data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_trim</span>(<span class="st">"  Genus specificus  "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Genus specificus"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_trim</span>(<span class="st">"  Genus specificus  "</span>, <span class="at">side =</span> <span class="st">"left"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Genus specificus  "</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_squish</span>(<span class="st">"  Genus   specificus  "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Genus specificus"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_trunc</span>(<span class="st">"Genus specificus"</span>, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">side =</span> <span class="st">"right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Genus s..."</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split</span>(<span class="st">"Genus specificus"</span>, <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "Genus"      "specificus"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_c</span>(<span class="st">"Genus"</span>, <span class="st">"specificus"</span>, <span class="at">sep =</span> <span class="st">"_"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Genus_specificus"</code></pre>
+</div>
+</div>
+</section>
+<section id="matching" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="matching"><span class="header-section-number">11.2</span> Matching</h2>
+<p>Matching strings is a common task when working with biodiversity data. etc etc.</p>
+<section id="basic-matching" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="basic-matching"><span class="header-section-number">11.2.1</span> Basic matching</h3>
+<p>The <code>stringr</code> package provides a number of functions for matching strings using patterns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># detect and remove</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"Genus specificus"</span>, <span class="st">"Genus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_remove</span>(<span class="st">"Genus specificus"</span>, <span class="at">pattern =</span> <span class="st">"Genus "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "specificus"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># locate and subset</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>records <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genus"</span>, <span class="st">"species"</span>, <span class="st">"Genus species"</span>, <span class="st">"Difgenus difspecies"</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_locate</span>(records, <span class="st">"Genus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     start end
+[1,]     1   5
+[2,]    NA  NA
+[3,]     1   5
+[4,]    NA  NA</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(records, <span class="st">"Genus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Genus"         "Genus species"</code></pre>
+</div>
+</div>
+</section>
+<section id="regex-matching" class="level3" data-number="11.2.2">
+<h3 data-number="11.2.2" class="anchored" data-anchor-id="regex-matching"><span class="header-section-number">11.2.2</span> Regex matching</h3>
+<p>The examples above demonstrate the use of basic patterns. But for cases that need more specific or advanced matching we can use regular expressions (regex). Regex is a powerful tool used to match patterns in strings, replace characters in strings, and extract substrings from strings. Regex can be complex and unintuitive, but there are websites available, such as <a href="https://regex-generator.olafneumann.org/">Regex Generator</a>, that are extremely helpful. Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values. In the case of column names, regex can be useful when conforming datasets (see <a href="&quot;./access_integration.qmd&quot;">Integration</a>) or to meet a stylistic requirement. Applied to column values, there is a range of utility, such as unifying the formatting of taxonomic or location names.</p>
+<p>The <code>str_view()</code> function is particularly useful for exploring regular expressions to see pattern matches. The results are shown in the console, and elements matched by the regex are surrounded with angle brackets &lt; &gt;.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match the first word in the string (the genus)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(tree_kangaroo<span class="sc">$</span>scientificName, <span class="st">"^[A-Z][a-z]+"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] │ &lt;Dendrolagus&gt; lumholtzi
+ [2] │ &lt;Dendrolagus&gt; lumholtzi
+ [3] │ &lt;Dendrolagus&gt; bennettianus
+ [4] │ &lt;Dendrolagus&gt; bennettianus
+ [5] │ &lt;Dendrolagus&gt; bennettianus
+ [6] │ &lt;Dendrolagus&gt; lumholtzi
+ [7] │ &lt;Dendrolagus&gt; lumholtzi
+ [8] │ &lt;Dendrolagus&gt; lumholtzi
+ [9] │ &lt;Dendrolagus&gt; lumholtzi
+[10] │ &lt;Dendrolagus&gt; lumholtzi
+[11] │ &lt;Dendrolagus&gt; bennettianus
+[12] │ &lt;Dendrolagus&gt; bennettianus
+[13] │ &lt;Dendrolagus&gt; lumholtzi
+[14] │ &lt;Dendrolagus&gt; lumholtzi
+[15] │ &lt;Dendrolagus&gt; lumholtzi
+[16] │ &lt;Dendrolagus&gt; lumholtzi
+[17] │ &lt;Dendrolagus&gt; lumholtzi
+[18] │ &lt;Dendrolagus&gt; lumholtzi
+[19] │ &lt;Dendrolagus&gt; lumholtzi
+[20] │ &lt;Dendrolagus&gt; lumholtzi
+... and 1232 more</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match only the second word (species name)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(tree_kangaroo<span class="sc">$</span>scientificName, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">s)[a-z]+"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] │ Dendrolagus &lt;lumholtzi&gt;
+ [2] │ Dendrolagus &lt;lumholtzi&gt;
+ [3] │ Dendrolagus &lt;bennettianus&gt;
+ [4] │ Dendrolagus &lt;bennettianus&gt;
+ [5] │ Dendrolagus &lt;bennettianus&gt;
+ [6] │ Dendrolagus &lt;lumholtzi&gt;
+ [7] │ Dendrolagus &lt;lumholtzi&gt;
+ [8] │ Dendrolagus &lt;lumholtzi&gt;
+ [9] │ Dendrolagus &lt;lumholtzi&gt;
+[10] │ Dendrolagus &lt;lumholtzi&gt;
+[11] │ Dendrolagus &lt;bennettianus&gt;
+[12] │ Dendrolagus &lt;bennettianus&gt;
+[13] │ Dendrolagus &lt;lumholtzi&gt;
+[14] │ Dendrolagus &lt;lumholtzi&gt;
+[15] │ Dendrolagus &lt;lumholtzi&gt;
+[16] │ Dendrolagus &lt;lumholtzi&gt;
+[17] │ Dendrolagus &lt;lumholtzi&gt;
+[18] │ Dendrolagus &lt;lumholtzi&gt;
+[19] │ Dendrolagus &lt;lumholtzi&gt;
+[20] │ Dendrolagus &lt;lumholtzi&gt;
+... and 849 more</code></pre>
+</div>
+</div>
+</section>
+<section id="replacements" class="level3" data-number="11.2.3">
+<h3 data-number="11.2.3" class="anchored" data-anchor-id="replacements"><span class="header-section-number">11.2.3</span> Replacements</h3>
+<p>In base R the <code>gsub()</code> function can be used for pattern replacement. In <code>stringr</code>, the <code>str_replace()</code> function can be used to replace the first match of a string. The <code>str_replace_all()</code> function can be used to replace all matches.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str_replace() example</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Base example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>tree_kangaroo<span class="sc">$</span>scientificName <span class="ot">&lt;-</span> <span class="fu">gsub</span>(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"Dendrolagus"</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">replacement =</span> <span class="st">"Newname"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> tree_kangaroo<span class="sc">$</span>scientificName</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="case-style" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="case-style"><span class="header-section-number">11.3</span> Case style</h2>
+<p>Case style can vary across data providers due to variable naming conventions. There are some basic functions available to change the case of strings in <code>stringr</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_lower</span>(plants<span class="sc">$</span>scientific_name[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "hakea eriantha"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_upper</span>(plants<span class="sc">$</span>scientific_name[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "HAKEA ERIANTHA"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_title</span>(plants<span class="sc">$</span>scientific_name[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Hakea Eriantha"</code></pre>
+</div>
+</div>
+<p>In some cases a more specific detection and replacement is required. For example, the World Register of Marine Species (WoRMS) uses a combination of lower case (scientific_name) and camel case (isExtinct). However, the Australian Fauna Directory (AFD) uses screaming snake case e.g.&nbsp;SCIENTIFIC_NAME. To work with both, case differences can be conformed to a single style, but the format you choose is a matter of personal preference.</p>
+<!-- Andrew: This does the same as the original chunk but like 1/4 the size -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>worms_small <span class="ot">&lt;-</span> <span class="fu">head</span>(worms)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># gsub is a base R function for replacing strings</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(worms_small) <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">colnames</span>(worms_small), <span class="cf">function</span>(name) {</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">gsub</span>(<span class="st">"([a-z])([A-Z])"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1_</span><span class="sc">\\</span><span class="st">2"</span>, name))</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gsub</span>(<span class="st">"^_"</span>, <span class="st">""</span>, name)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co"># stringr version of above (with a slightly different regex approach)</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(worms_small) <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">colnames</span>(worms_small), <span class="cf">function</span>(name) {</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_to_lower</span>(<span class="fu">str_replace_all</span>(name, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">p{Ll})(</span><span class="sc">\\</span><span class="st">p{Lu})"</span>, <span class="st">"_</span><span class="sc">\\</span><span class="st">1"</span>))</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="simple-case-study" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="simple-case-study"><span class="header-section-number">11.4</span> Simple case study</h2>
+<p>We will use the <code>janitor</code> R package to explore whether our elephant data has any string issues. The function <code>tabyl</code> will compute a counts and percent of total rows for each unique value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>african_ele <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_parquet</span>(<span class="st">"data/gbif/elephant"</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>african_ele <span class="sc">|&gt;</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(stateProvince) <span class="sc">|&gt;</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 197 × 4
+   `pull(african_ele, stateProvince)`     n   percent valid_percent
+   &lt;chr&gt;                              &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Agadez                                 1 0.0000561     0.0000879
+ 2 Al Qahirah                             1 0.0000561     0.0000879
+ 3 Alibori                              601 0.0337        0.0528   
+ 4 Arusha                               327 0.0183        0.0287   
+ 5 Arusha Region                          1 0.0000561     0.0000879
+ 6 Atacora                              366 0.0205        0.0322   
+ 7 Atakora                              249 0.0140        0.0219   
+ 8 Balaka                                 8 0.000449      0.000703 
+ 9 Bassila                                1 0.0000561     0.0000879
+10 Batha                                  1 0.0000561     0.0000879
+11 Bauchi                                 7 0.000393      0.000615 
+12 Bengo                                  3 0.000168      0.000264 
+13 Bizerte                                2 0.000112      0.000176 
+14 Borgou                                 7 0.000393      0.000615 
+15 Bouaflé                                3 0.000168      0.000264 
+16 Bouna                                  1 0.0000561     0.0000879
+17 Budongo Forest                         1 0.0000561     0.0000879
+18 Bushenyi                              84 0.00471       0.00738  
+19 Cabo Delgado                           3 0.000168      0.000264 
+20 Cape Prov.                             2 0.000112      0.000176 
+# ℹ 177 more rows</code></pre>
+</div>
+</div>
+<p>From the <code>tabyl</code> output, we can see there are few different variations of <code>Province</code>, <code>Prov.</code>, <code>Prov</code>. As an example, we will correct these with the <code>tidyverse</code> packages <code>stringr</code>, <code>dplyr</code>, <code>tidyr</code> as well as <code>glue</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a regular expression to match Prov. and Prov</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="fu">regex</span>(<span class="st">"Prov(?![:lower:])"</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `str_subset` to pull out the cases that match our pattern</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm that these are the problematic ones</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign these into an object</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(african_ele<span class="sc">$</span>stateProvince, <span class="at">pattern =</span> pattern)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Cape Prov."        "Cape Prov."        "West Nile Prov."  
+ [4] "Central Prov"      "Central Prov"      "Coastal Prov"     
+ [7] "Northeastern Prov" "Central Prov"      "Eastern Prov"     
+[10] "Coastal Prov"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>typos_provinces <span class="ot">&lt;-</span> <span class="fu">str_subset</span>(african_ele<span class="sc">$</span>stateProvince, <span class="at">pattern =</span> pattern)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new variable `stateProvince_clean`</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co"># `str_detect` for matches of pattern (returns TRUE for match)</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co"># `if_else`: if TRUE, the `glue` function will take the first part of the province name enclosed in and join it with word Province.</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co"># if FALSE , it will just take the corresponding value in stateProvince</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that we are assigning these changes to a new object (`african_ele_2`)</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="ot">&lt;-</span> african_ele <span class="sc">%&gt;%</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stateProvince_clean =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(stateProvince, <span class="at">pattern =</span> pattern),</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">true =</span> <span class="fu">glue</span>(<span class="st">'{word(stateProvince, sep = " P")} Province'</span>),</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">false =</span> stateProvince</span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Once we've made the correction we want to check we've done it correctly.</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ALWAYS CHECK YOUR CORRECTIONS</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the `select` function to isolate columns that `starts_with` "stateProvince"</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the `filter` function to subset our the problematic provinces</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="sc">%&gt;%</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"stateProvince"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(stateProvince <span class="sc">%in%</span> typos_provinces)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   stateProvince     stateProvince_clean  
+   &lt;chr&gt;             &lt;glue&gt;               
+ 1 Cape Prov.        Cape Province        
+ 2 Cape Prov.        Cape Province        
+ 3 West Nile Prov.   West Nile Province   
+ 4 Central Prov      Central Province     
+ 5 Central Prov      Central Province     
+ 6 Coastal Prov      Coastal Province     
+ 7 Northeastern Prov Northeastern Province
+ 8 Central Prov      Central Province     
+ 9 Eastern Prov      Eastern Province     
+10 Coastal Prov      Coastal Province     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Its good practice to check the other values were not affected by your corrections</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we are removing the NA with `drop_na` and subsetting unique rows with `distinct`</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="sc">%&gt;%</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"stateProvince"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 196 × 2
+   stateProvince    stateProvince_clean
+   &lt;chr&gt;            &lt;glue&gt;             
+ 1 Southern         Southern           
+ 2 Taita Taveta     Taita Taveta       
+ 3 Mara             Mara               
+ 4 Arusha           Arusha             
+ 5 Simiyu           Simiyu             
+ 6 Morogoro         Morogoro           
+ 7 Mashonaland West Mashonaland West   
+ 8 Mpumalanga       Mpumalanga         
+ 9 KwaZulu-Natal    KwaZulu-Natal      
+10 Manicaland       Manicaland         
+# ℹ 186 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Final check</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Check with the original code that detected the issue</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="sc">%&gt;%</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(stateProvince_clean) <span class="sc">%&gt;%</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 195 × 4
+   .                  n   percent valid_percent
+   &lt;glue&gt;         &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Agadez             1 0.0000561     0.0000879
+ 2 Al Qahirah         1 0.0000561     0.0000879
+ 3 Alibori          601 0.0337        0.0528   
+ 4 Arusha           327 0.0183        0.0287   
+ 5 Arusha Region      1 0.0000561     0.0000879
+ 6 Atacora          366 0.0205        0.0322   
+ 7 Atakora          249 0.0140        0.0219   
+ 8 Balaka             8 0.000449      0.000703 
+ 9 Bassila            1 0.0000561     0.0000879
+10 Batha              1 0.0000561     0.0000879
+11 Bauchi             7 0.000393      0.000615 
+12 Bengo              3 0.000168      0.000264 
+13 Bizerte            2 0.000112      0.000176 
+14 Borgou             7 0.000393      0.000615 
+15 Bouaflé            3 0.000168      0.000264 
+16 Bouna              1 0.0000561     0.0000879
+17 Budongo Forest     1 0.0000561     0.0000879
+18 Bushenyi          84 0.00471       0.00738  
+19 Cabo Delgado       3 0.000168      0.000264 
+20 Cape Province      3 0.000168      0.000264 
+# ℹ 175 more rows</code></pre>
+</div>
+</div>
+<p>There are some other issues that can be corrected in a similar approach:</p>
+<ul>
+<li><code>North West</code>, <code>North West District</code> and <code>North-Western</code></li>
+<li><code>Àfrica Central</code>, <code>Central Province</code> and <code>Central</code></li>
+<li><code>Atacora</code> and <code>Atakora</code></li>
+<li><code>Coastal Province</code> and <code>Coastal</code></li>
+</ul>
+<p>We recommend consulting reputable sources to delineate and consolidate similar values.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cleaning_duplicates.html" class="pagination-link  aria-label=" &lt;span="" and="" missing="" records&lt;="" span&gt;"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./cleaning_taxonomy.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>Taxonomy</span>">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Taxonomy</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>The Data Cleaning booklet is a product of the Atlas of Living Australia.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
