@@ -16,6 +16,9 @@ This book was inspired by an [Australian Research Data Commons](https://ardc.edu
 Authors listed in alphabetic order:
 
 - Fonti Kar
+- Dax Kellie
 - Jessica Fenker
 - Margot Schneider
+- Andrew Schwenke
+- Olivia Torresan
 - Martin Westgate
