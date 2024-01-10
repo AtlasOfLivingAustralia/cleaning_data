@@ -13,8 +13,9 @@ This is a living document and we welcome contributions. We suggest folks to subm
 
 This book was inspired by an [Australian Research Data Commons](https://ardc.edu.au/) project where our team worked closely with research partners to streamline their data cleaning workflows. This book is a collaborative effort from the Science and Decision Support team at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/)
 
-Authors listed in alphabetic order:
+Authors:
 
+- Shandiya Balasubramaniam
 - Fonti Kar
 - Dax Kellie
 - Jessica Fenker

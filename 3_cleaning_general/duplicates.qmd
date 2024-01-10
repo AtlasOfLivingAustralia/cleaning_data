@@ -1,0 +1,16 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Duplicates
+
+Duplicates records can happen when using aggregated data sources. In this
+section we will cover detection and handling of duplicate records. 
+
+```{r}
+# Check for duplicate records across the dataset
+# duplicated_records <- merged_data[duplicated(merged_data), ]
+# Targeted checks
+# duplicated_records[which(duplicated(merged_data$occurrenceID)), ]
+```

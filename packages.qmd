@@ -8,22 +8,27 @@ editor_options:
 
 ## Download data:
 
-:::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
-
+:::: {layout="[40,60]"}
+:::{#first-column}
 <a href="https://galah.ala.org.au">
-![](images/hex/galah_logo.png){style="width:50%;"}
+![](images/hex/galah_logo.png)
 </a>
 
-# galah
+:::
+:::{#second-column}
+### galah
 
 {galah} is an R and Python interface to biodiversity data hosted by the Atlas of Living Australia (ALA). It enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations.<br> <br>
-
 :::
+::::
+
+
+
 
 :::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
 
 <a href="https://www.gbif.org/tool/81747/rgbif">
-![](images/hex/rgbif_logo.png){style="width:50%;"}
+![](images/hex/rgbif_logo.png){style="width:10%;"}
 </a>
 
 # rgbif
@@ -36,7 +41,7 @@ editor_options:
 :::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
 
 </a href="https://docs.ropensci.org/spocc/">
-![](images/hex/spocc_logo.png){style="width:50%;"}
+![](images/hex/spocc_logo.png){style="width:10%;"}
 
 
 # spocc
@@ -50,7 +55,7 @@ editor_options:
 :::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
 
 </a href="https://docs.ropensci.org/skimr/reference/skim.html">
-![](images/hex/skimr_logo.png){style="width:50%;"}
+![](images/hex/skimr_logo.png){style="width:10%;"}
 
 # skimr
 
@@ -62,7 +67,7 @@ A helpful tool to quickly summarise your data, particularly prior to data cleani
 :::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
 
 </a href="https://www.tidyverse.org">
-![](images/hex/tidyverse_logo.png){style="width:50%;"}
+![](images/hex/tidyverse_logo.png){style="width:10%;"}
 
 # tidyverse
 
@@ -76,7 +81,7 @@ A helpful tool to quickly summarise your data, particularly prior to data cleani
 :::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
 
 </a href="https://github.com/sfirke/janitor">
-![](images/hex/janitor_logo.png){style="width:50%;"}
+![](images/hex/janitor_logo.png){style="width:10%;"}
 
 # janitor
 

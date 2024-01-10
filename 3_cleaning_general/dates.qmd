@@ -1,0 +1,14 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Dates
+
+Some use cases may require dates beyond a simple year value. Standardising dates
+involves ensuring that the variables in a dataset have values that conform to a
+consistent and standard format.  An example of unstandardised data is having
+varied date formats (e.g. DD/MM/YYYY for some entries and MM/DD/YYYY for
+others). This may be necessary when integrating data from multiple sources, but
+it is important to remember that there can be inconsistencies even within a
+single source dataset.

@@ -1,0 +1,6 @@
+# Summarise
+
+This chapter could ideally contain some common ways to explore data in the three domains that the "Data Scope" chapter was divided into: Taxonomic, Temporal, Spatial.
+
+I think examples of ways to check counts and visualise these 3 data types is plenty. It's worth quickly mentioning, too, that galah and (i assume) other packages that use APIs can get count summaries prior to downloading data (which is good practice).
+

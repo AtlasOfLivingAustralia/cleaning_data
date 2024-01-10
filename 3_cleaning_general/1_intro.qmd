@@ -1,0 +1,10 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Cleaning data: General
+
+This section shows tasks and functions that will be frequently used to clean datasets.
+

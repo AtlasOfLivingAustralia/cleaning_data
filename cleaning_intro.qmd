@@ -1,4 +1,4 @@
-# Cleaning biodiversity data
+# Archived: Cleaning data
 
 This section covers a range of practical data cleaning techniques, relevant to
 biodiversity data. To enhance the efficiency of your data cleaning and

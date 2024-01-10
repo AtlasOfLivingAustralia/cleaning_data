@@ -1,0 +1,3 @@
+# Where to get data
+
+This section will detail what open source data is and suggest some places and packages for getting data of different types

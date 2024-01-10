@@ -1,0 +1,61 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Unexpected values
+
+*Dax's note*:
+
+I think this section could show some ways to summarise data to find when there is a value that has been mis-entered in the raw data. Andrew's example is a coordinate that is missing a "-". I'm sure there are a few ways to search for problem-values like this.
+
+Eventually this section could end up being dispersed into other sections. For now, I'm happy to try this out as a quick-reference section about finding quirky values in datasets.
+
+---
+
+## Unexpected values
+
+* Checking for unexpected values: this is a generic method but the resolution
+logic depends on the issue (taxonomic, categories, strings, etc.)
+  * Context: a merged dataset pertaining to a single species (using data frame
+  from cleaning_integration.qmd). Species is L. chloris
+    * Assumption: species column contains only one species
+      * Method: `unique(merged_data$species)`
+      * Result: two species names
+      * Resolution: conform to one species name (assign)
+    * Assumption: country code contains only one country
+      * Method: `unique(merged_data$country_code)`
+      * Result: AU, NA, JP
+      * Resolution: Investigate NA and assign, investigate JP since chloris is
+      an Australian species
+
+```{r}
+library(dplyr)
+merged_data <- read.csv("../data/galah/chloris.csv")
+
+unique(merged_data$countryCode)
+
+merged_data[which(merged_data$countryCode == "JP"), ]
+
+# where should the point be? can check the `locality` column and coordinates
+
+merged_data[which(merged_data$countryCode == "JP"), ]$decimalLatitude
+merged_data[which(merged_data$countryCode == "JP"), ]$decimalLongitude
+merged_data[which(merged_data$countryCode == "JP"), ]$locality
+
+# mt bucca is in australia but the coordinates are incorrect
+# the latitude is missing an "-"
+# we can fix this and check the result (#TODO map vis)
+fixed <- merged_data %>%
+  mutate(decimalLatitude = ifelse(countryCode == "JP", paste0(
+    "-",
+    decimalLatitude
+  ), decimalLatitude)) %>%
+  mutate(countryCode = ifelse(countryCode == "JP", "AU", countryCode))
+```
+
+## Summary
+
+In this chapter, we learned a few basic checks for cleaning datasets, including
+methods to detect inconsistencies in date formats, coordinate systems, and
+units.

@@ -1,0 +1,45 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Column names & classes 
+
+## Setup
+
+```{r}
+#| warning: false
+#| message: false
+library(galah)
+galah_config(atlas = "Australia") # default
+galah_config(email = Sys.getenv("ALA_EMAIL"))
+
+result <- galah_call() |>
+  galah_identify("Litoria") |>
+  galah_filter(year >= 2020, cl22 == "Tasmania") |>
+  atlas_occurrences()
+result |> head()
+```
+
+
+## Cleaning column names
+
+* Info about using {janitor} and `clean_names()`?
+* Info about renaming columns
+* Info about splitting and/or joining columns?
+
+## Column classes
+
+We can check for obvious inconsistencies using the classes of each column. We
+can do this with summary tables like a `skimr` report, or with base R. Below is
+a simple example where our `decimalLatitude` column is numeric, which is what we
+expect so in this case there is no problem. But as an example, if we change just
+one of the values to a degrees minutes seconds format, we can see that the class
+for the column changes to character. 
+
+```{r}
+sapply(result, class)
+# Change one of the values to a degrees minutes seconds format
+result$decimalLatitude[5] <- "40° 51' 59 N"
+sapply(result, class)
+```

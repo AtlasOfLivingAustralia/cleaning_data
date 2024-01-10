@@ -1,0 +1,133 @@
+# Inspect
+
+<!-- Notes/Andrew: The previous content of this page largely included fixing string
+inconsistencies. It's my opinion that this was out of scope for an
+initial inspection step, and best moved to a dedicated string section. Otherwise
+it would be difficult for somebody looking for string inconsistencies to know
+they need to check the initial inspection page. -->
+
+<!-- Notes/Andrew: The scope of this page is now: determine if the downloaded
+data is acceptable, with respect to the download query and source. If not, the
+next actions could be to adjust the download query, or use a different source.
+-->
+
+Before diving into cleaning, it is always a good idea to start by familiarising
+yourself with the data. In this chapter we will cover ways to inspect both the
+data and metadata of a dataset. 
+
+## Metadata inspection
+
+Metadata describes your data set: it defines each variable and its contents. For
+example, describing a variables unit of measurement, climatic conditions at the
+time of observation, or whether the occurrence is a marked outlier. Reviewing
+the metadata of your dataset is a useful first step, as it allows you to
+understand the kind of data you are working with and any potential limitations
+of the data that could affect your analysis.
+
+Data infrastructures that use Darwin Core terms will have interoperable
+metadata. This makes it easier to consolidate across data sets. All Darwin Core
+term definitions can be found [here](https://dwc.tdwg.org/terms/). We suggest
+using `Ctrl/CMD F` and searching your variable name on the
+[webpage](https://dwc.tdwg.org/terms/). Don't hesitate to Google variable names
+if you are unsure what they represent.
+
+It is also worth checking the available metadata for your dataset, to determine
+if there is extra information that may be relevant. You could Google the dataset
+name, or search the dataset or institution on the ALA. The metadata on the ALA
+is submitted with the data, and because the ALA is not the data *owner*, this
+data is immutable.
+
+An example of well formatted metadata is [FrogID from the Australian
+Museum](https://collections.ala.org.au/public/show/dr14760). From reading
+FrogID's metadata [@rowley2020frogid], you'll find:
+
+1. The data is acoustic data, the majority of the species recorded are
+therefore male.
+2. Because this is citizen science data, it is especially biased
+towards populated areas. 
+3. Audio is recorded via a smartphone app, and so the authors
+recommend filtering data to `geographic uncertainty of <3000m` if you require
+high coordinate precision.
+4. The data is presence only data.
+
+Metadata can also be useful for understanding the license that the data falls
+under. This is mostly relevant for using or republishing multimedia associated
+with the data.
+
+## Data inspection
+
+A great way to get an initial overview of your data is to use the R package
+`skimr`, which provides tables of descriptive statistics, such as amount of
+missing data, for each variable. The output is also grouped by data type
+(numeric, character, date) so you can also check for any inconsistencies. 
+
+As you are looking through the output, ask yourself whether the data is in line
+with your expectations. If you requested data for a group of species, are they
+all represented? Are the values for a variable reasonable? Looking at the
+quartiles can help you get the sense of the distribution of data. These
+considerations will help you detect potential issues in the data. Make sure you
+take note of any issues you find, to investigate further and later address. 
+
+Here we will continue using the African elephant dataset that we downloaded in
+the previous chapter on downloading. You can create a
+report using the `skimr` package by running the following code:
+<!-- Note: First use of skimr package -->
+
+```{r, echo = TRUE}
+library(skimr)
+african_ele <- arrow::read_parquet("../data/gbif/elephant")
+skim(african_ele)
+```
+
+### Evaluating the dataset
+
+Here are some starting points for evaluating a dataset. As you go through the
+skimr report and perform these checks, make detailed notes of your observations
+and any potential issues.
+
+- Confirm the number of records:
+  - Verify if the number of records in the dataset matches your expectations. If
+  the number is significantly higher or lower than anticipated, it may indicate
+  an issue with the query or data source.
+- Checking for the correct metadata columns:
+  - Ensure that all expected metadata columns are present. These might include
+  species names, dates, locations, etc. The absence of key columns could suggest
+  a problem with the data extraction process.
+- Assessing missing data in critical fields:
+  - Check the amount of missing data, especially in critical
+  fields like latitude and longitude. A high number of missing values in these
+  fields can significantly impact the usability of the dataset for geospatial
+  analysis.
+- Reviewing geospatial data accuracy:
+  - Look for anomalies in geospatial data. Check if the coordinates are within
+  plausible ranges and if they correspond to the geographic regions you
+  expected.
+- Evaluating data distribution and outliers:
+  - Use the quartiles and summary statistics provided by `skimr` to assess the
+  distribution of key variables. Be on the lookout for outliers or unusual
+  patterns that might need further investigation.
+- Consistency and formatting of categorical data:
+  - Check for consistency in categorical data, such as species names.
+  Inconsistencies might arise from variations in spelling, capitalization, or
+  use of synonyms.
+
+
+## Next steps
+
+Keep in mind, we don't expect a perfect dataset from a download. The goal of an
+initial inspection is to assess whether the download returned results in line
+with your expections based on your query. Some issues are expected, and may not
+signify an issue with the download itself but rather the actual data. The
+initial inspection is therefore a good opportunity to also start noting these
+issues, as they will be addressed during the cleaning phase. 
+
+Based on your initial findings, consider whether you need to **refine your
+download query**. Perhaps you uncovered some additional metadata fields during
+your metadata inspection, and would like to adjust your query to include them.
+Or maybe you noticed missing data in specific time frames or locations that you
+expected from your query, or missing metadata fields. This could mean you need
+to adjust your download query parameters or investigate those issues further. 
+
+When you are satisfied that the dataset is largely as expected, you are ready to
+move onto the data cleaning section. If you are working with multiple datasets
+from different sources, the next chapter will cover integration of datasets.

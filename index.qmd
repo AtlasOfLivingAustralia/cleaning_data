@@ -28,8 +28,7 @@ guidelines can be found
 ## How to cite
 
 You can cite this book as:
-Kar, F., Fenker, J., Schneider, M., Westgate, M. [Andrew-somewhere] (2023). Cleaning biodiversity
-data in R. Retrieved Month dd, yyyy, from https://atlasoflivingaustralia.github.io/cleaning_data/
+Kar, F., Schneider, M., Schwenke, A., Kellie, D., Balasubramaniam, S., Torresan, 0., Fenker, J., Westgate, M. (2023). ALA's Data Cleaning Booklet. Retrieved Month dd, yyyy, from https://atlasoflivingaustralia.github.io/cleaning_data/
 
 <!-- Just a placeholder licence -->
 <!-- actual repository should also contain a licence doc; preferably matching I think -->
@@ -43,7 +42,9 @@ Commons](https://ardc.edu.au/) project where our team worked closely with
 research partners to streamline their data cleaning workflows. This book is a
 collaborative effort from the Science and Decision Support team at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/)
 
-Authors listed in alphabetic order:
+Authors:
+
+- Shandiya Balasubramaniam
 - Fonti Kar
 - Dax Kellie
 - Jessica Fenker 

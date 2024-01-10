@@ -1,0 +1,7 @@
+# Merging multiple datasets
+
+This is a common task when working with data. This chapter could provide some context about joins and using `%in%` and (maybe) some pointers of how to check that your joined dataset didn't lose something you were expecting. Checking merged datasets could also be its own section, depending on what happens. 
+
+This could be a useful resource:
+https://github.com/gadenbuie/tidyexplain
+

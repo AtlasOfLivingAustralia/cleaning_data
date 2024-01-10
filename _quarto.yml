@@ -1,29 +1,19 @@
 project:
   type: book
-  output-dir: docs
+  output-dir: _book
 
 book:
-  title: "ALA Data Cleaning"
+  title: "ALA's Data Cleaning Booklet"
+  subtitle: "A practical guide to cleaning ecological data"
   reader-mode: true
   page-navigation: true
   back-to-top-navigation: true
 #  author: "Atlas of Living Australia"
 #  date: "18/11/2022"
-  navbar:
-    background: none
-    search: true
-    left:
-      - text: "Home"
-        file: index.qmd
-    pinned: false
-  sidebar:
-    title: "ALA Data Cleaning"
-    style: docked
-    background: none
 
   page-footer:
     left: |
-      The Data Cleaning booklet is a product of the Atlas of Living Australia.
+      The Data Cleaning booklet is a product of the <a href="https://ala.org.au/">Atlas of Living Australia</a>.
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.
 
@@ -34,18 +24,33 @@ book:
   chapters:
   - index.qmd
   - intro.qmd
-  - part: scope.qmd
+  - data.qmd
+  - part: 1_accessing/access_intro.md
     chapters:
-    - scope_temporal.qmd
-    - scope_taxonomic.qmd
-    - scope_spatial.qmd
-    - scope_summary.qmd
-  - part: access_intro.md
+    - 1_accessing/where-to-get-data.qmd
+    - 1_accessing/large-downloads.qmd
+    - 1_accessing/merging.qmd
+  - part: 2_exploring/1_intro.qmd
     chapters:
-    - access_taxonomy.qmd
-    - access_download.qmd
-    - access_inspect.qmd
-    - access_integration.qmd
+    - 2_exploring/inspect.qmd
+    - 2_exploring/summarise.qmd
+  - part: 3_cleaning_general/1_intro.qmd
+    chapters:
+    - 3_cleaning_general/duplicates.qmd
+    - 3_cleaning_general/missing-values.qmd
+    - 3_cleaning_general/unexpected-values.qmd
+    - 3_cleaning_general/strings.qmd
+    - 3_cleaning_general/dates.qmd
+    - 3_cleaning_general/column-names-and-classes.qmd
+  - part: 4_cleaning_expert/1_intro.qmd
+    chapters:
+    - 4_cleaning_expert/taxonomic-synonyms.qmd
+    - 4_cleaning_expert/taxonomy.qmd
+    - 4_cleaning_expert/geospatial.qmd
+    - 4_cleaning_expert/outliers.qmd
+  - references.qmd
+  - packages.qmd
+  - appendix.qmd
   - part: cleaning_intro.qmd
     chapters:
     - cleaning_standardisation.qmd
@@ -55,15 +60,17 @@ book:
     - cleaning_taxonomic_validation.qmd
     - cleaning_geospatial.qmd
     - outliers.qmd
-    - references.qmd
-    - packages.qmd
-    - appendix.qmd
 
 bibliography: references.bib
 
 format:
   html:
-    theme: [cosmo, custom.scss]
+    mainfont: Roboto
+    monofont: Fira Code
+    monobackgroundcolor: "#F7F7F7"
+    theme: 
+      - lumen
+      - theme.css
   pdf:
     documentclass: scrreprt
 
