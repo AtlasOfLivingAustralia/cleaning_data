@@ -2,92 +2,163 @@
 output: html_document
 editor_options: 
   chunk_output_type: console
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 # Packages
 
 ## Download data:
 
-:::: {layout="[40,60]"}
-:::{#first-column}
-<a href="https://galah.ala.org.au">
-![](images/hex/galah_logo.png)
-</a>
+::: {style="display: flex;"}
 
+::: {style="width: 60%;"}
+<a href="https://galah.ala.org.au">
+![](images/hex/galah_logo.png){width="70%"} </a>
 :::
-:::{#second-column}
+
+
+::: {style="width: 40%;"}
 ### galah
 
-{galah} is an R and Python interface to biodiversity data hosted by the Atlas of Living Australia (ALA). It enables users to locate and download species occurrence records (observations, specimens, eDNA records, etc.), taxonomic information, or associated media such as images or sounds, and to restrict their queries to particular taxa or locations.<br> <br>
+{galah} is an R and Python interface to biodiversity data hosted by the
+Atlas of Living Australia (ALA). It enables users to locate and download
+species occurrence records (observations, specimens, eDNA records,
+etc.), taxonomic information, or associated media such as images or
+sounds, and to restrict their queries to particular taxa or
+locations.<br> <br>
 :::
-::::
+:::
 
+::: {style="display: flex;"}
 
-
-
-:::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
-
+::: {style="width: 60%;"}
 <a href="https://www.gbif.org/tool/81747/rgbif">
-![](images/hex/rgbif_logo.png){style="width:10%;"}
-</a>
-
-# rgbif
-
-{rgbif} is the Global Biodiversity Information Facility (GBIF)'s R package for downloading global biodiversity occurrence data and is the main node for all living atlases. Users can locate, restrict, and download occurrence records of interest across the globe as well associated multimedia. {rgbif} is one of four clients available to retrieve data. It is also available in Python, Ruby and PHP languages. 
-
-
+![](images/hex/rgbif_logo.png){width="70%"} </a>
 :::
 
-:::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
+::: {style="width: 40%;"}
+### rgbif
 
+{rgbif} is the Global Biodiversity Information Facility (GBIF)'s R
+package for downloading global biodiversity occurrence data and is the
+main node for all living atlases. Users can locate, restrict, and
+download occurrence records of interest across the globe as well
+associated multimedia. {rgbif} is one of four clients available to
+retrieve data. It is also available in Python, Ruby and PHP languages.
+:::
+:::
+
+
+::: {style="display: flex;"}
+
+::: {style="width: 60%;"}
 </a href="https://docs.ropensci.org/spocc/">
-![](images/hex/spocc_logo.png){style="width:10%;"}
-
-
-# spocc
-
-{spocc} is an umbrella package that can retrieve data from multiple open-access biodiversity data repositories: GBIF, iNaturalist, VertNet, eBird, iDigBio, OBIS and the Atlas of Living Australia. 
-
+![](images/hex/spocc_logo.png){width="70%"} </a> ::: 
 :::
+
+::: {style="width: 40%;"}
+### spocc
+spocc {spocc} is an umbrella package that can retrieve data from
+multiple open-access biodiversity data repositories: GBIF, iNaturalist,
+VertNet, eBird, iDigBio, OBIS and the Atlas of Living Australia.
+:::
+:::
+
 
 ## Visualise your data
 
-:::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
+::: {style="display: flex;"}
 
+::: {style="width: 60%;"}
 </a href="https://docs.ropensci.org/skimr/reference/skim.html">
-![](images/hex/skimr_logo.png){style="width:10%;"}
-
-# skimr
-
-A helpful tool to quickly summarise your data, particularly prior to data cleaning or whilst in the process of choosing an analysis. You can also use the `skim` function to calculate the number of columns or rows, view the number of empty or N/A data cells, and describe constituent data types. The `summary` function provides summary statistics of numerical data such as means, medians, minimum and maximums, as well as quartiles. `skim` allows the user to have a basic grasp of the spread of numercial data through averages, standard deviations and mini histograms. 
-
-
+![](images/hex/skimr_logo.png){style="width:70%;"}
 :::
 
-:::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
+::: {style="width: 40%;"}
+### skimr
 
+A helpful tool to quickly summarise your data, particularly prior to
+data cleaning or whilst in the process of choosing an analysis. You can
+also use the `skim` function to calculate the number of columns or rows,
+view the number of empty or N/A data cells, and describe constituent
+data types. The `summary` function provides summary statistics of
+numerical data such as means, medians, minimum and maximums, as well as
+quartiles. `skim` allows the user to have a basic grasp of the spread of
+numercial data through averages, standard deviations and mini
+histograms.
+:::
+:::
+
+::: {style="display: flex;"}
+
+::: {style="width: 60%;"}
 </a href="https://www.tidyverse.org">
-![](images/hex/tidyverse_logo.png){style="width:10%;"}
-
-# tidyverse
-
-{tidyverse} is an umbrella package installing many packages into R that are useful for data wrangling, cleaning and analysis. Some notable packages within the tidyverse are {dplyr}, {ggplot2} and {stringr}. For example, you can use {dplyr} to add new columns to your data, filter your data for certain values and arrange rows in a preferred order; {ggplot2} can plot and visualise your data, and {stringr} can (though not limited to) help you locate and fix typos and extra spaces in your data.
-
-
+![](images/hex/tidyverse_logo.png){style="width:70%;"}
 :::
 
-## General cleaning 
+::: {style="width: 40%;"}
+### tidyverse
 
-:::{.column-page layout="[1,1]" style="float:left;margin-left: auto;"}
+{tidyverse} is an umbrella package installing many packages into R that
+are useful for data wrangling, cleaning and analysis. Some notable
+packages within the tidyverse are {dplyr}, {ggplot2} and {stringr}. For
+example, you can use {dplyr} to add new columns to your data, filter
+your data for certain values and arrange rows in a preferred order;
+{ggplot2} can plot and visualise your data, and {stringr} can (though
+not limited to) help you locate and fix typos and extra spaces in your
+data.
+:::
+:::
 
+## General cleaning
+
+::: {style="display: flex;"}
+
+::: {style="width: 60%;"}
 </a href="https://github.com/sfirke/janitor">
-![](images/hex/janitor_logo.png){style="width:10%;"}
+![](images/hex/janitor_logo.png){style="width:70%;"}
+:::
 
-# janitor
+::: {style="width: 40%;"}
+### janitor
 
-{janitor} is an effective R package to use for pre-cleaning data, especially when working with large data sets. It can help prepare data column names into a consistent format in order for combining data sets or simply the ease of processing of data later on (`clean_names`). For example, you might want to keep all column names lower case using underscores instead. You can quickly find any duplicate records (`get_dupes()`) using and produce counts of various combinations of data. 
+{janitor} is an effective R package to use for pre-cleaning data,
+especially when working with large data sets. It can help prepare data
+column names into a consistent format in order for combining data sets
+or simply the ease of processing of data later on (`clean_names`). For
+example, you might want to keep all column names lower case using
+underscores instead. You can quickly find any duplicate records
+(`get_dupes()`) using and produce counts of various combinations of
+data.
+:::
+:::
+
+
+### Taxonomic cleaning
+
+::: {style="display: flex;"}
+
+::: {style="width: 60%;"}
+</a href="https://github.com/sfirke/">
+![](images/hex/dwctaxon_logo.png){style="width:70%;"}
+:::
+
+::: {style="width: 40%;"}
+### dwctaxon
+
+{dwctaxon} is a package built for editing and validating Darwin Core (a biodiversity data structure that uses standardised row and column names) taxonomy data. As some species have lots of different accepted names or synonyms, this mismatch can impact the ability to merge varying datasets as the same species may be recognized as lots of different ones. It is useful for use as part of the cleaning and formatting process. 
 
 :::
+:::
+
+
+
+
+
+
+
 
 
 
