@@ -20,3 +20,16 @@ img.rounded {
   background-color: lightgreen;
   border-radius: 4px;
 }
+
+.circle-button {
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ddd;
+  padding: 40px;
+  width: 120px;
+  height: 120px;
+  
+}

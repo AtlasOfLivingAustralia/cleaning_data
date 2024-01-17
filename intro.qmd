@@ -13,6 +13,40 @@ df-print: kable
 
 > "Garbage in, garbage out" - George Fuechsel, IBM computer programmer
 
+
+
+::: {style="display: flex; flex-wrap: wrap; justify-content: flex-end; margin-left: 20px;"}
+
+::: {style="width: 25%; text-align: center;"}
+<div class="circle-button">
+  [{{< fa download size=3x >}}](1_accessing/access_intro.html)
+  
+</div>
+
+[**Download data**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center;"}
+<div style="border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #ddd; padding: 40px; width: 120px; height: 120px;">
+  {{< fa table style="font-size: 3em;" >}}
+</div>
+:::
+
+::: {style="width: 25%; text-align: center;"}
+<div style="border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #ddd; padding: 40px; width: 120px; height: 120px;">
+  {{< fa thumbs-up style="font-size: 3em;" >}}
+</div>
+:::
+
+::: {style="width: 25%; text-align: center;"}
+<div style="border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #ddd; padding: 40px; width: 120px; height: 120px;">
+  {{< fa thumbs-up style="font-size: 3em;" >}}
+</div>
+:::
+
+:::
+
+
 There is an ever growing interest and need in understanding spatial and temporal
 patterns of biodiversity across the globe. To this end, georeferenced
 biodiversity data are often used for a variety of ecological questions, such as
@@ -20,8 +54,8 @@ in species species distribution modelling, conservation planning, and invasive
 species monitoring to name a few. 
 
 Open source biodiversity datasets are widely available online, which are
-invaluable and often essentialresources for such investigations. However, it is
-well known in many scientific displines that inputting flawed or nonsensical
+invaluable and often essential resources for such investigations. However, it is
+well known in many scientific disciplines that inputting flawed or nonsensical
 data produces an output of similar quality. In ecology and biodiversity
 research, scientists are particularly at risk of unintentionally using poor data
 because they **often bring together large amounts of data from many sources to
