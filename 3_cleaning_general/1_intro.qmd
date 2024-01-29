@@ -8,3 +8,51 @@ editor_options:
 
 This section shows tasks and functions that will be frequently used to clean datasets.
 
+::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
+
+::: {style="width: 33.3%; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa diagram-next size=3x >}}](1_accessing/access_intro.html)
+</div>
+[**Duplicates**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
+:::
+
+::: {style="width: 33.3%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa user-secret size=3x >}}](2_exploring/initial-inspection.html)
+</div>
+[**Missing values**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 33.33%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa spell-check size=3x >}}](3_cleaning_general/1_intro.html)
+</div>
+[**Unexpected values**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 33.33%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa quote-right size=3x >}}](4_cleaning_expert/1_intro.html)
+</div>
+[**Strings**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 33.3%; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa calendar-days size=3x >}}](1_accessing/access_intro.html)
+</div>
+[**Dates**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 33.3%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa table size=3x >}}](2_exploring/initial-inspection.html)
+</div>
+[**Column names + classes**]{style="color: #efa123; text-align: center;"}
+:::
+
+:::
+
+
+

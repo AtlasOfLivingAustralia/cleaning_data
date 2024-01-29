@@ -27,9 +27,11 @@ img.rounded {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #ddd;
+  background-color: #868;
   padding: 40px;
   width: 120px;
   height: 120px;
+  margin-left: auto;
+  margin-right: auto;
   
 }

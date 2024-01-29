@@ -14,3 +14,28 @@ Outline of chapters:
   - How to assess a downloaded dataset as to whether it matches your expectations
 - Dataset integration:
   - How to integrate data from multiple sources into a single dataset
+
+::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
+
+::: {style="width: 25%; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa magnifying-glass size=3x >}}](1_accessing/access_intro.html)
+</div>
+[**Find data**]{style="color: #efa123; font-size: 15.5px; text-align: center"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa bars-progress size=3x >}}](2_exploring/initial-inspection.html)
+</div>
+[**Large downloads**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa object-ungroup size=3x >}}](3_cleaning_general/1_intro.html)
+</div>
+[**Merging data**]{style="color: #efa123; text-align: center"}
+:::
+
+:::
