@@ -19,21 +19,21 @@ Outline of chapters:
 
 ::: {style="width: 25%; justify-content: space-between"}
 <div class="circle-button">
-  [{{< fa magnifying-glass size=3x >}}](1_accessing/access_intro.html)
+  [{{< fa magnifying-glass size=3x >}}](where-to-get-data.html)
 </div>
 [**Find data**]{style="color: #efa123; font-size: 15.5px; text-align: center"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
 <div class="circle-button">
-  [{{< fa bars-progress size=3x >}}](2_exploring/initial-inspection.html)
+  [{{< fa bars-progress size=3x >}}](large-downloads.html)
 </div>
 [**Large downloads**]{style="color: #efa123; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
 <div class="circle-button">
-  [{{< fa object-ungroup size=3x >}}](3_cleaning_general/1_intro.html)
+  [{{< fa object-ungroup size=3x >}}](merging.html)
 </div>
 [**Merging data**]{style="color: #efa123; text-align: center"}
 :::
