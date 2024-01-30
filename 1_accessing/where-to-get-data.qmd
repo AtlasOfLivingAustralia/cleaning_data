@@ -1,3 +1,253 @@
+---
+editor: 
+  markdown: 
+    wrap: 80
+---
+
 # Where to get data
 
-This section will detail what open source data is and suggest some places and packages for getting data of different types
+This section will detail what open source data is and suggest some places and
+packages for getting data of different types.
+
+
+There are *many* types of biodiversity data to work with. Some examples include
+observational data of where a species has been observed, climate or
+environmental data for region or area, biological data to compare measures of
+organisms' physical or behavioural traits, and genetic data to compare unique
+DNA or alleles between individuals.
+
+Here, we'll provide some places to look for open source data and suggest some R
+packages that are useful for downloading different types of data.
+
+### Prerequisites
+
+First, we'll load packages that we'll need to display data at the end of the chapter.
+
+```{r}
+#| warning: false
+#| message: false
+library(sf)
+library(ggplot2)
+library(dplyr)
+```
+
+## Open-source data
+
+Open-source data are data made openly accessible for editing and use, licensed
+under [an open license](tbd). The following are some places where you can find
+open-source data.
+
+::: {.panel-tabset .nav-pills}
+### Living Atlases
+
+Living Atlases are national or regional infrastructures that aggregate
+biodiversity data from many different sources. These sources include research
+projects, government monitoring programs, museums & herbaria, and citizen
+science apps like iNaturalist and eBird. Some examples are:
+
+| Country/Region | Name                                                                                                 | Acronym |
+|-------------------|------------------------------------------|-------------------|
+| Australia      | [Atlas of Living Australia](https://www.ala.org.au)                                                  | ALA     |
+| Austria        | [Biodiversitäts-Atlas Österreich](https://biodiversityatlas.at)                                      | BAO     |
+| Brazil         | [Sistema de Informação sobre a Biodiversidade Brasileira](https://www.sibbr.gov.br/)                 | SiBBr   |
+| Estonia        | [eElurikkus](https://elurikkus.ee)                                                                   |         |
+| France         | [Portail français d'accès aux données d'observation sur les espèces](https://openobs.mnhn.fr)        | OpenObs |
+| Guatemala      | [Sistema Nacional de Información sobre Diversidad Biológica de Guatemala](https://snib.conap.gob.gt) | SNIBgt  |
+| Portugal       | [GBIF Portugal](https://www.gbif.pt)                                                                 | GBIF.pt |
+| Spain          | [GBIF Spain](https://www.gbif.es)                                                                    | GBIF.es |
+| Sweden         | [Swedish Biodiversity Data Infrastructure](https://biodiversitydata.se)                              | SBDI    |
+| United Kingdom | [National Biodiversity Network](https://nbn.org.uk)                                                  | NBN     |
+
+Living Atlases work with local data providers to ingest and standardise
+open-source data, and some even use a specific taxonomic backbone. If your
+project is focused on a specific region, downloading data directly from a
+regional node may be more appropriate.
+
+[See a complete list of existing national and regional Living
+Atlases](https://www.gbif.org/the-gbif-network).
+
+### GBIF
+
+The [Global Biodiversity Information Facility (GBIF)](#0) is an international
+data infrastructure and a network that aggregates biodiversity data from the
+many Living Atlases around the world. GBIF acts as an overarching organisation
+to store and provide these data from the Living Atlas "nodes" using a unified
+data standard.
+
+At present, GBIF manages and serves over 2.6 billion occurrence data points!
+
+[See a complete list of national and regional nodes that contribute to
+GBIF](https://www.gbif.org/the-gbif-network).
+
+### Biocollections
+
+Biocollections are data infrastructures that hold specimen data from museums and
+collections.
+
+Some examples include:
+
+| Name                                                          | Description                                                                                         |
+|-------------------------------|-------------------------------------------------|
+| [Integrated Digitzed Biocollections](https://www.idigbio.org) | Holds data of biological specimens that have been made electronically available (i.e., *digitised*) |
+| [VertNet](https://www.vertnet.org/)                           | Holds data of vertebrate specimens from more than 400 collections & 120 publishers                  |
+|                                                               |                                                                                                     |
+
+### Data providers
+
+If your project relates to data from a specific data provider, it also might be
+best to download data directly from the source. For example, a common citizen
+science tool to collect species observations is
+[iNaturalist](https://www.inaturalist.org/). Downloading directly from the
+original data source can help to ensure you don't have any stray data from other
+sources in your download. You can directly contact data providers to ensure the
+data hasn't been pre-filtered before downloading.
+:::
+
+## Spatial data
+
+Spatial data contain information that corresponds to an area on the globe and
+can be plotted onto a map. Spatial data can be represented as vector or raster
+data.
+
+**Vectors** are data for drawing points, lines and shapes. They contain a
+`geometry` column which contains information to draw points, lines or polygons
+onto a map.
+
+**Rasters** are data for drawing a layer of data values over a gridded area.
+They contain values of a variable (like temperature) for each pixel of a grid.
+Each part of the grid represents a square area (e.g., 1 km^2^), and just like
+how the smaller each pixel is on a TV screen the higher its definition, the
+smaller each square is in a raster layer the higher its resolution.
+
+Here are some examples of where to download spatial data.
+
+::: {.panel-tabset .nav-pills}
+### Climate data
+
+[WorldClim](https://www.worldclim.org/data/index.html) is a database of global
+gridded climate and weather data for historic, current and future conditions.
+
+Ecologists and biologists tend to work specifically with [Bioclimatic
+variables](https://www.worldclim.org/data/bioclim.html) (BioClim). which are typically more meaningful variables for understanding biological things, derived from fluctuations in temperature and rainfall.
+
+Examples of BioClim variables include Temperature Annual Range, Annual
+Precitipation, or Precipitation in the Wettest or Driest month. [See the
+complete list of BioClim
+variables](https://www.worldclim.org/data/bioclim.html).
+
+Climate data is often saved as a raster, which is typically loaded using an R
+package like {[geodata](https://github.com/rspatial/geodata)} or by reading in a
+`.tiff` file using the {terra} package.
+
+```{r}
+#| eval: false
+climate_layer <- terra::readRDS("path/to/file.tiff")
+```
+
+### Shapefiles
+
+Shapefiles are vector data with information to draw the outline of a specific
+area or region. They can contain many outlines to draw subregions within a
+larger shape, too (for example, the state outlines of a country).
+
+One of the best ways to search for shapefiles is Google. Some of the safest
+places to find up-to-date shapefiles are on national or regional government
+websites. For example, the Australian Bureau of Statistics (ABS) holds
+shapefiles of varying regional levels to use.
+
+Shapefiles are vector data, which can be loaded in R using a package like {ozmaps} or by reading in a `.shp` file (usually from within a folder with other files that help to build the `.shp` file).
+
+:::
+
+## Packages for downloading data
+
+There are a range of R packages available for accessing biodiversity data. These
+packages serve as convenient interfaces to various data providers. By wrapping
+the respective APIs of data providers, they streamline the process of accessing
+and downloading datasets, directly within R. The functionality offered by these
+packages typically ranges from querying species occurrence records, to more
+comprehensive taxonomic and spatial download queries. Below, we highlight some
+commonly used packages. We encourage users to explore the documentation of each
+package to understand their capabilities, which will help you select one (or
+more!) that align with your specific needs.
+
+### Occurrence data
+
+#### galah
+
+[galah](https://galah.ala.org.au/) is an interface for accessing biodiversity data like occurrences, counts, species and media (e.g., images & sounds) from the Living Atlases and GBIF.
+
+In the majority of examples we will be using the `galah` package for download
+queries. One benefit of using `galah` is that it uses tidy syntax (much like the tidyverse) to download data. Additionally, galah can access data from 10 other Living Atlases and GBIF.
+
+```{r}
+#| warning: false
+#| message: false
+library(galah)
+
+galah_call() |>
+  identify("reptilia") |>
+  filter(year > 2021) |>
+  group_by(year) |>
+  atlas_counts()
+```
+
+#### Other packages
+
+:::{.panel-tabset .nav-pills}
+#### rgbif
+
+[rgbif](https://docs.ropensci.org/rgbif/) searches and retrieves data from the Global Biodiversity Information Facility (GBIF).
+
+#### rinat
+
+[rinat](https://docs.ropensci.org/rinat/) is an R wrapper for accessing [iNaturalist](https://www.inaturalist.org) observations.
+
+#### rebird
+
+[rebird](https://docs.ropensci.org/rebird/) provides access to the [eBird](https://ebird.org/home) web services.
+
+#### spocc
+
+[spocc](https://docs.ropensci.org/spocc/) queries and collects species occurrence data from a variety of sources, including GBIF, [VertNet](https://github.com/ropensci/rvertnet) and [iDigBio](http://www.idigbio.org/).
+:::
+
+### Spatial data
+
+:::{.panel-tabset .nav-pills}
+#### ozmaps
+
+[rgbif](https://docs.ropensci.org/rgbif/) searches and retrieves data from the Global Biodiversity Information Facility (GBIF).
+
+#### rnaturalearth
+
+```{r}
+#| eval: false
+library(rnaturalearth)
+
+# Download outline of south american countries
+s_america <- ne_countries(scale = "medium", 
+                          continent = 'south america', 
+                          returnclass = "sf")
+
+# Filter to outline of Brazil
+brazil <- s_america |>
+  filter(name == "Brazil")
+```
+
+
+#### elevatr
+
+[elevatr](https://github.com/jhollist/elevatr) downloads elevation data from various sources like AWS Open Data Terrain Tiles.
+
+```{r}
+#| eval: false
+# Download elevation data for cambodia
+cambodia_elev <- get_elev_raster(locations = cambodia, 
+                                 z = 11, 
+                                 clip = "locations", 
+                                 neg_to_na = "TRUE")
+```
+
+
+:::
