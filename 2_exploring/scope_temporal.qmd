@@ -39,8 +39,8 @@ galah_config(email = "youremail@here.com")
 
 ```{r}
 #| include: false
-galah_config(verbose = FALSE)
-galah_config(email = "oliviajane.t@hotmail.com")
+galah_config(atlas = "Australia") # default
+galah_config(email = Sys.getenv("ALA_EMAIL"))
 ```
 
  The `atlas_counts()` function returns a count of records. By itself, it returns

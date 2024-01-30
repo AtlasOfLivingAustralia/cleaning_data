@@ -13,6 +13,110 @@ df-print: kable
 
 > "Garbage in, garbage out" - George Fuechsel, IBM computer programmer
 
+
+::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
+
+::: {style="width: 25%; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa download size=3x >}}](1_accessing/where-to-get-data.html)
+</div>
+[**Download**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa table size=3x >}}](2_exploring/inspect.html)
+</div>
+[**Glimpse**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa diagram-next size=3x >}}](3_cleaning_general/duplicates.html)
+</div>
+[**Duplicates**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa user-secret size=3x >}}](3_cleaning_general/missing-values.html)
+</div>
+[**Missing values**]{style="color: #efa123; text-align: center;"}
+:::
+
+:::
+
+::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
+
+::: {style="width: 25%; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa spell-check size=3x >}}](3_cleaning_general/unexpected-values.html)
+</div>
+[**Unexpected values**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa quote-right size=3x >}}](3_cleaning_general/strings.html)
+</div>
+[**Strings**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa calendar-days size=3x >}}](3_cleaning_general/dates.html)
+</div>
+[**Dates**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa table size=3x >}}](3_cleaning_general/column-names-and-classes.html)
+</div>
+[**Column names + classes**]{style="color: #efa123; text-align: center;"}
+:::
+
+:::
+
+::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
+
+::: {style="width: 25%; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa list-check size=3x >}}](4_cleaning_expert/taxonomic-synonyms.html)
+</div>
+[**Name matching**]{style="color: #efa123; text-align: center; font-size: 15.5px"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa mosquito size=3x >}}](4_cleaning_expert/taxonomy.html)
+</div>
+[**Taxonomy**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa earth-oceania size=3x >}}](4_cleaning_expert/geospatial.html)
+</div>
+[**Geospatial data**]{style="color: #efa123; font-size: 14px; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa boxes-packing size=3x >}}](4_cleaning_expert/outliers.html)
+</div>
+[**Outliers**]{style="color: #efa123; text-align: center;"}
+:::
+
+:::
+
+
+
+
+
+
+
+
 There is an ever growing interest and need in understanding spatial and temporal
 patterns of biodiversity across the globe. To this end, georeferenced
 biodiversity data are often used for a variety of ecological questions, such as
@@ -20,8 +124,8 @@ in species species distribution modelling, conservation planning, and invasive
 species monitoring to name a few. 
 
 Open source biodiversity datasets are widely available online, which are
-invaluable and often essentialresources for such investigations. However, it is
-well known in many scientific displines that inputting flawed or nonsensical
+invaluable and often essential resources for such investigations. However, it is
+well known in many scientific disciplines that inputting flawed or nonsensical
 data produces an output of similar quality. In ecology and biodiversity
 research, scientists are particularly at risk of unintentionally using poor data
 because they **often bring together large amounts of data from many sources to

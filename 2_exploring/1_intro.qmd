@@ -10,6 +10,26 @@ editor_options:
 
 This section details how to explore your dataset, create summaries of your dataset's structure and the different types of data within it.
 
+
+::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
+
+::: {style="width: 50%; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa magnifying-glass size=3x >}}](1_accessing/access_intro.html)
+</div>
+[**Inspect**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
+:::
+
+::: {style="width: 50%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa clipboard-list size=3x >}}](2_exploring/initial-inspection.html)
+</div>
+[**Summarise**]{style="color: #efa123; text-align: center;"}
+:::
+
+:::
+
+
 ## Demonstration
 
 As an example, let's imagine we were interested in understanding more about the

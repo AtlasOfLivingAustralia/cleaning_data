@@ -25,7 +25,7 @@ book:
   - index.qmd
   - intro.qmd
   - data.qmd
-  - part: 1_accessing/access_intro.md
+  - part: 1_accessing/access_intro.qmd
     chapters:
     - 1_accessing/where-to-get-data.qmd
     - 1_accessing/large-downloads.qmd
