@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.531">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -84,7 +84,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./1_accessing/access_intro.html" rel="next">
+<link href="./data.html" rel="next">
 <link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -95,6 +95,8 @@ div.csl-indent {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -179,6 +181,12 @@ div.csl-indent {
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data for this book</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./1_accessing/access_intro.html" class="sidebar-item-text sidebar-link">
@@ -191,19 +199,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_accessing/where-to-get-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_accessing/large-downloads.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Large downloads</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Large downloads</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_accessing/merging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Merging multiple datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Merging multiple datasets</span></span></a>
   </div>
 </li>
       </ul>
@@ -219,32 +227,14 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_exploring/initial-inspection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Initial inspection</span></span></a>
+  <a href="./2_exploring/inspect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_temporal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Temporal scope</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_taxonomic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Taxonomic scope</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_spatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial scope</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data scope summary</span></span></a>
+  <a href="./2_exploring/summarise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summarise</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,37 +251,37 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/unexpected-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unexpected values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Unexpected values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
   </div>
 </li>
       </ul>
@@ -308,25 +298,25 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
   </div>
 </li>
       </ul>
@@ -334,19 +324,19 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -361,43 +351,43 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
   </div>
 </li>
       </ul>
@@ -451,10 +441,88 @@ div.csl-indent {
 <blockquote class="blockquote">
 <p>“Garbage in, garbage out” - George Fuechsel, IBM computer programmer</p>
 </blockquote>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center">
+<div style="width: 25%; justify-content: space-between">
+<div class="circle-button">
+<p><a href="1_accessing/where-to-get-data.html"><i class="fa-solid fa-download fa-3x" aria-label="download"></i></a></p>
+</div>
+<p><span style="color: #efa123; font-size: 15.5px; text-align: center;"><strong>Download</strong></span></p>
+</div>
+<div style="width: 25%; text-align: center; justify-content: space-between">
+<div class="circle-button">
+<p><a href="2_exploring/inspect.html"><i class="fa-solid fa-table fa-3x" aria-label="table"></i></a></p>
+</div>
+<p><span style="color: #efa123; text-align: center;"><strong>Glimpse</strong></span></p>
+</div>
+<div style="width: 25%; text-align: center; justify-content: space-between">
+<div class="circle-button">
+<p><a href="3_cleaning_general/duplicates.html"><i class="fa-solid fa-diagram-next fa-3x" aria-label="diagram-next"></i></a></p>
+</div>
+<p><span style="color: #efa123; text-align: center;"><strong>Duplicates</strong></span></p>
+</div>
+<div style="width: 25%; text-align: center; justify-content: space-between">
+<div class="circle-button">
+<p><a href="3_cleaning_general/missing-values.html"><i class="fa-solid fa-user-secret fa-3x" aria-label="user-secret"></i></a></p>
+</div>
+<p><span style="color: #efa123; text-align: center;"><strong>Missing values</strong></span></p>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center">
+<div style="width: 25%; justify-content: space-between">
+<div class="circle-button">
+<p><a href="3_cleaning_general/unexpected-values.html"><i class="fa-solid fa-spell-check fa-3x" aria-label="spell-check"></i></a></p>
+</div>
+<p><span style="color: #efa123; text-align: center;"><strong>Unexpected values</strong></span></p>
+</div>
+<div style="width: 25%; text-align: center; justify-content: space-between">
+<div class="circle-button">
+<p><a href="3_cleaning_general/strings.html"><i class="fa-solid fa-quote-right fa-3x" aria-label="quote-right"></i></a></p>
+</div>
+<p><span style="color: #efa123; text-align: center;"><strong>Strings</strong></span></p>
+</div>
+<div style="width: 25%; text-align: center; justify-content: space-between">
+<div class="circle-button">
+<p><a href="3_cleaning_general/dates.html"><i class="fa-solid fa-calendar-days fa-3x" aria-label="calendar-days"></i></a></p>
+</div>
+<p><span style="color: #efa123; text-align: center;"><strong>Dates</strong></span></p>
+</div>
+<div style="width: 25%; text-align: center; justify-content: space-between">
+<div class="circle-button">
+<p><a href="3_cleaning_general/column-names-and-classes.html"><i class="fa-solid fa-table fa-3x" aria-label="table"></i></a></p>
+</div>
+<p><span style="color: #efa123; text-align: center;"><strong>Column names + classes</strong></span></p>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center">
+<div style="width: 25%; justify-content: space-between">
+<div class="circle-button">
+<p><a href="4_cleaning_expert/taxonomic-synonyms.html"><i class="fa-solid fa-list-check fa-3x" aria-label="list-check"></i></a></p>
+</div>
+<p><span style="color: #efa123; text-align: center; font-size: 15.5px"><strong>Name matching</strong></span></p>
+</div>
+<div style="width: 25%; text-align: center; justify-content: space-between">
+<div class="circle-button">
+<p><a href="4_cleaning_expert/taxonomy.html"><i class="fa-solid fa-mosquito fa-3x" aria-label="mosquito"></i></a></p>
+</div>
+<p><span style="color: #efa123; font-size: 15.5px; text-align: center;"><strong>Taxonomy</strong></span></p>
+</div>
+<div style="width: 25%; text-align: center; justify-content: space-between">
+<div class="circle-button">
+<p><a href="4_cleaning_expert/geospatial.html"><i class="fa-solid fa-earth-oceania fa-3x" aria-label="earth-oceania"></i></a></p>
+</div>
+<p><span style="color: #efa123; font-size: 14px; text-align: center;"><strong>Geospatial data</strong></span></p>
+</div>
+<div style="width: 25%; text-align: center; justify-content: space-between">
+<div class="circle-button">
+<p><a href="4_cleaning_expert/outliers.html"><i class="fa-solid fa-boxes-packing fa-3x" aria-label="boxes-packing"></i></a></p>
+</div>
+<p><span style="color: #efa123; text-align: center;"><strong>Outliers</strong></span></p>
+</div>
+</div>
 <p>There is an ever growing interest and need in understanding spatial and temporal patterns of biodiversity across the globe. To this end, georeferenced biodiversity data are often used for a variety of ecological questions, such as in species species distribution modelling, conservation planning, and invasive species monitoring to name a few.</p>
-<p>Open source biodiversity datasets are widely available online, which are invaluable and often essentialresources for such investigations. However, it is well known in many scientific displines that inputting flawed or nonsensical data produces an output of similar quality. In ecology and biodiversity research, scientists are particularly at risk of unintentionally using poor data because they <strong>often bring together large amounts of data from many sources to address their research questions.</strong> Data from different sources vary widely in their <strong>structure, formatting and quality</strong>. As a result, correctly collating and combining them can be both challenging and time consuming. Besides this, georeferenced biodiversity data itself can pose several challenges, as issues can range from simple formatting errors, to taxonomic inconsistencies and spatial errors.</p>
+<p>Open source biodiversity datasets are widely available online, which are invaluable and often essential resources for such investigations. However, it is well known in many scientific disciplines that inputting flawed or nonsensical data produces an output of similar quality. In ecology and biodiversity research, scientists are particularly at risk of unintentionally using poor data because they <strong>often bring together large amounts of data from many sources to address their research questions.</strong> Data from different sources vary widely in their <strong>structure, formatting and quality</strong>. As a result, correctly collating and combining them can be both challenging and time consuming. Besides this, georeferenced biodiversity data itself can pose several challenges, as issues can range from simple formatting errors, to taxonomic inconsistencies and spatial errors.</p>
 <p>Biodiversity data aggregation services employ automated quality control procedures to identify and flag potential errors. However, these services deal with high volumes of data, and not all issues can be identified. Therefore it is always recommoneded that users of biodiversity data <strong>perform their own quality control</strong> before using any open source biodiversity data in their research.</p>
-<p><strong>Data cleaning</strong>, the process of identifying and fixing incompatible, incorrect or doubtful data, is therefore an essential step in ecology and biodiversity research. Employing suitable data cleaning procedures will improve both data quality and the validity of scientific findings <span class="citation" data-cites="rodrigues_species_2022">(<a href="references.html#ref-rodrigues_species_2022" role="doc-biblioref">Rodrigues et al., 2022</a>)</span>. These producures tpyically involve exploring, detecting, and correcting data that may be erroneous, poorly formatted, or unsuitable for your project. The definition of ‘clean’ data varies depending on the project and data sources, and as such there is no ‘one-size-fits-all’ approach. Nevertheless, there are some common processes and concepts that can be applied to many data cleaning workflows.</p>
+<p><strong>Data cleaning</strong>, the process of identifying and fixing incompatible, incorrect or doubtful data, is therefore an essential step in ecology and biodiversity research. Employing suitable data cleaning procedures will improve both data quality and the validity of scientific findings <span class="citation" data-cites="rodrigues_species_2022">(<a href="#ref-rodrigues_species_2022" role="doc-biblioref">Rodrigues et al., 2022</a>)</span>. These producures tpyically involve exploring, detecting, and correcting data that may be erroneous, poorly formatted, or unsuitable for your project. The definition of ‘clean’ data varies depending on the project and data sources, and as such there is no ‘one-size-fits-all’ approach. Nevertheless, there are some common processes and concepts that can be applied to many data cleaning workflows.</p>
 <p>These cleaning processes typically require the use of a programming language, which can be a barrier of entry for many. Therefore, our goal in creating this resource is to assist researchers and decision makers that may have limited experience with cleaning geo-referenced biodiversity data using a programming language.</p>
 <p>The content of this book was informed by the current state of biodiversity literature surrounding data preparation for species distribution modelling. For more details about how this was done, please refer to the <a href="./appendix.html">Appendix</a>. All resources that were used can be found in the <a href="./references.html">References</a> page.</p>
 <section id="who-is-this-book-for" class="level2 unnumbered">
@@ -601,7 +669,7 @@ div.csl-indent {
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-rodrigues_species_2022" class="csl-entry" role="listitem">
 Rodrigues, A. V., Nakamura, G., Staggemeier, V. G., &amp; Duarte, L. (2022). Species misidentification affects biodiversity metrics: <span>Dealing</span> with this issue using the new <span>R</span> package <span class="nocase">naturaList</span>. <em>Ecological Informatics</em>, <em>69</em>, 101625. <a href="https://doi.org/10.1016/j.ecoinf.2022.101625">https://doi.org/10.1016/j.ecoinf.2022.101625</a>
 </div>
@@ -770,7 +838,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -998,8 +1071,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./1_accessing/access_intro.html" class="pagination-link" aria-label="Accessing biodiversity data">
-        <span class="nav-page-text">Accessing biodiversity data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./data.html" class="pagination-link" aria-label="<span class='chapter-number'>1</span>&nbsp; <span class='chapter-title'>Data for this book</span>">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data for this book</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.531">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA’s Data Cleaning Booklet - 27&nbsp; Geospatial data</title>
+<title>ALA’s Data Cleaning Booklet - 25&nbsp; Geospatial data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -135,7 +135,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Archived: Cleaning data</a></li><li class="breadcrumb-item"><a href="./cleaning_geospatial.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Geospatial data</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Archived: Cleaning data</a></li><li class="breadcrumb-item"><a href="./cleaning_geospatial.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -179,6 +179,12 @@ div.csl-indent {
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data for this book</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./1_accessing/access_intro.html" class="sidebar-item-text sidebar-link">
@@ -191,19 +197,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_accessing/where-to-get-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_accessing/large-downloads.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Large downloads</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Large downloads</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_accessing/merging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Merging multiple datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Merging multiple datasets</span></span></a>
   </div>
 </li>
       </ul>
@@ -219,32 +225,14 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_exploring/initial-inspection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Initial inspection</span></span></a>
+  <a href="./2_exploring/inspect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_temporal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Temporal scope</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_taxonomic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Taxonomic scope</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_spatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial scope</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data scope summary</span></span></a>
+  <a href="./2_exploring/summarise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summarise</span></span></a>
   </div>
 </li>
       </ul>
@@ -261,37 +249,37 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/unexpected-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unexpected values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Unexpected values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
   </div>
 </li>
       </ul>
@@ -308,25 +296,25 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
   </div>
 </li>
       </ul>
@@ -334,19 +322,19 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -361,43 +349,43 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_geospatial.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
   </div>
 </li>
       </ul>
@@ -412,21 +400,21 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#coordinate-precision-and-uncertainty" id="toc-coordinate-precision-and-uncertainty" class="nav-link active" data-scroll-target="#coordinate-precision-and-uncertainty"><span class="header-section-number">27.1</span> Coordinate precision and uncertainty</a></li>
-  <li><a href="#coordinate-uncertainty" id="toc-coordinate-uncertainty" class="nav-link" data-scroll-target="#coordinate-uncertainty"><span class="header-section-number">27.2</span> Coordinate Uncertainty</a>
+  <li><a href="#coordinate-precision-and-uncertainty" id="toc-coordinate-precision-and-uncertainty" class="nav-link active" data-scroll-target="#coordinate-precision-and-uncertainty"><span class="header-section-number">25.1</span> Coordinate precision and uncertainty</a></li>
+  <li><a href="#coordinate-uncertainty" id="toc-coordinate-uncertainty" class="nav-link" data-scroll-target="#coordinate-uncertainty"><span class="header-section-number">25.2</span> Coordinate Uncertainty</a>
   <ul class="collapse">
-  <li><a href="#missing-coordinate-data" id="toc-missing-coordinate-data" class="nav-link" data-scroll-target="#missing-coordinate-data"><span class="header-section-number">27.2.1</span> Missing coordinate data</a></li>
+  <li><a href="#missing-coordinate-data" id="toc-missing-coordinate-data" class="nav-link" data-scroll-target="#missing-coordinate-data"><span class="header-section-number">25.2.1</span> Missing coordinate data</a></li>
   </ul></li>
-  <li><a href="#coordinate-correction" id="toc-coordinate-correction" class="nav-link" data-scroll-target="#coordinate-correction"><span class="header-section-number">27.3</span> Coordinate correction</a>
+  <li><a href="#coordinate-correction" id="toc-coordinate-correction" class="nav-link" data-scroll-target="#coordinate-correction"><span class="header-section-number">25.3</span> Coordinate correction</a>
   <ul class="collapse">
-  <li><a href="#quick-visualisation" id="toc-quick-visualisation" class="nav-link" data-scroll-target="#quick-visualisation"><span class="header-section-number">27.3.1</span> Quick visualisation</a></li>
+  <li><a href="#quick-visualisation" id="toc-quick-visualisation" class="nav-link" data-scroll-target="#quick-visualisation"><span class="header-section-number">25.3.1</span> Quick visualisation</a></li>
   </ul></li>
-  <li><a href="#coordinate-cleaning" id="toc-coordinate-cleaning" class="nav-link" data-scroll-target="#coordinate-cleaning"><span class="header-section-number">27.4</span> Coordinate cleaning</a></li>
-  <li><a href="#remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species." id="toc-remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species." class="nav-link" data-scroll-target="#remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species."><span class="header-section-number">27.5</span> Remove records plotted away from the known area of distribution of the species.</a>
+  <li><a href="#coordinate-cleaning" id="toc-coordinate-cleaning" class="nav-link" data-scroll-target="#coordinate-cleaning"><span class="header-section-number">25.4</span> Coordinate cleaning</a></li>
+  <li><a href="#remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species." id="toc-remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species." class="nav-link" data-scroll-target="#remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species."><span class="header-section-number">25.5</span> Remove records plotted away from the known area of distribution of the species.</a>
   <ul class="collapse">
-  <li><a href="#remove-records-with-coordinates-assigned-to-country-and-province-centroids" id="toc-remove-records-with-coordinates-assigned-to-country-and-province-centroids" class="nav-link" data-scroll-target="#remove-records-with-coordinates-assigned-to-country-and-province-centroids"><span class="header-section-number">27.5.1</span> Remove records with coordinates assigned to country and province centroids</a></li>
-  <li><a href="#remove-records-from-biological-institutions" id="toc-remove-records-from-biological-institutions" class="nav-link" data-scroll-target="#remove-records-from-biological-institutions"><span class="header-section-number">27.5.2</span> Remove records from biological institutions</a></li>
-  <li><a href="#coordinatecleaner" id="toc-coordinatecleaner" class="nav-link" data-scroll-target="#coordinatecleaner"><span class="header-section-number">27.5.3</span> CoordinateCleaner</a></li>
+  <li><a href="#remove-records-with-coordinates-assigned-to-country-and-province-centroids" id="toc-remove-records-with-coordinates-assigned-to-country-and-province-centroids" class="nav-link" data-scroll-target="#remove-records-with-coordinates-assigned-to-country-and-province-centroids"><span class="header-section-number">25.5.1</span> Remove records with coordinates assigned to country and province centroids</a></li>
+  <li><a href="#remove-records-from-biological-institutions" id="toc-remove-records-from-biological-institutions" class="nav-link" data-scroll-target="#remove-records-from-biological-institutions"><span class="header-section-number">25.5.2</span> Remove records from biological institutions</a></li>
+  <li><a href="#coordinatecleaner" id="toc-coordinatecleaner" class="nav-link" data-scroll-target="#coordinatecleaner"><span class="header-section-number">25.5.3</span> CoordinateCleaner</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -434,9 +422,9 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Archived: Cleaning data</a></li><li class="breadcrumb-item"><a href="./cleaning_geospatial.html"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Geospatial data</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Archived: Cleaning data</a></li><li class="breadcrumb-item"><a href="./cleaning_geospatial.html"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span id="sec-spatial" class="quarto-section-identifier"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></h1>
+<h1 class="title"><span id="sec-spatial" class="quarto-section-identifier"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></h1>
 </div>
 
 
@@ -462,8 +450,8 @@ div.csl-indent {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>By now, you may have flagged records as being taxonomically incorrect, it’s important to keep those in mind as you go through the spatial cleaning steps as you might learn more about those records. We will discuss some different ways to check for spatial outliers as well as the removal of records in certain geographic areas known to be problematic.</p>
-<section id="coordinate-precision-and-uncertainty" class="level2" data-number="27.1">
-<h2 data-number="27.1" class="anchored" data-anchor-id="coordinate-precision-and-uncertainty"><span class="header-section-number">27.1</span> Coordinate precision and uncertainty</h2>
+<section id="coordinate-precision-and-uncertainty" class="level2" data-number="25.1">
+<h2 data-number="25.1" class="anchored" data-anchor-id="coordinate-precision-and-uncertainty"><span class="header-section-number">25.1</span> Coordinate precision and uncertainty</h2>
 <p><a href="https://dwc.tdwg.org/terms/#dwc:coordinatePrecision">Coordinate precision</a> describes the consistency of values if one were to record the coordinates of the same location, multiple times. Coordinate precision can vary between data sources and recording equipment. For example, coordinates recorded with a GPS unit or a phone generally has higher precision compared to those manually determined from locality descriptions.</p>
 <!-- Notes/Andrew: This has nothing to do with precision, this looks like
 spatial uncertainty. And resolution is not interchangle with precision decimal
@@ -496,8 +484,8 @@ precision.  -->
 </div>
 <p>https://besjournals.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1365-2664.2007.01408.x</p>
 </section>
-<section id="coordinate-uncertainty" class="level2" data-number="27.2">
-<h2 data-number="27.2" class="anchored" data-anchor-id="coordinate-uncertainty"><span class="header-section-number">27.2</span> Coordinate Uncertainty</h2>
+<section id="coordinate-uncertainty" class="level2" data-number="25.2">
+<h2 data-number="25.2" class="anchored" data-anchor-id="coordinate-uncertainty"><span class="header-section-number">25.2</span> Coordinate Uncertainty</h2>
 <p>Alternatively, you can refine your data using <a href="https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters">coordinate uncertainty</a> which describes the possible circular area in meters where the true location is in.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>banksia_serrata <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span> </span>
@@ -510,8 +498,8 @@ precision.  -->
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># banksia_serrata |&gt; </span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   filter(coordinateUncertaintyInMeters &lt; XXX) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="missing-coordinate-data" class="level3" data-number="27.2.1">
-<h3 data-number="27.2.1" class="anchored" data-anchor-id="missing-coordinate-data"><span class="header-section-number">27.2.1</span> Missing coordinate data</h3>
+<section id="missing-coordinate-data" class="level3" data-number="25.2.1">
+<h3 data-number="25.2.1" class="anchored" data-anchor-id="missing-coordinate-data"><span class="header-section-number">25.2.1</span> Missing coordinate data</h3>
 <p>If your research question requires spatial information, then it may be useful to exclude records that are missing coordinates data. Many spatial analytical tools are not compatible with missing coordinate data. We recommend tallying and identifying the rows that have missing data before excluding.</p>
 <p>You can use <code>drop_na()</code> to remove missing values from your dataset.</p>
 <div class="cell">
@@ -527,8 +515,8 @@ precision.  -->
 </div>
 </section>
 </section>
-<section id="coordinate-correction" class="level2" data-number="27.3">
-<h2 data-number="27.3" class="anchored" data-anchor-id="coordinate-correction"><span class="header-section-number">27.3</span> Coordinate correction</h2>
+<section id="coordinate-correction" class="level2" data-number="25.3">
+<h2 data-number="25.3" class="anchored" data-anchor-id="coordinate-correction"><span class="header-section-number">25.3</span> Coordinate correction</h2>
 <p>Some of these steps may have been completed in a pre-cleaning step, however it’s now time to be more rigorous. As always we’ll start with fixing data before discarding, many coordinates issues can be solved with data manipulation instead of discarding:</p>
 <p><strong>Flipped coordinates:</strong> Flipped coordinates typically appear as a clustering of points, whereby swapping the latitude and longitude will place the coordinates where they are expected. <span class="citation" data-cites="jin2020">(<a href="references.html#ref-jin2020" role="doc-biblioref">Jin and Yang 2020</a>)</span></p>
 <div class="cell">
@@ -554,8 +542,8 @@ precision.  -->
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://biocache.ala.org.au/occurrences/a34fca43-9e7c-4b37-8fe4-07cc18369465 Australian coordinates, country listed as Trinidad and Tobago</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.gbif.org/occurrence/search?advanced=true&amp;continent=SOUTH_AMERICA&amp;geometry=POLYGON((-78.74961%20-8.25249,-76.29838%20-8.25249,-76.29838%20-4.74121,-78.74961%20-4.74121,-78.74961%20-8.25249))&amp;has_coordinate=true&amp;issue=COUNTRY_MISMATCH&amp;locale=en&amp;q=reptilia   # GBIF example- reptiles located in Peru, originally recorded as Ecuador</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="quick-visualisation" class="level3" data-number="27.3.1">
-<h3 data-number="27.3.1" class="anchored" data-anchor-id="quick-visualisation"><span class="header-section-number">27.3.1</span> Quick visualisation</h3>
+<section id="quick-visualisation" class="level3" data-number="25.3.1">
+<h3 data-number="25.3.1" class="anchored" data-anchor-id="quick-visualisation"><span class="header-section-number">25.3.1</span> Quick visualisation</h3>
 <p>One of the most straightforward ways to check for spatial errors is to plot your data onto a map. More obvious spatial errors are much easier to spot visually.</p>
 <!-- This is a good first step but needs to be guided into the following ones.
 Not sure what the map looks like, but it might be good to make another map that
@@ -589,8 +577,8 @@ puts boxes around some obvious ones you can see and why -->
 </div>
 </section>
 </section>
-<section id="coordinate-cleaning" class="level2" data-number="27.4">
-<h2 data-number="27.4" class="anchored" data-anchor-id="coordinate-cleaning"><span class="header-section-number">27.4</span> Coordinate cleaning</h2>
+<section id="coordinate-cleaning" class="level2" data-number="25.4">
+<h2 data-number="25.4" class="anchored" data-anchor-id="coordinate-cleaning"><span class="header-section-number">25.4</span> Coordinate cleaning</h2>
 <p>Once you have fixed everything you can, it’s time to remove records that still have errors. This doesn’t mean removing all outliers, you must have more than “it’s far away from the others” to justify a records removal.</p>
 <p><strong>Remove records where longitude and latitude are equal:</strong> High likelihood that this is not where the record was recorded and, check first, however likely will need to remove</p>
 <p><strong>Remove records with zero coordinates:</strong> When plotting it on a map, zero coordinates will be found around the point at zero latitudes and longitudes. These records will not accurately represent their valid location and must be removed.</p>
@@ -600,24 +588,24 @@ puts boxes around some obvious ones you can see and why -->
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#https://biocache.ala.org.au/occurrences/search?q=lsid%3Ahttps%3A%2F%2Fid.biodiversity.org.au%2Ftaxon%2Fapni%2F51382879&amp;disableAllQualityFilters=true&amp;qualityProfile=ALA&amp;fq=spatiallyValid%3A%22false%22&amp;radius=25&amp;lat=-0.024032592068740033&amp;lon=-0.06591796875#tab_recordsView </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species." class="level2" data-number="27.5">
-<h2 data-number="27.5" class="anchored" data-anchor-id="remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species."><span class="header-section-number">27.5</span> Remove records plotted away from the known area of distribution of the species.</h2>
+<section id="remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species." class="level2" data-number="25.5">
+<h2 data-number="25.5" class="anchored" data-anchor-id="remove-records-plotted-away-from-the-known-area-of-distribution-of-the-species."><span class="header-section-number">25.5</span> Remove records plotted away from the known area of distribution of the species.</h2>
 <p>It is essential to check the metadata to ensure that it is a data entry error and not a real outlier. In some cases, it’s worth checking the literature before discarding records like these. These can also be mis-identified species, if you’re working with data from many species, and you find a species point in amongst the environmental bounds of a similar looking species it might be worth going back to the original record and taking a closer look. However, if no images exist it might be difficult to determine if it is a taxonomic or spatial issue.</p>
 <!-- I'm not sure I understand what the above means. But I think in general for less obvious errors, it's best to suggest that before data analysis (and honestly, before seeing the data at all), people should determine whether there is an upper bound to remove coordinates (like a 95% confidence interval, or within xx km of an accepted expert distribution). Then run whatever model or test with the complete data and with the reduced data. If it makes a difference, probably make an informed decision based on literature of which results to use as the "main" findings. -->
 <!-- Having written this out, a brief discussion about this rather than any suggestions is probably all that's in scope for this book -->
 <!-- The final decisions depend on the species, research question, model parameters etc -->
-<section id="remove-records-with-coordinates-assigned-to-country-and-province-centroids" class="level3" data-number="27.5.1">
-<h3 data-number="27.5.1" class="anchored" data-anchor-id="remove-records-with-coordinates-assigned-to-country-and-province-centroids"><span class="header-section-number">27.5.1</span> Remove records with coordinates assigned to country and province centroids</h3>
+<section id="remove-records-with-coordinates-assigned-to-country-and-province-centroids" class="level3" data-number="25.5.1">
+<h3 data-number="25.5.1" class="anchored" data-anchor-id="remove-records-with-coordinates-assigned-to-country-and-province-centroids"><span class="header-section-number">25.5.1</span> Remove records with coordinates assigned to country and province centroids</h3>
 <p>Centroids are common when records are being assigned from georeferencing based on vague locality descriptions or from incorrect georeferencing. Sometimes, records are erroneously entered with the physical location of the specimen or because they represent individuals from captivity or grown in horticulture, which were not clearly labelled as such.</p>
 </section>
-<section id="remove-records-from-biological-institutions" class="level3" data-number="27.5.2">
-<h3 data-number="27.5.2" class="anchored" data-anchor-id="remove-records-from-biological-institutions"><span class="header-section-number">27.5.2</span> Remove records from biological institutions</h3>
+<section id="remove-records-from-biological-institutions" class="level3" data-number="25.5.2">
+<h3 data-number="25.5.2" class="anchored" data-anchor-id="remove-records-from-biological-institutions"><span class="header-section-number">25.5.2</span> Remove records from biological institutions</h3>
 <p>such as botanic gardens, zoos, country capitals, biodiversity institutions, urban areas, and GBIF headquarters. In some cases these records will haven actually been recorded at a zoo for example, in other cases this is often incorrectly georeferenced records. They can be tricky to spot but there are a few packages that deal with centroid data. Exploratory visuals can also help support findings, making it easier to spot clusterings of points.</p>
 <p>In a few cases, zoos and botanic gardens might be where the record was sighted. However, in this case, it is not naturally occurring and should be removed. Records in urban areas may not want to be removed by everyone, but it is essential to note that it could be old data or have vague locality descriptions.</p>
 <p>Remove records outside of the country of interest: In some cases, records outside the country of origin may be outliers. In other cases, they may be perfectly valid. It is important to analyze case-by-case and remove the record if necessary.</p>
 </section>
-<section id="coordinatecleaner" class="level3" data-number="27.5.3">
-<h3 data-number="27.5.3" class="anchored" data-anchor-id="coordinatecleaner"><span class="header-section-number">27.5.3</span> CoordinateCleaner</h3>
+<section id="coordinatecleaner" class="level3" data-number="25.5.3">
+<h3 data-number="25.5.3" class="anchored" data-anchor-id="coordinatecleaner"><span class="header-section-number">25.5.3</span> CoordinateCleaner</h3>
 <p>This package probably worth looking at.</p>
 
 
@@ -791,7 +779,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1015,12 +1008,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./cleaning_taxonomic_validation.html" class="pagination-link  aria-label=" &lt;span="" validation&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./outliers.html" class="pagination-link" aria-label="<span class='chapter-number'>28</span>&nbsp; <span class='chapter-title'>Outliers</span>">
-        <span class="nav-page-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Outliers</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./outliers.html" class="pagination-link" aria-label="<span class='chapter-number'>26</span>&nbsp; <span class='chapter-title'>Outliers</span>">
+        <span class="nav-page-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.531">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA’s Data Cleaning Booklet - 24&nbsp; Strings</title>
+<title>ALA’s Data Cleaning Booklet - 22&nbsp; Strings</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Archived: Cleaning data</a></li><li class="breadcrumb-item"><a href="./cleaning_manipulating_strings.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Strings</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Archived: Cleaning data</a></li><li class="breadcrumb-item"><a href="./cleaning_manipulating_strings.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -159,6 +159,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data for this book</span></span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./1_accessing/access_intro.html" class="sidebar-item-text sidebar-link">
@@ -171,19 +177,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_accessing/where-to-get-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_accessing/large-downloads.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Large downloads</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Large downloads</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_accessing/merging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Merging multiple datasets</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Merging multiple datasets</span></span></a>
   </div>
 </li>
       </ul>
@@ -199,32 +205,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_exploring/initial-inspection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Initial inspection</span></span></a>
+  <a href="./2_exploring/inspect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_temporal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Temporal scope</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_taxonomic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Taxonomic scope</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_spatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Spatial scope</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./2_exploring/scope_summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data scope summary</span></span></a>
+  <a href="./2_exploring/summarise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summarise</span></span></a>
   </div>
 </li>
       </ul>
@@ -241,37 +229,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/unexpected-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Unexpected values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Unexpected values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
   </div>
 </li>
       </ul>
@@ -288,25 +276,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./4_cleaning_expert/outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
   </div>
 </li>
       </ul>
@@ -314,19 +302,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -341,43 +329,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
   </div>
 </li>
       </ul>
@@ -392,24 +380,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#basic-string-manipulation" id="toc-basic-string-manipulation" class="nav-link active" data-scroll-target="#basic-string-manipulation"><span class="header-section-number">24.1</span> Basic string manipulation</a></li>
-  <li><a href="#matching" id="toc-matching" class="nav-link" data-scroll-target="#matching"><span class="header-section-number">24.2</span> Matching</a>
+  <li><a href="#basic-string-manipulation" id="toc-basic-string-manipulation" class="nav-link active" data-scroll-target="#basic-string-manipulation"><span class="header-section-number">22.1</span> Basic string manipulation</a></li>
+  <li><a href="#matching" id="toc-matching" class="nav-link" data-scroll-target="#matching"><span class="header-section-number">22.2</span> Matching</a>
   <ul class="collapse">
-  <li><a href="#basic-matching" id="toc-basic-matching" class="nav-link" data-scroll-target="#basic-matching"><span class="header-section-number">24.2.1</span> Basic matching</a></li>
-  <li><a href="#regex-matching" id="toc-regex-matching" class="nav-link" data-scroll-target="#regex-matching"><span class="header-section-number">24.2.2</span> Regex matching</a></li>
-  <li><a href="#replacements" id="toc-replacements" class="nav-link" data-scroll-target="#replacements"><span class="header-section-number">24.2.3</span> Replacements</a></li>
+  <li><a href="#basic-matching" id="toc-basic-matching" class="nav-link" data-scroll-target="#basic-matching"><span class="header-section-number">22.2.1</span> Basic matching</a></li>
+  <li><a href="#regex-matching" id="toc-regex-matching" class="nav-link" data-scroll-target="#regex-matching"><span class="header-section-number">22.2.2</span> Regex matching</a></li>
+  <li><a href="#replacements" id="toc-replacements" class="nav-link" data-scroll-target="#replacements"><span class="header-section-number">22.2.3</span> Replacements</a></li>
   </ul></li>
-  <li><a href="#case-style" id="toc-case-style" class="nav-link" data-scroll-target="#case-style"><span class="header-section-number">24.3</span> Case style</a></li>
-  <li><a href="#simple-case-study" id="toc-simple-case-study" class="nav-link" data-scroll-target="#simple-case-study"><span class="header-section-number">24.4</span> Simple case study</a></li>
+  <li><a href="#case-style" id="toc-case-style" class="nav-link" data-scroll-target="#case-style"><span class="header-section-number">22.3</span> Case style</a></li>
+  <li><a href="#simple-case-study" id="toc-simple-case-study" class="nav-link" data-scroll-target="#simple-case-study"><span class="header-section-number">22.4</span> Simple case study</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Archived: Cleaning data</a></li><li class="breadcrumb-item"><a href="./cleaning_manipulating_strings.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Strings</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./cleaning_intro.html">Archived: Cleaning data</a></li><li class="breadcrumb-item"><a href="./cleaning_manipulating_strings.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Strings</span></h1>
+<h1 class="title"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></h1>
 </div>
 
 
@@ -529,8 +517,8 @@ visible to user and reproducible.
 <pre><code>----</code></pre>
 </div>
 </div>
-<section id="basic-string-manipulation" class="level2" data-number="24.1">
-<h2 data-number="24.1" class="anchored" data-anchor-id="basic-string-manipulation"><span class="header-section-number">24.1</span> Basic string manipulation</h2>
+<section id="basic-string-manipulation" class="level2" data-number="22.1">
+<h2 data-number="22.1" class="anchored" data-anchor-id="basic-string-manipulation"><span class="header-section-number">22.1</span> Basic string manipulation</h2>
 <p>The <code>stringr</code> package provides a number of useful functions for manipulating strings, many of which are useful when dealing with biodiversity data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
@@ -561,11 +549,11 @@ visible to user and reproducible.
 </div>
 </div>
 </section>
-<section id="matching" class="level2" data-number="24.2">
-<h2 data-number="24.2" class="anchored" data-anchor-id="matching"><span class="header-section-number">24.2</span> Matching</h2>
+<section id="matching" class="level2" data-number="22.2">
+<h2 data-number="22.2" class="anchored" data-anchor-id="matching"><span class="header-section-number">22.2</span> Matching</h2>
 <p>Matching strings is a common task when working with biodiversity data. etc etc.</p>
-<section id="basic-matching" class="level3" data-number="24.2.1">
-<h3 data-number="24.2.1" class="anchored" data-anchor-id="basic-matching"><span class="header-section-number">24.2.1</span> Basic matching</h3>
+<section id="basic-matching" class="level3" data-number="22.2.1">
+<h3 data-number="22.2.1" class="anchored" data-anchor-id="basic-matching"><span class="header-section-number">22.2.1</span> Basic matching</h3>
 <p>The <code>stringr</code> package provides a number of functions for matching strings using patterns.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># detect and remove</span></span>
@@ -593,8 +581,8 @@ visible to user and reproducible.
 </div>
 </div>
 </section>
-<section id="regex-matching" class="level3" data-number="24.2.2">
-<h3 data-number="24.2.2" class="anchored" data-anchor-id="regex-matching"><span class="header-section-number">24.2.2</span> Regex matching</h3>
+<section id="regex-matching" class="level3" data-number="22.2.2">
+<h3 data-number="22.2.2" class="anchored" data-anchor-id="regex-matching"><span class="header-section-number">22.2.2</span> Regex matching</h3>
 <p>The examples above demonstrate the use of basic patterns. But for cases that need more specific or advanced matching we can use regular expressions (regex). Regex is a powerful tool used to match patterns in strings, replace characters in strings, and extract substrings from strings. Regex can be complex and unintuitive, but there are websites available, such as <a href="https://regex-generator.olafneumann.org/">Regex Generator</a>, that are extremely helpful. Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values. In the case of column names, regex can be useful when conforming datasets (see <a href="&quot;./access_integration.qmd&quot;">Integration</a>) or to meet a stylistic requirement. Applied to column values, there is a range of utility, such as unifying the formatting of taxonomic or location names.</p>
 <p>The <code>str_view()</code> function is particularly useful for exploring regular expressions to see pattern matches. The results are shown in the console, and elements matched by the regex are surrounded with angle brackets &lt; &gt;.</p>
 <div class="cell">
@@ -621,7 +609,7 @@ visible to user and reproducible.
 [18] │ &lt;Dendrolagus&gt; lumholtzi
 [19] │ &lt;Dendrolagus&gt; lumholtzi
 [20] │ &lt;Dendrolagus&gt; lumholtzi
-... and 1232 more</code></pre>
+... and 1237 more</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match only the second word (species name)</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(tree_kangaroo<span class="sc">$</span>scientificName, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">s)[a-z]+"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -646,12 +634,12 @@ visible to user and reproducible.
 [25] │ Dendrolagus &lt;bennettianus&gt;
 [27] │ Dendrolagus &lt;lumholtzi&gt;
 [28] │ Dendrolagus &lt;lumholtzi&gt;
-... and 849 more</code></pre>
+... and 854 more</code></pre>
 </div>
 </div>
 </section>
-<section id="replacements" class="level3" data-number="24.2.3">
-<h3 data-number="24.2.3" class="anchored" data-anchor-id="replacements"><span class="header-section-number">24.2.3</span> Replacements</h3>
+<section id="replacements" class="level3" data-number="22.2.3">
+<h3 data-number="22.2.3" class="anchored" data-anchor-id="replacements"><span class="header-section-number">22.2.3</span> Replacements</h3>
 <p>In base R the <code>gsub()</code> function can be used for pattern replacement. In <code>stringr</code>, the <code>str_replace()</code> function can be used to replace the first match of a string. The <code>str_replace_all()</code> function can be used to replace all matches.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str_replace() example</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -666,8 +654,8 @@ visible to user and reproducible.
 </div>
 </section>
 </section>
-<section id="case-style" class="level2" data-number="24.3">
-<h2 data-number="24.3" class="anchored" data-anchor-id="case-style"><span class="header-section-number">24.3</span> Case style</h2>
+<section id="case-style" class="level2" data-number="22.3">
+<h2 data-number="22.3" class="anchored" data-anchor-id="case-style"><span class="header-section-number">22.3</span> Case style</h2>
 <p>Case style can vary across data providers due to variable naming conventions. There are some basic functions available to change the case of strings in <code>stringr</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_lower</span>(plants<span class="sc">$</span>scientific_name[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -700,8 +688,8 @@ visible to user and reproducible.
 <span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="simple-case-study" class="level2" data-number="24.4">
-<h2 data-number="24.4" class="anchored" data-anchor-id="simple-case-study"><span class="header-section-number">24.4</span> Simple case study</h2>
+<section id="simple-case-study" class="level2" data-number="22.4">
+<h2 data-number="22.4" class="anchored" data-anchor-id="simple-case-study"><span class="header-section-number">22.4</span> Simple case study</h2>
 <p>We will use the <code>janitor</code> R package to explore whether our elephant data has any string issues. The function <code>tabyl</code> will compute a counts and percent of total rows for each unique value.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -713,30 +701,30 @@ visible to user and reproducible.
 <span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>() <span class="sc">|&gt;</span></span>
 <span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 197 × 4
+<pre><code># A tibble: 199 × 4
    `pull(african_ele, stateProvince)`     n   percent valid_percent
    &lt;chr&gt;                              &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
- 1 Agadez                                 1 0.0000561     0.0000879
- 2 Al Qahirah                             1 0.0000561     0.0000879
- 3 Alibori                              601 0.0337        0.0528   
- 4 Arusha                               327 0.0183        0.0287   
- 5 Arusha Region                          1 0.0000561     0.0000879
- 6 Atacora                              366 0.0205        0.0322   
- 7 Atakora                              249 0.0140        0.0219   
- 8 Balaka                                 8 0.000449      0.000703 
- 9 Bassila                                1 0.0000561     0.0000879
-10 Batha                                  1 0.0000561     0.0000879
-11 Bauchi                                 7 0.000393      0.000615 
-12 Bengo                                  3 0.000168      0.000264 
-13 Bizerte                                2 0.000112      0.000176 
-14 Borgou                                 7 0.000393      0.000615 
-15 Bouaflé                                3 0.000168      0.000264 
-16 Bouna                                  1 0.0000561     0.0000879
-17 Budongo Forest                         1 0.0000561     0.0000879
-18 Bushenyi                              84 0.00471       0.00738  
-19 Cabo Delgado                           3 0.000168      0.000264 
-20 Cape Prov.                             2 0.000112      0.000176 
-# ℹ 177 more rows</code></pre>
+ 1 Agadez                                 1 0.0000556     0.0000867
+ 2 Al Qahirah                             1 0.0000556     0.0000867
+ 3 Alibori                              601 0.0334        0.0521   
+ 4 Arusha                               333 0.0185        0.0289   
+ 5 Arusha Region                          1 0.0000556     0.0000867
+ 6 Atacora                              366 0.0204        0.0317   
+ 7 Atakora                              249 0.0139        0.0216   
+ 8 Balaka                                 8 0.000445      0.000694 
+ 9 Bassila                                1 0.0000556     0.0000867
+10 Batha                                  1 0.0000556     0.0000867
+11 Bauchi                                 7 0.000389      0.000607 
+12 Bengo                                  3 0.000167      0.000260 
+13 Bizerte                                2 0.000111      0.000173 
+14 Borgou                                 7 0.000389      0.000607 
+15 Bouaflé                                3 0.000167      0.000260 
+16 Bouna                                  1 0.0000556     0.0000867
+17 Budongo Forest                         1 0.0000556     0.0000867
+18 Bushenyi                              85 0.00473       0.00737  
+19 Cabo Delgado                           3 0.000167      0.000260 
+20 Cape Prov.                             2 0.000111      0.000173 
+# ℹ 179 more rows</code></pre>
 </div>
 </div>
 <p>From the <code>tabyl</code> output, we can see there are few different variations of <code>Province</code>, <code>Prov.</code>, <code>Prov</code>. As an example, we will correct these with the <code>tidyverse</code> packages <code>stringr</code>, <code>dplyr</code>, <code>tidyr</code> as well as <code>glue</code>.</p>
@@ -796,7 +784,7 @@ visible to user and reproducible.
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 196 × 2
+<pre><code># A tibble: 198 × 2
    stateProvince    stateProvince_clean
    &lt;chr&gt;            &lt;glue&gt;             
  1 Southern         Southern           
@@ -809,7 +797,7 @@ visible to user and reproducible.
  8 Mpumalanga       Mpumalanga         
  9 KwaZulu-Natal    KwaZulu-Natal      
 10 Manicaland       Manicaland         
-# ℹ 186 more rows</code></pre>
+# ℹ 188 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Final check</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Check with the original code that detected the issue</span></span>
@@ -819,30 +807,30 @@ visible to user and reproducible.
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 195 × 4
+<pre><code># A tibble: 197 × 4
    .                  n   percent valid_percent
    &lt;glue&gt;         &lt;int&gt;     &lt;dbl&gt;         &lt;dbl&gt;
- 1 Agadez             1 0.0000561     0.0000879
- 2 Al Qahirah         1 0.0000561     0.0000879
- 3 Alibori          601 0.0337        0.0528   
- 4 Arusha           327 0.0183        0.0287   
- 5 Arusha Region      1 0.0000561     0.0000879
- 6 Atacora          366 0.0205        0.0322   
- 7 Atakora          249 0.0140        0.0219   
- 8 Balaka             8 0.000449      0.000703 
- 9 Bassila            1 0.0000561     0.0000879
-10 Batha              1 0.0000561     0.0000879
-11 Bauchi             7 0.000393      0.000615 
-12 Bengo              3 0.000168      0.000264 
-13 Bizerte            2 0.000112      0.000176 
-14 Borgou             7 0.000393      0.000615 
-15 Bouaflé            3 0.000168      0.000264 
-16 Bouna              1 0.0000561     0.0000879
-17 Budongo Forest     1 0.0000561     0.0000879
-18 Bushenyi          84 0.00471       0.00738  
-19 Cabo Delgado       3 0.000168      0.000264 
-20 Cape Province      3 0.000168      0.000264 
-# ℹ 175 more rows</code></pre>
+ 1 Agadez             1 0.0000556     0.0000867
+ 2 Al Qahirah         1 0.0000556     0.0000867
+ 3 Alibori          601 0.0334        0.0521   
+ 4 Arusha           333 0.0185        0.0289   
+ 5 Arusha Region      1 0.0000556     0.0000867
+ 6 Atacora          366 0.0204        0.0317   
+ 7 Atakora          249 0.0139        0.0216   
+ 8 Balaka             8 0.000445      0.000694 
+ 9 Bassila            1 0.0000556     0.0000867
+10 Batha              1 0.0000556     0.0000867
+11 Bauchi             7 0.000389      0.000607 
+12 Bengo              3 0.000167      0.000260 
+13 Bizerte            2 0.000111      0.000173 
+14 Borgou             7 0.000389      0.000607 
+15 Bouaflé            3 0.000167      0.000260 
+16 Bouna              1 0.0000556     0.0000867
+17 Budongo Forest     1 0.0000556     0.0000867
+18 Bushenyi          85 0.00473       0.00737  
+19 Cabo Delgado       3 0.000167      0.000260 
+20 Cape Province      3 0.000167      0.000260 
+# ℹ 177 more rows</code></pre>
 </div>
 </div>
 <p>There are some other issues that can be corrected in a similar approach:</p>
@@ -1019,7 +1007,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1243,12 +1236,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./cleaning_duplicates.html" class="pagination-link  aria-label=" &lt;span="" and="" missing="" records&lt;="" span&gt;"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./cleaning_taxonomy.html" class="pagination-link" aria-label="<span class='chapter-number'>25</span>&nbsp; <span class='chapter-title'>Taxonomy</span>">
-        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Taxonomy</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./cleaning_taxonomy.html" class="pagination-link" aria-label="<span class='chapter-number'>23</span>&nbsp; <span class='chapter-title'>Taxonomy</span>">
+        <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
