@@ -32,23 +32,23 @@
   {
     "objectID": "1_accessing/where-to-get-data.html",
     "href": "1_accessing/where-to-get-data.html",
-    "title": "1  Where to get data",
+    "title": "2  Where to get data",
     "section": "",
-    "text": "This section will detail what open source data is and suggest some places and packages for getting data of different types",
+    "text": "Prerequisites\nFirst, we’ll load packages that we’ll need to display data and figures over the chapter.\nlibrary(sf)\nlibrary(ggplot2)\nlibrary(dplyr)\nlibrary(tidyterra)",
     "crumbs": [
       "Accessing biodiversity data",
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Where to get data</span>"
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Where to get data</span>"
     ]
   },
   {
     "objectID": "1_accessing/large-downloads.html",
     "href": "1_accessing/large-downloads.html",
-    "title": "2  Large downloads",
+    "title": "3  Large downloads",
     "section": "",
-    "text": "This will provide a basic example of how to use arrow (and other sql packages like tidysql or dtplyr?). Will be short and sweet, with the aim to just give a few ideas of what exists.",
+    "text": "Once the size of your dataset starts to approach the size of your computer’s memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the {arrow} package for larger than memory data workflows or the {duckdb} package for querying databases using SQL.\nThis section will provide a basic example of how to use arrow (and other sql packages like tidysql or dtplyr?). Will be short and sweet, with the aim to just give a few ideas of what exists.\nNot all datasets are equal. Some have several hundred rows, others have millions of rows. Some contain two or three columns, others contain hundreds of columns. Some consist of one dataframe, others are lists that consist of many dataframes (each with their own columns and rows of data).\nIn this chapter, we briefly introduce {arrow}, a package that uses tidy syntax (like dplyr) to wrangle large datasets without breaking your computer.\n\n3.0.1 Prerequisites\n\nlibrary(dplyr)\nlibrary(here)\nlibrary(galah)\n\n\n\n3.0.2 Download from GBIF\nShandiya, I think this example could be replaced by a better EcoAssets example\nTo begin, let’s retrieve a larger dataset of Kingfishers (family Alcedinidae).\n\n\n\n\n\n\n \n\n\n\n\n\n \n\n\n\n\nTodiramphus (Todiramphus) sanctus perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)\n\n\ngalah_config(email = \"your-email-here\") # ALA registered email\n\n\nbirds &lt;- galah_call() |&gt;\n  identify(\"alcedinidae\") |&gt;\n  filter(year == 2023) |&gt;\n  atlas_occurrences()\n\nRetrying in 1 seconds.\nRetrying in 2 seconds.\n\n\nOften, data like this is saved locally as a .csv using write.csv() or readr::write_csv.\nOld unedited stuff that used to use elephant data, but can now use kingfisher data\nFor larger downloads, we recommend saving the data as a Parquet file, as the compression and read/write speeds are typically better for this type of data structure. We can do this using the arrow::write_parquet() function, and arrow::read_parquet() can be used to read in a parquet file.\n\narrow::write_parquet(african_ele, \"../data/gbif/elephant\")\nelephant &lt;- arrow::read_parquet(\"../data/gbif/elephant\")",
     "crumbs": [
       "Accessing biodiversity data",
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Large downloads</span>"
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Large downloads</span>"
     ]
   },
   {
@@ -942,6 +942,92 @@
     "crumbs": [
       "Cleaning data: General",
       "<span class='chapter-number'>12</span>  <span class='chapter-title'>Column names & classes</span>"
+    ]
+  },
+  {
+    "objectID": "1_accessing/where-to-get-data.html#open-source-data",
+    "href": "1_accessing/where-to-get-data.html#open-source-data",
+    "title": "2  Where to get data",
+    "section": "2.1 Open-source data",
+    "text": "2.1 Open-source data\nOpen-source data are data made openly accessible for editing and use, licensed under an open license. The following are some places where you can find open-source data.\n\nLiving AtlasesGBIFBiocollectionsData providers\n\n\nLiving Atlases are national or regional infrastructures that aggregate biodiversity data from many different sources. These sources include research projects, government monitoring programs, museums & herbaria, and citizen science apps like iNaturalist and eBird. Some examples are:\n\n\n\nCountry/Region\nName\nAcronym\n\n\n\n\nAustralia\nAtlas of Living Australia\nALA\n\n\nAustria\nBiodiversitäts-Atlas Österreich\nBAO\n\n\nBrazil\nSistema de Informação sobre a Biodiversidade Brasileira\nSiBBr\n\n\nEstonia\neElurikkus\n\n\n\nFrance\nPortail français d’accès aux données d’observation sur les espèces\nOpenObs\n\n\nGuatemala\nSistema Nacional de Información sobre Diversidad Biológica de Guatemala\nSNIBgt\n\n\nPortugal\nGBIF Portugal\nGBIF.pt\n\n\nSpain\nGBIF Spain\nGBIF.es\n\n\nSweden\nSwedish Biodiversity Data Infrastructure\nSBDI\n\n\nUnited Kingdom\nNational Biodiversity Network\nNBN\n\n\n\nLiving Atlases work with local data providers to ingest and standardise open-source data, and some even use a specific taxonomic backbone. If your project is focused on a specific region, downloading data directly from a regional node may be more appropriate.\nSee a complete list of existing national and regional Living Atlases.\n\n\nThe Global Biodiversity Information Facility (GBIF) is an international data infrastructure and a network that aggregates biodiversity data from the many Living Atlases around the world. GBIF acts as an overarching organisation to store and provide these data from the Living Atlas “nodes” using a unified data standard.\nAt present, GBIF manages and serves over 2.6 billion occurrence data points!\nSee a complete list of national and regional nodes that contribute to GBIF.\n\n\nBiocollections are data infrastructures that hold specimen data from museums and collections.\nSome examples include:\n\n\n\nName\nDescription\n\n\n\n\nIntegrated Digitzed Biocollections\nHolds data of biological specimens that have been made electronically available (i.e., digitised)\n\n\nVertNet\nHolds data of vertebrate specimens from more than 400 collections & 120 publishers\n\n\nAustralasian Virtual Herbarium (AVH)\nHolds over eight million plant, algae and fungi specimens\n\n\n\n\n\nIf your project relates to data from a specific data provider, it also might be best to download data directly from the source.\nFor example, a common citizen science tool to collect species observations is iNaturalist. Downloading directly from the original data source can help to ensure you don’t have any stray data from other sources in your download. You can directly contact data providers to ensure the data hasn’t been pre-filtered before downloading.",
+    "crumbs": [
+      "Accessing biodiversity data",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Where to get data</span>"
+    ]
+  },
+  {
+    "objectID": "1_accessing/where-to-get-data.html#spatial-data",
+    "href": "1_accessing/where-to-get-data.html#spatial-data",
+    "title": "2  Where to get data",
+    "section": "2.2 Spatial data",
+    "text": "2.2 Spatial data\nSpatial data contain information that corresponds to an area on the globe and can be plotted onto a map. Spatial data can be represented as vector or raster data.\nThere are two types of spatial data that you will probably use:\n\nVectorsRasters\n\n\nVectors are data for drawing points, lines and shapes. They contain a geometry column which contains information to draw points, lines or polygons onto a map.\nCountry or region outlines are often saved as vectors, which are typically loaded using an R package like {rnaturalearth} or by reading in a .shp file using the {sf} package.\n\nstate_outline &lt;- sf::st_read(\"path/to/file.shp\")\n\nHere is an example of what vector data looks like in R…\n\nozmaps::ozmap_states\n\nSimple feature collection with 9 features and 1 field\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 105.5507 ymin: -43.63203 xmax: 167.9969 ymax: -9.229287\nGeodetic CRS:  GDA94\n# A tibble: 9 × 2\n  NAME                                                                  geometry\n* &lt;chr&gt;                                                       &lt;MULTIPOLYGON [°]&gt;\n1 New South Wales              (((150.7016 -35.12286, 150.6611 -35.11782, 150.6…\n2 Victoria                     (((146.6196 -38.70196, 146.6721 -38.70259, 146.6…\n3 Queensland                   (((148.8473 -20.3457, 148.8722 -20.37575, 148.85…\n4 South Australia              (((137.3481 -34.48242, 137.3749 -34.46885, 137.3…\n5 Western Australia            (((126.3868 -14.01168, 126.3625 -13.98264, 126.3…\n6 Tasmania                     (((147.8397 -40.29844, 147.8902 -40.30258, 147.8…\n7 Northern Territory           (((136.3669 -13.84237, 136.3339 -13.83922, 136.3…\n8 Australian Capital Territory (((149.2317 -35.222, 149.2346 -35.24047, 149.271…\n9 Other Territories            (((167.9333 -29.05421, 167.9188 -29.0344, 167.93…\n\n\n…and what it looks like when plotted with ggplot2.\n\nggplot() + \n  geom_sf(data = ozmaps::ozmap_states) + \n  theme_void()\n\n\n\n\n\n\n\n\n\n\nRasters are data for drawing a layer of data values over a gridded area. They contain values of a variable (like temperature) for each pixel of a grid. Each part of the grid represents a square area (e.g., 1 km2), and just like how the smaller each pixel is on a TV screen the higher its definition, the smaller each square is in a raster layer the higher its resolution.\nClimate data is often saved as a raster, which is typically loaded using an R package like {geodata} or by reading in a .tif file using the {terra} package.\n\nclimate_layer &lt;- terra::readRDS(\"path/to/file.tif\")\n\nHere is an example of what vector data looks like in R…\n\nworldclim &lt;- worldclim_country(\n    country = \"Australia\",\n    var = \"bio\",\n    res = 5,\n    path = here::here(\"path\", \"to\", \"folder\")\n  )\nworldclim\n\n\n\nclass       : SpatRaster \ndimensions  : 5580, 5640, 19  (nrow, ncol, nlyr)\nresolution  : 0.008333333, 0.008333333  (x, y)\nextent      : 112.5, 159.5, -55.5, -9  (xmin, xmax, ymin, ymax)\ncoord. ref. : lon/lat WGS 84 (EPSG:4326) \nsource      : bioclim-aus.tif \nnames       : wc2.1~bio_1, wc2.1~bio_2, wc2.1~bio_3, wc2.1~bio_4, wc2.1~bio_5, wc2.1~bio_6, ... \nmin values  :    3.445833,    1.599999,    21.05263,    36.13946,         7.6,        -7.7, ... \nmax values  :   29.408333,   17.525000,    86.14720,   684.30566,        42.6,        24.7, ... \n\n\n…and what it looks like when plotted with ggplot2.\n\nggplot() + \n  geom_spatraster(data = worldclim,\n                  mapping = aes(fill = wc2.1_30s_bio_1)) +\n  theme_void()\n\n&lt;SpatRaster&gt; resampled to 500544 cells for plotting\n\n\n\n\n\n\n\n\n\n\n\n\nHere are some examples of where to download spatial data.\n\nClimate dataShapefiles\n\n\nWorldClim is a database of global gridded climate and weather data for historic, current and future conditions.\nEcologists and biologists tend to work specifically with Bioclimatic variables (BioClim). which are typically more meaningful variables for understanding biological things, derived from fluctuations in temperature and rainfall.\nExamples of BioClim variables include Temperature Annual Range, Annual Precitipation, or Precipitation in the Wettest or Driest month. See the complete list of BioClim variables.\nRasters are read into R as a .tif file.\n\n\nShapefiles are vector data with information to draw the outline of one or more specific areas or regions.\nOne of the best ways to search for shapefiles is Google. Some of the safest places to find up-to-date shapefiles are on national or regional government websites. For example, the Australian Bureau of Statistics (ABS) holds shapefiles with many levels of regional boundaries, ranging from states/territories to local government areas.\nShapefiles are read into R as a .shp file. These .shp files are usually within a folder (often a zipped folder) that contains several other files that help to build the .shp file when it is loaded. Here is an example of the contents of an unzipped folder containing a shapefile:\n\n\n\nA folder containing the shapefile for local government areas",
+    "crumbs": [
+      "Accessing biodiversity data",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Where to get data</span>"
+    ]
+  },
+  {
+    "objectID": "1_accessing/where-to-get-data.html#taxonomic-data",
+    "href": "1_accessing/where-to-get-data.html#taxonomic-data",
+    "title": "2  Where to get data",
+    "section": "2.3 Taxonomic data",
+    "text": "2.3 Taxonomic data\nTaxonomy is a complex and broad field of investigation. A comprehensive look into taxonomy is well outside the scope of this book. However, It’s a good idea to consider the taxonomic classification of the organism(s) you’re interested in and any potential naming differences between data sources.\nWe do advise that before deciding on a final taxonomy to download or use, it’s worth being aware of what naming authority your data is using as its taxonomic backbone. In some taxonomic groups, names can vary widely depending on what taxonomic authority is used. Double check your data after your download them to make sure the classifications you expect are what you finding. This check will help prevent errors later on (though you might still need to re-code data manually).\nWe discuss these considerations in more detail in [Chapter xxx taxonomy expert cleaning].\nHere are some examples of where to find Australian taxonomic information.\n\n\n\nName\nDescription\n\n\n\n\nThe Australian Faunal Directory (AFD)\nAn online catologue of nomenclature and taxonomy of animal species known to occur in Australia\n\n\nThe Australian Plant Name Index (APNI)\nA tool for the botanical community containing accepted scientific names of plants\n\n\nThe Australian Plant Census\nContains the currently accepted scientific names for Australian vascular flora.",
+    "crumbs": [
+      "Accessing biodiversity data",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Where to get data</span>"
+    ]
+  },
+  {
+    "objectID": "1_accessing/where-to-get-data.html#trait-data",
+    "href": "1_accessing/where-to-get-data.html#trait-data",
+    "title": "2  Where to get data",
+    "section": "2.4 Trait data",
+    "text": "2.4 Trait data\nTrait data contains measurements of organisms’ morphological or behavioural traits (e.g., stem length, leaf size, egg size, migratory distance, soil carbon). These data are useful for comparing spatial or temporal differences between individuals, groups or species.\nThe following are some examples of where to find trait data.\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nAustraits\nA plant trait database that synthesises data from field surveys, published literature, taxonomic monographs, and individual taxon descriptions. The database holds nearly 500 traits across more than 30,000 taxa.",
+    "crumbs": [
+      "Accessing biodiversity data",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Where to get data</span>"
+    ]
+  },
+  {
+    "objectID": "1_accessing/where-to-get-data.html#packages-for-downloading-data",
+    "href": "1_accessing/where-to-get-data.html#packages-for-downloading-data",
+    "title": "2  Where to get data",
+    "section": "2.5 Packages for downloading data",
+    "text": "2.5 Packages for downloading data\nThere are a range of R packages available for accessing biodiversity data. These packages serve as convenient interfaces to various data providers by making respective APIs usable directly within R. The functionality offered by these packages typically ranges from querying species occurrence records, to more comprehensive taxonomic and spatial download queries.\nBelow, we highlight some commonly used packages. We encourage users to explore the documentation of each package to understand their capabilities, which will help you select one (or more!) that align with your specific needs.\n\nOccurrence data\n\ngalah\ngalah is an interface for accessing biodiversity data like occurrences, counts, species and media (e.g., images & sounds) from the Living Atlases and GBIF.\nIn the majority of examples we will be using the galah package for download queries. One benefit of using galah is that it uses tidy syntax (much like the tidyverse) to download data. Additionally, galah can access data from 10 other Living Atlases and GBIF.\n\nlibrary(galah)\n\ngalah_config(email = \"your-email-here\") # Registered ALA email\n\ngalah_call() |&gt;\n  identify(\"perameles\") |&gt;\n  filter(year == 2001) |&gt;\n  atlas_occurrences()\n\n\n\n# A tibble: 344 × 8\n   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude\n   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;\n 1 0053a1f3-b5e1… Perameles nas… https://biodi…           -34.4             151.\n 2 0135db9a-80ff… Perameles nas… https://biodi…           -33.3             151.\n 3 013b9cb6-7d89… Perameles nas… https://biodi…           -28.2             153.\n 4 01c5d084-f4a5… Perameles nas… https://biodi…           -29.2             153.\n 5 02943584-050a… Perameles nas… https://biodi…           -33.3             151.\n 6 02af5fdd-4800… Perameles nas… https://biodi…           -29.3             152.\n 7 02c5d0db-913f… Perameles nas… https://biodi…           -31.2             153.\n 8 04ad578b-af11… Perameles nas… https://biodi…           -26.7             152.\n 9 0518bfb9-cf9d… Perameles nas… https://biodi…           -34.3             151.\n10 05496ff9-d61e… Perameles nas… https://biodi…           -33.3             151.\n# ℹ 334 more rows\n# ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,\n#   dataResourceName &lt;chr&gt;\n\n\n\n\nOther packages\n\nrgbifrinatrebirdspocc\n\n\nrgbif searches and retrieves data from the Global Biodiversity Information Facility (GBIF).\n\nlibrary(rgbif)\n\n# Download occurrences\nocc_search(scientificName = \"Calopteryx splendens\",\n           country = \"DK\",\n           year=\"1999,2005\")\n\n\n\nrinat is an R wrapper for accessing iNaturalist observations.\n\nlibrary(rinat)\n\n# Download occurrences\nget_inat_obs(taxon_name = \"Colibri\",\n             quality = \"research\",\n             maxresults = 500)\n\n\n\nrebird provides access to the eBird web services.\n\nlibrary(rebird)\n\n# Download occurrences\nebirdgeo(species = species_code('spinus tristis'), \n         lat = 42, \n         lng = -76)\n\n\n\nspocc queries and collects species occurrence data from a variety of sources, including GBIF, VertNet and iDigBio.\n\nlibrary(spocc)\n\n# Download occurrences\ndf &lt;- occ(query = 'Accipiter striatus', \n          from = c('gbif', 'idigbio'), \n          limit = 25)\nocc2df(df)\n\n\n\n\n\n\n\nSpatial data\n\ngeodataozmapsrnaturalearthelevatr\n\n\ngeodata contains data of climate, elevation, soil, crop, species occurrence and administrative boundaries.\n\n# Download world climate data\nworldclim &lt;- worldclim_country(\n    country = \"Australia\",\n    var = \"bio\",\n    res = 5,\n    path = here::here(\"path\", \"to\", \"folder\")\n  )\n\n\n\nozmaps contains simple features (sf) data for plotting maps of Australia and its regions.\n\nlibrary(ozmaps)\n\naus &lt;- ozmap_data(data = \"states\")\n\nggplot() +\n  geom_sf(data = aus) + \n  theme_void()\n\n\n\nrnaturalearth contains simple features (sf) data for plotting world maps, countries, sovereign states and map units.\n\nlibrary(rnaturalearth)\n\n# Download outline of Brazil\nbrazil &lt;- ne_countries(scale = \"medium\", \n                       continent = 'south america', \n                       returnclass = \"sf\") |&gt;\n  filter(name == \"Brazil\")\n\nggplot() +\n  geom_sf(data = brazil) +\n  theme_void()\n\n\n\nelevatr downloads elevation data from various sources like AWS Open Data Terrain Tiles.\n\nlibrary(elevatr)\nlibrary(rnaturalearth)\n\n# Download outline of Cambodia\ncambodia &lt;- ne_countries(scale = \"medium\", \n                         continent = 'asia', \n                         returnclass = \"sf\") |&gt;\n  filter(name == \"Cambodia\")\n\n# Download elevation data for Cambodia\ncambodia_elev &lt;- get_elev_raster(locations = cambodia, \n                                 z = 11, \n                                 clip = \"locations\", \n                                 neg_to_na = \"TRUE\")\n\n\n\n\n\n\nTrait data\n\naustraits\n\n\naustraits allows users to access, explore and wrangle plant trait data from the AusTraits database, which synthesises 500 traits across more than 30,000 taxa.\n\nlibrary(austraits)\n\n# load database\naustraits &lt;- load_austraits(version = \"4.0.1\", \n                            path = \"path/to/folder\")\n\n# extract data by trait\nwood_density &lt;- austraits |&gt; \n  extract_trait(\"wood_density\")",
+    "crumbs": [
+      "Accessing biodiversity data",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Where to get data</span>"
+    ]
+  },
+  {
+    "objectID": "1_accessing/where-to-get-data.html#summary",
+    "href": "1_accessing/where-to-get-data.html#summary",
+    "title": "2  Where to get data",
+    "section": "2.6 Summary",
+    "text": "2.6 Summary\nOver this chapter, we hope you have found some ideas of where to access biodiversity data. The following chapter will help explain how to work with large datasets in R.",
+    "crumbs": [
+      "Accessing biodiversity data",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Where to get data</span>"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "Who is this book for?\nIf you are new to working with biodiversity data in R, or hoping to add some tips and code examples to your toolbox, then this book is for you. By learning how to download and apply common data cleaning steps, you will also develop a better understanding of biodiversity data itself, and the common issues to be aware of.\nWe use R as it is commonly used across ecological projects, and has a rich ecosystem of packages for data cleaning and visualisation. A basic familiarity with the language is recommended.",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "1_accessing/access_intro.html",
+    "href": "1_accessing/access_intro.html",
+    "title": "Accessing biodiversity data",
+    "section": "",
+    "text": "This section gives a brief introduction to accessing biodiversity data, including where to get it, how to download large datasets and how to merge multiple datasets.\nThere are many types of biodiversity data, ranging from locations to time-stamps to trait measurements. It is not the aim of this book to list them all. However, we do think it’s useful to provide a few resources of where to look or how to start downloading data.\n\nThe first chapter provides brief explanations of major sources of open source data, and suggests some R packages that can download data directly within R .\nThe second chapter gives a brief summary of how to work with large datasets in R, which are often slow or cumbersome to edit due to sheer size. We suggest some packages and resources to help with many rows of data.\nThe third chapter provides a brief explanation of how to merge multiple datasets in R. Inevitably, to run your own investigations and analyses, you’ll need to combine data from different sources to make new datasets. We will again suggest methods, packages and resources that help with joining different types of data.\n\nAlong the way we will also highlight some of the important concepts and challenges to be aware of to help you get your initial data downloads in adequate shape for cleaning.\nFollow these links to navigate to each section:\n\n\n\n\n\nFind data\n\n\n\n\n\nLarge downloads\n\n\n\n\n\nMerging data",
+    "crumbs": [
+      "Accessing biodiversity data"
     ]
   }
 ]
