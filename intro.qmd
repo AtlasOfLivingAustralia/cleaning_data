@@ -167,7 +167,7 @@ be dependent on what stage your data is at.
 Data cleaning processes typically require the use of a programming
 language which can be a barrier of entry for many. Code to clean data
 also varies, and you might find different solutions elsewhere to achieve
-the same result. This book hopes to be a resource is to assist
+the same result. This book hopes to be a resource to assist
 researchers and decision makers that may have limited experience with
 cleaning geo-referenced biodiversity data in using a programming
 language to clean biodiversity data with the simplest prompts possible.
@@ -308,7 +308,7 @@ sequence of steps. See an annotated example below using commands from
 the `dplyr` package.
 
 ```{r}
-# This is a code block with comment and numbered annotations
+# This is a code block with a comment and numbered annotations
 mtcars |> # <1>
    dplyr::group_by(cyl) |> # <2>
    dplyr::summarise(mpg = mean(mpg)) # <3>
