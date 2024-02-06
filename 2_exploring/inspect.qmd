@@ -1,133 +1,315 @@
+---
+editor: 
+  markdown: 
+    wrap: 80
+---
+
 # Inspect
-
-<!-- Notes/Andrew: The previous content of this page largely included fixing string
-inconsistencies. It's my opinion that this was out of scope for an
-initial inspection step, and best moved to a dedicated string section. Otherwise
-it would be difficult for somebody looking for string inconsistencies to know
-they need to check the initial inspection page. -->
-
-<!-- Notes/Andrew: The scope of this page is now: determine if the downloaded
-data is acceptable, with respect to the download query and source. If not, the
-next actions could be to adjust the download query, or use a different source.
--->
 
 Before diving into cleaning, it is always a good idea to start by familiarising
 yourself with the data. In this chapter we will cover ways to inspect both the
-data and metadata of a dataset. 
+data and metadata of a dataset.
 
-## Metadata inspection
+### Prerequisites
 
-Metadata describes your data set: it defines each variable and its contents. For
-example, describing a variables unit of measurement, climatic conditions at the
-time of observation, or whether the occurrence is a marked outlier. Reviewing
-the metadata of your dataset is a useful first step, as it allows you to
-understand the kind of data you are working with and any potential limitations
-of the data that could affect your analysis.
-
-Data infrastructures that use Darwin Core terms will have interoperable
-metadata. This makes it easier to consolidate across data sets. All Darwin Core
-term definitions can be found [here](https://dwc.tdwg.org/terms/). We suggest
-using `Ctrl/CMD F` and searching your variable name on the
-[webpage](https://dwc.tdwg.org/terms/). Don't hesitate to Google variable names
-if you are unsure what they represent.
-
-It is also worth checking the available metadata for your dataset, to determine
-if there is extra information that may be relevant. You could Google the dataset
-name, or search the dataset or institution on the ALA. The metadata on the ALA
-is submitted with the data, and because the ALA is not the data *owner*, this
-data is immutable.
-
-An example of well formatted metadata is [FrogID from the Australian
-Museum](https://collections.ala.org.au/public/show/dr14760). From reading
-FrogID's metadata [@rowley2020frogid], you'll find:
-
-1. The data is acoustic data, the majority of the species recorded are
-therefore male.
-2. Because this is citizen science data, it is especially biased
-towards populated areas. 
-3. Audio is recorded via a smartphone app, and so the authors
-recommend filtering data to `geographic uncertainty of <3000m` if you require
-high coordinate precision.
-4. The data is presence only data.
-
-Metadata can also be useful for understanding the license that the data falls
-under. This is mostly relevant for using or republishing multimedia associated
-with the data.
-
-## Data inspection
-
-A great way to get an initial overview of your data is to use the R package
-`skimr`, which provides tables of descriptive statistics, such as amount of
-missing data, for each variable. The output is also grouped by data type
-(numeric, character, date) so you can also check for any inconsistencies. 
-
-As you are looking through the output, ask yourself whether the data is in line
-with your expectations. If you requested data for a group of species, are they
-all represented? Are the values for a variable reasonable? Looking at the
-quartiles can help you get the sense of the distribution of data. These
-considerations will help you detect potential issues in the data. Make sure you
-take note of any issues you find, to investigate further and later address. 
-
-Here we will continue using the African elephant dataset that we downloaded in
-the previous chapter on downloading. You can create a
-report using the `skimr` package by running the following code:
-<!-- Note: First use of skimr package -->
-
-```{r, echo = TRUE}
-library(skimr)
-african_ele <- arrow::read_parquet("../data/gbif/elephant")
-skim(african_ele)
+```{r prereq}
+#| message: false
+#| warning: false
+#| echo: false
+library(ggplot2)
+library(galah)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  select(group = "basic", genus, species) |>
+  atlas_occurrences()
 ```
 
-### Evaluating the dataset
+```{r}
+#| eval: false
+# packages
+library(ggplot2)
+library(galah)
 
-Here are some starting points for evaluating a dataset. As you go through the
-skimr report and perform these checks, make detailed notes of your observations
-and any potential issues.
+# data: Kingfisher records from 2023
+galah_config(email = "your-email-here") # ALA Registered email
 
-- Confirm the number of records:
-  - Verify if the number of records in the dataset matches your expectations. If
-  the number is significantly higher or lower than anticipated, it may indicate
-  an issue with the query or data source.
-- Checking for the correct metadata columns:
-  - Ensure that all expected metadata columns are present. These might include
-  species names, dates, locations, etc. The absence of key columns could suggest
-  a problem with the data extraction process.
-- Assessing missing data in critical fields:
-  - Check the amount of missing data, especially in critical
-  fields like latitude and longitude. A high number of missing values in these
-  fields can significantly impact the usability of the dataset for geospatial
-  analysis.
-- Reviewing geospatial data accuracy:
-  - Look for anomalies in geospatial data. Check if the coordinates are within
-  plausible ranges and if they correspond to the geographic regions you
-  expected.
-- Evaluating data distribution and outliers:
-  - Use the quartiles and summary statistics provided by `skimr` to assess the
-  distribution of key variables. Be on the lookout for outliers or unusual
-  patterns that might need further investigation.
-- Consistency and formatting of categorical data:
-  - Check for consistency in categorical data, such as species names.
-  Inconsistencies might arise from variations in spelling, capitalization, or
-  use of synonyms.
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  select(group = "basic", genus, species) |>
+  atlas_occurrences()
+```
+
+## Getting to know your data
+
+**Metadata** describes your dataset, defines its variables and previews their
+contents. Metadata helps you learn details about your dataset like what unit of
+measurement was used, what the climate conditions were like, or whether a
+certain observation in the data might be an outlier.
+
+Reviewing the metadata of your dataset is always a good first step, as it allows
+you to understand the kind of data you are working with and any potential
+limitations of the data that might affect your analyses later.
+
+Many datasets include descriptions of the data's taxonomic, spatial and temporal
+scope. An example of well formatted metadata is of [FrogID from the Australian
+Museum](https://collections.ala.org.au/public/show/dr14760).
+
+![Metadata of the FrogID dataset on the ALA](images/example_frogid.png)
+
+From reading FrogID's metadata [@rowley2020frogid], you'll find:
+
+1.  The data is acoustic data, meaning the majority of the species recorded are
+    male
+2.  This is citizen science data, meaning these data are biased towards
+    populated areas
+3.  Audio is recorded via a smartphone app, and so the authors recommend
+    filtering data to `geographic uncertainty of <3000m` if you require high
+    coordinate precision
+4.  These data record presences, but not absences
+
+FrogID's metdata also displays information about what license these data fall
+under. This information is relevant for using or republishing any multimedia
+within the data.
+
+::: {.callout-note collapse="true"}
+#### Data standards
+
+Many data infrastructures like the Atlas of Living Australia also follow a data
+standard to help consolidate data from many different data
+providers[^inspect-1].
+
+The data standard used by the Atlas of Living Australia is called "Darwin Core",
+which defines a [set of standard terms](https://dwc.tdwg.org/terms/)[^inspect-2]
+to use across datasets (used as column names within datasets) and the accepted
+values that are recorded under specific terms. Darwin Core standards also
+require that additional files detailing metadata and data structure are supplied
+along with the dataset, which helps make sure the data is ingested correctly
+into the data infrastructure.
+
+Knowing whether your dataset follows a standard can allow you to look up term
+definitions as you become familiar with the data.
+:::
+
+[^inspect-1]: Making datasets easier to consolidate is also referred to as
+    *interoperability*, [one of the principles of FAIR
+    data](https://ardc.edu.au/resource/fair-data/).
+
+[^inspect-2]: We suggest using `Ctrl/CMD + F` and searching your variable name
+    on the webpage. Don't hesitate to Google variable names if you are unsure
+    what they represent.
+
+## A first glimpse
+
+The first thing to do when starting work with a new dataset is to get an initial
+idea of what data you're working with. You might want to know:
+
+  * How many rows and columns are there? 
+  * What are the column names? 
+  * What types of data are in each column? 
+  * What are their possible values or ranges? 
+  
+These answers are usefult o know before jumping into wrangling and cleaning data.
+
+There are several ways to return an overview of your data, ranging in how
+comprehensively they summarise your data's structure.
+
+::: {.panel-tabset .nav-pills}
+#### `glimpse()`
+
+Return a condensed summary of your data's structure using `glimpse()` from
+dplyr.
+
+```{r}
+#| message: false
+#| warning: false
+library(dplyr)
+
+glimpse(birds)
+```
+
+#### `skim()`
+
+Return tables of descriptive statistics for each variable, grouped by data type
+(e.g., `numeric`, `character`, `date`) using `skim()` from skimr.
+
+```{r}
+#| message: false
+#| warning: false
+library(skimr)
+
+skim(birds)
+```
+
+#### `str()`
+
+Return a quick summary of your data's structure using base R `str()`
+
+```{r}
+str(birds)
+```
+:::
+
+As you look through the output, ask yourself whether the data is in line with
+your expectations. Are the values in each column reasonable?
+
+## Evaluating your dataset
+
+It is also good at this initial point to evaluate whether you dataset is
+what you expect, and whether there are noticeable gaps or errors that might need
+to be fixed (or might stop you from using the data altogether).
+
+Here are some initial questions you might answer first. Note that
+many of these statistics can be checked from the output of `skimr::skim()`.
+
+#### Number of records
+
+Is the number of records in the dataset what you expected? If the number is higher or lower than expected, there might be an issue with your query or the data source.
+
+As an example using the galah package, the record count from `atlas_counts()`
+should match the number of rows returned by `atlas_occurrences()` for the same
+query.
+
+```{r}
+# Our original query
+galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  atlas_counts() # return counts
+
+# occurrences
+nrow(birds)
+```
+
+#### Columns
+
+Does your dataset have all the column names you expected? The absence of key columns could suggest a problem with the data extraction process.
+
+We can print our column names.
+
+```{r}
+colnames(birds)
+```
+
+In our example, the column names are what we expected from our query.
+
+#### Missing data
+
+Is there any missing data? How much, and in what columns? A high number of missing values, especially columns critical to our analysis, can make it difficult to use a dataset for an analysis. For example, many missing values in columns that record latitude and longitude values will make it difficult to run geospatial analyses.
+
+A quick way to check this is to breakdown values & their proportional frequency.
+
+:::{.panel-tabset .nav-pills}
+
+##### `count()`
+
+Return the count of each group using dplyr.
+
+```{r}
+#| message: false
+#| warning: false
+library(dplyr)
+
+birds |>
+  group_by(genus) |>
+  count()
+```
+
+##### `tabyl()`
+
+Return summary tables with totals & percentages using `tabyl()` from janitor.
+
+```{r}
+#| message: false
+#| warning: false
+library(janitor)
+
+birds |>
+  tabyl(genus) |>
+  adorn_pct_formatting()
+```
+:::
+
+You can also return any rows with `NA` values in **any** column...
+
+```{r}
+# return rows with any NA values 
+birds |>
+  filter(if_any(everything(), is.na))
+```
+
+...or in a **specified** column.
+
+```{r}
+# return rows with NA values for genus
+birds |>
+  filter(is.na(genus))
+```
+
+<!-- The following few sections might fit better in the next chapter? -->
+
+#### Consistency of categorical data
+
+Are the names or values in text columns 
+(i.e. of class `character`) what you expect? Are
+there typos or variations in spelling, capitalisation, or synonyms?
+
+We can quickly return unique values using `distinct()` from dplyr.
+
+```{r}
+birds |>
+  select(scientificName) |>
+  distinct()
+```
+
+Sometimes it's also useful to see their count.
+
+```{r}
+birds |>
+  group_by(scientificName) |>
+  count()
+```
+
+The above output suggests there are genus *and* species names in the `scientificName` column. This might happen when a species is only identified to the genus level (e.g., `"Todiramphus"`) but not the species level (e.g.,
+`"Todiramphus (Todiramphus) sanctus"`). We can also see that some names like `ALCEDINIDAE` have different capitalisation to other names, which could cause problems with matching later on.
+
+
+#### Data distribution & outliers:
+
+Is the data in numeric columns (i.e., of class `numeric`,
+`double` or `integer`) distributed how we expect? Do they fall in the range we expect
+them to? Are there any noticeable outliers?
+
+To check, we can quickly plot the distribution of our longitude and longitude columns using ggplot2.
+
+```{r}
+#| layout-ncol: 2
+birds |>
+  select(decimalLongitude) |>
+  ggplot(aes(x = decimalLongitude)) + 
+  geom_density(fill="#69b3a2",
+               alpha=0.8)
+
+birds |>
+  select(decimalLatitude) |>
+  ggplot(aes(x = decimalLatitude)) + 
+  geom_density(fill="#69b3a2",
+               alpha=0.8)
+```
+
+Distributions can help you get the sense of the spread of your data. Take note
+of any unexpected values to investigate further.
 
 
 ## Next steps
 
-Keep in mind, we don't expect a perfect dataset from a download. The goal of an
-initial inspection is to assess whether the download returned results in line
-with your expections based on your query. Some issues are expected, and may not
-signify an issue with the download itself but rather the actual data. The
-initial inspection is therefore a good opportunity to also start noting these
-issues, as they will be addressed during the cleaning phase. 
+We have just learned some ways to initially inspect our dataset. The goal of an initial inspection is to assess whether the data are in line with our expectations (based on our query or a dataset description). 
 
-Based on your initial findings, consider whether you need to **refine your
-download query**. Perhaps you uncovered some additional metadata fields during
-your metadata inspection, and would like to adjust your query to include them.
-Or maybe you noticed missing data in specific time frames or locations that you
-expected from your query, or missing metadata fields. This could mean you need
-to adjust your download query parameters or investigate those issues further. 
+Keep in mind, we don't expect everything in our dataset to be perfect. Some issues are expected, and may reveal that there are issues with our query or with the data themselves. The
+initial inspection is a good opportunity to get an idea of where these issues might be and how serious they are.
 
-When you are satisfied that the dataset is largely as expected, you are ready to
-move onto the data cleaning section. If you are working with multiple datasets
-from different sources, the next chapter will cover integration of datasets.
+Based on your initial findings, you might need to **refine your
+download query**. You might even need to find a new dataset. When you are satisfied that the dataset is largely as expected, you are ready to start summarising your data.

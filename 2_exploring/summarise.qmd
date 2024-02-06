@@ -1,6 +1,443 @@
 # Summarise
 
-This chapter could ideally contain some common ways to explore data in the three domains that the "Data Scope" chapter was divided into: Taxonomic, Temporal, Spatial.
+In the last chapter, we learned how to see a brief glimpse of our data's structure, including how many rows there are, what columns there are, and where there might be missing data.
 
-I think examples of ways to check counts and visualise these 3 data types is plenty. It's worth quickly mentioning, too, that galah and (i assume) other packages that use APIs can get count summaries prior to downloading data (which is good practice).
+In this chapter, we learn how to do make relevant summaries for ecological data. These summaries will fall within three domains: **Taxonomic**, **Temporal** and **Spatial**. Summarising our data will help us see the diversity in our dataset, learn more about its scope, and determine whether it is the right dataset for our analysis.
+
+Over this chapter there are many places where we can use the galah package to summarise our data. The galah package can summarise data on the server-side, prior to downloading any data locally onto your computer. The benefit to doing these summaries server-side is that you can work with data without the need to have a large dataset on your local computer first. 
+
+We will show how to use galah (prior to download) or dplyr (after a download) when both options are available.
+
+### Prerequisite
+
+```{r prereq}
+#| message: false
+#| warning: false
+#| echo: false
+library(ggplot2)
+library(galah)
+library(dplyr)
+library(tidyr)
+library(janitor)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  select(group = "basic", 
+         family, genus, species, cl22, eventDate, month) |>
+  atlas_occurrences()
+```
+
+```{r}
+#| eval: false
+# packages
+library(ggplot2)
+library(galah)
+library(dplyr)
+library(tidyr)
+library(janitor)
+
+# data: Kingfisher records from 2023
+galah_config(email = "your-email-here") # ALA Registered email
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  select(group = "basic", 
+         family, genus, species, cl22, eventDate, month) |>
+  atlas_occurrences()
+```
+
+
+## Taxonomic
+
+### Counts
+
+Prior to downloading occurrences, it can be useful to summarise the number of records...
+
+```{r}
+galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  atlas_counts()
+```
+
+...and break them down by a taxonomic clade like genus...
+
+```{r}
+galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  group_by(genus) |>
+  atlas_counts()
+```
+
+...or species.
+
+```{r}
+galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  group_by(species) |>
+  atlas_counts()
+```
+
+
+You can get the same summaries after downloading the data locally as well.
+
+:::{.panel-tabset .nav-pills}
+#### dplyr
+
+```{r}
+# Using our pre-downloaded dataset
+birds |>
+  group_by(genus) |>
+  count() |>
+  arrange(desc(-n))
+
+birds |>
+  group_by(species) |>
+  count() |>
+  arrange(desc(-n))
+```
+
+
+#### janitor
+
+```{r}
+# Using our pre-downloaded dataset
+birds |>
+  tabyl(genus) |>
+  adorn_pct_formatting()
+
+birds |>
+  tabyl(species) |>
+  adorn_pct_formatting()
+```
+:::
+
+Our results show that the large majority of records are of *Dacelo novaeguineae* (aka the Laughing Kookaburra).
+
+## Spatial
+
+Next, we can investigate the spatial range of our data. 
+
+### Summarise by region
+
+It can be useful to summarise occurrence numbers by a specific region. In galah, you can do this prior to downloading your data.
+
+For example, you might wish to summarise your data by state/territory. We can search for the correct field to use in galah, determining that field ID `cl22` seems to suit our needs best.
+
+```{r}
+search_all(fields, "states")
+```
+
+Now we can use the field ID `cl22` to group our counts.
+
+```{r}
+galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  group_by(cl22) |>
+  atlas_counts()
+```
+
+We can also group our counts by state/territory and a taxonomic rank like genus.
+
+```{r}
+galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  group_by(cl22, genus) |>
+  atlas_counts()
+```
+
+You can get the same summaries after downloading the data locally as well.
+
+:::{.panel-tabset .nav-pills}
+#### dplyr
+
+```{r}
+# Using our pre-downloaded dataset
+birds |>
+  group_by(cl22) |>
+  count() |>
+  arrange(desc(n))
+
+birds |>
+  group_by(species, cl22) |>
+  count() |>
+  arrange(desc(n))
+```
+
+
+#### janitor
+
+```{r}
+# Using our pre-downloaded dataset
+birds |>
+  tabyl(cl22) |>
+  adorn_pct_formatting()
+
+birds |>
+  tabyl(species, cl22) |>
+  adorn_pct_formatting()
+```
+:::
+
+
+### Maps
+
+We can use maps to visually summarise our data. To do so, we will use the sf package to handle spatial data, and the ozmaps package to get maps of Australia (as [vector data](described in earlier chapter xxxadd link)).
+
+```{r}
+#| message: false
+#| warning: false
+library(sf)
+library(ozmaps)
+```
+
+### Point map
+
+The easiest way to get a spatial summary is to create a quick map of observations.
+
+First we will get a map of Australia using the ozmaps package. We will also transform its Coordinate Reference System (CRS)[^1] projection to EPSG:4326 to match the CRS projection of ALA data[^2].
+
+[^1]: The Coordinate Reference System (CRS) determines how to display our shape of Australia, which exists on a spherical globe (the Earth), onto a flat surface (our map).
+
+[^2]: Data from the ALA use EPSG:4326 (also known as “WGS84”) as the Coordinate Reference System. We will transform to this projection many times over the entirety of this booklet.
+
+```{r}
+# Get map of australia, and transform projection
+aus <- ozmaps::ozmap_states |>
+  st_transform(crs = st_crs(4326))
+```
+
+Then we can plot our occurrence points onto our map.
+
+```{r}
+# Plot the observations on our map of Australia
+ggplot() +
+  geom_sf(data = aus, 
+          colour = "grey60", 
+          fill = "white") +
+  geom_point(data = birds,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude),
+             colour = "#428afe",
+             size = 1.8, 
+             alpha = 0.6) +
+  theme_void()
+```
+
+Already we see that there are some extreme outliers in our data. Let's filter records to within the Australian land using latitude and longitude, then plot our map again.
+
+```{r}
+birds_filtered <- birds |>
+  filter(decimalLongitude > 110,
+         decimalLongitude < 155, 
+         decimalLatitude > -45,
+         decimalLatitude < -10)
+
+# Plot the observations on our map of Australia
+ggplot() +
+  geom_sf(data = aus, 
+          colour = "grey60", 
+          fill = "white") +
+  geom_point(data = birds_filtered,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude),
+             colour = "#428afe",
+             size = 1.8, 
+             alpha = 0.6) +
+  theme_void()
+```
+
+### Visualise overlapping points
+
+With over 40,000 points plotted on our map, it can be hard to see every single point, or where many points overlap.
+
+We can use the [ggpointdensity package](xxxadd link) as one way to visualise locations where there are many occurrences and few occurrences.
+
+```{r}
+#| warning: false
+#| message: false
+library(ggpointdensity)
+library(viridis) # colour palette
+
+ggplot() +
+  geom_sf(data = aus, 
+          colour = "grey60", 
+          fill = "white") +
+  geom_pointdensity(data = birds_filtered,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude),
+             size = 1.8, 
+             alpha = 0.6) +
+  scale_colour_viridis_c(option = "F",     # palette
+                         end = .8,         # final light colour value
+                         direction = -1) + # reverse light-to-dark
+  guides(
+    colour = guide_colourbar(
+      title = "Number of\noverlapping\nobservations")
+    ) +
+  theme_void()
+```
+
+### Map by taxonomic groups
+
+Another useful breakdown is by taxonomic group or species. Visualising by groups can reveal spatial trends or reveal outliers. It can also help you determine whether there is enough data for each species or taxonomic group for your later analyses.
+
+#### Facetted map
+
+```{r}
+ggplot() +
+  geom_sf(data = aus, 
+          colour = "grey60", 
+          fill = "white") +
+  geom_point(data = birds_filtered |> 
+               drop_na(species), # remove NA values 
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude,
+                 colour = species),
+             size = 1.8, 
+             alpha = 0.6) +
+  pilot::scale_color_pilot() +
+  theme_void() + 
+  facet_wrap( ~ species) + 
+  theme(legend.position = "none")
+```
+
+Consider whether each species possesses enough data to inform later analyses accurately. Some species may need to be removed, or you may need to group by a higher taxonomic level (e.g., genus).
+
+<!-- This second plot might not be necessary? --> 
+
+```{r}
+ggplot() +
+  geom_sf(data = aus, 
+          colour = "grey60", 
+          fill = "white") +
+  geom_point(data = birds_filtered |> 
+               drop_na(species), # remove NA values,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude,
+                 colour = genus),
+             size = 1.8, 
+             alpha = 0.6) +
+  pilot::scale_color_pilot() +
+  theme_void() + 
+  facet_wrap( ~ genus) + 
+  theme(legend.position = "none")
+```
+
+
+
+## Temporal
+
+Next we'll investigate the temporal range of our data.
+
+### Summarise by time scales
+
+Knowing the breakdown of when occurrence records are recorded can reveal trends in seasonality between species. Checking this breakdown can also help you determine whether you have enough data to make inferences about patterns over the span of a year, or whether you're inferences about temporal trends are limited by the amount of data.
+
+#### Year
+
+For example, an easy first summary is to know the number of records in each year. You can do this in galah prior to download data. We can search for the correct field to use in galah, determining that field ID `year` seems to suit our needs best.
+
+```{r}
+search_all(fields, "year")
+```
+
+Now we can use the field ID `year` to group our counts, returning years since 2016.
+
+```{r}
+galah_call() |>
+  identify("alcedinidae") |>
+  filter(year > 2016) |>
+  group_by(year) |>
+  atlas_counts()
+```
+
+You can summarise after downloading counts locally, too. With the help of the lubridate package, we'll convert our column `eventDate` to a `date` class in R. Then we can extract date data relevant to our specific summary.
+
+```{r}
+#| message: false
+#| warning: false
+# Using our pre-downloaded dataset
+library(lubridate)
+
+birds_date <- birds |>
+  mutate(eventDate = date(eventDate), # convert to date
+         year = year(eventDate),      # extract year
+         month = month(eventDate,     # extract month
+                       label = TRUE)) 
+
+birds_date |>
+  select(scientificName, eventDate, year, month, everything())
+```
+
+
+:::{.panel-tabset .nav-pills}
+#### dplyr
+
+```{r}
+# by year
+birds_date |>   
+  group_by(year) |>
+  count()
+```
+
+Our results show that a few observations a squeezed in from 2022 that we might need to remove later on.
+
+
+#### janitor
+
+```{r}
+# Using our pre-downloaded dataset
+birds_date |>
+  tabyl(year) |>
+  adorn_pct_formatting()
+
+birds_date |>
+  tabyl(species, cl22) |>
+  adorn_pct_formatting()
+```
+:::
+
+
+#### Month
+
+We can also get counts by month.
+
+:::{.panel-tabset .nav-pills}
+
+#### galah
+
+#### dplyr
+
+```{r}
+birds_date |>
+  group_by(month) |>
+  count() |>
+  arrange(-desc(month))
+```
+
+```{r}
+birds_date |>
+  group_by(month, genus) |>
+  count() |>
+  arrange(-desc(month))
+```
+
+#### janitor
+
+:::
+
+#### Day line plot
+
+<!-- This will be a quick line plot grouped by day or week. Might be good to use `facet_wrap()` too--> 
+
+
+## Summary
 

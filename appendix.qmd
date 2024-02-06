@@ -84,3 +84,9 @@ Questions like these will help you define what data is most relevant for your
 research question, and help you begin to think about how much evidence
 available, and the trade-offs you might make between the specificity of your
 question and the certainty of your answer.
+
+## galah
+
+### Searching for fields
+
+

@@ -1,5 +1,5 @@
 ---
-number-depth: 2
+number-depth: 3
 editor: 
   markdown: 
     wrap: 80
@@ -38,6 +38,8 @@ library(tidyterra)
 Open-source data are data made openly accessible for editing and use, licensed
 under [an open license](https://creativecommons.org/about/open-data/). The
 following are some places where you can find open-source data.
+
+### Biodiversity data
 
 ::: {.panel-tabset .nav-pills}
 #### Living Atlases
@@ -106,7 +108,7 @@ sources in your download. You can directly contact data providers to ensure the
 data hasn't been pre-filtered before downloading.
 :::
 
-## Spatial data
+### Spatial data
 
 Spatial data contain information that corresponds to an area on the globe and
 can be plotted onto a map. Spatial data can be represented as vector or raster
@@ -148,8 +150,8 @@ ggplot() +
 #### Rasters
 
 **Rasters** are data for drawing a layer of data values over a gridded area.
-They contain values of a variable (like temperature) for each pixel of a grid.
-Each part of the grid represents a square area (e.g., 1 km^2^), and just like
+They contain values of a variable (like temperature) for each pixel of a grid, and
+Each pixel of the grid represents a square area (e.g., 1 km^2^). Just like
 how the smaller each pixel is on a TV screen the higher its definition, the
 smaller each square is in a raster layer the higher its resolution.
 
@@ -175,7 +177,10 @@ worldclim <- worldclim_country(
 worldclim
 ```
 
+<!-- We need a smaller solution to the below code. But ideally, we'll have an example of a raster over Australia -->
+
 ```{r}
+#| eval: false
 #| echo: false
 #| warning: false
 #| message: false
@@ -189,6 +194,7 @@ worldclim
 ...and what it looks like when plotted with ggplot2.
 
 ```{r}
+#| eval: false
 ggplot() + 
   geom_spatraster(data = worldclim,
                   mapping = aes(fill = wc2.1_30s_bio_1)) +
@@ -234,9 +240,26 @@ contents of an unzipped folder containing a shapefile:
 
 ![A folder containing the shapefile for local government
 areas](images/example_shapefile-folder.png)
+
+They are then read into R using a function like `st_read()` from the sf package.
+
+```{r}
+#| eval: false
+library(sf)
+library(rmapshaper)
+
+shapefile <- st_read(here("path",
+                          "to",
+                          "shapefile.shp"),
+                     quiet = TRUE) |>
+  ms_simplify(keep = 0.1) # <1>
+```
+1. Many shapefiles are a large file size. `ms_simplify()` from the rmapshaper package simplifies the shapefile by reducing the number of points that make up the polygon while maintaining its overall shape. This is a handy way to reduce the size of your shapefile in R.
+
+
 :::
 
-## Taxonomic data
+### Taxonomic data
 
 Taxonomy is a complex and broad field of investigation. A comprehensive look
 into taxonomy is well outside the scope of this book. However, It's a good idea
@@ -262,7 +285,7 @@ Here are some examples of where to find Australian taxonomic information.
 | [The Australian Plant Name Index (APNI)](https://www.anbg.gov.au/apni/)       | A tool for the botanical community containing accepted scientific names of plants              |
 | [The Australian Plant Census]()                                               | Contains the currently accepted scientific names for Australian vascular flora.                |
 
-## Trait data
+### Trait data
 
 Trait data contains measurements of organisms' morphological or behavioural
 traits (e.g., stem length, leaf size, egg size, migratory distance, soil
@@ -297,9 +320,9 @@ help you select one (or more!) that align with your specific needs.
 data like occurrences, counts, species and media (e.g., images & sounds) from
 the Living Atlases and GBIF.
 
-In the majority of examples we will be using the `galah` package for download
-queries. One benefit of using `galah` is that it uses tidy syntax (much like the
-tidyverse) to download data. Additionally, galah can access data from 10 other
+In the majority of examples over this book we will be using the `galah` package. 
+One benefit of using `galah` is that it uses tidy syntax (much like dplyr) to 
+edit & filter download queries. Additionally, galah can access data from 10 other
 Living Atlases and GBIF.
 
 ```{r}

@@ -6,9 +6,9 @@ editor_options:
 
 # Exploring biodiversity data
 
-[previously called Data Scope]
+This section details how to get an initial glimpse of your dataset, explore its structure, and create summaries of the different types of data within it.
 
-This section details how to explore your dataset, create summaries of your dataset's structure and the different types of data within it.
+*Click on the buttons to jump to a section*
 
 
 ::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
