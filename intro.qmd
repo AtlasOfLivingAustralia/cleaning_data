@@ -1,6 +1,9 @@
 ---
-output: html_document
-editor: source
+output: 
+  html_document
+editor: 
+  markdown: 
+    wrap: 72
 editor_options: 
   chunk_output_type: console
 bibliography: references.bib 
@@ -13,290 +16,308 @@ df-print: kable
 
 > "Garbage in, garbage out" - George Fuechsel, IBM computer programmer
 
+::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
+::: highlight-rectangle
+:::
+:::
 
 ::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
-
 ::: {style="width: 25%; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa download size=3x >}}](1_accessing/where-to-get-data.html)
-</div>
+::: circle-button
+[{{< fa download size=3x >}}](1_accessing/where-to-get-data.html)
+:::
+
 [**Download**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa table size=3x >}}](2_exploring/inspect.html)
-</div>
+::: circle-button
+[{{< fa table size=3x >}}](2_exploring/inspect.html)
+:::
+
 [**Glimpse**]{style="color: #efa123; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa diagram-next size=3x >}}](3_cleaning_general/duplicates.html)
-</div>
+::: circle-button
+[{{< fa diagram-next size=3x >}}](3_cleaning_general/duplicates.html)
+:::
+
 [**Duplicates**]{style="color: #efa123; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa user-secret size=3x >}}](3_cleaning_general/missing-values.html)
-</div>
-[**Missing values**]{style="color: #efa123; text-align: center;"}
+::: circle-button
+[{{< fa user-secret size=3x >}}](3_cleaning_general/missing-values.html)
 :::
 
+[**Missing values**]{style="color: #efa123; text-align: center;"}
+:::
 :::
 
 ::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
-
 ::: {style="width: 25%; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa spell-check size=3x >}}](3_cleaning_general/unexpected-values.html)
-</div>
+::: circle-button
+[{{< fa spell-check size=3x >}}](3_cleaning_general/unexpected-values.html)
+:::
+
 [**Unexpected values**]{style="color: #efa123; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa quote-right size=3x >}}](3_cleaning_general/strings.html)
-</div>
+::: circle-button
+[{{< fa quote-right size=3x >}}](3_cleaning_general/strings.html)
+:::
+
 [**Strings**]{style="color: #efa123; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa calendar-days size=3x >}}](3_cleaning_general/dates.html)
-</div>
+::: circle-button
+[{{< fa calendar-days size=3x >}}](3_cleaning_general/dates.html)
+:::
+
 [**Dates**]{style="color: #efa123; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa table size=3x >}}](3_cleaning_general/column-names-and-classes.html)
-</div>
-[**Column names + classes**]{style="color: #efa123; text-align: center;"}
+::: circle-button
+[{{< fa table size=3x >}}](3_cleaning_general/column-names-and-classes.html)
 :::
 
+[**Column names +
+classes**]{style="color: #efa123; text-align: center;"}
+:::
 :::
 
 ::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
-
 ::: {style="width: 25%; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa list-check size=3x >}}](4_cleaning_expert/taxonomic-synonyms.html)
-</div>
-[**Name matching**]{style="color: #efa123; text-align: center; font-size: 15.5px"}
+::: circle-button
+[{{< fa list-check size=3x >}}](4_cleaning_expert/taxonomic-synonyms.html)
+:::
+
+[**Name
+matching**]{style="color: #efa123; text-align: center; font-size: 15.5px"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa mosquito size=3x >}}](4_cleaning_expert/taxonomy.html)
-</div>
+::: circle-button
+[{{< fa mosquito size=3x >}}](4_cleaning_expert/taxonomy.html)
+:::
+
 [**Taxonomy**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa earth-oceania size=3x >}}](4_cleaning_expert/geospatial.html)
-</div>
-[**Geospatial data**]{style="color: #efa123; font-size: 14px; text-align: center;"}
+::: circle-button
+[{{< fa earth-oceania size=3x >}}](4_cleaning_expert/geospatial.html)
+:::
+
+[**Geospatial
+data**]{style="color: #efa123; font-size: 14px; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa boxes-packing size=3x >}}](4_cleaning_expert/outliers.html)
-</div>
+::: circle-button
+[{{< fa boxes-packing size=3x >}}](4_cleaning_expert/outliers.html)
+:::
+
 [**Outliers**]{style="color: #efa123; text-align: center;"}
 :::
-
 :::
 
+::: {.callout-tip style="font-size: 40px;"}
 
+## Key points:
 
+-   Ecological researchers and resource management teams often combine
+    varied large biodiversity datasets, needing to reformat and quality
+    control them.
 
+-   The understanding of “clean” data varies – and, you might not need
+    to follow steps sequentially (though it can be a good for beginners)
 
+-   Programming languages are some of the most commonly used to clean
+    large sets of ecological data, but they can be intimidating. This
+    book aims to be a tool book for researchers and decision makers with
+    little experience.
+    
+:::
 
+Where species are (or have been) at points in time is valuable
+information to ecological researchers and managers. This data is used
+regularly to answer important questions about where they might end up in
+the future, how to best conserve them, or to control invasive species.
 
+Because of its’ spatial and temporal scale, ecological scientists often
+combine large amounts of species data from different sources to address
+their research questions. As data from different places vary in
+structure, formatting, and quality, correctly collating them can be
+challenging and time consuming. Formatting errors, spelling errors,
+taxonomic inconsistencies and spatial errors are some of the most common
+problems.
 
-There is an ever growing interest and need in understanding spatial and temporal
-patterns of biodiversity across the globe. To this end, georeferenced
-biodiversity data are often used for a variety of ecological questions, such as
-in species species distribution modelling, conservation planning, and invasive
-species monitoring to name a few. 
+It is important to note that the definition of ‘clean’ ecological data
+varies depending on the project and data sources, and as such, there is
+no ‘one-size-fits-all’ approach. Regardless, there are some common
+processes and concepts that can be applied to many data cleaning
+workflows. Completing these cleaning steps in order is optional and will
+be dependent on what stage your data is at.
 
-Open source biodiversity datasets are widely available online, which are
-invaluable and often essential resources for such investigations. However, it is
-well known in many scientific disciplines that inputting flawed or nonsensical
-data produces an output of similar quality. In ecology and biodiversity
-research, scientists are particularly at risk of unintentionally using poor data
-because they **often bring together large amounts of data from many sources to
-address their research questions.** Data from different sources vary widely in
-their **structure, formatting and quality**. As a result, correctly collating
-and combining them can be both challenging and time consuming. Besides this,
-georeferenced biodiversity data itself can pose several challenges, as issues
-can range from simple formatting errors, to taxonomic inconsistencies and
-spatial errors. 
+Data cleaning processes typically require the use of a programming
+language which can be a barrier of entry for many. Code to clean data
+also varies, and you might find different solutions elsewhere to achieve
+the same result. This book hopes to be a resource is to assist
+researchers and decision makers that may have limited experience with
+cleaning geo-referenced biodiversity data in using a programming
+language to clean biodiversity data with the simplest prompts possible.
 
-Biodiversity data aggregation services employ automated quality control
-procedures to identify and flag potential errors. However, these services deal
-with high volumes of data, and not all issues can be identified. Therefore it is
-always recommoneded that users of biodiversity data **perform their own quality
-control** before using any open source biodiversity data in their research.  
-
-**Data cleaning**, the process of identifying and fixing incompatible, incorrect
-or doubtful data, is therefore an essential step in ecology and biodiversity
-research. Employing suitable data cleaning procedures will improve both data quality
-and the validity of scientific findings [@rodrigues_species_2022]. These
-producures tpyically involve exploring, detecting, and correcting data that may
-be erroneous, poorly formatted, or unsuitable for your project. The definition
-of 'clean' data varies depending on the project and data sources, and
-as such there is no 'one-size-fits-all' approach. Nevertheless, there are some
-common processes and concepts that can be applied to many data cleaning
-workflows. 
-
-These cleaning processes typically require the use of a programming language,
-which can be a barrier of entry for many. Therefore, our goal in creating this
-resource is to assist researchers and decision makers that may have limited
-experience with cleaning geo-referenced biodiversity data using a programming
-language.
-
-The content of this book was informed by the current state of biodiversity
-literature surrounding data preparation for species distribution modelling. For
-more details about how this was done, please refer to the
-[Appendix](appendix.qmd). All resources that were used can be found in the
-[References](references.qmd) page. 
+All resources that were used can be found in the References page.
 
 ## Who is this book for? {.unnumbered}
 
-If you are new to working with biodiversity data in R, or hoping to add some
-tips and code examples to your toolbox, then this book is for you. By learning
-how to download and apply common data cleaning steps, you will also develop a
-better understanding of biodiversity data itself, and the common issues to be
-aware of. 
+If you are new to working with biodiversity data in R, or hoping to add
+some tips and code examples to your toolbox, then this book is for you.
+By learning how to download and apply common data cleaning steps, you
+will also develop a better understanding of biodiversity data itself,
+and the common issues to be aware of.
 
-We use R as it is commonly used across ecological projects, and has a rich
-ecosystem of packages for data cleaning and visualisation. A basic familiarity
-with the language is recommended.
+We use R as it is commonly used across ecological projects, and has a
+rich ecosystem of packages for data cleaning and visualisation. A basic
+familiarity with the language is recommended.
 
 ## What this book covers {.unnumbered}
 
-In this book, we provide an overview of a typical data cleaning workflow for
-cleaning open-access georeferenced biodiversity data - from acquisition,
-identifying potential errors, to correction. These processes are broken down
-into three sections. The chapters whithin each section include practical
-guidelines, example R code, and additional resources that may aid with each data
-cleaning step. An overview of the three sections and what they cover:
+In this book, we provide an overview of a typical data cleaning workflow
+for cleaning open-access georeferenced biodiversity data - from
+acquisition, identifying potential errors, to correction. These
+processes are broken down into three sections. The chapters whithin each
+section include practical guidelines, example R code, and additional
+resources that may aid with each data cleaning step. An overview of the
+three sections and what they cover:
 
-- **Data scope** 
-  - What is data scope?
-  - How to determine the termporal, taxonomic, and spatial scope of available
-  data for your study 
-- **Accessing data** 
-  - Where to get data from?
-  - How to download data using R
-  - How to refine download queries
-  - First steps in data inspection
-- **Data cleaning** 
-  - String manipulation
-  - Taxonomic standardisation (synonyms, naming authorities, duplicates)
-  - Spatial data cleaning
-  - Outlier detection
-
-::: {.callout-warning appearance="simple"} 
-
-**There is no one size fits all workflow**.
-
-Data cleaning steps are frequently completed in entirely different orders. As
-such, this book should be regarded as just one example of a data cleaning
-workflow, rather than a strict framework. It does not need to be used in a
-linear fashion, although some steps may logically preceed others, or may need to
-be revisited after completing another. Nevertheless, if you are just stating out
-in this domain, working through the book sequentially is a great way to get
-started.
-
-:::
+-   **Data scope**
+    -   What is data scope?
+    -   How to determine the termporal, taxonomic, and spatial scope of
+        available data for your study
+-   **Accessing data**
+    -   Where to get data from?
+    -   How to download data using R
+    -   How to refine download queries
+    -   First steps in data inspection
+-   **Data cleaning**
+    -   String manipulation
+    -   Taxonomic standardisation (synonyms, naming authorities,
+        duplicates)
+    -   Spatial data cleaning
+    -   Outlier detection
 
 ## What we don't cover {.unnumbered}
 
-The areas of research and uses of biodiversity data are many and varied. Here we
-have focused on just one facet - downloading and cleaning georeferenced
-occurrence / biodiversity data. As such, this book will not cover:
+The areas of research and uses of biodiversity data are many and varied.
+Here we have focused on just one facet - downloading and cleaning
+georeferenced occurrence / biodiversity data. As such, this book will
+not cover:
 
-- Hypothesis testing or experimental design
-- How to clean environmental data that is not occurrence / biodiversity data (e.g. trait data) 
-- How to perform analyses (e.g. species distribution modelling) 
+-   Hypothesis testing or experimental design
+-   How to clean environmental data that is not occurrence /
+    biodiversity data (e.g. trait data)
+-   How to perform analyses (e.g. species distribution modelling)
 
 ## Requirements {.unnumbered}
 
 ### User accounts
 
-We will be working with point-based species occurrence data retrieved from
-online infrastructures such as [Global Biodiversity Information
+We will be working with point-based species occurrence data retrieved
+from online infrastructures such as [Global Biodiversity Information
 Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living
-Australia](https://www.ala.org.au/) (ALA). To retrieve data from these services,
-you will need to create a user account, if you do not already have one.
+Australia](https://www.ala.org.au/) (ALA). To retrieve data from these
+services, you will need to create a user account, if you do not already
+have one.
 
-- [Atlas of Living Australia account creation](https://auth.ala.org.au/userdetails/registration/createAccount)
-- [Global Biodiversity Information Facility account creation](https://www.gbif.org/user/profile)
-
+-   [Atlas of Living Australia account
+    creation](https://auth.ala.org.au/userdetails/registration/createAccount)
+-   [Global Biodiversity Information Facility account
+    creation](https://www.gbif.org/user/profile)
 
 ### R
 
-To get the most out of this book, a basic knowledge of using R and RStudio is
-recommended. If you are new to R or need a refresher, there are many high
-quality and freely available resources available online. [Data Analysis and
-Visualisation in R for Ecologists](https://datacarpentry.org/R-ecology-lesson/),
-and [R for Data Science](https://r4ds.had.co.nz/index.html) are both excellent
+To get the most out of this book, a basic knowledge of using R and
+RStudio is recommended. If you are new to R or need a refresher, there
+are many high quality and freely available resources available online.
+[Data Analysis and Visualisation in R for
+Ecologists](https://datacarpentry.org/R-ecology-lesson/), and [R for
+Data Science](https://r4ds.had.co.nz/index.html) are both excellent
 starting points.
 
-Download R from [CRAN](https://cloud.r-project.org/), selecting the version that
-matches your operating system, and install it on your device.
+Download R from [CRAN](https://cloud.r-project.org/), selecting the
+version that matches your operating system, and install it on your
+device.
 
 ### RStudio
 
-RStudio is an integrated development environment (IDE) for R programming. R
-studio provides a range of tools to make working with R easier, and you can
-download and install RStudio for your operating system [here](https://posit.co/download/rstudio-desktop/).
+RStudio is an integrated development environment (IDE) for R
+programming. R studio provides a range of tools to make working with R
+easier, and you can download and install RStudio for your operating
+system [here](https://posit.co/download/rstudio-desktop/).
 
 ### Packages
 
-We use a range of R packages throughout the book, primarily for data cleaning
-and visualisations. These packages will be noted at the beginning of a code
-block, typically at the start of a chapter. To access biodiversity data we will
-be working with the [`galah`](https://galah.ala.org.au/) package. If you have
-collected your own occurrence data, you should still find this book useful.
+We use a range of R packages throughout the book, primarily for data
+cleaning and visualisations. These packages will be noted at the
+beginning of a code block, typically at the start of a chapter. To
+access biodiversity data we will be working with the
+[`galah`](https://galah.ala.org.au/) package. If you have collected your
+own occurrence data, you should still find this book useful.
 
-- TODO link to the packages page
+-   TODO link to the packages page
 
 ## Conventions {.unnumbered}
 
 Demonstrations and instructions throughout this book are accompanied by
 code blocks. These blocks show how a particular task was executed in R:
 
-```r
+``` r
 # This is a code block with a comment
 library(package)
 plot(data)
 ```
 
-::: {.callout-tip appearance="simple"} 
-
-You can copy code by clicking the button in the top right corner of a code block.  
-
+::: {.callout-tip appearance="simple"}
+You can copy code by clicking the button in the top right corner of a
+code block.
 :::
 
-When performing a sequence of related actions, we use the native R pipe operator
-`|>`. This allows multiple operations to be performed, without needing to save
-the intermediate results to a variable. You can learn more about the pipe in the
-[R for Data Science](https://r4ds.hadley.nz/data-transform.html#sec-the-pipe)
-book. Some code blocks may also be **annotated**, to help explain the sequence
-of steps. See the annotated example below:
+Demonstrations and instructions throughout this book are accompanied by
+code blocks.
+
+You can copy code by clicking the button in the top right corner of a
+code block. These blocks show how a particular task was coded and
+executed in R:
+
+For example, in this book, we use “pipes” in our code (`|>`, and
+sometimes `%>%`).
+
+Pipes allow you to run multiple functions to a piece of data without
+having to save each sequential piece before running the next. An easy
+way to remember how a pipe works in coding language is to read it as
+“and then”.
+
+Some code blocks may also be annotated with numbers to help explain the
+sequence of steps. See an annotated example below using commands from
+the `dplyr` package.
 
 ```{r}
-# This is a code block with annotation
+# This is a code block with comment and numbered annotations
 mtcars |> # <1>
    dplyr::group_by(cyl) |> # <2>
    dplyr::summarise(mpg = mean(mpg)) # <3>
 ```
-1. Using the pipe operator to pass the `mtcars` data frame to the `group_by()` function
-2. Grouping the data frame by the `cyl` variable
-3. Print a summary of the filtered data frame using the `summarise()` function
+
+1.  Using the pipe operator to pass the `mtcars` data frame to the
+    `group_by()` function
+
+2.  Grouping the data frame by the `cyl` variable
+
+3.  Print a summary of the filtered data frame using the `summarise()`
+    function
