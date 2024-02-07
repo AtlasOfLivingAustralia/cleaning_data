@@ -19,11 +19,14 @@ library(galah)
 library(dplyr)
 library(tidyr)
 library(janitor)
-galah_config(email = Sys.getenv("ALA_EMAIL"),
-             verbose = FALSE)
+galah_config(email = "oliviajane.t@hotmail.com")
+  
+  #email = Sys.getenv("ALA_EMAIL"),
+             #verbose = FALSE)
+
 birds <- galah_call() |>
   identify("alcedinidae") |>
-  filter(year == 2023) |>
+  filter(year == 2022) |>
   select(group = "basic", 
          family, genus, species, cl22, eventDate, month) |>
   atlas_occurrences()
@@ -43,7 +46,7 @@ galah_config(email = "your-email-here") # ALA Registered email
 
 birds <- galah_call() |>
   identify("alcedinidae") |>
-  filter(year == 2023) |>
+  filter(year == 2022) |>
   select(group = "basic", 
          family, genus, species, cl22, eventDate, month) |>
   atlas_occurrences()
@@ -59,7 +62,7 @@ Prior to downloading occurrences, it can be useful to summarise the number of re
 ```{r}
 galah_call() |>
   identify("alcedinidae") |>
-  filter(year == 2023) |>
+  filter(year == 2022) |>
   atlas_counts()
 ```
 
@@ -68,7 +71,7 @@ galah_call() |>
 ```{r}
 galah_call() |>
   identify("alcedinidae") |>
-  filter(year == 2023) |>
+  filter(year == 2022) |>
   group_by(genus) |>
   atlas_counts()
 ```
@@ -78,7 +81,7 @@ galah_call() |>
 ```{r}
 galah_call() |>
   identify("alcedinidae") |>
-  filter(year == 2023) |>
+  filter(year == 2022) |>
   group_by(species) |>
   atlas_counts()
 ```
@@ -138,7 +141,7 @@ Now we can use the field ID `cl22` to group our counts.
 ```{r}
 galah_call() |>
   identify("alcedinidae") |>
-  filter(year == 2023) |>
+  filter(year == 2022) |>
   group_by(cl22) |>
   atlas_counts()
 ```
@@ -148,7 +151,7 @@ We can also group our counts by state/territory and a taxonomic rank like genus.
 ```{r}
 galah_call() |>
   identify("alcedinidae") |>
-  filter(year == 2023) |>
+  filter(year == 2022) |>
   group_by(cl22, genus) |>
   atlas_counts()
 ```
@@ -332,7 +335,6 @@ ggplot() +
 ```
 
 
-
 ## Temporal
 
 Next we'll investigate the temporal range of our data.
@@ -371,7 +373,7 @@ birds_date <- birds |>
   mutate(eventDate = date(eventDate), # convert to date
          year = year(eventDate),      # extract year
          month = month(eventDate,     # extract month
-                       label = TRUE)) 
+                       label = TRUE))
 
 birds_date |>
   select(scientificName, eventDate, year, month, everything())
@@ -388,7 +390,7 @@ birds_date |>
   count()
 ```
 
-Our results show that a few observations a squeezed in from 2022 that we might need to remove later on.
+Our results show that a few observations are squeezed in from 2022 that we might need to remove later on.
 
 
 #### janitor
@@ -414,6 +416,13 @@ We can also get counts by month.
 
 #### galah
 
+```{r}
+birds_date |>   
+  group_by(month) |>
+  count()
+```
+
+
 #### dplyr
 
 ```{r}
@@ -423,20 +432,80 @@ birds_date |>
   arrange(-desc(month))
 ```
 
-```{r}
-birds_date |>
-  group_by(month, genus) |>
-  count() |>
-  arrange(-desc(month))
-```
 
 #### janitor
 
+```{r}
+birds_date |>
+  tabyl(month) |>
+  arrange(desc(month))
+```
 :::
 
 #### Day line plot
 
+As we discovered earlier, our data retrieved eight records from 2022 despite filtering for 2023 only. Let's filter them out here so that we can plot the number of records per day, over the course of one year.  
+
+```{r}
+# filter dataset to 2023 only (excl. the 8 2022 records) & use lubridate to extract day of year
+birds_day <- birds_date |>
+  filter(year(eventDate) == 2022) |>
+  mutate(
+    day_of_year = yday(eventDate))
+birds_day
+```
+
 <!-- This will be a quick line plot grouped by day or week. Might be good to use `facet_wrap()` too--> 
+
+Now we need to count the number of birds per day. We can do this by using {dplyr}'s `group_by` and `sumamrise` function. 
+
+```{r}
+# group by day of year and generate count for each day 
+birds_day <- birds_day |>
+  group_by(day_of_year) |>
+  summarise(count = n()) 
+birds_day
+```
+
+.... and now we can visualise our data. 
+
+```{r}
+ggplot(birds_day, aes(x = day_of_year, y = count)) +
+  geom_line() +  # Add lines
+  geom_point() + # Add points
+  labs(title = "Bird count per day (2022)", x = "Day", y = "Count (log10)") +
+  scale_x_continuous(breaks = seq(1, 365, by = 30)) + 
+  scale_y_log10() +  # Set logarithmic scale for y-axis
+  theme_minimal()  # Set a minimal theme
+```
+
+You also might want to repeat this on a weekly basis. Let's have a look. 
+
+
+```{r}
+birds_week <- birds_date |>
+  filter(year(eventDate) == 2022) |>
+  mutate(
+    week_of_year = week(eventDate)) 
+birds_week
+```
+```{r}
+# group by week of year and generate count for each week 
+birds_week <- birds_week |>
+  group_by(week_of_year) |>
+  summarise(count = n()) 
+birds_week
+```
+
+```{r}
+ggplot(birds_week, aes(x = week_of_year, y = count)) +
+  geom_line() +  # Add lines
+  geom_point() + # Add points
+  labs(title = "Bird count per week (2022)", x = "Week", y = "Count (log10)") +
+  scale_x_continuous(breaks = seq(1, 52, by = 4)) + 
+  scale_y_log10() +  # Set logarithmic scale for y-axis
+  theme_minimal()  # Set a minimal theme
+```
 
 
 ## Summary
