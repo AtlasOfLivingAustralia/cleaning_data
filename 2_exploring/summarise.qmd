@@ -19,10 +19,8 @@ library(galah)
 library(dplyr)
 library(tidyr)
 library(janitor)
-galah_config(email = "oliviajane.t@hotmail.com")
-  
-  #email = Sys.getenv("ALA_EMAIL"),
-             #verbose = FALSE)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
 
 birds <- galah_call() |>
   identify("alcedinidae") |>
