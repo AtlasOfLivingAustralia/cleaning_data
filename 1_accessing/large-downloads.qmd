@@ -9,6 +9,7 @@ The {arrow} package allows users to easily read and write different file formats
 #| warning: false
 library(arrow)
 library(dplyr)
+library(readr)
 ```
 
 Let's start by getting a large dataset: this 2GB biodiversity dataset from the [EcoAssets project](https://ecoassets.org.au) contains 11,619,897 rows of counts of species from 1900-2022. More details are available [here](https://ecoassets.org.au/data/aggregated-data-australian-species-occurrences/). 
@@ -17,14 +18,33 @@ Let's start by getting a large dataset: this 2GB biodiversity dataset from the [
 # figure out a way to direct users to download this dataset somewhere
 ```
 
+**Maybe set up tabs to show dplyr/arrow workflow side by side?**
+
 ```{r}
 # open dataset
-# species_counts <- open_dataset(...)
+species_counts <- open_dataset("data/ecoassets/species_counts.csv", format = "csv")
+
+# vs
+species_counts_small <- read_csv("data/ecoassets/species_counts_small.csv")
 ```
 
 
 ```{r}
 # filter, group_by, summarise, collect
+griis_summary_2000 <- species_counts |> 
+  select(year, griisStatus, speciesName) |> 
+  filter(year == 2000) |>
+  group_by(griisStatus) |> 
+  summarise(unique_species = n()) |> 
+  collect()
+  
+# vs
+griis_summary_2000_small <- species_counts_small |> 
+  select(year, griisStatus, speciesName) |> 
+  filter(year == 2000) |>
+  group_by(griisStatus) |> 
+  summarise(unique_species = n()) 
+
 ```
 
 ```{r}
