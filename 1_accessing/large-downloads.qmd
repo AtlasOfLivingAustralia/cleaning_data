@@ -18,6 +18,15 @@ Let's start by getting a large dataset: this 2GB biodiversity dataset from the [
 # figure out a way to direct users to download this dataset somewhere
 ```
 
+
+```{r}
+# how to get small dataset 
+# just documenting this so I don't forget
+# species_counts |> 
+#   filter(year %in% c(2000:2001)) |>
+#   write_csv_arrow("data/ecoassets/species_counts_small.csv")
+```
+
 **Maybe set up tabs to show dplyr/arrow workflow side by side?**
 
 ```{r}
