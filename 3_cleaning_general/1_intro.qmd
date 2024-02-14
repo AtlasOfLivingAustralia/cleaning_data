@@ -6,7 +6,11 @@ editor_options:
 
 # Cleaning data: General
 
-This section shows tasks and functions that will be frequently used to clean datasets.
+This section will detail some steps and functions to clean a dataset for analysis. **These steps will remove problematic values that are due to the data's formatting**, solved by more general data cleaning tasks. These tasks include removing duplicates, correcting dates, and removing or correcting missing or unexpected values.
+
+The steps in this chapter are not linear, and they don't have to be done in order. Treat this section as more of a checklist. 
+
+Click on the following chapters to get started:
 
 ::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
 

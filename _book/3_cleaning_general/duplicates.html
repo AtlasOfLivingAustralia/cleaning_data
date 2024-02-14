@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.540">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -106,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -376,10 +376,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">7.0.1</span> Prerequisites</a></li>
+  <li><a href="#find-duplicates" id="toc-find-duplicates" class="nav-link" data-scroll-target="#find-duplicates"><span class="header-section-number">7.1</span> Find duplicates</a></li>
+  <li><a href="#remove-duplicates" id="toc-remove-duplicates" class="nav-link" data-scroll-target="#remove-duplicates"><span class="header-section-number">7.2</span> Remove duplicates</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.3</span> Summary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/duplicates.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></a></li></ol></nav>
 <div class="quarto-title">
@@ -400,15 +409,474 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Duplicates records can happen when using aggregated data sources. In this section we will cover detection and handling of duplicate records.</p>
+<p>Duplicated records can happen when using aggregated data sources. Without removing them, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.</p>
+<p>Duplicated records can also happen in individual datasets, and depending on the analyses you wish to run, you might need to remove records that are separate observations of a species but overlap taxonomically, spatially or temporally. Prior to running species distribution models, for example, you often need to remove duplicate records that overlap the same location.</p>
+<p>In this section we will cover detection and handling of duplicate records.</p>
+<section id="prerequisites" class="level3 page-columns page-full" data-number="7.0.1">
+<h3 data-number="7.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">7.0.1</span> Prerequisites</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for duplicate records across the dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># duplicated_records &lt;- merged_data[duplicated(merged_data), ]</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Targeted checks</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># duplicated_records[which(duplicated(merged_data$occurrenceID)), ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># data: Kingfisher records from 2023</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>) <span class="co"># ALA Registered email</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>         family, genus, species, cl22, eventDate, month) <span class="sc">|&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3"><em>Todiramphus (Todiramphus) sanctus</em> perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)</a></p>
+</div>
+</div></div></section>
+<section id="find-duplicates" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="find-duplicates"><span class="header-section-number">7.1</span> Find duplicates</h2>
+<p>Let’s remove any records that have multiple occurrences on the same location, specified by their latitude and longitude coordinates.</p>
+<p>The first thing to do is find the duplicate records.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">janitor</a></li></ul>
+<div class="tab-content nav-pills">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Return the number of duplicates with each set of coordinates.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(decimalLongitude, decimalLatitude) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'decimalLongitude'. You can override using
+the `.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,105 × 3
+# Groups:   decimalLongitude [5,087]
+   decimalLongitude decimalLatitude     n
+              &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;
+ 1             80.5            7.3      3
+ 2             80.6            7.3      6
+ 3            104.             1.31     2
+ 4            115.           -34.1      2
+ 5            115.           -33.8      2
+ 6            115.           -33.7      2
+ 7            115.           -33.6      2
+ 8            115.           -34.0      2
+ 9            115.           -33.9     12
+10            115.           -33.9      2
+# ℹ 5,095 more rows</code></pre>
+</div>
+</div>
+<p>Return duplicated rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 27,052 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 0036fdd3-947e… Todiramphus (… https://biodi…           -35.3             149.
+ 2 006cea57-9ec8… Dacelo (Dacel… https://biodi…           -33.9             151.
+ 3 007a75a3-aba2… Dacelo (Dacel… https://biodi…           -27.5             153.
+ 4 007b39cf-2660… Todiramphus (… https://biodi…           -27.4             153.
+ 5 0090348a-41bb… Todiramphus (… https://biodi…           -27.4             153.
+ 6 009dd9a8-e12b… Todiramphus (… https://biodi…           -27.4             153.
+ 7 00bde3fa-6095… Dacelo (Dacel… https://biodi…           -19.4             147.
+ 8 00e8c718-f305… Dacelo (Dacel… https://biodi…           -31.7             116.
+ 9 00fe93fc-86b9… Dacelo (Dacel… https://biodi…           -27.4             153.
+10 01006006-78b2… Todiramphus (… https://biodi…           -19.2             147.
+# ℹ 27,042 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<!-- I think janitor uses commas like an OR statement, so this returns more rows than dplyr -->
+<!-- Worth including? -->
+<p>Return duplicated rows and the number of duplicates of <code>decimalLatitude</code> OR <code>decimalLongitude</code> (note that this differs from the dplyr example).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_dupes</span>(decimalLatitude, decimalLongitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 32,131 × 14
+   decimalLatitude decimalLongitude dupe_count recordID           scientificName
+             &lt;dbl&gt;            &lt;dbl&gt;      &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;         
+ 1           -27.4             153.        686 00018120-2238-412… Dacelo (Dacel…
+ 2           -27.4             153.        686 007b39cf-2660-415… Todiramphus (…
+ 3           -27.4             153.        686 0090348a-41bb-4f3… Todiramphus (…
+ 4           -27.4             153.        686 009dd9a8-e12b-45d… Todiramphus (…
+ 5           -27.4             153.        686 00fe93fc-86b9-4cd… Dacelo (Dacel…
+ 6           -27.4             153.        686 017e052c-dd85-43d… Todiramphus (…
+ 7           -27.4             153.        686 01bda731-b532-43c… Dacelo (Dacel…
+ 8           -27.4             153.        686 023f2c30-93a9-4d6… Dacelo (Dacel…
+ 9           -27.4             153.        686 03d44a01-7863-469… Todiramphus (…
+10           -27.4             153.        686 03dee6d8-4ae9-46a… Todiramphus (…
+# ℹ 32,121 more rows
+# ℹ 9 more variables: taxonConceptID &lt;chr&gt;, eventDate &lt;dttm&gt;,
+#   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,
+#   species &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Our results show that there are more than 27,000 records that overlap!</p>
+<p>However, given that we have several different species included in our dataset, we may want to preserve when each species occurs in the same location (rather than removing all but one species’ data for each location).</p>
+<p>To filter our duplicates by species, we can first split our data by species…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell output-scroll">
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;list_of&lt;
+  tbl_df&lt;
+    recordID        : character
+    scientificName  : character
+    taxonConceptID  : character
+    decimalLatitude : double
+    decimalLongitude: double
+    eventDate       : datetime&lt;UTC&gt;
+    occurrenceStatus: character
+    dataResourceName: character
+    family          : character
+    genus           : character
+    species         : character
+    cl22            : character
+    month           : double
+  &gt;
+&gt;[11]&gt;
+[[1]]
+# A tibble: 1,936 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 0007f679-255f… Ceyx azureus   https://biodi…           -35.3             149.
+ 2 00237f72-7b95… Ceyx azureus   https://biodi…           -33.6             151.
+ 3 002d4683-fdeb… Ceyx azureus   https://biodi…           -22.8             151.
+ 4 0030b417-ad83… Ceyx azureus   https://biodi…           -23.5             151.
+ 5 005c21b0-3066… Ceyx azureus   https://biodi…           -16.2             145.
+ 6 00671765-ed23… Ceyx azureus   https://biodi…           -36.1             145.
+ 7 0086cd20-926a… Ceyx azureus   https://biodi…           -35.6             150.
+ 8 00a39798-5118… Ceyx azureus   https://biodi…           -17.1             146.
+ 9 00c02d79-58ef… Ceyx azureus   https://biodi…           -16.2             145.
+10 012140cd-fac0… Ceyx azureus   https://biodi…           -33.7             151.
+# ℹ 1,926 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
 
+[[2]]
+# A tibble: 197 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 00b3fbaf-20d1… Ceyx pusillus  https://biodi…           -12.3             131.
+ 2 02ec2065-820c… Ceyx pusillus  https://biodi…           -12.4             131.
+ 3 02f2b1e9-f706… Ceyx pusillus  https://biodi…           -16.9             146.
+ 4 030dd9ae-3f67… Ceyx pusillus  https://biodi…           -12.4             131.
+ 5 03a15b6a-b666… Ceyx pusillus  https://biodi…           -16.9             146.
+ 6 04c838f4-8641… Ceyx pusillus  https://biodi…           -12.4             131.
+ 7 058ef10d-247b… Ceyx pusillus  https://biodi…           -12.6             131.
+ 8 078b046a-9cf3… Ceyx pusillus  https://biodi…           -12.8             143.
+ 9 0791d280-a26c… Ceyx pusillus  https://biodi…           -12.4             131.
+10 0843ea42-367f… Ceyx pusillus  https://biodi…           -16.1             145.
+# ℹ 187 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
+
+[[3]]
+# A tibble: 1,372 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 00085f92-58d1… Dacelo (Dacel… https://biodi…           -14.2             132.
+ 2 005e94f6-d0d7… Dacelo (Dacel… https://biodi…           -12.7             143.
+ 3 0083fbfd-3f14… Dacelo (Dacel… https://biodi…           -17.5             141.
+ 4 00bd28e3-20aa… Dacelo (Dacel… https://biodi…           -13.4             132.
+ 5 00bde3fa-6095… Dacelo (Dacel… https://biodi…           -19.4             147.
+ 6 00c8ff2c-9282… Dacelo (Dacel… https://biodi…           -16.7             146.
+ 7 01462284-b0aa… Dacelo (Dacel… https://biodi…           -12.4             131.
+ 8 01db4718-55f5… Dacelo (Dacel… https://biodi…           -16.5             145.
+ 9 0268d927-927e… Dacelo (Dacel… https://biodi…           -14.5             132.
+10 02712b54-8b8f… Dacelo (Dacel… https://biodi…           -19.4             147.
+# ℹ 1,362 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
+
+[[4]]
+# A tibble: 26,548 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 00018120-2238… Dacelo (Dacel… https://biodi…           -27.4             153.
+ 2 0005aa70-a30f… Dacelo (Dacel… https://biodi…           -25.3             153.
+ 3 0006ff02-853a… Dacelo (Dacel… https://biodi…           -37.9             145.
+ 4 00076c8d-957e… Dacelo (Dacel… https://biodi…           -28.0             153.
+ 5 00080e38-ee2d… Dacelo (Dacel… https://biodi…           -33.1             150.
+ 6 000c7c7c-3603… Dacelo (Dacel… https://biodi…           -38.5             144.
+ 7 000f692d-8013… Dacelo (Dacel… https://biodi…           -19.3             147.
+ 8 000f87c2-9028… Dacelo (Dacel… https://biodi…           -35.3             149.
+ 9 0010012d-435e… Dacelo (Dacel… https://biodi…           -16.8             146.
+10 001021bd-b8f1… Dacelo (Dacel… https://biodi…           -27.5             153.
+# ℹ 26,538 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
+
+[[5]]
+# A tibble: 155 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 0120314d-38b4… Syma torotoro  https://biodi…           -12.6             143.
+ 2 04b2e915-4419… Syma torotoro  https://biodi…           -12.8             143.
+ 3 04d3acf0-acdb… Syma torotoro  https://biodi…           -12.7             143.
+ 4 0bf14fe4-01fc… Syma torotoro  https://biodi…           -12.7             143.
+ 5 0c0a3bc9-431f… Syma torotoro  https://biodi…           -12.7             143.
+ 6 0e428bdf-d6fb… Syma torotoro  https://biodi…           -10.8             142.
+ 7 0f29d245-adc8… Syma torotoro  https://biodi…           -12.6             143.
+ 8 0ff604e2-fbe3… Syma torotoro  https://biodi…           -10.8             142.
+ 9 1121aa01-3173… Syma torotoro  https://biodi…           -12.8             143.
+10 131d66ad-46d8… Syma torotoro  https://biodi…           -12.8             143.
+# ℹ 145 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
+
+[[6]]
+# A tibble: 565 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 004c61ec-ed26… Tanysiptera (… https://biodi…           -16.6             145.
+ 2 014b3666-a322… Tanysiptera (… https://biodi…           -16.6             145.
+ 3 0152bed4-9459… Tanysiptera (… https://biodi…           -12.8             143.
+ 4 01685613-fe2f… Tanysiptera (… https://biodi…           -12.7             143.
+ 5 019804dd-c3fc… Tanysiptera (… https://biodi…           -16.6             145.
+ 6 02a51caa-861f… Tanysiptera (… https://biodi…           -12.7             143.
+ 7 02f21d71-27c2… Tanysiptera (… https://biodi…           -10.8             142.
+ 8 02f96918-b627… Tanysiptera (… https://biodi…           -12.7             143.
+ 9 044df2a6-7d32… Tanysiptera (… https://biodi…           -16.2             145.
+10 04baf9c0-fd82… Tanysiptera (… https://biodi…           -16.6             145.
+# ℹ 555 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
+
+[[7]]
+# A tibble: 12 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 3aa845a0-902e… Todiramphus (… https://biodi…            1.32             104.
+ 2 5f59e40a-87d2… Todiramphus (… https://biodi…            1.28             104.
+ 3 789e7794-af27… Todiramphus (… https://biodi…            1.32             104.
+ 4 7c6e2ffa-73a8… Todiramphus (… https://biodi…          -28.2              154.
+ 5 806d0434-8d8f… Todiramphus (… https://biodi…            1.28             104.
+ 6 83d392d7-a15f… Todiramphus (… https://biodi…            1.28             104.
+ 7 85bd0100-ea5d… Todiramphus (… https://biodi…            1.28             104.
+ 8 aeda1763-cd85… Todiramphus (… https://biodi…            1.28             104.
+ 9 dac72d12-bf2c… Todiramphus (… https://biodi…            1.28             104.
+10 e156dd38-95f5… Todiramphus (… https://biodi…            1.28             104.
+11 e5574549-7cec… Todiramphus (… https://biodi…            1.28             104.
+12 fd6435b4-32d6… Todiramphus (… https://biodi…            1.31             104.
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
+
+[[8]]
+# A tibble: 2,331 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 0024aef4-4a8b… Todiramphus (… https://biodi…           -19.4             147.
+ 2 004b8b6c-8a89… Todiramphus (… https://biodi…           -12.4             131.
+ 3 007b39cf-2660… Todiramphus (… https://biodi…           -27.4             153.
+ 4 00993728-10d2… Todiramphus (… https://biodi…           -27.1             153.
+ 5 009e7664-1b3e… Todiramphus (… https://biodi…           -27.4             153.
+ 6 00b1c419-0612… Todiramphus (… https://biodi…           -26.2             153.
+ 7 00cdcbdf-36a6… Todiramphus (… https://biodi…           -12.5             131.
+ 8 00deabe0-1d59… Todiramphus (… https://biodi…           -12.3             131.
+ 9 0120a6ea-66f1… Todiramphus (… https://biodi…           -30.4             153.
+10 012e4a46-ead1… Todiramphus (… https://biodi…           -20.0             146.
+# ℹ 2,321 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
+
+[[9]]
+# A tibble: 289 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 001c48ef-8329… Todiramphus (… https://biodi…           -31.9             142.
+ 2 016ec933-df3e… Todiramphus (… https://biodi…           -23.7             134.
+ 3 01833f43-b3d5… Todiramphus (… https://biodi…           -28.0             146.
+ 4 01e0d185-50ed… Todiramphus (… https://biodi…           -29.8             151.
+ 5 02d54da5-cfb0… Todiramphus (… https://biodi…           -19.0             146.
+ 6 033bf94d-cd11… Todiramphus (… https://biodi…           -20.0             140.
+ 7 06d7a1fc-9464… Todiramphus (… https://biodi…           -23.5             144.
+ 8 06e22048-0569… Todiramphus (… https://biodi…           -18.3             143.
+ 9 07fc074c-fff9… Todiramphus (… https://biodi…           -31.9             141.
+10 09e67cf4-3fbf… Todiramphus (… https://biodi…           -17.7             140.
+# ℹ 279 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
+
+[[10]]
+# A tibble: 9,558 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 00030a7e-a6cc… Todiramphus (… https://biodi…           -35.1             147.
+ 2 0005e748-e148… Todiramphus (… https://biodi…           -29.3             149.
+ 3 00072b9e-b843… Todiramphus (… https://biodi…           -33.7             151.
+ 4 00280b9f-8fc4… Todiramphus (… https://biodi…           -27.5             153.
+ 5 002e666e-a69c… Todiramphus (… https://biodi…           -19.2             147.
+ 6 002fcf2c-7a6c… Todiramphus (… https://biodi…           -33.1             151.
+ 7 003327aa-c684… Todiramphus (… https://biodi…           -36.5             147.
+ 8 0036208a-7764… Todiramphus (… https://biodi…           -32.8             117.
+ 9 0036fdd3-947e… Todiramphus (… https://biodi…           -35.3             149.
+10 003ba830-1f22… Todiramphus (… https://biodi…           -27.3             153.
+# ℹ 9,548 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;
+
+[[11]]
+# A tibble: 962 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 0034efe7-4a01… Todiramphus    https://biodi…           -27.2             153.
+ 2 00478798-95f7… Todiramphus    https://biodi…           -28.2             154.
+ 3 0064cb36-4eee… Todiramphus    https://biodi…           -27.5             153.
+ 4 00bcefdb-f852… Todiramphus    https://biodi…           -25.6             153.
+ 5 00ebd2bb-0c34… Todiramphus    https://biodi…           -27.3             153.
+ 6 0116442d-a7f6… Todiramphus    https://biodi…           -16.9             146.
+ 7 01d19d01-c721… Todiramphus    https://biodi…           -27.5             153.
+ 8 020b9283-447f… Todiramphus    https://biodi…           -16.9             146.
+ 9 02511840-3813… Todiramphus    https://biodi…           -16.9             146.
+10 03a9e4bd-37db… Todiramphus    https://biodi…           -25.6             153.
+# ℹ 952 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>…and use <code>purrr::map()</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to remove duplicates for each species group, binding our dataframes together again with <code>bind_rows()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(df) </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>      df <span class="sc">|&gt;</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23,602 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 04b5c741-1afb… Ceyx azureus   https://biodi…           -37.8             145.
+ 2 06eb5cd7-413f… Ceyx azureus   https://biodi…           -34.5             151.
+ 3 083ec28b-68d3… Ceyx azureus   https://biodi…           -26.3             153.
+ 4 087d63fc-2505… Ceyx azureus   https://biodi…           -27.5             153.
+ 5 0afd32d4-c759… Ceyx azureus   https://biodi…           -37.8             145.
+ 6 0b2b6aab-1283… Ceyx azureus   https://biodi…           -28.8             154.
+ 7 0b8ea27e-2ca2… Ceyx azureus   https://biodi…           -34.5             151.
+ 8 0ba0afc4-1cf2… Ceyx azureus   https://biodi…           -27.3             153.
+ 9 0c570ead-3759… Ceyx azureus   https://biodi…           -33.0             151.
+10 0c9f8e48-1c44… Ceyx azureus   https://biodi…           -27.3             153.
+# ℹ 23,592 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>Splitting by species has reduced the total number of duplicate records by ~3,500 rows.</p>
+</section>
+<section id="remove-duplicates" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="remove-duplicates"><span class="header-section-number">7.2</span> Remove duplicates</h2>
+<p>To remove these duplicates from our dataframe, we can use the <code>!</code> operator to return records that <em>are not</em> duplicated, rather than those that are.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(df) </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>      df <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">duplicated</span>(decimalLatitude))) <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>birds_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20,121 × 13
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 0007f679-255f… Ceyx azureus   https://biodi…           -35.3             149.
+ 2 00237f72-7b95… Ceyx azureus   https://biodi…           -33.6             151.
+ 3 002d4683-fdeb… Ceyx azureus   https://biodi…           -22.8             151.
+ 4 0030b417-ad83… Ceyx azureus   https://biodi…           -23.5             151.
+ 5 005c21b0-3066… Ceyx azureus   https://biodi…           -16.2             145.
+ 6 00671765-ed23… Ceyx azureus   https://biodi…           -36.1             145.
+ 7 0086cd20-926a… Ceyx azureus   https://biodi…           -35.6             150.
+ 8 00a39798-5118… Ceyx azureus   https://biodi…           -17.1             146.
+ 9 00c02d79-58ef… Ceyx azureus   https://biodi…           -16.2             145.
+10 012140cd-fac0… Ceyx azureus   https://biodi…           -33.7             151.
+# ℹ 20,111 more rows
+# ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>To check our results, we can grab a random row from our unfiltered dataframe…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>test_row <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude)) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">10</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>test_row <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, decimalLatitude, decimalLongitude, recordID) <span class="co"># show relevant columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  species             decimalLatitude decimalLongitude recordID                 
+  &lt;chr&gt;                         &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                    
+1 Todiramphus sanctus           -19.2             147. 01006006-78b2-4d19-bb99-…</code></pre>
+</div>
+</div>
+<p>…and see whether any rows in <code>birds_filtered</code> have the same combination of longitude and latitude coordinates.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    decimalLatitude <span class="sc">%in%</span> test_row<span class="sc">$</span>decimalLatitude <span class="sc">&amp;</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>      decimalLongitude <span class="sc">%in%</span> test_row<span class="sc">$</span>decimalLongitude</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, decimalLatitude, decimalLongitude, recordID) <span class="co"># show relevant columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  species               decimalLatitude decimalLongitude recordID               
+  &lt;chr&gt;                           &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;                  
+1 Dacelo leachii                  -19.2             147. 0bac3731-116a-4f7b-8b2…
+2 Dacelo novaeguineae             -19.2             147. 161a96bb-e9af-4a6b-ae3…
+3 Todiramphus macleayii           -19.2             147. 0208aa99-b3ce-449a-99d…
+4 Todiramphus sanctus             -19.2             147. 00c3f294-01dd-4f66-b8a…</code></pre>
+</div>
+</div>
+<p>As expected, there are a few species with those latitude and longitude coordinates, but we now only have 1 row for each species in that location in <code>birds_filtered</code>.</p>
+<p>Using <code>%in%</code> can be a powerful tool for finding duplicates in your dataframe. Extracting rows like we did above with our <code>test_row</code> example above (or a list of values in a column) can help you weed out more specific duplicate records you are interested in.</p>
+</section>
+<section id="summary" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.3</span> Summary</h2>
+<p>This chapter has offered a quick look at how to find duplicate records, remove them from your dataset and check whether your records have been removed correctly. You may have to check for duplicates in several ways to ensure you have cleaned all the duplicate records that you wish to remove from your dataset. The next chapter will show you how to clean missing values from your dataset.</p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>We have used <code>\(df)</code> as shorthand within <code>purrr::map()</code>. This shorthand can be rewritten as <code>map(.x = df, function(.x) {})</code>.<br><br> We provide an input, in this case the piped dataframe which we’ve called <code>df</code>, and use it in a custom function (defined within <code>{}</code>). This function is run over each dataframe in our list of dataframes.<br><br>Check out <a href="https://www.tidyverse.org/blog/2022/12/purrr-1-0-0/#documentation">this description from a recent purrr package update</a> for another example.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -572,12 +1040,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {

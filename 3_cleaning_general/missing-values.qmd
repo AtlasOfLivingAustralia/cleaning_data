@@ -1,178 +1,253 @@
 ---
-editor_options: 
-  chunk_output_type: console
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 # Missing values
 
-## Missing values
+Missing values are a nuisance in datasets when used in R. Missing values can unintentionally skew results if they remain unknown because quite often missing values are ignored when running visualisations or analyses. When function don't ignore missing values, however, they often prevent the function from running at all. So it's in everyone's best interest to either remove or at least be aware of the missing values in your dataset.
+
+This chapter will show how to detect and remove missing values.
+
+### Prerequisites
+
+In this chapter, we will use gecko occurrence data since 2009 from the ALA. 
+
+```{r prereq}
+#| message: false
+#| warning: false
+#| echo: false
+library(galah)
+library(dplyr)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
+geckos <- galah_call() |>
+  identify("Gekkonidae") |>
+  filter(year >= 2009) |>
+  select(group = "basic",
+         kingdom, phylum, order, class, 
+         family, genus, species, cl22, 
+         eventDate, month) |>
+  atlas_occurrences()
+```
 
 ```{r}
-library(skimr)
-iris %>%
-  skim() %>%
-  dplyr::filter(n_missing > 0)
-```
-
-## Missing coordinates
-
-If your research question requires spatial information, then it may be useful to
-exclude records that are missing coordinates data. Many spatial analytical tools
-are not compatible with missing coordinate data. We recommend tallying and
-identifying the rows that have missing data before excluding. 
-
-You can use `drop_na()` to remove missing values from your dataset.
-
-```{r, eval=FALSE}
+#| eval: false
+# packages
 library(galah)
-banksia_serrata <- galah_call() |> 
-  galah_identify("banksia_serrata") |> 
-  galah_filter(year > 2022) |>  
-  atlas_occurrences()
-
 library(dplyr)
 
-# Identify missing data in coordinates
-banksia_serrata |> 
-  filter(is.na(decimalLatitude) | is.na (decimalLongitude))
+# data: Gecko records since 2009
+galah_config(email = "your-email-here") # ALA Registered email
 
-# Excluding them
-banksia_serrata |> 
-  tidyr::drop_na(decimalLatitude, decimalLongitude)
+geckos <- galah_call() |>
+  identify("Gekkonidae") |>
+  filter(year >= 2009) |>
+  select(group = "basic",
+         kingdom, phylum, order, class, 
+         family, genus, species, cl22, 
+         eventDate, month) |>
+  atlas_occurrences()
 ```
 
-#### Missing higher taxonomy {.unnumbered}
+:::{.aside}
 
-If you noticed you have missing data in these columns, you can usually back fill this information using your [chosen naming authority](link%20back%20to%20section) or retrieving this information from a living atlas such as the ALA.
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/8/7/9/8/89ad2446-e89c-481c-97d7-375ffad18978/original"></img>
 
-The code below demonstrates how you can isolate the `scientific_names` of taxa with missing data and searching for taxonomic information from ALA
+::: {.figure-caption}
+[*Heteronotia binoei* camouflaged over rocks, sticks & leaves.<br>Photo by Reiner Richter CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/b0085bb1-72b9-4a4d-8dbf-05174b85c973)
+:::
+:::
 
-<!-- (Example WORK IN PROGRESS, need better fake data, Inverts?) -->
+## Find missing values
 
-<!-- Seperate chunk where message = TRUE for hits -->
+One of the fastest and simplest ways to find where there are missing values in your data is using the skimr package to show which columns have missing values and how many there are.
 
-```{r loaddata}
+```{r}
 #| warning: false
 #| message: false
-library(arrow)
-library(tidyverse)
-library(janitor)
+library(skimr)
 
-bees <- read_parquet("../data/dap/bees.parquet")
-
-plants <- open_dataset("../data/dap/plants_subset",
-  format = "parquet"
-) |> collect()
-
-### Making some fake missing data for inverts in Class column
-inverts <- open_dataset("../data/dap/inverts_subset") |> collect()
-
-set.seed(5)
-tobemissing <- inverts |>
-  filter(class == "arachnida") |>
-  sample_frac(0.3) |>
-  pull(scientific_name) |>
-  unique()
-
-inverts <- inverts |>
-  mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
+geckos |>
+  skim() |>
+  filter(n_missing > 0) |> 
+  as_tibble()
 ```
 
+The output shows that there are 7 columns with missing values, shown in `skim_variable`, along with information about the number of missing values in `n_missing` and the proportion of non-missing values in `complete_rate`.
+
+Next we can return all rows with a missing variable.
 
 ```{r}
-library(galah)
-
-# Configure galah to point to Australia node
-galah_config(
-  atlas = "Australia",
-  email = Sys.getenv("ALA_EMAIL")
-)
-
-# These are the taxa missing `class` information
-to_search <- inverts |>
-  filter(is.na(class)) |>
-  select(scientific_name) |>
-  distinct()
-
-# Reformat scientific_name to scientificName as the latter is the ALA format
-backfilled_taxa <- to_search |>
-  rename(scientificName = scientific_name) |>
-  search_taxa(to_search) |>
-  tibble()
-
-backfilled_taxa
+geckos |> 
+  filter(if_any(everything(), is.na)) |>
+  select(scientificName, genus, 
+         species, cl22, everything()) # reorder columns
 ```
 
-#### Insufficient taxonomic rank {.unnumbered}
-
-If a record is not identified down to the taxonomic level that needed for the study e.g. species, then the record should be removed.
-
-During your data download, ensure you have requested for the column [`taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank), this variable tells us the lowest level of `scientificName`.
-
-```{r, eval=FALSE}
-library(galah)
-
-galah_config(
-  email = Sys.getenv("ALA_EMAIL"),
-  atlas = "Australia"
-)
-
-honeyeaters <- galah_call() |>
-  galah_identify("Meliphagidae") |>
-  galah_filter(year == 2012 & stateProvince == "New South Wales") |>
-  galah_select(group = "basic", taxonRank) |>
-  atlas_occurrences()
-
-honeyeaters$taxonRank |> unique()
-
-honeyeaters |> filter(taxonRank == "species")
-```
+Or we can specify the specific column with `NA` values.
 
 ```{r}
-library(arrow)
-library(dplyr)
+geckos |> 
+  filter(if_any(cl22, is.na)) |>
+  select(scientificName, genus, 
+         species, cl22, everything()) # reorder columns
+```
 
-# honeyeaters <- galah_call() |>
-#   galah_identify("Meliphagidae") |>
-#   galah_filter(year == 2012 & stateProvince == "New South Wales") |>
-#   galah_select(group = "basic", taxonRank) |>
+
+## Remove `NA` values
+
+### Missing coordinates
+
+If you are intending to make any maps or run any spatial analyses, it's a good idea to
+exclude records with missing coordinates. Missing coordinate data often leads either to a function error, an undesirable map, or the (unintentional) exclusion of data points (many of which you might wish to include in other maps or analyses). 
+
+It's good practice to tally and identify the rows that have missing data before excluding them. We can use the same method as above to identify the records with missing coordinates.
+
+```{r}
+geckos |> 
+  filter(if_any(c(decimalLongitude, decimalLatitude), is.na)) |>
+  count()
+
+geckos |> 
+  filter(if_any(c(decimalLongitude, decimalLatitude), is.na)) |>
+  select(scientificName, decimalLongitude, 
+         decimalLatitude, everything()) # reorder columns
+```
+
+If we decide we are happy to exclude these records, we can use `drop_na()` to remove missing values from our dataset. 
+
+```{r}
+#| message: false
+#| warning: false
+library(tidyr)
+
+geckos_filtered <- geckos |>
+  drop_na(decimalLongitude, decimalLatitude)
+```
+
+We can see that `drop_na()` worked correctly by comparing the number of records in our data after filtering `geckos_filtered` is smaller by the same number of rows as our `tibble` of rows with `NA` values above.
+
+```{r}
+nrow(geckos) - nrow(geckos_filtered)
+```
+
+## Taxonomic values
+
+### Missing higher rank
+
+Sometimes data can be missing information in columns with higher taxonomic rankings, even species have been identified down to the species level. In this case, the goal isn't to only remove the missing values, but to fill missing information with the correct information.
+
+As an example, we'll use a slightly modified `geckos_missing` dataset with some missing data add into the higher columns[^1]. Below is a preview, and you'll notice that there are `NA` values in the `class` and `family` columns. 
+
+[^1]: The Atlas of Living Australia matches taxonomic names when data is ingested from data providers. This process means that it's very rare for a species to be missing higher taxonomic rank names. This might not be the case for other data sources, though!
+
+
+```{r geckos-missing-taxonomic-names}
+#| warning: false
+#| message: false
+#| code-fold: true
+
+# download older gecko data
+# geckos_old <- galah_call() |>
+#   identify("Gekkonidae") |>
+#   filter(year > 2004 & year < 2009) |>
+#   select(group = "basic",
+#          kingdom, phylum, order, class, 
+#          family, genus, species, cl22, 
+#          eventDate, month) |>
 #   atlas_occurrences()
 
-# write_parquet(honeyeaters, "data/galah/honeyeater")
+# randomly replace class & family with NAs
+set.seed(87654)
 
-honeyeaters <- open_dataset("../data/galah/honeyeater") |> collect()
-
-honeyeaters$taxonRank |> unique()
-
-honeyeaters |> filter(taxonRank == "species")
+geckos_missing <- geckos |>
+  mutate(class = replace(class, 
+                         sample(row_number(), 
+                                size = ceiling(0.15 * n())), 
+                         NA),
+         family = replace(family, 
+                          sample(row_number(), 
+                                 size = ceiling(0.15 * n())), 
+                          NA))
 ```
 
-#### Inconsistent higher taxonomy {.unnumbered}
-
-A great approach to detect inconsistencies in your taxonomic data is to compute counts for each level of taxonomic rank. These counts act as a check for you to verify that the data is in line with your expectation. This is particularly important when combining data from different sources where their taxonomy might vary. If you have detected inconsistencies as we have done below, you will have to correct accordingly, either by consulting a taxonomic expert or a naming authority and ensure this is reported in your methods.
 
 ```{r}
-# Get counts for every species where they have more than 1 class
-plants |>
-  select(phylum:species, scientific_name) |>
-  distinct() |>
-  group_by(species) |>
-  summarise(n_class = length(unique(class))) |>
-  filter(n_class > 1)
-
-# Get the species that have more than 1 class
-inconsistent_taxa <- plants |>
-  select(phylum:species, scientific_name) |>
-  distinct() |>
-  group_by(species) |>
-  summarise(n_class = length(unique(class))) |>
-  filter(n_class > 1) |>
-  pull(species)
-
-# Filter species that have more than 1 class
-plants |>
-  filter(species %in% inconsistent_taxa) |>
-  select(phylum:species, scientific_name) |>
-  arrange(species) |>
-  distinct()
+geckos_missing |>
+  select(scientificName, class, family, genus, species, everything())
 ```
+
+If you have a list of taxonomic names with complete ranking information from your preferred [taxonomic naming authority](link%20back%20to%20section), you can use this information to back-fill your missing data columns. In our case, we can use names from ALA's taxonomic backbone.
+
+First we'll get the complete list of *Gekkonidae* taxonomic rank names using galah.
+
+```{r}
+geckos_species_list <- galah_call() |>
+  identify("gekkonidae") |>
+  atlas_species()
+
+geckos_species_list
+```
+
+To match the complete names in `geckos_species_list` with the missing names in `geckos_missing`, we can use a strategy of match-and-merge. 
+
+Using a reference columns, we'll merge our complete names data to our missing data. The information in the `species` column of `geckos_species_list` contains both the genus and species names; this is just like the `scientificName` column of our `geckos_missing` dataset. We can use these columns as our reference columns.
+
+```{r}
+geckos_species_list |> select(species) |> slice(10:15)
+geckos_missing |> select(scientificName) |> slice(10:15)
+```
+
+Now we'll select the subset of columns from `geckos_species_list` that we wish to join with `geckos_missing` (and our reference column, `species`).
+
+```{r}
+list_subset <- geckos_species_list |>
+  select(species, class, family)
+```
+
+We can use `left_join()` to merge `list_subset` to `geckos_missing`. Records that are identified at least down to the family level now have the correct rank information in the `class_new` and `family_new` columns.
+
+```{r}
+geckos_missing |>
+  left_join(list_subset, 
+            by = join_by(scientificName == species), 
+            suffix = c("_old", "_new")) |>
+  select(scientificName, class_old, family_old, class_new, family_new) |>
+  slice(20:30)
+```
+
+
+### Insufficient taxonomic rank
+
+If a record is not identified down to the necessary taxonomic level required for your analysis (e.g. down to species or sub-species level), then the record should be removed.
+
+On handy tip you can use with the galah package is to add the column [`taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank). This column usefully shows the taxonomic level of names in `scientificName`[^2]. `taxonRank` can be useful because we can filter to only include records down to a specific rank.
+
+[^2]: This column contains the name of the lowest taxonomic rank the occurrence is identified to.
+
+```{r}
+#| warning: false
+#| message: false
+geckos_rank <- galah_call() |>
+  identify("gekkonidae") |>
+  filter(year == 2013) |>
+  select(taxonRank, scientificName) |>
+  atlas_occurrences()
+
+geckos_rank |>
+  filter(taxonRank == "species")
+```
+
+However, it is still possible to filter records using the tools above without using the `taxonRank` column. 
+
+```{r}
+geckos_filtered <- geckos |>
+  drop_na(genus) |>
+  select(scientificName, genus, everything()) # reorder columns
+geckos_filtered
+```
+
+

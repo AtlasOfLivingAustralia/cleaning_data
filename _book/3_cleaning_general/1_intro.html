@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.540">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -368,7 +368,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This section shows tasks and functions that will be frequently used to clean datasets.</p>
+<p>This section will detail some steps and functions to clean a dataset for analysis. <strong>These steps will remove problematic values that are due to the data’s formatting</strong>, solved by more general data cleaning tasks. These tasks include removing duplicates, correcting dates, and removing or correcting missing or unexpected values.</p>
+<p>The steps in this chapter are not linear, and they don’t have to be done in order. Treat this section as more of a checklist.</p>
+<p>Click on the following chapters to get started:</p>
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center">
 <div style="width: 33.3%; justify-content: space-between">
 <div class="circle-button">
@@ -572,12 +574,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {

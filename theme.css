@@ -12,13 +12,24 @@
 img.rounded {
   object-fit: cover;
   border-radius: 10% !important;
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
+  margin-top: 18px
+}
+
+@media screen and (max-width: 952px){
+  img.rounded {
+    height: 100%;
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .figure-caption {
   text-align: center;
-  font-size: .8rem;
+  font-size: .8em!important;
 }
 
 .cell-output {
@@ -27,16 +38,26 @@ img.rounded {
 }
 
 .circle-button {
-  border-radius: 50%;
+  border-radius: 40%;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #868;
+  background-color: #222322;
   padding: 40px;
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   margin-left: auto;
   margin-right: auto;
   
+}
+
+.fa-solid {
+  color: #FFC557;
+}
+
+.output-scroll {
+  max-height: 500px;
+  overflow-y: scroll;
+  margin-bottom: 20px;
 }

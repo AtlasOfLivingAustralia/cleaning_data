@@ -1,16 +1,185 @@
 ---
-editor_options: 
-  chunk_output_type: console
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 # Duplicates
 
-Duplicates records can happen when using aggregated data sources. In this
-section we will cover detection and handling of duplicate records. 
+Duplicated records can happen when using aggregated data sources. Without removing them, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.
+
+Duplicated records can also happen in individual datasets, and depending on the analyses you wish to run, you might need to remove records that are separate observations of a species but overlap taxonomically, spatially or temporally. Prior to running species distribution models, for example, you often need to remove duplicate records that overlap the same location.
+
+In this section we will cover detection and handling of duplicate records.
+
+### Prerequisites
+
+```{r prereq}
+#| message: false
+#| warning: false
+#| echo: false
+library(galah)
+library(dplyr)
+library(janitor)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  select(group = "basic", 
+         family, genus, species, cl22, eventDate, month) |>
+  atlas_occurrences()
+```
 
 ```{r}
-# Check for duplicate records across the dataset
-# duplicated_records <- merged_data[duplicated(merged_data), ]
-# Targeted checks
-# duplicated_records[which(duplicated(merged_data$occurrenceID)), ]
+#| eval: false
+# packages
+library(galah)
+library(dplyr)
+library(janitor)
+
+# data: Kingfisher records from 2023
+galah_config(email = "your-email-here") # ALA Registered email
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  select(group = "basic", 
+         family, genus, species, cl22, eventDate, month) |>
+  atlas_occurrences()
 ```
+
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
+
+::: {.figure-caption}
+[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
+:::
+:::
+
+## Find duplicates
+
+Let's remove any records that have multiple occurrences on the same location, specified by their latitude and longitude coordinates.
+
+The first thing to do is find the duplicate records.
+
+:::{.panel-tabset .nav-pills}
+#### dplyr
+
+Return the number of duplicates with each set of coordinates.
+
+```{r}
+birds |> 
+  group_by(decimalLongitude, decimalLatitude) |>
+  filter(n() > 1) |>
+  summarise(n = n())
+```
+
+Return duplicated rows.
+
+```{r}
+birds |>
+  filter(duplicated(decimalLongitude) & duplicated(decimalLatitude))
+```
+
+
+
+#### janitor
+
+<!-- I think janitor uses commas like an OR statement, so this returns more rows than dplyr -->
+<!-- Worth including? -->
+
+Return duplicated rows and the number of duplicates of `decimalLatitude` OR `decimalLongitude` (note that this differs from the dplyr example).
+
+```{r}
+birds |> 
+  get_dupes(decimalLatitude, decimalLongitude)
+```
+
+:::
+
+Our results show that there are more than 27,000 records that overlap! 
+
+However, given that we have several different species included in our dataset, we may want to preserve when each species occurs in the same location (rather than removing all but one species' data for each location).
+
+To filter our duplicates by species, we can first split our data by species...
+
+```{r}
+#| eval: false
+birds |>
+  group_split(species)
+```
+
+```{r}
+#| class: output-scroll
+#| echo: false
+birds |>
+  group_split(species)
+```
+
+
+...and use `purrr::map()`[^1] to remove duplicates for each species group, binding our dataframes together again with `bind_rows()`.
+
+[^1]: We have used `\(df)` as shorthand within `purrr::map()`. This shorthand can be rewritten as `map(.x = df, function(.x) {})`.<br><br> We provide an input, in this case the piped dataframe which we've called `df`, and use it in a custom function (defined within `{}`). This function is run over each dataframe in our list of dataframes.<br><br>Check out [this description from a recent purrr package update](https://www.tidyverse.org/blog/2022/12/purrr-1-0-0/#documentation) for another example.
+
+```{r}
+library(purrr)
+
+birds |>
+  group_split(species) |>
+  map(\(df) 
+      df |> 
+        filter(duplicated(decimalLongitude) & duplicated(decimalLatitude))
+      ) |>
+  bind_rows()
+```
+
+Splitting by species has reduced the total number of duplicate records by ~3,500 rows. 
+
+## Remove duplicates
+
+To remove these duplicates from our dataframe, we can use the `!` operator to return records that *are not* duplicated, rather than those that are.
+
+```{r}
+birds_filtered <- birds |>
+  group_split(species) |>
+  map(\(df) 
+      df |>
+        filter(!duplicated(decimalLongitude) & !duplicated(decimalLatitude))) |>
+  bind_rows()
+birds_filtered
+```
+
+To check our results, we can grab a random row from our unfiltered dataframe...
+
+```{r}
+test_row <- birds |>
+  filter(duplicated(decimalLongitude) & duplicated(decimalLatitude)) |>
+  slice(10)
+
+test_row |>
+  select(species, decimalLatitude, decimalLongitude, recordID) # show relevant columns
+```
+
+...and see whether any rows in `birds_filtered` have the same combination of longitude and latitude coordinates.
+
+```{r}
+birds_filtered |>
+  filter(
+    decimalLatitude %in% test_row$decimalLatitude & 
+      decimalLongitude %in% test_row$decimalLongitude
+    ) |>
+  select(species, decimalLatitude, decimalLongitude, recordID) # show relevant columns
+
+```
+
+As expected, there are a few species with those latitude and longitude coordinates, but we now only have 1 row for each species in that location in `birds_filtered`. 
+
+
+Using `%in%` can be a powerful tool for finding duplicates in your dataframe. Extracting rows like we did above with our `test_row` example above (or a list of values in a column) can help you weed out more specific duplicate records you are interested in.
+
+## Summary
+
+This chapter has offered a quick look at how to find duplicate records, remove them from your dataset and check whether your records have been removed correctly. You may have to check for duplicates in several ways to ensure you have cleaned all the duplicate records that you wish to remove from your dataset. The next chapter will show you how to clean missing values from your dataset.

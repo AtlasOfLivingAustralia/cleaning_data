@@ -165,9 +165,9 @@ to be fixed (or might stop you from using the data altogether).
 Here are some initial questions you might answer first. Note that
 many of these statistics can be checked from the output of `skimr::skim()`.
 
-#### Number of records
+### Is the number of records in your dataset what you expected? {.unnumbered}
 
-Is the number of records in the dataset what you expected? If the number is higher or lower than expected, there might be an issue with your query or the data source.
+If the number is higher or lower than expected, there might be an issue with your query or the data source.
 
 As an example using the galah package, the record count from `atlas_counts()`
 should match the number of rows returned by `atlas_occurrences()` for the same
@@ -184,9 +184,9 @@ galah_call() |>
 nrow(birds)
 ```
 
-#### Columns
+### Does your dataset have all the columns you expected? {.unnumbered}
 
-Does your dataset have all the column names you expected? The absence of key columns could suggest a problem with the data extraction process.
+The absence of key columns could suggest a problem with the data extraction process.
 
 We can print our column names.
 
@@ -194,11 +194,13 @@ We can print our column names.
 colnames(birds)
 ```
 
-In our example, the column names are what we expected from our query.
+These column names match what we requested in our original query.
 
-#### Missing data
+### Is there any missing data? {.unnumbered}
 
-Is there any missing data? How much, and in what columns? A high number of missing values, especially columns critical to our analysis, can make it difficult to use a dataset for an analysis. For example, many missing values in columns that record latitude and longitude values will make it difficult to run geospatial analyses.
+How much, and in what columns?
+
+Missing values are usually appear as `NA`, `NaN` or `""` in R. A high number of missing values, especially in columns critical to our analysis, can make it difficult to use a dataset for an analysis. For example, many missing values in columns that record latitude and longitude values will make it difficult to run geospatial analyses.
 
 A quick way to check this is to breakdown values & their proportional frequency.
 
@@ -251,11 +253,9 @@ birds |>
 
 <!-- The following few sections might fit better in the next chapter? -->
 
-#### Consistency of categorical data
+### Do columns with text contain names that you expected? {.unnumbered}
 
-Are the names or values in text columns 
-(i.e. of class `character`) what you expect? Are
-there typos or variations in spelling, capitalisation, or synonyms?
+Are there typos or variations in spelling, capitalisation, or synonyms?
 
 We can quickly return unique values using `distinct()` from dplyr.
 
@@ -277,11 +277,9 @@ The above output suggests there are genus *and* species names in the `scientific
 `"Todiramphus (Todiramphus) sanctus"`). We can also see that some names like `ALCEDINIDAE` have different capitalisation to other names, which could cause problems with matching later on.
 
 
-#### Data distribution & outliers:
+### Is numeric data distributed how you expected? {.unnumbered}
 
-Is the data in numeric columns (i.e., of class `numeric`,
-`double` or `integer`) distributed how we expect? Do they fall in the range we expect
-them to? Are there any noticeable outliers?
+Do they fall in the range we expect them to? Are there any noticeable outliers?
 
 To check, we can quickly plot the distribution of our longitude and longitude columns using ggplot2.
 

@@ -89,4 +89,14 @@ question and the certainty of your answer.
 
 ### Searching for fields
 
+## Subset of data from Inverts Australia
+
+```{r}
+#| eval: false
+# Inverts subset: arachnid data
+spiders <- here::here("data","dap","inverts_subset") |>
+  open_dataset() |>
+  filter(class == "arachnida") |>
+  collect()
+```
 

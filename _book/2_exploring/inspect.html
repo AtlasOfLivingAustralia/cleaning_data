@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.531">
+<meta name="generator" content="quarto-1.4.540">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -135,7 +135,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../2_exploring/1_intro.html">Exploring biodiversity data</a></li><li class="breadcrumb-item"><a href="../2_exploring/inspect.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Initial inspection</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../2_exploring/1_intro.html">Exploring biodiversity data</a></li><li class="breadcrumb-item"><a href="../2_exploring/inspect.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inspect</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -226,13 +226,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../2_exploring/inspect.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Initial inspection</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../2_exploring/summarise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summarising your data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summarise</span></span></a>
   </div>
 </li>
       </ul>
@@ -296,7 +296,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -400,19 +400,25 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#metadata-inspection" id="toc-metadata-inspection" class="nav-link active" data-scroll-target="#metadata-inspection"><span class="header-section-number">5.1</span> Metadata inspection</a></li>
-  <li><a href="#data-inspection" id="toc-data-inspection" class="nav-link" data-scroll-target="#data-inspection"><span class="header-section-number">5.2</span> Data inspection</a>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">5.0.1</span> Prerequisites</a></li>
+  <li><a href="#getting-to-know-your-data" id="toc-getting-to-know-your-data" class="nav-link" data-scroll-target="#getting-to-know-your-data"><span class="header-section-number">5.1</span> Getting to know your data</a></li>
+  <li><a href="#a-first-glimpse" id="toc-a-first-glimpse" class="nav-link" data-scroll-target="#a-first-glimpse"><span class="header-section-number">5.2</span> A first glimpse</a></li>
+  <li><a href="#evaluating-your-dataset" id="toc-evaluating-your-dataset" class="nav-link" data-scroll-target="#evaluating-your-dataset"><span class="header-section-number">5.3</span> Evaluating your dataset</a>
   <ul class="collapse">
-  <li><a href="#evaluating-the-dataset" id="toc-evaluating-the-dataset" class="nav-link" data-scroll-target="#evaluating-the-dataset"><span class="header-section-number">5.2.1</span> Evaluating the dataset</a></li>
+  <li><a href="#is-the-number-of-records-in-your-dataset-what-you-expected" id="toc-is-the-number-of-records-in-your-dataset-what-you-expected" class="nav-link" data-scroll-target="#is-the-number-of-records-in-your-dataset-what-you-expected">Is the number of records in your dataset what you expected?</a></li>
+  <li><a href="#does-your-dataset-have-all-the-columns-you-expected" id="toc-does-your-dataset-have-all-the-columns-you-expected" class="nav-link" data-scroll-target="#does-your-dataset-have-all-the-columns-you-expected">Does your dataset have all the columns you expected?</a></li>
+  <li><a href="#is-there-any-missing-data" id="toc-is-there-any-missing-data" class="nav-link" data-scroll-target="#is-there-any-missing-data">Is there any missing data?</a></li>
+  <li><a href="#do-columns-with-text-contain-names-that-you-expected" id="toc-do-columns-with-text-contain-names-that-you-expected" class="nav-link" data-scroll-target="#do-columns-with-text-contain-names-that-you-expected">Do columns with text contain names that you expected?</a></li>
+  <li><a href="#is-numeric-data-distributed-how-you-expected" id="toc-is-numeric-data-distributed-how-you-expected" class="nav-link" data-scroll-target="#is-numeric-data-distributed-how-you-expected">Is numeric data distributed how you expected?</a></li>
   </ul></li>
-  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps"><span class="header-section-number">5.3</span> Next steps</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps"><span class="header-section-number">5.4</span> Next steps</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../2_exploring/1_intro.html">Exploring biodiversity data</a></li><li class="breadcrumb-item"><a href="../2_exploring/inspect.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Initial inspection</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../2_exploring/1_intro.html">Exploring biodiversity data</a></li><li class="breadcrumb-item"><a href="../2_exploring/inspect.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inspect</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inspect</span></h1>
 </div>
@@ -431,57 +437,119 @@ div.csl-indent {
 </header>
 
 
-<!-- Notes/Andrew: The previous content of this page largely included fixing string
-inconsistencies. It's my opinion that this was out of scope for an
-initial inspection step, and best moved to a dedicated string section. Otherwise
-it would be difficult for somebody looking for string inconsistencies to know
-they need to check the initial inspection page. -->
-<!-- Notes/Andrew: The scope of this page is now: determine if the downloaded
-data is acceptable, with respect to the download query and source. If not, the
-next actions could be to adjust the download query, or use a different source.
--->
 <p>Before diving into cleaning, it is always a good idea to start by familiarising yourself with the data. In this chapter we will cover ways to inspect both the data and metadata of a dataset.</p>
-<section id="metadata-inspection" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="metadata-inspection"><span class="header-section-number">5.1</span> Metadata inspection</h2>
-<p>Metadata describes your data set: it defines each variable and its contents. For example, describing a variables unit of measurement, climatic conditions at the time of observation, or whether the occurrence is a marked outlier. Reviewing the metadata of your dataset is a useful first step, as it allows you to understand the kind of data you are working with and any potential limitations of the data that could affect your analysis.</p>
-<p>Data infrastructures that use Darwin Core terms will have interoperable metadata. This makes it easier to consolidate across data sets. All Darwin Core term definitions can be found <a href="https://dwc.tdwg.org/terms/">here</a>. We suggest using <code>Ctrl/CMD F</code> and searching your variable name on the <a href="https://dwc.tdwg.org/terms/">webpage</a>. Don’t hesitate to Google variable names if you are unsure what they represent.</p>
-<p>It is also worth checking the available metadata for your dataset, to determine if there is extra information that may be relevant. You could Google the dataset name, or search the dataset or institution on the ALA. The metadata on the ALA is submitted with the data, and because the ALA is not the data <em>owner</em>, this data is immutable.</p>
-<p>An example of well formatted metadata is <a href="https://collections.ala.org.au/public/show/dr14760">FrogID from the Australian Museum</a>. From reading FrogID’s metadata <span class="citation" data-cites="rowley2020frogid">(<a href="../references.html#ref-rowley2020frogid" role="doc-biblioref">Rowley and Callaghan 2020</a>)</span>, you’ll find:</p>
-<ol type="1">
-<li>The data is acoustic data, the majority of the species recorded are therefore male.</li>
-<li>Because this is citizen science data, it is especially biased towards populated areas.</li>
-<li>Audio is recorded via a smartphone app, and so the authors recommend filtering data to <code>geographic uncertainty of &lt;3000m</code> if you require high coordinate precision.</li>
-<li>The data is presence only data.</li>
-</ol>
-<p>Metadata can also be useful for understanding the license that the data falls under. This is mostly relevant for using or republishing multimedia associated with the data.</p>
-</section>
-<section id="data-inspection" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="data-inspection"><span class="header-section-number">5.2</span> Data inspection</h2>
-<p>A great way to get an initial overview of your data is to use the R package <code>skimr</code>, which provides tables of descriptive statistics, such as amount of missing data, for each variable. The output is also grouped by data type (numeric, character, date) so you can also check for any inconsistencies.</p>
-<p>As you are looking through the output, ask yourself whether the data is in line with your expectations. If you requested data for a group of species, are they all represented? Are the values for a variable reasonable? Looking at the quartiles can help you get the sense of the distribution of data. These considerations will help you detect potential issues in the data. Make sure you take note of any issues you find, to investigate further and later address.</p>
-<p>Here we will continue using the African elephant dataset that we downloaded in the previous chapter on downloading. You can create a report using the <code>skimr</code> package by running the following code: <!-- Note: First use of skimr package --></p>
+<section id="prerequisites" class="level3" data-number="5.0.1">
+<h3 data-number="5.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">5.0.1</span> Prerequisites</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'skimr' was built under R version 4.3.2</code></pre>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data: Kingfisher records from 2023</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>) <span class="co"># ALA Registered email</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, genus, species) <span class="sc">|&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>african_ele <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_parquet</span>(<span class="st">"../data/gbif/elephant"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(african_ele)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="getting-to-know-your-data" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="getting-to-know-your-data"><span class="header-section-number">5.1</span> Getting to know your data</h2>
+<p><strong>Metadata</strong> describes your dataset, defines its variables and previews their contents. Metadata helps you learn details about your dataset like what unit of measurement was used, what the climate conditions were like, or whether a certain observation in the data might be an outlier.</p>
+<p>Reviewing the metadata of your dataset is always a good first step, as it allows you to understand the kind of data you are working with and any potential limitations of the data that might affect your analyses later.</p>
+<p>Many datasets include descriptions of the data’s taxonomic, spatial and temporal scope. An example of well formatted metadata is of <a href="https://collections.ala.org.au/public/show/dr14760">FrogID from the Australian Museum</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/example_frogid.png" class="img-fluid figure-img"></p>
+<figcaption>Metadata of the FrogID dataset on the ALA</figcaption>
+</figure>
+</div>
+<p>From reading FrogID’s metadata <span class="citation" data-cites="rowley2020frogid">(<a href="../references.html#ref-rowley2020frogid" role="doc-biblioref">Rowley and Callaghan 2020</a>)</span>, you’ll find:</p>
+<ol type="1">
+<li>The data is acoustic data, meaning the majority of the species recorded are male</li>
+<li>This is citizen science data, meaning these data are biased towards populated areas</li>
+<li>Audio is recorded via a smartphone app, and so the authors recommend filtering data to <code>geographic uncertainty of &lt;3000m</code> if you require high coordinate precision</li>
+<li>These data record presences, but not absences</li>
+</ol>
+<p>FrogID’s metdata also displays information about what license these data fall under. This information is relevant for using or republishing any multimedia within the data.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Data standards
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Many data infrastructures like the Atlas of Living Australia also follow a data standard to help consolidate data from many different data providers<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>The data standard used by the Atlas of Living Australia is called “Darwin Core”, which defines a <a href="https://dwc.tdwg.org/terms/">set of standard terms</a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> to use across datasets (used as column names within datasets) and the accepted values that are recorded under specific terms. Darwin Core standards also require that additional files detailing metadata and data structure are supplied along with the dataset, which helps make sure the data is ingested correctly into the data infrastructure.</p>
+<p>Knowing whether your dataset follows a standard can allow you to look up term definitions as you become familiar with the data.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-first-glimpse" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="a-first-glimpse"><span class="header-section-number">5.2</span> A first glimpse</h2>
+<p>The first thing to do when starting work with a new dataset is to get an initial idea of what data you’re working with. You might want to know:</p>
+<ul>
+<li>How many rows and columns are there?</li>
+<li>What are the column names?</li>
+<li>What types of data are in each column?</li>
+<li>What are their possible values or ranges?</li>
+</ul>
+<p>These answers are usefult o know before jumping into wrangling and cleaning data.</p>
+<p>There are several ways to return an overview of your data, ranging in how comprehensively they summarise your data’s structure.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><code>glimpse()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>skim()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false"><code>str()</code></a></li></ul>
+<div class="tab-content nav-pills">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Return a condensed summary of your data’s structure using <code>glimpse()</code> from dplyr.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 43,925
+Columns: 10
+$ recordID         &lt;chr&gt; "00018120-2238-4122-ac0a-697a56de98ef", "00030a7e-a6c…
+$ scientificName   &lt;chr&gt; "Dacelo (Dacelo) novaeguineae", "Todiramphus (Todiram…
+$ taxonConceptID   &lt;chr&gt; "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4…
+$ decimalLatitude  &lt;dbl&gt; -27.43493, -35.09131, -25.26933, -29.34741, -37.85030…
+$ decimalLongitude &lt;dbl&gt; 153.1473, 147.3581, 152.7561, 149.2783, 145.2905, 151…
+$ eventDate        &lt;dttm&gt; 2023-03-09 06:27:00, 2023-02-07 13:32:00, 2023-10-14…
+$ occurrenceStatus &lt;chr&gt; "PRESENT", "PRESENT", "PRESENT", "PRESENT", "PRESENT"…
+$ dataResourceName &lt;chr&gt; "eBird Australia", "eBird Australia", "iNaturalist Au…
+$ genus            &lt;chr&gt; "Dacelo", "Todiramphus", "Dacelo", "Todiramphus", "Da…
+$ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Dacelo…</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Return tables of descriptive statistics for each variable, grouped by data type (e.g., <code>numeric</code>, <code>character</code>, <code>date</code>) using <code>skim()</code> from skimr.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <caption>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Name</td>
-<td style="text-align: left;">african_ele</td>
+<td style="text-align: left;">birds</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Number of rows</td>
-<td style="text-align: left;">17978</td>
+<td style="text-align: left;">43925</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
-<td style="text-align: left;">50</td>
+<td style="text-align: left;">10</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">_______________________</td>
@@ -493,25 +561,21 @@ next actions could be to adjust the download query, or use a different source.
 </tr>
 <tr class="even">
 <td style="text-align: left;">character</td>
-<td style="text-align: left;">31</td>
+<td style="text-align: left;">7</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">logical</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">POSIXct</td>
 <td style="text-align: left;">1</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">numeric</td>
-<td style="text-align: left;">15</td>
-</tr>
 <tr class="odd">
-<td style="text-align: left;">POSIXct</td>
-<td style="text-align: left;">3</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">________________________</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Group variables</td>
 <td style="text-align: left;">None</td>
 </tr>
@@ -520,14 +584,14 @@ next actions could be to adjust the download query, or use a different source.
 <p><strong>Variable type: character</strong></p>
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 36%">
-<col style="width: 10%">
-<col style="width: 15%">
-<col style="width: 4%">
-<col style="width: 4%">
-<col style="width: 6%">
-<col style="width: 9%">
+<col style="width: 22%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 8%">
 <col style="width: 12%">
+<col style="width: 14%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -543,352 +607,91 @@ next actions could be to adjust the download query, or use a different source.
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">datasetKey</td>
+<td style="text-align: left;">recordID</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">150</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">occurrenceID</td>
-<td style="text-align: right;">806</td>
-<td style="text-align: right;">0.96</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">81</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">16971</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">kingdom</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">phylum</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">class</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">order</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">family</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">genus</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">species</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">18</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">infraspecificEpithet</td>
-<td style="text-align: right;">17851</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">taxonRank</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: right;">43925</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">scientificName</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">37</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">42</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
+<td style="text-align: right;">25</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">verbatimScientificName</td>
-<td style="text-align: right;">3</td>
+<td style="text-align: left;">taxonConceptID</td>
+<td style="text-align: right;">0</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">12</td>
-<td style="text-align: right;">53</td>
+<td style="text-align: right;">73</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">31</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">verbatimScientificNameAuthorship</td>
-<td style="text-align: right;">16411</td>
-<td style="text-align: right;">0.09</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">31</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">256</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">countryCode</td>
-<td style="text-align: right;">1718</td>
-<td style="text-align: right;">0.90</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">47</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">locality</td>
-<td style="text-align: right;">14587</td>
-<td style="text-align: right;">0.19</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">254</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">725</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">stateProvince</td>
-<td style="text-align: right;">6447</td>
-<td style="text-align: right;">0.64</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">43</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">198</td>
+<td style="text-align: right;">25</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">occurrenceStatus</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">6</td>
+<td style="text-align: right;">7</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">publishingOrgKey</td>
+<td style="text-align: left;">dataResourceName</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">36</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">46</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">106</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">basisOfRecord</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">19</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">institutionCode</td>
-<td style="text-align: right;">4075</td>
-<td style="text-align: right;">0.77</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">76</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">111</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">collectionCode</td>
-<td style="text-align: right;">4091</td>
-<td style="text-align: right;">0.77</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">169</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">catalogNumber</td>
-<td style="text-align: right;">4292</td>
-<td style="text-align: right;">0.76</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">13571</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">recordNumber</td>
-<td style="text-align: right;">17815</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">37</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">114</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">identifiedBy</td>
-<td style="text-align: right;">7519</td>
-<td style="text-align: right;">0.58</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">81</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1931</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">license</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">7</td>
 <td style="text-align: right;">12</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">rightsHolder</td>
-<td style="text-align: right;">7128</td>
-<td style="text-align: right;">0.60</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">56</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2175</td>
-<td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">recordedBy</td>
-<td style="text-align: right;">4967</td>
-<td style="text-align: right;">0.72</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">160</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2525</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">establishmentMeans</td>
-<td style="text-align: right;">17691</td>
-<td style="text-align: right;">0.02</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">9</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">mediaType</td>
-<td style="text-align: right;">8141</td>
-<td style="text-align: right;">0.55</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: left;">genus</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">1.00</td>
 <td style="text-align: right;">4</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">issue</td>
-<td style="text-align: right;">3189</td>
-<td style="text-align: right;">0.82</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">191</td>
+<td style="text-align: left;">species</td>
+<td style="text-align: right;">962</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">24</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">146</td>
+<td style="text-align: right;">10</td>
 <td style="text-align: right;">0</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: logical</strong></p>
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;">skim_variable</th>
-<th style="text-align: right;">n_missing</th>
-<th style="text-align: right;">complete_rate</th>
-<th style="text-align: right;">mean</th>
-<th style="text-align: left;">count</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">typeStatus</td>
-<td style="text-align: right;">17978</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">NaN</td>
-<td style="text-align: left;">:</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 19%">
-<col style="width: 6%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 8%">
+<col style="width: 18%">
+<col style="width: 10%">
+<col style="width: 15%">
 <col style="width: 7%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 8%">
-<col style="width: 3%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -907,208 +710,39 @@ next actions could be to adjust the download query, or use a different source.
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">gbifID</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">2667216870.07</td>
-<td style="text-align: right;">1.094792e+09</td>
-<td style="text-align: right;">49926810.00</td>
-<td style="text-align: right;">1677325129.75</td>
-<td style="text-align: right;">2465040820.00</td>
-<td style="text-align: right;">3821042610.75</td>
-<td style="text-align: right;">4.508041e+09</td>
-<td style="text-align: left;">▁▇▇▅▇</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">individualCount</td>
-<td style="text-align: right;">15703</td>
-<td style="text-align: right;">0.13</td>
-<td style="text-align: right;">4.90</td>
-<td style="text-align: right;">1.415000e+01</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">2.00</td>
-<td style="text-align: right;">2.920000e+02</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">decimalLatitude</td>
-<td style="text-align: right;">4174</td>
-<td style="text-align: right;">0.77</td>
-<td style="text-align: right;">-11.35</td>
-<td style="text-align: right;">1.427000e+01</td>
-<td style="text-align: right;">-34.58</td>
-<td style="text-align: right;">-24.29</td>
-<td style="text-align: right;">-15.91</td>
-<td style="text-align: right;">-0.15</td>
-<td style="text-align: right;">5.215000e+01</td>
-<td style="text-align: left;">▇▅▃▁▁</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-29.85</td>
+<td style="text-align: right;">7.40</td>
+<td style="text-align: right;">-43.6</td>
+<td style="text-align: right;">-35.32</td>
+<td style="text-align: right;">-31.79</td>
+<td style="text-align: right;">-27.33</td>
+<td style="text-align: right;">44.80</td>
+<td style="text-align: left;">▇▂▁▁▁</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">decimalLongitude</td>
-<td style="text-align: right;">4174</td>
-<td style="text-align: right;">0.77</td>
-<td style="text-align: right;">26.50</td>
-<td style="text-align: right;">1.133000e+01</td>
-<td style="text-align: right;">-111.97</td>
-<td style="text-align: right;">24.40</td>
-<td style="text-align: right;">31.30</td>
-<td style="text-align: right;">34.81</td>
-<td style="text-align: right;">4.053000e+01</td>
-<td style="text-align: left;">▁▁▁▁▇</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coordinateUncertaintyInMeters</td>
-<td style="text-align: right;">6762</td>
-<td style="text-align: right;">0.62</td>
-<td style="text-align: right;">41697.58</td>
-<td style="text-align: right;">1.438321e+05</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">29981.00</td>
-<td style="text-align: right;">30598.00</td>
-<td style="text-align: right;">31425.00</td>
-<td style="text-align: right;">5.635548e+06</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">coordinatePrecision</td>
-<td style="text-align: right;">17939</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.000000e+00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.000000e+00</td>
-<td style="text-align: left;">▆▁▁▁▇</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">elevation</td>
-<td style="text-align: right;">17942</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">154.42</td>
-<td style="text-align: right;">4.215900e+02</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">13.75</td>
-<td style="text-align: right;">2.134000e+03</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">elevationAccuracy</td>
-<td style="text-align: right;">17948</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.83</td>
-<td style="text-align: right;">3.730000e+00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">2.000000e+01</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">depth</td>
-<td style="text-align: right;">17950</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.000000e+00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.000000e+00</td>
-<td style="text-align: left;">▁▁▇▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">depthAccuracy</td>
-<td style="text-align: right;">17950</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.000000e+00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">0.000000e+00</td>
-<td style="text-align: left;">▁▁▇▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">day</td>
-<td style="text-align: right;">4092</td>
-<td style="text-align: right;">0.77</td>
-<td style="text-align: right;">16.10</td>
-<td style="text-align: right;">8.790000e+00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">9.00</td>
-<td style="text-align: right;">17.00</td>
-<td style="text-align: right;">24.00</td>
-<td style="text-align: right;">3.100000e+01</td>
-<td style="text-align: left;">▇▆▇▇▇</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">month</td>
-<td style="text-align: right;">4027</td>
-<td style="text-align: right;">0.78</td>
-<td style="text-align: right;">6.97</td>
-<td style="text-align: right;">3.280000e+00</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">4.00</td>
-<td style="text-align: right;">7.00</td>
-<td style="text-align: right;">10.00</td>
-<td style="text-align: right;">1.200000e+01</td>
-<td style="text-align: left;">▆▅▅▇▇</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">year</td>
-<td style="text-align: right;">1017</td>
-<td style="text-align: right;">0.94</td>
-<td style="text-align: right;">2011.69</td>
-<td style="text-align: right;">1.672000e+01</td>
-<td style="text-align: right;">1799.00</td>
-<td style="text-align: right;">2008.00</td>
-<td style="text-align: right;">2015.00</td>
-<td style="text-align: right;">2019.00</td>
-<td style="text-align: right;">2.024000e+03</td>
-<td style="text-align: left;">▁▁▁▁▇</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">taxonKey</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">2492768.10</td>
-<td style="text-align: right;">6.281924e+05</td>
-<td style="text-align: right;">2435350.00</td>
-<td style="text-align: right;">2435350.00</td>
-<td style="text-align: right;">2435350.00</td>
-<td style="text-align: right;">2435350.00</td>
-<td style="text-align: right;">1.150335e+07</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">speciesKey</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">2435350.00</td>
-<td style="text-align: right;">0.000000e+00</td>
-<td style="text-align: right;">2435350.00</td>
-<td style="text-align: right;">2435350.00</td>
-<td style="text-align: right;">2435350.00</td>
-<td style="text-align: right;">2435350.00</td>
-<td style="text-align: right;">2.435350e+06</td>
-<td style="text-align: left;">▁▁▇▁▁</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">147.10</td>
+<td style="text-align: right;">8.09</td>
+<td style="text-align: right;">14.0</td>
+<td style="text-align: right;">145.31</td>
+<td style="text-align: right;">149.69</td>
+<td style="text-align: right;">152.75</td>
+<td style="text-align: right;">167.97</td>
+<td style="text-align: left;">▁▁▁▁▇</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: POSIXct</strong></p>
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 14%">
+<col style="width: 13%">
 <col style="width: 9%">
-<col style="width: 12%">
+<col style="width: 13%">
 <col style="width: 18%">
 <col style="width: 18%">
 <col style="width: 18%">
@@ -1128,71 +762,282 @@ next actions could be to adjust the download query, or use a different source.
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">eventDate</td>
-<td style="text-align: right;">1017</td>
-<td style="text-align: right;">0.94</td>
-<td style="text-align: left;">1799-01-01 00:00:00</td>
-<td style="text-align: left;">2024-01-02 18:51:11</td>
-<td style="text-align: left;">2015-05-23 00:00:00</td>
-<td style="text-align: right;">10862</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">dateIdentified</td>
-<td style="text-align: right;">7025</td>
-<td style="text-align: right;">0.61</td>
-<td style="text-align: left;">1783-01-01 00:00:00</td>
-<td style="text-align: left;">2024-01-02 18:50:47</td>
-<td style="text-align: left;">2021-02-25 16:47:56</td>
-<td style="text-align: right;">9670</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">lastInterpreted</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: left;">2023-08-25 11:37:02</td>
-<td style="text-align: left;">2024-01-09 20:05:47</td>
-<td style="text-align: left;">2024-01-09 13:04:58</td>
-<td style="text-align: right;">16960</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">2022-12-31 16:04:00</td>
+<td style="text-align: left;">2023-12-31 19:28:00</td>
+<td style="text-align: left;">2023-02-15 16:39:00</td>
+<td style="text-align: right;">26893</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<section id="evaluating-the-dataset" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="evaluating-the-dataset"><span class="header-section-number">5.2.1</span> Evaluating the dataset</h3>
-<p>Here are some starting points for evaluating a dataset. As you go through the skimr report and perform these checks, make detailed notes of your observations and any potential issues.</p>
-<ul>
-<li>Confirm the number of records:
-<ul>
-<li>Verify if the number of records in the dataset matches your expectations. If the number is significantly higher or lower than anticipated, it may indicate an issue with the query or data source.</li>
-</ul></li>
-<li>Checking for the correct metadata columns:
-<ul>
-<li>Ensure that all expected metadata columns are present. These might include species names, dates, locations, etc. The absence of key columns could suggest a problem with the data extraction process.</li>
-</ul></li>
-<li>Assessing missing data in critical fields:
-<ul>
-<li>Check the amount of missing data, especially in critical fields like latitude and longitude. A high number of missing values in these fields can significantly impact the usability of the dataset for geospatial analysis.</li>
-</ul></li>
-<li>Reviewing geospatial data accuracy:
-<ul>
-<li>Look for anomalies in geospatial data. Check if the coordinates are within plausible ranges and if they correspond to the geographic regions you expected.</li>
-</ul></li>
-<li>Evaluating data distribution and outliers:
-<ul>
-<li>Use the quartiles and summary statistics provided by <code>skimr</code> to assess the distribution of key variables. Be on the lookout for outliers or unusual patterns that might need further investigation.</li>
-</ul></li>
-<li>Consistency and formatting of categorical data:
-<ul>
-<li>Check for consistency in categorical data, such as species names. Inconsistencies might arise from variations in spelling, capitalization, or use of synonyms.</li>
-</ul></li>
-</ul>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>Return a quick summary of your data’s structure using base R <code>str()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>spc_tbl_ [43,925 × 10] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ recordID        : chr [1:43925] "00018120-2238-4122-ac0a-697a56de98ef" "00030a7e-a6cc-4f13-b37c-6672ca0b0ed3" "0005aa70-a30f-4ff0-9c82-9d05e66717d0" "0005e748-e148-4f57-8946-3d45d3a7dbcc" ...
+ $ scientificName  : chr [1:43925] "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" ...
+ $ taxonConceptID  : chr [1:43925] "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" ...
+ $ decimalLatitude : num [1:43925] -27.4 -35.1 -25.3 -29.3 -37.9 ...
+ $ decimalLongitude: num [1:43925] 153 147 153 149 145 ...
+ $ eventDate       : POSIXct[1:43925], format: "2023-03-09 06:27:00" "2023-02-07 13:32:00" ...
+ $ occurrenceStatus: chr [1:43925] "PRESENT" "PRESENT" "PRESENT" "PRESENT" ...
+ $ dataResourceName: chr [1:43925] "eBird Australia" "eBird Australia" "iNaturalist Australia" "NSW BioNet Atlas" ...
+ $ genus           : chr [1:43925] "Dacelo" "Todiramphus" "Dacelo" "Todiramphus" ...
+ $ species         : chr [1:43925] "Dacelo novaeguineae" "Todiramphus sanctus" "Dacelo novaeguineae" "Todiramphus sanctus" ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   recordID = col_character(),
+  ..   scientificName = col_character(),
+  ..   taxonConceptID = col_character(),
+  ..   decimalLatitude = col_double(),
+  ..   decimalLongitude = col_double(),
+  ..   eventDate = col_datetime(format = ""),
+  ..   occurrenceStatus = col_character(),
+  ..   dataResourceName = col_character(),
+  ..   genus = col_character(),
+  ..   species = col_character()
+  .. )
+ - attr(*, "problems")=&lt;externalptr&gt; 
+ - attr(*, "search_url")= chr "https://biocache.ala.org.au/occurrences/search?&amp;q=*%3A*&amp;fq=%28lsid%3A%22https%3A%2F%2Fbiodiversity.org.au%2Fafd"| __truncated__</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>As you look through the output, ask yourself whether the data is in line with your expectations. Are the values in each column reasonable?</p>
+</section>
+<section id="evaluating-your-dataset" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="evaluating-your-dataset"><span class="header-section-number">5.3</span> Evaluating your dataset</h2>
+<p>It is also good at this initial point to evaluate whether you dataset is what you expect, and whether there are noticeable gaps or errors that might need to be fixed (or might stop you from using the data altogether).</p>
+<p>Here are some initial questions you might answer first. Note that many of these statistics can be checked from the output of <code>skimr::skim()</code>.</p>
+<section id="is-the-number-of-records-in-your-dataset-what-you-expected" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="is-the-number-of-records-in-your-dataset-what-you-expected">Is the number of records in your dataset what you expected?</h3>
+<p>If the number is higher or lower than expected, there might be an issue with your query or the data source.</p>
+<p>As an example using the galah package, the record count from <code>atlas_counts()</code> should match the number of rows returned by <code>atlas_occurrences()</code> for the same query.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Our original query</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>() <span class="co"># return counts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  count
+  &lt;int&gt;
+1 43925</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># occurrences</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 43925</code></pre>
+</div>
+</div>
+</section>
+<section id="does-your-dataset-have-all-the-columns-you-expected" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="does-your-dataset-have-all-the-columns-you-expected">Does your dataset have all the columns you expected?</h3>
+<p>The absence of key columns could suggest a problem with the data extraction process.</p>
+<p>We can print our column names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "recordID"         "scientificName"   "taxonConceptID"   "decimalLatitude" 
+ [5] "decimalLongitude" "eventDate"        "occurrenceStatus" "dataResourceName"
+ [9] "genus"            "species"         </code></pre>
+</div>
+</div>
+<p>These column names match what we requested in our original query.</p>
+</section>
+<section id="is-there-any-missing-data" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="is-there-any-missing-data">Is there any missing data?</h3>
+<p>How much, and in what columns?</p>
+<p>Missing values are usually appear as <code>NA</code>, <code>NaN</code> or <code>""</code> in R. A high number of missing values, especially in columns critical to our analysis, can make it difficult to use a dataset for an analysis. For example, many missing values in columns that record latitude and longitude values will make it difficult to run geospatial analyses.</p>
+<p>A quick way to check this is to breakdown values &amp; their proportional frequency.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true"><code>count()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false"><code>tabyl()</code></a></li></ul>
+<div class="tab-content nav-pills">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Return the count of each group using dplyr.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genus) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+# Groups:   genus [7]
+  genus           n
+  &lt;chr&gt;       &lt;int&gt;
+1 Ceyx         2133
+2 Dacelo      27926
+3 Halcyon        26
+4 Syma          155
+5 Tanysiptera   565
+6 Todiramphus 13063
+7 &lt;NA&gt;           57</code></pre>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Return summary tables with totals &amp; percentages using <code>tabyl()</code> from janitor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(genus) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       genus     n percent valid_percent
+        Ceyx  2133    4.9%          4.9%
+      Dacelo 27926   63.6%         63.7%
+     Halcyon    26    0.1%          0.1%
+        Syma   155    0.4%          0.4%
+ Tanysiptera   565    1.3%          1.3%
+ Todiramphus 13063   29.7%         29.8%
+        &lt;NA&gt;    57    0.1%             -</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>You can also return any rows with <code>NA</code> values in <strong>any</strong> column…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return rows with any NA values </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_any</span>(<span class="fu">everything</span>(), is.na))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 962 × 10
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 0034efe7-4a01… Todiramphus    https://biodi…           -27.2             153.
+ 2 00478798-95f7… Todiramphus    https://biodi…           -28.2             154.
+ 3 0064cb36-4eee… Todiramphus    https://biodi…           -27.5             153.
+ 4 00bcefdb-f852… Todiramphus    https://biodi…           -25.6             153.
+ 5 00ebd2bb-0c34… Todiramphus    https://biodi…           -27.3             153.
+ 6 0116442d-a7f6… Todiramphus    https://biodi…           -16.9             146.
+ 7 01d19d01-c721… Todiramphus    https://biodi…           -27.5             153.
+ 8 020b9283-447f… Todiramphus    https://biodi…           -16.9             146.
+ 9 02511840-3813… Todiramphus    https://biodi…           -16.9             146.
+10 03a9e4bd-37db… Todiramphus    https://biodi…           -25.6             153.
+# ℹ 952 more rows
+# ℹ 5 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>…or in a <strong>specified</strong> column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return rows with NA values for genus</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">is.na</span>(genus))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 57 × 10
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 057a8da2-c3e0… ALCEDINIDAE    https://biodi…          -16.9              146.
+ 2 07757e59-d17d… ALCEDINIDAE    https://biodi…          -24.0              151.
+ 3 09aff1b0-7a1f… ALCEDINIDAE    https://biodi…          -33.7              151.
+ 4 0c9b2466-8cc4… ALCEDINIDAE    https://biodi…          -27.4              153.
+ 5 0cd3cefd-7dd3… ALCEDINIDAE    https://biodi…            1.28             104.
+ 6 127f502b-b933… ALCEDINIDAE    https://biodi…          -27.3              153.
+ 7 14e4b268-f9e2… ALCEDINIDAE    https://biodi…          -33.8              151.
+ 8 19af92a7-2447… ALCEDINIDAE    https://biodi…          -27.4              153.
+ 9 1ad7cb28-a8d9… ALCEDINIDAE    https://biodi…            1.32             104.
+10 1b3b3a01-4b10… ALCEDINIDAE    https://biodi…          -27.4              153.
+# ℹ 47 more rows
+# ℹ 5 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;</code></pre>
+</div>
+</div>
+<!-- The following few sections might fit better in the next chapter? -->
+</section>
+<section id="do-columns-with-text-contain-names-that-you-expected" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="do-columns-with-text-contain-names-that-you-expected">Do columns with text contain names that you expected?</h3>
+<p>Are there typos or variations in spelling, capitalisation, or synonyms?</p>
+<p>We can quickly return unique values using <code>distinct()</code> from dplyr.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 25 × 1
+   scientificName                       
+   &lt;chr&gt;                                
+ 1 Dacelo (Dacelo) novaeguineae         
+ 2 Todiramphus (Todiramphus) sanctus    
+ 3 Ceyx azureus                         
+ 4 Dacelo (Dacelo) leachii              
+ 5 Todiramphus (Cyanalcyon) pyrrhopygius
+ 6 Todiramphus (Lazulena) macleayii     
+ 7 Todiramphus                          
+ 8 Tanysiptera (Uralcyon) sylvia        
+ 9 Ceyx pusillus                        
+10 Syma torotoro                        
+# ℹ 15 more rows</code></pre>
+</div>
+</div>
+<p>Sometimes it’s also useful to see their count.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(scientificName) <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 25 × 2
+# Groups:   scientificName [25]
+   scientificName                      n
+   &lt;chr&gt;                           &lt;int&gt;
+ 1 ALCEDINIDAE                        57
+ 2 Ceyx azureus                     1933
+ 3 Ceyx azureus azureus                2
+ 4 Ceyx azureus diemenensis            1
+ 5 Ceyx pusillus                     196
+ 6 Ceyx pusillus halli                 1
+ 7 Dacelo                              2
+ 8 Dacelo (Dacelo)                     4
+ 9 Dacelo (Dacelo) leachii          1369
+10 Dacelo (Dacelo) leachii leachii     2
+# ℹ 15 more rows</code></pre>
+</div>
+</div>
+<p>The above output suggests there are genus <em>and</em> species names in the <code>scientificName</code> column. This might happen when a species is only identified to the genus level (e.g., <code>"Todiramphus"</code>) but not the species level (e.g., <code>"Todiramphus (Todiramphus) sanctus"</code>). We can also see that some names like <code>ALCEDINIDAE</code> have different capitalisation to other names, which could cause problems with matching later on.</p>
+</section>
+<section id="is-numeric-data-distributed-how-you-expected" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="is-numeric-data-distributed-how-you-expected">Is numeric data distributed how you expected?</h3>
+<p>Do they fall in the range we expect them to? Are there any noticeable outliers?</p>
+<p>To check, we can quickly plot the distribution of our longitude and longitude columns using ggplot2.</p>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(decimalLongitude) <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude)) <span class="sc">+</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill=</span><span class="st">"#69b3a2"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha=</span><span class="fl">0.8</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(decimalLatitude) <span class="sc">|&gt;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> decimalLatitude)) <span class="sc">+</span> </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill=</span><span class="st">"#69b3a2"</span>,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha=</span><span class="fl">0.8</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="inspect_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><img src="inspect_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+<p>Distributions can help you get the sense of the spread of your data. Take note of any unexpected values to investigate further.</p>
 </section>
 </section>
-<section id="next-steps" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="next-steps"><span class="header-section-number">5.3</span> Next steps</h2>
-<p>Keep in mind, we don’t expect a perfect dataset from a download. The goal of an initial inspection is to assess whether the download returned results in line with your expections based on your query. Some issues are expected, and may not signify an issue with the download itself but rather the actual data. The initial inspection is therefore a good opportunity to also start noting these issues, as they will be addressed during the cleaning phase.</p>
-<p>Based on your initial findings, consider whether you need to <strong>refine your download query</strong>. Perhaps you uncovered some additional metadata fields during your metadata inspection, and would like to adjust your query to include them. Or maybe you noticed missing data in specific time frames or locations that you expected from your query, or missing metadata fields. This could mean you need to adjust your download query parameters or investigate those issues further.</p>
-<p>When you are satisfied that the dataset is largely as expected, you are ready to move onto the data cleaning section. If you are working with multiple datasets from different sources, the next chapter will cover integration of datasets.</p>
+<section id="next-steps" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="next-steps"><span class="header-section-number">5.4</span> Next steps</h2>
+<p>We have just learned some ways to initially inspect our dataset. The goal of an initial inspection is to assess whether the data are in line with our expectations (based on our query or a dataset description).</p>
+<p>Keep in mind, we don’t expect everything in our dataset to be perfect. Some issues are expected, and may reveal that there are issues with our query or with the data themselves. The initial inspection is a good opportunity to get an idea of where these issues might be and how serious they are.</p>
+<p>Based on your initial findings, you might need to <strong>refine your download query</strong>. You might even need to find a new dataset. When you are satisfied that the dataset is largely as expected, you are ready to start summarising your data.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -1200,6 +1045,13 @@ next actions could be to adjust the download query, or use a different source.
 Rowley, Jodi JL, and Corey T Callaghan. 2020. <span>“The FrogID Dataset: Expert-Validated Occurrence Records of Australia’s Frogs Collected by Citizen Scientists.”</span> <em>ZooKeys</em> 912: 139.
 </div>
 </div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Making datasets easier to consolidate is also referred to as <em>interoperability</em>, <a href="https://ardc.edu.au/resource/fair-data/">one of the principles of FAIR data</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>We suggest using <code>Ctrl/CMD + F</code> and searching your variable name on the webpage. Don’t hesitate to Google variable names if you are unsure what they represent.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -1592,8 +1444,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../2_exploring/summarise.html" class="pagination-link" aria-label="<span class='chapter-number'>6</span>&nbsp; <span class='chapter-title'>Summarising your data</span>">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summarising your data</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../2_exploring/summarise.html" class="pagination-link" aria-label="<span class='chapter-number'>6</span>&nbsp; <span class='chapter-title'>Summarise</span>">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summarise</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

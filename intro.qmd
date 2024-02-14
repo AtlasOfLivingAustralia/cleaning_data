@@ -17,17 +17,12 @@ df-print: kable
 > "Garbage in, garbage out" - George Fuechsel, IBM computer programmer
 
 ::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
-::: highlight-rectangle
-:::
-:::
-
-::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
 ::: {style="width: 25%; justify-content: space-between"}
 ::: circle-button
 [{{< fa download size=3x >}}](1_accessing/where-to-get-data.html)
 :::
 
-[**Download**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
+[**Where to get data**](1_accessing/where-to-get-data.html){style="color: #efa123; font-size: 15.5px; text-align: center;"}
 :::
 
 ::: {style="width: 25%; text-align: center; justify-content: space-between"}
@@ -126,61 +121,39 @@ data**]{style="color: #efa123; font-size: 14px; text-align: center;"}
 :::
 :::
 
-::: {.callout-tip style="font-size: 40px;"}
+In ecology and biology, researchers, managers and decision makers often
+wish questions about where species live, what
+biological and environmental factors affect their survival and success,
+and how these factors might affect their survival in the future. These questions are difficult but essential to answer for conservation and ecosystem management.
 
-## Key points:
+To address these questions, many ecologists must combine large amounts
+of species data from different sources for analysis. These data usually
+vary in structure, formatting, and quality because each data source
+might structure their data a little differently to the next. Merging
+them correctly can be challenging and time consuming. Formatting errors,
+spelling errors, taxonomic inconsistencies and spatial errors are some
+of the most common problems, but the ecologist must fix these errors
+before the data can be analysed.
 
--   Ecological researchers and resource management teams often combine
-    varied large biodiversity datasets, needing to reformat and quality
-    control them.
+There is, however, no ‘one-size-fits-all’ approach to cleaning
+ecological data. What is considered a "clean" dataset varies depending
+on the project and the data sources. Yet there are some common processes
+and concepts that can be applied to many data cleaning workflows. This
+book aims to offer these processes and concepts in one place.
 
--   The understanding of “clean” data varies – and, you might not need
-    to follow steps sequentially (though it can be a good for beginners)
-
--   Programming languages are some of the most commonly used to clean
-    large sets of ecological data, but they can be intimidating. This
-    book aims to be a tool book for researchers and decision makers with
-    little experience.
-    
-:::
-
-Where species are (or have been) at points in time is valuable
-information to ecological researchers and managers. This data is used
-regularly to answer important questions about where they might end up in
-the future, how to best conserve them, or to control invasive species.
-
-Because of its’ spatial and temporal scale, ecological scientists often
-combine large amounts of species data from different sources to address
-their research questions. As data from different places vary in
-structure, formatting, and quality, correctly collating them can be
-challenging and time consuming. Formatting errors, spelling errors,
-taxonomic inconsistencies and spatial errors are some of the most common
-problems.
-
-It is important to note that the definition of ‘clean’ ecological data
-varies depending on the project and data sources, and as such, there is
-no ‘one-size-fits-all’ approach. Regardless, there are some common
-processes and concepts that can be applied to many data cleaning
-workflows. Completing these cleaning steps in order is optional and will
-be dependent on what stage your data is at.
-
-Data cleaning processes typically require the use of a programming
-language which can be a barrier of entry for many. Code to clean data
-also varies, and you might find different solutions elsewhere to achieve
-the same result. This book hopes to be a resource to assist
-researchers and decision makers that may have limited experience with
-cleaning geo-referenced biodiversity data in using a programming
-language to clean biodiversity data with the simplest prompts possible.
-
-All resources that were used can be found in the References page.
+Many ecologists and researchers choose to use code for data wrangling,
+analysis and visualisation. There are many languages (e.g., Python, R,
+Julia) that can achieve the same result. This book is a resource to
+assist researchers and decision makers that wish to clean geo-referenced
+biodiversity data using R.
 
 ## Who is this book for? {.unnumbered}
 
-If you are new to working with biodiversity data in R, or hoping to add
-some tips and code examples to your toolbox, then this book is for you.
-By learning how to download and apply common data cleaning steps, you
-will also develop a better understanding of biodiversity data itself,
-and the common issues to be aware of.
+If you are new to working with biodiversity data in R, or are looking
+for a quick reference to data cleaning processes or concepts in R, then
+this book is for you. By learning how to download and apply common data
+cleaning steps, you will also develop a better understanding of
+biodiversity data itself, and the common issues to be aware of.
 
 We use R as it is commonly used across ecological projects, and has a
 rich ecosystem of packages for data cleaning and visualisation. A basic
@@ -189,28 +162,19 @@ familiarity with the language is recommended.
 ## What this book covers {.unnumbered}
 
 In this book, we provide an overview of a typical data cleaning workflow
-for cleaning open-access georeferenced biodiversity data - from
-acquisition, identifying potential errors, to correction. These
-processes are broken down into three sections. The chapters whithin each
+for open-access geo-referenced biodiversity data—from
+acquisition, to error identification to correction. These processes are broken down into four sections. The chapters within each
 section include practical guidelines, example R code, and additional
-resources that may aid with each data cleaning step. An overview of the
-three sections and what they cover:
+resources that may aid with each data cleaning step. 
 
--   **Data scope**
-    -   What is data scope?
-    -   How to determine the termporal, taxonomic, and spatial scope of
-        available data for your study
--   **Accessing data**
-    -   Where to get data from?
-    -   How to download data using R
-    -   How to refine download queries
-    -   First steps in data inspection
--   **Data cleaning**
-    -   String manipulation
-    -   Taxonomic standardisation (synonyms, naming authorities,
-        duplicates)
-    -   Spatial data cleaning
-    -   Outlier detection
+The first section is about **accessing data**. [summary]
+
+The second section is about **exploring data**. [summary]
+
+The third section is about **general data cleaning processes**. [summary]
+
+The fourth section is about **data cleaning processes that require expertise in your study species**. [summary]
+
 
 ## What we don't cover {.unnumbered}
 
@@ -233,18 +197,16 @@ from online infrastructures such as [Global Biodiversity Information
 Facility](https://www.gbif.org/) (GBIF) and the [Atlas of Living
 Australia](https://www.ala.org.au/) (ALA). To retrieve data from these
 services, you will need to create a user account, if you do not already
-have one.
+have one:
 
--   [Atlas of Living Australia account
-    creation](https://auth.ala.org.au/userdetails/registration/createAccount)
--   [Global Biodiversity Information Facility account
-    creation](https://www.gbif.org/user/profile)
+-   [Register account: Atlas of Living Australia](https://auth.ala.org.au/userdetails/registration/createAccount)
+-   [Register account: Global Biodiversity Information Facility](https://www.gbif.org/user/profile)
 
 ### R
 
 To get the most out of this book, a basic knowledge of using R and
 RStudio is recommended. If you are new to R or need a refresher, there
-are many high quality and freely available resources available online.
+are many amazing and freely available resources available online.
 [Data Analysis and Visualisation in R for
 Ecologists](https://datacarpentry.org/R-ecology-lesson/), and [R for
 Data Science](https://r4ds.had.co.nz/index.html) are both excellent
@@ -270,7 +232,7 @@ access biodiversity data we will be working with the
 [`galah`](https://galah.ala.org.au/) package. If you have collected your
 own occurrence data, you should still find this book useful.
 
--   TODO link to the packages page
+A list of the most common packages in this book can be found on the [Packages page](packages.html).
 
 ## Conventions {.unnumbered}
 
@@ -281,6 +243,10 @@ code blocks. These blocks show how a particular task was executed in R:
 # This is a code block with a comment
 library(package)
 plot(data)
+
+mtcars |>
+   dplyr::group_by(cyl) |>
+   dplyr::summarise(mean_mpg = mean(mpg))
 ```
 
 ::: {.callout-tip appearance="simple"}
@@ -288,36 +254,8 @@ You can copy code by clicking the button in the top right corner of a
 code block.
 :::
 
-Demonstrations and instructions throughout this book are accompanied by
-code blocks.
-
-You can copy code by clicking the button in the top right corner of a
-code block. These blocks show how a particular task was coded and
-executed in R:
-
-For example, in this book, we use “pipes” in our code (`|>`, and
-sometimes `%>%`).
-
-Pipes allow you to run multiple functions to a piece of data without
-having to save each sequential piece before running the next. An easy
-way to remember how a pipe works in coding language is to read it as
+Throughout this book, we use “pipes” in our code (`|>`, or `%>%` from the magrittr package). Pipes allow you to run multiple functions sequentially to an object or a dataset. Pipes can be read as saying 
 “and then”.
 
-Some code blocks may also be annotated with numbers to help explain the
-sequence of steps. See an annotated example below using commands from
-the `dplyr` package.
+For example, the code block above can be read as "Get data `mtcars`, **and then** group by `cyl`, **and then** summarise (setting `mean_mpg` to contain the mean of `mpg`)."
 
-```{r}
-# This is a code block with a comment and numbered annotations
-mtcars |> # <1>
-   dplyr::group_by(cyl) |> # <2>
-   dplyr::summarise(mpg = mean(mpg)) # <3>
-```
-
-1.  Using the pipe operator to pass the `mtcars` data frame to the
-    `group_by()` function
-
-2.  Grouping the data frame by the `cyl` variable
-
-3.  Print a summary of the filtered data frame using the `summarise()`
-    function

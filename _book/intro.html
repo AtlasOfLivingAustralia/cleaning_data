@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.540">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -54,27 +54,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -446,7 +426,7 @@ div.csl-indent {
 <div class="circle-button">
 <p><a href="1_accessing/where-to-get-data.html"><i class="fa-solid fa-download fa-3x" aria-label="download"></i></a></p>
 </div>
-<p><span style="color: #efa123; font-size: 15.5px; text-align: center;"><strong>Download</strong></span></p>
+<p><a href="1_accessing/where-to-get-data.html" style="color: #efa123; font-size: 15.5px; text-align: center;"><strong>Where to get data</strong></a></p>
 </div>
 <div style="width: 25%; text-align: center; justify-content: space-between">
 <div class="circle-button">
@@ -519,52 +499,22 @@ div.csl-indent {
 <p><span style="color: #efa123; text-align: center;"><strong>Outliers</strong></span></p>
 </div>
 </div>
-<p>There is an ever growing interest and need in understanding spatial and temporal patterns of biodiversity across the globe. To this end, georeferenced biodiversity data are often used for a variety of ecological questions, such as in species species distribution modelling, conservation planning, and invasive species monitoring to name a few.</p>
-<p>Open source biodiversity datasets are widely available online, which are invaluable and often essential resources for such investigations. However, it is well known in many scientific disciplines that inputting flawed or nonsensical data produces an output of similar quality. In ecology and biodiversity research, scientists are particularly at risk of unintentionally using poor data because they <strong>often bring together large amounts of data from many sources to address their research questions.</strong> Data from different sources vary widely in their <strong>structure, formatting and quality</strong>. As a result, correctly collating and combining them can be both challenging and time consuming. Besides this, georeferenced biodiversity data itself can pose several challenges, as issues can range from simple formatting errors, to taxonomic inconsistencies and spatial errors.</p>
-<p>Biodiversity data aggregation services employ automated quality control procedures to identify and flag potential errors. However, these services deal with high volumes of data, and not all issues can be identified. Therefore it is always recommoneded that users of biodiversity data <strong>perform their own quality control</strong> before using any open source biodiversity data in their research.</p>
-<p><strong>Data cleaning</strong>, the process of identifying and fixing incompatible, incorrect or doubtful data, is therefore an essential step in ecology and biodiversity research. Employing suitable data cleaning procedures will improve both data quality and the validity of scientific findings <span class="citation" data-cites="rodrigues_species_2022">(<a href="#ref-rodrigues_species_2022" role="doc-biblioref">Rodrigues et al., 2022</a>)</span>. These producures tpyically involve exploring, detecting, and correcting data that may be erroneous, poorly formatted, or unsuitable for your project. The definition of ‘clean’ data varies depending on the project and data sources, and as such there is no ‘one-size-fits-all’ approach. Nevertheless, there are some common processes and concepts that can be applied to many data cleaning workflows.</p>
-<p>These cleaning processes typically require the use of a programming language, which can be a barrier of entry for many. Therefore, our goal in creating this resource is to assist researchers and decision makers that may have limited experience with cleaning geo-referenced biodiversity data using a programming language.</p>
-<p>The content of this book was informed by the current state of biodiversity literature surrounding data preparation for species distribution modelling. For more details about how this was done, please refer to the <a href="./appendix.html">Appendix</a>. All resources that were used can be found in the <a href="./references.html">References</a> page.</p>
+<p>In ecology and biology, researchers, managers and decision makers often wish questions about where species live, what biological and environmental factors affect their survival and success, and how these factors might affect their survival in the future. These questions are difficult but essential to answer for conservation and ecosystem management.</p>
+<p>To address these questions, many ecologists must combine large amounts of species data from different sources for analysis. These data usually vary in structure, formatting, and quality because each data source might structure their data a little differently to the next. Merging them correctly can be challenging and time consuming. Formatting errors, spelling errors, taxonomic inconsistencies and spatial errors are some of the most common problems, but the ecologist must fix these errors before the data can be analysed.</p>
+<p>There is, however, no ‘one-size-fits-all’ approach to cleaning ecological data. What is considered a “clean” dataset varies depending on the project and the data sources. Yet there are some common processes and concepts that can be applied to many data cleaning workflows. This book aims to offer these processes and concepts in one place.</p>
+<p>Many ecologists and researchers choose to use code for data wrangling, analysis and visualisation. There are many languages (e.g., Python, R, Julia) that can achieve the same result. This book is a resource to assist researchers and decision makers that wish to clean geo-referenced biodiversity data using R.</p>
 <section id="who-is-this-book-for" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="who-is-this-book-for">Who is this book for?</h2>
-<p>If you are new to working with biodiversity data in R, or hoping to add some tips and code examples to your toolbox, then this book is for you. By learning how to download and apply common data cleaning steps, you will also develop a better understanding of biodiversity data itself, and the common issues to be aware of.</p>
+<p>If you are new to working with biodiversity data in R, or are looking for a quick reference to data cleaning processes or concepts in R, then this book is for you. By learning how to download and apply common data cleaning steps, you will also develop a better understanding of biodiversity data itself, and the common issues to be aware of.</p>
 <p>We use R as it is commonly used across ecological projects, and has a rich ecosystem of packages for data cleaning and visualisation. A basic familiarity with the language is recommended.</p>
 </section>
 <section id="what-this-book-covers" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="what-this-book-covers">What this book covers</h2>
-<p>In this book, we provide an overview of a typical data cleaning workflow for cleaning open-access georeferenced biodiversity data - from acquisition, identifying potential errors, to correction. These processes are broken down into three sections. The chapters whithin each section include practical guidelines, example R code, and additional resources that may aid with each data cleaning step. An overview of the three sections and what they cover:</p>
-<ul>
-<li><strong>Data scope</strong>
-<ul>
-<li>What is data scope?</li>
-<li>How to determine the termporal, taxonomic, and spatial scope of available data for your study</li>
-</ul></li>
-<li><strong>Accessing data</strong>
-<ul>
-<li>Where to get data from?</li>
-<li>How to download data using R</li>
-<li>How to refine download queries</li>
-<li>First steps in data inspection</li>
-</ul></li>
-<li><strong>Data cleaning</strong>
-<ul>
-<li>String manipulation</li>
-<li>Taxonomic standardisation (synonyms, naming authorities, duplicates)</li>
-<li>Spatial data cleaning</li>
-<li>Outlier detection</li>
-</ul></li>
-</ul>
-<div class="callout callout-style-simple callout-warning">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong>There is no one size fits all workflow</strong>.</p>
-<p>Data cleaning steps are frequently completed in entirely different orders. As such, this book should be regarded as just one example of a data cleaning workflow, rather than a strict framework. It does not need to be used in a linear fashion, although some steps may logically preceed others, or may need to be revisited after completing another. Nevertheless, if you are just stating out in this domain, working through the book sequentially is a great way to get started.</p>
-</div>
-</div>
-</div>
+<p>In this book, we provide an overview of a typical data cleaning workflow for open-access geo-referenced biodiversity data—from acquisition, to error identification to correction. These processes are broken down into four sections. The chapters within each section include practical guidelines, example R code, and additional resources that may aid with each data cleaning step.</p>
+<p>The first section is about <strong>accessing data</strong>. [summary]</p>
+<p>The second section is about <strong>exploring data</strong>. [summary]</p>
+<p>The third section is about <strong>general data cleaning processes</strong>. [summary]</p>
+<p>The fourth section is about <strong>data cleaning processes that require expertise in your study species</strong>. [summary]</p>
 </section>
 <section id="what-we-dont-cover" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="what-we-dont-cover">What we don’t cover</h2>
@@ -579,15 +529,15 @@ div.csl-indent {
 <h2 class="unnumbered anchored" data-anchor-id="requirements">Requirements</h2>
 <section id="user-accounts" class="level3">
 <h3 class="anchored" data-anchor-id="user-accounts">User accounts</h3>
-<p>We will be working with point-based species occurrence data retrieved from online infrastructures such as <a href="https://www.gbif.org/">Global Biodiversity Information Facility</a> (GBIF) and the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). To retrieve data from these services, you will need to create a user account, if you do not already have one.</p>
+<p>We will be working with point-based species occurrence data retrieved from online infrastructures such as <a href="https://www.gbif.org/">Global Biodiversity Information Facility</a> (GBIF) and the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). To retrieve data from these services, you will need to create a user account, if you do not already have one:</p>
 <ul>
-<li><a href="https://auth.ala.org.au/userdetails/registration/createAccount">Atlas of Living Australia account creation</a></li>
-<li><a href="https://www.gbif.org/user/profile">Global Biodiversity Information Facility account creation</a></li>
+<li><a href="https://auth.ala.org.au/userdetails/registration/createAccount">Register account: Atlas of Living Australia</a></li>
+<li><a href="https://www.gbif.org/user/profile">Register account: Global Biodiversity Information Facility</a></li>
 </ul>
 </section>
 <section id="r" class="level3">
 <h3 class="anchored" data-anchor-id="r">R</h3>
-<p>To get the most out of this book, a basic knowledge of using R and RStudio is recommended. If you are new to R or need a refresher, there are many high quality and freely available resources available online. <a href="https://datacarpentry.org/R-ecology-lesson/">Data Analysis and Visualisation in R for Ecologists</a>, and <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> are both excellent starting points.</p>
+<p>To get the most out of this book, a basic knowledge of using R and RStudio is recommended. If you are new to R or need a refresher, there are many amazing and freely available resources available online. <a href="https://datacarpentry.org/R-ecology-lesson/">Data Analysis and Visualisation in R for Ecologists</a>, and <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> are both excellent starting points.</p>
 <p>Download R from <a href="https://cloud.r-project.org/">CRAN</a>, selecting the version that matches your operating system, and install it on your device.</p>
 </section>
 <section id="rstudio" class="level3">
@@ -597,9 +547,7 @@ div.csl-indent {
 <section id="packages" class="level3">
 <h3 class="anchored" data-anchor-id="packages">Packages</h3>
 <p>We use a range of R packages throughout the book, primarily for data cleaning and visualisations. These packages will be noted at the beginning of a code block, typically at the start of a chapter. To access biodiversity data we will be working with the <a href="https://galah.ala.org.au/"><code>galah</code></a> package. If you have collected your own occurrence data, you should still find this book useful.</p>
-<ul>
-<li>TODO link to the packages page</li>
-</ul>
+<p>A list of the most common packages in this book can be found on the <a href="packages.html">Packages page</a>.</p>
 </section>
 </section>
 <section id="conventions" class="level2 unnumbered">
@@ -607,7 +555,11 @@ div.csl-indent {
 <p>Demonstrations and instructions throughout this book are accompanied by code blocks. These blocks show how a particular task was executed in R:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a code block with a comment</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(package)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(data)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mean_mpg =</span> <span class="fu">mean</span>(mpg))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -618,62 +570,10 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>When performing a sequence of related actions, we use the native R pipe operator <code>|&gt;</code>. This allows multiple operations to be performed, without needing to save the intermediate results to a variable. You can learn more about the pipe in the <a href="https://r4ds.hadley.nz/data-transform.html#sec-the-pipe">R for Data Science</a> book. Some code blocks may also be <strong>annotated</strong>, to help explain the sequence of steps. See the annotated example below:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a code block with annotation</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mpg =</span> <span class="fu">mean</span>(mpg))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-annotation">
-<dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
-<dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="1">Using the pipe operator to pass the <code>mtcars</code> data frame to the <code>group_by()</code> function</span>
-</dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
-<dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="3" data-code-annotation="2">Grouping the data frame by the <code>cyl</code> variable</span>
-</dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
-<dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="4" data-code-annotation="3">Print a summary of the filtered data frame using the <code>summarise()</code> function</span>
-</dd>
-</dl>
-</div>
-<div class="cell-output-display">
-<div class="kable-table">
-<table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: right;">cyl</th>
-<th style="text-align: right;">mpg</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">26.66364</td>
-</tr>
-<tr class="even">
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">19.74286</td>
-</tr>
-<tr class="odd">
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">15.10000</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
+<p>Throughout this book, we use “pipes” in our code (<code>|&gt;</code>, or <code>%&gt;%</code> from the magrittr package). Pipes allow you to run multiple functions sequentially to an object or a dataset. Pipes can be read as saying “and then”.</p>
+<p>For example, the code block above can be read as “Get data <code>mtcars</code>, <strong>and then</strong> group by <code>cyl</code>, <strong>and then</strong> summarise (setting <code>mean_mpg</code> to contain the mean of <code>mpg</code>).”</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
-<div id="ref-rodrigues_species_2022" class="csl-entry" role="listitem">
-Rodrigues, A. V., Nakamura, G., Staggemeier, V. G., &amp; Duarte, L. (2022). Species misidentification affects biodiversity metrics: <span>Dealing</span> with this issue using the new <span>R</span> package <span class="nocase">naturaList</span>. <em>Ecological Informatics</em>, <em>69</em>, 101625. <a href="https://doi.org/10.1016/j.ecoinf.2022.101625">https://doi.org/10.1016/j.ecoinf.2022.101625</a>
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->
@@ -838,12 +738,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
