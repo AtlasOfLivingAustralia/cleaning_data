@@ -8,7 +8,7 @@ code-annotations: hover
 # Unexpected values
 
 ```{=html}
-#| echo: false
+
 <!--
 *Dax's note*:
 
@@ -16,17 +16,18 @@ I think this section could show some ways to summarise data to find when there i
 
 Eventually this section could end up being dispersed into other sections. For now, I'm happy to try this out as a quick-reference section about finding quirky values in datasets.
 -->
+
 ```
 
 Most data sets have unexpected values in them somewhere. Usually, these are from a mistake in data entry or a mismatch between merged data sets. A typo, a missing symbol or a missing space can turn a good data point sour. In this chapter we learn how to find and clean some kinds of unexpected values in ecological data sets.
 
-Unexpected values are tricky because we fix all of them with the same method. In this chapter we show ways to use additional information to understand the nature of an unexpected value. This can help us determine how to clean each data point.
+Unexpected values are tricky because we can't fix all of them with one single, unanimous method. In this chapter we show ways to use additional information to understand the nature of an unexpected value. This can help us determine how to clean each data point.
 
 ---
 
-### Prerequisites
+### Prerequisites {#sec-prereq}
 
-In this chapter, we will use Red-eye tree frog occurrence data in 2013 from the ALA. 
+In this chapter, we will use Red-eye tree frog occurrence data in 2013, and Kingfisher data from 2022. 
 
 ```{r prereq}
 #| message: false
@@ -45,6 +46,14 @@ frogs <- galah_call() |>
          countryCode, locality,
          family, genus, species, 
          cl22, eventDate) |>
+  atlas_occurrences()
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, 
+         cl22, eventDate, year) |>
   atlas_occurrences()
 ```
 
@@ -65,6 +74,13 @@ frogs <- galah_call() |>
          family, genus, species, 
          cl22, eventDate) |>
   atlas_occurrences()
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, cl22, eventDate) |>
+  atlas_occurrences()
 ```
 
 :::{.aside}
@@ -74,9 +90,36 @@ frogs <- galah_call() |>
 ::: {.figure-caption}
 [*Litoria chloris* standing on leaves.<br>Photo by Reiner Richter CC-BY](https://biocache.ala.org.au/occurrences/e0d5d604-e148-408e-8dbf-984f42701b4c)
 :::
+
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
+
+::: {.figure-caption}
+[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
+:::
+:::
 :::
 
 ## Unexpected name
+
+<!-- Might need to find an example after the names index updates --> 
+
+```{r}
+birds |>
+  distinct(scientificName) |>
+  print(n = 25)
+```
+
+```{r}
+galah_call() |>
+  identify("Thalassarche") |>
+  group_by(scientificName) |>
+  atlas_counts()
+```
+
+
 
 ## Unexpected location
 
@@ -177,21 +220,56 @@ ggplot() +
 ```
 
 
-* Checking for unexpected values: this is a generic method but the resolution
-logic depends on the issue (taxonomic, categories, strings, etc.)
-  * Context: a merged dataset pertaining to a single species (using data frame
-  from cleaning_integration.qmd). Species is L. chloris
-    * Assumption: species column contains only one species
-      * Method: `unique(merged_data$species)`
-      * Result: two species names
-      * Resolution: conform to one species name (assign)
-    * Assumption: country code contains only one country
-      * Method: `unique(merged_data$country_code)`
-      * Result: AU, NA, JP
-      * Resolution: Investigate NA and assign, investigate JP since chloris is
-      an Australian species
-
 ## Unexpected time
+
+Sometimes, although the correct filters were used to download a data set, some unexpected values can sneak through and require cleaning. These unexpected values can happen when processes used to clean or categorise data by a data provider or data infrastructure miss a few values. Missed values might have been mis-entered originally, fixed incorrectly or undetected.
+
+For example, recall that we filtered our data download query to `year == 2022` using galah ([@sec-prereq]). If we look at the `year` field returned by galah, it looks like our data is only from 2022.
+
+```{r}
+birds |>
+  distinct(year)
+```
+
+However, we can use the `eventDate` field to double check this is true. Let's extract year from `eventDate` by using the `year()` function from the lubridate package.
+
+```{r}
+#| warning: false
+#| message: false
+library(lubridate)
+
+birds_dates <- birds |>
+  mutate(date = date(eventDate), # <1>
+         year_extracted = year(eventDate))
+
+birds_dates |>
+  select(date, year_extracted)
+```
+1. We first convert values in the `eventDate` column to a `date` class. The lubridate package is very good at reading dates in *many* different formats and standardising them into a "yyyy-mm-dd" format. After this conversion, dates can be handled correctly (and more easily) by the lubridate package.
+
+Despite specifying the year in our galah query, when we summarise our new `year_extracted` column, we find that there are other unexpected records from 2021, too!
+
+```{r}
+birds_dates |>
+  group_by(year_extracted) |>
+  count()
+```
+
+Viewing these records' `eventDate` shows that each of them occurred on New Year's Eve in 2021---on the cusp of 2022. For some unknown reason they still slipped through into our galah data query.
+
+```{r}
+birds_dates |>
+  filter(year_extracted == 2021) |>
+  select(eventDate, date, year, year_extracted)
+```
+
+As we are only interested in records from 2022, we can filter these unexpected 2021 records out of our data set.
+
+```{r}
+birds_filtered <- birds_dates |>
+  filter(year_extracted == 2022)
+```
+
 
 ## Summary
 

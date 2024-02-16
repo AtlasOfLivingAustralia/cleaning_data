@@ -1,18 +1,26 @@
 ---
-output: html_document
-editor_options: 
-  chunk_output_type: console
+editor: 
+  markdown: 
+    wrap: 72
+code-annotations: hover
+number-depth: 3
 ---
 
 # Strings
 
+When data are recorded (whether in a field survey or on a computer), text (or **strings**) can be formatted in *many* different ways in a column. Tiny differences between text like capitalisations, extra spaces, quotations, apostrophes and other symbols can all affect a data set. Each of these differences can be the difference between a data point being grouped, merged, filtered or analysed correctly...or not.
+
+This chapter will provide many common tools that exist in R to clean strings. We will provide examples of how to use each tool, hopefully providing a useful list of tasks and functions to use when cleaning your data set.
+
+### Prerequisites
+
+In this chapter, we will use tree kangaroo occurrence data.
+
 ```{r}
 #| warning: false
 #| message: false
-# Load in data needed for the chapter
 # WORMS dataset
 worms <- read.csv("../data/worms/worms.csv")
-head(worms)
 # AFD dataset
 afd <- read.csv("../data/naming/afd.csv")
 # Inverts
@@ -22,16 +30,41 @@ plants <- arrow::open_dataset("../data/dap/plants_subset") |> dplyr::collect()
 ```
 
 ```{r}
-# Andrew: New example data for this chapter for some parts
+#| warning: false
+#| message: false
+#| echo: false
+# packages
 library(galah)
-galah_config(
-  atlas   = "Australia",
-  email   = Sys.getenv("ALA_EMAIL")
-)
+library(dplyr)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
 tree_kangaroo <- galah_call() |>
   galah_identify("Dendrolagus") |>
   atlas_occurrences()
 ```
+
+```{r}
+#| eval: false
+# packages
+library(galah)
+library(dplyr)
+
+# data: tree kangaroo records
+galah_config(email = "your-email-here")
+
+tree_kangaroo <- galah_call() |>
+  galah_identify("Dendrolagus") |>
+  atlas_occurrences()
+```
+
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/d/7/e/1f21b7e5-1cc7-45a0-8f83-d8e5dd51e7d2/original"></img>
+
+::: {.figure-caption}
+[*Dendrolagus lumholtzi* sitting on a branch.<br>Photo by matthewkwan  CC-BY](https://biocache.ala.org.au/occurrences/290bcdef-d02a-49fe-b96b-96865527f02f)
+:::
+:::
 
 ## Basic string manipulation
 
@@ -39,15 +72,42 @@ The `stringr` package provides a number of useful functions for manipulating
 strings, many of which are useful when dealing with biodiversity data. 
 
 ```{r}
+#| warning: false
+#| message: false
 library(stringr)
+```
+
+#### Trim
+
+```{r}
 str_trim("  Genus specificus  ")
 str_trim("  Genus specificus  ", side = "left")
-str_squish("  Genus   specificus  ")
-str_trunc("Genus specificus", width = 10, side = "right")
-str_split("Genus specificus", " ")
-str_c("Genus", "specificus", sep = "_")
-
 ```
+
+#### Squish
+
+```{r}
+str_squish("  Genus   specificus  ")
+```
+
+#### Truncate
+
+```{r}
+str_trunc("Genus specificus", width = 10, side = "right")
+```
+
+#### Split
+
+```{r}
+str_split("Genus specificus", " ")
+```
+
+#### Link together
+
+```{r}
+str_c("Genus", "specificus", sep = "_") # <1>
+```
+1. `c()` stands for "concatenate" which means "to link together in a chain".
 
 ## Matching
 
@@ -72,9 +132,9 @@ str_subset(records, "Genus")
 ### Regex matching
 
 The examples above demonstrate the use of basic patterns. But for cases that
-need more specific or advanced matching we can use regular expressions (regex).
-Regex is a powerful tool used to match patterns in strings, replace characters
-in strings, and extract substrings from strings. Regex can be complex and
+need more specific or advanced matching we can use **regular expressions (regex)**.
+
+Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and
 unintuitive, but there are websites available, such as [Regex
 Generator](https://regex-generator.olafneumann.org/), that are extremely
 helpful. Here we explore a few basic examples, and keep in mind that these

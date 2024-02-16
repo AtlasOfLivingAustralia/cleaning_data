@@ -317,59 +317,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../cleaning_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Archived: Cleaning data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -380,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">9.0.1</span> Prerequisites</a></li>
+  <li><a href="#sec-prereq" id="toc-sec-prereq" class="nav-link active" data-scroll-target="#sec-prereq"><span class="header-section-number">9.0.1</span> Prerequisites</a></li>
   <li><a href="#unexpected-name" id="toc-unexpected-name" class="nav-link" data-scroll-target="#unexpected-name"><span class="header-section-number">9.1</span> Unexpected name</a></li>
   <li><a href="#unexpected-location" id="toc-unexpected-location" class="nav-link" data-scroll-target="#unexpected-location"><span class="header-section-number">9.2</span> Unexpected location</a></li>
   <li><a href="#unexpected-time" id="toc-unexpected-time" class="nav-link" data-scroll-target="#unexpected-time"><span class="header-section-number">9.3</span> Unexpected time</a></li>
@@ -410,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-#| echo: false
+
 <!--
 *Dax's note*:
 
@@ -418,12 +365,13 @@ I think this section could show some ways to summarise data to find when there i
 
 Eventually this section could end up being dispersed into other sections. For now, I'm happy to try this out as a quick-reference section about finding quirky values in datasets.
 -->
+
 <p>Most data sets have unexpected values in them somewhere. Usually, these are from a mistake in data entry or a mismatch between merged data sets. A typo, a missing symbol or a missing space can turn a good data point sour. In this chapter we learn how to find and clean some kinds of unexpected values in ecological data sets.</p>
-<p>Unexpected values are tricky because we fix all of them with the same method. In this chapter we show ways to use additional information to understand the nature of an unexpected value. This can help us determine how to clean each data point.</p>
+<p>Unexpected values are tricky because we can’t fix all of them with one single, unanimous method. In this chapter we show ways to use additional information to understand the nature of an unexpected value. This can help us determine how to clean each data point.</p>
 <hr>
-<section id="prerequisites" class="level3 page-columns page-full" data-number="9.0.1">
-<h3 data-number="9.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">9.0.1</span> Prerequisites</h3>
-<p>In this chapter, we will use Red-eye tree frog occurrence data in 2013 from the ALA.</p>
+<section id="sec-prereq" class="level3 page-columns page-full" data-number="9.0.1">
+<h3 data-number="9.0.1" class="anchored" data-anchor-id="sec-prereq"><span class="header-section-number">9.0.1</span> Prerequisites</h3>
+<p>In this chapter, we will use Red-eye tree frog occurrence data in 2013, and Kingfisher data from 2022.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
@@ -439,7 +387,14 @@ Eventually this section could end up being dispersed into other sections. For no
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         countryCode, locality,</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>         family, genus, species, </span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>         cl22, eventDate) <span class="sc">|&gt;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>         family, genus, species, cl22, eventDate) <span class="sc">|&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
@@ -447,33 +402,100 @@ Eventually this section could end up being dispersed into other sections. For no
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/e0d5d604-e148-408e-8dbf-984f42701b4c"><em>Litoria chloris</em> standing on leaves.<br>Photo by Reiner Richter CC-BY</a></p>
 </div>
+<div class="margin-aside">
+<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3"><em>Todiramphus (Todiramphus) sanctus</em> perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)</a></p>
+</div>
+</div>
 </div></div></section>
 <section id="unexpected-name" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="unexpected-name"><span class="header-section-number">9.1</span> Unexpected name</h2>
+<!-- Might need to find an example after the names index updates -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(scientificName) <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 25 × 1
+   scientificName                            
+   &lt;chr&gt;                                     
+ 1 Dacelo (Dacelo) novaeguineae              
+ 2 Todiramphus (Todiramphus) sanctus         
+ 3 Ceyx azureus                              
+ 4 Todiramphus (Lazulena) macleayii          
+ 5 Dacelo (Dacelo) leachii                   
+ 6 Tanysiptera (Uralcyon) sylvia             
+ 7 Ceyx pusillus                             
+ 8 Todiramphus (Cyanalcyon) pyrrhopygius     
+ 9 Syma torotoro                             
+10 Todiramphus                               
+11 ALCEDINIDAE                               
+12 Halcyon                                   
+13 Dacelo (Dacelo) novaeguineae novaeguineae 
+14 Dacelo (Dacelo) leachii leachii           
+15 Todiramphus (Todiramphus) sanctus sanctus 
+16 Todiramphus (Todiramphus) chloris         
+17 Todiramphus (Todiramphus) sanctus vagans  
+18 Ceyx azureus azureus                      
+19 Ceyx azureus diemenensis                  
+20 Todiramphus (Lazulena) macleayii macleayii
+21 Dacelo (Dacelo)                           
+22 Dacelo                                    
+23 Todiramphus (Lazulena) macleayii incinctus
+24 Ceyx azureus ruficollaris                 
+25 Dacelo novaeguineae ( , 1783) novaeguineae</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Thalassarche"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(scientificName) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 2
+   scientificName               count
+   &lt;chr&gt;                        &lt;int&gt;
+ 1 Thalassarche melanophris     58363
+ 2 Thalassarche chrysostoma     26103
+ 3 Thalassarche cauta           19292
+ 4 Thalassarche chlororhynchos  11164
+ 5 Thalassarche steadi          10024
+ 6 Thalassarche bulleri          4688
+ 7 Thalassarche salvini          2763
+ 8 Thalassarche impavida         2650
+ 9 Thalassarche carteri          1060
+10 Thalassarche                   983
+11 Thalassarche cauta cauta       293
+12 Thalassarche eremita            49
+13 Thalassarche bulleri bulleri    22
+14 Thalassarche bulleri platei      1</code></pre>
+</div>
+</div>
 </section>
 <section id="unexpected-location" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="unexpected-location"><span class="header-section-number">9.2</span> Unexpected location</h2>
 <p>Spatial outliers aren’t always due to a misidentified species. Sometimes, they can be true observations with mistakes in their coordinates. It’s good practice to use several sources of spatial information to decide whether an unexpected data point is due to a small but fixable error in coordinates.</p>
 <p>Let’s try an example. When we plot the coordinates of our red-eyed tree frog occurrences, there is an unexpected observation near Japan. This is quite surprising - red-eyed tree frogs are not native to Japan!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a map of aus, transform projection</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>aus <span class="ot">&lt;-</span> ozmaps<span class="sc">::</span>ozmap_country <span class="sc">|&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="fu">st_crs</span>(<span class="dv">4326</span>))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Map</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="cn">NA</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> frogs,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#557755"</span>) <span class="sc">+</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a map of aus, transform projection</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>aus <span class="ot">&lt;-</span> ozmaps<span class="sc">::</span>ozmap_country <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="fu">st_crs</span>(<span class="dv">4326</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Map</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> frogs,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#557755"</span>) <span class="sc">+</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="unexpected-values_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="unexpected-values_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -481,8 +503,8 @@ Eventually this section could end up being dispersed into other sections. For no
 <p>Let’s check the <code>countryCode</code> column to see whether this might be an Australian record with a mistake in the coordinates.</p>
 <p>Using <code>distinct()</code>, we can see that there are 2 country codes…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>frogs <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(countryCode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>frogs <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(countryCode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 1
   countryCode
@@ -493,8 +515,8 @@ Eventually this section could end up being dispersed into other sections. For no
 </div>
 <p>…and filtering to Japan (<code>"JP"</code>) identifies our stray data point.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>frogs <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countryCode <span class="sc">==</span> <span class="st">"JP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>frogs <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countryCode <span class="sc">==</span> <span class="st">"JP"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 14
   recordID        scientificName taxonConceptID decimalLatitude decimalLongitude
@@ -507,9 +529,9 @@ Eventually this section could end up being dispersed into other sections. For no
 </div>
 <p>So far this observation does seem to be in Japan. To be extra certain, we can also use the column <code>locality</code>, which provides additional information from the data collector about the record’s location.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>frogs <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countryCode <span class="sc">==</span> <span class="st">"JP"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(countryCode, locality, scientificName, decimalLatitude, decimalLongitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>frogs <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countryCode <span class="sc">==</span> <span class="st">"JP"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(countryCode, locality, scientificName, decimalLatitude, decimalLongitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 5
   countryCode locality scientificName  decimalLatitude decimalLongitude
@@ -520,10 +542,10 @@ Eventually this section could end up being dispersed into other sections. For no
 <p>The <code>locality</code> column reveals the observation was made in “mt bucca”. This is surprising to see because Mt Bucca is a mountain in Queensland!</p>
 <p>When we look at our Japan data point’s <code>decimalLongitude</code> and <code>decimalLatitude</code> alongside other values in our data, it becomes clear that the Japan data point seems to sit within the same numerical range as other points, but is positive rather than negative.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>frogs <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(countryCode)) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(countryCode, decimalLongitude, decimalLatitude) <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>frogs <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(countryCode)) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(countryCode, decimalLongitude, decimalLatitude) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 25 × 3
   countryCode decimalLongitude decimalLatitude
@@ -539,29 +561,29 @@ Eventually this section could end up being dispersed into other sections. For no
 <p>All of this evidence suggests that our Japan “outlier” might instead be an occurrence point with a mis-entered latitude coordinate.</p>
 <p>Let’s fix this by adding a negative symbol (<code>-</code>) to the record’s latitude coordinate number. We’ll use <code>case_when()</code> from dplyr, which works the same as an <code>ifelse</code> statement (but can handle many of them) to specify that if the <code>countryCode == "JP"</code>, then we’ll “stick” a negative in front of <code>decimalLatitude</code> (using <code>glue()</code> from <a href="https://glue.tidyverse.org/">the glue package</a>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
-<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-7-3"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>frogs_fixed <span class="ot">&lt;-</span> frogs <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimalLatitude =</span> <span class="fu">case_when</span>(</span>
-<span id="annotated-cell-7-6"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a>      countryCode <span class="sc">==</span> <span class="st">"JP"</span> <span class="sc">~</span> <span class="fu">glue</span>(<span class="st">"-{decimalLatitude}"</span>),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-7" class="code-annotation-target"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> <span class="fu">as.character</span>(decimalLatitude)</span>
-<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2">2</button><span id="annotated-cell-7-9" class="code-annotation-target"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.integer</span>()</span>
-<span id="annotated-cell-7-10"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="annotated-cell-7-11"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-7-12"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a>frogs_fixed <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countryCode <span class="sc">==</span> <span class="st">"JP"</span>) <span class="sc">|&gt;</span> </span>
-<span id="annotated-cell-7-14"><a href="#annotated-cell-7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(decimalLatitude, decimalLongitude, countryCode)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>frogs_fixed <span class="ot">&lt;-</span> frogs <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-9-4"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="annotated-cell-9-5"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimalLatitude =</span> <span class="fu">case_when</span>(</span>
+<span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a>      countryCode <span class="sc">==</span> <span class="st">"JP"</span> <span class="sc">~</span> <span class="fu">glue</span>(<span class="st">"-{decimalLatitude}"</span>),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-7" class="code-annotation-target"><a href="#annotated-cell-9-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> <span class="fu">as.character</span>(decimalLatitude)</span>
+<span id="annotated-cell-9-8"><a href="#annotated-cell-9-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2">2</button><span id="annotated-cell-9-9" class="code-annotation-target"><a href="#annotated-cell-9-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">as.integer</span>()</span>
+<span id="annotated-cell-9-10"><a href="#annotated-cell-9-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="annotated-cell-9-11"><a href="#annotated-cell-9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-9-12"><a href="#annotated-cell-9-12" aria-hidden="true" tabindex="-1"></a>frogs_fixed <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-9-13"><a href="#annotated-cell-9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(countryCode <span class="sc">==</span> <span class="st">"JP"</span>) <span class="sc">|&gt;</span> </span>
+<span id="annotated-cell-9-14"><a href="#annotated-cell-9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(decimalLatitude, decimalLongitude, countryCode)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="7" data-code-annotation="1">This is like a catch-all <code>else</code> statement. To make it work, we have to convert our <code>decimalLatitude</code> to a <code>character</code> because the result of using <code>glue</code> or <code>paste</code> in R is a <code>character</code> class (we are pasting <code>characters</code> together to make something new, so to be safe R assumes the class isn’t <code>numeric</code> anymore).</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="7" data-code-annotation="1">This is like a catch-all <code>else</code> statement. To make it work, we have to convert our <code>decimalLatitude</code> to a <code>character</code> because the result of using <code>glue</code> or <code>paste</code> in R is a <code>character</code> class (we are pasting <code>characters</code> together to make something new, so to be safe R assumes the class isn’t <code>numeric</code> anymore).</span>
 </dd>
-<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="9" data-code-annotation="2">The result of our <code>case_when()</code> is a column of class <code>character</code>. So, we have to convert it back to a number so we can use it as a coordinate again, rather than as text.</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="9" data-code-annotation="2">The result of our <code>case_when()</code> is a column of class <code>character</code>. So, we have to convert it back to a number so we can use it as a coordinate again, rather than as text.</span>
 </dd>
 </dl>
 </div>
@@ -576,47 +598,109 @@ Eventually this section could end up being dispersed into other sections. For no
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus,</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="cn">NA</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> frogs_fixed,</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#557755"</span>) <span class="sc">+</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> frogs_fixed,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#557755"</span>) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="unexpected-values_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="unexpected-values_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<ul>
-<li>Checking for unexpected values: this is a generic method but the resolution logic depends on the issue (taxonomic, categories, strings, etc.)
-<ul>
-<li>Context: a merged dataset pertaining to a single species (using data frame from cleaning_integration.qmd). Species is L. chloris
-<ul>
-<li>Assumption: species column contains only one species
-<ul>
-<li>Method: <code>unique(merged_data$species)</code></li>
-<li>Result: two species names</li>
-<li>Resolution: conform to one species name (assign)</li>
-</ul></li>
-<li>Assumption: country code contains only one country
-<ul>
-<li>Method: <code>unique(merged_data$country_code)</code></li>
-<li>Result: AU, NA, JP</li>
-<li>Resolution: Investigate NA and assign, investigate JP since chloris is an Australian species</li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
 </section>
 <section id="unexpected-time" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="unexpected-time"><span class="header-section-number">9.3</span> Unexpected time</h2>
+<p>Sometimes, although the correct filters were used to download a data set, some unexpected values can sneak through and require cleaning. These unexpected values can happen when processes used to clean or categorise data by a data provider or data infrastructure miss a few values. Missed values might have been mis-entered originally, fixed incorrectly or undetected.</p>
+<p>For example, recall that we filtered our data download query to <code>year == 2022</code> using galah (<a href="#sec-prereq" class="quarto-xref"><span>Section 9.0.1</span></a>). If we look at the <code>year</code> field returned by galah, it looks like our data is only from 2022.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+   year
+  &lt;dbl&gt;
+1  2022</code></pre>
+</div>
+</div>
+<p>However, we can use the <code>eventDate</code> field to double check this is true. Let’s extract year from <code>eventDate</code> by using the <code>year()</code> function from the lubridate package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-12"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-12-1"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="annotated-cell-12-2"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a>birds_dates <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1">1</button><span id="annotated-cell-12-4" class="code-annotation-target"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">date</span>(eventDate),</span>
+<span id="annotated-cell-12-5"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">year_extracted =</span> <span class="fu">year</span>(eventDate))</span>
+<span id="annotated-cell-12-6"><a href="#annotated-cell-12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-12-7"><a href="#annotated-cell-12-7" aria-hidden="true" tabindex="-1"></a>birds_dates <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-12-8"><a href="#annotated-cell-12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(date, year_extracted)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-12" data-code-lines="4" data-code-annotation="1">We first convert values in the <code>eventDate</code> column to a <code>date</code> class. The lubridate package is very good at reading dates in <em>many</em> different formats and standardising them into a “yyyy-mm-dd” format. After this conversion, dates can be handled correctly (and more easily) by the lubridate package.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 138,612 × 2
+   date       year_extracted
+   &lt;date&gt;              &lt;dbl&gt;
+ 1 2022-04-19           2022
+ 2 2022-12-25           2022
+ 3 2022-10-27           2022
+ 4 2022-01-23           2022
+ 5 2022-11-09           2022
+ 6 2022-02-05           2022
+ 7 2022-11-24           2022
+ 8 2022-10-01           2022
+ 9 2022-03-21           2022
+10 2022-08-14           2022
+# ℹ 138,602 more rows</code></pre>
+</div>
+</div>
+<p>Despite specifying the year in our galah query, when we summarise our new <code>year_extracted</code> column, we find that there are other unexpected records from 2021, too!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>birds_dates <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year_extracted) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+# Groups:   year_extracted [3]
+  year_extracted      n
+           &lt;dbl&gt;  &lt;int&gt;
+1           2021      4
+2           2022 138606
+3             NA      2</code></pre>
+</div>
+</div>
+<p>Viewing these records’ <code>eventDate</code> shows that each of them occurred on New Year’s Eve in 2021—on the cusp of 2022. For some unknown reason they still slipped through into our galah data query.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>birds_dates <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year_extracted <span class="sc">==</span> <span class="dv">2021</span>) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(eventDate, date, year, year_extracted)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  eventDate           date        year year_extracted
+  &lt;dttm&gt;              &lt;date&gt;     &lt;dbl&gt;          &lt;dbl&gt;
+1 2021-12-31 21:00:00 2021-12-31  2022           2021
+2 2021-12-31 18:07:00 2021-12-31  2022           2021
+3 2021-12-31 21:59:00 2021-12-31  2022           2021
+4 2021-12-31 21:04:00 2021-12-31  2022           2021</code></pre>
+</div>
+</div>
+<p>As we are only interested in records from 2022, we can filter these unexpected 2021 records out of our data set.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="ot">&lt;-</span> birds_dates <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year_extracted <span class="sc">==</span> <span class="dv">2022</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="summary" class="level2" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">9.4</span> Summary</h2>

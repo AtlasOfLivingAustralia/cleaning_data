@@ -51,15 +51,6 @@ book:
   - references.qmd
   - packages.qmd
   - appendix.qmd
-  - part: cleaning_intro.qmd
-    chapters:
-    - cleaning_standardisation.qmd
-    - cleaning_duplicates.qmd
-    - cleaning_manipulating_strings.qmd
-    - cleaning_taxonomy.qmd
-    - cleaning_taxonomic_validation.qmd
-    - cleaning_geospatial.qmd
-    - outliers.qmd
 
 bibliography: references.bib
 
@@ -67,6 +58,7 @@ format:
   html:
     mainfont: Roboto
     monofont: Fira Code
+    highlight-style: arrow
     monobackgroundcolor: "#F7F7F7"
     theme: 
       - lumen

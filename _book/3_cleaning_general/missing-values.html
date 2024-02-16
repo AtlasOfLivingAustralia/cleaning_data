@@ -532,8 +532,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 data-number="8.2" class="anchored" data-anchor-id="remove-na-values"><span class="header-section-number">8.2</span> Remove <code>NA</code> values</h2>
 <section id="missing-coordinates" class="level3" data-number="8.2.1">
 <h3 data-number="8.2.1" class="anchored" data-anchor-id="missing-coordinates"><span class="header-section-number">8.2.1</span> Missing coordinates</h3>
-<p>If you are intending to make any maps or run any spatial analyses, it’s a good idea to exclude records with missing coordinates. Missing coordinate data often leads either to a function error, an undesirable map, or the (unintentional) exclusion of data points (many of which you might wish to include in other maps or analyses).</p>
-<p>It’s good practice to tally and identify the rows that have missing data before excluding them. We can use the same method as above to identify the records with missing coordinates.</p>
+<p>If you are intending to make any maps or run any spatial analyses, it’s a good idea to exclude records with missing coordinates. Missing coordinate data often leads to one of the following: a function error, an undesirable map, or the (unintentional) exclusion of data points (many of which you might wish to include in other maps or analyses).</p>
+<p>It’s good practice to tally and identify rows that have missing data before excluding them. We can use the same method as above to identify the records with missing coordinates.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>geckos <span class="sc">|&gt;</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_any</span>(<span class="fu">c</span>(decimalLongitude, decimalLatitude), is.na)) <span class="sc">|&gt;</span></span>
@@ -622,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>geckos_missing <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, class, family, genus, species, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26,967 × 17
+<pre><code># A tibble: 26,968 × 17
    scientificName        class    family   genus species recordID taxonConceptID
    &lt;chr&gt;                 &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;         
  1 Gehyra dubia          Reptilia Gekkoni… Gehy… Gehyra… 00002a3… https://biodi…
@@ -635,7 +635,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Gehyra                Reptilia Gekkoni… Gehy… &lt;NA&gt;    001949e… https://biodi…
  9 Gehyra                Reptilia Gekkoni… Gehy… &lt;NA&gt;    001ab80… https://biodi…
 10 Gehyra versicolor     Reptilia Gekkoni… Gehy… Gehyra… 001bb82… https://biodi…
-# ℹ 26,957 more rows
+# ℹ 26,958 more rows
 # ℹ 10 more variables: decimalLatitude &lt;dbl&gt;, decimalLongitude &lt;dbl&gt;,
 #   eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;,
 #   kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -743,15 +743,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 1,813 × 2
    taxonRank scientificName       
    &lt;chr&gt;     &lt;chr&gt;                
- 1 species   Hemidactylus frenatus
- 2 species   Gehyra dubia         
- 3 species   Heteronotia binoei   
+ 1 species   Heteronotia binoei   
+ 2 species   Christinus marmoratus
+ 3 species   Gehyra versicolor    
  4 species   Heteronotia binoei   
  5 species   Heteronotia binoei   
- 6 species   Heteronotia binoei   
- 7 species   Hemidactylus frenatus
- 8 species   Heteronotia binoei   
- 9 species   Hemidactylus frenatus
+ 6 species   Heteronotia planiceps
+ 7 species   Heteronotia binoei   
+ 8 species   Gehyra lapistola     
+ 9 species   Heteronotia binoei   
 10 species   Hemidactylus frenatus
 # ℹ 1,803 more rows</code></pre>
 </div>
@@ -763,7 +763,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, genus, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>geckos_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26,173 × 17
+<pre><code># A tibble: 26,174 × 17
    scientificName genus recordID taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 Gehyra dubia   Gehy… 00002a3… https://biodi…           -24.1             151.
@@ -776,7 +776,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Gehyra         Gehy… 001949e… https://biodi…           -28.1             140.
  9 Gehyra         Gehy… 001ab80… https://biodi…           -16.1             130.
 10 Gehyra versic… Gehy… 001bb82… https://biodi…           -34.2             142.
-# ℹ 26,163 more rows
+# ℹ 26,164 more rows
 # ℹ 11 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;,
 #   class &lt;chr&gt;, family &lt;chr&gt;, species &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>

@@ -102,9 +102,9 @@ geckos |>
 ### Missing coordinates
 
 If you are intending to make any maps or run any spatial analyses, it's a good idea to
-exclude records with missing coordinates. Missing coordinate data often leads either to a function error, an undesirable map, or the (unintentional) exclusion of data points (many of which you might wish to include in other maps or analyses). 
+exclude records with missing coordinates. Missing coordinate data often leads to one of the following: a function error, an undesirable map, or the (unintentional) exclusion of data points (many of which you might wish to include in other maps or analyses). 
 
-It's good practice to tally and identify the rows that have missing data before excluding them. We can use the same method as above to identify the records with missing coordinates.
+It's good practice to tally and identify rows that have missing data before excluding them. We can use the same method as above to identify the records with missing coordinates.
 
 ```{r}
 geckos |> 
