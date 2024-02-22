@@ -34,13 +34,18 @@ information, as well as checks for filting potentially unwanted records
 #| warning: false
 library(readr)
 library(dplyr)
+library(tidyr)
+library(janitor)
 library(galah)
+
 galah_config(email = Sys.getenv("ALA_EMAIL"),
              username = Sys.getenv("GBIF_USERNAME"),
              password = Sys.getenv("GBIF_PWD"),
              verbose = FALSE)
 
-
+inverts <- here::here("data", "dap", "inverts_subset") |>
+  arrow::open_dataset() |> 
+  collect()
 ```
 
 
@@ -60,36 +65,131 @@ maintain a clear and explicit record of any decisions and changes made with
 respect to the data.
 
 
-
 ## Taxonomic names matching
 
 Here we need a small example of matching names from a separate taxonomic
 list to a dataset.
 
+### Adding taxonomic information
+
+It's not uncommon to receive data that contains some but not all taxonomic rank information. Missing this information can make it difficult to summarise data or create taxonomic visualisations later on.
+
+As an example, here is a small sample of our inverts dataset. You'll notice that we only have `scientific_name`, `class` and `family` information.
+
+```{r}
+inverts_sample <- inverts |>
+  slice(1234:1271)
+```
+
+One way to extract names is to search for names matches in a data infrastructure like the ALA, which has its own taxonomic backbone. We can extract the names from our `inverts_sample` and save the strings in `taxa_sample_names`...
+
+```{r}
+taxa_sample_names <- inverts_sample |>
+  select(scientific_name) |>
+  distinct() |>
+  pull()
+taxa_sample_names
+```
+
+...and use those names to search using `search_taxa()` from galah[^1].
+
+:::{.callout-tip collapse="true" title="Search tip"}
+Anytime you search for taxonomic matches using names, it's good to follow the urls in `taxon_concept_id` to double check you returned the result you expected!
+:::
+
+```{r}
+names_matches_ala <- search_taxa(taxa_sample_names)
+names_matches_ala
+```
+
+Now we can merge this information into our `inverts_sample` data. First, let's select and rename columns from our search that we want to join with `inverts_sample` so we can double check our results with the data in  later and 
+
+```{r}
+names_matches_renamed <- names_matches_ala |>
+  select(scientific_name, kingdom:species) |>
+  rename_with(\(column_name) paste0(column_name, "_ala"), # <1>
+              kingdom:species)
+names_matches_renamed
+```
+1. This line uses shorthand to write a function to append a suffix to a column name. An equivalent way of writing this is:  `function(column_name) {paste0(column_name, "_ala)}`. This is applied to each column name from `kingdom` to `species` in the `names_matches_ala` dataframe.
+
+Now let's select the columns with taxonomic ranks and join them to `
+
+```{r}
+inverts_sample_with_ranks <- names_matches_renamed |>
+  right_join(inverts_sample,                          # join to `inverts_sample`
+             join_by(scientific_name == scientific_name)
+             )
+inverts_sample_with_ranks
+```
+
+We can check whether our new rank names match what was already in our data set to see if our matched names were correct. We'll use  `filter()` to only return rows where `family_ala` does not equal `family`.
+
+```{r}
+inverts_sample_with_ranks |>
+  select(scientific_name, family_ala, family) |>
+  mutate(family = stringr::str_to_sentence(family)) |> # match formatting
+  filter(family_ala != family)
+```
+
+
+## Mismatches in higher taxonomic ranks
+
 One issue you might face is that higher taxonomy from different
 providers may not match. If this is the case, we suggest choosing the
 data provider with the higher taxonomy that is consistent with your
 naming authority and use it to back fill the higher taxonomy of the
-other data sources
+other data sources.
+
+We have occurrence data of plants in the genus *Commersonia*
+
+START HERE
 
 ```{r}
 #| eval: false
-library(dplyr)
-library(janitor)
-library(galah)
-library(tidyverse)
+# takes a while to load, but this is the original query
+gbif_commersonia_list <- galah_call() |>
+  identify("commersonia") |>
+  atlas_species()
+```
 
-afd <- readr::read_csv(here::here("data", "naming", "afd.csv")) |>
-  clean_names()
 
+```{r}
+# load species list
+gbif_species_list <- arrow::read_parquet(
+  here::here("data", "lists", "gbif_commersonia")) |>
+  collect()
+
+# oh no
+gbif_species_list |>
+  distinct(species) |> print(n = 28)
+```
+
+
+```{r}
+galah_config(atlas = "gbif")
+gbif_taxa <- search_taxa("commersonia rosea")
+gbif_taxa
+```
+
+
+```{r}
 galah_config(atlas = "ala")
 
 ala_taxa <- search_taxa("commersonia rosea")
+ala_taxa
 
-galah_config(atlas = "gbif")
+mallows <- galah_call() |>
+  identify("Malvaceae") |>
+  filter(year == 2014) |>
+  atlas_occurrences()
 
-gbif_taxa <- search_taxa("commersonia rosea")
+mallows |> 
+  filter(stringr::str_detect(scientificName, "comm"))
+```
 
+
+```{r}
 gbif_taxa_fixed <- gbif_taxa |>
   select(canonical_name, kingdom, phylum, class, order, family, genus, species) |>
   rename(scientific_name = canonical_name)
@@ -97,24 +197,22 @@ gbif_taxa_fixed <- gbif_taxa |>
 ala_taxa_fixed <- ala_taxa |>
   select(scientific_name, kingdom, phylum, class, order, family, genus, species)
 
-anti_join(ala_taxa_fixed, gbif_taxa_fixed, by = join_by(species == species))
+anti_join(ala_taxa_fixed, gbif_taxa_fixed, 
+          by = join_by(species == species))
 
 find_diffs <- function(name) {
   
   setdiff(ala_taxa_fixed |>
-            select({{name}}), 
+            select(all_of({{name}})), 
           gbif_taxa_fixed |>
-            select({{name}}))
+            select(all_of({{name}})))
 }
 
 colnames(ala_taxa_fixed) |>
   map(\(names)
       find_diffs(names))
 
-# higher_taxonomy <- inverts %>%
-#   select(scientificName) %>%
-#   distinct() %>%
-#   search_taxa()
+
 
 # higher_taxonomy
 ```
@@ -158,6 +256,8 @@ birds |>
   distinct(scientificName)
 ```
 
+Although both are correct, be sure to check your data to make sure that this naming format is consistent.
+
 ```{r loaddata}
 #| warning: false
 #| message: false
@@ -189,6 +289,8 @@ There are several packages available that can be used to query different
 taxonomic databases and check for synonyms. 
 
 Cam has suggested to use "Litoria caerulea", which is known internationally as "Ranoidea caerulea". 
+
+Androcalva rosea & Commersonia rosea is another example.
 
 #### `worrms`  
 
@@ -319,4 +421,25 @@ plants_updated |>
   pull(scientific_name_undersc) |>
   tabyl() |>
   tibble()
+```
+
+
+## Unsure what this is
+
+```{r}
+afd <- readr::read_csv(here::here("data", "naming", "afd.csv")) |>
+  clean_names()
+
+afd |>
+  filter(group_name == "PLATYHELMINTHES") |>
+  slice(4) |>
+  pull(genus) |>
+  search_taxa()
+
+galah_call() |>
+  identify("Pseudopecoelus") |>
+  atlas_species()
+
+afd |>
+  filter(valid_name %in% inverts_sample$scientific_name)
 ```
