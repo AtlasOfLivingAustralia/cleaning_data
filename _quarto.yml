@@ -4,7 +4,7 @@ project:
 
 book:
   title: "ALA's Data Cleaning Booklet"
-  subtitle: "A practical guide to cleaning ecological data"
+  subtitle: "Atlas of Living Australia's practical guide to cleaning ecological data"
   reader-mode: true
   page-navigation: true
   back-to-top-navigation: true
@@ -44,8 +44,8 @@ book:
     - 3_cleaning_general/column-names-and-classes.qmd
   - part: 4_cleaning_expert/1_intro.qmd
     chapters:
-    - 4_cleaning_expert/taxonomic-synonyms.qmd
-    - 4_cleaning_expert/taxonomy.qmd
+    - 4_cleaning_expert/taxonomic-validation.qmd
+    - 4_cleaning_expert/ecological-filtering.qmd
     - 4_cleaning_expert/geospatial.qmd
     - 4_cleaning_expert/outliers.qmd
   - references.qmd
@@ -63,8 +63,7 @@ format:
     theme: 
       - lumen
       - theme.css
-  pdf:
-    documentclass: scrreprt
+
 
 editor: source
 

@@ -1,0 +1,322 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Taxonomic validation
+
+Advances in taxonomy, especially in molecular biology have allowed
+researchers to describe new species more efficiently than ever before
+[@garraffoni2019integrative]. Modern approaches have also enabled
+reclassification of organisms that have been incorrectly described in
+the past. Unfortunately, multiple names (synonyms) for the same organism
+can arise when taxonomy is not unanimously agreed upon by researchers.
+
+Harmonising taxonomic names is a prevalent but complex issue. So far, no
+unifying solution has been put forward because it would require massive
+effort to bring expert domain knowledge together into one database of
+all taxonomic history. This makes research with biodiversity data
+challenging.
+
+While there is no perfect solution, some tips, tricks and tools do
+exist. In this chapter we will go through some of these to clean
+taxonomic data and deal with synonyms.
+
+Here we discuss techniques that directly pertain to taxonomic data
+fields. This includes dealing with taxonomic synonyms, missing taxonomic
+information, as well as checks for filting potentially unwanted records
+(invasive, extinct, etc.)
+
+### Prerequisites
+
+```{r}
+#| message: false
+#| warning: false
+library(readr)
+library(dplyr)
+library(galah)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             username = Sys.getenv("GBIF_USERNAME"),
+             password = Sys.getenv("GBIF_PWD"),
+             verbose = FALSE)
+
+
+```
+
+
+
+## Taxonomic classification
+
+Taxonomic classification is a complex issue when working with open source
+biodiversity data. Data infrastructures have their own taxonomic systems, which
+can lead to variations across platforms in hierarchical information.
+Furthermore, taxonomic classification is in a state of constant change, and
+views may differ within the literature or across authorities (refer back to
+Taxonomy and open source data). As a result, it is
+often the case that you will have synonyms, meaning, more than one name for the
+same species, in your dataset. Keep in mind that there is no universal solution
+to these issues. However you choose to resolve them, we recommend that you
+maintain a clear and explicit record of any decisions and changes made with
+respect to the data.
+
+
+
+## Taxonomic names matching
+
+Here we need a small example of matching names from a separate taxonomic
+list to a dataset.
+
+One issue you might face is that higher taxonomy from different
+providers may not match. If this is the case, we suggest choosing the
+data provider with the higher taxonomy that is consistent with your
+naming authority and use it to back fill the higher taxonomy of the
+other data sources
+
+```{r}
+#| eval: false
+library(dplyr)
+library(janitor)
+library(galah)
+library(tidyverse)
+
+afd <- readr::read_csv(here::here("data", "naming", "afd.csv")) |>
+  clean_names()
+
+galah_config(atlas = "ala")
+
+ala_taxa <- search_taxa("commersonia rosea")
+
+galah_config(atlas = "gbif")
+
+gbif_taxa <- search_taxa("commersonia rosea")
+
+gbif_taxa_fixed <- gbif_taxa |>
+  select(canonical_name, kingdom, phylum, class, order, family, genus, species) |>
+  rename(scientific_name = canonical_name)
+
+ala_taxa_fixed <- ala_taxa |>
+  select(scientific_name, kingdom, phylum, class, order, family, genus, species)
+
+anti_join(ala_taxa_fixed, gbif_taxa_fixed, by = join_by(species == species))
+
+find_diffs <- function(name) {
+  
+  setdiff(ala_taxa_fixed |>
+            select({{name}}), 
+          gbif_taxa_fixed |>
+            select({{name}}))
+}
+
+colnames(ala_taxa_fixed) |>
+  map(\(names)
+      find_diffs(names))
+
+# higher_taxonomy <- inverts %>%
+#   select(scientificName) %>%
+#   distinct() %>%
+#   search_taxa()
+
+# higher_taxonomy
+```
+
+## Name format
+
+Different data providers might use different formats in their taxonomic
+names to delineate between taxonomic ranks. It doesn't matter which
+format your data uses as long as it remains consistent.
+
+In this example using data from the ALA, subspecies of Acacia
+observations specify subspecies using "subsp.", whereas subspecies of
+bird observations simply add an additional name.
+
+```{r}
+#| warning: false
+#| message: false
+#| eval: false
+library(galah)
+library(dplyr)
+library(stringr)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
+
+acacia <- galah_call() |>
+  identify("Acacia") |>
+  filter(year == 2018) |>
+  atlas_occurrences()
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  atlas_occurrences()
+
+acacia |>
+  filter(str_detect(scientificName, "Acacia brunioides")) |>
+  distinct(scientificName)
+  
+birds |>
+  filter(str_detect(scientificName, "Dacelo")) |>
+  distinct(scientificName)
+```
+
+```{r loaddata}
+#| warning: false
+#| message: false
+library(arrow)
+library(tidyverse)
+library(janitor)
+
+plants <- open_dataset("../data/dap/plants_subset",
+  format = "parquet"
+) |> collect()
+
+### Making some fake missing data for inverts in Class column
+inverts <- open_dataset("../data/dap/inverts_subset") |> collect()
+
+set.seed(5)
+tobemissing <- inverts |>
+  filter(class == "arachnida") |>
+  sample_frac(0.3) |>
+  pull(scientific_name) |>
+  unique()
+
+inverts <- inverts |>
+  mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
+```
+
+## Detecting synonyms
+
+There are several packages available that can be used to query different
+taxonomic databases and check for synonyms. 
+
+Cam has suggested to use "Litoria caerulea", which is known internationally as "Ranoidea caerulea". 
+
+#### `worrms`  
+
+The [{worrms}](https://docs.ropensci.org/worrms/) is the R interface to the
+World Register of Marine Species and has the ability to cross check synonyms
+with their database for taxa that has an `AphiaID`. The function will return
+synonymous record(s) associated with another different AphiaID. 
+
+```{r}
+#| warning: false
+#| message: false
+library(worrms)
+library(tidyverse)
+
+marine_sp <- read_csv("../data/worms/worms.csv")
+
+marine_sp |>
+  slice(7) |>
+  pull(AphiaID) |>
+  wm_synonyms()
+```
+
+#### `taxize` 
+
+<!-- Notes/Andrew: There's no explanation for anything about this list here,
+what is it, where is it from etc -->
+<!-- Notes/Andrew: Wouldn't it be better to show, or also show, how to do this query with your dataset? -->
+The `taxize` package allows users to search over many taxonomic data sources for
+hierarchial taxonomic information, such as species names (scientific and
+common), to resolve synonymy. The `gnr_resolve()` function matches a supplied
+list with up to 118 data sources including GBIF, Catalogue of Life, World
+Register of Marine Species and many more. The function scores how well matched
+your name is to these sources. 
+
+```{r}
+library(taxize)
+
+# Read in a naming authority list
+afd <- read_csv("../data/naming/afd.csv")
+unique(afd$VALID_NAME)
+
+# Resolve names
+resolved <- gnr_resolve(unique(afd$VALID_NAME), best_match_only = TRUE)
+resolved |> print(n = 50)
+
+# Retrieve synonyms
+tsn <- get_tsn(unique(afd$VALID_NAME)[1:5])
+synonyms(tsn)
+
+
+```
+
+
+## Detecting homonyms
+
+
+
+
+## Input from experts
+
+Programmatic solutions for resolving synonymy can only go so far. Seeking
+validation from experts is sensible if your goal is to obtain a high quality
+species list. Museums or taxonomic societies are extensive sources of knowledge.
+Below we have provided a list of some of Australian taxonomic society groups. 
+
+### Australian taxonomic society groups
+
+**VERTEBRATES**
+
+-   Amphibians and reptiles - [Australian Herpetological Society](https://ahs.org.au/)\
+-   Birds - [Birdlife Australia](https://www.birdlife.org.au/)\
+-   Fish - [Australian Society for Fish Biology](https://www.asfb.org.au/)\
+-   Mammals - [The Australian Mammal Society](https://australianmammals.org.au/)
+
+**INVERTEBRATES**
+
+-   Arachnology - [Australasian Arachnological Society](www.australasianarachnologicalsociety.org)\
+-   Entomology - [Australian Entomological Society](https://www.austentsoc.org.au/)\
+-   Malacology - [The Malacological Society of Australasia](https://www.malsocaus.org/)\
+-   Nematology - [Australasian Association of Nematologists](https://www.nematologists.org.au/)
+
+### Global taxonomy
+
+-   [GBIF taxonomic backbone](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c) - Uses over 100 different sources
+-   [Integrated Taxonomic Information System, ITIS](https://www.itis.gov/) - Authoritative taxonomic information on plants, animals, fungi, and microbes
+-   [Catalogue of Life](https://www.catalogueoflife.org/) - Global taxonomic catalogue   
+
+
+## Recycle bin
+
+<!-- I feel like the following section isn't important enough, captured by other tasks in other chapters -->
+
+### Seperators
+
+In taxonomic data, separators (such as spaces and underscores) are found
+in scientific names and are used to delineate the genus and [species
+name](https://dwc.tdwg.org/terms/#dwc:specificEpithet). While it is
+personal choice which separator you use, it is good practice to be
+consistent with your choice. Consistency ensures that unique values of
+scientific name truly reflects unique species and not due to
+inconsistencies.
+
+For example, some plant species in the ALA like Acacia specify
+subspecies
+
+```{r}
+library(janitor)
+
+plants |>
+  pull(scientific_name) |>
+  tabyl() |>
+  tibble()
+```
+
+Consistent taxonomic formatting may not be an issue if you are
+downloading data from one single source such as the ALA where scientific
+names are already formatted consistently e.g. "Moloch horridus". This
+may not be the case when consolidating data from multiple sources.
+
+Below is code to create an underscore scientific name from one that is
+separated with a space. Remember to check your changes
+
+```{r}
+plants_updated <- plants |>
+  mutate(scientific_name_undersc = str_replace_all(scientific_name, " ", "_"))
+
+plants_updated |>
+  pull(scientific_name_undersc) |>
+  tabyl() |>
+  tibble()
+```

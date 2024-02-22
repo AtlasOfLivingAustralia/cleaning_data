@@ -8,7 +8,14 @@ number-depth: 3
 
 # Strings
 
-When data are recorded (whether in a field survey or on a computer), text (or **strings**) can be formatted in *many* different ways in a column. Tiny differences between text like capitalisations, extra spaces, quotations, apostrophes and other symbols can all affect a data set. Each of these differences can be the difference between a data point being grouped, merged, filtered or analysed correctly...or not.
+When data are recorded (whether in a field survey or on a computer), text (or **strings**) can be formatted in *many* different ways in a column. For example, are the scientific names of species in your data set written in one or more of the following ways?
+
+  * `"Dendrolagus lumholtzi"`
+  * `"dendrolagus lumholtzi"`
+  * `":Dendrolagus_lumholtzi34"`
+  * `"  Dendrolagus lumholtzi  "`
+
+Tiny differences between text like capitalisations, extra spaces, quotations, apostrophes and other symbols can all affect a data set. Each of these differences can be the difference between a data point being grouped, merged, filtered or analysed correctly...or not.
 
 This chapter will provide many common tools that exist in R to clean strings. We will provide examples of how to use each tool, hopefully providing a useful list of tasks and functions to use when cleaning your data set.
 
@@ -20,13 +27,9 @@ In this chapter, we will use tree kangaroo occurrence data.
 #| warning: false
 #| message: false
 # WORMS dataset
-worms <- read.csv("../data/worms/worms.csv")
+worms <- read.csv(here::here("data", "worms", "worms.csv"))
 # AFD dataset
 afd <- read.csv("../data/naming/afd.csv")
-# Inverts
-inverts <- arrow::open_dataset("../data/galah/inverts") |> dplyr::collect()
-# Plants
-plants <- arrow::open_dataset("../data/dap/plants_subset") |> dplyr::collect()
 ```
 
 ```{r}
@@ -53,7 +56,7 @@ library(dplyr)
 galah_config(email = "your-email-here")
 
 tree_kangaroo <- galah_call() |>
-  galah_identify("Dendrolagus") |>
+  identify("Dendrolagus") |>
   atlas_occurrences()
 ```
 
@@ -111,23 +114,100 @@ str_c("Genus", "specificus", sep = "_") # <1>
 
 ## Matching
 
-Matching strings is a common task when working with biodiversity data. etc etc.
+Matching strings is a common task when working with biodiversity data. Matching is a useful way to search or filter records, or to identify records for data cleaning.
 
 ### Basic matching
 
 The `stringr` package provides a number of functions for matching strings using
 patterns.
 
-```{r}
-# detect and remove
-str_detect("Genus specificus", "Genus")
-str_remove("Genus specificus", pattern = "Genus ")
+#### Detect a pattern
 
-# locate and subset
-records <- c("Genus", "species", "Genus species", "Difgenus difspecies")
-str_locate(records, "Genus")
-str_subset(records, "Genus")
+```{r}
+# detect
+str_detect("Genus specificus", "Genus")
 ```
+
+Use `str_detect()` to filter your `data.frame`.
+
+```{r}
+# 3 possible names in scientificName column
+tree_kangaroo |> distinct(scientificName)
+
+# detect names matching "lum"
+tree_kangaroo |>
+  filter(str_detect(scientificName, "lum")) |>
+  select(scientificName)
+  
+```
+
+`str_subset()` is closely related to `str_detect()`, but `str_subset()` returns a character vector of all strings that match.
+
+```{r}
+# first 10 rows
+tree_kangaroo |>
+  select(scientificName) |>
+  slice(1:10)
+
+# str_subset()
+tree_kangaroo$scientificName |> 
+  str_subset("lum") |>
+  head(10L)
+```
+
+
+#### Remove a pattern
+
+```{r}
+# remove
+str_remove("Genus specificus", pattern = "Genus ")
+```
+
+Use `str_remove()` to clean or extract names.
+
+```{r}
+tree_kangaroo |>
+  mutate(
+    species = ifelse(scientificName != "Dendrolagus",
+                     str_remove(scientificName, "Dendrolagus "),
+                     NA)
+  ) |>
+  select(scientificName, species)
+```
+
+#### Locate a pattern
+
+```{r}
+records <- c("Genus", 
+             "species", 
+             "ZZGenus species", 
+             "Difgenus difspecies")
+```
+
+Find the start and end position of a pattern.
+
+```{r}
+str_locate(records, "Genus")
+```
+
+Find which indices match a pattern.
+
+```{r}
+str_which(records, "Genus")
+```
+
+Add this information to a `data.frame`.
+
+```{r}
+tree_kangaroo |>
+  mutate(
+    start = str_locate(scientificName, "lum")[, 1], # <1>
+    end = str_locate(scientificName, "lum")[, 2] # <2>
+  ) |>
+  select(scientificName, start, end)
+```
+1. `[, 1]` returns column 1 of `str_locate()` output
+2. `[, 2]` returns column 2 of `str_locate()` output
 
 ### Regex matching
 
@@ -138,62 +218,105 @@ Regex is a powerful tool used to match patterns, replace characters, and extract
 unintuitive, but there are websites available, such as [Regex
 Generator](https://regex-generator.olafneumann.org/), that are extremely
 helpful. Here we explore a few basic examples, and keep in mind that these
-methods can be applied to both column name strings and column values. In the
-case of column names, regex can be useful when conforming datasets (see
-[Integration]("./access_integration.qmd")) or to meet a stylistic requirement.
-Applied to column values, there is a range of utility, such as unifying the
-formatting of taxonomic or location names. 
+methods can be applied to both column name strings and column values.
 
-The `str_view()` function is particularly useful for exploring regular
-expressions to see pattern matches. The results are shown in the console, and
-elements matched by the regex are surrounded with angle brackets < >. 
+The `str_view()` function is a useful way to see what a regular
+expression will return. The results are shown in the console, and
+elements matched by the regex are surrounded with angle brackets `<` `>`. 
 
 ```{r}
 # Match the first word in the string (the genus)
-str_view(tree_kangaroo$scientificName, "^[A-Z][a-z]+")
-# Match only the second word (species name)
-str_view(tree_kangaroo$scientificName, "(?<=\\s)[a-z]+")
+str_view(tree_kangaroo$scientificName, "^[A-Z][a-z]+") # <1>
 ```
+1. This regex reads "Do not match all letters (capitalised or not) after word 1."
 
-### Replacements
+```{r}
+# Match only the second word (species name)
+str_view(tree_kangaroo$scientificName, "(?<=\\s)[a-z]+") # <1>
+```
+1. This regex reads "Remove everything until and including the space. Return all uncapitalised letters."
 
-In base R the `gsub()` function can be used for pattern replacement. In
-`stringr`, the `str_replace()` function can be used to replace the first match
+### Replace
+
+A common way to clean strings is to match and replace specific patterns. Here are several examples using the stringr package or base R.
+
+:::{.panel-tabset .nav-pills}
+
+#### `str_replace()`
+
+In `stringr`, the `str_replace()` function can be used to replace the first match
 of a string. The `str_replace_all()` function can be used to replace all
 matches. 
 
 ```{r}
-# str_replace() example
+records <- c("Genus", 
+             "species", 
+             "ZZGenus species", 
+             "Difgenus difspecies")
 ```
 
-Base example:
 
 ```{r}
-tree_kangaroo$scientificName <- gsub(
+str_replace(records, "[aeiou]", "-")     # first match
+str_replace_all(records, "[aeiou]", "-") # all matches
+```
+
+Replace a matched pattern in a dataframe.
+
+```{r}
+tree_kangaroo |>
+  mutate(
+    name_updated = str_replace(
+      scientificName, "^[A-Z][a-z]+", "new_name"
+      )
+  ) |>
+  select(scientificName, name_updated)
+```
+
+#### `gsub()`
+
+In base R the `gsub()` function can be used for pattern replacement. 
+
+```{r}
+records <- c("Genus", 
+             "species", 
+             "ZZGenus species", 
+             "Difgenus difspecies")
+```
+
+```{r}
+gsub("[aeiou]", "-", records) # all matches
+```
+
+Replace a matched pattern in a dataframe.
+
+```{r}
+tree_kangaroo$name_updated <- gsub(
   pattern = "Dendrolagus",
-  replacement = "Newname",
+  replacement = "new_name",
   x = tree_kangaroo$scientificName
 )
+
+tree_kangaroo[,c("scientificName", "name_updated")]
 ```
+:::
 
-## Case style
+<!-- It might be a good idea to show what advanced regex looks like, but it needs to be a more useful example than the one below --> 
 
-Case style can vary across data providers due to variable naming conventions. There are some basic functions available to change the case of strings in `stringr`:
+#### Advanced regex
 
-```{r}
-str_to_lower(plants$scientific_name[1])
-str_to_upper(plants$scientific_name[1])
-str_to_title(plants$scientific_name[1])
-```
+In some cases a more specific detection and replacement is required. 
 
-In some cases a more specific detection and replacement is required. For
-example, the World Register of Marine Species (WoRMS) uses a combination of
-lower case (scientific_name) and camel case (isExtinct). However, the Australian
+Let's say we want to use marine data and taxonomic names from two sources.
+
+The World Register of Marine Species (WoRMS) uses a combination of
+lower case (scientific_name) and camel case (isExtinct) strings. However, the Australian
 Fauna Directory (AFD) uses screaming snake case e.g. SCIENTIFIC_NAME. To work
 with both, case differences can be conformed to a single style, but the format
 you choose is a matter of personal preference. 
 
 <!-- Andrew: This does the same as the original chunk but like 1/4 the size -->
+<!-- Dax: That's cool but you can do exactly the same thing with janitor::clean_names()-->
 ```{r}
 worms_small <- head(worms)
 
@@ -209,12 +332,27 @@ colnames(worms_small) <- sapply(colnames(worms_small), function(name) {
 })
 ```
 
+## Capitalisation
 
+Capitalisation, also called case style, can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a data set. There are some basic functions available to change the case of strings in `stringr`:
 
+```{r}
+# example
+tree_kangaroo$scientificName[1]
+```
 
-## Taxonomy
+```{r}
+str_to_lower(tree_kangaroo$scientificName[1])
+str_to_upper(tree_kangaroo$scientificName[1])
+str_to_title(tree_kangaroo$scientificName[1])
+str_to_sentence(tree_kangaroo$scientificName[1])
+```
 
-```{r loaddata}
+Normally higher taxonomy are capitalised e.g. Myrtaceae or Aves. Capitalisation errors are usually quick to spot when you print the data object. Alternatively you can try using `str_subset` on columns you expect to have capital letters.
+
+The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found.
+
+```{r load-bees-data}
 #| warning: false
 #| message: false
 library(arrow)
@@ -222,39 +360,6 @@ library(tidyverse)
 library(janitor)
 
 bees <- read_parquet("../data/dap/bees.parquet")
-
-plants <- open_dataset("../data/dap/plants_subset",
-  format = "parquet"
-) |> collect()
-
-### Making some fake missing data for inverts in Class column
-inverts <- open_dataset("../data/dap/inverts_subset") |> collect()
-
-set.seed(5)
-tobemissing <- inverts |>
-  filter(class == "arachnida") |>
-  sample_frac(0.3) |>
-  pull(scientific_name) |>
-  unique()
-
-inverts <- inverts |>
-  mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
-```
-
-Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before [@garraffoni2019integrative]. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers.
-
-Harmonising taxonomic names is a prevalent and complex issue and so far, no unifying solution has been put forward --- making research with biodiversity data challenging. A potential solution would require pulling together domain knowledge from experts and compiling a database for where taxonomic history for describe species is traceable and linked with published literature.
-
-While there is no perfect solution, some tips, tricks and tools do exist. In this chapter we will go through some of these to clean taxonomic data and deal with synonyms.
-
-### Capitalisation
-
-Normally higher taxonomy are capitalised e.g. Myrtaceae or Aves. Capitalisation errors are usually quick to spot when you print the data object. Alternatively you can try using `str_subset` on columns you expect to have capital letters.
-
-The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found
-
-```{r}
-library(tidyverse)
 
 str_subset(unique(bees$class), "[:upper:]")
 ```
@@ -274,38 +379,10 @@ bees |>
 
 bees_corrected <- bees |>
   mutate(class_corrected = str_to_sentence(class)) |>
-  select(-class) |> # Remove erroreous column
-  rename(class = class_corrected) # Rename corrected column as the new 'class'
+  select(-class) |>               # Remove erroneous column
+  rename(class = class_corrected) # Rename new column to `class`
 ```
 
-### Seperators
-
-In a taxonomic data, separators such as, spaces and underscore are found in scientific names and are used to delineate the genus and [species name](https://dwc.tdwg.org/terms/#dwc:specificEpithet). While it is personal choice which separator you use, it is good practice to be consistent with your choice. Consistency ensures that unique values of scientific name truly reflects unique species and not due to inconsistencies.
-
-Try `tabyl-ing` your taxonomic columns to check if you have any inconsistencies first
-
-```{r}
-library(janitor)
-
-plants |>
-  pull(scientific_name) |>
-  tabyl() |>
-  tibble()
-```
-
-Consistent taxonomic formatting may not be an issue if you are downloading data from one single source such as the ALA where scientific names are already formatted consistently e.g. "Moloch horridus". This may not be the case when consolidating data from multiple sources.
-
-Below is code to create an underscore scientific name from one that is separated with a space. Remember to check your changes
-
-```{r}
-plants_updated <- plants |>
-  mutate(scientific_name_undersc = str_replace_all(scientific_name, " ", "_"))
-
-plants_updated |>
-  pull(scientific_name_undersc) |>
-  tabyl() |>
-  tibble()
-```
 
 
 
@@ -313,11 +390,11 @@ plants_updated |>
 
 *Dax's note*
 
-I think we can delete the case study below for brevity. I've left it in case it generates any additional ideas for the chapter.
+This is a very good case study, and it might be nice to include it, though I don't think it suits an ALA book to be using Elephant data from GBIF. Is there an ALA data equivalent?
 
 
 
-## Simple case study
+## Case study: Cleaning location names
 
 We will use the `janitor` R package to explore whether our elephant data has any
 string issues. The function `tabyl` will compute a counts and percent of total
@@ -392,4 +469,3 @@ There are some other issues that can be corrected in a similar approach:
 
 We recommend consulting reputable sources to delineate and consolidate
 similar values.
-
