@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.540">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -72,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -225,7 +259,7 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
       </ul>
@@ -241,14 +275,14 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  <a href="../4_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -283,69 +317,34 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../cleaning_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Archived: Cleaning data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">11.0.1</span> Prerequisites</a></li>
+  <li><a href="#basic-date-manipulation" id="toc-basic-date-manipulation" class="nav-link" data-scroll-target="#basic-date-manipulation"><span class="header-section-number">11.1</span> Basic date manipulation</a>
+  <ul class="collapse">
+  <li><a href="#reformat" id="toc-reformat" class="nav-link" data-scroll-target="#reformat"><span class="header-section-number">11.1.1</span> Reformat</a></li>
+  <li><a href="#extract" id="toc-extract" class="nav-link" data-scroll-target="#extract"><span class="header-section-number">11.1.2</span> Extract</a></li>
+  <li><a href="#time-information" id="toc-time-information" class="nav-link" data-scroll-target="#time-information"><span class="header-section-number">11.1.3</span> Time information</a></li>
+  <li><a href="#an-example-using-galah" id="toc-an-example-using-galah" class="nav-link" data-scroll-target="#an-example-using-galah"><span class="header-section-number">11.1.4</span> An example using galah</a></li>
+  </ul></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">11.2</span> Filter</a>
+  <ul class="collapse">
+  <li><a href="#filter-before-download" id="toc-filter-before-download" class="nav-link" data-scroll-target="#filter-before-download"><span class="header-section-number">11.2.1</span> Filter before download</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">11.3</span> Summary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/dates.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></a></li></ol></nav>
 <div class="quarto-title">
@@ -366,9 +365,254 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Some use cases may require dates beyond a simple year value. Standardising dates involves ensuring that the variables in a dataset have values that conform to a consistent and standard format. An example of unstandardised data is having varied date formats (e.g.&nbsp;DD/MM/YYYY for some entries and MM/DD/YYYY for others). This may be necessary when integrating data from multiple sources, but it is important to remember that there can be inconsistencies even within a single source dataset.</p>
+<p>Dates can be formatted in <em>a lot</em> of different ways. Here are just a few examples:</p>
+<ul>
+<li><code>"2020-10-11T14:02:00"</code></li>
+<li><code>"11 October 2020"</code></li>
+<li><code>"10/11/2020"</code></li>
+</ul>
+<p>Sometimes multiple date formats are within one data set, especially if one data set combines data from more than one source. Usually you will need to extract several different types of information using dates, like the week number or the interval of time between two dates. You may also need to use dates and times to filter or clean your data set.</p>
+<p>In this chapter, we provide some basic functions for cleaning dates and times. We also show how to reformat and filter your data set using dates.</p>
+<p>For a more detailed explanation of handling dates and times in R, see the <a href="https://r4ds.hadley.nz/datetimes.html">R 4 Data Science book</a>.</p>
+<section id="prerequisites" class="level3 page-columns page-full" data-number="11.0.1">
+<h3 data-number="11.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">11.0.1</span> Prerequisites</h3>
+<p>In this chapter, we will use <em>Grevillea</em> (aka spider flower) occurrence data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data: grevillea records</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plants <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"grevillea"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/8/a/8/9fc9b089-9cb5-401b-bbe4-bf40c12f8a8c/original" class="rounded"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/a664db4b-1762-4f5c-96eb-b6a52df5d27d"><em>Grevillea acanthifolia</em> flowering.<br>Photo by porcoespinho15 CC-BY-NC 4.0 (Int)</a></p>
+</div>
+</div></div></section>
+<section id="basic-date-manipulation" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="basic-date-manipulation"><span class="header-section-number">11.1</span> Basic date manipulation</h2>
+<p>One of the most useful data cleaning packages for dates is the lubridate package. Below are some examples of common date cleaning functions. You can find more at the <a href="https://r4ds.hadley.nz/datetimes.html">lubridate package website</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="reformat" class="level3" data-number="11.1.1">
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="reformat"><span class="header-section-number">11.1.1</span> Reformat</h3>
+<p>The lubridate package is incredibly good at reformatting dates written in many different styles to <em>YYYY-MM-DD</em> format. Here are a few examples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>(<span class="st">"2017-10-11T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2017-10-11"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmy</span>(<span class="st">"11 October 2020"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2020-10-11"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="st">"10/11/2020"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2020-10-11"</code></pre>
+</div>
+</div>
+<p>Sometimes dates are presented in formats that do not translate cleanly into R. For example, the following date format isn’t converted correctly when we try to convert it to a date.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">c</span>(<span class="st">"X2020.01.22"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">"X2020.01.22"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">"X2020.01.22"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">"X2020.01.22"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">as_date</span>(date)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `date = as_date(date)`.
+Caused by warning:
+! All formats failed to parse. No formats found.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 1
+  date  
+  &lt;date&gt;
+1 NA    
+2 NA    
+3 NA    
+4 NA    </code></pre>
+</div>
+</div>
+<p>We can use <code>%</code> to be more explicit about what information is in each part of our date column, specifying where the 4-digit year (<code>%Y</code>), 2-digit month (<code>%m</code>) and 2 digit day (<code>%d</code>) are within each string. Learn more about date formats in the <a href="https://r4ds.hadley.nz/datetimes.html#tbl-date-formats">R 4 Data Science book</a> <!-- This needs a citation too -->.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">as_date</span>(date, <span class="at">format =</span> <span class="st">"X%Y.%m.%d"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 1
+  date      
+  &lt;date&gt;    
+1 2020-01-22
+2 2020-01-22
+3 2020-01-22
+4 2020-01-22</code></pre>
+</div>
+</div>
+</section>
+<section id="extract" class="level3" data-number="11.1.2">
+<h3 data-number="11.1.2" class="anchored" data-anchor-id="extract"><span class="header-section-number">11.1.2</span> Extract</h3>
+<p>The lubridate package is also very good at extracting specific information from a longer date. This is very useful for summarising, filtering or plotting.</p>
+<section id="date-information" class="level4" data-number="11.1.2.1">
+<h4 data-number="11.1.2.1" class="anchored" data-anchor-id="date-information"><span class="header-section-number">11.1.2.1</span> Date information</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2017</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">week</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">day</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="time-information" class="level3" data-number="11.1.3">
+<h3 data-number="11.1.3" class="anchored" data-anchor-id="time-information"><span class="header-section-number">11.1.3</span> Time information</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2017-11-28 14:02:00 UTC"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2017-11-28T14:02:00"</span>, <span class="at">tz =</span> <span class="st">"Australia/Melbourne"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2017-11-28 14:02:00 AEDT"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2017-11-28T14:02:00"</span>) <span class="sc">|&gt;</span> <span class="fu">hour</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2017-11-28T14:02:00"</span>) <span class="sc">|&gt;</span> <span class="fu">minute</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">am</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pm</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</section>
+<section id="an-example-using-galah" class="level3" data-number="11.1.4">
+<h3 data-number="11.1.4" class="anchored" data-anchor-id="an-example-using-galah"><span class="header-section-number">11.1.4</span> An example using galah</h3>
+<p>Data downloaded using the galah package is loaded into R as date and time data (class <code>POSITct</code>). As a result, you can immediately begin extracting date information using the functions above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">year</span>(eventDate),</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">month =</span> <span class="fu">month</span>(eventDate),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">week =</span> <span class="fu">isoweek</span>(eventDate),</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">day_julian =</span> <span class="fu">yday</span>(eventDate)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(eventDate, year, month, </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>         week, day_julian)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,238 × 5
+   eventDate            year month  week day_julian
+   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+ 1 1989-05-21 00:00:00  1989     5    20        141
+ 2 2003-09-24 00:00:00  2003     9    39        267
+ 3 2000-10-26 00:00:00  2000    10    43        300
+ 4 2015-09-03 00:00:00  2015     9    36        246
+ 5 2018-08-07 00:00:00  2018     8    32        219
+ 6 1990-09-28 00:00:00  1990     9    39        271
+ 7 NA                     NA    NA    NA         NA
+ 8 2013-02-25 00:00:00  2013     2     9         56
+ 9 2016-12-07 00:00:00  2016    12    49        342
+10 2007-04-12 00:00:00  2007     4    15        102
+# ℹ 2,228 more rows</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="filter" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="filter"><span class="header-section-number">11.2</span> Filter</h2>
+<p>We can filter ALA data to within a specific date.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return records after 2015</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;=</span> <span class="fu">ymd</span>(<span class="st">"2016-01-01"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 712 × 8
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 008269cf-34d3… Grevillea 'RF… https://id.bi…           -32.6             151.
+ 2 00cdda2e-80e9… Grevillea 'RF… https://id.bi…           -37.6             145.
+ 3 0189fd67-f4f8… Grevillea 'RF… https://id.bi…           -36.1             147.
+ 4 01ba7b99-9d1a… Grevillea 'RF… https://id.bi…           -34.0             151.
+ 5 01e37f82-fda0… Grevillea 'RF… https://id.bi…           -27.6             153.
+ 6 033e0a39-b90e… Grevillea 'RF… https://id.bi…           -32.8             151.
+ 7 0340f847-bdba… Grevillea 'RF… https://id.bi…           -33.7             151.
+ 8 0346d1b0-0362… Grevillea 'RF… https://id.bi…           -27.1             153.
+ 9 03482ef3-b9bb… Grevillea 'RF… https://id.bi…           -34.0             151.
+10 036ca389-d884… Grevillea 'RF… https://id.bi…           -32.8             151.
+# ℹ 702 more rows
+# ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return records between 2015 &amp; 2018</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">|&gt;</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;=</span> <span class="fu">ymd</span>(<span class="st">"2016-01-01"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>           eventDate <span class="sc">&lt;=</span> <span class="fu">ymd</span>(<span class="st">"2017-12-31"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 133 × 8
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 00cdda2e-80e9… Grevillea 'RF… https://id.bi…           -37.6             145.
+ 2 01e37f82-fda0… Grevillea 'RF… https://id.bi…           -27.6             153.
+ 3 03a432ef-495f… Grevillea 'RF… https://id.bi…           -32.7             152.
+ 4 04c540b4-7d72… Grevillea 'RF… https://id.bi…           -33.5             151.
+ 5 0666b5f9-07c7… Grevillea 'RF… https://id.bi…           -27.7             153.
+ 6 098df1cd-311a… Grevillea 'RF… https://id.bi…           -37.5             150.
+ 7 0ae81d0a-a2ce… Grevillea 'RF… https://id.bi…           -26.4             153.
+ 8 0b50eb5a-669c… Grevillea 'RF… https://id.bi…           -32.9             152.
+ 9 0fec0560-a265… Grevillea 'RF… https://id.bi…           -33.7             150.
+10 108a211e-c221… Grevillea 'RF… https://id.bi…            NA                NA 
+# ℹ 123 more rows
+# ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;</code></pre>
+</div>
+</div>
+<section id="filter-before-download" class="level3" data-number="11.2.1">
+<h3 data-number="11.2.1" class="anchored" data-anchor-id="filter-before-download"><span class="header-section-number">11.2.1</span> Filter before download</h3>
+<p>In galah, you can filter data very similarly but before you download <!-- is this worth including? --></p>
+</section>
+</section>
+<section id="summary" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">11.3</span> Summary</h2>
+<p>In this chapter, we provided examples of common functions for cleaning dates and times for ecological data sets.</p>
+<p>In the next chapter…</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -532,12 +776,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
+      return note.innerHTML;
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -765,8 +1004,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../3_cleaning_general/column-names-and-classes.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>Column names &amp; classes</span>">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../3_cleaning_general/column-names-and-classes.html" class="pagination-link" aria-label="<span class='chapter-number'>12</span>&nbsp; <span class='chapter-title'>Column classes &amp; names</span>">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

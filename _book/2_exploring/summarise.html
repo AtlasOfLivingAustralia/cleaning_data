@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
       </ul>
@@ -275,14 +275,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  <a href="../4_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -317,59 +317,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../cleaning_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Archived: Cleaning data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -462,7 +409,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 1 × 1
    count
    &lt;int&gt;
-1 138584</code></pre>
+1 138621</code></pre>
 </div>
 </div>
 <p>…and break them down by a taxonomic clade like genus…</p>
@@ -476,9 +423,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 6 × 2
   genus       count
   &lt;chr&gt;       &lt;int&gt;
-1 Dacelo      90625
-2 Todiramphus 40711
-3 Ceyx         5847
+1 Dacelo      90653
+2 Todiramphus 40715
+3 Ceyx         5852
 4 Tanysiptera   886
 5 Syma          338
 6 Halcyon        63</code></pre>
@@ -495,14 +442,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 10 × 2
    species                  count
    &lt;chr&gt;                    &lt;int&gt;
- 1 Dacelo novaeguineae      83358
- 2 Todiramphus sanctus      25805
+ 1 Dacelo novaeguineae      83386
+ 2 Todiramphus sanctus      25808
  3 Todiramphus macleayii     9851
  4 Dacelo leachii            7262
- 5 Ceyx azureus              5191
+ 5 Ceyx azureus              5195
  6 Todiramphus pyrrhopygius  2318
  7 Tanysiptera sylvia         886
- 8 Ceyx pusillus              656
+ 8 Ceyx pusillus              657
  9 Syma torotoro              338
 10 Todiramphus chloris         27</code></pre>
 </div>
@@ -527,9 +474,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2 &lt;NA&gt;          114
 3 Syma          338
 4 Tanysiptera   886
-5 Ceyx         5847
-6 Todiramphus 40711
-7 Dacelo      90625</code></pre>
+5 Ceyx         5852
+6 Todiramphus 40715
+7 Dacelo      90653</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
@@ -542,15 +489,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    &lt;chr&gt;                    &lt;int&gt;
  1 Todiramphus chloris         27
  2 Syma torotoro              338
- 3 Ceyx pusillus              656
+ 3 Ceyx pusillus              657
  4 Tanysiptera sylvia         886
  5 Todiramphus pyrrhopygius  2318
- 6 &lt;NA&gt;                      2892
- 7 Ceyx azureus              5191
+ 6 &lt;NA&gt;                      2893
+ 7 Ceyx azureus              5195
  8 Dacelo leachii            7262
  9 Todiramphus macleayii     9851
-10 Todiramphus sanctus      25805
-11 Dacelo novaeguineae      83358</code></pre>
+10 Todiramphus sanctus      25808
+11 Dacelo novaeguineae      83386</code></pre>
 </div>
 </div>
 </div>
@@ -562,12 +509,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       genus     n percent valid_percent
-        Ceyx  5847    4.2%          4.2%
-      Dacelo 90625   65.4%         65.4%
+        Ceyx  5852    4.2%          4.2%
+      Dacelo 90653   65.4%         65.5%
      Halcyon    63    0.0%          0.0%
         Syma   338    0.2%          0.2%
  Tanysiptera   886    0.6%          0.6%
- Todiramphus 40711   29.4%         29.4%
+ Todiramphus 40715   29.4%         29.4%
         &lt;NA&gt;   114    0.1%             -</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
@@ -575,17 +522,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  species     n percent valid_percent
-             Ceyx azureus  5191    3.7%          3.8%
-            Ceyx pusillus   656    0.5%          0.5%
+             Ceyx azureus  5195    3.7%          3.8%
+            Ceyx pusillus   657    0.5%          0.5%
            Dacelo leachii  7262    5.2%          5.4%
-      Dacelo novaeguineae 83358   60.1%         61.4%
+      Dacelo novaeguineae 83386   60.2%         61.4%
             Syma torotoro   338    0.2%          0.2%
        Tanysiptera sylvia   886    0.6%          0.7%
       Todiramphus chloris    27    0.0%          0.0%
     Todiramphus macleayii  9851    7.1%          7.3%
  Todiramphus pyrrhopygius  2318    1.7%          1.7%
-      Todiramphus sanctus 25805   18.6%         19.0%
-                     &lt;NA&gt;  2892    2.1%             -</code></pre>
+      Todiramphus sanctus 25808   18.6%         19.0%
+                     &lt;NA&gt;  2893    2.1%             -</code></pre>
 </div>
 </div>
 </div>
@@ -625,9 +572,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 8 × 2
   cl22                         count
   &lt;chr&gt;                        &lt;int&gt;
-1 Queensland                   50259
-2 New South Wales              36821
-3 Victoria                     23916
+1 Queensland                   50266
+2 New South Wales              36850
+3 Victoria                     23917
 4 Northern Territory            9788
 5 Western Australia             7645
 6 Australian Capital Territory  3518
@@ -646,15 +593,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 26 × 3
    cl22            genus       count
    &lt;chr&gt;           &lt;chr&gt;       &lt;int&gt;
- 1 Queensland      Dacelo      27023
- 2 Queensland      Todiramphus 19389
- 3 Queensland      Ceyx         2558
+ 1 Queensland      Dacelo      27024
+ 2 Queensland      Todiramphus 19391
+ 3 Queensland      Ceyx         2562
  4 Queensland      Tanysiptera   885
  5 Queensland      Syma          336
- 6 New South Wales Dacelo      27988
- 7 New South Wales Todiramphus  7411
- 8 New South Wales Ceyx         1413
- 9 Victoria        Dacelo      19642
+ 6 New South Wales Dacelo      28014
+ 7 New South Wales Todiramphus  7413
+ 8 New South Wales Ceyx         1414
+ 9 Victoria        Dacelo      19643
 10 Victoria        Todiramphus  3757
 # ℹ 16 more rows</code></pre>
 </div>
@@ -675,9 +622,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   cl22 [9]
   cl22                             n
   &lt;chr&gt;                        &lt;int&gt;
-1 Queensland                   50259
-2 New South Wales              36821
-3 Victoria                     23916
+1 Queensland                   50266
+2 New South Wales              36850
+3 Victoria                     23917
 4 Northern Territory            9788
 5 Western Australia             7645
 6 Australian Capital Territory  3518
@@ -694,11 +641,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   species, cl22 [59]
    species               cl22                   n
    &lt;chr&gt;                 &lt;chr&gt;              &lt;int&gt;
- 1 Dacelo novaeguineae   New South Wales    27988
- 2 Dacelo novaeguineae   Queensland         23901
- 3 Dacelo novaeguineae   Victoria           19641
- 4 Todiramphus sanctus   Queensland         10254
- 5 Todiramphus sanctus   New South Wales     6652
+ 1 Dacelo novaeguineae   New South Wales    28014
+ 2 Dacelo novaeguineae   Queensland         23902
+ 3 Dacelo novaeguineae   Victoria           19642
+ 4 Todiramphus sanctus   Queensland         10255
+ 5 Todiramphus sanctus   New South Wales     6654
  6 Todiramphus macleayii Queensland          6357
  7 Dacelo novaeguineae   Western Australia   3956
  8 Todiramphus sanctus   Victoria            3749
@@ -717,12 +664,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>                         cl22     n percent valid_percent
  Australian Capital Territory  3518    2.5%          2.6%
-              New South Wales 36821   26.6%         26.9%
+              New South Wales 36850   26.6%         26.9%
            Northern Territory  9788    7.1%          7.2%
-                   Queensland 50259   36.3%         36.7%
+                   Queensland 50266   36.3%         36.7%
               South Australia  2423    1.7%          1.8%
                      Tasmania  2441    1.8%          1.8%
-                     Victoria 23916   17.3%         17.5%
+                     Victoria 23917   17.3%         17.5%
             Western Australia  7645    5.5%          5.6%
                          &lt;NA&gt;  1773    1.3%             -</code></pre>
 </div>
@@ -731,29 +678,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  species Australian Capital Territory New South Wales
-             Ceyx azureus                      4700.0%       141300.0%
+             Ceyx azureus                      4700.0%       141400.0%
             Ceyx pusillus                         0.0%            0.0%
            Dacelo leachii                         0.0%            0.0%
-      Dacelo novaeguineae                    283500.0%      2798800.0%
+      Dacelo novaeguineae                    283500.0%      2801400.0%
             Syma torotoro                         0.0%            0.0%
        Tanysiptera sylvia                         0.0%            0.0%
       Todiramphus chloris                         0.0%          600.0%
     Todiramphus macleayii                         0.0%        32400.0%
  Todiramphus pyrrhopygius                         0.0%        24600.0%
-      Todiramphus sanctus                     63600.0%       665200.0%
+      Todiramphus sanctus                     63600.0%       665400.0%
                      &lt;NA&gt;                         0.0%        19200.0%
  Northern Territory Queensland South Australia  Tasmania   Victoria
-           93100.0%  202300.0%          200.0%   2100.0%   51700.0%
-           11300.0%   53500.0%            0.0%      0.0%       0.0%
+           93100.0%  202600.0%          200.0%   2100.0%   51700.0%
+           11300.0%   53600.0%            0.0%      0.0%       0.0%
           304300.0%  312100.0%            0.0%      0.0%       0.0%
-               0.0% 2390100.0%       180100.0% 240000.0% 1964100.0%
+               0.0% 2390200.0%       180100.0% 240000.0% 1964200.0%
                0.0%   33600.0%            0.0%      0.0%       0.0%
                0.0%   88500.0%            0.0%      0.0%       0.0%
                0.0%     100.0%            0.0%      0.0%       0.0%
           313500.0%  635700.0%            0.0%      0.0%       0.0%
            74600.0%   74100.0%        26800.0%      0.0%     800.0%
-          145200.0% 1025400.0%        34900.0%   2000.0%  374900.0%
-           36800.0%  210500.0%          300.0%      0.0%     100.0%
+          145200.0% 1025500.0%        34900.0%   2000.0%  374900.0%
+           36800.0%  210600.0%          300.0%      0.0%     100.0%
  Western Australia      NA_
           16300.0%  7400.0%
               0.0%   800.0%
@@ -968,14 +915,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 8 × 2
   year   count
   &lt;chr&gt;  &lt;int&gt;
-1 2022  138584
-2 2021  128685
-3 2020  108919
-4 2018   95617
-5 2019   93809
-6 2017   78632
-7 2023   43925
-8 2024     702</code></pre>
+1 2022  138621
+2 2021  128698
+3 2020  108926
+4 2018   95620
+5 2019   93822
+6 2017   78636
+7 2023   43975
+8 2024     844</code></pre>
 </div>
 </div>
 <p>You can summarise after downloading counts locally, too. With the help of the lubridate package, we’ll convert our column <code>eventDate</code> to a <code>date</code> class in R. Then we can extract date data relevant to our specific summary.</p>
@@ -992,7 +939,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>birds_date <span class="sc">|&gt;</span></span>
 <span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, eventDate, year, month, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 138,584 × 14
+<pre><code># A tibble: 138,621 × 14
    scientificName eventDate   year month recordID taxonConceptID decimalLatitude
    &lt;chr&gt;          &lt;date&gt;     &lt;dbl&gt; &lt;ord&gt; &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;
  1 Dacelo (Dacel… 2022-04-19  2022 Apr   00000eb… https://biodi…           -37.8
@@ -1005,7 +952,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Dacelo (Dacel… 2022-10-01  2022 Oct   000254a… https://biodi…           -38.2
  9 Dacelo (Dacel… 2022-03-21  2022 Mar   0002618… https://biodi…           -35.4
 10 Dacelo (Dacel… 2022-08-14  2022 Aug   00039ab… https://biodi…           -33.5
-# ℹ 138,574 more rows
+# ℹ 138,611 more rows
 # ℹ 7 more variables: decimalLongitude &lt;dbl&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;</code></pre>
@@ -1026,7 +973,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    year      n
   &lt;dbl&gt;  &lt;int&gt;
 1  2021      4
-2  2022 138578
+2  2022 138615
 3    NA      2</code></pre>
 </div>
 </div>
@@ -1041,7 +988,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code> year      n percent valid_percent
  2021      4    0.0%          0.0%
- 2022 138578  100.0%        100.0%
+ 2022 138615  100.0%        100.0%
    NA      2    0.0%             -</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>birds_date <span class="sc">|&gt;</span></span>
@@ -1049,29 +996,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  species Australian Capital Territory New South Wales
-             Ceyx azureus                      4700.0%       141300.0%
+             Ceyx azureus                      4700.0%       141400.0%
             Ceyx pusillus                         0.0%            0.0%
            Dacelo leachii                         0.0%            0.0%
-      Dacelo novaeguineae                    283500.0%      2798800.0%
+      Dacelo novaeguineae                    283500.0%      2801400.0%
             Syma torotoro                         0.0%            0.0%
        Tanysiptera sylvia                         0.0%            0.0%
       Todiramphus chloris                         0.0%          600.0%
     Todiramphus macleayii                         0.0%        32400.0%
  Todiramphus pyrrhopygius                         0.0%        24600.0%
-      Todiramphus sanctus                     63600.0%       665200.0%
+      Todiramphus sanctus                     63600.0%       665400.0%
                      &lt;NA&gt;                         0.0%        19200.0%
  Northern Territory Queensland South Australia  Tasmania   Victoria
-           93100.0%  202300.0%          200.0%   2100.0%   51700.0%
-           11300.0%   53500.0%            0.0%      0.0%       0.0%
+           93100.0%  202600.0%          200.0%   2100.0%   51700.0%
+           11300.0%   53600.0%            0.0%      0.0%       0.0%
           304300.0%  312100.0%            0.0%      0.0%       0.0%
-               0.0% 2390100.0%       180100.0% 240000.0% 1964100.0%
+               0.0% 2390200.0%       180100.0% 240000.0% 1964200.0%
                0.0%   33600.0%            0.0%      0.0%       0.0%
                0.0%   88500.0%            0.0%      0.0%       0.0%
                0.0%     100.0%            0.0%      0.0%       0.0%
           313500.0%  635700.0%            0.0%      0.0%       0.0%
            74600.0%   74100.0%        26800.0%      0.0%     800.0%
-          145200.0% 1025400.0%        34900.0%   2000.0%  374900.0%
-           36800.0%  210500.0%          300.0%      0.0%     100.0%
+          145200.0% 1025500.0%        34900.0%   2000.0%  374900.0%
+           36800.0%  210600.0%          300.0%      0.0%     100.0%
  Western Australia      NA_
           16300.0%  7400.0%
               0.0%   800.0%
@@ -1106,18 +1053,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   month [13]
    month     n
    &lt;ord&gt; &lt;int&gt;
- 1 Jan   14757
- 2 Feb    9282
- 3 Mar    8825
- 4 Apr    9466
+ 1 Jan   14758
+ 2 Feb    9284
+ 3 Mar    8826
+ 4 Apr    9467
  5 May    8546
- 6 Jun    9068
- 7 Jul   10561
- 8 Aug   11667
- 9 Sep   13055
-10 Oct   15756
-11 Nov   14004
-12 Dec   13595
+ 6 Jun    9071
+ 7 Jul   10563
+ 8 Aug   11678
+ 9 Sep   13058
+10 Oct   15758
+11 Nov   14009
+12 Dec   13601
 13 &lt;NA&gt;      2</code></pre>
 </div>
 </div>
@@ -1133,18 +1080,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   month [13]
    month     n
    &lt;ord&gt; &lt;int&gt;
- 1 Jan   14757
- 2 Feb    9282
- 3 Mar    8825
- 4 Apr    9466
+ 1 Jan   14758
+ 2 Feb    9284
+ 3 Mar    8826
+ 4 Apr    9467
  5 May    8546
- 6 Jun    9068
- 7 Jul   10561
- 8 Aug   11667
- 9 Sep   13055
-10 Oct   15756
-11 Nov   14004
-12 Dec   13595
+ 6 Jun    9071
+ 7 Jul   10563
+ 8 Aug   11678
+ 9 Sep   13058
+10 Oct   15758
+11 Nov   14009
+12 Dec   13601
 13 &lt;NA&gt;      2</code></pre>
 </div>
 </div>
@@ -1156,19 +1103,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(month))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> month     n      percent valid_percent
-   Dec 13595 9.809935e-02    0.09810076
-   Nov 14004 1.010506e-01    0.10105208
-   Oct 15756 1.136928e-01    0.11369442
-   Sep 13055 9.420279e-02    0.09420415
-   Aug 11667 8.418721e-02    0.08418842
-   Jul 10561 7.620649e-02    0.07620759
-   Jun  9068 6.543324e-02    0.06543418
-   May  8546 6.166657e-02    0.06166746
-   Apr  9466 6.830514e-02    0.06830613
-   Mar  8825 6.367979e-02    0.06368071
-   Feb  9282 6.697743e-02    0.06697840
-   Jan 14757 1.064842e-01    0.10648569
-  &lt;NA&gt;     2 1.443168e-05            NA</code></pre>
+   Dec 13601 9.811645e-02    0.09811786
+   Nov 14009 1.010597e-01    0.10106118
+   Oct 15758 1.136769e-01    0.11367850
+   Sep 13058 9.419929e-02    0.09420065
+   Aug 11678 8.424409e-02    0.08424531
+   Jul 10563 7.620058e-02    0.07620168
+   Jun  9071 6.543742e-02    0.06543836
+   May  8546 6.165011e-02    0.06165100
+   Apr  9467 6.829413e-02    0.06829511
+   Mar  8826 6.367001e-02    0.06367093
+   Feb  9284 6.697398e-02    0.06697495
+   Jan 14758 1.064629e-01    0.10646448
+  &lt;NA&gt;     2 1.442783e-05            NA</code></pre>
 </div>
 </div>
 </div>
@@ -1186,7 +1133,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">day_of_year =</span> <span class="fu">yday</span>(eventDate))</span>
 <span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>birds_day</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 138,578 × 15
+<pre><code># A tibble: 138,615 × 15
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 00000eb7-95a6… Dacelo (Dacel… https://biodi…           -37.8             145.
@@ -1199,7 +1146,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 000254a1-e2ab… Dacelo (Dacel… https://biodi…           -38.2             146.
  9 0002618d-4563… Dacelo (Dacel… https://biodi…           -35.4             149.
 10 00039ab0-6832… Dacelo (Dacel… https://biodi…           -33.5             151.
-# ℹ 138,568 more rows
+# ℹ 138,605 more rows
 # ℹ 10 more variables: eventDate &lt;date&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;ord&gt;, year &lt;dbl&gt;, day_of_year &lt;dbl&gt;</code></pre>
@@ -1255,7 +1202,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">week_of_year =</span> <span class="fu">week</span>(eventDate)) </span>
 <span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>birds_week</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 138,578 × 15
+<pre><code># A tibble: 138,615 × 15
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 00000eb7-95a6… Dacelo (Dacel… https://biodi…           -37.8             145.
@@ -1268,7 +1215,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 000254a1-e2ab… Dacelo (Dacel… https://biodi…           -38.2             146.
  9 0002618d-4563… Dacelo (Dacel… https://biodi…           -35.4             149.
 10 00039ab0-6832… Dacelo (Dacel… https://biodi…           -33.5             151.
-# ℹ 138,568 more rows
+# ℹ 138,605 more rows
 # ℹ 10 more variables: eventDate &lt;date&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;ord&gt;, year &lt;dbl&gt;, week_of_year &lt;dbl&gt;</code></pre>
@@ -1285,15 +1232,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    week_of_year count
           &lt;dbl&gt; &lt;int&gt;
  1            1  4222
- 2            2  3336
+ 2            2  3337
  3            3  2897
  4            4  3070
  5            5  2323
- 6            6  2561
+ 6            6  2562
  7            7  2530
  8            8  2274
- 9            9  1716
-10           10  1810
+ 9            9  1717
+10           10  1811
 # ℹ 43 more rows</code></pre>
 </div>
 </div>

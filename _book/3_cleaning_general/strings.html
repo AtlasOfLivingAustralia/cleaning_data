@@ -54,27 +54,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -279,7 +259,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
       </ul>
@@ -295,14 +275,14 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  <a href="../4_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -353,15 +333,10 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#basic-matching" id="toc-basic-matching" class="nav-link" data-scroll-target="#basic-matching"><span class="header-section-number">10.2.1</span> Basic matching</a></li>
   <li><a href="#regex-matching" id="toc-regex-matching" class="nav-link" data-scroll-target="#regex-matching"><span class="header-section-number">10.2.2</span> Regex matching</a></li>
-  <li><a href="#replacements" id="toc-replacements" class="nav-link" data-scroll-target="#replacements"><span class="header-section-number">10.2.3</span> Replacements</a></li>
+  <li><a href="#replace" id="toc-replace" class="nav-link" data-scroll-target="#replace"><span class="header-section-number">10.2.3</span> Replace</a></li>
   </ul></li>
-  <li><a href="#case-style" id="toc-case-style" class="nav-link" data-scroll-target="#case-style"><span class="header-section-number">10.3</span> Case style</a></li>
-  <li><a href="#taxonomy" id="toc-taxonomy" class="nav-link" data-scroll-target="#taxonomy"><span class="header-section-number">10.4</span> Taxonomy</a>
-  <ul class="collapse">
-  <li><a href="#capitalisation" id="toc-capitalisation" class="nav-link" data-scroll-target="#capitalisation"><span class="header-section-number">10.4.1</span> Capitalisation</a></li>
-  <li><a href="#seperators" id="toc-seperators" class="nav-link" data-scroll-target="#seperators"><span class="header-section-number">10.4.2</span> Seperators</a></li>
-  </ul></li>
-  <li><a href="#simple-case-study" id="toc-simple-case-study" class="nav-link" data-scroll-target="#simple-case-study"><span class="header-section-number">10.5</span> Simple case study</a></li>
+  <li><a href="#capitalisation" id="toc-capitalisation" class="nav-link" data-scroll-target="#capitalisation"><span class="header-section-number">10.3</span> Capitalisation</a></li>
+  <li><a href="#case-study-cleaning-location-names" id="toc-case-study-cleaning-location-names" class="nav-link" data-scroll-target="#case-study-cleaning-location-names"><span class="header-section-number">10.4</span> Case study: Cleaning location names</a></li>
   </ul>
 </nav>
     </div>
@@ -387,20 +362,23 @@ div.csl-indent {
 </header>
 
 
-<p>When data are recorded (whether in a field survey or on a computer), text (or <strong>strings</strong>) can be formatted in <em>many</em> different ways in a column. Tiny differences between text like capitalisations, extra spaces, quotations, apostrophes and other symbols can all affect a data set. Each of these differences can be the difference between a data point being grouped, merged, filtered or analysed correctly…or not.</p>
+<p>When data are recorded (whether in a field survey or on a computer), text (or <strong>strings</strong>) can be formatted in <em>many</em> different ways in a column. For example, are the scientific names of species in your data set written in one or more of the following ways?</p>
+<ul>
+<li><code>"Dendrolagus lumholtzi"</code></li>
+<li><code>"dendrolagus lumholtzi"</code></li>
+<li><code>":Dendrolagus_lumholtzi34"</code></li>
+<li><code>"  Dendrolagus lumholtzi  "</code></li>
+</ul>
+<p>Tiny differences between text like capitalisations, extra spaces, quotations, apostrophes and other symbols can all affect a data set. Each of these differences can be the difference between a data point being grouped, merged, filtered or analysed correctly…or not.</p>
 <p>This chapter will provide many common tools that exist in R to clean strings. We will provide examples of how to use each tool, hopefully providing a useful list of tasks and functions to use when cleaning your data set.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="10.0.1">
 <h3 data-number="10.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">10.0.1</span> Prerequisites</h3>
 <p>In this chapter, we will use tree kangaroo occurrence data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># WORMS dataset</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>worms <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/worms/worms.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>worms <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"worms"</span>, <span class="st">"worms.csv"</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># AFD dataset</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>afd <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/naming/afd.csv"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverts</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>inverts <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">open_dataset</span>(<span class="st">"../data/galah/inverts"</span>) <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">collect</span>()</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plants</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plants <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">open_dataset</span>(<span class="st">"../data/dap/plants_subset"</span>) <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>afd <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/naming/afd.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
@@ -411,7 +389,7 @@ div.csl-indent {
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Dendrolagus"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Dendrolagus"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
@@ -488,44 +466,202 @@ div.csl-indent {
 </section>
 <section id="matching" class="level2" data-number="10.2">
 <h2 data-number="10.2" class="anchored" data-anchor-id="matching"><span class="header-section-number">10.2</span> Matching</h2>
-<p>Matching strings is a common task when working with biodiversity data. etc etc.</p>
+<p>Matching strings is a common task when working with biodiversity data. Matching is a useful way to search or filter records, or to identify records for data cleaning.</p>
 <section id="basic-matching" class="level3" data-number="10.2.1">
 <h3 data-number="10.2.1" class="anchored" data-anchor-id="basic-matching"><span class="header-section-number">10.2.1</span> Basic matching</h3>
 <p>The <code>stringr</code> package provides a number of functions for matching strings using patterns.</p>
+<section id="detect-a-pattern" class="level4">
+<h4 class="anchored" data-anchor-id="detect-a-pattern">Detect a pattern</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># detect and remove</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># detect</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_detect</span>(<span class="st">"Genus specificus"</span>, <span class="st">"Genus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_remove</span>(<span class="st">"Genus specificus"</span>, <span class="at">pattern =</span> <span class="st">"Genus "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use <code>str_detect()</code> to filter your <code>data.frame</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3 possible names in scientificName column</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="sc">|&gt;</span> <span class="fu">distinct</span>(scientificName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 1
+  scientificName          
+  &lt;chr&gt;                   
+1 Dendrolagus lumholtzi   
+2 Dendrolagus             
+3 Dendrolagus bennettianus</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># detect names matching "lum"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(scientificName, <span class="st">"lum"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 777 × 1
+   scientificName       
+   &lt;chr&gt;                
+ 1 Dendrolagus lumholtzi
+ 2 Dendrolagus lumholtzi
+ 3 Dendrolagus lumholtzi
+ 4 Dendrolagus lumholtzi
+ 5 Dendrolagus lumholtzi
+ 6 Dendrolagus lumholtzi
+ 7 Dendrolagus lumholtzi
+ 8 Dendrolagus lumholtzi
+ 9 Dendrolagus lumholtzi
+10 Dendrolagus lumholtzi
+# ℹ 767 more rows</code></pre>
+</div>
+</div>
+<p><code>str_subset()</code> is closely related to <code>str_detect()</code>, but <code>str_subset()</code> returns a character vector of all strings that match.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># first 10 rows</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   scientificName          
+   &lt;chr&gt;                   
+ 1 Dendrolagus lumholtzi   
+ 2 Dendrolagus lumholtzi   
+ 3 Dendrolagus lumholtzi   
+ 4 Dendrolagus lumholtzi   
+ 5 Dendrolagus             
+ 6 Dendrolagus bennettianus
+ 7 Dendrolagus lumholtzi   
+ 8 Dendrolagus lumholtzi   
+ 9 Dendrolagus             
+10 Dendrolagus bennettianus</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str_subset()</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>tree_kangaroo<span class="sc">$</span>scientificName <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_subset</span>(<span class="st">"lum"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Dendrolagus lumholtzi" "Dendrolagus lumholtzi" "Dendrolagus lumholtzi"
+ [4] "Dendrolagus lumholtzi" "Dendrolagus lumholtzi" "Dendrolagus lumholtzi"
+ [7] "Dendrolagus lumholtzi" "Dendrolagus lumholtzi" "Dendrolagus lumholtzi"
+[10] "Dendrolagus lumholtzi"</code></pre>
+</div>
+</div>
+</section>
+<section id="remove-a-pattern" class="level4">
+<h4 class="anchored" data-anchor-id="remove-a-pattern">Remove a pattern</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_remove</span>(<span class="st">"Genus specificus"</span>, <span class="at">pattern =</span> <span class="st">"Genus "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "specificus"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># locate and subset</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>records <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genus"</span>, <span class="st">"species"</span>, <span class="st">"Genus species"</span>, <span class="st">"Difgenus difspecies"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_locate</span>(records, <span class="st">"Genus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Use <code>str_remove()</code> to clean or extract names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">species =</span> <span class="fu">ifelse</span>(scientificName <span class="sc">!=</span> <span class="st">"Dendrolagus"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">str_remove</span>(scientificName, <span class="st">"Dendrolagus "</span>),</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>                     <span class="cn">NA</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,265 × 2
+   scientificName           species     
+   &lt;chr&gt;                    &lt;chr&gt;       
+ 1 Dendrolagus lumholtzi    lumholtzi   
+ 2 Dendrolagus lumholtzi    lumholtzi   
+ 3 Dendrolagus lumholtzi    lumholtzi   
+ 4 Dendrolagus lumholtzi    lumholtzi   
+ 5 Dendrolagus              &lt;NA&gt;        
+ 6 Dendrolagus bennettianus bennettianus
+ 7 Dendrolagus lumholtzi    lumholtzi   
+ 8 Dendrolagus lumholtzi    lumholtzi   
+ 9 Dendrolagus              &lt;NA&gt;        
+10 Dendrolagus bennettianus bennettianus
+# ℹ 1,255 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="locate-a-pattern" class="level4">
+<h4 class="anchored" data-anchor-id="locate-a-pattern">Locate a pattern</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>records <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genus"</span>, </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>             <span class="st">"species"</span>, </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">"ZZGenus species"</span>, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Difgenus difspecies"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Find the start and end position of a pattern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_locate</span>(records, <span class="st">"Genus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     start end
 [1,]     1   5
 [2,]    NA  NA
-[3,]     1   5
+[3,]     3   7
 [4,]    NA  NA</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(records, <span class="st">"Genus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Find which indices match a pattern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_which</span>(records, <span class="st">"Genus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Genus"         "Genus species"</code></pre>
+<pre><code>[1] 1 3</code></pre>
 </div>
 </div>
+<p>Add this information to a <code>data.frame</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-20"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-20-1"><a href="#annotated-cell-20-1" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-20-2"><a href="#annotated-cell-20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="1">1</button><span id="annotated-cell-20-3" class="code-annotation-target"><a href="#annotated-cell-20-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">start =</span> <span class="fu">str_locate</span>(scientificName, <span class="st">"lum"</span>)[, <span class="dv">1</span>],</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="2">2</button><span id="annotated-cell-20-4" class="code-annotation-target"><a href="#annotated-cell-20-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">end =</span> <span class="fu">str_locate</span>(scientificName, <span class="st">"lum"</span>)[, <span class="dv">2</span>]</span>
+<span id="annotated-cell-20-5"><a href="#annotated-cell-20-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-20-6"><a href="#annotated-cell-20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, start, end)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-20" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-20" data-code-lines="3" data-code-annotation="1"><code>[, 1]</code> returns column 1 of <code>str_locate()</code> output</span>
+</dd>
+<dt data-target-cell="annotated-cell-20" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-20" data-code-lines="4" data-code-annotation="2"><code>[, 2]</code> returns column 2 of <code>str_locate()</code> output</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,265 × 3
+   scientificName           start   end
+   &lt;chr&gt;                    &lt;int&gt; &lt;int&gt;
+ 1 Dendrolagus lumholtzi       13    15
+ 2 Dendrolagus lumholtzi       13    15
+ 3 Dendrolagus lumholtzi       13    15
+ 4 Dendrolagus lumholtzi       13    15
+ 5 Dendrolagus                 NA    NA
+ 6 Dendrolagus bennettianus    NA    NA
+ 7 Dendrolagus lumholtzi       13    15
+ 8 Dendrolagus lumholtzi       13    15
+ 9 Dendrolagus                 NA    NA
+10 Dendrolagus bennettianus    NA    NA
+# ℹ 1,255 more rows</code></pre>
+</div>
+</div>
+</section>
 </section>
 <section id="regex-matching" class="level3" data-number="10.2.2">
 <h3 data-number="10.2.2" class="anchored" data-anchor-id="regex-matching"><span class="header-section-number">10.2.2</span> Regex matching</h3>
 <p>The examples above demonstrate the use of basic patterns. But for cases that need more specific or advanced matching we can use <strong>regular expressions (regex)</strong>.</p>
-<p>Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as <a href="https://regex-generator.olafneumann.org/">Regex Generator</a>, that are extremely helpful. Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values. In the case of column names, regex can be useful when conforming datasets (see <a href="&quot;./access_integration.qmd&quot;">Integration</a>) or to meet a stylistic requirement. Applied to column values, there is a range of utility, such as unifying the formatting of taxonomic or location names.</p>
-<p>The <code>str_view()</code> function is particularly useful for exploring regular expressions to see pattern matches. The results are shown in the console, and elements matched by the regex are surrounded with angle brackets &lt; &gt;.</p>
+<p>Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as <a href="https://regex-generator.olafneumann.org/">Regex Generator</a>, that are extremely helpful. Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values.</p>
+<p>The <code>str_view()</code> function is a useful way to see what a regular expression will return. The results are shown in the console, and elements matched by the regex are surrounded with angle brackets <code>&lt;</code> <code>&gt;</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match the first word in the string (the genus)</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(tree_kangaroo<span class="sc">$</span>scientificName, <span class="st">"^[A-Z][a-z]+"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-21"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-21-1"><a href="#annotated-cell-21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match the first word in the string (the genus)</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-21" data-target-annotation="1">1</button><span id="annotated-cell-21-2" class="code-annotation-target"><a href="#annotated-cell-21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(tree_kangaroo<span class="sc">$</span>scientificName, <span class="st">"^[A-Z][a-z]+"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-21" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-21" data-code-lines="2" data-code-annotation="1">This regex reads “Do not match all letters (capitalised or not) after word 1.”</span>
+</dd>
+</dl>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] │ &lt;Dendrolagus&gt; lumholtzi
  [2] │ &lt;Dendrolagus&gt; lumholtzi
@@ -547,10 +683,20 @@ div.csl-indent {
 [18] │ &lt;Dendrolagus&gt; lumholtzi
 [19] │ &lt;Dendrolagus&gt; lumholtzi
 [20] │ &lt;Dendrolagus&gt; lumholtzi
-... and 1243 more</code></pre>
+... and 1245 more</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match only the second word (species name)</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(tree_kangaroo<span class="sc">$</span>scientificName, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">s)[a-z]+"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-22"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-22-1"><a href="#annotated-cell-22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Match only the second word (species name)</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="1">1</button><span id="annotated-cell-22-2" class="code-annotation-target"><a href="#annotated-cell-22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(tree_kangaroo<span class="sc">$</span>scientificName, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">s)[a-z]+"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-22" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-22" data-code-lines="2" data-code-annotation="1">This regex reads “Remove everything until and including the space. Return all uncapitalised letters.”</span>
+</dd>
+</dl>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] │ Dendrolagus &lt;lumholtzi&gt;
  [2] │ Dendrolagus &lt;lumholtzi&gt;
@@ -572,113 +718,186 @@ div.csl-indent {
 [25] │ Dendrolagus &lt;bennettianus&gt;
 [27] │ Dendrolagus &lt;lumholtzi&gt;
 [28] │ Dendrolagus &lt;lumholtzi&gt;
-... and 860 more</code></pre>
+... and 862 more</code></pre>
 </div>
 </div>
 </section>
-<section id="replacements" class="level3" data-number="10.2.3">
-<h3 data-number="10.2.3" class="anchored" data-anchor-id="replacements"><span class="header-section-number">10.2.3</span> Replacements</h3>
-<p>In base R the <code>gsub()</code> function can be used for pattern replacement. In <code>stringr</code>, the <code>str_replace()</code> function can be used to replace the first match of a string. The <code>str_replace_all()</code> function can be used to replace all matches.</p>
+<section id="replace" class="level3" data-number="10.2.3">
+<h3 data-number="10.2.3" class="anchored" data-anchor-id="replace"><span class="header-section-number">10.2.3</span> Replace</h3>
+<p>A common way to clean strings is to match and replace specific patterns. Here are several examples using the stringr package or base R.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><code>str_replace()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>gsub()</code></a></li></ul>
+<div class="tab-content nav-pills">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>In <code>stringr</code>, the <code>str_replace()</code> function can be used to replace the first match of a string. The <code>str_replace_all()</code> function can be used to replace all matches.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str_replace() example</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>records <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genus"</span>, </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>             <span class="st">"species"</span>, </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">"ZZGenus species"</span>, </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Difgenus difspecies"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Base example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>tree_kangaroo<span class="sc">$</span>scientificName <span class="ot">&lt;-</span> <span class="fu">gsub</span>(</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"Dendrolagus"</span>,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">replacement =</span> <span class="st">"Newname"</span>,</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> tree_kangaroo<span class="sc">$</span>scientificName</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace</span>(records, <span class="st">"[aeiou]"</span>, <span class="st">"-"</span>)     <span class="co"># first match</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "G-nus"               "sp-cies"             "ZZG-nus species"    
+[4] "D-fgenus difspecies"</code></pre>
 </div>
-</section>
-</section>
-<section id="case-style" class="level2" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="case-style"><span class="header-section-number">10.3</span> Case style</h2>
-<p>Case style can vary across data providers due to variable naming conventions. There are some basic functions available to change the case of strings in <code>stringr</code>:</p>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_replace_all</span>(records, <span class="st">"[aeiou]"</span>, <span class="st">"-"</span>) <span class="co"># all matches</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "G-n-s"               "sp-c--s"             "ZZG-n-s sp-c--s"    
+[4] "D-fg-n-s d-fsp-c--s"</code></pre>
+</div>
+</div>
+<p>Replace a matched pattern in a dataframe.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_lower</span>(plants<span class="sc">$</span>scientific_name[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name_updated =</span> <span class="fu">str_replace</span>(</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>      scientificName, <span class="st">"^[A-Z][a-z]+"</span>, <span class="st">"new_name"</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, name_updated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "hakea eriantha"</code></pre>
+<pre><code># A tibble: 1,265 × 2
+   scientificName           name_updated         
+   &lt;chr&gt;                    &lt;chr&gt;                
+ 1 Dendrolagus lumholtzi    new_name lumholtzi   
+ 2 Dendrolagus lumholtzi    new_name lumholtzi   
+ 3 Dendrolagus lumholtzi    new_name lumholtzi   
+ 4 Dendrolagus lumholtzi    new_name lumholtzi   
+ 5 Dendrolagus              new_name             
+ 6 Dendrolagus bennettianus new_name bennettianus
+ 7 Dendrolagus lumholtzi    new_name lumholtzi   
+ 8 Dendrolagus lumholtzi    new_name lumholtzi   
+ 9 Dendrolagus              new_name             
+10 Dendrolagus bennettianus new_name bennettianus
+# ℹ 1,255 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_upper</span>(plants<span class="sc">$</span>scientific_name[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>In base R the <code>gsub()</code> function can be used for pattern replacement.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>records <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Genus"</span>, </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>             <span class="st">"species"</span>, </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>             <span class="st">"ZZGenus species"</span>, </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Difgenus difspecies"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gsub</span>(<span class="st">"[aeiou]"</span>, <span class="st">"-"</span>, records) <span class="co"># all matches</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "HAKEA ERIANTHA"</code></pre>
+<pre><code>[1] "G-n-s"               "sp-c--s"             "ZZG-n-s sp-c--s"    
+[4] "D-fg-n-s d-fsp-c--s"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_title</span>(plants<span class="sc">$</span>scientific_name[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Replace a matched pattern in a dataframe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>tree_kangaroo<span class="sc">$</span>name_updated <span class="ot">&lt;-</span> <span class="fu">gsub</span>(</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"Dendrolagus"</span>,</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">replacement =</span> <span class="st">"new_name"</span>,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> tree_kangaroo<span class="sc">$</span>scientificName</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>tree_kangaroo[,<span class="fu">c</span>(<span class="st">"scientificName"</span>, <span class="st">"name_updated"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Hakea Eriantha"</code></pre>
+<pre><code># A tibble: 1,265 × 2
+   scientificName           name_updated         
+   &lt;chr&gt;                    &lt;chr&gt;                
+ 1 Dendrolagus lumholtzi    new_name lumholtzi   
+ 2 Dendrolagus lumholtzi    new_name lumholtzi   
+ 3 Dendrolagus lumholtzi    new_name lumholtzi   
+ 4 Dendrolagus lumholtzi    new_name lumholtzi   
+ 5 Dendrolagus              new_name             
+ 6 Dendrolagus bennettianus new_name bennettianus
+ 7 Dendrolagus lumholtzi    new_name lumholtzi   
+ 8 Dendrolagus lumholtzi    new_name lumholtzi   
+ 9 Dendrolagus              new_name             
+10 Dendrolagus bennettianus new_name bennettianus
+# ℹ 1,255 more rows</code></pre>
 </div>
 </div>
-<p>In some cases a more specific detection and replacement is required. For example, the World Register of Marine Species (WoRMS) uses a combination of lower case (scientific_name) and camel case (isExtinct). However, the Australian Fauna Directory (AFD) uses screaming snake case e.g.&nbsp;SCIENTIFIC_NAME. To work with both, case differences can be conformed to a single style, but the format you choose is a matter of personal preference.</p>
+</div>
+</div>
+</div>
+<!-- It might be a good idea to show what advanced regex looks like, but it needs to be a more useful example than the one below -->
+<section id="advanced-regex" class="level4">
+<h4 class="anchored" data-anchor-id="advanced-regex">Advanced regex</h4>
+<p>In some cases a more specific detection and replacement is required.</p>
+<p>Let’s say we want to use marine data and taxonomic names from two sources.</p>
+<p>The World Register of Marine Species (WoRMS) uses a combination of lower case (scientific_name) and camel case (isExtinct) strings. However, the Australian Fauna Directory (AFD) uses screaming snake case e.g.&nbsp;SCIENTIFIC_NAME. To work with both, case differences can be conformed to a single style, but the format you choose is a matter of personal preference.</p>
 <!-- Andrew: This does the same as the original chunk but like 1/4 the size -->
+<!-- Dax: That's cool but you can do exactly the same thing with janitor::clean_names()-->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>worms_small <span class="ot">&lt;-</span> <span class="fu">head</span>(worms)</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># gsub is a base R function for replacing strings</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(worms_small) <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">colnames</span>(worms_small), <span class="cf">function</span>(name) {</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">gsub</span>(<span class="st">"([a-z])([A-Z])"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1_</span><span class="sc">\\</span><span class="st">2"</span>, name))</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gsub</span>(<span class="st">"^_"</span>, <span class="st">""</span>, name)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># stringr version of above (with a slightly different regex approach)</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(worms_small) <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">colnames</span>(worms_small), <span class="cf">function</span>(name) {</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_to_lower</span>(<span class="fu">str_replace_all</span>(name, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">p{Ll})(</span><span class="sc">\\</span><span class="st">p{Lu})"</span>, <span class="st">"_</span><span class="sc">\\</span><span class="st">1"</span>))</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>worms_small <span class="ot">&lt;-</span> <span class="fu">head</span>(worms)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># gsub is a base R function for replacing strings</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(worms_small) <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">colnames</span>(worms_small), <span class="cf">function</span>(name) {</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  name <span class="ot">&lt;-</span> <span class="fu">tolower</span>(<span class="fu">gsub</span>(<span class="st">"([a-z])([A-Z])"</span>, <span class="st">"</span><span class="sc">\\</span><span class="st">1_</span><span class="sc">\\</span><span class="st">2"</span>, name))</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gsub</span>(<span class="st">"^_"</span>, <span class="st">""</span>, name)</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a><span class="co"># stringr version of above (with a slightly different regex approach)</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(worms_small) <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">colnames</span>(worms_small), <span class="cf">function</span>(name) {</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_to_lower</span>(<span class="fu">str_replace_all</span>(name, <span class="st">"(?&lt;=</span><span class="sc">\\</span><span class="st">p{Ll})(</span><span class="sc">\\</span><span class="st">p{Lu})"</span>, <span class="st">"_</span><span class="sc">\\</span><span class="st">1"</span>))</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="taxonomy" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="taxonomy"><span class="header-section-number">10.4</span> Taxonomy</h2>
+</section>
+</section>
+<section id="capitalisation" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="capitalisation"><span class="header-section-number">10.3</span> Capitalisation</h2>
+<p>Capitalisation, also called case style, can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a data set. There are some basic functions available to change the case of strings in <code>stringr</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>bees <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../data/dap/bees.parquet"</span>)</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>plants <span class="ot">&lt;-</span> <span class="fu">open_dataset</span>(<span class="st">"../data/dap/plants_subset"</span>,</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"parquet"</span></span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">collect</span>()</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="do">### Making some fake missing data for inverts in Class column</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>inverts <span class="ot">&lt;-</span> <span class="fu">open_dataset</span>(<span class="st">"../data/dap/inverts_subset"</span>) <span class="sc">|&gt;</span> <span class="fu">collect</span>()</span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>tobemissing <span class="ot">&lt;-</span> inverts <span class="sc">|&gt;</span></span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(class <span class="sc">==</span> <span class="st">"arachnida"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_frac</span>(<span class="fl">0.3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(scientific_name) <span class="sc">|&gt;</span></span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>inverts <span class="ot">&lt;-</span> inverts <span class="sc">|&gt;</span></span>
-<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class =</span> <span class="fu">ifelse</span>(scientific_name <span class="sc">%in%</span> tobemissing, <span class="cn">NA</span>, class))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>tree_kangaroo<span class="sc">$</span>scientificName[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Dendrolagus lumholtzi"</code></pre>
 </div>
-<p>Advances in taxonomy, especially in molecular biology has allowed researchers to describe new species more efficiently than ever before <span class="citation" data-cites="garraffoni2019integrative">(<a href="../references.html#ref-garraffoni2019integrative" role="doc-biblioref">Garraffoni et al. 2019</a>)</span>. Modern approaches has also enabled reclassification of organisms that have been incorrectly described in the past. Unfortunately, multiple names (synonyms) for the same organism can arise when taxonomy is not unanimously agreed upon by researchers.</p>
-<p>Harmonising taxonomic names is a prevalent and complex issue and so far, no unifying solution has been put forward — making research with biodiversity data challenging. A potential solution would require pulling together domain knowledge from experts and compiling a database for where taxonomic history for describe species is traceable and linked with published literature.</p>
-<p>While there is no perfect solution, some tips, tricks and tools do exist. In this chapter we will go through some of these to clean taxonomic data and deal with synonyms.</p>
-<section id="capitalisation" class="level3" data-number="10.4.1">
-<h3 data-number="10.4.1" class="anchored" data-anchor-id="capitalisation"><span class="header-section-number">10.4.1</span> Capitalisation</h3>
-<p>Normally higher taxonomy are capitalised e.g.&nbsp;Myrtaceae or Aves. Capitalisation errors are usually quick to spot when you print the data object. Alternatively you can try using <code>str_subset</code> on columns you expect to have capital letters.</p>
-<p>The code below subsets out unique values for the variable <code>class</code> that have upper case letters. Notice that no matches are found</p>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(<span class="fu">unique</span>(bees<span class="sc">$</span>class), <span class="st">"[:upper:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_lower</span>(tree_kangaroo<span class="sc">$</span>scientificName[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "dendrolagus lumholtzi"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_upper</span>(tree_kangaroo<span class="sc">$</span>scientificName[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "DENDROLAGUS LUMHOLTZI"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_title</span>(tree_kangaroo<span class="sc">$</span>scientificName[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Dendrolagus Lumholtzi"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_to_sentence</span>(tree_kangaroo<span class="sc">$</span>scientificName[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Dendrolagus lumholtzi"</code></pre>
+</div>
+</div>
+<p>Normally higher taxonomy are capitalised e.g.&nbsp;Myrtaceae or Aves. Capitalisation errors are usually quick to spot when you print the data object. Alternatively you can try using <code>str_subset</code> on columns you expect to have capital letters.</p>
+<p>The code below subsets out unique values for the variable <code>class</code> that have upper case letters. Notice that no matches are found.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>bees <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../data/dap/bees.parquet"</span>)</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(<span class="fu">unique</span>(bees<span class="sc">$</span>class), <span class="st">"[:upper:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>character(0)</code></pre>
 </div>
 </div>
 <p>We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that Insecta is inputted entirely in lowercase.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(<span class="fu">unique</span>(bees<span class="sc">$</span>class), <span class="st">"[:lower:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(<span class="fu">unique</span>(bees<span class="sc">$</span>class), <span class="st">"[:lower:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "insecta"</code></pre>
 </div>
 </div>
 <p>We can correct the lower case formatting as below, remember to check the fix before overwriting/removing the erroneous column(s)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>bees <span class="sc">|&gt;</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class_corrected =</span> <span class="fu">str_to_sentence</span>(class)) <span class="sc">|&gt;</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"class"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>bees <span class="sc">|&gt;</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class_corrected =</span> <span class="fu">str_to_sentence</span>(class)) <span class="sc">|&gt;</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"class"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,139 × 2
    class   class_corrected
@@ -695,84 +914,27 @@ div.csl-indent {
 10 insecta Insecta        
 # ℹ 1,129 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>bees_corrected <span class="ot">&lt;-</span> bees <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class_corrected =</span> <span class="fu">str_to_sentence</span>(class)) <span class="sc">|&gt;</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>class) <span class="sc">|&gt;</span> <span class="co"># Remove erroreous column</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">class =</span> class_corrected) <span class="co"># Rename corrected column as the new 'class'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="seperators" class="level3" data-number="10.4.2">
-<h3 data-number="10.4.2" class="anchored" data-anchor-id="seperators"><span class="header-section-number">10.4.2</span> Seperators</h3>
-<p>In a taxonomic data, separators such as, spaces and underscore are found in scientific names and are used to delineate the genus and <a href="https://dwc.tdwg.org/terms/#dwc:specificEpithet">species name</a>. While it is personal choice which separator you use, it is good practice to be consistent with your choice. Consistency ensures that unique values of scientific name truly reflects unique species and not due to inconsistencies.</p>
-<p>Try <code>tabyl-ing</code> your taxonomic columns to check if you have any inconsistencies first</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">|&gt;</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(scientific_name) <span class="sc">|&gt;</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>() <span class="sc">|&gt;</span></span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 623 × 3
-   `pull(plants, scientific_name)`         n  percent
-   &lt;chr&gt;                               &lt;int&gt;    &lt;dbl&gt;
- 1 Acacia asparagoides                     2 0.000962
- 2 Acacia barakulensis                     1 0.000481
- 3 Acacia barringtonensis                  2 0.000962
- 4 Acacia beadleana                        1 0.000481
- 5 Acacia betchei                          6 0.00289 
- 6 Acacia blayana                          2 0.000962
- 7 Acacia brunioides                       1 0.000481
- 8 Acacia brunioides subsp. brunioides     6 0.00289 
- 9 Acacia brunioides subsp. granitica      1 0.000481
-10 Acacia bulgaensis                       3 0.00144 
-# ℹ 613 more rows</code></pre>
-</div>
-</div>
-<p>Consistent taxonomic formatting may not be an issue if you are downloading data from one single source such as the ALA where scientific names are already formatted consistently e.g.&nbsp;“Moloch horridus”. This may not be the case when consolidating data from multiple sources.</p>
-<p>Below is code to create an underscore scientific name from one that is separated with a space. Remember to check your changes</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>plants_updated <span class="ot">&lt;-</span> plants <span class="sc">|&gt;</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">scientific_name_undersc =</span> <span class="fu">str_replace_all</span>(scientific_name, <span class="st">" "</span>, <span class="st">"_"</span>))</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>plants_updated <span class="sc">|&gt;</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(scientific_name_undersc) <span class="sc">|&gt;</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>() <span class="sc">|&gt;</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 623 × 3
-   `pull(plants_updated, scientific_name_undersc)`     n  percent
-   &lt;chr&gt;                                           &lt;int&gt;    &lt;dbl&gt;
- 1 Acacia_asparagoides                                 2 0.000962
- 2 Acacia_barakulensis                                 1 0.000481
- 3 Acacia_barringtonensis                              2 0.000962
- 4 Acacia_beadleana                                    1 0.000481
- 5 Acacia_betchei                                      6 0.00289 
- 6 Acacia_blayana                                      2 0.000962
- 7 Acacia_brunioides                                   1 0.000481
- 8 Acacia_brunioides_subsp._brunioides                 6 0.00289 
- 9 Acacia_brunioides_subsp._granitica                  1 0.000481
-10 Acacia_bulgaensis                                   3 0.00144 
-# ℹ 613 more rows</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>bees_corrected <span class="ot">&lt;-</span> bees <span class="sc">|&gt;</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class_corrected =</span> <span class="fu">str_to_sentence</span>(class)) <span class="sc">|&gt;</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>class) <span class="sc">|&gt;</span>               <span class="co"># Remove erroneous column</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">class =</span> class_corrected) <span class="co"># Rename new column to `class`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 <p><em>Dax’s note</em></p>
-<p>I think we can delete the case study below for brevity. I’ve left it in case it generates any additional ideas for the chapter.</p>
+<p>This is a very good case study, and it might be nice to include it, though I don’t think it suits an ALA book to be using Elephant data from GBIF. Is there an ALA data equivalent?</p>
 </section>
-</section>
-<section id="simple-case-study" class="level2" data-number="10.5">
-<h2 data-number="10.5" class="anchored" data-anchor-id="simple-case-study"><span class="header-section-number">10.5</span> Simple case study</h2>
+<section id="case-study-cleaning-location-names" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="case-study-cleaning-location-names"><span class="header-section-number">10.4</span> Case study: Cleaning location names</h2>
 <p>We will use the <code>janitor</code> R package to explore whether our elephant data has any string issues. The function <code>tabyl</code> will compute a counts and percent of total rows for each unique value.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>african_ele <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_parquet</span>(<span class="st">"../data/gbif/elephant"</span>)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>african_ele <span class="sc">|&gt;</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(stateProvince) <span class="sc">|&gt;</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>() <span class="sc">|&gt;</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>() <span class="sc">|&gt;</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>african_ele <span class="ot">&lt;-</span> arrow<span class="sc">::</span><span class="fu">read_parquet</span>(<span class="st">"../data/gbif/elephant"</span>)</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>african_ele <span class="sc">|&gt;</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(stateProvince) <span class="sc">|&gt;</span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>() <span class="sc">|&gt;</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 199 × 4
    `pull(african_ele, stateProvince)`     n   percent valid_percent
@@ -802,39 +964,39 @@ div.csl-indent {
 </div>
 <p>From the <code>tabyl</code> output, we can see there are few different variations of <code>Province</code>, <code>Prov.</code>, <code>Prov</code>. As an example, we will correct these with the <code>tidyverse</code> packages <code>stringr</code>, <code>dplyr</code>, <code>tidyr</code> as well as <code>glue</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a regular expression to match Prov. and Prov</span></span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="fu">regex</span>(<span class="st">"Prov(?![:lower:])"</span>)</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `str_subset` to pull out the cases that match our pattern</span></span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm that these are the problematic ones</span></span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign these into an object</span></span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(african_ele<span class="sc">$</span>stateProvince, <span class="at">pattern =</span> pattern)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a regular expression to match Prov. and Prov</span></span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>pattern <span class="ot">&lt;-</span> <span class="fu">regex</span>(<span class="st">"Prov(?![:lower:])"</span>)</span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use `str_subset` to pull out the cases that match our pattern</span></span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Confirm that these are the problematic ones</span></span>
+<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign these into an object</span></span>
+<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(african_ele<span class="sc">$</span>stateProvince, <span class="at">pattern =</span> pattern)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "Cape Prov."        "Cape Prov."        "West Nile Prov."  
  [4] "Central Prov"      "Central Prov"      "Coastal Prov"     
  [7] "Northeastern Prov" "Central Prov"      "Eastern Prov"     
 [10] "Coastal Prov"     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>typos_provinces <span class="ot">&lt;-</span> <span class="fu">str_subset</span>(african_ele<span class="sc">$</span>stateProvince, <span class="at">pattern =</span> pattern)</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new variable `stateProvince_clean`</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># `str_detect` for matches of pattern (returns TRUE for match)</span></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="co"># `if_else`: if TRUE, the `glue` function will take the first part of the province name enclosed in and join it with word Province.</span></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># if FALSE , it will just take the corresponding value in stateProvince</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that we are assigning these changes to a new object (`african_ele_2`)</span></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="ot">&lt;-</span> african_ele <span class="sc">%&gt;%</span></span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stateProvince_clean =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(stateProvince, <span class="at">pattern =</span> pattern),</span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">true =</span> <span class="fu">glue</span>(<span class="st">'{word(stateProvince, sep = " P")} Province'</span>),</span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">false =</span> stateProvince</span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Once we've made the correction we want to check we've done it correctly.</span></span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ALWAYS CHECK YOUR CORRECTIONS</span></span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the `select` function to isolate columns that `starts_with` "stateProvince"</span></span>
-<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the `filter` function to subset our the problematic provinces</span></span>
-<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="sc">%&gt;%</span></span>
-<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"stateProvince"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(stateProvince <span class="sc">%in%</span> typos_provinces)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>typos_provinces <span class="ot">&lt;-</span> <span class="fu">str_subset</span>(african_ele<span class="sc">$</span>stateProvince, <span class="at">pattern =</span> pattern)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new variable `stateProvince_clean`</span></span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="co"># `str_detect` for matches of pattern (returns TRUE for match)</span></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="co"># `if_else`: if TRUE, the `glue` function will take the first part of the province name enclosed in and join it with word Province.</span></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="co"># if FALSE , it will just take the corresponding value in stateProvince</span></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that we are assigning these changes to a new object (`african_ele_2`)</span></span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="ot">&lt;-</span> african_ele <span class="sc">%&gt;%</span></span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stateProvince_clean =</span> <span class="fu">if_else</span>(<span class="fu">str_detect</span>(stateProvince, <span class="at">pattern =</span> pattern),</span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">true =</span> <span class="fu">glue</span>(<span class="st">'{word(stateProvince, sep = " P")} Province'</span>),</span>
+<span id="cb71-11"><a href="#cb71-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">false =</span> stateProvince</span>
+<span id="cb71-12"><a href="#cb71-12" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb71-13"><a href="#cb71-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-14"><a href="#cb71-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Once we've made the correction we want to check we've done it correctly.</span></span>
+<span id="cb71-15"><a href="#cb71-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ALWAYS CHECK YOUR CORRECTIONS</span></span>
+<span id="cb71-16"><a href="#cb71-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the `select` function to isolate columns that `starts_with` "stateProvince"</span></span>
+<span id="cb71-17"><a href="#cb71-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the `filter` function to subset our the problematic provinces</span></span>
+<span id="cb71-18"><a href="#cb71-18" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="sc">%&gt;%</span></span>
+<span id="cb71-19"><a href="#cb71-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"stateProvince"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb71-20"><a href="#cb71-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(stateProvince <span class="sc">%in%</span> typos_provinces)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 2
    stateProvince     stateProvince_clean  
@@ -850,12 +1012,12 @@ div.csl-indent {
  9 Eastern Prov      Eastern Province     
 10 Coastal Prov      Coastal Province     </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Its good practice to check the other values were not affected by your corrections</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we are removing the NA with `drop_na` and subsetting unique rows with `distinct`</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="sc">%&gt;%</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"stateProvince"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Its good practice to check the other values were not affected by your corrections</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we are removing the NA with `drop_na` and subsetting unique rows with `distinct`</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="sc">%&gt;%</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"stateProvince"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 198 × 2
    stateProvince    stateProvince_clean
@@ -872,13 +1034,13 @@ div.csl-indent {
 10 Manicaland       Manicaland         
 # ℹ 188 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Final check</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Check with the original code that detected the issue</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="sc">%&gt;%</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(stateProvince_clean) <span class="sc">%&gt;%</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Final check</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Check with the original code that detected the issue</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>african_ele_2 <span class="sc">%&gt;%</span></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(stateProvince_clean) <span class="sc">%&gt;%</span></span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 197 × 4
    .                  n   percent valid_percent
@@ -916,11 +1078,6 @@ div.csl-indent {
 <p>We recommend consulting reputable sources to delineate and consolidate similar values.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-garraffoni2019integrative" class="csl-entry" role="listitem">
-Garraffoni, André RS, Thiago Q Araújo, Anete P Lourenço, Loretta Guidi, and Maria Balsamo. 2019. <span>“Integrative Taxonomy of a New Redudasys Species (Gastrotricha: Macrodasyida) Sheds Light on the Invasion of Fresh Water Habitats by Macrodasyids.”</span> <em>Scientific Reports</em> 9 (1): 2067.
-</div>
-</div>
 </section>
 
 </main> <!-- /main -->

@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
       </ul>
@@ -275,14 +275,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  <a href="../4_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -317,59 +317,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../cleaning_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Archived: Cleaning data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -478,7 +425,7 @@ the `.groups` argument.</code></pre>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 27,052 × 13
+<pre><code># A tibble: 27,055 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 0036fdd3-947e… Todiramphus (… https://biodi…           -35.3             149.
@@ -491,7 +438,7 @@ the `.groups` argument.</code></pre>
  8 00e8c718-f305… Dacelo (Dacel… https://biodi…           -31.7             116.
  9 00fe93fc-86b9… Dacelo (Dacel… https://biodi…           -27.4             153.
 10 01006006-78b2… Todiramphus (… https://biodi…           -19.2             147.
-# ℹ 27,042 more rows
+# ℹ 27,045 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -506,7 +453,7 @@ the `.groups` argument.</code></pre>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_dupes</span>(decimalLatitude, decimalLongitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 32,131 × 14
+<pre><code># A tibble: 32,134 × 14
    decimalLatitude decimalLongitude dupe_count recordID           scientificName
              &lt;dbl&gt;            &lt;dbl&gt;      &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;         
  1           -27.4             153.        686 00018120-2238-412… Dacelo (Dacel…
@@ -519,7 +466,7 @@ the `.groups` argument.</code></pre>
  8           -27.4             153.        686 023f2c30-93a9-4d6… Dacelo (Dacel…
  9           -27.4             153.        686 03d44a01-7863-469… Todiramphus (…
 10           -27.4             153.        686 03dee6d8-4ae9-46a… Todiramphus (…
-# ℹ 32,121 more rows
+# ℹ 32,124 more rows
 # ℹ 9 more variables: taxonConceptID &lt;chr&gt;, eventDate &lt;dttm&gt;,
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,
 #   species &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -555,7 +502,7 @@ the `.groups` argument.</code></pre>
   &gt;
 &gt;[11]&gt;
 [[1]]
-# A tibble: 1,936 × 13
+# A tibble: 1,940 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 0007f679-255f… Ceyx azureus   https://biodi…           -35.3             149.
@@ -568,7 +515,7 @@ the `.groups` argument.</code></pre>
  8 00a39798-5118… Ceyx azureus   https://biodi…           -17.1             146.
  9 00c02d79-58ef… Ceyx azureus   https://biodi…           -16.2             145.
 10 012140cd-fac0… Ceyx azureus   https://biodi…           -33.7             151.
-# ℹ 1,926 more rows
+# ℹ 1,930 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;
@@ -612,7 +559,7 @@ the `.groups` argument.</code></pre>
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;
 
 [[4]]
-# A tibble: 26,548 × 13
+# A tibble: 26,583 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 00018120-2238… Dacelo (Dacel… https://biodi…           -27.4             153.
@@ -625,7 +572,7 @@ the `.groups` argument.</code></pre>
  8 000f87c2-9028… Dacelo (Dacel… https://biodi…           -35.3             149.
  9 0010012d-435e… Dacelo (Dacel… https://biodi…           -16.8             146.
 10 001021bd-b8f1… Dacelo (Dacel… https://biodi…           -27.5             153.
-# ℹ 26,538 more rows
+# ℹ 26,573 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;
@@ -689,7 +636,7 @@ the `.groups` argument.</code></pre>
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;
 
 [[8]]
-# A tibble: 2,331 × 13
+# A tibble: 2,334 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 0024aef4-4a8b… Todiramphus (… https://biodi…           -19.4             147.
@@ -702,7 +649,7 @@ the `.groups` argument.</code></pre>
  8 00deabe0-1d59… Todiramphus (… https://biodi…           -12.3             131.
  9 0120a6ea-66f1… Todiramphus (… https://biodi…           -30.4             153.
 10 012e4a46-ead1… Todiramphus (… https://biodi…           -20.0             146.
-# ℹ 2,321 more rows
+# ℹ 2,324 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;
@@ -727,7 +674,7 @@ the `.groups` argument.</code></pre>
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;
 
 [[10]]
-# A tibble: 9,558 × 13
+# A tibble: 9,566 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 00030a7e-a6cc… Todiramphus (… https://biodi…           -35.1             147.
@@ -740,7 +687,7 @@ the `.groups` argument.</code></pre>
  8 0036208a-7764… Todiramphus (… https://biodi…           -32.8             117.
  9 0036fdd3-947e… Todiramphus (… https://biodi…           -35.3             149.
 10 003ba830-1f22… Todiramphus (… https://biodi…           -27.3             153.
-# ℹ 9,548 more rows
+# ℹ 9,556 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;
@@ -777,7 +724,7 @@ the `.groups` argument.</code></pre>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 23,602 × 13
+<pre><code># A tibble: 23,605 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 04b5c741-1afb… Ceyx azureus   https://biodi…           -37.8             145.
@@ -790,7 +737,7 @@ the `.groups` argument.</code></pre>
  8 0ba0afc4-1cf2… Ceyx azureus   https://biodi…           -27.3             153.
  9 0c570ead-3759… Ceyx azureus   https://biodi…           -33.0             151.
 10 0c9f8e48-1c44… Ceyx azureus   https://biodi…           -27.3             153.
-# ℹ 23,592 more rows
+# ℹ 23,595 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -810,7 +757,7 @@ the `.groups` argument.</code></pre>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>birds_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 20,121 × 13
+<pre><code># A tibble: 20,165 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 0007f679-255f… Ceyx azureus   https://biodi…           -35.3             149.
@@ -823,7 +770,7 @@ the `.groups` argument.</code></pre>
  8 00a39798-5118… Ceyx azureus   https://biodi…           -17.1             146.
  9 00c02d79-58ef… Ceyx azureus   https://biodi…           -16.2             145.
 10 012140cd-fac0… Ceyx azureus   https://biodi…           -33.7             151.
-# ℹ 20,111 more rows
+# ℹ 20,155 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>

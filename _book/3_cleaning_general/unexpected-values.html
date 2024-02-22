@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
       </ul>
@@ -275,14 +275,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  <a href="../4_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -456,15 +456,15 @@ Eventually this section could end up being dispersed into other sections. For no
 <pre><code># A tibble: 14 × 2
    scientificName               count
    &lt;chr&gt;                        &lt;int&gt;
- 1 Thalassarche melanophris     58363
+ 1 Thalassarche melanophris     58365
  2 Thalassarche chrysostoma     26103
  3 Thalassarche cauta           19292
  4 Thalassarche chlororhynchos  11164
  5 Thalassarche steadi          10024
- 6 Thalassarche bulleri          4688
+ 6 Thalassarche bulleri          4689
  7 Thalassarche salvini          2763
  8 Thalassarche impavida         2650
- 9 Thalassarche carteri          1060
+ 9 Thalassarche carteri          1061
 10 Thalassarche                   983
 11 Thalassarche cauta cauta       293
 12 Thalassarche eremita            49
@@ -650,7 +650,7 @@ Eventually this section could end up being dispersed into other sections. For no
 </dl>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 138,612 × 2
+<pre><code># A tibble: 138,621 × 2
    date       year_extracted
    &lt;date&gt;              &lt;dbl&gt;
  1 2022-04-19           2022
@@ -663,7 +663,7 @@ Eventually this section could end up being dispersed into other sections. For no
  8 2022-10-01           2022
  9 2022-03-21           2022
 10 2022-08-14           2022
-# ℹ 138,602 more rows</code></pre>
+# ℹ 138,611 more rows</code></pre>
 </div>
 </div>
 <p>Despite specifying the year in our galah query, when we summarise our new <code>year_extracted</code> column, we find that there are other unexpected records from 2021, too!</p>
@@ -677,7 +677,7 @@ Eventually this section could end up being dispersed into other sections. For no
   year_extracted      n
            &lt;dbl&gt;  &lt;int&gt;
 1           2021      4
-2           2022 138606
+2           2022 138615
 3             NA      2</code></pre>
 </div>
 </div>

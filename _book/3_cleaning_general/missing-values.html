@@ -259,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
       </ul>
@@ -275,14 +275,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  <a href="../4_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -317,59 +317,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../cleaning_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Archived: Cleaning data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -460,9 +407,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   skim_type skim_variable    n_missing complete_rate POSIXct.min        
   &lt;chr&gt;     &lt;chr&gt;                &lt;int&gt;         &lt;dbl&gt; &lt;dttm&gt;             
 1 POSIXct   eventDate              658         0.976 2009-01-01 00:00:00
-2 character genus                  794         0.971 NA                 
-3 character species               2187         0.919 NA                 
-4 character cl22                  1163         0.957 NA                 
+2 character genus                  801         0.970 NA                 
+3 character species               2196         0.919 NA                 
+4 character cl22                  1166         0.957 NA                 
 5 numeric   decimalLatitude        153         0.994 NA                 
 6 numeric   decimalLongitude       153         0.994 NA                 
 7 numeric   month                  649         0.976 NA                 
@@ -482,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, genus, </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         species, cl22, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,494 × 17
+<pre><code># A tibble: 3,505 × 17
    scientificName    genus species cl22  recordID taxonConceptID decimalLatitude
    &lt;chr&gt;             &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;
  1 Gehyra            Gehy… &lt;NA&gt;    Sout… 001949e… https://biodi…          -28.1 
@@ -495,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 GEKKONIDAE        &lt;NA&gt;  &lt;NA&gt;    Quee… 007172d… https://biodi…          -19.3 
  9 Gehyra            Gehy… &lt;NA&gt;    Nort… 0073628… https://biodi…          -22.2 
 10 Christinus marmo… Chri… Christ… &lt;NA&gt;  007a1a3… https://biodi…          -34.9 
-# ℹ 3,484 more rows
+# ℹ 3,495 more rows
 # ℹ 10 more variables: decimalLongitude &lt;dbl&gt;, eventDate &lt;dttm&gt;,
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;, kingdom &lt;chr&gt;,
 #   phylum &lt;chr&gt;, order &lt;chr&gt;, class &lt;chr&gt;, family &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -508,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, genus, </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>         species, cl22, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,163 × 17
+<pre><code># A tibble: 1,166 × 17
    scientificName    genus species cl22  recordID taxonConceptID decimalLatitude
    &lt;chr&gt;             &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;
  1 Lepidodactylus p… Lepi… Lepido… &lt;NA&gt;  00336d7… https://biodi…           -8.81
@@ -521,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Christinus marmo… Chri… Christ… &lt;NA&gt;  0143054… https://biodi…          -32.0 
  9 Hemidactylus fre… Hemi… Hemida… &lt;NA&gt;  01aae23… https://biodi…           16.0 
 10 Cyrtodactylus     Cyrt… &lt;NA&gt;    &lt;NA&gt;  01bdcd8… https://biodi…           -2.00
-# ℹ 1,153 more rows
+# ℹ 1,156 more rows
 # ℹ 10 more variables: decimalLongitude &lt;dbl&gt;, eventDate &lt;dttm&gt;,
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;, kingdom &lt;chr&gt;,
 #   phylum &lt;chr&gt;, order &lt;chr&gt;, class &lt;chr&gt;, family &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -622,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>geckos_missing <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, class, family, genus, species, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26,968 × 17
+<pre><code># A tibble: 27,031 × 17
    scientificName        class    family   genus species recordID taxonConceptID
    &lt;chr&gt;                 &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;         
  1 Gehyra dubia          Reptilia Gekkoni… Gehy… Gehyra… 00002a3… https://biodi…
@@ -633,9 +580,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  6 Heteronotia binoei    Reptilia Gekkoni… Hete… Hetero… 000cd36… https://biodi…
  7 Christinus marmoratus Reptilia Gekkoni… Chri… Christ… 0018b78… https://biodi…
  8 Gehyra                Reptilia Gekkoni… Gehy… &lt;NA&gt;    001949e… https://biodi…
- 9 Gehyra                Reptilia Gekkoni… Gehy… &lt;NA&gt;    001ab80… https://biodi…
-10 Gehyra versicolor     Reptilia Gekkoni… Gehy… Gehyra… 001bb82… https://biodi…
-# ℹ 26,958 more rows
+ 9 Heteronotia binoei    Reptilia Gekkoni… Hete… Hetero… 0019729… https://biodi…
+10 Gehyra                Reptilia Gekkoni… Gehy… &lt;NA&gt;    001ab80… https://biodi…
+# ℹ 27,021 more rows
 # ℹ 10 more variables: decimalLatitude &lt;dbl&gt;, decimalLongitude &lt;dbl&gt;,
 #   eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;,
 #   kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -687,12 +634,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 6 × 1
   scientificName         
   &lt;chr&gt;                  
-1 Gehyra versicolor      
-2 Gehyra variegata       
-3 Hemidactylus frenatus  
-4 Christinus marmoratus  
-5 Lepidodactylus lugubris
-6 Hemidactylus frenatus  </code></pre>
+1 Gehyra                 
+2 Gehyra versicolor      
+3 Gehyra variegata       
+4 Hemidactylus frenatus  
+5 Christinus marmoratus  
+6 Lepidodactylus lugubris</code></pre>
 </div>
 </div>
 <p>Now we’ll select the subset of columns from <code>geckos_species_list</code> that we wish to join with <code>geckos_missing</code> (and our reference column, <code>species</code>).</p>
@@ -712,17 +659,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 11 × 5
    scientificName         class_old family_old class_new family_new
    &lt;chr&gt;                  &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;     
- 1 Lepidodactylus pumilus Reptilia  &lt;NA&gt;       Reptilia  Gekkonidae
- 2 Heteronotia binoei     Reptilia  Gekkonidae Reptilia  Gekkonidae
- 3 Christinus marmoratus  Reptilia  Gekkonidae Reptilia  Gekkonidae
- 4 Christinus             Reptilia  Gekkonidae &lt;NA&gt;      &lt;NA&gt;      
- 5 Heteronotia binoei     Reptilia  Gekkonidae Reptilia  Gekkonidae
- 6 Nactus eboracensis     Reptilia  Gekkonidae Reptilia  Gekkonidae
- 7 Heteronotia binoei     Reptilia  Gekkonidae Reptilia  Gekkonidae
- 8 Gehyra                 Reptilia  Gekkonidae &lt;NA&gt;      &lt;NA&gt;      
- 9 Heteronotia binoei     Reptilia  Gekkonidae Reptilia  Gekkonidae
-10 Christinus marmoratus  &lt;NA&gt;      &lt;NA&gt;       Reptilia  Gekkonidae
-11 Hemidactylus frenatus  Reptilia  Gekkonidae Reptilia  Gekkonidae</code></pre>
+ 1 Gehyra australis       Reptilia  &lt;NA&gt;       Reptilia  Gekkonidae
+ 2 Lepidodactylus pumilus Reptilia  Gekkonidae Reptilia  Gekkonidae
+ 3 Heteronotia binoei     Reptilia  Gekkonidae Reptilia  Gekkonidae
+ 4 Christinus marmoratus  Reptilia  Gekkonidae Reptilia  Gekkonidae
+ 5 Christinus             Reptilia  Gekkonidae &lt;NA&gt;      &lt;NA&gt;      
+ 6 Heteronotia binoei     Reptilia  Gekkonidae Reptilia  Gekkonidae
+ 7 Nactus eboracensis     Reptilia  Gekkonidae Reptilia  Gekkonidae
+ 8 Heteronotia binoei     Reptilia  Gekkonidae Reptilia  Gekkonidae
+ 9 Gehyra                 Reptilia  Gekkonidae &lt;NA&gt;      &lt;NA&gt;      
+10 Heteronotia binoei     &lt;NA&gt;      &lt;NA&gt;       Reptilia  Gekkonidae
+11 Christinus marmoratus  Reptilia  Gekkonidae Reptilia  Gekkonidae</code></pre>
 </div>
 </div>
 </section>
@@ -744,15 +691,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    taxonRank scientificName       
    &lt;chr&gt;     &lt;chr&gt;                
  1 species   Heteronotia binoei   
- 2 species   Christinus marmoratus
- 3 species   Gehyra versicolor    
+ 2 species   Gehyra australis     
+ 3 species   Heteronotia binoei   
  4 species   Heteronotia binoei   
  5 species   Heteronotia binoei   
- 6 species   Heteronotia planiceps
- 7 species   Heteronotia binoei   
- 8 species   Gehyra lapistola     
- 9 species   Heteronotia binoei   
-10 species   Hemidactylus frenatus
+ 6 species   Heteronotia binoei   
+ 7 species   Gehyra australis     
+ 8 species   Hemidactylus frenatus
+ 9 species   Hemidactylus frenatus
+10 species   Gehyra dubia         
 # ℹ 1,803 more rows</code></pre>
 </div>
 </div>
@@ -763,7 +710,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, genus, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>geckos_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26,174 × 17
+<pre><code># A tibble: 26,230 × 17
    scientificName genus recordID taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 Gehyra dubia   Gehy… 00002a3… https://biodi…           -24.1             151.
@@ -774,9 +721,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  6 Heteronotia b… Hete… 000cd36… https://biodi…           -13.3             131.
  7 Christinus ma… Chri… 0018b78… https://biodi…           -36.1             147.
  8 Gehyra         Gehy… 001949e… https://biodi…           -28.1             140.
- 9 Gehyra         Gehy… 001ab80… https://biodi…           -16.1             130.
-10 Gehyra versic… Gehy… 001bb82… https://biodi…           -34.2             142.
-# ℹ 26,164 more rows
+ 9 Heteronotia b… Hete… 0019729… https://biodi…           -12.7             131.
+10 Gehyra         Gehy… 001ab80… https://biodi…           -16.1             130.
+# ℹ 26,220 more rows
 # ℹ 11 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;,
 #   class &lt;chr&gt;, family &lt;chr&gt;, species &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>

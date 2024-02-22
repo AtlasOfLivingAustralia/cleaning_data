@@ -279,7 +279,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column names &amp; classes</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
       </ul>
@@ -295,14 +295,14 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomic-synonyms.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../4_cleaning_expert/taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
+  <a href="../4_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -337,59 +337,6 @@ div.csl-indent {
  <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../cleaning_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Archived: Cleaning data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_standardisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">General utility functions</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Duplicates and missing records</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_manipulating_strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomy.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Taxonomy</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_taxonomic_validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../cleaning_geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -514,7 +461,7 @@ Data standards
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 43,925
+<pre><code>Rows: 43,975
 Columns: 10
 $ recordID         &lt;chr&gt; "00018120-2238-4122-ac0a-697a56de98ef", "00030a7e-a6c…
 $ scientificName   &lt;chr&gt; "Dacelo (Dacelo) novaeguineae", "Todiramphus (Todiram…
@@ -545,7 +492,7 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 </tr>
 <tr class="even">
 <td style="text-align: left;">Number of rows</td>
-<td style="text-align: left;">43925</td>
+<td style="text-align: left;">43975</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
@@ -613,7 +560,7 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">43925</td>
+<td style="text-align: right;">43975</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -717,7 +664,7 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <td style="text-align: right;">7.40</td>
 <td style="text-align: right;">-43.6</td>
 <td style="text-align: right;">-35.32</td>
-<td style="text-align: right;">-31.79</td>
+<td style="text-align: right;">-31.82</td>
 <td style="text-align: right;">-27.33</td>
 <td style="text-align: right;">44.80</td>
 <td style="text-align: left;">▇▂▁▁▁</td>
@@ -726,7 +673,7 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <td style="text-align: left;">decimalLongitude</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">147.10</td>
+<td style="text-align: right;">147.11</td>
 <td style="text-align: right;">8.09</td>
 <td style="text-align: right;">14.0</td>
 <td style="text-align: right;">145.31</td>
@@ -766,8 +713,8 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">2022-12-31 16:04:00</td>
 <td style="text-align: left;">2023-12-31 19:28:00</td>
-<td style="text-align: left;">2023-02-15 16:39:00</td>
-<td style="text-align: right;">26893</td>
+<td style="text-align: left;">2023-02-15 17:34:00</td>
+<td style="text-align: right;">26921</td>
 </tr>
 </tbody>
 </table>
@@ -779,17 +726,17 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>spc_tbl_ [43,925 × 10] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ recordID        : chr [1:43925] "00018120-2238-4122-ac0a-697a56de98ef" "00030a7e-a6cc-4f13-b37c-6672ca0b0ed3" "0005aa70-a30f-4ff0-9c82-9d05e66717d0" "0005e748-e148-4f57-8946-3d45d3a7dbcc" ...
- $ scientificName  : chr [1:43925] "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" ...
- $ taxonConceptID  : chr [1:43925] "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" ...
- $ decimalLatitude : num [1:43925] -27.4 -35.1 -25.3 -29.3 -37.9 ...
- $ decimalLongitude: num [1:43925] 153 147 153 149 145 ...
- $ eventDate       : POSIXct[1:43925], format: "2023-03-09 06:27:00" "2023-02-07 13:32:00" ...
- $ occurrenceStatus: chr [1:43925] "PRESENT" "PRESENT" "PRESENT" "PRESENT" ...
- $ dataResourceName: chr [1:43925] "eBird Australia" "eBird Australia" "iNaturalist Australia" "NSW BioNet Atlas" ...
- $ genus           : chr [1:43925] "Dacelo" "Todiramphus" "Dacelo" "Todiramphus" ...
- $ species         : chr [1:43925] "Dacelo novaeguineae" "Todiramphus sanctus" "Dacelo novaeguineae" "Todiramphus sanctus" ...
+<pre><code>spc_tbl_ [43,975 × 10] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ recordID        : chr [1:43975] "00018120-2238-4122-ac0a-697a56de98ef" "00030a7e-a6cc-4f13-b37c-6672ca0b0ed3" "0005aa70-a30f-4ff0-9c82-9d05e66717d0" "0005e748-e148-4f57-8946-3d45d3a7dbcc" ...
+ $ scientificName  : chr [1:43975] "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" ...
+ $ taxonConceptID  : chr [1:43975] "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" ...
+ $ decimalLatitude : num [1:43975] -27.4 -35.1 -25.3 -29.3 -37.9 ...
+ $ decimalLongitude: num [1:43975] 153 147 153 149 145 ...
+ $ eventDate       : POSIXct[1:43975], format: "2023-03-09 06:27:00" "2023-02-07 13:32:00" ...
+ $ occurrenceStatus: chr [1:43975] "PRESENT" "PRESENT" "PRESENT" "PRESENT" ...
+ $ dataResourceName: chr [1:43975] "eBird Australia" "eBird Australia" "iNaturalist Australia" "NSW BioNet Atlas" ...
+ $ genus           : chr [1:43975] "Dacelo" "Todiramphus" "Dacelo" "Todiramphus" ...
+ $ species         : chr [1:43975] "Dacelo novaeguineae" "Todiramphus sanctus" "Dacelo novaeguineae" "Todiramphus sanctus" ...
  - attr(*, "spec")=
   .. cols(
   ..   recordID = col_character(),
@@ -830,12 +777,12 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <pre><code># A tibble: 1 × 1
   count
   &lt;int&gt;
-1 43925</code></pre>
+1 43975</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># occurrences</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 43925</code></pre>
+<pre><code>[1] 43975</code></pre>
 </div>
 </div>
 </section>
@@ -874,12 +821,12 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 # Groups:   genus [7]
   genus           n
   &lt;chr&gt;       &lt;int&gt;
-1 Ceyx         2133
-2 Dacelo      27926
+1 Ceyx         2137
+2 Dacelo      27961
 3 Halcyon        26
 4 Syma          155
 5 Tanysiptera   565
-6 Todiramphus 13063
+6 Todiramphus 13074
 7 &lt;NA&gt;           57</code></pre>
 </div>
 </div>
@@ -894,12 +841,12 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       genus     n percent valid_percent
-        Ceyx  2133    4.9%          4.9%
-      Dacelo 27926   63.6%         63.7%
+        Ceyx  2137    4.9%          4.9%
+      Dacelo 27961   63.6%         63.7%
      Halcyon    26    0.1%          0.1%
         Syma   155    0.4%          0.4%
  Tanysiptera   565    1.3%          1.3%
- Todiramphus 13063   29.7%         29.8%
+ Todiramphus 13074   29.7%         29.8%
         &lt;NA&gt;    57    0.1%             -</code></pre>
 </div>
 </div>
@@ -992,7 +939,7 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
    scientificName                      n
    &lt;chr&gt;                           &lt;int&gt;
  1 ALCEDINIDAE                        57
- 2 Ceyx azureus                     1933
+ 2 Ceyx azureus                     1937
  3 Ceyx azureus azureus                2
  4 Ceyx azureus diemenensis            1
  5 Ceyx pusillus                     196
