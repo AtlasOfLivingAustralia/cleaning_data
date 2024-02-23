@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/duplicates.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/duplicates.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../3_cleaning_general/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: General</span></a>
+ <span class="menu-text">General data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../4_cleaning_expert/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: Expert</span></a>
+ <span class="menu-text">Ecological data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -337,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/duplicates.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/duplicates.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></h1>
 </div>
@@ -403,21 +403,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 the `.groups` argument.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5,105 × 3
-# Groups:   decimalLongitude [5,087]
+<pre><code># A tibble: 5,102 × 3
+# Groups:   decimalLongitude [5,084]
    decimalLongitude decimalLatitude     n
               &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;
- 1             80.5            7.3      3
- 2             80.6            7.3      6
- 3            104.             1.31     2
- 4            115.           -34.1      2
- 5            115.           -33.8      2
- 6            115.           -33.7      2
- 7            115.           -33.6      2
- 8            115.           -34.0      2
- 9            115.           -33.9     12
-10            115.           -33.9      2
-# ℹ 5,095 more rows</code></pre>
+ 1             115.           -34.1     2
+ 2             115.           -33.8     2
+ 3             115.           -33.7     2
+ 4             115.           -33.6     2
+ 5             115.           -34.0     2
+ 6             115.           -33.9    12
+ 7             115.           -33.9     2
+ 8             115.           -33.6     2
+ 9             115.           -33.6     2
+10             115.           -33.6     2
+# ℹ 5,092 more rows</code></pre>
 </div>
 </div>
 <p>Return duplicated rows.</p>
@@ -425,7 +425,7 @@ the `.groups` argument.</code></pre>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 27,055 × 13
+<pre><code># A tibble: 27,047 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 0036fdd3-947e… Todiramphus (… https://biodi…           -35.3             149.
@@ -438,7 +438,7 @@ the `.groups` argument.</code></pre>
  8 00e8c718-f305… Dacelo (Dacel… https://biodi…           -31.7             116.
  9 00fe93fc-86b9… Dacelo (Dacel… https://biodi…           -27.4             153.
 10 01006006-78b2… Todiramphus (… https://biodi…           -19.2             147.
-# ℹ 27,045 more rows
+# ℹ 27,037 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -453,7 +453,7 @@ the `.groups` argument.</code></pre>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_dupes</span>(decimalLatitude, decimalLongitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 32,134 × 14
+<pre><code># A tibble: 32,123 × 14
    decimalLatitude decimalLongitude dupe_count recordID           scientificName
              &lt;dbl&gt;            &lt;dbl&gt;      &lt;int&gt; &lt;chr&gt;              &lt;chr&gt;         
  1           -27.4             153.        686 00018120-2238-412… Dacelo (Dacel…
@@ -466,7 +466,7 @@ the `.groups` argument.</code></pre>
  8           -27.4             153.        686 023f2c30-93a9-4d6… Dacelo (Dacel…
  9           -27.4             153.        686 03d44a01-7863-469… Todiramphus (…
 10           -27.4             153.        686 03dee6d8-4ae9-46a… Todiramphus (…
-# ℹ 32,124 more rows
+# ℹ 32,113 more rows
 # ℹ 9 more variables: taxonConceptID &lt;chr&gt;, eventDate &lt;dttm&gt;,
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,
 #   species &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -476,7 +476,7 @@ the `.groups` argument.</code></pre>
 </div>
 </div>
 <p>Our results show that there are more than 27,000 records that overlap!</p>
-<p>However, given that we have several different species included in our dataset, we may want to preserve when each species occurs in the same location (rather than removing all but one species’ data for each location).</p>
+<p>We want to remove duplicate records, but we don’t necessarily want to remove <em>all</em> duplicates. Our dataset contains several different species, and sometimes several species might be in the same location. Rather than removing all but one species in a location, we probably want to remove duplicates <em>for each species</em>. This should leave one observation for each species in each location.</p>
 <p>To filter our duplicates by species, we can first split our data by species…</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
@@ -693,7 +693,7 @@ the `.groups` argument.</code></pre>
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;
 
 [[11]]
-# A tibble: 962 × 13
+# A tibble: 936 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 0034efe7-4a01… Todiramphus    https://biodi…           -27.2             153.
@@ -706,7 +706,7 @@ the `.groups` argument.</code></pre>
  8 020b9283-447f… Todiramphus    https://biodi…           -16.9             146.
  9 02511840-3813… Todiramphus    https://biodi…           -16.9             146.
 10 03a9e4bd-37db… Todiramphus    https://biodi…           -25.6             153.
-# ℹ 952 more rows
+# ℹ 926 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -724,7 +724,7 @@ the `.groups` argument.</code></pre>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 23,605 × 13
+<pre><code># A tibble: 23,598 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 04b5c741-1afb… Ceyx azureus   https://biodi…           -37.8             145.
@@ -737,7 +737,7 @@ the `.groups` argument.</code></pre>
  8 0ba0afc4-1cf2… Ceyx azureus   https://biodi…           -27.3             153.
  9 0c570ead-3759… Ceyx azureus   https://biodi…           -33.0             151.
 10 0c9f8e48-1c44… Ceyx azureus   https://biodi…           -27.3             153.
-# ℹ 23,595 more rows
+# ℹ 23,588 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -757,7 +757,7 @@ the `.groups` argument.</code></pre>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>birds_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 20,165 × 13
+<pre><code># A tibble: 20,150 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 0007f679-255f… Ceyx azureus   https://biodi…           -35.3             149.
@@ -770,7 +770,7 @@ the `.groups` argument.</code></pre>
  8 00a39798-5118… Ceyx azureus   https://biodi…           -17.1             146.
  9 00c02d79-58ef… Ceyx azureus   https://biodi…           -16.2             145.
 10 012140cd-fac0… Ceyx azureus   https://biodi…           -33.7             151.
-# ℹ 20,155 more rows
+# ℹ 20,140 more rows
 # ℹ 8 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -1210,8 +1210,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../3_cleaning_general/1_intro.html" class="pagination-link  aria-label=" cleaning="" data:="" general"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Cleaning data: General</span>
+      <a href="../3_cleaning_general/1_intro.html" class="pagination-link  aria-label=" general="" data="" cleaning"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">General data cleaning</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

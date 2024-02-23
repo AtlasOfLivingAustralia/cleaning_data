@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../3_cleaning_general/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: General</span></a>
+ <span class="menu-text">General data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../4_cleaning_expert/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: Expert</span></a>
+ <span class="menu-text">Ecological data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -409,7 +409,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 1 × 1
    count
    &lt;int&gt;
-1 138621</code></pre>
+1 138558</code></pre>
 </div>
 </div>
 <p>…and break them down by a taxonomic clade like genus…</p>
@@ -420,15 +420,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genus) <span class="sc">|&gt;</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 2
+<pre><code># A tibble: 5 × 2
   genus       count
   &lt;chr&gt;       &lt;int&gt;
 1 Dacelo      90653
 2 Todiramphus 40715
 3 Ceyx         5852
 4 Tanysiptera   886
-5 Syma          338
-6 Halcyon        63</code></pre>
+5 Syma          338</code></pre>
 </div>
 </div>
 <p>…or species.</p>
@@ -466,17 +465,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">|&gt;</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(<span class="sc">-</span>n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 2
-# Groups:   genus [7]
+<pre><code># A tibble: 6 × 2
+# Groups:   genus [6]
   genus           n
   &lt;chr&gt;       &lt;int&gt;
-1 Halcyon        63
-2 &lt;NA&gt;          114
-3 Syma          338
-4 Tanysiptera   886
-5 Ceyx         5852
-6 Todiramphus 40715
-7 Dacelo      90653</code></pre>
+1 &lt;NA&gt;          114
+2 Syma          338
+3 Tanysiptera   886
+4 Ceyx         5852
+5 Todiramphus 40715
+6 Dacelo      90653</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
@@ -492,7 +490,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  3 Ceyx pusillus              657
  4 Tanysiptera sylvia         886
  5 Todiramphus pyrrhopygius  2318
- 6 &lt;NA&gt;                      2893
+ 6 &lt;NA&gt;                      2830
  7 Ceyx azureus              5195
  8 Dacelo leachii            7262
  9 Todiramphus macleayii     9851
@@ -511,7 +509,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>       genus     n percent valid_percent
         Ceyx  5852    4.2%          4.2%
       Dacelo 90653   65.4%         65.5%
-     Halcyon    63    0.0%          0.0%
         Syma   338    0.2%          0.2%
  Tanysiptera   886    0.6%          0.6%
  Todiramphus 40715   29.4%         29.4%
@@ -532,7 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     Todiramphus macleayii  9851    7.1%          7.3%
  Todiramphus pyrrhopygius  2318    1.7%          1.7%
       Todiramphus sanctus 25808   18.6%         19.0%
-                     &lt;NA&gt;  2893    2.1%             -</code></pre>
+                     &lt;NA&gt;  2830    2.0%             -</code></pre>
 </div>
 </div>
 </div>
@@ -630,7 +627,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6 Australian Capital Territory  3518
 7 Tasmania                      2441
 8 South Australia               2423
-9 &lt;NA&gt;                          1773</code></pre>
+9 &lt;NA&gt;                          1710</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species, cl22) <span class="sc">|&gt;</span></span>
@@ -671,7 +668,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                      Tasmania  2441    1.8%          1.8%
                      Victoria 23917   17.3%         17.5%
             Western Australia  7645    5.5%          5.6%
-                         &lt;NA&gt;  1773    1.3%             -</code></pre>
+                         &lt;NA&gt;  1710    1.2%             -</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(species, cl22) <span class="sc">|&gt;</span></span>
@@ -712,7 +709,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
               0.0%  3500.0%
           30800.0%   100.0%
          211700.0% 57600.0%
-           2800.0% 19500.0%</code></pre>
+           2800.0% 13200.0%</code></pre>
 </div>
 </div>
 </div>
@@ -915,14 +912,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 8 × 2
   year   count
   &lt;chr&gt;  &lt;int&gt;
-1 2022  138621
-2 2021  128698
-3 2020  108926
-4 2018   95620
-5 2019   93822
-6 2017   78636
-7 2023   43975
-8 2024     844</code></pre>
+1 2022  138558
+2 2021  128662
+3 2020  108913
+4 2018   95614
+5 2019   93803
+6 2017   78633
+7 2023   43949
+8 2024     843</code></pre>
 </div>
 </div>
 <p>You can summarise after downloading counts locally, too. With the help of the lubridate package, we’ll convert our column <code>eventDate</code> to a <code>date</code> class in R. Then we can extract date data relevant to our specific summary.</p>
@@ -939,7 +936,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>birds_date <span class="sc">|&gt;</span></span>
 <span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, eventDate, year, month, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 138,621 × 14
+<pre><code># A tibble: 138,558 × 14
    scientificName eventDate   year month recordID taxonConceptID decimalLatitude
    &lt;chr&gt;          &lt;date&gt;     &lt;dbl&gt; &lt;ord&gt; &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;
  1 Dacelo (Dacel… 2022-04-19  2022 Apr   00000eb… https://biodi…           -37.8
@@ -952,7 +949,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Dacelo (Dacel… 2022-10-01  2022 Oct   000254a… https://biodi…           -38.2
  9 Dacelo (Dacel… 2022-03-21  2022 Mar   0002618… https://biodi…           -35.4
 10 Dacelo (Dacel… 2022-08-14  2022 Aug   00039ab… https://biodi…           -33.5
-# ℹ 138,611 more rows
+# ℹ 138,548 more rows
 # ℹ 7 more variables: decimalLongitude &lt;dbl&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;</code></pre>
@@ -973,7 +970,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    year      n
   &lt;dbl&gt;  &lt;int&gt;
 1  2021      4
-2  2022 138615
+2  2022 138552
 3    NA      2</code></pre>
 </div>
 </div>
@@ -988,7 +985,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code> year      n percent valid_percent
  2021      4    0.0%          0.0%
- 2022 138615  100.0%        100.0%
+ 2022 138552  100.0%        100.0%
    NA      2    0.0%             -</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>birds_date <span class="sc">|&gt;</span></span>
@@ -1030,7 +1027,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
               0.0%  3500.0%
           30800.0%   100.0%
          211700.0% 57600.0%
-           2800.0% 19500.0%</code></pre>
+           2800.0% 13200.0%</code></pre>
 </div>
 </div>
 </div>
@@ -1053,18 +1050,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   month [13]
    month     n
    &lt;ord&gt; &lt;int&gt;
- 1 Jan   14758
- 2 Feb    9284
- 3 Mar    8826
- 4 Apr    9467
- 5 May    8546
- 6 Jun    9071
- 7 Jul   10563
- 8 Aug   11678
- 9 Sep   13058
-10 Oct   15758
-11 Nov   14009
-12 Dec   13601
+ 1 Jan   14757
+ 2 Feb    9278
+ 3 Mar    8821
+ 4 Apr    9456
+ 5 May    8540
+ 6 Jun    9067
+ 7 Jul   10556
+ 8 Aug   11670
+ 9 Sep   13055
+10 Oct   15757
+11 Nov   14002
+12 Dec   13597
 13 &lt;NA&gt;      2</code></pre>
 </div>
 </div>
@@ -1080,18 +1077,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 # Groups:   month [13]
    month     n
    &lt;ord&gt; &lt;int&gt;
- 1 Jan   14758
- 2 Feb    9284
- 3 Mar    8826
- 4 Apr    9467
- 5 May    8546
- 6 Jun    9071
- 7 Jul   10563
- 8 Aug   11678
- 9 Sep   13058
-10 Oct   15758
-11 Nov   14009
-12 Dec   13601
+ 1 Jan   14757
+ 2 Feb    9278
+ 3 Mar    8821
+ 4 Apr    9456
+ 5 May    8540
+ 6 Jun    9067
+ 7 Jul   10556
+ 8 Aug   11670
+ 9 Sep   13055
+10 Oct   15757
+11 Nov   14002
+12 Dec   13597
 13 &lt;NA&gt;      2</code></pre>
 </div>
 </div>
@@ -1103,19 +1100,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(month))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> month     n      percent valid_percent
-   Dec 13601 9.811645e-02    0.09811786
-   Nov 14009 1.010597e-01    0.10106118
-   Oct 15758 1.136769e-01    0.11367850
-   Sep 13058 9.419929e-02    0.09420065
-   Aug 11678 8.424409e-02    0.08424531
-   Jul 10563 7.620058e-02    0.07620168
-   Jun  9071 6.543742e-02    0.06543836
-   May  8546 6.165011e-02    0.06165100
-   Apr  9467 6.829413e-02    0.06829511
-   Mar  8826 6.367001e-02    0.06367093
-   Feb  9284 6.697398e-02    0.06697495
-   Jan 14758 1.064629e-01    0.10646448
-  &lt;NA&gt;     2 1.442783e-05            NA</code></pre>
+   Dec 13597 9.813219e-02    0.09813361
+   Nov 14002 1.010552e-01    0.10105661
+   Oct 15757 1.137213e-01    0.11372297
+   Sep 13055 9.422047e-02    0.09422183
+   Aug 11670 8.422466e-02    0.08422587
+   Jul 10556 7.618470e-02    0.07618580
+   Jun  9067 6.543830e-02    0.06543924
+   May  8540 6.163484e-02    0.06163573
+   Apr  9456 6.824579e-02    0.06824677
+   Mar  8821 6.366287e-02    0.06366379
+   Feb  9278 6.696113e-02    0.06696209
+   Jan 14757 1.065041e-01    0.10650567
+  &lt;NA&gt;     2 1.443439e-05            NA</code></pre>
 </div>
 </div>
 </div>
@@ -1133,7 +1130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">day_of_year =</span> <span class="fu">yday</span>(eventDate))</span>
 <span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>birds_day</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 138,615 × 15
+<pre><code># A tibble: 138,552 × 15
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 00000eb7-95a6… Dacelo (Dacel… https://biodi…           -37.8             145.
@@ -1146,7 +1143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 000254a1-e2ab… Dacelo (Dacel… https://biodi…           -38.2             146.
  9 0002618d-4563… Dacelo (Dacel… https://biodi…           -35.4             149.
 10 00039ab0-6832… Dacelo (Dacel… https://biodi…           -33.5             151.
-# ℹ 138,605 more rows
+# ℹ 138,542 more rows
 # ℹ 10 more variables: eventDate &lt;date&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;ord&gt;, year &lt;dbl&gt;, day_of_year &lt;dbl&gt;</code></pre>
@@ -1202,7 +1199,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">week_of_year =</span> <span class="fu">week</span>(eventDate)) </span>
 <span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>birds_week</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 138,615 × 15
+<pre><code># A tibble: 138,552 × 15
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 00000eb7-95a6… Dacelo (Dacel… https://biodi…           -37.8             145.
@@ -1215,7 +1212,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 000254a1-e2ab… Dacelo (Dacel… https://biodi…           -38.2             146.
  9 0002618d-4563… Dacelo (Dacel… https://biodi…           -35.4             149.
 10 00039ab0-6832… Dacelo (Dacel… https://biodi…           -33.5             151.
-# ℹ 138,605 more rows
+# ℹ 138,542 more rows
 # ℹ 10 more variables: eventDate &lt;date&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
 #   cl22 &lt;chr&gt;, month &lt;ord&gt;, year &lt;dbl&gt;, week_of_year &lt;dbl&gt;</code></pre>
@@ -1233,14 +1230,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           &lt;dbl&gt; &lt;int&gt;
  1            1  4222
  2            2  3337
- 3            3  2897
+ 3            3  2896
  4            4  3070
  5            5  2323
  6            6  2562
- 7            7  2530
- 8            8  2274
- 9            9  1717
-10           10  1811
+ 7            7  2528
+ 8            8  2271
+ 9            9  1716
+10           10  1810
 # ℹ 43 more rows</code></pre>
 </div>
 </div>
@@ -1666,8 +1663,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../3_cleaning_general/1_intro.html" class="pagination-link" aria-label="Cleaning data: General">
-        <span class="nav-page-text">Cleaning data: General</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../3_cleaning_general/1_intro.html" class="pagination-link" aria-label="General data cleaning">
+        <span class="nav-page-text">General data cleaning</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

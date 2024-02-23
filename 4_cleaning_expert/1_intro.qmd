@@ -3,7 +3,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Cleaning data: Expert
+# Ecological data cleaning
 
 This section details data cleaning methods that rely on ecological/biological expert knowledge of your dataset. Not everything will apply to every dataset, and will depend on the species or clades that are in the data.
 

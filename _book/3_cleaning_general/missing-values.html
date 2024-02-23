@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/missing-values.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Missing values</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/missing-values.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Missing values</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../3_cleaning_general/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: General</span></a>
+ <span class="menu-text">General data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../4_cleaning_expert/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: Expert</span></a>
+ <span class="menu-text">Ecological data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -344,7 +344,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/missing-values.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Missing values</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/missing-values.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Missing values</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Missing values</span></h1>
 </div>
@@ -407,9 +407,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   skim_type skim_variable    n_missing complete_rate POSIXct.min        
   &lt;chr&gt;     &lt;chr&gt;                &lt;int&gt;         &lt;dbl&gt; &lt;dttm&gt;             
 1 POSIXct   eventDate              658         0.976 2009-01-01 00:00:00
-2 character genus                  801         0.970 NA                 
-3 character species               2196         0.919 NA                 
-4 character cl22                  1166         0.957 NA                 
+2 character genus                  654         0.976 NA                 
+3 character species               2053         0.924 NA                 
+4 character cl22                  1203         0.956 NA                 
 5 numeric   decimalLatitude        153         0.994 NA                 
 6 numeric   decimalLongitude       153         0.994 NA                 
 7 numeric   month                  649         0.976 NA                 
@@ -429,7 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, genus, </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>         species, cl22, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3,505 × 17
+<pre><code># A tibble: 3,410 × 17
    scientificName    genus species cl22  recordID taxonConceptID decimalLatitude
    &lt;chr&gt;             &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;
  1 Gehyra            Gehy… &lt;NA&gt;    Sout… 001949e… https://biodi…          -28.1 
@@ -442,7 +442,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 GEKKONIDAE        &lt;NA&gt;  &lt;NA&gt;    Quee… 007172d… https://biodi…          -19.3 
  9 Gehyra            Gehy… &lt;NA&gt;    Nort… 0073628… https://biodi…          -22.2 
 10 Christinus marmo… Chri… Christ… &lt;NA&gt;  007a1a3… https://biodi…          -34.9 
-# ℹ 3,495 more rows
+# ℹ 3,400 more rows
 # ℹ 10 more variables: decimalLongitude &lt;dbl&gt;, eventDate &lt;dttm&gt;,
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;, kingdom &lt;chr&gt;,
 #   phylum &lt;chr&gt;, order &lt;chr&gt;, class &lt;chr&gt;, family &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -455,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, genus, </span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>         species, cl22, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,166 × 17
+<pre><code># A tibble: 1,203 × 17
    scientificName    genus species cl22  recordID taxonConceptID decimalLatitude
    &lt;chr&gt;             &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;
  1 Lepidodactylus p… Lepi… Lepido… &lt;NA&gt;  00336d7… https://biodi…           -8.81
@@ -468,7 +468,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Christinus marmo… Chri… Christ… &lt;NA&gt;  0143054… https://biodi…          -32.0 
  9 Hemidactylus fre… Hemi… Hemida… &lt;NA&gt;  01aae23… https://biodi…           16.0 
 10 Cyrtodactylus     Cyrt… &lt;NA&gt;    &lt;NA&gt;  01bdcd8… https://biodi…           -2.00
-# ℹ 1,156 more rows
+# ℹ 1,193 more rows
 # ℹ 10 more variables: decimalLongitude &lt;dbl&gt;, eventDate &lt;dttm&gt;,
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;, kingdom &lt;chr&gt;,
 #   phylum &lt;chr&gt;, order &lt;chr&gt;, class &lt;chr&gt;, family &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -569,7 +569,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>geckos_missing <span class="sc">|&gt;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, class, family, genus, species, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 27,031 × 17
+<pre><code># A tibble: 27,070 × 17
    scientificName        class    family   genus species recordID taxonConceptID
    &lt;chr&gt;                 &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;         
  1 Gehyra dubia          Reptilia Gekkoni… Gehy… Gehyra… 00002a3… https://biodi…
@@ -582,7 +582,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Gehyra                Reptilia Gekkoni… Gehy… &lt;NA&gt;    001949e… https://biodi…
  9 Heteronotia binoei    Reptilia Gekkoni… Hete… Hetero… 0019729… https://biodi…
 10 Gehyra                Reptilia Gekkoni… Gehy… &lt;NA&gt;    001ab80… https://biodi…
-# ℹ 27,021 more rows
+# ℹ 27,060 more rows
 # ℹ 10 more variables: decimalLatitude &lt;dbl&gt;, decimalLongitude &lt;dbl&gt;,
 #   eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;,
 #   kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
@@ -597,7 +597,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>geckos_species_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 75 × 10
+<pre><code># A tibble: 80 × 10
    species_guid           species author kingdom phylum class order family genus
    &lt;chr&gt;                  &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;
  1 https://biodiversity.… Hetero… (Gray… Animal… Chord… Rept… Squa… Gekko… Hete…
@@ -610,7 +610,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 https://biodiversity.… Gehyra… Gray,… Animal… Chord… Rept… Squa… Gekko… Gehy…
  9 https://biodiversity.… Gehyra… Storr… Animal… Chord… Rept… Squa… Gekko… Gehy…
 10 https://biodiversity.… Lepido… (Dumé… Animal… Chord… Rept… Squa… Gekko… Lepi…
-# ℹ 65 more rows
+# ℹ 70 more rows
 # ℹ 1 more variable: vernacular_name &lt;chr&gt;</code></pre>
 </div>
 </div>
@@ -687,20 +687,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>geckos_rank <span class="sc">|&gt;</span></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxonRank <span class="sc">==</span> <span class="st">"species"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,813 × 2
+<pre><code># A tibble: 1,814 × 2
    taxonRank scientificName       
    &lt;chr&gt;     &lt;chr&gt;                
- 1 species   Heteronotia binoei   
- 2 species   Gehyra australis     
- 3 species   Heteronotia binoei   
- 4 species   Heteronotia binoei   
- 5 species   Heteronotia binoei   
- 6 species   Heteronotia binoei   
- 7 species   Gehyra australis     
- 8 species   Hemidactylus frenatus
- 9 species   Hemidactylus frenatus
-10 species   Gehyra dubia         
-# ℹ 1,803 more rows</code></pre>
+ 1 species   Gehyra koira         
+ 2 species   Gehyra nana          
+ 3 species   Gehyra australis     
+ 4 species   Gehyra kimberleyi    
+ 5 species   Gehyra dubia         
+ 6 species   Christinus marmoratus
+ 7 species   Gehyra versicolor    
+ 8 species   Heteronotia binoei   
+ 9 species   Gehyra dubia         
+10 species   Gehyra australis     
+# ℹ 1,804 more rows</code></pre>
 </div>
 </div>
 <p>However, it is still possible to filter records using the tools above without using the <code>taxonRank</code> column.</p>
@@ -710,7 +710,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, genus, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>geckos_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26,230 × 17
+<pre><code># A tibble: 26,416 × 17
    scientificName genus recordID taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 Gehyra dubia   Gehy… 00002a3… https://biodi…           -24.1             151.
@@ -723,7 +723,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Gehyra         Gehy… 001949e… https://biodi…           -28.1             140.
  9 Heteronotia b… Hete… 0019729… https://biodi…           -12.7             131.
 10 Gehyra         Gehy… 001ab80… https://biodi…           -16.1             130.
-# ℹ 26,220 more rows
+# ℹ 26,406 more rows
 # ℹ 11 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;, kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;,
 #   class &lt;chr&gt;, family &lt;chr&gt;, species &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>

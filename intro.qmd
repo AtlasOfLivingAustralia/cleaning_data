@@ -122,9 +122,10 @@ data**]{style="color: #efa123; font-size: 14px; text-align: center;"}
 :::
 
 In ecology and biology, researchers, managers and decision makers often
-wish questions about where species live, what
+want to answer questions about where species live, what
 biological and environmental factors affect their survival and success,
-and how these factors might affect their survival in the future. These questions are difficult but essential to answer for conservation and ecosystem management.
+and how these factors might affect their future survival. These questions are 
+difficult but essential to answer for conservation and ecosystem management.
 
 To address these questions, many ecologists must combine large amounts
 of species data from different sources for analysis. These data usually
@@ -236,13 +237,15 @@ A list of the most common packages in this book can be found on the [Packages pa
 
 ## Conventions {.unnumbered}
 
+### Code blocks
+
 Demonstrations and instructions throughout this book are accompanied by
 code blocks. These blocks show how a particular task was executed in R:
 
-``` r
+``` {r}
+#| eval: false
 # This is a code block with a comment
-library(package)
-plot(data)
+library(package-name)
 
 mtcars |>
    dplyr::group_by(cyl) |>
@@ -250,9 +253,21 @@ mtcars |>
 ```
 
 ::: {.callout-tip appearance="simple"}
-You can copy code by clicking the button in the top right corner of a
+You can copy code by clicking the [clipboard icon] button in the top right corner of a
 code block.
 :::
+
+### Code line comments
+
+Some code blocks have numbers beside on the right side of a code line. You can hover over these numbers to read additional context about that specific line of code.
+
+```{r}
+#| eval: false
+mtcars |>
+  dplyr::group_by(cyl) # <1>
+```
+1. This line of code groups `mtcars` data by each distinct value in the variable `cyl`
+
 
 Throughout this book, we use “pipes” in our code (`|>`, or `%>%` from the magrittr package). Pipes allow you to run multiple functions sequentially to an object or a dataset. Pipes can be read as saying 
 “and then”.

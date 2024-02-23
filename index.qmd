@@ -8,9 +8,9 @@ the aims of the project. Therefore, there is no one-size-fits-all approach,
 which is reflected in the way this site is structured.  
 Add a diagram and some more text here. -->
 
-Welcome to the Atlas of Living Australia Data Cleaning book. This book is
+Welcome to the Atlas of Living Australia's Data Cleaning Booklet. This book is
 designed to be a practical guide on cleaning georeferenced biodiverdsity data
-using R. We focus on specific processes and challenges you'll face with
+using R. We focus on processes and challenges you'll face with
 biodiversity data. As such, this book isn't a guide to data cleaning in general,
 but a targeted resource for anyone working with or interested in georeferenced
 biodiversity data.
@@ -34,6 +34,8 @@ Kar, F., Schneider, M., Schwenke, A., Kellie, D., Balasubramaniam, S., Torresan,
 <!-- actual repository should also contain a licence doc; preferably matching I think -->
 This book is available free to read, and is licenced under the 
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/) 
+
+## Acknowledgement of Country
 
 ## Acknowledgements {.unnumbered}
 

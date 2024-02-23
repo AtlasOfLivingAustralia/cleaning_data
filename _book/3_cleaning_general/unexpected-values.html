@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/unexpected-values.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Unexpected values</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/unexpected-values.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Unexpected values</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../3_cleaning_general/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: General</span></a>
+ <span class="menu-text">General data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../4_cleaning_expert/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: Expert</span></a>
+ <span class="menu-text">Ecological data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -338,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/unexpected-values.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Unexpected values</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/unexpected-values.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Unexpected values</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Unexpected values</span></h1>
 </div>
@@ -417,7 +417,7 @@ Eventually this section could end up being dispersed into other sections. For no
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(scientificName) <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 25 × 1
+<pre><code># A tibble: 22 × 1
    scientificName                            
    &lt;chr&gt;                                     
  1 Dacelo (Dacelo) novaeguineae              
@@ -431,20 +431,17 @@ Eventually this section could end up being dispersed into other sections. For no
  9 Syma torotoro                             
 10 Todiramphus                               
 11 ALCEDINIDAE                               
-12 Halcyon                                   
-13 Dacelo (Dacelo) novaeguineae novaeguineae 
-14 Dacelo (Dacelo) leachii leachii           
-15 Todiramphus (Todiramphus) sanctus sanctus 
-16 Todiramphus (Todiramphus) chloris         
-17 Todiramphus (Todiramphus) sanctus vagans  
-18 Ceyx azureus azureus                      
-19 Ceyx azureus diemenensis                  
-20 Todiramphus (Lazulena) macleayii macleayii
-21 Dacelo (Dacelo)                           
-22 Dacelo                                    
-23 Todiramphus (Lazulena) macleayii incinctus
-24 Ceyx azureus ruficollaris                 
-25 Dacelo novaeguineae ( , 1783) novaeguineae</code></pre>
+12 Dacelo (Dacelo) novaeguineae novaeguineae 
+13 Dacelo (Dacelo) leachii leachii           
+14 Todiramphus (Todiramphus) sanctus sanctus 
+15 Todiramphus (Todiramphus) chloris         
+16 Todiramphus (Todiramphus) sanctus vagans  
+17 Ceyx azureus azureus                      
+18 Ceyx azureus diemenensis                  
+19 Todiramphus (Lazulena) macleayii macleayii
+20 Dacelo                                    
+21 Todiramphus (Lazulena) macleayii incinctus
+22 Ceyx azureus ruficollaris                 </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -459,16 +456,16 @@ Eventually this section could end up being dispersed into other sections. For no
  1 Thalassarche melanophris     58365
  2 Thalassarche chrysostoma     26103
  3 Thalassarche cauta           19292
- 4 Thalassarche chlororhynchos  11164
- 5 Thalassarche steadi          10024
- 6 Thalassarche bulleri          4689
- 7 Thalassarche salvini          2763
- 8 Thalassarche impavida         2650
- 9 Thalassarche carteri          1061
-10 Thalassarche                   983
-11 Thalassarche cauta cauta       293
-12 Thalassarche eremita            49
-13 Thalassarche bulleri bulleri    22
+ 4 Thalassarche steadi          10024
+ 5 Thalassarche chlororhynchos   7437
+ 6 Thalassarche bulleri          4532
+ 7 Thalassarche carteri          3661
+ 8 Thalassarche salvini          2763
+ 9 Thalassarche impavida         2650
+10 Thalassarche bulleri bulleri  1306
+11 Thalassarche                   983
+12 Thalassarche cauta cauta       293
+13 Thalassarche eremita            49
 14 Thalassarche bulleri platei      1</code></pre>
 </div>
 </div>
@@ -547,15 +544,15 @@ Eventually this section could end up being dispersed into other sections. For no
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(countryCode, decimalLongitude, decimalLatitude) <span class="sc">|&gt;</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 25 × 3
+<pre><code># A tibble: 30 × 3
   countryCode decimalLongitude decimalLatitude
   &lt;chr&gt;                  &lt;dbl&gt;           &lt;dbl&gt;
 1 JP                      152.            24.5
 2 AU                      153.           -28.4
 3 AU                      153.           -28.4
-4 AU                      152.           -27.4
-5 AU                      153.           -30.1
-# ℹ 20 more rows</code></pre>
+4 AU                      153.           -28.2
+5 AU                      149.           -20.3
+# ℹ 25 more rows</code></pre>
 </div>
 </div>
 <p>All of this evidence suggests that our Japan “outlier” might instead be an occurrence point with a mis-entered latitude coordinate.</p>
@@ -650,7 +647,7 @@ Eventually this section could end up being dispersed into other sections. For no
 </dl>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 138,621 × 2
+<pre><code># A tibble: 138,558 × 2
    date       year_extracted
    &lt;date&gt;              &lt;dbl&gt;
  1 2022-04-19           2022
@@ -663,7 +660,7 @@ Eventually this section could end up being dispersed into other sections. For no
  8 2022-10-01           2022
  9 2022-03-21           2022
 10 2022-08-14           2022
-# ℹ 138,611 more rows</code></pre>
+# ℹ 138,548 more rows</code></pre>
 </div>
 </div>
 <p>Despite specifying the year in our galah query, when we summarise our new <code>year_extracted</code> column, we find that there are other unexpected records from 2021, too!</p>
@@ -677,7 +674,7 @@ Eventually this section could end up being dispersed into other sections. For no
   year_extracted      n
            &lt;dbl&gt;  &lt;int&gt;
 1           2021      4
-2           2022 138615
+2           2022 138552
 3             NA      2</code></pre>
 </div>
 </div>

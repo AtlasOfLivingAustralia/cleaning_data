@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/column-names-and-classes.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/column-names-and-classes.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../3_cleaning_general/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: General</span></a>
+ <span class="menu-text">General data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../4_cleaning_expert/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: Expert</span></a>
+ <span class="menu-text">Ecological data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -343,7 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/column-names-and-classes.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/column-names-and-classes.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></h1>
 </div>
@@ -411,15 +411,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Rows: 1,721
 Columns: 10
 $ recordID         &lt;chr&gt; "00168ca6-84d0-4af1-8fa8-875fd69d25da", "00250163-ec5…
-$ scientificName   &lt;chr&gt; "Litoria", "Litoria", "Litoria ewingii", "Litoria ewi…
-$ taxonConceptID   &lt;chr&gt; "https://biodiversity.org.au/afd/taxa/0df99ece-1982-4…
+$ scientificName   &lt;chr&gt; "Litoria raniformis", "Litoria raniformis", "Litoria …
+$ taxonConceptID   &lt;chr&gt; "https://biodiversity.org.au/afd/taxa/89a7a289-bf04-4…
 $ decimalLatitude  &lt;dbl&gt; -41.19207, -41.15305, -42.85886, -41.67640, -43.10238…
 $ decimalLongitude &lt;dbl&gt; 146.4331, 146.5241, 147.6137, 146.9180, 147.0494, 147…
 $ eventDate        &lt;dttm&gt; 2023-12-20 23:20:19, 2023-08-23 01:49:28, 2022-12-23…
 $ occurrenceStatus &lt;chr&gt; "PRESENT", "PRESENT", "PRESENT", "PRESENT", "PRESENT"…
 $ dataResourceName &lt;chr&gt; "iNaturalist Australia", "iNaturalist Australia", "iN…
 $ genus            &lt;chr&gt; "Litoria", "Litoria", "Litoria", "Litoria", "Litoria"…
-$ species          &lt;chr&gt; NA, NA, "Litoria ewingii", "Litoria ewingii", "Litori…</code></pre>
+$ species          &lt;chr&gt; "Litoria raniformis", "Litoria raniformis", "Litoria …</code></pre>
 </div>
 </div>
 </div>
@@ -430,15 +430,15 @@ $ species          &lt;chr&gt; NA, NA, "Litoria ewingii", "Litoria ewingii", "Li
 <div class="cell-output cell-output-stdout">
 <pre><code>spc_tbl_ [1,721 × 10] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ recordID        : chr [1:1721] "00168ca6-84d0-4af1-8fa8-875fd69d25da" "00250163-ec50-4eda-a5d5-58ae98bc5834" "003e0f63-9f95-4af9-b272-10db6d7b6371" "00410554-5289-416f-9848-74df4a814b93" ...
- $ scientificName  : chr [1:1721] "Litoria" "Litoria" "Litoria ewingii" "Litoria ewingii" ...
- $ taxonConceptID  : chr [1:1721] "https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b" "https://biodiversity.org.au/afd/taxa/0df99ece-1982-4605-a2b3-4fcb7660ee2b" "https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c30ef95cd35" "https://biodiversity.org.au/afd/taxa/d0e897bb-e6f5-4654-a511-1c30ef95cd35" ...
+ $ scientificName  : chr [1:1721] "Litoria raniformis" "Litoria raniformis" "Litoria ewingii" "Litoria ewingii" ...
+ $ taxonConceptID  : chr [1:1721] "https://biodiversity.org.au/afd/taxa/89a7a289-bf04-40e0-aaef-7ec6bc968a9c" "https://biodiversity.org.au/afd/taxa/89a7a289-bf04-40e0-aaef-7ec6bc968a9c" "https://biodiversity.org.au/afd/taxa/1c89eedb-42b6-4675-b688-2e0b59ea689e" "https://biodiversity.org.au/afd/taxa/1c89eedb-42b6-4675-b688-2e0b59ea689e" ...
  $ decimalLatitude : num [1:1721] -41.2 -41.2 -42.9 -41.7 -43.1 ...
  $ decimalLongitude: num [1:1721] 146 147 148 147 147 ...
  $ eventDate       : POSIXct[1:1721], format: "2023-12-20 23:20:19" "2023-08-23 01:49:28" ...
  $ occurrenceStatus: chr [1:1721] "PRESENT" "PRESENT" "PRESENT" "PRESENT" ...
  $ dataResourceName: chr [1:1721] "iNaturalist Australia" "iNaturalist Australia" "iNaturalist Australia" "FrogID" ...
  $ genus           : chr [1:1721] "Litoria" "Litoria" "Litoria" "Litoria" ...
- $ species         : chr [1:1721] NA NA "Litoria ewingii" "Litoria ewingii" ...
+ $ species         : chr [1:1721] "Litoria raniformis" "Litoria raniformis" "Litoria ewingii" "Litoria ewingii" ...
  - attr(*, "spec")=
   .. cols(
   ..   recordID = col_character(),
@@ -537,7 +537,7 @@ $ species          &lt;chr&gt; NA, NA, "Litoria ewingii", "Litoria ewingii", "Li
 <tr class="odd">
 <td style="text-align: left;">recordID</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">0</td>
@@ -547,7 +547,7 @@ $ species          &lt;chr&gt; NA, NA, "Litoria ewingii", "Litoria ewingii", "Li
 <tr class="even">
 <td style="text-align: left;">scientificName</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">18</td>
 <td style="text-align: right;">0</td>
@@ -557,7 +557,7 @@ $ species          &lt;chr&gt; NA, NA, "Litoria ewingii", "Litoria ewingii", "Li
 <tr class="odd">
 <td style="text-align: left;">taxonConceptID</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">73</td>
 <td style="text-align: right;">73</td>
 <td style="text-align: right;">0</td>
@@ -567,7 +567,7 @@ $ species          &lt;chr&gt; NA, NA, "Litoria ewingii", "Litoria ewingii", "Li
 <tr class="even">
 <td style="text-align: left;">occurrenceStatus</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0</td>
@@ -577,7 +577,7 @@ $ species          &lt;chr&gt; NA, NA, "Litoria ewingii", "Litoria ewingii", "Li
 <tr class="odd">
 <td style="text-align: left;">dataResourceName</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">6</td>
 <td style="text-align: right;">27</td>
 <td style="text-align: right;">0</td>
@@ -587,7 +587,7 @@ $ species          &lt;chr&gt; NA, NA, "Litoria ewingii", "Litoria ewingii", "Li
 <tr class="even">
 <td style="text-align: left;">genus</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">7</td>
 <td style="text-align: right;">0</td>
@@ -596,8 +596,8 @@ $ species          &lt;chr&gt; NA, NA, "Litoria ewingii", "Litoria ewingii", "Li
 </tr>
 <tr class="odd">
 <td style="text-align: left;">species</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
 <td style="text-align: right;">15</td>
 <td style="text-align: right;">18</td>
 <td style="text-align: right;">0</td>
@@ -788,8 +788,8 @@ $species
 <pre><code># A tibble: 1,721 × 10
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
- 1 00168ca6-84d0… Litoria        https://biodi…           -41.2             146.
- 2 00250163-ec50… Litoria        https://biodi…           -41.2             147.
+ 1 00168ca6-84d0… Litoria ranif… https://biodi…           -41.2             146.
+ 2 00250163-ec50… Litoria ranif… https://biodi…           -41.2             147.
  3 003e0f63-9f95… Litoria ewing… https://biodi…           -42.9             148.
  4 00410554-5289… Litoria ewing… https://biodi…           -41.7             147.
  5 0070521f-bb45… Litoria ewing… https://biodi…           -43.1             147.
@@ -915,8 +915,8 @@ $species
 <pre><code># A tibble: 1,721 × 10
    recordID       scientificName taxonConceptID DECIMALLATITUDE DECIMALLONGITUDE
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
- 1 00168ca6-84d0… Litoria        https://biodi…           -41.2             146.
- 2 00250163-ec50… Litoria        https://biodi…           -41.2             147.
+ 1 00168ca6-84d0… Litoria ranif… https://biodi…           -41.2             146.
+ 2 00250163-ec50… Litoria ranif… https://biodi…           -41.2             147.
  3 003e0f63-9f95… Litoria ewing… https://biodi…           -42.9             148.
  4 00410554-5289… Litoria ewing… https://biodi…           -41.7             147.
  5 0070521f-bb45… Litoria ewing… https://biodi…           -43.1             147.
@@ -935,8 +935,8 @@ $species
 <pre><code># A tibble: 1,721 × 10
    recordid             scientificname taxonconceptid new_latitude new_longitude
    &lt;chr&gt;                &lt;chr&gt;          &lt;chr&gt;                 &lt;dbl&gt;         &lt;dbl&gt;
- 1 00168ca6-84d0-4af1-… Litoria        https://biodi…        -41.2          146.
- 2 00250163-ec50-4eda-… Litoria        https://biodi…        -41.2          147.
+ 1 00168ca6-84d0-4af1-… Litoria ranif… https://biodi…        -41.2          146.
+ 2 00250163-ec50-4eda-… Litoria ranif… https://biodi…        -41.2          147.
  3 003e0f63-9f95-4af9-… Litoria ewing… https://biodi…        -42.9          148.
  4 00410554-5289-416f-… Litoria ewing… https://biodi…        -41.7          147.
  5 0070521f-bb45-46fb-… Litoria ewing… https://biodi…        -43.1          147.
@@ -995,18 +995,18 @@ $species
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>frogs_separate</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,721 × 3
-   scientificName  genus   species
-   &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;  
- 1 Litoria         Litoria &lt;NA&gt;   
- 2 Litoria         Litoria &lt;NA&gt;   
- 3 Litoria ewingii Litoria ewingii
- 4 Litoria ewingii Litoria ewingii
- 5 Litoria ewingii Litoria ewingii
- 6 Litoria ewingii Litoria ewingii
- 7 Litoria ewingii Litoria ewingii
- 8 Litoria ewingii Litoria ewingii
- 9 Litoria ewingii Litoria ewingii
-10 Litoria ewingii Litoria ewingii
+   scientificName     genus   species   
+   &lt;chr&gt;              &lt;chr&gt;   &lt;chr&gt;     
+ 1 Litoria raniformis Litoria raniformis
+ 2 Litoria raniformis Litoria raniformis
+ 3 Litoria ewingii    Litoria ewingii   
+ 4 Litoria ewingii    Litoria ewingii   
+ 5 Litoria ewingii    Litoria ewingii   
+ 6 Litoria ewingii    Litoria ewingii   
+ 7 Litoria ewingii    Litoria ewingii   
+ 8 Litoria ewingii    Litoria ewingii   
+ 9 Litoria ewingii    Litoria ewingii   
+10 Litoria ewingii    Litoria ewingii   
 # ℹ 1,711 more rows</code></pre>
 </div>
 </div>
@@ -1025,18 +1025,18 @@ $species
 <span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genus, species, single_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,721 × 3
-   genus   species single_name    
-   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;          
- 1 Litoria &lt;NA&gt;    Litoria        
- 2 Litoria &lt;NA&gt;    Litoria        
- 3 Litoria ewingii Litoria ewingii
- 4 Litoria ewingii Litoria ewingii
- 5 Litoria ewingii Litoria ewingii
- 6 Litoria ewingii Litoria ewingii
- 7 Litoria ewingii Litoria ewingii
- 8 Litoria ewingii Litoria ewingii
- 9 Litoria ewingii Litoria ewingii
-10 Litoria ewingii Litoria ewingii
+   genus   species    single_name       
+   &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;             
+ 1 Litoria raniformis Litoria raniformis
+ 2 Litoria raniformis Litoria raniformis
+ 3 Litoria ewingii    Litoria ewingii   
+ 4 Litoria ewingii    Litoria ewingii   
+ 5 Litoria ewingii    Litoria ewingii   
+ 6 Litoria ewingii    Litoria ewingii   
+ 7 Litoria ewingii    Litoria ewingii   
+ 8 Litoria ewingii    Litoria ewingii   
+ 9 Litoria ewingii    Litoria ewingii   
+10 Litoria ewingii    Litoria ewingii   
 # ℹ 1,711 more rows</code></pre>
 </div>
 </div>
@@ -1447,8 +1447,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../4_cleaning_expert/1_intro.html" class="pagination-link" aria-label="Cleaning data: Expert">
-        <span class="nav-page-text">Cleaning data: Expert</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../4_cleaning_expert/1_intro.html" class="pagination-link" aria-label="Ecological data cleaning">
+        <span class="nav-page-text">Ecological data cleaning</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

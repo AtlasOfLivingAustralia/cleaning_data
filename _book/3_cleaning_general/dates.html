@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/dates.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/dates.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../3_cleaning_general/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: General</span></a>
+ <span class="menu-text">General data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -267,7 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../4_cleaning_expert/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cleaning data: Expert</span></a>
+ <span class="menu-text">Ecological data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -346,7 +346,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">Cleaning data: General</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/dates.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_cleaning_general/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../3_cleaning_general/dates.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></h1>
 </div>
@@ -533,20 +533,20 @@ Caused by warning:
 <span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(eventDate, year, month, </span>
 <span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>         week, day_julian)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,238 × 5
+<pre><code># A tibble: 189,419 × 5
    eventDate            year month  week day_julian
    &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
- 1 1989-05-21 00:00:00  1989     5    20        141
- 2 2003-09-24 00:00:00  2003     9    39        267
- 3 2000-10-26 00:00:00  2000    10    43        300
- 4 2015-09-03 00:00:00  2015     9    36        246
- 5 2018-08-07 00:00:00  2018     8    32        219
- 6 1990-09-28 00:00:00  1990     9    39        271
- 7 NA                     NA    NA    NA         NA
- 8 2013-02-25 00:00:00  2013     2     9         56
- 9 2016-12-07 00:00:00  2016    12    49        342
-10 2007-04-12 00:00:00  2007     4    15        102
-# ℹ 2,228 more rows</code></pre>
+ 1 2018-07-08 00:00:00  2018     7    27        189
+ 2 2019-11-14 00:00:00  2019    11    46        318
+ 3 2003-09-19 00:00:00  2003     9    38        262
+ 4 2019-09-06 00:00:00  2019     9    36        249
+ 5 2022-08-31 00:00:00  2022     8    35        243
+ 6 1996-10-30 00:00:00  1996    10    44        304
+ 7 1948-09-20 00:00:00  1948     9    39        264
+ 8 1988-10-13 00:00:00  1988    10    41        287
+ 9 2022-10-10 00:00:00  2022    10    41        283
+10 2020-10-21 00:00:00  2020    10    43        295
+# ℹ 189,409 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -559,20 +559,20 @@ Caused by warning:
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">|&gt;</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;=</span> <span class="fu">ymd</span>(<span class="st">"2016-01-01"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 712 × 8
+<pre><code># A tibble: 52,699 × 8
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
- 1 008269cf-34d3… Grevillea 'RF… https://id.bi…           -32.6             151.
- 2 00cdda2e-80e9… Grevillea 'RF… https://id.bi…           -37.6             145.
- 3 0189fd67-f4f8… Grevillea 'RF… https://id.bi…           -36.1             147.
- 4 01ba7b99-9d1a… Grevillea 'RF… https://id.bi…           -34.0             151.
- 5 01e37f82-fda0… Grevillea 'RF… https://id.bi…           -27.6             153.
- 6 033e0a39-b90e… Grevillea 'RF… https://id.bi…           -32.8             151.
- 7 0340f847-bdba… Grevillea 'RF… https://id.bi…           -33.7             151.
- 8 0346d1b0-0362… Grevillea 'RF… https://id.bi…           -27.1             153.
- 9 03482ef3-b9bb… Grevillea 'RF… https://id.bi…           -34.0             151.
-10 036ca389-d884… Grevillea 'RF… https://id.bi…           -32.8             151.
-# ℹ 702 more rows
+ 1 00005eb8-4b84… Grevillea mur… https://id.bi…           -35.8             138.
+ 2 000143a7-20e2… Grevillea jun… https://id.bi…           -33.7             151.
+ 3 00020893-9823… Grevillea aqu… https://id.bi…           -37.3             142.
+ 4 0002cd90-4099… Grevillea tre… https://id.bi…           -30.9             134.
+ 5 00040117-eae2… Grevillea par… https://id.bi…           -32.8             152.
+ 6 00045361-870d… Grevillea bux… https://id.bi…           -33.7             151.
+ 7 00053e34-1bdb… Grevillea ros… https://id.bi…           -37.7             145.
+ 8 0006e628-69d5… Grevillea rhi… https://id.bi…           -29.5             152.
+ 9 00075a74-e3de… Grevillea par… https://id.bi…           -34.2             151.
+10 000858d7-626d… Grevillea      https://id.bi…           -34.0             151.
+# ℹ 52,689 more rows
 # ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;</code></pre>
 </div>
@@ -583,20 +583,20 @@ Caused by warning:
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;=</span> <span class="fu">ymd</span>(<span class="st">"2016-01-01"</span>) <span class="sc">&amp;</span> </span>
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>           eventDate <span class="sc">&lt;=</span> <span class="fu">ymd</span>(<span class="st">"2017-12-31"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 133 × 8
+<pre><code># A tibble: 9,178 × 8
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
- 1 00cdda2e-80e9… Grevillea 'RF… https://id.bi…           -37.6             145.
- 2 01e37f82-fda0… Grevillea 'RF… https://id.bi…           -27.6             153.
- 3 03a432ef-495f… Grevillea 'RF… https://id.bi…           -32.7             152.
- 4 04c540b4-7d72… Grevillea 'RF… https://id.bi…           -33.5             151.
- 5 0666b5f9-07c7… Grevillea 'RF… https://id.bi…           -27.7             153.
- 6 098df1cd-311a… Grevillea 'RF… https://id.bi…           -37.5             150.
- 7 0ae81d0a-a2ce… Grevillea 'RF… https://id.bi…           -26.4             153.
- 8 0b50eb5a-669c… Grevillea 'RF… https://id.bi…           -32.9             152.
- 9 0fec0560-a265… Grevillea 'RF… https://id.bi…           -33.7             150.
-10 108a211e-c221… Grevillea 'RF… https://id.bi…            NA                NA 
-# ℹ 123 more rows
+ 1 000b499b-dc80… Grevillea bux… https://id.bi…           -33.7             151.
+ 2 000e2c2b-953e… Grevillea hil… https://id.bi…            NA                NA 
+ 3 0014b88f-ecc5… Grevillea gut… https://id.bi…           -32.5             152.
+ 4 001ac6ed-1de5… Grevillea ser… https://id.bi…           -32.2             150.
+ 5 001c6599-0f27… Grevillea aca… https://id.bi…           -33.4             150.
+ 6 001f301f-0192… Grevillea dry… https://id.bi…           -12.5             131.
+ 7 002a8fb4-e1f9… Grevillea cal… https://id.bi…           -33.7             151.
+ 8 002e9fb9-ff3b… Grevillea cal… https://id.bi…           -33.7             151.
+ 9 0038f556-0591… Grevillea lin… https://id.bi…           -33.7             151.
+10 003d2b67-6db4… Grevillea par… https://id.bi…           -34.3             151.
+# ℹ 9,168 more rows
 # ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;</code></pre>
 </div>

@@ -102,7 +102,7 @@ birds |>
 
 Our results show that there are more than 27,000 records that overlap! 
 
-However, given that we have several different species included in our dataset, we may want to preserve when each species occurs in the same location (rather than removing all but one species' data for each location).
+We want to remove duplicate records, but we don't necessarily want to remove *all* duplicates. Our dataset contains several different species, and sometimes several species might be in the same location. Rather than removing all but one species in a location, we probably want to remove duplicates *for each species*. This should leave one observation for each species in each location.
 
 To filter our duplicates by species, we can first split our data by species...
 

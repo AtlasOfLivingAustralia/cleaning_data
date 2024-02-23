@@ -190,6 +190,7 @@ mallows |>
 
 
 ```{r}
+library(purrr)
 gbif_taxa_fixed <- gbif_taxa |>
   select(canonical_name, kingdom, phylum, class, order, family, genus, species) |>
   rename(scientific_name = canonical_name)
