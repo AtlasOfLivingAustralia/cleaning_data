@@ -37,6 +37,10 @@ This book is available free to read, and is licenced under the
 
 ## Acknowledgement of Country
 
+The Atlas of Living Australia acknowledge that we live and work on Aboriginal and Torres Strait Islander land, rivers, and seas. Indigenous Australians’ hold and continue to hold incomparably intricate environmental knowledge as first peoples of this country. As a data repository we are working to acknowledge and archive in a culutrally sensitive way many different kinds of this [knowledge with communities](https://www.ala.org.au/indigenous-ecological-knowledge/).
+
+The authors of this book currently reside on Ngunnawal and Ngambri (Canberra), Wurundjeri and Bunurong (Melbourne), Turrbal and Yuggera (Brisbane) and Gadigal (Sydney) lands. 
+
 ## Acknowledgements {.unnumbered}
 
 This book was inspired by an [Australian Research Data
