@@ -64,6 +64,7 @@ format:
       - lumen
       - theme.css
 
-
-editor: source
+execute:
+  code-annotations: hover
+  number-depth: 3
 

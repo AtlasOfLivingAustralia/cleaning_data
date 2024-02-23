@@ -1,33 +1,45 @@
 ---
-editor_options: 
-  chunk_output_type: console
+code-annotations: hover
+number-depth: 3
 ---
 
 # Taxonomic validation
 
+<!-- This is far too long -->
+
+<!-- [can probably cut this]
+Taxonomic classification is a prevalent but complex issue. So far, no
+single solution exists, likely because it requires massive
+effort to unify expert domain knowledge into one database of
+all taxonomic history. This makes research with biodiversity data
+challenging. 
+-->
+
+Taxonomic classification is in a state of constant change. 
 Advances in taxonomy, especially in molecular biology have allowed
 researchers to describe new species more efficiently than ever before
-[@garraffoni2019integrative]. Modern approaches have also enabled
+[@garraffoni2019integrative]. Modern approaches have enabled
 reclassification of organisms that have been incorrectly described in
-the past. Unfortunately, multiple names (synonyms) for the same organism
-can arise when taxonomy is not unanimously agreed upon by researchers.
+the past. As new discoveries are made, taxonomies are frequently updated or amended.
 
-Harmonising taxonomic names is a prevalent but complex issue. So far, no
-unifying solution has been put forward because it would require massive
-effort to bring expert domain knowledge together into one database of
-all taxonomic history. This makes research with biodiversity data
-challenging.
+This process of changing taxonomy makes working with open source biodiversity data difficult. Views may differ within the literature or across authorities about what taxonomy is true. In different countries, one taxonomy might suit the native taxonomic diversity better than other taxonomies. Data infrastructures must also make choices about which taxonomic authorities they choose to use, and different infrastructures inevitably make different decisions. 
+
+As a result, most taxonomic data will need checking and cleaning before use. You will encounter situations where the same species has several taxonomic names (synonyms) or sits within different groups depending on the taxonomy used (homonyms). These situations can be tricky to identify and clean when working with taxonomic data. 
 
 While there is no perfect solution, some tips, tricks and tools do
 exist. In this chapter we will go through some of these to clean
-taxonomic data and deal with synonyms.
+taxonomic data. This includes ways to deal with missing taxonomic
+information, taxonomic synonyms, homonyms, [and other stuff].
 
-Here we discuss techniques that directly pertain to taxonomic data
-fields. This includes dealing with taxonomic synonyms, missing taxonomic
-information, as well as checks for filting potentially unwanted records
-(invasive, extinct, etc.)
+:::{.callout-tip collapse="true"}
+Cleaning taxonomic names can require a lot of changes! When cleaning taxonomic names, we recommend that you
+maintain a clear and explicit record of any decisions and changes made with
+respect to the data.
+:::
 
 ### Prerequisites
+
+In this chapter we will use a subset of invertebrate occurrence records taken from the [Curated Plant and Invertebrate Data for Bushfire Modelling data set](https://data.csiro.au/collection/csiro:56679).
 
 ```{r}
 #| message: false
@@ -50,35 +62,21 @@ inverts <- here::here("data", "dap", "inverts_subset") |>
 
 
 
-## Taxonomic classification
-
-Taxonomic classification is a complex issue when working with open source
-biodiversity data. Data infrastructures have their own taxonomic systems, which
-can lead to variations across platforms in hierarchical information.
-Furthermore, taxonomic classification is in a state of constant change, and
-views may differ within the literature or across authorities (refer back to
-Taxonomy and open source data). As a result, it is
-often the case that you will have synonyms, meaning, more than one name for the
-same species, in your dataset. Keep in mind that there is no universal solution
-to these issues. However you choose to resolve them, we recommend that you
-maintain a clear and explicit record of any decisions and changes made with
-respect to the data.
-
 
 ## Taxonomic names matching
 
-Here we need a small example of matching names from a separate taxonomic
-list to a dataset.
 
 ### Adding taxonomic information
 
 It's not uncommon to receive data that contains some but not all taxonomic rank information. Missing this information can make it difficult to summarise data or create taxonomic visualisations later on.
 
-As an example, here is a small sample of our inverts dataset. You'll notice that we only have `scientific_name`, `class` and `family` information.
+As an example, here is a small sample of our `inverts` dataset. You'll notice that we only have `scientific_name`, `class` and `family` information.
 
 ```{r}
 inverts_sample <- inverts |>
   slice(1234:1271)
+
+inverts_sample |> print(n = 5)
 ```
 
 One way to extract names is to search for names matches in a data infrastructure like the ALA, which has its own taxonomic backbone. We can extract the names from our `inverts_sample` and save the strings in `taxa_sample_names`...
@@ -88,13 +86,14 @@ taxa_sample_names <- inverts_sample |>
   select(scientific_name) |>
   distinct() |>
   pull()
-taxa_sample_names
+
+taxa_sample_names[1:5] # first 5 names
 ```
 
-...and use those names to search using `search_taxa()` from galah[^1].
+...and use those names to search using `search_taxa()` from galah. We'll save the results in `names_matches_ala`.
 
 :::{.callout-tip collapse="true" title="Search tip"}
-Anytime you search for taxonomic matches using names, it's good to follow the urls in `taxon_concept_id` to double check you returned the result you expected!
+Anytime you search for taxonomic matches using names, it's good to double check the urls in `taxon_concept_id` to make sure your search matched the result you expected!
 :::
 
 ```{r}
@@ -102,7 +101,7 @@ names_matches_ala <- search_taxa(taxa_sample_names)
 names_matches_ala
 ```
 
-Now we can merge this information into our `inverts_sample` data. First, let's select and rename columns from our search that we want to join with `inverts_sample` so we can double check our results with the data in  later and 
+Now we can merge this information into our `inverts_sample` data. First, let's select and rename columns from our search that we want to join with `inverts_sample`. We'll add an `"_ala"` suffix to each column name so we can tell apart our data from the ALA from the data already in our data set.
 
 ```{r}
 names_matches_renamed <- names_matches_ala |>
@@ -111,9 +110,9 @@ names_matches_renamed <- names_matches_ala |>
               kingdom:species)
 names_matches_renamed
 ```
-1. This line uses shorthand to write a function to append a suffix to a column name. An equivalent way of writing this is:  `function(column_name) {paste0(column_name, "_ala)}`. This is applied to each column name from `kingdom` to `species` in the `names_matches_ala` dataframe.
+1. This line uses shorthand to write a function to append a suffix to a column name. An equivalent way of writing this is:<br>  `function(column_name) {paste0(column_name, "_ala)}`<br><br>This is applied to each column name from `kingdom` to `species` in the `names_matches_ala` dataframe.
 
-Now let's select the columns with taxonomic ranks and join them to `
+Now let's join our matched names to our `inverts_sample` data.
 
 ```{r}
 inverts_sample_with_ranks <- names_matches_renamed |>
@@ -123,7 +122,7 @@ inverts_sample_with_ranks <- names_matches_renamed |>
 inverts_sample_with_ranks
 ```
 
-We can check whether our new rank names match what was already in our data set to see if our matched names were correct. We'll use  `filter()` to only return rows where `family_ala` does not equal `family`.
+We can check whether our new names match what was already in our data set to verify whether our matches were broadly correct. We'll use  `filter()` to return rows where `family_ala` does not equal `family`. Nothing is returned by our search, meaning the names in `family_ala` and `family` all match!
 
 ```{r}
 inverts_sample_with_ranks |>
@@ -135,54 +134,58 @@ inverts_sample_with_ranks |>
 
 ## Mismatches in higher taxonomic ranks
 
-One issue you might face is that higher taxonomy from different
-providers may not match. If this is the case, we suggest choosing the
-data provider with the higher taxonomy that is consistent with your
-naming authority and use it to back fill the higher taxonomy of the
-other data sources.
+Higher taxonomy from different data providers may not always match. If this is the case, you will need to back-fill the higher taxonomic ranks using data from your preferred taxonomic naming authority.
 
+Let's use data of observations of Mallow plants we downloaded from the ALA as an example. 
+
+```{r}
+galah_config(atlas = "ala")
+
+mallows <- galah_call() |>
+  identify("Malvaceae") |>
+  filter(year == 2014) |>
+  atlas_occurrences()
+
+```
+
+The ALA uses its own taxonomic backbone, and so if we wanted to use these observations in a global analysis, we might need to match them to a different taxonomy. In our case, we have a species list we've download from GBIF of mallows.
 We have occurrence data of plants in the genus *Commersonia*
-
-START HERE
 
 ```{r}
 #| eval: false
-# takes a while to load, but this is the original query
-gbif_commersonia_list <- galah_call() |>
-  identify("commersonia") |>
-  atlas_species()
+# This is the original query
+gbif_malvaceae_list <- request_data("species") |>
+  identify("Malvaceae") |>
+  collect(wait = FALSE)
 ```
 
 
 ```{r}
 # load species list
 gbif_species_list <- arrow::read_parquet(
-  here::here("data", "lists", "gbif_commersonia")) |>
+  here::here("data", "lists", "gbif_malvaceae")) |>
   collect()
 
 # oh no
 gbif_species_list |>
-  distinct(species) |> print(n = 28)
+  # distinct(family) |>
+  filter(stringr::str_detect(species, "androcalva"))
 ```
 
 
 ```{r}
 galah_config(atlas = "gbif")
 gbif_taxa <- search_taxa("commersonia rosea")
-gbif_taxa
+gbif_taxa |> select(family)
 ```
 
 
 ```{r}
 galah_config(atlas = "ala")
-
 ala_taxa <- search_taxa("commersonia rosea")
 ala_taxa
 
-mallows <- galah_call() |>
-  identify("Malvaceae") |>
-  filter(year == 2014) |>
-  atlas_occurrences()
+
 
 mallows |> 
   filter(stringr::str_detect(scientificName, "comm"))
