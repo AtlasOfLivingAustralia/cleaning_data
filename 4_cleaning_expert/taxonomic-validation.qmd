@@ -47,6 +47,7 @@ In this chapter we will use a subset of invertebrate occurrence records taken fr
 library(readr)
 library(dplyr)
 library(tidyr)
+library(stringr)
 library(janitor)
 library(galah)
 
@@ -58,6 +59,15 @@ galah_config(email = Sys.getenv("ALA_EMAIL"),
 inverts <- here::here("data", "dap", "inverts_subset") |>
   arrow::open_dataset() |> 
   collect()
+
+eucalypts <- galah_call() |>
+  identify("Eucalyptus") |>
+  filter(eventDate > "2014-01-01T00:00:00Z",
+         eventDate < "2014-06-01T00:00:00Z") |>
+  select(group = "basic", 
+         kingdom, phylum, class, order, 
+         family, genus, species, taxonRank) |>
+  atlas_occurrences()
 ```
 
 
@@ -136,90 +146,197 @@ inverts_sample_with_ranks |>
 
 Higher taxonomy from different data providers may not always match. If this is the case, you will need to back-fill the higher taxonomic ranks using data from your preferred taxonomic naming authority.
 
-Let's use data of observations of Mallow plants we downloaded from the ALA as an example. 
+Let's use data of Eucalyptus observations we downloaded from the ALA as an example. 
 
 ```{r}
-galah_config(atlas = "ala")
-
-mallows <- galah_call() |>
-  identify("Malvaceae") |>
-  filter(year == 2014) |>
-  atlas_occurrences()
-
+eucalypts
 ```
 
-The ALA uses its own taxonomic backbone, and so if we wanted to use these observations in a global analysis, we might need to match them to a different taxonomy. In our case, we have a species list we've download from GBIF of mallows.
-We have occurrence data of plants in the genus *Commersonia*
+This occurrence data contains observations of over 373 species.
+
+```{r}
+eucalypts |>
+  filter(taxonRank != "genus") |>
+  distinct(scientificName) |>
+  count(name = "n_species")
+```
+
+Let's say we want to compare these observations to data retrieved outside of the ALA and decide that we'd prefer to use GBIF's[^gbif] taxonomy. Our data is from the ALA, which uses its own taxonomic backbone that differs to GBIF's (depending on the taxonomic group). Let's go through the steps to match our taxonomy in our `eucalypts` data to GBIF's taxonomy. 
+
+[^gbif]: [Global Biodiversity Infrastructure Facility (GBIF)](https://www.gbif.org/)
+
+We can download a species list of *Eucalyptus* from GBIF. This list returns nearly 1,700 species names!
 
 ```{r}
 #| eval: false
-# This is the original query
-gbif_malvaceae_list <- request_data("species") |>
-  identify("Malvaceae") |>
-  collect(wait = FALSE)
-```
-
-
-```{r}
-# load species list
-gbif_species_list <- arrow::read_parquet(
-  here::here("data", "lists", "gbif_malvaceae")) |>
+# This is the original query to download our species list
+# It takes several minutes to download
+gbif_species_list <- request_data("species") |>
+  identify("Eucalyptus") |>
   collect()
 
-# oh no
-gbif_species_list |>
-  # distinct(family) |>
-  filter(stringr::str_detect(species, "androcalva"))
+gbif_species_list
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Code to load local version of species list
+# load species list
+gbif_species_list <- arrow::read_parquet(
+  here::here("data", "lists", "gbif_eucalyptus")) |>
+  collect()
+
+gbif_species_list
 ```
 
 
+To investigate whether the complete taxonomy---from kingdom to species---matches between our ALA data and GBIF species list, let's get the columns with taxonomic information from our `eucalypts` dataframe and our `gbif_species_list` to compare. 
+
+First, we can select the taxonomic rank columns in our ALA `eucalypts` dataframe (`kingdom` to `species`) and use `distinct()` to remove duplicate rows. This will leave us with one row for each distinct species in our dataset (very similar to a species list). 
+
 ```{r}
+ala_ranks <- eucalypts |>
+  select(kingdom:species) |>
+  distinct()
+
+ala_ranks
+```
+
+Now let's filter `gbif_species_list` to only "accepted" names[^1] and select the same taxonomic rank columns.
+
+[^1]: GBIF's species list is quite comprehensive, and it includes the `taxonomicStatus` of a name as "accepted", "synonym", "variety" or "doubtful". To keep our example simpler, we are only using the accepted names.
+
+```{r}
+gbif_ranks <- gbif_species_list |>
+  filter(taxonomicStatus == "ACCEPTED") |> # accepted names
+  select(kingdom:species) |> 
+  select(!contains("Key")) |> # remove Key columns
+  distinct() # <1>
+
+gbif_ranks
+```
+1. We added `distinct()` to remove duplicate rows of species names. These duplicates appear because there might be multiple subspecies under the same species name. For example, *Eucalyptus mannifera* has 4 subspecies; *Eucalyptus wimmerensis* has 5. We aren't interested in identifying species at that level, and so we remove these duplicates to simplify our species list.
+
+We can merge our taxonomic rank dataframes together, matching by species name. We'll distinguish which columns came from each dataframe by appending an `"_ala"` or `"_gbif"` suffix.
+
+```{r}
+matched_names <- ala_ranks |>
+  left_join(gbif_ranks, 
+            join_by(species == species), 
+            suffix = c("_ala", "_gbif")) |>
+  select(species, everything()) # reorder columns
+```
+
+`matched_names` now contains the full taxonomy from the ALA and GBIF for all matched species[^2].
+
+[^2]: Several species names did not match to GBIF. In a complete data cleaning workflow, these should be investigated as the ALA and GBIF might use synonym names to describe the same species or subspecies.
+
+```{r}
+rmarkdown::paged_table( # print paged table
+  matched_names
+  )
+```
+
+After matching our names in this way, we can now compare taxonomic rank columns to find mismatches. For example, we can find any species with a mismatch in their kingdom name by filtering to rows where `kingdom_ala` and `kingdom_gbif` are not equal. Our returned tibble is empty, meaning there were no mismatches.
+
+```{r}
+matched_names |>
+  filter(kingdom_ala != kingdom_gbif)
+```
+
+If we do the same for phylum and class, however, we return quite a few results.
+
+:::{.panel-tabset .nav-pills}
+
+#### phylum
+
+```{r}
+matched_names |>
+  filter(phylum_ala != phylum_gbif) |>
+  select(species, phylum_ala, phylum_gbif)
+```
+
+#### class
+
+```{r}
+matched_names |>
+  filter(class_ala != class_gbif) |>
+  select(species, class_ala, class_gbif)
+```
+
+:::
+
+It turns out that there *is* a difference between the ALA and GBIF in their higher taxonomic ranks of *Eucalyptus* plants.
+
+In GBIF, *Eucalyptus* sits in the phylum *Tracheophyta* and the class *Magnoliopsida*...
+
+```{r}
+# Use GBIF
 galah_config(atlas = "gbif")
-gbif_taxa <- search_taxa("commersonia rosea")
-gbif_taxa |> select(family)
+
+# Search for taxonomic information
+gbif_taxa <- search_taxa("eucalyptus")
+
+# Show relevant columns
+gbif_taxa |>
+  select(scientific_name, phylum, class, order)
 ```
 
+...whereas in the ALA, *Eucalyptus* sits in the phylum *Charophyta* and the class *Equisetopsida*.
 
 ```{r}
+# Switch to download from the ALA
 galah_config(atlas = "ala")
-ala_taxa <- search_taxa("commersonia rosea")
-ala_taxa
 
+# Search for taxonomic information
+ala_taxa <- search_taxa("Eucalyptus")
 
-
-mallows |> 
-  filter(stringr::str_detect(scientificName, "comm"))
+# Show relevant columns
+ala_taxa |>
+  select(scientific_name, phylum, class, order)
 ```
 
+We might not know about this issue when we first decide to match GBIF's taxonomic names to our data. So it's important to investigate how well these names match (and where there are any mismatches) before merging them to our data.
+
+If you are using a taxonomy from ALA or GBIF, you can use `search_taxa()` in galah to see which names match *before* you download a species list. For example, we can search for all the species names in our `eucalypts` dataframe.
 
 ```{r}
-library(purrr)
-gbif_taxa_fixed <- gbif_taxa |>
-  select(canonical_name, kingdom, phylum, class, order, family, genus, species) |>
-  rename(scientific_name = canonical_name)
+#| eval: false
+galah_config(atlas = "gbif")
 
-ala_taxa_fixed <- ala_taxa |>
-  select(scientific_name, kingdom, phylum, class, order, family, genus, species)
+# search (this takes ~60 seconds)
+names_search_results <- 
+  eucalypts |>
+  pull(species) |> # pull out species names
+  unique() |>      # remove duplicate names
+  search_taxa()    # search
 
-anti_join(ala_taxa_fixed, gbif_taxa_fixed, 
-          by = join_by(species == species))
-
-find_diffs <- function(name) {
-  
-  setdiff(ala_taxa_fixed |>
-            select(all_of({{name}})), 
-          gbif_taxa_fixed |>
-            select(all_of({{name}})))
-}
-
-colnames(ala_taxa_fixed) |>
-  map(\(names)
-      find_diffs(names))
-
-
-
-# higher_taxonomy
+names_search_results
 ```
+
+```{r}
+#| echo: false
+galah_config(atlas = "gbif")
+
+# load list saved locally
+names_search_results <- 
+  arrow::read_parquet(here::here("data",
+                                 "lists",
+                                 "gbif_eucalypt_search"))
+
+names_search_results
+```
+
+Our search has found several mismatches in higher taxonomic ranks. If we are happy with these differences, we can merge our taxonomic rank columns from GBIF with our `eucalypt` occurrences data.
+
+```{r}
+matched_names |>
+  select(species, kingdom_gbif:genus_gbif) |>
+  right_join(eucalypts,
+             join_by(species == species)) |>
+  rmarkdown::paged_table() # paged table output
+```
+
 
 ## Name format
 
@@ -227,33 +344,30 @@ Different data providers might use different formats in their taxonomic
 names to delineate between taxonomic ranks. It doesn't matter which
 format your data uses as long as it remains consistent.
 
-In this example using data from the ALA, subspecies of Acacia
-observations specify subspecies using "subsp.", whereas subspecies of
+An an example, data from the ALA specifies subspecies of Acacia
+observations using `"subsp."` in the scientific name, whereas subspecies of
 bird observations simply add an additional name.
+
+<!-- -->
 
 ```{r}
 #| warning: false
 #| message: false
-#| eval: false
-library(galah)
-library(dplyr)
-library(stringr)
-galah_config(email = Sys.getenv("ALA_EMAIL"),
-             verbose = FALSE)
+galah_config(atlas = "ala")
 
 acacia <- galah_call() |>
   identify("Acacia") |>
   filter(year == 2018) |>
   atlas_occurrences()
 
+acacia |>
+  filter(str_detect(scientificName, "Acacia brunioides")) |>
+  distinct(scientificName)
+
 birds <- galah_call() |>
   identify("alcedinidae") |>
   filter(year == 2023) |>
   atlas_occurrences()
-
-acacia |>
-  filter(str_detect(scientificName, "Acacia brunioides")) |>
-  distinct(scientificName)
   
 birds |>
   filter(str_detect(scientificName, "Dacelo")) |>
@@ -262,95 +376,165 @@ birds |>
 
 Although both are correct, be sure to check your data to make sure that this naming format is consistent.
 
-```{r loaddata}
-#| warning: false
-#| message: false
-library(arrow)
-library(tidyverse)
-library(janitor)
 
-plants <- open_dataset("../data/dap/plants_subset",
-  format = "parquet"
-) |> collect()
-
-### Making some fake missing data for inverts in Class column
-inverts <- open_dataset("../data/dap/inverts_subset") |> collect()
-
-set.seed(5)
-tobemissing <- inverts |>
-  filter(class == "arachnida") |>
-  sample_frac(0.3) |>
-  pull(scientific_name) |>
-  unique()
-
-inverts <- inverts |>
-  mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
-```
 
 ## Detecting synonyms
+
+Scientific discoveries and advances in taxonomic classification can cause taxonomic names to change. A taxonomic **synonym** refers to a scientific name that a taxon that goes by a different name. Synonyms can come about when a taxon was once referred to a taxon that has since had its accepted scientific name changed. Synonyms are important because older records referred to by a synonym can still be searched for and linked to other taxonomic records.
+
+Synonyms can be tricky to deal with during data cleaning because they can be difficult to spot. Here are several examples of synonyms.
+
+:::{.panel-tabset .nav-pills}
+
+#### Mallows
+
+*Commersonia rosea* is a synonym of *Androcalva rosea*, a species of mallow. The genus and species returned by GBIF differs from the ALA.
+
+```{r}
+galah_config(atlas = "gbif")
+gbif_taxa <- search_taxa("commersonia rosea")
+
+gbif_taxa |> 
+  select(scientific_name, genus, species)
+```
+
+```{r}
+galah_config(atlas = "ala")
+ala_taxa <- search_taxa("commersonia rosea")
+
+ala_taxa |> 
+  select(scientific_name, genus, species)
+```
+
+#### Frogs
+
+*Ranoidea caerulea* is a synonym of *Litoria caerulea*, a species of frog. The genus and species returned by GBIF differs from the ALA.
+
+```{r}
+galah_config(atlas = "gbif")
+gbif_taxa <- search_taxa("Litoria caerulea")
+
+gbif_taxa |> 
+  select(scientific_name, genus, species)
+```
+
+```{r}
+galah_config(atlas = "ala")
+ala_taxa <- search_taxa("Litoria caerulea")
+
+ala_taxa |>
+  select(scientific_name, genus, species)
+```
+
+:::
+
+Using tools like `search_taxa()` in galah is a useful way to check whether a search returns the taxonomic information you expect.
+
+
+### Checking for synonyms
+
+Some species lists return accepted names *and* synonyms. For example, here is a species list of *Eucalyptus* downloaded from GBIF.
+
+```{r}
+#| eval: false
+# This is the original query to download our species list
+# It takes several minutes to download
+gbif_species_list <- request_data("species") |>
+  identify("Eucalyptus") |>
+  collect()
+
+gbif_species_list
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: Code to load local version of species list
+# load species list
+gbif_species_list <- arrow::read_parquet(
+  here::here("data", "lists", "gbif_eucalyptus")) |>
+  collect()
+
+gbif_species_list
+```
+
+GBIF species lists includes a `taxonomicStatus` column that supplies information of whether a taxonomic name is accepted or a synonym. A good example is *Eucalyptus leucoxylon*, which has a number of accepted names and synonyms for species and subspecies.
+
+```{r}
+gbif_species_list |>
+  filter(species == "Eucalyptus leucoxylon") |>
+  select(species, taxonomicStatus, acceptedScientificName)
+```
+
+### Packages
 
 There are several packages available that can be used to query different
 taxonomic databases and check for synonyms. 
 
-Cam has suggested to use "Litoria caerulea", which is known internationally as "Ranoidea caerulea". 
+:::{.panel-tabset .nav-pills}
 
-Androcalva rosea & Commersonia rosea is another example.
+#### worrms  
 
-#### `worrms`  
+The [worrms package](https://docs.ropensci.org/worrms/) is the R interface to the
+World Register of Marine Species (WoRMS). When working with data from this database, the worrms R package has the ability to cross-check synonyms in their database using their taxonomic ID (`AphiaID`). 
 
-The [{worrms}](https://docs.ropensci.org/worrms/) is the R interface to the
-World Register of Marine Species and has the ability to cross check synonyms
-with their database for taxa that has an `AphiaID`. The function will return
-synonymous record(s) associated with another different AphiaID. 
-
+For example, we can return existing synonyms for *Lupocyclus inaequalis* by supplying its `AphiaID` to the `wm_synonyms()` function.
 ```{r}
 #| warning: false
 #| message: false
 library(worrms)
-library(tidyverse)
 
-marine_sp <- read_csv("../data/worms/worms.csv")
+marine_sp <- read_csv(here::here("data",
+                                 "worms",
+                                 "worms.csv"))
 
 marine_sp |>
-  slice(7) |>
-  pull(AphiaID) |>
-  wm_synonyms()
+  filter(scientificname == "Lupocyclus inaequalis") |>
+  select(AphiaID, scientificname, status)
 ```
 
-#### `taxize` 
+Our search returns a superseded synonym *Goniosoma inaequale*.
 
-<!-- Notes/Andrew: There's no explanation for anything about this list here,
-what is it, where is it from etc -->
-<!-- Notes/Andrew: Wouldn't it be better to show, or also show, how to do this query with your dataset? -->
-The `taxize` package allows users to search over many taxonomic data sources for
+```{r}
+marine_sp |>
+  filter(scientificname == "Lupocyclus inaequalis") |>
+  pull(AphiaID) |>
+  wm_synonyms() |>
+  select(AphiaID, scientificname, status)
+```
+
+#### taxize 
+
+The [taxize package](LINK) allows users to search over many taxonomic data sources for
 hierarchial taxonomic information, such as species names (scientific and
-common), to resolve synonymy. The `gnr_resolve()` function matches a supplied
-list with up to 118 data sources including GBIF, Catalogue of Life, World
-Register of Marine Species and many more. The function scores how well matched
+common), to resolve synonymy. 
+
+Let's search for any synonyms of *Litoria caerulea* using tools from taxize.
+
+We can match names against up to 118 data sources including GBIF, Catalogue of Life, World
+Register of Marine Species using `gnr_resolve()`. This function scores how well-matched
 your name is to these sources. 
 
 ```{r}
 library(taxize)
 
-# Read in a naming authority list
-afd <- read_csv("../data/naming/afd.csv")
-unique(afd$VALID_NAME)
-
 # Resolve names
-resolved <- gnr_resolve(unique(afd$VALID_NAME), best_match_only = TRUE)
+resolved <- gnr_resolve(unique("litoria caerulea"), best_match_only = TRUE)
 resolved |> print(n = 50)
-
-# Retrieve synonyms
-tsn <- get_tsn(unique(afd$VALID_NAME)[1:5])
-synonyms(tsn)
-
-
 ```
 
+Using the resolved name, we can search for its Taxonomic Serial Number using `get_tsn()`, which taxize uses to as a taxonomic identifier. Then we can search for existing synonyms by supplying the `tsn` to the `synonyms()` function.
+
+```{r}
+# Retrieve synonyms
+tsn <- get_tsn(unique(resolved$matched_name))
+synonyms(tsn)
+```
+
+:::
 
 ## Detecting homonyms
 
-
+Taxonomy is a complex field of science, with Callum suggested Morganella. Also suggest Epiblema
 
 
 ## Input from experts
@@ -387,7 +571,7 @@ Below we have provided a list of some of Australian taxonomic society groups.
 
 <!-- I feel like the following section isn't important enough, captured by other tasks in other chapters -->
 
-### Seperators
+#### Seperators
 
 In taxonomic data, separators (such as spaces and underscores) are found
 in scientific names and are used to delineate the genus and [species
@@ -400,7 +584,33 @@ inconsistencies.
 For example, some plant species in the ALA like Acacia specify
 subspecies
 
+```{r loaddata}
+#| warning: false
+#| message: false
+library(arrow)
+library(tidyverse)
+library(janitor)
+
+plants <- open_dataset("../data/dap/plants_subset",
+  format = "parquet"
+) |> collect()
+
+### Making some fake missing data for inverts in Class column
+inverts <- open_dataset("../data/dap/inverts_subset") |> collect()
+
+set.seed(5)
+tobemissing <- inverts |>
+  filter(class == "arachnida") |>
+  sample_frac(0.3) |>
+  pull(scientific_name) |>
+  unique()
+
+inverts <- inverts |>
+  mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
+```
+
 ```{r}
+#| eval: false
 library(janitor)
 
 plants |>
@@ -428,7 +638,7 @@ plants_updated |>
 ```
 
 
-## Unsure what this is
+#### Unsure what this is
 
 ```{r}
 afd <- readr::read_csv(here::here("data", "naming", "afd.csv")) |>
@@ -447,3 +657,4 @@ galah_call() |>
 afd |>
   filter(valid_name %in% inverts_sample$scientific_name)
 ```
+
