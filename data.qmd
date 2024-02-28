@@ -5,3 +5,37 @@ This chapter will add some context/metadata of the datasets we use throughout th
 At the moment, all data is either downloaded through galah or saved in the `data` folder. A more cohesive option might be to create an R package that contains data for this book, which is fairly common in other R resources.
 
 For now, this chapter can act as a place to record any data downloads you use. For example, if you use galah to download data for a specific chapter, record the chapter and the data download here. We may be able to consolidate some datasets if we can keep track of what type of data each chapter requires.
+
+## inverts & plants
+
+<!-- Code from Fonti of how to make data subsets from the Plant/Inverts Bushfire dataset --> 
+
+```{r}
+#To create data used in this chapter
+#
+# inverts <- open_dataset("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv", format = "csv")
+# 
+# inverts |> 
+#   filter(family == "apidae") |> 
+#   write_parquet(sink = "data/dap/bees.parquet")
+#
+# Smaller subset of the dataset
+# set.seed(5)
+
+# inverts |>
+#   collect() |> 
+#   sample_frac(0.05) |>
+#   write_parquet(sink = "data/dap/inverts_subset")
+
+
+# Plants data with errors
+# plants <- read_csv("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
+# 
+# plants |>
+#   select(record_id:longitude_used) |>
+#   rename(latitude = latitude_used,
+#          longitude = longitude_used) |>
+#   sample_frac(0.05) |>
+#   write_parquet("data/dap/plants_subset")
+```
+

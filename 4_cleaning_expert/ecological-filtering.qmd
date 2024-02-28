@@ -2,28 +2,97 @@
 editor: 
   markdown: 
     wrap: 72
+code-annotations: hover
+number-depth: 3
 ---
 
 # Ecological filtering
 
-## Filtering out taxa
+### Prerequisites
 
-Depending on your project's data scope, it may be necessary to remove
-certain groups of taxa. Here we present a few use cases, based on some
-commonly required criteria. This type of taxonomic filtering is
-particularly useful for large, multi-species datasets.
+In this chapter we will use several datasets:
 
-### Introduced or invasive species
+  * a subset of plant occurrence records taken from the [Curated Plant and Invertebrate Data for Bushfire Modelling data set](https://data.csiro.au/collection/csiro:56679)
+
+```{r}
+#| message: false
+#| warning: false
+library(readr)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(janitor)
+library(galah)
+
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             username = Sys.getenv("GBIF_USERNAME"),
+             password = Sys.getenv("GBIF_PWD"),
+             verbose = FALSE)
+
+plants <- arrow::open_dataset("../data/dap/plants_subset") |> 
+  dplyr::collect()
+```
+
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original"></img>
+
+::: {.figure-caption}
+[*Paralaoma mucoides* on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/8a44a8df-2819-45d4-b8c5-e6dc7629e0fe)
+:::
+
+:::
+
+## Introduced or invasive species
 
 If your project requires only native species, we can filter out those
-records using lists available online. Here we are using the list for
+records using lists available online.  
+
+#### galah
+
+The ALA contains national and state-based conservation status lists. For example, if we wanted to use the Victorian Restricted Species list, we can do a text search for available lists for "victoria" using `search_all(lists, "victoria")`.
+
+```{r}
+list_results <- search_all(lists, "victoria")
+list_results
+```
+
+Filtering our result to only authoritative lists can help us find official state lists.
+
+```{r}
+list_results |> 
+  filter(isAuthoritative == TRUE)
+```
+
+We can get save this list by saving its contents using `show_values()`. Then we can use it identify any restricted species by matching names in `restricted_species` to names in our `plants` data.
+
+START HERE
+
+```{r}
+# add code to save list, then filter plants data
+```
+
+
+We can also use the `species_list_uid` to filter our queries prior to downloading data in galah.
+
+```{r}
+galah_call() |>
+  identify("plantae") |>
+  filter(species_list_uid == dr490) |>
+  group_by(species) |>
+  atlas_counts()
+```
+
+
+#### GRIIS
+
+Here we are using the list for
 Australia from the [Global Register of Introduced and Invasive Species
 (GRIIS)](https://griis.org/download). After downloading this list, we
 read it into R, and exclude invasive species from our example dataset:
 
 ```{r}
 library(dplyr)
-plants <- arrow::open_dataset("../data/dap/plants_subset") |> dplyr::collect()
 griis_ls <- read.csv("../data/lists/GRIIS_Australia_20230331-121730.csv")
 glimpse(griis_ls)
 
@@ -41,7 +110,7 @@ fields, that you would like to exclude (or include, by removing the `!`
 in the `filter()` step)
 :::
 
-### Extinct species
+## Extinct species
 
 In most cases, a year filter applied during your download query should
 remove *most* extinct species. Nevertheless, it is important to cross
@@ -65,11 +134,7 @@ irmng_sp <- arrow::open_dataset("../data/lists/IRMNG_genera_DwCA_2023-05-19/spec
   collect()
 ```
 
-```{=html}
-<!-- Notes/Andrew: This chunk below will need some explaining, I didn't look
-into it but there is a few things happening but the comments dont give enough
-context or logic -->
-```
+
 ```{r}
 library("stringr")
 inverts <- arrow::open_dataset("../data/galah/inverts") |> dplyr::collect()
@@ -118,6 +183,9 @@ check <- inverts_2 |>
 print(check)
 ```
 
+<!-- Andrew/Notes: Leaving eval = false because I tried to query for a token and got a 403 error. -->
+<!-- Dax: confirming that this code is broken and should be removed if it doesn't work (which is a pity)-->
+
 Alternatively, we can use the IUCN to retrieve a list of extinct species
 that are in their database. See the [IUCN
 API](https://apiv3.iucnredlist.org/api/v3/docs#species-category) for
@@ -127,9 +195,10 @@ will need to register for an API token, which can take a day or two to
 be approved. Then we use the `rl_sp_category("EX")` to return extinct
 species, to check against our dataset.
 
-<!-- Andrew/Notes: Leaving eval = false because I tried to query for a token and got a 403 error. -->
 
-```{r, eval = FALSE}
+
+```{r}
+#| eval: false
 # Create IUCN token
 rredlist::rl_use_iucn() # Application can take a day or two!
 usethis::edit_r_environ() # Place the approved token in your R environment
@@ -144,7 +213,7 @@ extinct_sp <- tibble(extinct_iucn$result)
 filter(inverts, scientificName %in% extinct_sp$scientific_name) # No matches
 ```
 
-### Biological attributes and life cycle stages
+## Biological attributes and life cycle stages
 
 In some cases, you may want to filter out records based on attributes
 such as sex or life cycle stage, if this metadata is available for your
@@ -205,7 +274,7 @@ nrow(filter(bilby, sex != "MALE"))
 nrow(filter(bilby[bilby$sex != "MALE", ]))
 ```
 
-### Ecosystems
+## Ecosystems
 
 Filtering by ecosystem, such as removing terrestrial records or aquatic
 records, can be necessary depending on the project. Below we demonstrate
@@ -255,7 +324,7 @@ filter(inverts, !scientificName %in% marine_inverts$search_term)
 ```
 
 After filtering we are left with only four records of one species. It's
-always worth double checking the results of your filtering, to make sure
+always worth double checking the results of your filtering to make sure
 any species excluded or included are as expected.
 
 ## Summary
