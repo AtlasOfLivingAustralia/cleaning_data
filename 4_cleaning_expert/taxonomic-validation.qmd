@@ -5,16 +5,6 @@ number-depth: 3
 
 # Taxonomic validation
 
-<!-- This is far too long -->
-
-<!-- [can probably cut this]
-Taxonomic classification is a prevalent but complex issue. So far, no
-single solution exists, likely because it requires massive
-effort to unify expert domain knowledge into one database of
-all taxonomic history. This makes research with biodiversity data
-challenging. 
--->
-
 Taxonomic classification is in a state of constant change. 
 Advances in taxonomy, especially in molecular biology have allowed
 researchers to describe new species more efficiently than ever before
