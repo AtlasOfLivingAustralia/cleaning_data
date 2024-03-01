@@ -31,6 +31,8 @@ library(sf)
 library(ggplot2)
 library(dplyr)
 library(tidyterra)
+library(terra)
+library(here)
 ```
 
 ## Open-source data
@@ -157,46 +159,19 @@ smaller each square is in a raster layer the higher its resolution.
 
 Climate data is often saved as a raster, which is typically loaded using an R
 package like {[geodata](https://github.com/rspatial/geodata)} or by reading in a
-`.tif` file using the {terra} package.
+`.tif` file using the {terra} package. 
+
 
 ```{r}
-#| eval: false
-climate_layer <- terra::readRDS("path/to/file.tif")
+world_clim_raster <- rast(here("data/rasters/aggregated_bioclim.tif"))
+
 ```
 
-Here is an example of what vector data looks like in R...
+We can then plot the raster using {tidyterra}. Here, we've plotted Australia's annual mean temperature (BioClim 1). 
 
 ```{r}
-#| eval: false
-worldclim <- worldclim_country(
-    country = "Australia",
-    var = "bio",
-    res = 5,
-    path = here::here("path", "to", "folder")
-  )
-worldclim
-```
-
-<!-- We need a smaller solution to the below code. But ideally, we'll have an example of a raster over Australia -->
-
-```{r}
-#| eval: false
-#| echo: false
-#| warning: false
-#| message: false
-# Load data from file:
-worldclim <- terra::rast(here::here("data",
-                                    "rasters",
-                                    "bioclim-aus.tif"))
-worldclim
-```
-
-...and what it looks like when plotted with ggplot2.
-
-```{r}
-#| eval: false
-ggplot() + 
-  geom_spatraster(data = worldclim,
+ggplot() +
+  geom_spatraster(data = world_clim_raster,
                   mapping = aes(fill = wc2.1_30s_bio_1)) +
   theme_void()
 ```
