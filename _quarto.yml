@@ -8,6 +8,9 @@ book:
   reader-mode: true
   page-navigation: true
   back-to-top-navigation: true
+  sidebar:
+    search: true 
+    logo: images/ala.jpg
 #  author: "Atlas of Living Australia"
 #  date: "18/11/2022"
 
