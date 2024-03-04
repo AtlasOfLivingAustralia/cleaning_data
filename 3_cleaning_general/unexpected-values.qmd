@@ -102,26 +102,6 @@ birds <- galah_call() |>
 :::
 :::
 
-## Unexpected name
-
-<!-- Might need to find an example after the names index updates --> 
-
-```{r}
-birds |>
-  distinct(scientificName) |>
-  print(n = 25)
-```
-
-```{r}
-galah_call() |>
-  identify("Thalassarche") |>
-  group_by(scientificName) |>
-  atlas_counts()
-```
-
-
-
-
 
 
 ## Unexpected time

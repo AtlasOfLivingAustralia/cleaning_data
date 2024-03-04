@@ -61,3 +61,7 @@ img.rounded {
   overflow-y: scroll;
   margin-bottom: 20px;
 }
+
+.sidebar-logo{
+  max-width:25%;
+}

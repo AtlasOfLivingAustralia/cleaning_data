@@ -3,6 +3,7 @@ number-depth: 3
 editor: 
   markdown: 
     wrap: 80
+code-annotations: hover
 ---
 
 # Where to get data
@@ -161,13 +162,20 @@ Climate data is often saved as a raster, which is typically loaded using an R
 package like {[geodata](https://github.com/rspatial/geodata)} or by reading in a
 `.tif` file using the {terra} package. 
 
+<!-- Download this file from Teams /data/data_cleaning_book/ -->
 
 ```{r}
 world_clim_raster <- rast(here("data/rasters/aggregated_bioclim.tif"))
-
 ```
 
-We can then plot the raster using {tidyterra}. Here, we've plotted Australia's annual mean temperature (BioClim 1). 
+Here is an example of what raster data looks like in R...
+
+```{r}
+world_clim_raster
+```
+
+
+...and what it looks like when plotted with tidyterra and ggplot2. This map displays Australia's annual mean temperature (BioClim 1) in low-resolution. 
 
 ```{r}
 ggplot() +

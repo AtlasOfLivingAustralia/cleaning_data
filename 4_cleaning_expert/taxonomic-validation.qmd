@@ -49,6 +49,14 @@ galah_config(email = Sys.getenv("ALA_EMAIL"),
              password = Sys.getenv("GBIF_PWD"),
              verbose = FALSE)
 
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, 
+         cl22, eventDate, year) |>
+  atlas_occurrences()
+
 inverts <- here::here("data", "dap", "inverts_subset") |>
   arrow::open_dataset() |> 
   collect()
@@ -61,9 +69,17 @@ eucalypts <- galah_call() |>
          kingdom, phylum, class, order, 
          family, genus, species, taxonRank) |>
   atlas_occurrences()
+
 ```
 
 :::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
+
+::: {.figure-caption}
+[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
+:::
 
 <img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original"></img>
 
@@ -78,6 +94,19 @@ eucalypts <- galah_call() |>
 :::
 
 :::
+
+
+## Preview names
+<!-- This section might be unnecessary as it's covered in the strings chapter --> 
+
+One of the simplest ways to determine whether there are any immediate issues with taxonomic names is to print some of them. Here we can already notice that some names are formatted in all capitals while others are not.
+
+```{r}
+birds |>
+  distinct(scientificName) |>
+  print(n = 25)
+```
+
 
 ## Name format
 
