@@ -73,20 +73,20 @@ Let's start by accessing the data as a dataset instead of reading it into memory
 #| warning: false
 #| echo: false
 library(arrow)
-pardalotes <- open_dataset("data/pardalotes", format = "csv")
+pardalotes <- open_dataset(here::here("data", "pardalotes.csv"), format = "csv")
 ```
 
 ```{r}
 #| eval: false
 library(arrow)
-pardalotes <- open_dataset("tmp/pardalotes", format = "csv")
+pardalotes <- open_dataset("tmp/pardalotes.csv", format = "csv")
 ```
 
 #### `{readr}`
 ```{r}
 #| eval: false
 library(readr)
-pardalotes <- read_csv("tmp/pardalotes")
+pardalotes <- read_csv("tmp/pardalotes.csv")
 ```
 :::
 
