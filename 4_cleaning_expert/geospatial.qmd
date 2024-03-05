@@ -12,6 +12,18 @@ In this chapter, we will discuss some different ways to check for
 spatial outliers as well as the removal of records in certain geographic
 areas known to be problematic.
 
+
+:::{.callout-note collapse="true"}
+
+## Why do data infrastructures still have messy data?
+
+Data infrastructures aggregate data from thousands of different data providers, and standardise them so that data from these disparate sources can be used together. 
+
+Data providers, however, can have mistakes in their data, and data infrastructures are not the ultimate taxonomic or ecological experts. This task is ultimately up to data providers, who might need to update their data and resubmit it when a record might have an error. 
+
+When data is submitted to a data infrastructure, although some data cleaning is involved, being too stringent on data quality checks might result in unintended consequences. A strict quality check using a species' known distribution, for example, might remove true observations of a species in a new location.
+:::
+
 ### Prerequisites
 
 In this chapter we'll use data of ...
@@ -24,6 +36,8 @@ library(ggplot2)
 library(dplyr)
 library(sf)
 library(ozmaps)
+library(tidyr)
+library(stringr)
 
 galah_config(atlas = "Australia",
              email = Sys.getenv("ALA_EMAIL"),
@@ -33,7 +47,8 @@ banksia <- galah_call() |>
   identify("banksia serrata") |>
   filter(year > 2022) |>
   select(group = "basic",
-         coordinatePrecision, coordinateUncertaintyInMeters) |>
+         coordinatePrecision, 
+         coordinateUncertaintyInMeters) |>
   atlas_occurrences()
 
 frogs <- galah_call() |>
@@ -54,6 +69,38 @@ frogs <- galah_call() |>
 [*Litoria chloris* standing on leaves.<br>Photo by Reiner Richter
 CC-BY](https://biocache.ala.org.au/occurrences/e0d5d604-e148-408e-8dbf-984f42701b4c)
 :::
+:::
+
+:::{.callout-important collapse="true"}
+
+## Using "Assertions"
+
+In many of the examples in this chapter, our goal is to search for geospatial issues in our data, then fix them. 
+
+To check data quality, data infrastructures like the Atlas of Living Australia have *assertions*---columns that data infrastructures use to flag when a record has an issue that fails a data cleaning check. If we use galah to download records, we can use assertions columns in our query to help identify and clean suspicious records.
+
+If you would like to view assertions, use `show_all()`.
+
+```{r}
+assertions <- show_all(assertions)
+assertions |>
+  print(n = 7)
+```
+
+You can use the stringr package to search for text matches.
+
+```{r}
+assertions |>
+  filter(stringr::str_detect(
+    id,
+    "COORDINATE"
+  )) |>
+  print(n = 5)
+```
+
+
+Over this chapter, we will detail when an assertion column can help identify occurrence records with geospatial issues.
+
 :::
 
 ## Quick visualisation
@@ -80,7 +127,7 @@ ggplot() +
   geom_sf(data = banksia_sf)
 ```
 
-## Missing coordinate data
+## Missing coordinates
 
 <!-- This is mentioned in missing-values chapter. Does it need to be repeated here or not? -->
 
@@ -103,40 +150,30 @@ banksia <- banksia |>
   tidyr::drop_na(decimalLatitude, decimalLongitude)
 ```
 
-## Coordinate precision & uncertainty
+## Filtering coordinates
+
+### Precision
 
 Not all observations have the same degree of precision. Coordinate
 precision can vary between data sources and recording equipment. For
 example, coordinates recorded with a GPS unit or a phone generally have
-higher precision than coordinates determined manually from a locality
+higher precision than coordinates recorded manually from a locality
 description.
-<!-- For example, an observation in the field area using a clipboard and pencil to describe a locality is less precise than an observation recorded using satellite location services on a phone. --><!-- Which is better? -->
 
-Similarly, the interaction of methods and species observed can determine
-the degree of coordinate uncertainty. If a person uses a precise GPS and
-high-definition camera to make observations of snails, their observed
-location will be of higher certainty. In contrast, if a person
-uses a phone camera to observe a species of bird in the distance, their
-observed location will be of lower certainty.
-
-The degree of precision and certainty you require will depend on the
-granularity of your research question and analyses. A fine-scale
-question will require data measured at a fine-scale to answer it,
-whereas national or global scale questions can use less precise data.
+The degree of precision you require will depend on the
+granularity of your research question and analysis. A fine-scale
+question will require data measured at a fine-scale to answer it.
+National or global scale questions require less precise data.
 
 When downloading data from the ALA with the galah package, it's possible
-to include columns
-[`coordinatePrecision`](https://dwc.tdwg.org/terms/#dwc:coordinatePrecision)
-(a decimal representation of how precise the coordinates of an
-observation are) and
-[`coordinateUncertaintyInMeters`](https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters)
-(a measure of the circular area that captures the true location).
+to include the column
+[`coordinatePrecision`](https://dwc.tdwg.org/terms/#dwc:coordinatePrecision)---a decimal representation of how precise the coordinates of an
+observation are---to your data.
 
 ```{r}
 banksia |>
   select(scientificName, 
-         coordinatePrecision, 
-         coordinateUncertaintyInMeters
+         coordinatePrecision
          ) |>
   filter(!is.na(coordinatePrecision)) # <1>
 ```
@@ -152,6 +189,33 @@ banksia |>
   count()
 ```
 
+Filter your records to only those under a specific measure of precision.
+
+```{r}
+#| eval: false
+# Filter by number of decimal places
+banksia <- banksia |>
+  filter(coordinatePrecision <= 0.001)
+```
+
+
+### Uncertainty
+
+Similarly, not all observations have the same degree of coordinate certainty. The area of uncertainty of an organism's *exact* location can grow or shrink depending on the method of observation and the species observed. For example, if a person uses a precise GPS and
+high-definition camera to make observations of snails, their observed
+location will be of higher certainty than a person
+using a phone camera to make observations of birds in the distance. It might also be obscured [for sensitivity purposes](LINK to obfuscated coordinates section below).
+
+When downloading data from the ALA with the galah package, it's possible
+to include the column [`coordinateUncertaintyInMeters`](https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters)---a measure of the circular area that captures the true location---to your data.
+
+```{r}
+banksia |>
+  select(scientificName,
+         coordinateUncertaintyInMeters
+         )
+```
+
 There is a range of coordinate uncertainty in our data, but all records
 are assumed within a 10-metre area of their observation.
 
@@ -164,17 +228,47 @@ banksia |>
 If your analysis requires greater certainty, you can then filter your
 records to a smaller area of uncertainty.
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 # Filter by number of decimal places
 banksia <- banksia |>
-  filter(coordinatePrecision <= 5)
+  filter(coordinateUncertaintyInMeters <= 5)
 ```
 
-<!-- This paper describes some stuff about how uncertainty reduces model performance. Could probably cite it above -->
+<!-- 
+This paper describes some stuff about how uncertainty reduces model performance. 
+Could probably cite it above 
+-->
 
 https://besjournals.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1365-2664.2007.01408.x
 
-## Coordinate correction
+### Obscured location
+
+Occurrence records of sensitive, endangered or critically endangered species my be obscured (i.e. generalised or obfuscated) to protect the true location of the species. This process blurs the actual location to avoid poaching or capture of endangered species while allowing some parts of their data to be included in broader summary data.
+
+For example, the Western Swamp Tortoise is a critically endangered species in Western Australia. There are 97 total observations of this species in the ALA.
+
+```{r}
+galah_call() |>
+  identify("Pseudemydura umbrina") |>
+  group_by(dataGeneralizations) |>
+  atlas_counts()
+```
+
+The field `dataGeneralizations` contains information of whether a record has been has been obscured and the size of the area the point has been generalised to.
+
+```{r}
+search_all(fields, "dataGeneralization")
+```
+
+
+```{r}
+
+```
+
+For more information, check out ALA's [support article about working with threatened, migratory and sensitive species](https://support.ala.org.au/support/solutions/articles/6000261705-working-with-conservation-and-sensitive-species-information).
+
+## Correcting coordinates
 
 Spatial outliers aren't always due to a misidentified species.
 Sometimes, they can be true observations with mistakes in their
@@ -188,12 +282,13 @@ and solved by correcting the data.
 
 #### Flipped coordinates
 
-**Flipped coordinates:** Flipped coordinates typically appear as a
+Flipped coordinates typically appear as a
 clustering of points, whereby swapping the latitude and longitude will
 place the coordinates where they are expected. [@jin2020]
 
 ```{r}
 #| eval: false
+#| echo: false
 galah_call() |>
   filter(decimalLongitude > 10 & decimalLongitude < 45) |>
   group_by(species) |>
@@ -202,6 +297,7 @@ galah_call() |>
 
 ```{r}
 #| eval: false
+#| echo: false
 records <- galah_call() |>
   filter(decimalLongitude > -155 & decimalLongitude < -111 & 
            decimalLatitude < 45 & decimalLatitude > 9) |>
@@ -226,6 +322,7 @@ native_mice <- galah_call() |>
   select(scientificName, decimalLongitude, decimalLatitude,
          eventDate,
          country, countryCode, locality, 
+         COUNTRY_COORDINATE_MISMATCH,
          group = "assertions") |>
   atlas_occurrences()
   
@@ -249,19 +346,16 @@ If I were to guess, I'd say the Latitude values were entered in the Longitude co
 
 #### Incorrect numeric sign
 
-**Numerical sign confusion:** As with flipped coordinates, if there is a
-clustering of points mirrored to another hemisphere, consider swapping
+If there is a clustering of points mirrored to another hemisphere, consider swapping
 the sign and correct rather than discarding the points.
 
----
-
-This is a simpler example with both coordinates with the wrong sign
+If using the galah package, you can add the `PRESUMED_SWAPPED_COORDINATE` assertion column to your download to find occurrence records flagged as suspicious for swapped coordinates.
 
 ```{r}
 desert_plant <- galah_call() |>
   identify("Eremophila macdonnellii") |>
   select(group = "basic", 
-         PRESUMED_SWAPPED_COORDINATE) |>
+         PRESUMED_SWAPPED_COORDINATE) |> # add assertion column
   atlas_occurrences() |>
   drop_na(decimalLongitude, decimalLatitude) # remove NA coordinates
 
@@ -303,6 +397,8 @@ ggplot() +
 
 ```
 
+
+
 ---
 
 <!-- This example doesn't feel fixable. Include it? -->
@@ -343,7 +439,7 @@ ggplot() +
              aes(x = decimalLongitude,
                  y = decimalLatitude),
              colour = "#557755") +
-  theme_void()
+  theme_minimal()
 
 ```
 
@@ -441,9 +537,11 @@ ggplot() +
 
 ```
 
-## Cleaning coordinates
+## Removing coordinates
 
-### Equal longitude/latitude
+Some coordinates issues cannot be fixed or inferred. In this case, it is important that you identify which records have issues and remove them prior to analysis. Here are some examples of 
+
+#### Equal longitude/latitude
 
 Some records might have an accidental duplicated coordinate, resulting
 in longitude and latitude coordinates that are the same. You can
@@ -456,30 +554,17 @@ banksia |>
   filter(decimalLatitude == decimalLongitude)
 ```
 
-### Zero coordinates
+#### Zero coordinates
 Some records are mistakenly recorded with zero as their latitude and/or longitude coordinates. These records will not accurately represent their valid
 location and must be removed.
 
-```{r}
-# zero coordinates
-
-galah_call() |>
-  identify("acacia") |>
-  filter(decimalLongitude == 0,
-         decimalLatitude == 0) |>
-  group_by(species) |>
-  atlas_counts()
-
-galah_call() |>
-  identify("Acacia aneura") |>
-  atlas_counts()
-```
+If using the galah package, you can add the `ZERO_COORDINATE` assertion column to your download to find occurrence records flagged as suspicious for swapped coordinates.
 
 ```{r}
 acacias <- galah_call() |>
   identify("acacia aneura") |>
   select(group = "basic",
-         ZERO_COORDINATE,
+         ZERO_COORDINATE, # add assertion column
          countryCode, locality) |>
   atlas_occurrences()
 
@@ -490,7 +575,7 @@ ggplot() +
                  y = decimalLatitude))
 ```
 
-Fix it
+We can remove the problematic record by filtering our data to remove records with longitude or latitude coordinates that equal zero.
 
 ```{r}
 acacias_filtered <- acacias |>
@@ -501,18 +586,20 @@ ggplot() +
   geom_sf(data = aus) +
   geom_point(data = acacias_filtered,
              aes(x = decimalLongitude, 
-                 y = decimalLatitude))
+                 y = decimalLatitude)) + 
+  theme_minimal()
 ```
 
+#### Using expert distributions
 
-### Using expert distributions
+**Coming soon once galah is fixed...**
 
 <!-- This section can have an example expert distribution, then plot points on the top, then find which points are outside of the distribution to investigate -->
 
 One way to identify suspicious observations is to use an expert
 distribution to determine whether an occurrence record is within the
 possible range of a species. At the most basic, expert distributions can
-be found in the literature (like [this one](an%20example)), then
+be found in the literature (like [this one](LINK to example)), then
 compared visually to your points.
 
 It's also possible to download expert distributions as shapefiles, and
@@ -525,25 +612,75 @@ record locations.
 
 ```
 
-### Obfiscated coordinates
 
-### Centroid coordinates
 
-Centroids, or the coordinates that mark the exact centre point of an
+#### Centroids
+
+**Centroids**, or coordinates that mark the exact centre point of an
 area, are sometimes assigned to an occurrence record when the original
-observation location was provided as a description from georeferencing
-based on vague locality descriptions or from incorrect georeferencing.
+observation location was provided as a description.
+If a record was collected using a vague locality description or from incorrect georeferencing, centroids can be used to categorise the record into broadly the correct area[^1].
 
-Sometimes, records are erroneously entered with the physical location of
-the specimen or because they represent individuals from captivity or
-grown in horticulture, which were not clearly labelled as such.
+[^1]: This can happen when record locations is incorrectly given as the physical location of
+the specimen, or because they represent individuals from captivity or
+grown in horticulture (but were not clearly labelled as such).
+
+If using the galah package, we can add the `COORDINATES_CENTRE_OF_COUNTRY` or `COORDINATES_CENTRE_OF_STATEPROVINCE` assertions columns to your download to find occurrence records flagged as suspicious for centroid coordinates.
 
 ```{r}
-# example Heteronympha merope
+# example Common Brown butterflies
+butterflies <- galah_call() |>
+  identify("Heteronympha merope") |>
+  filter(year == 2014,
+         decimalLatitude < 0) |>
+  select(group = "basic",
+         COORDINATES_CENTRE_OF_COUNTRY, # add assertion column
+         COORDINATES_CENTRE_OF_STATEPROVINCE, # add assertion column
+         countryCode, locality) |>
+  atlas_occurrences()
 ```
 
+Filtering our data to records flagged as suspicious, we return one record.
 
-### Public facilities and institutions
+```{r}
+butterflies |>
+  filter(
+    COORDINATES_CENTRE_OF_COUNTRY == TRUE |
+    COORDINATES_CENTRE_OF_STATEPROVINCE == TRUE
+    )
+```
+
+The suspicious record is the single orange point on our map.
+
+```{r}
+ggplot() + 
+  geom_sf(data = aus) +
+  geom_point(data = butterflies,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude,
+                 colour = COORDINATES_CENTRE_OF_STATEPROVINCE)) +
+  pilot::scale_color_pilot() +
+  theme(legend.position = "none")
+
+```
+
+We can remove this data point by excluding this record from our dataframe.
+
+```{r}
+butterflies_filtered <- butterflies |>
+  filter(COORDINATES_CENTRE_OF_STATEPROVINCE == FALSE)
+
+ggplot() + 
+  geom_sf(data = aus) +
+  geom_point(data = butterflies_filtered,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude,
+                 colour = COORDINATES_CENTRE_OF_STATEPROVINCE)) +
+  pilot::scale_color_pilot() +
+  theme(legend.position = "none")
+
+```
+
 
 #### Zoos, aquariums & botanic gardens
 
@@ -569,8 +706,6 @@ records that match these coordinates.
 ```
 
 
-
-
 ---
 
 <!-- This is a risk of all specimen records. Is it worth including? -->
@@ -587,18 +722,30 @@ A risk of using data of many types is that sometimes, if observations and specim
 
 ---
 
-### CoordinateCleaner
+## Packages
 
-This package probably worth specifying and giving an example.
+#### CoordinateCleaner
+
+The [CoordinateCleaner package](https://docs.ropensci.org/CoordinateCleaner/index.html) is a package for automated flagging of common spatial and temporal errors of biological and paleaontological data. It is particularly good at cleaning data from GBIF.
+
+Here is an example of a general cleaning function, but there are many more bespoke options that the package offers.
 
 ```{r}
+#| warning: false
+#| message: false
+library(CoordinateCleaner)
 
+# Run record-level tests
+coordinate_tests <- clean_coordinates(x = butterflies, 
+                                      species = "scientificName")
+summary(coordinate_tests)
+plot(coordinate_tests)
 ```
 
 
 ## Summary
 
-Each of the cleaning steps in this chapter do not have to be run in order, or even at all. Whether they are used is context dependent and taxon dependent. As an example, what is one species that has many wrong coordinates based on many of the steps listed above? 
+Each of the cleaning steps in this chapter do not have to be run in order, or even at all. Whether they are used is context dependent and taxon dependent. As an example, what is one species that has many "wrong" coordinates based on many of the steps listed above? 
 
 The Great White Shark.
 
