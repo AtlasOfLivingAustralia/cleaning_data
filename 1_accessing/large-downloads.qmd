@@ -65,7 +65,7 @@ The `{arrow}` package allows users to easily read and write different file forma
 [^1]: The dataset used in this example is relatively small (approx. 200,000 rows), but the benefits of using `{arrow}` become obvious once the number of rows in your dataset approaches tens or hundreds of millions.
 
 Let's start by accessing the data as a dataset instead of reading it into memory.     
-::: {.panel-tabset .nav-pills}
+::: {.panel-tabset .nav-pills}  
 #### `{arrow}`
 
 ```{r}
@@ -141,7 +141,11 @@ unlink("tmp", recursive = TRUE)
 
 
 ### {duckdb}
-
+in process database  
+db is a collection of tables  
+put data in  
+access, wrangle  
+read from db  
 
 
 ## Recycle bin
