@@ -69,3 +69,6 @@ _book/
 
 # Rasters
 data/rasters/
+
+# Large data
+data/pardalotes.csv
