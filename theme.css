@@ -32,10 +32,12 @@ img.rounded {
   font-size: .8em!important;
 }
 
+/*
 .cell-output {
   background-color: lightgreen;
   border-radius: 4px;
 }
+*/
 
 .circle-button {
   border-radius: 40%;
@@ -63,5 +65,5 @@ img.rounded {
 }
 
 .sidebar-logo{
-  max-width:25%;
+  max-width: 25% !important;
 }
