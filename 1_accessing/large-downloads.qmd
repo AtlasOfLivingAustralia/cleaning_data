@@ -2,6 +2,7 @@
 
 Once the size of your dataset starts to approach the size of your computer's memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the [{arrow}](https://arrow.apache.org/docs/r/index.html) package for larger than memory data workflows or the [{duckdb}](https://r.duckdb.org/index.html) package for querying databases using SQL.  
 
+### {arrow}  
 The {arrow} package allows users to easily read and write different file formats, and analyse larger than memory datasets using {dplyr} verbs. A common workflow consists of opening a dataset, filtering or summarising according to some property of the data, and writing this to a new file. This is relatively simple to do with a small csv file, and we can do something conceptually similar using {arrow} for larger datasets. 
 
 ```{r}
@@ -27,37 +28,54 @@ Let's start by getting a large dataset: this 2GB biodiversity dataset from the [
 #   write_csv_arrow("data/ecoassets/species_counts_small.csv")
 ```
 
-**Maybe set up tabs to show dplyr/arrow workflow side by side?**
+**Maybe tabs to show dplyr/arrow workflow side by side?**
 
 ```{r}
 # open dataset
-species_counts <- open_dataset("data/ecoassets/species_counts.csv", format = "csv")
+species_counts <- open_dataset(here::here("data", "ecoassets", "species_counts.csv"), format = "csv")
 
 # vs
-species_counts_small <- read_csv("data/ecoassets/species_counts_small.csv")
+species_counts_small <- read_csv(here::here("data", "ecoassets", "species_counts_small.csv"))
 ```
 
+Summarising a large dataset using the {arrow} package consists of all the same steps you would follow for a smaller dataset using {dplyr} functions (e.g. selecting, filtering, grouping by, summarising), with the addition of a line at the end of the workflow to `collect()` the output back into memory. 
 
 ```{r}
 # filter, group_by, summarise, collect
-griis_summary_2000 <- species_counts |> 
-  select(year, griisStatus, speciesName) |> 
-  filter(year == 2000) |>
-  group_by(griisStatus) |> 
+epbc_summary_2000 <- species_counts |> 
+  select(year, epbcStatus, speciesName) |> 
+  filter(year == 2000) |> 
+  group_by(epbcStatus) |> 
   summarise(unique_species = n()) |> 
   collect()
   
 # vs
-griis_summary_2000_small <- species_counts_small |> 
-  select(year, griisStatus, speciesName) |> 
+epbc_summary_2000_small <- species_counts_small |> 
+  select(year, epbcStatus, speciesName) |> 
   filter(year == 2000) |>
-  group_by(griisStatus) |> 
+  group_by(epbcStatus) |> 
   summarise(unique_species = n()) 
 
 ```
 
+If the 
+
+This is very convenient when the operations we want to perform have perfect mappings between {dplyr} and {arrow}, but what if we want to transform the large dataset in a way that is not (currently) supported by {arrow}?
+
 ```{r}
-# write csv, write parquet
+species_counts |> 
+  select(year, epbcStatus, speciesName) |> 
+  filter(year == 2000) |> 
+  group_by(epbcStatus) |> 
+  summarise(unique_species = n()) |> 
+  collect()
 ```
 
 
+```{r}
+# convert to parquet files and wrangle
+```
+
+**should we link to the arrow help pages for each of these sections? so they don't seem outdated as things progress? discuss with Dax**
+
+### {duckdb}
