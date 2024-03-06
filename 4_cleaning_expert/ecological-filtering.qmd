@@ -8,6 +8,10 @@ number-depth: 3
 
 # Ecological filtering
 
+<!--
+This chapter feels more like an exercise in filtering than a true data cleaning chapter. I imagine many people have many needs, but a lot of these examples show how to build a query rather than how 
+-->
+
 ### Prerequisites
 
 In this chapter we will use several datasets:
@@ -106,11 +110,17 @@ plants_no_griis <- filter(plants, !scientific_name %in% matches)
 
 ::: callout-tip
 You can apply this concept of filtering to any list of species, or other
-fields, that you would like to exclude (or include, by removing the `!`
-in the `filter()` step)
+fields, that you would like to exclude.
 :::
 
+
+
 ## Extinct species
+
+<!-- 
+This is an incredibly complex example that I think comes from Fonti's Inverts Australia work. Impressive as it is, are we definite that it's worth the effort to include it? How many people want to know how to do this?
+It's not helped that the IUCN example no longer works.
+-->
 
 In most cases, a year filter applied during your download query should
 remove *most* extinct species. Nevertheless, it is important to cross
@@ -136,7 +146,7 @@ irmng_sp <- arrow::open_dataset("../data/lists/IRMNG_genera_DwCA_2023-05-19/spec
 
 
 ```{r}
-library("stringr")
+library(stringr)
 inverts <- arrow::open_dataset("../data/galah/inverts") |> dplyr::collect()
 
 awc_pattern <- "(awaiting allocation)"

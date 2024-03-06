@@ -7,10 +7,13 @@ bibliography: references.bib
 
 # Appendix {#sec-appendix}
 
-We don't claim to be experts in data cleaning, therefore in order to
+Ecological data is complex, and we are not experts in cleaning all types of data for all types of ecological analyses. We do, however, work with ecological data on a daily basis and encounter many of these data cleaning issues in our own work. Still, we aspired for this book to be an up-to-date resource for a diverse range of data cleaning tasks.
+
+In order to
 ensure content for this book was current and relevant we undertook an
 informal literature review of both peer reviewed and grey literature.
-Key themes searched were:
+
+The key themes we searched for were:
 
 1.  Cleaning data for species distribution models
 
@@ -20,8 +23,7 @@ Key themes searched were:
 
 4.  R packages for biodiversity data cleaning
 
-As this was not a comprehensive literature review recent papers were
-selected first as the R environment is a rapidly evolving space. Methods
+We tried to select more recently published papers as R and its available tools are rapidly evolving. Methods
 sections outlining data cleaning protocols were read and collated into a
 database. Papers which were frequently referenced were also chosen for
 review in order to not miss older seminal papers. Additionally our
@@ -39,6 +41,12 @@ undertaken with the idea of developing a streamlined workflow. However the diagr
 
 ![](images/complex_workflow.png)
 ![](images/simplified_workflow.png)
+
+## Why do we still have to clean data held in data infrastructures?
+
+Data infrastructures aggregate data from thousands of different data providers, and standardise them so that data from many disparate sources can be used together. 
+
+Data providers, however, can provide data with mistakes, and data infrastructures are not the ultimate taxonomic or ecological experts. Ultimately, it's a team effort to catch errors, and it's up to data providers to double check that any flagged errors are indeed actually errors. 
 
 ## Data scope
 
@@ -99,4 +107,5 @@ spiders <- here::here("data","dap","inverts_subset") |>
   filter(class == "arachnida") |>
   collect()
 ```
+
 
