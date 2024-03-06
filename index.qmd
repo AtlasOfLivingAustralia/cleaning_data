@@ -9,7 +9,7 @@ which is reflected in the way this site is structured.
 Add a diagram and some more text here. -->
 
 Welcome to the Atlas of Living Australia's Data Cleaning Booklet. This book is
-designed to be a practical guide on cleaning georeferenced biodiverdsity data
+designed to be a practical guide on cleaning georeferenced biodiversity data
 using R. We focus on processes and challenges you'll face with
 biodiversity data. As such, this book isn't a guide to data cleaning in general,
 but a targeted resource for anyone working with or interested in georeferenced
@@ -18,7 +18,7 @@ biodiversity data.
 ## How to contribute
 
 Contributions to this document are welcome. For questions or feedback, please
-open an issue on our [GitHub
+open an issue in our [GitHub
 repository](https://github.com/AtlasOfLivingAustralia/cleaning_data/issues). If
 you'd like to suggest content changes, feel free to submit a pull request. We
 recommend opening an issue first to discuss potential changes. Our contribution
@@ -37,9 +37,9 @@ This book is available free to read, and is licenced under the
 
 ## Acknowledgement of Country
 
-The Atlas of Living Australia acknowledge that we live and work on Aboriginal and Torres Strait Islander land, rivers, and seas. Indigenous Australians’ hold and continue to hold incomparably intricate environmental knowledge as first peoples of this country. As a data repository we are working to acknowledge and archive in a culturally sensitive way many different kinds of this [knowledge with communities](https://www.ala.org.au/indigenous-ecological-knowledge/).
+The Atlas of Living Australia acknowledges that we live and work on Aboriginal and Torres Strait Islander lands, rivers, and seas. Indigenous Australian peoples held and continue to hold incomparably intricate environmental knowledge as first peoples of this country. As a data repository we are working to acknowledge and archive in a culturally sensitive way many different kinds of this [knowledge with communities](https://www.ala.org.au/indigenous-ecological-knowledge/).
 
-The authors of this book currently reside on Ngunnawal and Ngambri (Canberra), Wurundjeri and Bunurong (Melbourne), Turrbal and Yuggera (Brisbane) and Gadigal (Sydney) lands. 
+The authors of this book currently reside on Ngunnawal and Ngambri (Canberra), Wurundjeri and Bunurong (Melbourne), Turrbal and Yuggera (Brisbane), and Gadigal (Sydney) lands, and we pay our respects to Elders past and present.   
 
 ## Acknowledgements {.unnumbered}
 
