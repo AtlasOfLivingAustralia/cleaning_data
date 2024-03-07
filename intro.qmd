@@ -14,118 +14,11 @@ df-print: kable
 
 # Introduction {.unnumbered}
 
-> "Garbage in, garbage out" - George Fuechsel, IBM computer programmer
-
-::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
-::: {style="width: 25%; justify-content: space-between"}
-::: circle-button
-[{{< fa download size=3x >}}](1_accessing/where-to-get-data.html)
-:::
-
-[**Where to get data**](1_accessing/where-to-get-data.html){style="color: #efa123; font-size: 15.5px; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-::: circle-button
-[{{< fa table size=3x >}}](2_exploring/inspect.html)
-:::
-
-[**Glimpse**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-::: circle-button
-[{{< fa diagram-next size=3x >}}](3_cleaning_general/duplicates.html)
-:::
-
-[**Duplicates**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-::: circle-button
-[{{< fa user-secret size=3x >}}](3_cleaning_general/missing-values.html)
-:::
-
-[**Missing values**]{style="color: #efa123; text-align: center;"}
-:::
-:::
-
-::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
-::: {style="width: 25%; justify-content: space-between"}
-::: circle-button
-[{{< fa spell-check size=3x >}}](3_cleaning_general/unexpected-values.html)
-:::
-
-[**Unexpected values**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-::: circle-button
-[{{< fa quote-right size=3x >}}](3_cleaning_general/strings.html)
-:::
-
-[**Strings**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-::: circle-button
-[{{< fa calendar-days size=3x >}}](3_cleaning_general/dates.html)
-:::
-
-[**Dates**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-::: circle-button
-[{{< fa table size=3x >}}](3_cleaning_general/column-names-and-classes.html)
-:::
-
-[**Column names +
-classes**]{style="color: #efa123; text-align: center;"}
-:::
-:::
-
-::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
-::: {style="width: 25%; justify-content: space-between"}
-::: circle-button
-[{{< fa list-check size=3x >}}](4_cleaning_expert/taxonomic-synonyms.html)
-:::
-
-[**Name
-matching**]{style="color: #efa123; text-align: center; font-size: 15.5px"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-::: circle-button
-[{{< fa mosquito size=3x >}}](4_cleaning_expert/taxonomy.html)
-:::
-
-[**Taxonomy**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-::: circle-button
-[{{< fa earth-oceania size=3x >}}](4_cleaning_expert/geospatial.html)
-:::
-
-[**Geospatial
-data**]{style="color: #efa123; font-size: 14px; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-::: circle-button
-[{{< fa boxes-packing size=3x >}}](4_cleaning_expert/outliers.html)
-:::
-
-[**Outliers**]{style="color: #efa123; text-align: center;"}
-:::
-:::
-
-In ecology and biology, researchers, managers and decision makers often
+<!-- In ecology and biology, researchers, managers and decision makers often
 want to answer questions about where species live, what
 biological and environmental factors affect their survival and success,
 and how these factors might affect their future survival. These questions are 
-difficult but essential to answer for conservation and ecosystem management.
+difficult but essential to answer for conservation and ecosystem management. 
 
 To address these questions, many ecologists must combine large amounts
 of species data from different sources for analysis. These data usually
@@ -146,25 +39,36 @@ Many ecologists and researchers choose to use code for data wrangling,
 analysis and visualisation. There are many languages (e.g., Python, R,
 Julia) that can achieve the same result. This book is a resource to
 assist researchers and decision makers that wish to clean geo-referenced
-biodiversity data using R.
+biodiversity data using R.-->  
+
+Data cleaning is a process that biologists and ecologists invariably have to 
+engage with before they can answer questions using data. Depending on the sources
+of the data, it may be necessary to standardise formats, correct spelling errors,
+and resolve taxonomic inconsistency and spatial **[SMTH]** before these data can 
+be analysed. The "correct" degree of data cleaning will depend on the project and
+the questions being asked of the data, so there is no one-size-fits-all approach. 
+There are, however, some common processes that will be broadly applicable to 
+many data cleaning workflows. This book consolidates those processes into a resource 
+for users who are interested in understanding how to clean their datasets.   
 
 ## Who is this book for? {.unnumbered}
 
-If you are new to working with biodiversity data in R, or are looking
+If you are new to working with georeferenced biodiversity data in R, or are looking
 for a quick reference to data cleaning processes or concepts in R, then
 this book is for you. By learning how to download and apply common data
 cleaning steps, you will also develop a better understanding of
-biodiversity data itself, and the common issues to be aware of.
+biodiversity data, and common issues to be aware of.
 
 We use R as it is commonly used across ecological projects, and has a
-rich ecosystem of packages for data cleaning and visualisation. A basic
-familiarity with the language is recommended.
+rich ecosystem of packages for data cleaning and visualisation. It's also 
+free and open source.   
 
 ## What this book covers {.unnumbered}
 
 In this book, we provide an overview of a typical data cleaning workflow
 for open-access geo-referenced biodiversity data—from
-acquisition, to error identification to correction. These processes are broken down into four sections. The chapters within each
+acquisition, to error identification, to correction. These processes are broken 
+down into four sections. The chapters within each
 section include practical guidelines, example R code, and additional
 resources that may aid with each data cleaning step. 
 
@@ -220,14 +124,15 @@ device.
 ### RStudio
 
 RStudio is an integrated development environment (IDE) for R
-programming. R studio provides a range of tools to make working with R
+programming. RStudio provides a range of tools to make working with R
 easier, and you can download and install RStudio for your operating
-system [here](https://posit.co/download/rstudio-desktop/).
+system [here](https://posit.co/download/rstudio-desktop/).  
+**Should we offer a list of other IDEs that also work for R?**  
 
 ### Packages
 
 We use a range of R packages throughout the book, primarily for data
-cleaning and visualisations. These packages will be noted at the
+cleaning and visualisation. These packages will be noted at the
 beginning of a code block, typically at the start of a chapter. To
 access biodiversity data we will be working with the
 [`galah`](https://galah.ala.org.au/) package. If you have collected your
@@ -259,7 +164,7 @@ code block.
 
 ### Code line comments
 
-Some code blocks have numbers beside on the right side of a code line. You can hover over these numbers to read additional context about that specific line of code.
+Some code blocks have circled numbers near the right edge of the code block. You can hover over these numbers to read additional context about that specific line of code.
 
 ```{r}
 #| eval: false
@@ -268,9 +173,7 @@ mtcars |>
 ```
 1. This line of code groups `mtcars` data by each distinct value in the variable `cyl`
 
-
-Throughout this book, we use “pipes” in our code (`|>`, or `%>%` from the magrittr package). Pipes allow you to run multiple functions sequentially to an object or a dataset. Pipes can be read as saying 
-“and then”.
+Throughout this book, we use “pipes” in our code (`|>`, or `%>%` from the `magrittr` package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “and then”.
 
 For example, the code block above can be read as "Get data `mtcars`, **and then** group by `cyl`, **and then** summarise (setting `mean_mpg` to contain the mean of `mpg`)."
 
