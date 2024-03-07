@@ -1,0 +1,112 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+# Temporal scope {#sec-temporal-scope}
+
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(
+  comment = "",
+  fig.width = 6,
+  fig.height = 6
+)
+```
+
+A good first step to understanding what data are available is to check the
+number of observations across different time periods. To do this, we are using
+the `galah` package to query the Atlas of Living Australia (ALA), which is the
+largest biodiversity data aggregator in Australia. 
+
+First we load the `galah` package, and provide our registered ALA email
+address to the `galah_config()` function. 
+
+```{r}
+#| code-fold: true
+#| code-summary: "Load required packages"
+#| message: false
+library(galah)
+library(tidyverse) # group of packages
+```
+
+```{r}
+#| eval: false
+# Provide your registered ALA email address
+galah_config(email = "youremail@here.com")
+```
+
+```{r}
+#| include: false
+galah_config(atlas = "Australia") # default
+galah_config(email = Sys.getenv("ALA_EMAIL"))
+```
+
+ The `atlas_counts()` function returns a count of records. By itself, it returns
+a count of all records in the Atlas of Living Australia, but we can narrow this query using `galah` helper functions. In this case, we narrow
+the search to only include insects. 
+```{r} 
+#| warning: false
+#| message: false
+# Query all records
+atlas_counts()
+
+# Query only insects
+galah_call() |> # <1>
+  galah_identify("insecta") |> # <2>
+  atlas_counts() # <3>
+```
+1. Start building a data query
+2. Narrow the query with taxonomic identifiers
+3. Return the count of records
+
+Now let's see how many insects have been observed each year over the last 10
+years. We'll order this by descending year using `dplyr::arrange()` and
+`dplyr::desc()`.
+
+```{r} 
+#| warning: false 
+#| message: false 
+galah_call() |>
+  galah_identify("insecta") |>
+  galah_filter(year >= 2013) |>
+  galah_group_by(year) |>
+  atlas_counts() |>
+  dplyr::arrange(dplyr::desc(year))
+```
+
+Now that we have an idea of the total amount of data in the Atlas of Living
+Australia, let's try checking how many observations exist of the genus
+*Lampromicra*. We'll first make sure the scientific name *Lampromicra* returns
+the taxon information we expect with `search_taxa()`.
+
+```{r} search_taxa("Lampromicra") ```
+
+This looks correct! Next let's see how many total observations there are of
+*Lampromicra* and how many observations there were in each of the last 10 years.
+
+```{r} 
+galah_call() |> 
+  galah_identify("Lampromicra") |> 
+  atlas_counts()
+
+galah_call() |>
+  galah_identify("Lampromicra") |>
+  galah_filter(year >= 2013) |>
+  galah_group_by(year) |>
+  atlas_counts() |>
+  dplyr::arrange(dplyr::desc(year))
+```
+
+There are a growing number of observations from 2012 to 2023 of Jewel beetles in
+the Atlas of Living Australia, with fewer than 100 observations each year prior
+to 2020. 
+
+With this information, we might choose to combine data from all years in our
+analysis (rather than separating them by year). Alternatively, we might decide
+to only include data since 2020, which might be sufficient to represent where
+*Lampromicra* are found and be more relevant because they are more recent
+observations. These are decisions that might affect the granularity of the
+research question we ask.
+

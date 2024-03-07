@@ -8,7 +8,7 @@ editor_options:
   chunk_output_type: console
 bibliography: references.bib 
 csl: methods-in-ecology-and-evolution.csl
-code-annotations: below
+code-annotations: hover
 df-print: kable
 ---
 

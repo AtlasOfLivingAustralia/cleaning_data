@@ -1,0 +1,41 @@
+---
+title: "Accessing biodiversity data"
+format: html
+---
+
+This section gives a brief introduction to accessing biodiversity data, including where to get it, how to download large datasets and how to merge multiple datasets.
+
+There are many types of biodiversity data, ranging from locations to time-stamps to trait measurements. It is not the aim of this book to list them all. However, we do think it's useful to provide a few resources of where to look or how to start downloading data.
+
+  *  The first chapter provides brief explanations of major sources of open source data, and suggests some R packages that can download data directly within R . 
+  *  The second chapter gives a brief summary of how to work with large datasets in R, which are often slow or cumbersome to edit due to sheer size. We suggest some packages and resources to help with many rows of data. 
+  *  The third chapter provides a brief explanation of how to merge multiple datasets in R. Inevitably, to run your own investigations and analyses, you'll need to combine data from different sources to make new datasets. We will again suggest methods, packages and resources that help with joining different types of data.
+
+Along the way we will also highlight some of the important concepts and challenges to be aware of to help you get your initial data downloads in adequate shape for cleaning.
+
+Follow these links to navigate to each section:
+
+::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
+
+::: {style="width: 25%; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa magnifying-glass size=3x >}}](where-to-get-data.html)
+</div>
+[**Find data**]{style="color: #efa123; font-size: 15.5px; text-align: center"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa bars-progress size=3x >}}](large-downloads.html)
+</div>
+[**Large downloads**]{style="color: #efa123; text-align: center;"}
+:::
+
+::: {style="width: 25%; text-align: center; justify-content: space-between"}
+<div class="circle-button">
+  [{{< fa object-ungroup size=3x >}}](merging.html)
+</div>
+[**Merging data**]{style="color: #efa123; text-align: center"}
+:::
+
+:::

@@ -22,35 +22,30 @@ book:
 
   cover-image: images/book_cover2.jpg 
 
-  # Have the option to add introductory pages for the parts 
-  # as in, part: part_intro.qmd
   chapters:
   - index.qmd
   - intro.qmd
   - data.qmd
-  - part: 1_accessing/access_intro.qmd
+  - part: 1_exploring/1_intro.qmd
     chapters:
-    - 1_accessing/where-to-get-data.qmd
-    - 1_accessing/large-downloads.qmd
-    - 1_accessing/merging.qmd
-  - part: 2_exploring/1_intro.qmd
+    - 1_exploring/inspect.qmd
+    - 1_exploring/summarise.qmd
+  - part: 2_cleaning_general/1_intro.qmd
     chapters:
-    - 2_exploring/inspect.qmd
-    - 2_exploring/summarise.qmd
-  - part: 3_cleaning_general/1_intro.qmd
+    - 2_cleaning_general/column-names-and-classes.qmd
+    - 2_cleaning_general/duplicates.qmd
+    - 2_cleaning_general/missing-values.qmd
+    - 2_cleaning_general/strings.qmd
+    - 2_cleaning_general/dates.qmd
+  - part: 3_cleaning_expert/1_intro.qmd
     chapters:
-    - 3_cleaning_general/duplicates.qmd
-    - 3_cleaning_general/missing-values.qmd
-    - 3_cleaning_general/unexpected-values.qmd
-    - 3_cleaning_general/strings.qmd
-    - 3_cleaning_general/dates.qmd
-    - 3_cleaning_general/column-names-and-classes.qmd
-  - part: 4_cleaning_expert/1_intro.qmd
-    chapters:
-    - 4_cleaning_expert/taxonomic-validation.qmd
-    - 4_cleaning_expert/ecological-filtering.qmd
-    - 4_cleaning_expert/geospatial.qmd
-    - 4_cleaning_expert/outliers.qmd
+    - 3_cleaning_expert/taxonomic-validation.qmd
+    - 3_cleaning_expert/ecological-filtering.qmd
+    - 3_cleaning_expert/geospatial.qmd
+    - 3_cleaning_expert/outliers.qmd
+  - 4_accessing/where-to-get-data.qmd
+  - 4_accessing/large-downloads.qmd
+  - 4_accessing/merging.qmd
   - references.qmd
   - packages.qmd
   - appendix.qmd

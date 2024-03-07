@@ -75,8 +75,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -130,7 +128,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/ala.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">ALA’s Data Cleaning Booklet</a> 
         <div class="sidebar-tools-main">
@@ -169,8 +170,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./1_accessing/access_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Accessing biodiversity data</span></a>
+            <a href="./1_exploring/1_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploring biodiversity data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -178,28 +179,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_accessing/where-to-get-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
+  <a href="./1_exploring/inspect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_accessing/large-downloads.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Large downloads</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./1_accessing/merging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Merging multiple datasets</span></span></a>
+  <a href="./1_exploring/summarise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summarise</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./2_exploring/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Exploring biodiversity data</span></a>
+            <a href="./2_cleaning_general/1_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">General data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -207,22 +202,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_exploring/inspect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
+  <a href="./2_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_exploring/summarise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Summarise</span></span></a>
+  <a href="./2_cleaning_general/duplicates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_cleaning_general/missing-values.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_cleaning_general/strings.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_cleaning_general/dates.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./3_cleaning_general/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">General data cleaning</span></a>
+            <a href="./3_cleaning_expert/1_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ecological data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -230,93 +243,64 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_cleaning_general/duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
+  <a href="./3_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_cleaning_general/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
+  <a href="./3_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_cleaning_general/unexpected-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Unexpected values</span></span></a>
+  <a href="./3_cleaning_expert/geospatial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_cleaning_general/strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3_cleaning_general/dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="./4_cleaning_expert/1_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Ecological data cleaning</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./4_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./4_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./4_cleaning_expert/geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./4_cleaning_expert/outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+  <a href="./3_cleaning_expert/outliers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./4_accessing/where-to-get-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_accessing/large-downloads.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Large downloads</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_accessing/merging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Merging multiple datasets</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">References</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
   </div>
 </li>
     </ul>
@@ -369,99 +353,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<blockquote class="blockquote">
-<p>“Garbage in, garbage out” - George Fuechsel, IBM computer programmer</p>
-</blockquote>
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center">
-<div style="width: 25%; justify-content: space-between">
-<div class="circle-button">
-<p><a href="1_accessing/where-to-get-data.html"><i class="fa-solid fa-download fa-3x" aria-label="download"></i></a></p>
-</div>
-<p><a href="1_accessing/where-to-get-data.html" style="color: #efa123; font-size: 15.5px; text-align: center;"><strong>Where to get data</strong></a></p>
-</div>
-<div style="width: 25%; text-align: center; justify-content: space-between">
-<div class="circle-button">
-<p><a href="2_exploring/inspect.html"><i class="fa-solid fa-table fa-3x" aria-label="table"></i></a></p>
-</div>
-<p><span style="color: #efa123; text-align: center;"><strong>Glimpse</strong></span></p>
-</div>
-<div style="width: 25%; text-align: center; justify-content: space-between">
-<div class="circle-button">
-<p><a href="3_cleaning_general/duplicates.html"><i class="fa-solid fa-diagram-next fa-3x" aria-label="diagram-next"></i></a></p>
-</div>
-<p><span style="color: #efa123; text-align: center;"><strong>Duplicates</strong></span></p>
-</div>
-<div style="width: 25%; text-align: center; justify-content: space-between">
-<div class="circle-button">
-<p><a href="3_cleaning_general/missing-values.html"><i class="fa-solid fa-user-secret fa-3x" aria-label="user-secret"></i></a></p>
-</div>
-<p><span style="color: #efa123; text-align: center;"><strong>Missing values</strong></span></p>
-</div>
-</div>
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center">
-<div style="width: 25%; justify-content: space-between">
-<div class="circle-button">
-<p><a href="3_cleaning_general/unexpected-values.html"><i class="fa-solid fa-spell-check fa-3x" aria-label="spell-check"></i></a></p>
-</div>
-<p><span style="color: #efa123; text-align: center;"><strong>Unexpected values</strong></span></p>
-</div>
-<div style="width: 25%; text-align: center; justify-content: space-between">
-<div class="circle-button">
-<p><a href="3_cleaning_general/strings.html"><i class="fa-solid fa-quote-right fa-3x" aria-label="quote-right"></i></a></p>
-</div>
-<p><span style="color: #efa123; text-align: center;"><strong>Strings</strong></span></p>
-</div>
-<div style="width: 25%; text-align: center; justify-content: space-between">
-<div class="circle-button">
-<p><a href="3_cleaning_general/dates.html"><i class="fa-solid fa-calendar-days fa-3x" aria-label="calendar-days"></i></a></p>
-</div>
-<p><span style="color: #efa123; text-align: center;"><strong>Dates</strong></span></p>
-</div>
-<div style="width: 25%; text-align: center; justify-content: space-between">
-<div class="circle-button">
-<p><a href="3_cleaning_general/column-names-and-classes.html"><i class="fa-solid fa-table fa-3x" aria-label="table"></i></a></p>
-</div>
-<p><span style="color: #efa123; text-align: center;"><strong>Column names + classes</strong></span></p>
-</div>
-</div>
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center">
-<div style="width: 25%; justify-content: space-between">
-<div class="circle-button">
-<p><a href="4_cleaning_expert/taxonomic-synonyms.html"><i class="fa-solid fa-list-check fa-3x" aria-label="list-check"></i></a></p>
-</div>
-<p><span style="color: #efa123; text-align: center; font-size: 15.5px"><strong>Name matching</strong></span></p>
-</div>
-<div style="width: 25%; text-align: center; justify-content: space-between">
-<div class="circle-button">
-<p><a href="4_cleaning_expert/taxonomy.html"><i class="fa-solid fa-mosquito fa-3x" aria-label="mosquito"></i></a></p>
-</div>
-<p><span style="color: #efa123; font-size: 15.5px; text-align: center;"><strong>Taxonomy</strong></span></p>
-</div>
-<div style="width: 25%; text-align: center; justify-content: space-between">
-<div class="circle-button">
-<p><a href="4_cleaning_expert/geospatial.html"><i class="fa-solid fa-earth-oceania fa-3x" aria-label="earth-oceania"></i></a></p>
-</div>
-<p><span style="color: #efa123; font-size: 14px; text-align: center;"><strong>Geospatial data</strong></span></p>
-</div>
-<div style="width: 25%; text-align: center; justify-content: space-between">
-<div class="circle-button">
-<p><a href="4_cleaning_expert/outliers.html"><i class="fa-solid fa-boxes-packing fa-3x" aria-label="boxes-packing"></i></a></p>
-</div>
-<p><span style="color: #efa123; text-align: center;"><strong>Outliers</strong></span></p>
-</div>
-</div>
-<p>In ecology and biology, researchers, managers and decision makers often want to answer questions about where species live, what biological and environmental factors affect their survival and success, and how these factors might affect their future survival. These questions are difficult but essential to answer for conservation and ecosystem management.</p>
-<p>To address these questions, many ecologists must combine large amounts of species data from different sources for analysis. These data usually vary in structure, formatting, and quality because each data source might structure their data a little differently to the next. Merging them correctly can be challenging and time consuming. Formatting errors, spelling errors, taxonomic inconsistencies and spatial errors are some of the most common problems, but the ecologist must fix these errors before the data can be analysed.</p>
-<p>There is, however, no ‘one-size-fits-all’ approach to cleaning ecological data. What is considered a “clean” dataset varies depending on the project and the data sources. Yet there are some common processes and concepts that can be applied to many data cleaning workflows. This book aims to offer these processes and concepts in one place.</p>
-<p>Many ecologists and researchers choose to use code for data wrangling, analysis and visualisation. There are many languages (e.g., Python, R, Julia) that can achieve the same result. This book is a resource to assist researchers and decision makers that wish to clean geo-referenced biodiversity data using R.</p>
+<!-- In ecology and biology, researchers, managers and decision makers often
+want to answer questions about where species live, what
+biological and environmental factors affect their survival and success,
+and how these factors might affect their future survival. These questions are 
+difficult but essential to answer for conservation and ecosystem management. 
+
+To address these questions, many ecologists must combine large amounts
+of species data from different sources for analysis. These data usually
+vary in structure, formatting, and quality because each data source
+might structure their data a little differently to the next. Merging
+them correctly can be challenging and time consuming. Formatting errors,
+spelling errors, taxonomic inconsistencies and spatial errors are some
+of the most common problems, but the ecologist must fix these errors
+before the data can be analysed.
+
+There is, however, no ‘one-size-fits-all’ approach to cleaning
+ecological data. What is considered a "clean" dataset varies depending
+on the project and the data sources. Yet there are some common processes
+and concepts that can be applied to many data cleaning workflows. This
+book aims to offer these processes and concepts in one place.
+
+Many ecologists and researchers choose to use code for data wrangling,
+analysis and visualisation. There are many languages (e.g., Python, R,
+Julia) that can achieve the same result. This book is a resource to
+assist researchers and decision makers that wish to clean geo-referenced
+biodiversity data using R.-->
+<p>Data cleaning is a process that biologists and ecologists invariably have to engage with before they can answer questions using data. Depending on the sources of the data, it may be necessary to standardise formats, correct spelling errors, and resolve taxonomic inconsistency and spatial <strong>[SMTH]</strong> before these data can be analysed. The “correct” degree of data cleaning will depend on the project and the questions being asked of the data, so there is no one-size-fits-all approach. There are, however, some common processes that will be broadly applicable to many data cleaning workflows. This book consolidates those processes into a resource for users who are interested in understanding how to clean their datasets.</p>
 <section id="who-is-this-book-for" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="who-is-this-book-for">Who is this book for?</h2>
-<p>If you are new to working with biodiversity data in R, or are looking for a quick reference to data cleaning processes or concepts in R, then this book is for you. By learning how to download and apply common data cleaning steps, you will also develop a better understanding of biodiversity data itself, and the common issues to be aware of.</p>
-<p>We use R as it is commonly used across ecological projects, and has a rich ecosystem of packages for data cleaning and visualisation. A basic familiarity with the language is recommended.</p>
+<p>If you are new to working with georeferenced biodiversity data in R, or are looking for a quick reference to data cleaning processes or concepts in R, then this book is for you. By learning how to download and apply common data cleaning steps, you will also develop a better understanding of biodiversity data, and common issues to be aware of.</p>
+<p>We use R as it is commonly used across ecological projects, and has a rich ecosystem of packages for data cleaning and visualisation. It’s also free and open source.</p>
 </section>
 <section id="what-this-book-covers" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="what-this-book-covers">What this book covers</h2>
-<p>In this book, we provide an overview of a typical data cleaning workflow for open-access geo-referenced biodiversity data—from acquisition, to error identification to correction. These processes are broken down into four sections. The chapters within each section include practical guidelines, example R code, and additional resources that may aid with each data cleaning step.</p>
+<p>In this book, we provide an overview of a typical data cleaning workflow for open-access geo-referenced biodiversity data—from acquisition, to error identification, to correction. These processes are broken down into four sections. The chapters within each section include practical guidelines, example R code, and additional resources that may aid with each data cleaning step.</p>
 <p>The first section is about <strong>accessing data</strong>. [summary]</p>
 <p>The second section is about <strong>exploring data</strong>. [summary]</p>
 <p>The third section is about <strong>general data cleaning processes</strong>. [summary]</p>
@@ -493,11 +419,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="rstudio" class="level3">
 <h3 class="anchored" data-anchor-id="rstudio">RStudio</h3>
-<p>RStudio is an integrated development environment (IDE) for R programming. R studio provides a range of tools to make working with R easier, and you can download and install RStudio for your operating system <a href="https://posit.co/download/rstudio-desktop/">here</a>.</p>
+<p>RStudio is an integrated development environment (IDE) for R programming. RStudio provides a range of tools to make working with R easier, and you can download and install RStudio for your operating system <a href="https://posit.co/download/rstudio-desktop/">here</a>.<br>
+<strong>Should we offer a list of other IDEs that also work for R?</strong></p>
 </section>
 <section id="packages" class="level3">
 <h3 class="anchored" data-anchor-id="packages">Packages</h3>
-<p>We use a range of R packages throughout the book, primarily for data cleaning and visualisations. These packages will be noted at the beginning of a code block, typically at the start of a chapter. To access biodiversity data we will be working with the <a href="https://galah.ala.org.au/"><code>galah</code></a> package. If you have collected your own occurrence data, you should still find this book useful.</p>
+<p>We use a range of R packages throughout the book, primarily for data cleaning and visualisation. These packages will be noted at the beginning of a code block, typically at the start of a chapter. To access biodiversity data we will be working with the <a href="https://galah.ala.org.au/"><code>galah</code></a> package. If you have collected your own occurrence data, you should still find this book useful.</p>
 <p>A list of the most common packages in this book can be found on the <a href="packages.html">Packages page</a>.</p>
 </section>
 </section>
@@ -527,12 +454,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="code-line-comments" class="level3">
 <h3 class="anchored" data-anchor-id="code-line-comments">Code line comments</h3>
-<p>Some code blocks have numbers beside on the right side of a code line. You can hover over these numbers to read additional context about that specific line of code.</p>
+<p>Some code blocks have circled numbers near the right edge of the code block. You can hover over these numbers to read additional context about that specific line of code.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
-<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(cyl)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(cyl)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
-<dl class="code-annotation-container-grid">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
 <span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="1">This line of code groups <code>mtcars</code> data by each distinct value in the variable <code>cyl</code></span>
@@ -540,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 </div>
 </div>
-<p>Throughout this book, we use “pipes” in our code (<code>|&gt;</code>, or <code>%&gt;%</code> from the magrittr package). Pipes allow you to run multiple functions sequentially to an object or a dataset. Pipes can be read as saying “and then”.</p>
+<p>Throughout this book, we use “pipes” in our code (<code>|&gt;</code>, or <code>%&gt;%</code> from the <code>magrittr</code> package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “and then”.</p>
 <p>For example, the code block above can be read as “Get data <code>mtcars</code>, <strong>and then</strong> group by <code>cyl</code>, <strong>and then</strong> summarise (setting <code>mean_mpg</code> to contain the mean of <code>mpg</code>).”</p>
 
 
@@ -871,25 +798,64 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       };
     }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
           }
-        });
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
       }
   const findCites = (el) => {
     const parentEl = el.parentElement;

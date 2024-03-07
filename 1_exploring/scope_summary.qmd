@@ -1,0 +1,9 @@
+## Data scope summary
+
+This section has demonstrated a few ways to perform an initial investigation of
+the data available to answer a research question using the {galah} package. This
+is a critical part of the research process, and should be conducted in the early
+stages of your project. Keep in mind that this was just a small example of
+examining available data, and our aim is to encourage readers to think
+critically about their own data scope, building on the steps have presented
+here. In the next section, we will explain how to download and save this data. 

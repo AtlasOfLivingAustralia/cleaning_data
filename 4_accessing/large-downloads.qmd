@@ -1,0 +1,220 @@
+# Large downloads
+
+Once the size of your dataset starts to approach the size of your computer's memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the [`{arrow}`](https://arrow.apache.org/docs/r/index.html) package for larger than memory data workflows or the [`{duckdb}`](https://r.duckdb.org/index.html) package for querying databases using SQL.  
+
+
+### Prerequisites
+
+In this chapter, we will use pardalote occurrence data since 2020 from the ALA. 
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+library(galah)
+library(dplyr)
+library(readr)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
+pardalotes <- galah_call() |>
+  identify("Pardalotus") |>
+  filter(year >= 2020) |>
+  select(genus, 
+         species, 
+         scientificName, 
+         cl22,
+         year,
+         month, 
+         decimalLatitude,
+         decimalLongitude) |> 
+  atlas_occurrences() 
+
+write_csv(pardalotes, here::here("data", "pardalotes.csv"))
+```
+
+```{r}
+#| eval: false
+# packages
+library(galah)
+library(dplyr)
+library(readr)
+
+# data: Pardalote records since 2020
+galah_config(email = "your-email-here") # ALA Registered email
+dir.create("tmp")
+
+galah_call() |>
+  identify("Pardalotus") |>
+  filter(year >= 2000) |>
+  select(genus, 
+         species, 
+         scientificName, 
+         cl22,
+         year,
+         month, 
+         decimalLatitude,
+         decimalLongitude) |> 
+  atlas_occurrences() |> 
+  write_csv("tmp/pardalotes.csv")
+
+### WE PROBABLY NEED TO GET THEM TO SAVE IT SOMEWHERE? NOT SURE IF THIS IS BAD PRACTICE ###
+```
+
+The `{arrow}` package allows users to easily read and write different file formats, and analyse larger than memory datasets using `{dplyr}` verbs. A common workflow consists of opening a dataset, filtering or summarising according to some property of the data, and writing this to a new file. This is relatively simple to do with a small csv file, and we can do something conceptually similar using `{arrow}` for larger datasets[^1]. 
+
+[^1]: The dataset used in this example is relatively small (approx. 200,000 rows), but the benefits of using `{arrow}` become obvious once the number of rows in your dataset approaches tens or hundreds of millions.
+
+Let's start by accessing the data as a dataset instead of reading it into memory.     
+::: {.panel-tabset .nav-pills}  
+#### `{arrow}`
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+library(arrow)
+pardalotes <- open_dataset(here::here("data", "pardalotes.csv"), format = "csv")
+```
+
+```{r}
+#| eval: false
+library(arrow)
+pardalotes <- open_dataset("tmp/pardalotes.csv", format = "csv")
+```
+
+#### `{readr}`
+```{r}
+#| eval: false
+library(readr)
+pardalotes <- read_csv("tmp/pardalotes.csv")
+```
+:::
+
+Summarising a dataset using the `{arrow}` package consists of all the same steps you would follow for a smaller dataset using `{dplyr}` verbs, with the addition of a line at the end of the workflow to `collect()` the output into memory. 
+
+::: {.panel-tabset .nav-pills}
+#### `{arrow}`
+
+```{r}
+pardalotes |> 
+  select(species, year, cl22) |> 
+  filter(!is.na(species), !is.na(cl22))|> 
+  group_by(species, year, cl22) |> 
+  summarise(count = n(), .groups = "drop") |>
+  arrange(count) |> 
+  collect()
+```
+
+#### `{dplyr}`
+
+```{r}
+pardalotes |> 
+  select(species, year, cl22) |> 
+  filter(!is.na(species), !is.na(cl22))|> 
+  group_by(species, year, cl22) |> 
+  summarise(count = n(), .groups = "drop") |>
+  arrange(count) 
+```
+:::
+
+Earlier, we saved the pardalotes dataset as a csv file. If the file had been very large, we could have instead saved it as a parquet file using `arrow::write_parquet()`. This is a columnar storage format[^2] designed for efficient data storage. 
+
+[^2]: In contrast, csv files store data in rows, which is much less efficient for storage and takes up more space on disk.  
+
+The `{arrow}` package also allows you to partition large datasets, which can be really useful if you're always going to be subsetting the data in certain ways. For instance, if you're going to be analysing different elements of the pardalotes dataset and will be doing this for different combinations of years each time, it could be more efficient to partition the dataset by year and save these partitions as parquet files.  
+
+```{r}
+dir.create("tmp")
+dir.create("tmp/partitioned")
+ # DAX: IS THIS TOO MUCH DETAIL?
+```
+
+
+**DAX: I think we should direct people here for more information**
+More information here: https://arrow.apache.org/docs/r/articles/. 
+And maybe also: https://r4ds.hadley.nz/arrow
+
+```{r}
+# delete temp directory with pardalote download
+unlink("tmp", recursive = TRUE)
+```
+
+
+### {duckdb}
+in process database  
+db is a collection of tables  
+put data in  
+access, wrangle  
+read from db  
+
+
+## Recycle bin
+# Large downloads
+
+This section will provide a basic example of how to use arrow (and other sql packages like tidysql or dtplyr?). Will be short and sweet, with the aim to just give a few ideas of what exists.
+
+Not all datasets are equal. Some have several hundred rows, others have millions of rows. Some contain two or three columns, others contain hundreds of columns. Some consist of one dataframe, others are lists that consist of *many* dataframes (each with their own columns and rows of data).
+
+In this chapter, we briefly introduce {arrow}, a package that uses tidy syntax (like dplyr) to wrangle large datasets without breaking your computer.
+
+### Prerequisites
+
+```{r}
+#| message: false
+#| warning: false
+library(dplyr)
+library(here)
+library(galah)
+```
+
+
+### Download from GBIF
+
+**Shandiya, I think this example could be replaced by a better EcoAssets example**
+
+To begin, let's retrieve a larger dataset of Kingfishers (family *Alcedinidae*).
+
+:::{layout="[-1, 1, -1]"}
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
+:::
+
+::: {.figure-caption}
+[*Todiramphus (Todiramphus) sanctus* perched
+on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
+:::
+
+```{r}
+#| echo: false
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
+```
+
+```{r}
+#| eval: false
+galah_config(email = "your-email-here") # ALA registered email
+```
+
+```{r}
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  atlas_occurrences()
+```
+
+Often, data like this is saved locally as a .csv using `write.csv()` or
+`readr::write_csv`. 
+
+**Old unedited stuff that used to use elephant data, but can now use kingfisher data**
+
+For larger downloads, we
+recommend saving the data as a Parquet file, as the compression and read/write
+speeds are typically better for this type of data structure. We can do this
+using the `arrow::write_parquet()` function, and `arrow::read_parquet()` can be
+used to read in a parquet file.
+
+```{r, echo = TRUE}
+#| eval: false
+arrow::write_parquet(african_ele, "../data/gbif/elephant")
+elephant <- arrow::read_parquet("../data/gbif/elephant")
+```
