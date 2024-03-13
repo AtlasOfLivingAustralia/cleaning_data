@@ -59,10 +59,6 @@ this book is for you. By learning how to download and apply common data
 cleaning steps, you will also develop a better understanding of
 biodiversity data, and common issues to be aware of.
 
-We use R as it is commonly used across ecological projects, and has a
-rich ecosystem of packages for data cleaning and visualisation. It's also 
-free and open source.   
-
 ## What this book covers {.unnumbered}
 
 In this book, we provide an overview of a typical data cleaning workflow
@@ -110,10 +106,10 @@ have one:
 ### R
 
 To get the most out of this book, a basic knowledge of using R and
-RStudio is recommended. If you are new to R or need a refresher, there
-are many amazing and freely available resources available online.
-[Data Analysis and Visualisation in R for
-Ecologists](https://datacarpentry.org/R-ecology-lesson/), and [R for
+RStudio is recommended. We use R because it is commonly used across ecological 
+projects and has a rich ecosystem of packages for data cleaning and visualisation.
+If you are new to R or need a refresher, there are many amazing and freely available resources available online. [Data Analysis and Visualisation in R for
+Ecologists](https://datacarpentry.org/R-ecology-lesson/) and [R for
 Data Science](https://r4ds.had.co.nz/index.html) are both excellent
 starting points.
 
