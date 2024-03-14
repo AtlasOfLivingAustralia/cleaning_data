@@ -6,6 +6,7 @@ editor:
     wrap: 72
 ---
 
+
 # Dates
 
 Dates can be formatted in *a lot* of different ways. Here are just a few
@@ -32,6 +33,7 @@ the [R 4 Data Science book](https://r4ds.hadley.nz/datetimes.html).
 
 In this chapter, we will use *Grevillea* (aka spider flower) occurrence
 data.
+
 
 ```{r}
 #| warning: false
@@ -77,6 +79,7 @@ birds <- galah_call() |>
   atlas_occurrences()
 ```
 
+
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/8/a/8/9fc9b089-9cb5-401b-bbe4-bf40c12f8a8c/original" class="rounded"/></img>
 
@@ -102,6 +105,7 @@ package. Below are some examples of common date cleaning functions. You
 can find more at the [lubridate package
 website](https://r4ds.hadley.nz/datetimes.html).
 
+
 ```{r}
 #| warning: false
 #| message: false
@@ -109,9 +113,11 @@ library(lubridate)
 ```
 
 
+
 ### Reformat
 
 The lubridate package is incredibly good at reformatting dates written in many different styles to *YYYY-MM-DD* format. Here are a few examples.
+
 
 ```{r}
 date("2017-10-11T14:02:00")
@@ -119,9 +125,11 @@ dmy("11 October 2020")
 mdy("10/11/2020")
 ```
 
+
 Sometimes dates are presented in formats that do not translate cleanly
 into R. For example, the following date format isn't converted correctly
 when we try to convert it to a date.
+
 
 ```{r}
 df <- tibble(
@@ -137,12 +145,14 @@ df |>
   )
 ```
 
+
 We can use `%` to be more explicit about what information is in each
 part of our date column, specifying where the 4-digit year (`%Y`),
 2-digit month (`%m`) and 2 digit day (`%d`) are within each string.
 Learn more about date formats in the [R 4 Data Science
 book](https://r4ds.hadley.nz/datetimes.html#tbl-date-formats)
 <!-- This needs a citation too -->.
+
 
 ```{r}
 df |> 
@@ -151,11 +161,13 @@ df |>
   )
 ```
 
+
 ### Extract
 
 The lubridate package is also very good at extracting specific information from a longer date. This is very useful for summarising, filtering or plotting.
 
 #### Date information
+
 
 ```{r}
 year("2017-11-28T14:02:00")
@@ -164,7 +176,9 @@ week("2017-11-28T14:02:00")
 day("2017-11-28T14:02:00")
 ```
 
+
 ### Time information
+
 
 ```{r}
 ymd_hms("2017-11-28T14:02:00")
@@ -175,11 +189,13 @@ am("2017-11-28T14:02:00")
 pm("2017-11-28T14:02:00")
 ```
 
+
 ### An example using galah
 
 Data downloaded using the galah package is loaded into R as date and
 time data (class `POSIXct`). As a result, you can immediately begin
 extracting date information using the functions above.
+
 
 ```{r}
 plants |>
@@ -194,9 +210,11 @@ plants |>
 ```
 
 
+
 ## Filter
 
 We can filter datasets to include or exclude data from certain dates or date ranges.   
+
 
 ```{r}
 # return records after 2015
@@ -211,9 +229,13 @@ plants |>
            eventDate <= ymd("2017-12-31"))
 ```
 
+
 ## Summary
 
 In this chapter, we provided examples of common functions for cleaning
 dates and times for ecological data sets.
 
 In the next chapter...
+
+
+
