@@ -5,11 +5,12 @@ editor_options:
 
 # Column classes & names
 
-Each column in a data set contains data of a specific **class**. A class defines what type of data is in a column and, for R, how that data should be interpreted and used. It doesn't make much sense to try to run a mathematical equation on a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your dataset will help ensure your data is handled as expected later on.
+This chapter explains how to check the class of each column and edit column names. 
 
-A dataset's **column names** might need some cleaning, too. Some columns might have names that aren't clear about what data they contain (e.g., `col1`, `tga42.D`). Other columns might be formatted strangely when loaded from a csv or a spreadsheet, (e.g., `How.Much.Soil.Is.In.This.Plot..`). Column names might also be inconsistent or formatted strangely (e.g., `species_name`, `scientificName`). 
+Each column in a table contains data of a specific **class**. A class defines the type of data in a column, which determines how those data are interpreted in R and affects how we can modify those data. For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. 
 
-In this chapter we will show how to check the class of each column in your data set. We will then show ways to rename and edit column names to make them clearer or easier to work with.
+Depending on the source of your dataset, the column names in a table may be uninformative (e.g. `col1`, `tga42.D`), oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data.
+
 
 ### Prerequisites
 
@@ -51,8 +52,6 @@ frogs <- galah_call() |>
          genus, species) |>
   atlas_occurrences()
 
-# WORMS dataset
-marine_species <- readr::read_csv(here::here("data", "worms", "worms.csv"))
 ```
 
 ::: aside
@@ -65,15 +64,15 @@ marine_species <- readr::read_csv(here::here("data", "worms", "worms.csv"))
 
 ## Column classes
 
-Columns define what type of data they contain by specifying a class. Classes are important because R handles each differently depending what they are.
+Columns define what type of data they contain by having a class, and it's important to know what these classes are because R handles each class differently.
 
-Viewing your data using functions we used in the [Inspect chapter]() allows you to get a quick glimpse of each column's class.
+Viewing your data using functions we introduced in the [Inspect chapter]() allows you to get a quick overview of each column's class.
 
 :::{.panel-tabset .nav-pills}
 
 #### `glimpse()`
 
-Using `glimpse()` displays the column class beside the column names (e.g., *<chr>*)
+Using `glimpse()` displays the class beside each column name (e.g. <*chr*>)
 
 ```{r}
 library(dplyr)
@@ -83,7 +82,7 @@ glimpse(frogs)
 
 #### `str()`
 
-Using `str()` displays the column class after the column name and before the number of rows (e.g., `chr`)
+Using `str()` displays the class after the column name and before the number of rows (e.g. `chr`)
 
 ```{r}
 str(frogs)
@@ -124,24 +123,22 @@ frogs |>
 
 :::
 
-If you are using a `tibble()`, the class is also displayed below each column name when you view your dataframe.
+If you are using a `tibble()`, the class is also displayed below each column name when you view your table.
 
 ```{r}
 frogs
 ```
 
-Let's breakdown what we can learn about our class types:
+From these quick overviews of the data, we've learnt:
 
-  *  Columns like `scientificName` are are text strings of type `character` 
-  *  Columns like `decimalLatitude` and `decimalLongitude` are decimal numbers of type `numeric`
+  *  Columns like `scientificName` are strings of text of type `character` 
+  *  Columns like `decimalLatitude` and `decimalLongitude` are numbers with decimal points of type `double`
   *  The `eventDate` column contains a date + time and is of type `POSIXct`/`dttm`
-  *  Columns like `recordID` and `taxonConceptID` contain both characters and numbers, but are of type `character` because this type prevents any loss of data[^column-names-and-classes-2].
+  *  Columns like `recordID` and `taxonConceptID` contain both text and numbers, but are of type `character` because this type prevents any loss of data[^column-names-and-classes-2].
 
 [^column-names-and-classes-2]: To avoid conflicts, R has an internal coercion hierarchy rule to avoid data loss. The rule of thumb is that if a data type can't exist in a child data type, then the parent data type is used instead. The R coercion hierarchy is:<br>  `logical` `->` `integer` `->` `numeric` `->` `complex` -> `character`<br><br>You don't need to memorise this, but it's worth being aware of this hierarchy, as R might make decisions to prevent a class error and you might not know why! [Learn more in this article](https://annakrystalli.me/rrresearchACCE20/data-types-structures-and-classes.html).
 
-The important point to takeaway: Our columns' type classes are what we expect given their data. This isn't always the case.
-
-If we change just one of the values in `decimalLatitude` to a "degrees minutes seconds" format, R will change the entire column's class to `character` to prevent any loss of data.
+Here, the column classes are what we'd expect, given the types of data in each column, but this is not always the case. For instance, changing just one of the values in `decimalLatitude` to a "degrees minutes seconds" format will cause the entire column's class to be changed to `character` to prevent loss of data.
 
 
 ```{r}
@@ -158,41 +155,29 @@ frogs_class$decimalLatitude[5] <- "40° 51' 59 N"
 class(frogs_class$decimalLatitude)
 ```
 
-A simple typo in the raw data or spreadsheet you load into R could be all it takes to change the type class of an entire column. Be sure to keep your eyes out for strange column classes!
+A simple typo in the dataset you import into R could be all it takes to change the class of an entire column, so be sure to keep your eyes out for strange column classes!
 
 ## Column names
 
-There are many reasons why you might need to change the name of one or more columns in a dataset. Let's look at a few of the more common tasks when cleaning ecological data.
+There are many reasons why you might need to change the name of one or more columns in a table. We've outlined a few of the more common use cases here. 
 
 ### Make column names consistent
 
-Column names should use consistent naming conventions. Common naming formats include "snake case" and "camel case". These naming formats are popular because they are readable and easy to work with in code.
+Column names should use consistent naming conventions. Common naming formats include "snake case" and "camel case", which are popular because they are both human- and machine-readable. 
 
-**Camel case** uses a lowercase first letter, then capitalises every word after.
+**Camel case** begins in lowercase and uses uppercase for the first letter of every subsequent word (e.g. scientificName, dataResourceName, eventDate).  
 
-```{r}
-#| echo: false
-c("scientificName", "dataResourceName", "eventDate")
-```
+**Snake case** uses lowercase letters only, with words separated by an underscore `_` (e.g. scientific_name, data_resource_name, event_date).  
 
-**Snake case** uses entirely lowercase names, separating words using an underscore (`_`).
+R is case sensitive, so two names with the same letters but different capitalisation are considered different names (e.g. event vs. Event). Using a consistent naming convention, like camel case or snake case, makes it easier to avoid these errors. Snake case is more popular in R, and is the naming convention we recommend. Data downloaded from the ALA is in camel case[^column-names-and-classes-1].
 
-```{r}
-#| echo: false
-c("scientific_name", "data_resource_name", "event_date")
-```
-
-Data downloaded from the ALA uses camel case[^column-names-and-classes-1].
-
-[^column-names-and-classes-1]: This is because queries to the ALA use other coding languages, namely `solr` and `JSON`, and the column names in these languages are typically written in camel case. To maintain consistency with what's on the ALA and to avoid hidden name cleaning, galah chooses to return camel case names, too.
+[^column-names-and-classes-1]: Queries to the ALA use other coding languages, namely `solr` and `JSON`, and column names in these languages are typically in camel case. To maintain consistency with what's in the ALA and to avoid hidden name cleaning, galah also returns names in camel case.
 
 ```{r}
 colnames(frogs)
 ```
 
-However, R is case sensitive. If two names have exactly the same letters but different capitalisation, R considers them different names entirely. To help avoid mistakes caused by capitalisation, **it is more popular to use snake case in R. This is also the column name convention we recommend**.
-
-One of the most useful column name cleaning functions is `clean_names()` from the janitor package. This function can read in any column names and convert them to snake case if possible.
+One of the most useful column name cleaning functions is `clean_names()` from the janitor package. This function will make all your column names consistent, based on your preferred naming convention (defaults to snake case). 
 
 ```{r}
 #| warning: false
@@ -207,14 +192,14 @@ frogs_clean
 
 ### Rename columns
 
-Renaming columns is a frequent data cleaning task. Column names might need renaming to make it clearer what data they contain, or to make a name consistent with another dataset prior to merging their contents together.
+Renaming columns is a frequent data cleaning task. Column names might need renaming to make it clearer what data they contain, or to make a name consistent with another dataset prior to merging their contents.
 
 There are several ways to rename columns in R.
 
 ::: {.panel-tabset .nav-pills}
 #### `rename()`
 
-`rename()` (from dplyr) provides an easy way to rename one or more columns.
+`dplyr::rename()` provides an easy way to rename one or more columns.
 
 ```{r}
 frogs |>
@@ -254,7 +239,7 @@ names(frogs)[names(frogs) == "longitude"] <- "decimalLongitude"
 
 ### Separate columns
 
-Sometimes it is useful to split information in one column into several columns. One good example is if genus and species names are held within one column like `scientificName`. Let's separate these names into two columns using `separate()` from the tidyr package.
+Sometimes it is useful to split information from one column into several columns. One good example is if genus and species names are contained in one column like `scientificName`. We can separate these names into two columns using `separate()` from the tidyr package.
 
 ```{r}
 #| warning: false
@@ -273,7 +258,7 @@ frogs_separate
 
 ### Join columns
 
-Alternatively, it is useful to join information in multiple columns. One good example is to create label names when genus and species names are in separate columns. Let's rejoin the `genus` and `species` columns we created in the previous section using `unite()` from the tidyr package.
+Conversely, we might want to combine information from multiple columns into a single column. We can rejoin the `genus` and `species` columns we created in the previous section using `unite()` from the tidyr package.
 
 ```{r}
 frogs_separate |>
@@ -288,6 +273,6 @@ frogs_separate |>
 
 ## Summary
 
-In this chapter, we provided some ways to check the data types/classes of your data set's columns, and showed how to rename or edit columns.
+In this chapter, we've explored different ways to check the class of each column in your table to make sure R is interpreting your data correctly, to change column names to make it easier to work with them, and to split or combine columns to access data more conveniently. 
 
 In the next chapter we will learn to xxx...
