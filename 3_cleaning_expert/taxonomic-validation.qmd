@@ -101,6 +101,8 @@ eucalypts <- galah_call() |>
 
 One of the simplest ways to determine whether there are any immediate issues with taxonomic names is to print some of them. Here we can already notice that some names are formatted in all capitals while others are not.
 
+*CW: One of the simplest ways to determine whether there are any immediate issues with taxonomic names is to print some of them. Most biodiversity datasets have a `scientificName` or `scientific_name` field that specifies the lowest identifiable scientific name for each record. Looking at it here, we can already notice some characteristics of the names in our data: a) records have been identified to different taxonomic ranks (we can see subspecies, species, genus and family here), b) some names are formatted in all capitals while others are not, and c) some names have bracketed parts.*
+
 ```{r}
 birds |>
   distinct(scientificName) |>
@@ -143,6 +145,27 @@ birds |>
 ```
 
 Although both are correct, be sure to check your data to make sure that this naming format is consistent.
+
+*CW (maybe as another tab): Subgenera: As a second example, subgenera are present in many Animalian clades, but their formatting varies across taxonomic fields. In the ALA's `scientificName` field, subgenera are specified as a bracketed term between the genus and species, while they are not specified at all in the `species` field.*
+
+```{r}
+#| warning: false
+#| message: false
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  select(group = "basic", species) |>
+  atlas_occurrences()
+
+birds |>
+  filter(str_detect(scientificName, "Dacelo")) |>
+  distinct(scientificName)
+
+birds |>
+  filter(str_detect(species, "Dacelo")) |>
+  distinct(species)
+```
 
 ## Taxonomic names matching
 
@@ -190,7 +213,7 @@ names_matches_renamed
 ```
 1. This line uses shorthand to write a function to append a suffix to a column name. An equivalent way of writing this is:<br>  `function(column_name) {paste0(column_name, "_ala)}`<br><br>This is applied to each column name from `kingdom` to `species` in the `names_matches_ala` dataframe.
 
-Now let's join our matched names to our `inverts_sample` data.
+Now let's join our matched names to our `inverts_sample` data. **CW: Ignore what I said about this right_join - it's correct so leave as is**
 
 ```{r}
 inverts_sample_with_ranks <- names_matches_renamed |>
@@ -228,6 +251,8 @@ eucalypts |>
   distinct(scientificName) |>
   count(name = "n_species")
 ```
+
+#### Identifying mismatches in species lists
 
 Let's say we want to compare these observations to data retrieved outside of the ALA and decide that we'd prefer to use GBIF's[^gbif] taxonomy. Our data is from the ALA, which uses its own taxonomic backbone that differs to GBIF's (depending on the taxonomic group). Let's go through the steps to match our taxonomy in our `eucalypts` data to GBIF's taxonomy. 
 
@@ -364,6 +389,8 @@ ala_taxa |>
   select(scientific_name, phylum, class, order)
 ```
 
+#### Identifying mismatches with `search_taxa()`
+
 We might not know about this issue when we first decide to match GBIF's taxonomic names to our data. So it's important to investigate how well these names match (and where there are any mismatches) before merging them to our data.
 
 If you are using a taxonomy from ALA or GBIF, you can use `search_taxa()` in galah to see which names match *before* you download a species list. For example, we can search for all the species names in our `eucalypts` dataframe.
@@ -419,6 +446,8 @@ matched_names |>
 Scientific discoveries and advances in taxonomic classification can cause taxonomic names to change. A taxonomic **synonym** refers to a scientific name that a taxon that goes by a different name. Synonyms can come about when a taxon was once referred to a taxon that has since had its accepted scientific name changed. Synonyms are important because older records referred to by a synonym can still be searched for and linked to other taxonomic records.
 
 Synonyms can be tricky to deal with during data cleaning because they can be difficult to spot. Here are several examples of synonyms.
+
+**CW: I think it would be good, if its concise enough, to explain that GBIF does have these names stored as synonyms which is why it matches it still (and lists in under scientific_name)**
 
 :::{.panel-tabset .nav-pills}
 
@@ -523,6 +552,8 @@ gbif_species_list
 ```
 
 GBIF species lists include a `taxonomicStatus` column that supplies information of whether a taxonomic name is accepted or a synonym. A good example is the list of names for *Eucalyptus leucoxylon*, which has a number of accepted subspecies names and synonyms.
+
+*CW: Not sure on this, but it might be helpful to show a taxonomicRank column if its present?*
 
 ```{r}
 gbif_species_list |>
