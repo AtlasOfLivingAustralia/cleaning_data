@@ -178,7 +178,7 @@ pm("2017-11-28T14:02:00")
 ### An example using galah
 
 Data downloaded using the galah package is loaded into R as date and
-time data (class `POSITct`). As a result, you can immediately begin
+time data (class `POSIXct`). As a result, you can immediately begin
 extracting date information using the functions above.
 
 ```{r}
@@ -196,7 +196,7 @@ plants |>
 
 ## Filter
 
-We can filter ALA data to within a specific date.
+We can filter datasets to include or exclude data from certain dates or date ranges.   
 
 ```{r}
 # return records after 2015
@@ -211,75 +211,9 @@ plants |>
            eventDate <= ymd("2017-12-31"))
 ```
 
-### Filter before download
-
-In galah, you can filter data very similarly but before you download <!-- is this worth including? -->
-
-
-
 ## Summary
 
 In this chapter, we provided examples of common functions for cleaning
 dates and times for ecological data sets.
 
 In the next chapter...
-
-
----
-
-## Recycle bin
-
-<!-- 
-This was originally in the "unexpected-values" chapter, which was disbanded because most sections fit in other chapters.
-This section doesn't quite fit in this chapter, but it's an interesting thing. Probably not work including here (or at all)?
--->
-
-## Unexpected time
-
-Sometimes, although the correct filters were used to download a data set, some unexpected values can sneak through and require cleaning. These unexpected values can happen when processes used to clean or categorise data by a data provider or data infrastructure miss a few values. Missed values might have been mis-entered originally, fixed incorrectly or undetected.
-
-For example, recall that we filtered our data download query to `year == 2022` using galah ([@sec-prereq]). If we look at the `year` field returned by galah, it looks like our data is only from 2022.
-
-```{r}
-birds |>
-  distinct(year)
-```
-
-However, we can use the `eventDate` field to double check this is true. Let's extract year from `eventDate` by using the `year()` function from the lubridate package.
-
-```{r}
-#| warning: false
-#| message: false
-library(lubridate)
-
-birds_dates <- birds |>
-  mutate(date = date(eventDate), # <1>
-         year_extracted = year(eventDate))
-
-birds_dates |>
-  select(date, year_extracted)
-```
-1. We first convert values in the `eventDate` column to a `date` class. The lubridate package is very good at reading dates in *many* different formats and standardising them into a "yyyy-mm-dd" format. After this conversion, dates can be handled correctly (and more easily) by the lubridate package.
-
-Despite specifying the year in our galah query, when we summarise our new `year_extracted` column, we find that there are other unexpected records from 2021, too!
-
-```{r}
-birds_dates |>
-  group_by(year_extracted) |>
-  count()
-```
-
-Viewing these records' `eventDate` shows that each of them occurred on New Year's Eve in 2021---on the cusp of 2022. For some unknown reason they still slipped through into our galah data query.
-
-```{r}
-birds_dates |>
-  filter(year_extracted == 2021) |>
-  select(eventDate, date, year, year_extracted)
-```
-
-As we are only interested in records from 2022, we can filter these unexpected 2021 records out of our data set.
-
-```{r}
-birds_filtered <- birds_dates |>
-  filter(year_extracted == 2022)
-```
