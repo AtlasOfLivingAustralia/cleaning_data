@@ -43,6 +43,16 @@ birds <- galah_call() |>
   atlas_occurrences()
 ```
 
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
+
+::: {.figure-caption}
+[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
+:::
+:::
+
 ## Getting to know your data
 
 **Metadata** describes your dataset, defines its variables and previews their
@@ -80,7 +90,7 @@ Many data infrastructures like the Atlas of Living Australia also follow a data
 standard to help consolidate data from many different data
 providers[^inspect-1].
 
-The data standard used by the Atlas of Living Australia is called "Darwin Core",
+The data standard used by the Atlas of Living Australia is called **Darwin Core**,
 which defines a [set of standard terms](https://dwc.tdwg.org/terms/)[^inspect-2]
 to use across datasets (used as column names within datasets) and the accepted
 values that are recorded under specific terms. Darwin Core standards also

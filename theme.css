@@ -9,6 +9,15 @@
   clip-path: circle();
 }
 
+
+
+@media screen and (max-width: 952px){
+  .centre-it {
+    margin-left: auto!important;
+    margin-right: auto!important;
+  }
+}
+
 img.rounded {
   object-fit: cover;
   border-radius: 10% !important;
@@ -52,6 +61,10 @@ img.rounded {
   margin-left: auto;
   margin-right: auto;
   
+}
+
+.circle-button:hover {
+  opacity: 0.8;
 }
 
 .fa-solid {

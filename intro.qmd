@@ -14,48 +14,25 @@ df-print: kable
 
 # Introduction {.unnumbered}
 
-<!-- In ecology and biology, researchers, managers and decision makers often
-want to answer questions about where species live, what
-biological and environmental factors affect their survival and success,
-and how these factors might affect their future survival. These questions are 
-difficult but essential to answer for conservation and ecosystem management. 
-
-To address these questions, many ecologists must combine large amounts
-of species data from different sources for analysis. These data usually
-vary in structure, formatting, and quality because each data source
-might structure their data a little differently to the next. Merging
-them correctly can be challenging and time consuming. Formatting errors,
-spelling errors, taxonomic inconsistencies and spatial errors are some
-of the most common problems, but the ecologist must fix these errors
-before the data can be analysed.
-
-There is, however, no ‘one-size-fits-all’ approach to cleaning
-ecological data. What is considered a "clean" dataset varies depending
-on the project and the data sources. Yet there are some common processes
-and concepts that can be applied to many data cleaning workflows. This
-book aims to offer these processes and concepts in one place.
-
-Many ecologists and researchers choose to use code for data wrangling,
-analysis and visualisation. There are many languages (e.g., Python, R,
-Julia) that can achieve the same result. This book is a resource to
-assist researchers and decision makers that wish to clean geo-referenced
-biodiversity data using R.-->  
-
 Data cleaning is a process that biologists and ecologists invariably have to 
 engage with before they can answer questions using data. Depending on the sources
 of the data, it may be necessary to standardise formats, correct spelling errors,
-and resolve taxonomic inconsistency and spatial **[SMTH]** before these data can 
+and resolve taxonomic inconsistency and spatial errors before these data can 
 be analysed. The "correct" degree of data cleaning will depend on the project and
 the questions being asked of the data, so there is no one-size-fits-all approach. 
 There are, however, some common processes that will be broadly applicable to 
 many data cleaning workflows. This book consolidates those processes into a resource 
 for users who are interested in understanding how to clean their datasets.   
 
+:::{.figure-caption}
+![Global density of 2.1 billion geo-referenced biodiversity data in the Global Biodiversity Information Facility (GBIF)](images/hex_plot_small.png)
+:::
+
 ## Who is this book for? {.unnumbered}
 
-If you are new to working with georeferenced biodiversity data in R, or are looking
+If you are new to working with geo-referenced biodiversity data in R, or are looking
 for a quick reference to data cleaning processes or concepts in R, then
-this book is for you. By learning how to download and apply common data
+this book is for you! By learning how to download and apply common data
 cleaning steps, you will also develop a better understanding of
 biodiversity data, and common issues to be aware of.
 
@@ -68,20 +45,65 @@ down into four sections. The chapters within each
 section include practical guidelines, example R code, and additional
 resources that may aid with each data cleaning step. 
 
-The first section is about **accessing data**. [summary]
+:::{layout-ncol="2"}
 
-The second section is about **exploring data**. [summary]
+::: {.centre-it style="margin-top:auto; margin-bottom:auto;"}
 
-The third section is about **general data cleaning processes**. [summary]
+<a href="1_accessing/access_intro.html">
+<button class="circle-button">
+  {{< fa magnifying-glass size=3x >}}
+</button>
+</a>
 
-The fourth section is about **data cleaning processes that require expertise in your study species**. [summary]
+:::
+
+The first section is about **exploring data**. This section briefly introduces ways to inspect and summarise your data taxonomically, spatially and temporally to figure out what might need cleaning.
+
+:::
+
+---
+
+:::{layout-ncol="2"}
+
+::: {.centre-it style="margin-top:auto; margin-bottom:auto;"}
+
+<a href="1_accessing/access_intro.html">
+<button class="circle-button">
+  {{< fa broom size=3x >}}
+</button>
+</a>
+
+:::
+
+The second section is about **general data cleaning processes**. This section provides a checklist of data science tools and functions to clean different aspects of your data like strings, dates and missing values.
+
+:::
+
+---
+
+:::{layout-ncol="2"}
+
+::: {.centre-it style="margin-top:auto; margin-bottom:auto;"}
+
+<a href="1_accessing/access_intro.html">
+<button class="circle-button">
+  {{< fa bugs size=3x >}}
+</button>
+</a>
+
+:::
+
+The third section is about **data cleaning processes that require expertise in your study species**. This section discusses ways to spot errors that require ecological consideration of how best to handle each issue for your specific research question.
+
+:::
+
 
 
 ## What we don't cover {.unnumbered}
 
 The areas of research and uses of biodiversity data are many and varied.
-Here we have focused on just one facet - downloading and cleaning
-georeferenced occurrence / biodiversity data. As such, this book will
+Here we have focused on just one facet---downloading and cleaning
+geo-referenced occurrence/biodiversity data. As such, this book will
 not cover:
 
 -   Hypothesis testing or experimental design
@@ -123,15 +145,20 @@ RStudio is an integrated development environment (IDE) for R
 programming. RStudio provides a range of tools to make working with R
 easier, and you can download and install RStudio for your operating
 system [here](https://posit.co/download/rstudio-desktop/).  
-**Should we offer a list of other IDEs that also work for R?**  
+
+If you prefer a different IDE to RStudio, some great alternatives are:
+
+  *  [Visual Studio Code](https://code.visualstudio.com/)
+  * **other examples**
+
 
 ### Packages
 
 We use a range of R packages throughout the book, primarily for data
-cleaning and visualisation. These packages will be noted at the
-beginning of a code block, typically at the start of a chapter. To
-access biodiversity data we will be working with the
-[`galah`](https://galah.ala.org.au/) package. If you have collected your
+cleaning and visualisation. These packages will be typically noted at the
+beginning of a chapter, and occassionally a code block. To
+access biodiversity data we will be primarily working with the
+[galah](https://galah.ala.org.au/) package. If you have collected your
 own occurrence data, you should still find this book useful.
 
 A list of the most common packages in this book can be found on the [Packages page](packages.html).
@@ -154,8 +181,7 @@ mtcars |>
 ```
 
 ::: {.callout-tip appearance="simple"}
-You can copy code by clicking the [clipboard icon] button in the top right corner of a
-code block.
+You can copy code by clicking the [{{< fa clipboard title="clipboard">}}]{style="color:#222322;!important"} <!-- I have no idea how to change the colour--> button in the top right corner of a code block.
 :::
 
 ### Code line comments
@@ -169,7 +195,5 @@ mtcars |>
 ```
 1. This line of code groups `mtcars` data by each distinct value in the variable `cyl`
 
-Throughout this book, we use “pipes” in our code (`|>`, or `%>%` from the `magrittr` package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “and then”.
-
-For example, the code block above can be read as "Get data `mtcars`, **and then** group by `cyl`, **and then** summarise (setting `mean_mpg` to contain the mean of `mpg`)."
+Throughout this book, we use “pipes” in our code (`|>`, or `%>%` from the `magrittr` package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “*and then*”. For example, the code block above can be read as "Get data `mtcars`, *and then* group by `cyl`, *and then* summarise (setting `mean_mpg` to contain the mean of `mpg`)."
 

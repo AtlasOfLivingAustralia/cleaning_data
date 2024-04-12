@@ -5,9 +5,13 @@ editor_options:
 
 # Ecological data cleaning
 
-This section details data cleaning methods that rely on ecological/biological expert knowledge of your dataset. Not everything will apply to every dataset, and will depend on the species or clades that are in the data.
+This section details data cleaning methods that rely on ecological/biological expert knowledge of your dataset. Not everything will apply to every dataset, and will depend on the species or clades that are in the data. The first chapter explains ways to search your taxonomy and verify there are no inconsistencies in names or hiearchy. The second chapter...
 
+<!-- Visualisation placeholder -->
 
+![](../images/final_tree.png)
+
+<!--
 ::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
 
 ::: {style="width: 25%; justify-content: space-between"}
@@ -39,4 +43,4 @@ This section details data cleaning methods that rely on ecological/biological ex
 :::
 
 :::
-
+-->

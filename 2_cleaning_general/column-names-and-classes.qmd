@@ -66,7 +66,7 @@ frogs <- galah_call() |>
 
 Columns define what type of data they contain by having a class, and it's important to know what these classes are because R handles each class differently.
 
-Viewing your data using functions we introduced in the [Inspect chapter]() allows you to get a quick overview of each column's class.
+Viewing your data using functions we introduced in the [Inspect chapter](LINK) allows you to get a quick overview of each column's class.
 
 :::{.panel-tabset .nav-pills}
 
@@ -123,22 +123,22 @@ frogs |>
 
 :::
 
-If you are using a `tibble()`, the class is also displayed below each column name when you view your table.
+If you are using a `tibble`, the class is also displayed below each column name when you view your table.
 
 ```{r}
 frogs
 ```
 
-From these quick overviews of the data, we've learnt:
+From these quick overviews of the data, we've learned:
 
-  *  Columns like `scientificName` are strings of text of type `character` 
-  *  Columns like `decimalLatitude` and `decimalLongitude` are numbers with decimal points of type `double`
-  *  The `eventDate` column contains a date + time and is of type `POSIXct`/`dttm`
+  *  Columns like `scientificName` are strings of text (type `character`)
+  *  Columns like `decimalLatitude` and `decimalLongitude` are numbers with decimal points (type `double`)
+  *  The `eventDate` column contains a date + time (type `POSIXct`/`dttm`)
   *  Columns like `recordID` and `taxonConceptID` contain both text and numbers, but are of type `character` because this type prevents any loss of data[^column-names-and-classes-2].
 
-[^column-names-and-classes-2]: To avoid conflicts, R has an internal coercion hierarchy rule to avoid data loss. The rule of thumb is that if a data type can't exist in a child data type, then the parent data type is used instead. The R coercion hierarchy is:<br>  `logical` `->` `integer` `->` `numeric` `->` `complex` -> `character`<br><br>You don't need to memorise this, but it's worth being aware of this hierarchy, as R might make decisions to prevent a class error and you might not know why! [Learn more in this article](https://annakrystalli.me/rrresearchACCE20/data-types-structures-and-classes.html).
+[^column-names-and-classes-2]: To avoid conflicts, R has an internal coercion hierarchy rule to avoid data loss. The rule of thumb is that if a data type can't exist in a child data type, then the parent data type is used instead. The R coercion hierarchy is:<br>  `logical` `->` `integer` `->` `numeric` `->` `complex` `->` `character`<br><br>You don't need to memorise this, but it's worth being aware of this hierarchy, as R might make decisions to prevent a class error and you might not know why! [Learn more in this article](https://annakrystalli.me/rrresearchACCE20/data-types-structures-and-classes.html).
 
-Here, the column classes are what we'd expect, given the types of data in each column, but this is not always the case. For instance, changing just one of the values in `decimalLatitude` to a "degrees minutes seconds" format will cause the entire column's class to be changed to `character` to prevent loss of data.
+Here, the column classes are what we'd expect given the types of data in each column. However, this is not always the case. For instance, changing just one of the values in `decimalLatitude` to a "degrees minutes seconds" format will cause the entire column's class to be changed to `character` to prevent loss of data.
 
 
 ```{r}
@@ -163,13 +163,13 @@ There are many reasons why you might need to change the name of one or more colu
 
 ### Make column names consistent
 
-Column names should use consistent naming conventions. Common naming formats include "snake case" and "camel case", which are popular because they are both human- and machine-readable. 
+Column names should use consistent naming conventions. R is case sensitive, so two names with the same letters but different capitalisations are considered different names (e.g. `event` vs. `Event`). Using a consistent naming convention, like camel case or snake case, makes it easier to avoid these errors. Common naming formats include "snake case" and "camel case", which are popular because they are both human- and machine-readable. 
 
-**Camel case** begins in lowercase and uses uppercase for the first letter of every subsequent word (e.g. scientificName, dataResourceName, eventDate).  
+**Camel case** begins in lowercase and uses uppercase for the first letter of every subsequent word (e.g. `scientificName`, `dataResourceName`, `eventDate`).  
 
-**Snake case** uses lowercase letters only, with words separated by an underscore `_` (e.g. scientific_name, data_resource_name, event_date).  
+**Snake case** uses lowercase letters only, with words separated by an underscore `_` (e.g. `scientific_name`, `data_resource_name`, `event_date`).  
 
-R is case sensitive, so two names with the same letters but different capitalisation are considered different names (e.g. event vs. Event). Using a consistent naming convention, like camel case or snake case, makes it easier to avoid these errors. Snake case is more popular in R, and is the naming convention we recommend. Data downloaded from the ALA is in camel case[^column-names-and-classes-1].
+Snake case is more popular in R, and is the naming convention we recommend. Data downloaded from the ALA is in camel case[^column-names-and-classes-1].
 
 [^column-names-and-classes-1]: Queries to the ALA use other coding languages, namely `solr` and `JSON`, and column names in these languages are typically in camel case. To maintain consistency with what's in the ALA and to avoid hidden name cleaning, galah also returns names in camel case.
 
@@ -177,7 +177,7 @@ R is case sensitive, so two names with the same letters but different capitalisa
 colnames(frogs)
 ```
 
-One of the most useful column name cleaning functions is `clean_names()` from the janitor package. This function will make all your column names consistent, based on your preferred naming convention (defaults to snake case). 
+One of the most useful column name cleaning functions is `clean_names()` from the janitor package. This function will make all of your column names consistent, based on your preferred naming convention (defaults to snake case). 
 
 ```{r}
 #| warning: false

@@ -4,7 +4,7 @@ In the last chapter, we learned how to see a brief glimpse of our data's structu
 
 In this chapter, we learn how to briefly summarise ecological data. These summaries will fall within three domains: **Taxonomic**, **Temporal** and **Spatial**. Summarising our data will help us see the diversity in our dataset, learn more about its scope, and determine whether it is the right dataset for our analysis.
 
-Over this chapter there are many places where we can use the galah package to summarise our data. The galah package can summarise data on the server-side, prior to downloading any data locally onto your computer. The benefit to doing these summaries server-side is that you can work with data without the need to have a large dataset on your local computer first. 
+Over this chapter there are many places where we can use the galah package to summarise our data. The galah package can summarise data on the server-side, prior to downloading any data locally onto your computer, meaning that you can filter or summarise data without needing to have them on your local computer first. 
 
 We will show how to use galah (prior to download) or dplyr (after a download) when both options are available.
 
@@ -50,6 +50,15 @@ birds <- galah_call() |>
   atlas_occurrences()
 ```
 
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
+
+::: {.figure-caption}
+[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
+:::
+:::
 
 ## Taxonomic
 
@@ -123,9 +132,9 @@ birds |>
 
 ### Counts by region
 
-It can be useful to summarise occurrence numbers by a specific region. In galah, you can do this prior to downloading your data.
+It can be useful to summarise occurrence numbers by a specific region. With galah, you can do this summarising prior to downloading occurrence records.
 
-For example, you might wish to summarise your data by state/territory. We can search for the correct field to use in galah, determining that field ID `cl22` seems to suit our needs best.
+For example, you might wish to summarise your data by state/territory. We can search for the correct field to use in galah, determining that field ID `cl22` contains "Australian States and Territories" and seems to suit our needs best.
 
 ```{r}
 search_all(fields, "states")
@@ -166,7 +175,7 @@ birds |>
   arrange(desc(n))
 
 birds |>
-  group_by(species, cl22) |>
+  group_by(cl22, species) |>
   count() |>
   arrange(desc(n))
 ```
@@ -181,7 +190,7 @@ birds |>
   adorn_pct_formatting()
 
 birds |>
-  tabyl(species, cl22) |>
+  tabyl(cl22, species) |>
   adorn_pct_formatting()
 ```
 :::
@@ -248,9 +257,7 @@ ggplot() +
 
 #### Point density map
 
-With over 40,000 points plotted on our map, it can be hard to see every single point, or where many points overlap.
-
-We can use the [ggpointdensity package](https://github.com/LKremer/ggpointdensity) to visualise locations where there are many overlapping occurrences.
+We can use the [ggpointdensity package](https://github.com/LKremer/ggpointdensity) to visualise locations where there are many overlapping occurrences. With over 40,000 points plotted on our map, `geom_pointdensity()` allows us to see areas with higher densities of observations.
 
 ```{r}
 #| warning: false
@@ -279,9 +286,7 @@ ggplot() +
 
 #### Facetted maps
 
-It can also be useful to create a collection of maps grouped by a specific variable (i.e., facetted). 
-
-Here is one taxonomic example, grouping by species. Visualising by groups can reveal spatial trends, and also help you determine whether there is enough data for each species or taxonomic group for your later analyses.
+It can also be useful to create a collection of maps grouped by a specific variable (i.e., facetted). Here is one taxonomic example, grouping by species with `facet_wrap()`. Visualising by groups can reveal spatial trends, and also help you determine whether there is enough data for each species or taxonomic group for your later analyses.
 
 ```{r}
 ggplot() +
@@ -307,11 +312,11 @@ ggplot() +
 
 ### Counts by time scales
 
-Knowing the breakdown of when occurrence records are recorded can reveal trends in seasonality between species. Checking this breakdown can also help you determine whether you have enough data to make inferences about patterns over the span of a year, or whether you're inferences about temporal trends are limited by the amount of data.
+Knowing the breakdown of when observations are recorded can reveal trends in seasonality between species. Checking this breakdown can also help you determine whether you have enough data to make inferences about patterns over the span of a week, month, year, decade or even century, or whether you're inferences about temporal trends are limited by the amount of existing data.
 
 #### Year
 
-For example, an easy first summary is to know the number of records in each year. You can do this in galah prior to download data. We can search for the correct field to use in galah, determining that field ID `year` seems to suit our needs best.
+For example, an easy first summary is to know the number of records in each year. You can do this in galah prior to downloading data. We can search for the correct field to use in galah, determining that field ID `year` seems to suit our needs best.
 
 ```{r}
 search_all(fields, "year")
@@ -390,7 +395,9 @@ birds_date |>
 
 Another way to summarise temporal data is using line plots to visualise trends at different time scales over one or more years.
 
-There are a few records that seem to be from 2021 despite downloading data for 2022. For simplicity, we'll filter them out.  
+There are a few records that seem to be from 2021 despite downloading data for 2022[^timezones]. For simplicity, we'll filter them out.  
+
+[^timezones]: This is due to timezone conversion when the ALA standardises its data. There are several timezones across Australia, so although these points might have been in 2022, once converted they fell outside of 2022!
 
 ```{r}
 # filter dataset to 2022 only
@@ -401,7 +408,7 @@ birds_day <- birds_date |>
 ```
 
 
-Now we can group our records by each day of the year, and summarise the record count for each day. 
+Now we can group our records by each day of the year, and summarise the record count for each day... 
 
 ```{r}
 birds_day <- birds_day |>
@@ -410,7 +417,7 @@ birds_day <- birds_day |>
 birds_day
 ```
 
-.... and now we can visualise our data. 
+...which we can visualise as a line plot. There are huge fluctuations in our daily count data (from near zero to nearly 1000 observations), so to make the plot easier to read, we can use a `log10` scale.
 
 ```{r}
 #| fig-cap: "Number of observations per day (2022)"
@@ -423,8 +430,9 @@ ggplot(birds_day, aes(x = day, y = count)) +
   theme_minimal()  # Set a minimal theme
 ```
 
-You can use the same method above to group record counts by week. 
+The same method above can be used to group record counts by week[^logscale]. 
 
+[^logscale]: Notice, though, that we've ommitted the log scale because grouping by week has less variation in counts than by day (above).
 
 ```{r}
 #| code-fold: true
@@ -439,12 +447,13 @@ birds_week <- birds_date |>
 ggplot(birds_week, aes(x = week, y = count)) +
   geom_line() +  # Add lines
   geom_point() + # Add points
-  labs(x = "Week", y = "Count (log10)") +
+  labs(x = "Week", y = "Count") +
   scale_x_continuous(breaks = seq(1, 52, by = 4)) + 
   # scale_y_log10() +  # Set logarithmic scale for y-axis
   theme_minimal()  # Set a minimal theme
 ```
 
+Our temporal plots show that occurrences generally drop in the earlier months, then inflate in the later months of the year.
 
 ## Summary
 
