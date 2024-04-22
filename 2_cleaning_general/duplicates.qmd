@@ -6,9 +6,9 @@ editor:
 
 # Duplicates
 
-Duplicated records can happen when using aggregated data sources. Without removing them, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.
+Duplicated records can happen in individual datasets, but are even more likely when using aggregated data sources. Without removing them, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.
 
-Duplicated records can also happen in individual datasets, and depending on the analyses you wish to run, you might need to remove records that are separate observations of a species but overlap taxonomically, spatially or temporally. Prior to running species distribution models, for example, you often need to remove duplicate records that overlap the same location.
+Depending on the analyses you wish to run, you might need to remove records that are separate observations of a species but overlap taxonomically, spatially or temporally. Prior to running species distribution models, for example, you often need to remove duplicate records that overlap the same location.
 
 In this section we will cover detection and handling of duplicate records.
 

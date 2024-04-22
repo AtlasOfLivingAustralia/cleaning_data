@@ -8,7 +8,12 @@ editor_options:
 
 This section will detail some steps and functions to clean a dataset for analysis. **These steps will remove problematic values that are due to the data's formatting**, solved by more general data cleaning tasks. These tasks include removing duplicates, correcting dates, and removing or correcting missing or unexpected values.
 
-The steps in this chapter are not linear, and they don't have to be done in order. Treat this section as more of a checklist. 
+The steps in this chapter are not linear, and they don't have to be done in order. Treat this section as more of a checklist.
+
+<!-- Placeholder for nice visualisation -->
+![](../images/map_galah_radius.png)
+
+<!-- Suggest to remove as the buttons don't make navigation any easier
 
 Click on the following chapters to get started:
 
@@ -58,5 +63,6 @@ Click on the following chapters to get started:
 
 :::
 
+-->
 
 

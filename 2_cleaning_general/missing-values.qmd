@@ -6,7 +6,7 @@ editor:
 
 # Missing values
 
-Missing values are a nuisance in datasets when used in R. Missing values can unintentionally skew results if they remain unknown because quite often missing values are ignored when running visualisations or analyses. When function don't ignore missing values, however, they often prevent the function from running at all. So it's in everyone's best interest to either remove or at least be aware of the missing values in your dataset.
+Missing values are a nuisance in datasets, especially when using R. Missing values can unintentionally skew results if they remain unknown because quite often missing values are ignored when running visualisations or analyses. When function don't ignore missing values, however, they often prevent the function from running at all. So it's in everyone's best interest to either remove or at least be aware of the missing values in your dataset.
 
 This chapter will show how to detect and remove missing values.
 
@@ -87,11 +87,11 @@ geckos |>
          species, cl22, everything()) # reorder columns
 ```
 
-Or we can specify the specific column with `NA` values.
+Or we can specify the column (in this case column `cl22`).
 
 ```{r}
 geckos |> 
-  filter(if_any(cl22, is.na)) |>
+  filter(if_any(cl22, is.na)) |> 
   select(scientificName, genus, 
          species, cl22, everything()) # reorder columns
 ```
@@ -128,7 +128,7 @@ geckos_filtered <- geckos |>
   drop_na(decimalLongitude, decimalLatitude)
 ```
 
-We can see that `drop_na()` worked correctly by comparing the number of records in our data after filtering `geckos_filtered` is smaller by the same number of rows as our `tibble` of rows with `NA` values above.
+We can check that `drop_na()` worked correctly by comparing the number of records in our initial data and our filtered data, specifically that `geckos_filtered` is smaller by the same number of `NA` values we found above.
 
 ```{r}
 nrow(geckos) - nrow(geckos_filtered)
@@ -138,7 +138,7 @@ nrow(geckos) - nrow(geckos_filtered)
 
 ### Missing higher rank
 
-Sometimes data can be missing information in columns with higher taxonomic rankings, even species have been identified down to the species level. In this case, the goal isn't to only remove the missing values, but to fill missing information with the correct information.
+Sometimes data can be missing information in columns with higher taxonomic rankings, even if observations have been taxonomically identified down to the species level. In this case, the goal isn't only to remove the missing values, but to fill missing information with the correct information.
 
 As an example, we'll use a slightly modified `geckos_missing` dataset with some missing data add into the higher columns[^1]. Below is a preview, and you'll notice that there are `NA` values in the `class` and `family` columns. 
 
@@ -194,26 +194,28 @@ geckos_species_list
 
 To match the complete names in `geckos_species_list` with the missing names in `geckos_missing`, we can use a strategy of match-and-merge. 
 
-Using a reference columns, we'll merge our complete names data to our missing data. The information in the `species` column of `geckos_species_list` contains both the genus and species names; this is just like the `scientificName` column of our `geckos_missing` dataset. We can use these columns as our reference columns.
+Using a reference columns, we'll merge our complete names data to our missing data. The information in the `species_name` column of `geckos_species_list` contains both the genus and species names; this is just like the `scientificName` column of our `geckos_missing` dataset[^2]. We can use these columns as our reference columns.
 
 ```{r}
-geckos_species_list |> select(species) |> slice(10:15)
+geckos_species_list |> select(species_name) |> slice(10:15)
 geckos_missing |> select(scientificName) |> slice(10:15)
 ```
 
-Now we'll select the subset of columns from `geckos_species_list` that we wish to join with `geckos_missing` (and our reference column, `species`).
+Now we'll select the subset of columns from `geckos_species_list` that we wish to join with `geckos_missing` (and our reference column, `species_name`).
 
 ```{r}
 list_subset <- geckos_species_list |>
   select(species, class, family)
 ```
 
-We can use `left_join()` to merge `list_subset` to `geckos_missing`. Records that are identified at least down to the family level now have the correct rank information in the `class_new` and `family_new` columns.
+We can use `left_join()` to merge `list_subset` to `geckos_missing`. Records that are identified at least down to the family level now have the correct rank information in the `class_new` and `family_new` columns [^3].
+
+[^3]: This hasn't worked for every row, however, because `scientificName` contains the name of the lowest taxonomic rank the occurrence is identified to. Names like `Christinus` and `Gehyra` are genus names, so in these cases `scientificName` won't match our reference `species_name` column!
 
 ```{r}
 geckos_missing |>
   left_join(list_subset, 
-            by = join_by(scientificName == species), 
+            by = join_by(scientificName == species_name), 
             suffix = c("_old", "_new")) |>
   select(scientificName, class_old, family_old, class_new, family_new) |>
   slice(20:30)
@@ -224,7 +226,7 @@ geckos_missing |>
 
 If a record is not identified down to the necessary taxonomic level required for your analysis (e.g. down to species or sub-species level), then the record should be removed.
 
-On handy tip you can use with the galah package is to add the column [`taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank). This column usefully shows the taxonomic level of names in `scientificName`[^2]. `taxonRank` can be useful because we can filter to only include records down to a specific rank.
+One handy tip you can use with the galah package is to add the column [`taxonRank`](https://dwc.tdwg.org/terms/#dwc:taxonRank). This column usefully shows the taxonomic level of names in `scientificName`[^2]. `taxonRank` can be useful because we can filter to only include records down to a specific rank.
 
 [^2]: This column contains the name of the lowest taxonomic rank the occurrence is identified to.
 
@@ -241,7 +243,7 @@ geckos_rank |>
   filter(taxonRank == "species")
 ```
 
-However, it is still possible to filter records using the tools above without using the `taxonRank` column. 
+However, it is still possible to filter records using the tools above without using the `taxonRank` column. In this case we remove records not identified down to the genus. 
 
 ```{r}
 geckos_filtered <- geckos |>
@@ -250,4 +252,8 @@ geckos_filtered <- geckos |>
 geckos_filtered
 ```
 
+## Summary
 
+This chapter showed ways to find and remove different types of missing records from your dataset.
+
+In the next chapter...
