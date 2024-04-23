@@ -301,7 +301,7 @@ Keep in mind that survey data can also appear gridded if survey locations were d
 
 For more information, check out ALA's [support article about working with threatened, migratory and sensitive species](https://support.ala.org.au/support/solutions/articles/6000261705-working-with-conservation-and-sensitive-species-information).
 
-## Correct coordinates
+## Coordinate issues to fix
 
 Spatial outliers can sometimes be due to [taxonomic misidentification], but not always.
 Sometimes, records that appear as outliers can be true observations of a species, but the record has a mistake in its
@@ -309,7 +309,7 @@ coordinates. To avoid deleting data that can be included in your analysis, it's 
 
 Many coordinates issues can be solved with data manipulation instead of
 discarding. Here are several coordinate issues that can be identified
-and corrected.
+and corrected. Follow the link to each case study to learn how to identify and fix the issue.
 
 #### Flipped coordinates
 
@@ -317,283 +317,33 @@ Flipped coordinates typically appear as a
 clustering of points, whereby swapping the latitude and longitude will
 place the coordinates where they are expected. [@jin2020]
 
-**Dax's note: I don't think this is a very good example, but I'm not sure whether there are any examples of this on the ALA. Not sure if this should be included at all then, if that's the case.**
+See a [case study with Kowari](geospatial.qmd#sec-flip)
 
-<!-- This example doesn't feel fixable. Include it? -->
-
-```{r}
-native_mice <- galah_call() |>
-  identify("Dasyuroides byrnei") |>
-  select(scientificName, decimalLongitude, decimalLatitude,
-         eventDate,
-         country, countryCode, locality, 
-         COUNTRY_COORDINATE_MISMATCH,
-         group = "assertions") |>
-  atlas_occurrences()
-  
-
-native_mice |>
-  filter(COUNTRY_COORDINATE_MISMATCH == TRUE) |>
-  select(decimalLongitude, decimalLatitude, eventDate, country, countryCode, locality)
-
-ggplot() + 
-  geom_sf(data = aus) +
-  geom_point(data = native_mice,
-             aes(x = decimalLongitude,
-                 y = decimalLatitude))
-```
-
-
-
-#### Incorrect numeric sign
+#### Swapped numeric sign
 
 If there is a clustering of points mirrored to another hemisphere, consider swapping
 the sign and correct rather than discarding the points.
 
-If using the galah package, you can add the `PRESUMED_SWAPPED_COORDINATE` assertion column to your download to help find occurrence records flagged as suspicious for swapped coordinates.
-
-```{r}
-desert_plant <- galah_call() |>
-  identify("Eremophila macdonnellii") |>
-  select(group = "basic", 
-         PRESUMED_SWAPPED_COORDINATE) |> # add assertion column
-  atlas_occurrences() |>
-  drop_na(decimalLongitude, decimalLatitude) # remove NA coordinates
-```
-
-We can see this single record highlighted in orange on our map, sitting in a very similar location to where Australia would be if we mirrored its location.
-
-```{r}
-ggplot() + 
-  geom_sf(data = aus) +
-  geom_point(data = desert_plant,
-             aes(x = decimalLongitude, 
-                 y = decimalLatitude,
-                 colour = PRESUMED_SWAPPED_COORDINATE)) + 
-  pilot::scale_color_pilot()
-```
-
-
-We can fix the numeric symbols using `case_when()` from dplyr, which
-works the same as an `ifelse` statement (but can handle many of statements at once). The first updates our `decimalLongitude` column so that when `decimalLongitude` is less than 0, we remove the negative symbol by multiplying by -1, otherwise we keep the original longitude value. The second updates our `decimalLatitude` column using the same process.
-
-```{r}
-#| warning: false
-#| message: false
-library(glue)
-
-desert_plant_filtered <- desert_plant |>
-  mutate(
-    decimalLongitude = case_when(
-      decimalLongitude < 0 ~ decimalLongitude * -1,
-      .default = decimalLongitude
-    ),
-    decimalLatitude = case_when(
-      decimalLatitude > 0 ~ decimalLatitude * -1,
-      .default = decimalLatitude
-    ))
-```
-
-Our updated map has fixed the coordinates of our record.
-
-```{r}
-ggplot() + 
-  geom_sf(data = aus) +
-  geom_point(data = desert_plant_filtered,
-             aes(x = decimalLongitude, 
-                 y = decimalLatitude,
-                 colour = PRESUMED_SWAPPED_COORDINATE)) + 
-  pilot::scale_color_pilot()
-```
-
-
+See a [case study with MacDonnell's desert fushia](geospatial.qmd#sec-wrong-sign)
 
 #### Location description doesn't match coordinates
 
-<!-- This example is a more complicated example. Does it still work or should we pick a simpler example? -->
-*CW: I think this is a great example but might be better placed as a case study at the end of the chapter - could link to it here though*
+*description*
 
-Let's use the red-eyed tree frog data we downloaded at the [start of the chapter](LINK to prerequisites section). When we plot the coordinates of our red-eyed tree
-frog occurrences, there is an unexpected observation near Japan. This is
-quite surprising - red-eyed tree frogs are not native to Japan!
+See a case study with something else: @sec-location
 
-```{r}
-# Get a map of aus, transform projection
-aus <- ozmaps::ozmap_country |>
-  st_transform(crs = st_crs(4326))
-
-# Map
-ggplot() +
-  geom_sf(data = aus,
-          fill = NA,
-          colour = "grey60") +
-  geom_point(data = frogs,
-             aes(x = decimalLongitude,
-                 y = decimalLatitude),
-             colour = "#557755") +
-  theme_minimal()
-
-```
-
-Let's check the `countryCode` column to see whether this might be an
-Australian record with a mistake in the coordinates.
-
-Using `distinct()`, we can see that there are 2 country codes...
-
-```{r}
-frogs |>
-  distinct(countryCode)
-```
-
-...and filtering to Japan (`"JP"`) identifies our stray data point.
-
-```{r}
-frogs |>
-  filter(countryCode == "JP")
-```
-
-So far this observation does seem to be in Japan. To be extra certain,
-we can also use the column `locality`, which provides additional
-information from the data collector about the record's location.
-
-```{r}
-frogs |>
-  filter(countryCode == "JP") |>
-  select(countryCode, locality, scientificName, decimalLatitude, decimalLongitude)
-```
-
-The `locality` column reveals the observation was made in "mt bucca".
-This is surprising to see because Mt Bucca is a mountain in Queensland!
-
-When we look at our Japan data point's `decimalLongitude` and
-`decimalLatitude` alongside other values in our data, it becomes clear
-that the Japan data point seems to sit within the same numerical range
-as other points, but is positive rather than negative.
-
-```{r}
-frogs |>
-  arrange(desc(countryCode)) |>
-  select(countryCode, decimalLongitude, decimalLatitude) |>
-  print(n = 5)
-```
-
-All of this evidence suggests that our Japan "outlier" might instead be
-an occurrence point with a mis-entered latitude coordinate.
-
-Let's fix this by adding a negative symbol (`-`) to the record's
-latitude coordinate number. We'll use `case_when()` from dplyr to
-specify that if the `countryCode == "JP"`, then we'll "glue" a negative
-in front of `decimalLatitude`.
-
-```{r}
-library(glue)
-
-frogs_fixed <- frogs |>
-  mutate(
-    decimalLatitude = case_when(
-      countryCode == "JP" ~ glue("-{decimalLatitude}") |>
-        as.numeric(), # <1>
-      .default = decimalLatitude 
-    ))
-
-frogs_fixed |>
-  filter(countryCode == "JP") |> 
-  select(decimalLatitude, decimalLongitude, countryCode)
-```
-
-1. Using a string operation on our numeric column converts the value to a character. We have to convert the value back to a numeric value to avoid getting any class mismatch errors.
-
-Mapping our data again shows our outlier is an outlier no longer!
-
-```{r}
-#| code-fold: true
-ggplot() +
-  geom_sf(data = aus,
-          fill = NA,
-          colour = "grey60") +
-  geom_point(data = frogs_fixed,
-             aes(x = decimalLongitude,
-                 y = decimalLatitude),
-             colour = "#557755") +
-  theme_void()
-
-```
-
-
-
-
-## Remove records
+## Coordinate issues to remove
 
 Some coordinates issues cannot be fixed or inferred. In this case, it is important that you identify which records have issues and remove them prior to analysis. 
 
 Here are some examples of geospatial errors that might need to be identified and removed in your dataset.
-
-
-#### Using expert distributions
-
-**Coming soon once galah supports expert distributions...**
-
-<!-- This section can have an example expert distribution, then plot points on the top, then find which points are outside of the distribution to investigate -->
-
-One way to identify suspicious observations is to use an expert
-distribution to determine whether an occurrence record is within the
-possible range of a species. At the most basic, expert distributions can
-be found in the literature (like [this one](LINK to example)), then
-compared visually to your points.
-
-It's also possible to download expert distributions as shapefiles, and
-these can be plotted on a map to directly compare with your occurrence
-record locations.
-
-<!-- Example: -->
-
-```{r}
-
-```
 
 #### Zero coordinates
 
 Some records are mistakenly recorded with zero as their latitude and/or longitude coordinates. These records will not accurately represent their valid
 location and must be removed.
 
-If using the galah package, you can add the `ZERO_COORDINATE` assertion column to your download to find occurrence records flagged as suspicious for zero coordinates.
 
-```{r}
-acacias <- galah_call() |>
-  identify("acacia aneura") |>
-  select(group = "basic",
-         ZERO_COORDINATE, # add assertion column
-         countryCode, locality) |>
-  atlas_occurrences()
-```
-
-We can see the suspicious record in orange on our map.
-
-```{r}
-ggplot() + 
-  geom_sf(data = aus) +
-  geom_point(data = acacias,
-             aes(x = decimalLongitude, 
-                 y = decimalLatitude,
-                 colour = ZERO_COORDINATE)) +
-  pilot::scale_color_pilot()
-```
-
-We can remove the problematic record by filtering our data to remove records with longitude or latitude coordinates that equal zero.
-
-```{r}
-acacias_filtered <- acacias |>
-  filter(decimalLongitude != 0,
-         decimalLatitude != 0)
-
-ggplot() + 
-  geom_sf(data = aus) +
-  geom_point(data = acacias_filtered,
-             aes(x = decimalLongitude, 
-                 y = decimalLatitude,
-                 colour = ZERO_COORDINATE)) +
-  pilot::scale_color_pilot()
-```
 
 
 #### Centroids
@@ -748,6 +498,280 @@ galah_call() |>
 
 :::
 
+## Case studies
+
+### Flipped coordinates {#sec-flip}
+
+**Dax's note: I don't think this is a very good example, but I'm not sure whether there are any examples of this on the ALA. Not sure if this should be included at all then, if that's the case.**
+
+<!-- This example doesn't feel fixable. Include it? -->
+
+```{r}
+native_mice <- galah_call() |>
+  identify("Dasyuroides byrnei") |>
+  select(scientificName, decimalLongitude, decimalLatitude,
+         eventDate,
+         country, countryCode, locality, 
+         COUNTRY_COORDINATE_MISMATCH,
+         group = "assertions") |>
+  atlas_occurrences()
+  
+
+native_mice |>
+  filter(COUNTRY_COORDINATE_MISMATCH == TRUE) |>
+  select(decimalLongitude, decimalLatitude, eventDate, country, countryCode, locality)
+
+ggplot() + 
+  geom_sf(data = aus) +
+  geom_point(data = native_mice,
+             aes(x = decimalLongitude,
+                 y = decimalLatitude))
+```
+
+### Swapped numeric sign {#sec-wrong-sign}
+
+This case study details one way to identify records with a swapped numeric sign. We'll use MacDonnell's desert fuschia occurrence records for our example. If using the galah package, we can add the `PRESUMED_SWAPPED_COORDINATE` assertion column to our download to help find occurrence records flagged as suspicious for swapped coordinates.
+
+```{r}
+desert_plant <- galah_call() |>
+  identify("Eremophila macdonnellii") |>
+  select(group = "basic", 
+         PRESUMED_SWAPPED_COORDINATE) |> # add assertion column
+  atlas_occurrences() |>
+  drop_na(decimalLongitude, decimalLatitude) # remove NA coordinates
+```
+
+::: aside
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"/></img>
+
+::: figure-caption
+[*Eremophila macdonnellii* aka MacDonnell's desert fuschia.<br>Photo by M. Fagg
+CC-BY 3.0 (Au)](https://biocache.ala.org.au/occurrences/fcf8a190-5e7b-45b9-9f7d-402dd3e230fd)
+:::
+:::
+
+We can see this single record highlighted in orange on our map, sitting in a very similar location to where Australia would be if we mirrored its location.
+
+```{r}
+#| fig-height: 2
+#| fig-align: center
+ggplot() + 
+  geom_sf(data = aus) +
+  geom_point(data = desert_plant,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude,
+                 colour = PRESUMED_SWAPPED_COORDINATE)) + 
+  pilot::scale_color_pilot()
+```
+
+
+We can fix the numeric symbols using `case_when()` from dplyr, which
+works the same as an `ifelse` statement (but can handle many of statements at once). The first updates our `decimalLongitude` column so that when `decimalLongitude` is less than 0, we remove the negative symbol by multiplying by -1, otherwise we keep the original longitude value. The second updates our `decimalLatitude` column using the same process.
+
+```{r}
+#| warning: false
+#| message: false
+library(glue)
+
+desert_plant_filtered <- desert_plant |>
+  mutate(
+    decimalLongitude = case_when(
+      decimalLongitude < 0 ~ decimalLongitude * -1,
+      .default = decimalLongitude
+    ),
+    decimalLatitude = case_when(
+      decimalLatitude > 0 ~ decimalLatitude * -1,
+      .default = decimalLatitude
+    ))
+```
+
+Our updated map has fixed the coordinates of our record.
+
+```{r}
+ggplot() + 
+  geom_sf(data = aus) +
+  geom_point(data = desert_plant_filtered,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude,
+                 colour = PRESUMED_SWAPPED_COORDINATE)) + 
+  pilot::scale_color_pilot()
+```
+
+### Location description doesn't match {#sec-location}
+
+Let's use the red-eyed tree frog data we downloaded at the [start of the chapter](LINK to prerequisites section). When we plot the coordinates of our red-eyed tree
+frog occurrences, there is an unexpected observation near Japan. This is
+quite surprising - red-eyed tree frogs are not native to Japan!
+
+```{r}
+# Get a map of aus, transform projection
+aus <- ozmaps::ozmap_country |>
+  st_transform(crs = st_crs(4326))
+
+# Map
+ggplot() +
+  geom_sf(data = aus,
+          fill = NA,
+          colour = "grey60") +
+  geom_point(data = frogs,
+             aes(x = decimalLongitude,
+                 y = decimalLatitude),
+             colour = "#557755") +
+  theme_minimal()
+
+```
+
+Let's check the `countryCode` column to see whether this might be an
+Australian record with a mistake in the coordinates.
+
+Using `distinct()`, we can see that there are 2 country codes...
+
+```{r}
+frogs |>
+  distinct(countryCode)
+```
+
+...and filtering to Japan (`"JP"`) identifies our stray data point.
+
+```{r}
+frogs |>
+  filter(countryCode == "JP")
+```
+
+So far this observation does seem to be in Japan. To be extra certain,
+we can also use the column `locality`, which provides additional
+information from the data collector about the record's location.
+
+```{r}
+frogs |>
+  filter(countryCode == "JP") |>
+  select(countryCode, locality, scientificName, decimalLatitude, decimalLongitude)
+```
+
+The `locality` column reveals the observation was made in "mt bucca".
+This is surprising to see because Mt Bucca is a mountain in Queensland!
+
+When we look at our Japan data point's `decimalLongitude` and
+`decimalLatitude` alongside other values in our data, it becomes clear
+that the Japan data point seems to sit within the same numerical range
+as other points, but is positive rather than negative.
+
+```{r}
+frogs |>
+  arrange(desc(countryCode)) |>
+  select(countryCode, decimalLongitude, decimalLatitude) |>
+  print(n = 5)
+```
+
+All of this evidence suggests that our Japan "outlier" might instead be
+an occurrence point with a mis-entered latitude coordinate.
+
+Let's fix this by adding a negative symbol (`-`) to the record's
+latitude coordinate number. We'll use `case_when()` from dplyr to
+specify that if the `countryCode == "JP"`, then we'll "glue" a negative
+in front of `decimalLatitude`.
+
+```{r}
+library(glue)
+
+frogs_fixed <- frogs |>
+  mutate(
+    decimalLatitude = case_when(
+      countryCode == "JP" ~ glue("-{decimalLatitude}") |>
+        as.numeric(), # <1>
+      .default = decimalLatitude 
+    ))
+
+frogs_fixed |>
+  filter(countryCode == "JP") |> 
+  select(decimalLatitude, decimalLongitude, countryCode)
+```
+
+1. Using a string operation on our numeric column converts the value to a character. We have to convert the value back to a numeric value to avoid getting any class mismatch errors.
+
+Mapping our data again shows our outlier is an outlier no longer!
+
+```{r}
+#| code-fold: true
+ggplot() +
+  geom_sf(data = aus,
+          fill = NA,
+          colour = "grey60") +
+  geom_point(data = frogs_fixed,
+             aes(x = decimalLongitude,
+                 y = decimalLatitude),
+             colour = "#557755") +
+  theme_void()
+
+```
+
+
+### Zero coordinates
+
+If using the galah package, you can add the `ZERO_COORDINATE` assertion column to your download to find occurrence records flagged as suspicious for zero coordinates.
+
+```{r}
+acacias <- galah_call() |>
+  identify("acacia aneura") |>
+  select(group = "basic",
+         ZERO_COORDINATE, # add assertion column
+         countryCode, locality) |>
+  atlas_occurrences()
+```
+
+We can see the suspicious record in orange on our map.
+
+```{r}
+#| fig-height: 2
+ggplot() + 
+  geom_sf(data = aus) +
+  geom_point(data = acacias,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude,
+                 colour = ZERO_COORDINATE)) +
+  pilot::scale_color_pilot()
+```
+
+We can remove the problematic record by filtering our data to remove records with longitude or latitude coordinates that equal zero.
+
+```{r}
+acacias_filtered <- acacias |>
+  filter(decimalLongitude != 0,
+         decimalLatitude != 0)
+
+ggplot() + 
+  geom_sf(data = aus) +
+  geom_point(data = acacias_filtered,
+             aes(x = decimalLongitude, 
+                 y = decimalLatitude,
+                 colour = ZERO_COORDINATE)) +
+  pilot::scale_color_pilot()
+```
+
+## Use expert distributions
+
+**Coming soon once galah supports expert distributions...**
+
+<!-- This section can have an example expert distribution, then plot points on the top, then find which points are outside of the distribution to investigate -->
+
+<!--
+One way to identify suspicious observations is to use an expert
+distribution to determine whether an occurrence record is within the
+possible range of a species. At the most basic, expert distributions can
+be found in the literature (like [this one](LINK to example)), then
+compared visually to your points.
+
+It's also possible to download expert distributions as shapefiles, and
+these can be plotted on a map to directly compare with your occurrence
+record locations.
+
+
+```{r}
+
+```
+
+-->
 
 ## Packages
 
