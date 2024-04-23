@@ -106,9 +106,7 @@ straightforward ways to check for spatial errors is to plot your data
 onto a map. More obvious spatial errors are much easier to spot
 visually.
 
-*CW: In all spatial datasets, the most important columns are `decimalLatitude` and `decimalLongitude` (or similarly named columns). These contain the latitude and longitude of each observation in decimal (rather than degrees) form.*
-
-*CW: Added colour to points on map*
+In most spatial datasets, the most important columns are `decimalLatitude` and `decimalLongitude` (or similarly named columns). These contain the latitude and longitude of each observation in decimal form (rather than degrees).
 
 ```{r}
 # Retrieve map of Australia
@@ -117,15 +115,17 @@ aus <- st_transform(ozmap_country, 4326)
 # Remove missing coordinates in Banksia data
 # Then transform into 'sf' object
 banksia_sf <- banksia |> 
-  tidyr::drop_na(starts_with("decimal")) |> 
-  st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), 
-           crs = 4326)
+  tidyr::drop_na(decimalLatitude, decimalLongitude) # <1>
 
 # A quick plot
 ggplot() + 
   geom_sf(data = aus, colour = "black", fill = NA) + 
-  geom_sf(data = banksia_sf, colour = "orchid")
+  geom_point(data = banksia, 
+             aes(x = decimalLongitude,
+                 y = decimalLatitude),
+             colour = "orchid")
 ```
+1. You could also use `drop_na(starts_with("decimal"))` to achieve the same thing
 
 ## Missing coordinates
 
@@ -135,8 +135,6 @@ Mentioned in the [Missing Values chapter](LINK%20to%20chapter), many
 spatial analytical tools are not compatible with missing coordinate
 data. We recommend identifying the rows that have missing data before
 deciding to exclude them.
-
-*CW: The methods in this section are used above in the quick visualisation code*
 
 ```{r}
 # Identify missing data in coordinates
@@ -218,10 +216,7 @@ banksia |>
          )
 ```
 
-There is a range of coordinate uncertainty in our data, but all records
-are assumed within a 10-metre area of their observation.
-
-**CW: This needs to be specified clearly that the 10m uncertainty is the default*
+There is a range of coordinate uncertainty in our data, with many falling within 10m of uncertainty.
 
 ```{r}
 banksia |> 
@@ -272,13 +267,12 @@ galah_call() |>
   atlas_counts()
 ```
 
-For more information, check out ALA's [support article about working with threatened, migratory and sensitive species](https://support.ala.org.au/support/solutions/articles/6000261705-working-with-conservation-and-sensitive-species-information).
+What do obscured data look like? Quokka data offer a nice example to get an idea of what to look for. Obscured data, when plotted, looks like the occurrence points were plotted onto a grid [^grid].
 
-*CW: I've had a look at some species with data generalizations and I think quokkas (Setonix brachyurus) could be good. Could then frame this section as what to look for to indicate obscuring of data (unnatural gridded distributions as shown in this map) but that this doesn't instantly mean obscuring, as it could be survey locations for example)*
+[^grid]: This is pretty much what actually happened---locations have been "snapped" onto a grid determined by the generalised distance.
 
 ```{r}
-aus <- st_transform(ozmap_country, 4326)
-
+# Download quokka occurrences
 quokkas <- galah_call() |>
   identify("Setonix brachyurus") |>
   galah_select(group = "basic", dataGeneralizations) |>
@@ -287,13 +281,25 @@ quokkas <- galah_call() |>
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), 
            crs = 4326)
 
+# aus map
+aus <- ozmap_country |> st_transform(4326)
+
+# map
 ggplot() + 
   geom_sf(data = aus, colour = "black", fill = NA) + 
-  geom_sf(data = quokkas, aes(colour = dataGeneralizations)) +
+  geom_sf(data = quokkas, 
+          aes(colour = dataGeneralizations |>
+                str_wrap(18))) +
   scale_colour_manual(values = c("sienna3", "snow4"),
                       guide = guide_legend(position = "bottom")) +
-  xlim(114,120) + ylim(-36,-31)
+  guides(colour = guide_legend(title = "Data\ngeneralizations")) +
+  xlim(114,120) + 
+  ylim(-36,-31)
 ```
+
+Keep in mind that survey data can also appear gridded if survey locations were dispersed at equal distance, so be sure to double check before assuming data has been obscured!
+
+For more information, check out ALA's [support article about working with threatened, migratory and sensitive species](https://support.ala.org.au/support/solutions/articles/6000261705-working-with-conservation-and-sensitive-species-information).
 
 ## Correct coordinates
 
@@ -369,9 +375,7 @@ ggplot() +
 
 
 We can fix the numeric symbols using `case_when()` from dplyr, which
-works the same as an `ifelse` statement (but can handle many of statements at once). The first updates our `decimalLongitude` column so that when `decimalLongitude` is less than 0, we remove the negative symbol, otherwise we keep the original longitude value. The second updates our `decimalLatitude` column so that when `decimalLatitude` is greater than 0, we'll "glue" on a negative symbol, otherwise we keep the original latitude value.
-
-*CW: Probably best just to fix the wrong signs by multiplying by -1*
+works the same as an `ifelse` statement (but can handle many of statements at once). The first updates our `decimalLongitude` column so that when `decimalLongitude` is less than 0, we remove the negative symbol by multiplying by -1, otherwise we keep the original longitude value. The second updates our `decimalLatitude` column using the same process.
 
 ```{r}
 #| warning: false
@@ -381,17 +385,14 @@ library(glue)
 desert_plant_filtered <- desert_plant |>
   mutate(
     decimalLongitude = case_when(
-      decimalLongitude < 0 ~ str_remove(decimalLongitude, "-") |>
-        as.numeric(), # <1>
+      decimalLongitude < 0 ~ decimalLongitude * -1,
       .default = decimalLongitude
     ),
     decimalLatitude = case_when(
-      decimalLatitude > 0 ~ glue("-{decimalLatitude}") |> 
-        as.numeric(), # <1>
+      decimalLatitude > 0 ~ decimalLatitude * -1,
       .default = decimalLatitude
     ))
 ```
-1. Using a string operation on our numeric column converts the value to a character. We have to convert the value back to a numeric value to avoid getting any class mismatch errors.
 
 Our updated map has fixed the coordinates of our record.
 
@@ -726,6 +727,8 @@ ggplot() +
 
 
 :::{.callout-tip collapse="true"}
+
+## Use `basisOfRecord`
 
 You can use the field `basisOfRecord` to avoid including records from museums and herbaria when creating your query in galah.
 

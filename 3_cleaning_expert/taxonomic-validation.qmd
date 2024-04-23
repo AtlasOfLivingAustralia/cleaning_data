@@ -99,9 +99,11 @@ eucalypts <- galah_call() |>
 ## Preview names
 <!-- This section might be unnecessary as it's covered in the strings chapter --> 
 
-One of the simplest ways to determine whether there are any immediate issues with taxonomic names is to print some of them. Here we can already notice that some names are formatted in all capitals while others are not.
+One of the simplest ways to determine whether there are any immediate issues with taxonomic names is to print some of them. Most biodiversity datasets have a `scientificName` or `scientific_name` field that specifies the lowest identifiable scientific name for each record. Looking at `scientificName` in our `birds` data, we can already notice some characteristics of the names in our data, namely that: 
 
-*CW: One of the simplest ways to determine whether there are any immediate issues with taxonomic names is to print some of them. Most biodiversity datasets have a `scientificName` or `scientific_name` field that specifies the lowest identifiable scientific name for each record. Looking at it here, we can already notice some characteristics of the names in our data: a) records have been identified to different taxonomic ranks (we can see subspecies, species, genus and family here), b) some names are formatted in all capitals while others are not, and c) some names have bracketed parts.*
+  a) Records have been identified to different taxonomic ranks (we can see subspecies, species, genus and family names) 
+  b) Some names are formatted in all capitals while others are not
+  c) Some names have bracketed parts
 
 ```{r}
 birds |>
@@ -109,12 +111,15 @@ birds |>
   print(n = 25)
 ```
 
+A quick preview helps us determine what to do next to clean them.
 
 ## Name format
 
 Different data providers might use different formats in their taxonomic
 names to delineate between taxonomic ranks. It doesn't matter which
 format your data uses as long as it remains consistent.
+
+### Example 1: Subspecies
 
 An an example, data from the ALA specifies subspecies of Acacia
 observations using `"subsp."` in the scientific name, whereas subspecies of
@@ -125,47 +130,48 @@ bird observations simply add an additional name.
 ```{r}
 #| warning: false
 #| message: false
-acacia <- galah_call() |>
+acacia_2018 <- galah_call() |>
   identify("Acacia") |>
   filter(year == 2018) |>
   atlas_occurrences()
 
-acacia |>
+acacia_2018 |>
   filter(str_detect(scientificName, "Acacia brunioides")) |>
   distinct(scientificName)
 
-birds <- galah_call() |>
+birds_2023 <- galah_call() |>
   identify("alcedinidae") |>
   filter(year == 2023) |>
   atlas_occurrences()
   
-birds |>
+acacia_2018 |>
   filter(str_detect(scientificName, "Dacelo")) |>
   distinct(scientificName)
 ```
 
 Although both are correct, be sure to check your data to make sure that this naming format is consistent.
 
-*CW (maybe as another tab): Subgenera: As a second example, subgenera are present in many Animalian clades, but their formatting varies across taxonomic fields. In the ALA's `scientificName` field, subgenera are specified as a bracketed term between the genus and species, while they are not specified at all in the `species` field.*
+## Example 2: Subgenera
+
+Subgenera are present in many Animalian clades, but their formatting varies across taxonomic fields. In the ALA's `scientificName` field, subgenera are specified between the genus and species in brackets.
 
 ```{r}
 #| warning: false
 #| message: false
-
-birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2023) |>
-  select(group = "basic", species) |>
-  atlas_occurrences()
-
 birds |>
   filter(str_detect(scientificName, "Dacelo")) |>
   distinct(scientificName)
+```
 
+They are not, however, specified in the `species` field.
+
+```{r}
 birds |>
   filter(str_detect(species, "Dacelo")) |>
   distinct(species)
 ```
+
+Again, both are correct, so be sure to used the naming format that suits your needs best.
 
 ## Taxonomic names matching
 
@@ -194,7 +200,7 @@ taxa_sample_names[1:5] # first 5 names
 ...and use those names to search using `search_taxa()` from galah. We'll save the results in `names_matches_ala`.
 
 :::{.callout-tip collapse="true" title="Search tip"}
-Anytime you search for taxonomic matches using names, it's good to double check the urls in `taxon_concept_id` to make sure your search matched the result you expected!
+Anytime you search for taxonomic matches using names, it's good to double check the urls returned in `taxon_concept_id` to make sure your search matched the result you expected!
 :::
 
 ```{r}
@@ -213,7 +219,7 @@ names_matches_renamed
 ```
 1. This line uses shorthand to write a function to append a suffix to a column name. An equivalent way of writing this is:<br>  `function(column_name) {paste0(column_name, "_ala)}`<br><br>This is applied to each column name from `kingdom` to `species` in the `names_matches_ala` dataframe.
 
-Now let's join our matched names to our `inverts_sample` data. **CW: Ignore what I said about this right_join - it's correct so leave as is**
+Now let's join our matched names to our `inverts_sample` data.
 
 ```{r}
 inverts_sample_with_ranks <- names_matches_renamed |>
@@ -364,6 +370,8 @@ It turns out that there *is* a difference between the ALA and GBIF in their high
 In GBIF, *Eucalyptus* sits in the phylum *Tracheophyta* and the class *Magnoliopsida*...
 
 ```{r}
+#| message: false
+#| warning: false
 # Use GBIF
 galah_config(atlas = "gbif")
 
@@ -378,6 +386,8 @@ gbif_taxa |>
 ...whereas in the ALA, *Eucalyptus* sits in the phylum *Charophyta* and the class *Equisetopsida*.
 
 ```{r}
+#| message: false
+#| warning: false
 # Switch to download from the ALA
 galah_config(atlas = "ala")
 
@@ -411,6 +421,8 @@ names_search_results
 
 ```{r}
 #| echo: false
+#| message: false
+#| warning: false
 galah_config(atlas = "gbif")
 
 # load list saved locally
@@ -447,7 +459,7 @@ Scientific discoveries and advances in taxonomic classification can cause taxono
 
 Synonyms can be tricky to deal with during data cleaning because they can be difficult to spot. Here are several examples of synonyms.
 
-**CW: I think it would be good, if its concise enough, to explain that GBIF does have these names stored as synonyms which is why it matches it still (and lists in under scientific_name)**
+**CW: I think it would be good, if its concise enough, to explain that GBIF does have these names stored as synonyms which is why it matches it still (and lists in under scientific_name)** <!-- I think I have addressed this - DK -->
 
 :::{.panel-tabset .nav-pills}
 
@@ -519,8 +531,7 @@ ala_taxa |>
 
 :::
 
-
-
+In the above examples, taxonomic searches match correctly on GBIF because GBIF uses a special, massive database of accepted and superseded names and synonyms. This massive database allows GBIF to match *lots* of different names. ALA, on the other hand, uses a much smaller taxonomic names database that matches to its taxonomic backbone. THis database is easier to store but less complete than GBIF's.
 
 Using tools like `search_taxa()` in galah is a useful way to check whether a search returns the taxonomic information you expect.
 
@@ -553,12 +564,10 @@ gbif_species_list
 
 GBIF species lists include a `taxonomicStatus` column that supplies information of whether a taxonomic name is accepted or a synonym. A good example is the list of names for *Eucalyptus leucoxylon*, which has a number of accepted subspecies names and synonyms.
 
-*CW: Not sure on this, but it might be helpful to show a taxonomicRank column if its present?*
-
 ```{r}
 gbif_species_list |>
   filter(species == "Eucalyptus leucoxylon") |>
-  select(species, taxonomicStatus, acceptedScientificName)
+  select(species, taxonRank, taxonomicStatus, acceptedScientificName)
 ```
 
 ## Detecting homonyms
@@ -567,7 +576,7 @@ Taxonomy is a complex field of science to categorise *millions* of species on th
 
 For example, the name *Morganella* is a [genus of bacteria](https://bie.ala.org.au/species/NZOR-6-116469), a [genus of fungi](https://bie.ala.org.au/species/https://id.biodiversity.org.au/node/fungi/60091999#overview), a [genus of scale insect](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/3d1bad6b-4753-430c-a009-c6f4787b3421), and a [genus of brachiopod](https://en.wikipedia.org/wiki/List_of_brachiopod_genera) from the Devonian period[^4]!
 
-[^4]: Referred to as "[the Age of Fishes](https://www.nps.gov/articles/000/devonian-period.htm#)", the Devonian Period occurred ~419 to ~359 million years ago.<!-- Should that link be a citation? -->  
+[^4]: Referred to as "[the Age of Fishes](https://www.nps.gov/articles/000/devonian-period.htm#)", the Devonian Period occurred ~419 to ~359 million years ago.  
 
 When you search for names with `search_taxa()` from the galah package, you'll receive a warning that there is a homonym issue.
 
@@ -630,7 +639,7 @@ marine_sp |>
 
 ### taxize 
 
-The [taxize package](LINK) allows users to search over many taxonomic data sources for
+The [taxize package](https://github.com/ropensci/taxize) allows users to search over many taxonomic data sources for
 hierarchial taxonomic information, such as species names (scientific and
 common), to resolve synonyms and homonyms. 
 
@@ -726,78 +735,5 @@ Here is a list of some Australian taxonomic society groups to help validate taxo
 -   [GBIF taxonomic backbone](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c) - Uses over 100 different sources
 -   [Integrated Taxonomic Information System, ITIS](https://www.itis.gov/) - Authoritative taxonomic information on plants, animals, fungi, and microbes
 -   [Catalogue of Life](https://www.catalogueoflife.org/) - Global taxonomic catalogue   
-
-
-## Recycle bin
-
-<!-- I feel like the following section isn't important enough, captured by other tasks in other chapters -->
-
-#### Seperators
-
-In taxonomic data, separators (such as spaces and underscores) are found
-in scientific names and are used to delineate the genus and [species
-name](https://dwc.tdwg.org/terms/#dwc:specificEpithet). While it is
-personal choice which separator you use, it is good practice to be
-consistent with your choice. Consistency ensures that unique values of
-scientific name truly reflects unique species and not due to
-inconsistencies.
-
-For example, some plant species in the ALA like Acacia specify
-subspecies
-
-```{r loaddata}
-#| warning: false
-#| message: false
-library(arrow)
-library(tidyverse)
-library(janitor)
-
-plants <- open_dataset("../data/dap/plants_subset",
-  format = "parquet"
-) |> collect()
-
-### Making some fake missing data for inverts in Class column
-inverts <- open_dataset("../data/dap/inverts_subset") |> collect()
-
-set.seed(5)
-tobemissing <- inverts |>
-  filter(class == "arachnida") |>
-  sample_frac(0.3) |>
-  pull(scientific_name) |>
-  unique()
-
-inverts <- inverts |>
-  mutate(class = ifelse(scientific_name %in% tobemissing, NA, class))
-```
-
-```{r}
-#| eval: false
-library(janitor)
-
-plants |>
-  pull(scientific_name) |>
-  tabyl() |>
-  tibble()
-```
-
-Consistent taxonomic formatting may not be an issue if you are
-downloading data from one single source such as the ALA where scientific
-names are already formatted consistently e.g. "Moloch horridus". This
-may not be the case when consolidating data from multiple sources.
-
-Below is code to create an underscore scientific name from one that is
-separated with a space. Remember to check your changes
-
-```{r}
-plants_updated <- plants |>
-  mutate(scientific_name_undersc = str_replace_all(scientific_name, " ", "_"))
-
-plants_updated |>
-  pull(scientific_name_undersc) |>
-  tabyl() |>
-  tibble()
-```
-
-
 
 
