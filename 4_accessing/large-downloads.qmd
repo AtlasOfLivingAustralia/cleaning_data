@@ -1,4 +1,4 @@
-# Large downloads
+# Big data
 
 Once the size of your dataset starts to approach the size of your computer's memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the [`{arrow}`](https://arrow.apache.org/docs/r/index.html) package for larger than memory data workflows or the [`{duckdb}`](https://r.duckdb.org/index.html) package for querying databases using SQL.  
 
@@ -121,13 +121,7 @@ Earlier, we saved the pardalotes dataset as a csv file. If the file had been ver
 
 [^2]: In contrast, csv files store data in rows, which is much less efficient for storage and takes up more space on disk.  
 
-The `{arrow}` package also allows you to partition large datasets, which can be really useful if you're always going to be subsetting the data in certain ways. For instance, if you're going to be analysing different elements of the pardalotes dataset and will be doing this for different combinations of years each time, it could be more efficient to partition the dataset by year and save these partitions as parquet files.  
-
-```{r}
-dir.create("tmp")
-dir.create("tmp/partitioned")
- # DAX: IS THIS TOO MUCH DETAIL?
-```
+The `{arrow}` package also allows you to partition large datasets, which can be  useful if you're always going to be subsetting the data in certain ways. For instance, if you're going to be analysing different elements of the pardalotes dataset and will be doing this for different combinations of years each time, it could be more efficient to partition the dataset by year and save these partitions as parquet files.  
 
 
 **DAX: I think we should direct people here for more information**

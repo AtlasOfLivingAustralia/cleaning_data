@@ -1,0 +1,19 @@
+# Big data
+
+<!-- This is an alt version of the big data chapter, with much less stuff in it. Still incomplete -->
+
+Once the size of your dataset starts to approach the size of your computer's memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the [`arrow`](https://arrow.apache.org/docs/r/index.html) package for larger than memory data workflows or the [`duckdb`](https://r.duckdb.org/index.html) package for querying databases using SQL.  
+
+### `arrow`
+
+The `arrow` package has many handy functions that make the process of working with large datasets as smooth as possible. This functionality includes the ability to read and write to different file formats (including `parquet` and `feather` for efficient storage), partitioning large datasets, and accessing and wrangling large datasets 
+
+
+### `duckdb` and `duckplyr`  
+
+Duckdb is database management system, and the `duckdb` R package...  
+
+<!-- SB note to self: test duckplyr out with ecoassets wrangling to figure out speed and usabilitye -->
+
+Resources:  
+https://arrow.apache.org/docs/r/articles/data_wrangling.html
