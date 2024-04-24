@@ -25,7 +25,7 @@ book:
   chapters:
   - index.qmd
   - intro.qmd
-  - data.qmd
+  - data-in-this-book.qmd
   - part: 1_exploring/1_intro.qmd
     chapters:
     - 1_exploring/inspect.qmd
@@ -40,8 +40,9 @@ book:
   - part: 3_cleaning_expert/1_intro.qmd
     chapters:
     - 3_cleaning_expert/taxonomic-validation.qmd
+    - 3_cleaning_expert/geospatial-investigation.qmd
+    - 3_cleaning_expert/geospatial-cleaning.qmd
     - 3_cleaning_expert/ecological-filtering.qmd
-    - 3_cleaning_expert/geospatial.qmd
     - 3_cleaning_expert/outliers.qmd
   - 4_accessing/where-to-get-data.qmd
   - 4_accessing/large-downloads.qmd

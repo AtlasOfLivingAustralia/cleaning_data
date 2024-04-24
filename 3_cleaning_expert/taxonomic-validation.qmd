@@ -459,8 +459,6 @@ Scientific discoveries and advances in taxonomic classification can cause taxono
 
 Synonyms can be tricky to deal with during data cleaning because they can be difficult to spot. Here are several examples of synonyms.
 
-**CW: I think it would be good, if its concise enough, to explain that GBIF does have these names stored as synonyms which is why it matches it still (and lists in under scientific_name)** <!-- I think I have addressed this - DK -->
-
 :::{.panel-tabset .nav-pills}
 
 #### Frogs
@@ -531,7 +529,7 @@ ala_taxa |>
 
 :::
 
-In the above examples, taxonomic searches match correctly on GBIF because GBIF uses a special, massive database of accepted and superseded names and synonyms. This massive database allows GBIF to match *lots* of different names. ALA, on the other hand, uses a much smaller taxonomic names database that matches to its taxonomic backbone. THis database is easier to store but less complete than GBIF's.
+In the above examples, taxonomic searches match correctly on GBIF because GBIF uses a special, massive database of accepted and superseded names and synonyms. This massive names database allows GBIF to match *lots* of different names. ALA, on the other hand, uses a much smaller taxonomic names database that matches its current taxonomic backbone. This names database is smaller, making it easier to store, but less complete than GBIF's.
 
 Using tools like `search_taxa()` in galah is a useful way to check whether a search returns the taxonomic information you expect.
 

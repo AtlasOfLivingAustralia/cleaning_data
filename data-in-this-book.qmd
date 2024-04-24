@@ -1,0 +1,57 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+number-depth: 3
+code-annotations: hover
+---
+
+# Data for this book {.unnumbered}
+
+This chapter will add some context/metadata of the datasets we use throughout the book.
+
+At the moment, all data is either downloaded through galah or saved in the `data` folder. A more cohesive option might be to create an R package that contains data for this book, which is fairly common in other R resources.
+
+For now, this chapter can act as a place to record any data downloads you use. For example, if you use galah to download data for a specific chapter, record the chapter and the data download here. We may be able to consolidate some datasets if we can keep track of what type of data each chapter requires.
+
+## Why clean data from data infrastructures?
+
+Data infrastructures like the Atlas of Living Australia ingest, aggregate and standardise millions of rows of data from thousands of data providers. Some data comes from large providers with standardised workflows, like state government monitoring programs, [iNaturalist Australia](LINK) or [eBird](LINK). These data providers use workflows that attempt to remove suspicious records prior to sharing data with a Living Atlas, and, in general, these workflows catch many issues that otherwise might need fixing. 
+
+However, not all data providers have standardised workflows. Some data has been transcribed from written survey records and provided by a small or independent data provider. Other data might have been transcribed from archived written records in a museum, or even in a scientists backlog from older research projects. These data are valuable but inevitably prone to errors that are difficult to fix---sheets of paper can get smudged or damp, handwriting can be difficult to read, records might be lacking important details about their location or time of observation. Even in data from standardised workflows, errors like taxonomic misidentification or flipped geospatial coordinates can slip through the cracks because expert knowledge is required to identify and amend individual records. These records can also range in their precision or level of detail, and might not be suitable for every type of analysis.
+
+Although a data infrastructure can use programmatic data quality checks to try to remove more extreme outliers, many errors are context dependent and require verification from the original data provider. Ultimately, the responsibility to fix records falls on the data provider, rather than the data infrastructure, because only the data provider has knowledge required to amend their original data. As a result, we often need to clean data from data infrastructures to be suitable for our research question or analysis.
+
+## inverts & plants
+
+<!-- Code from Fonti of how to make data subsets from the Plant/Inverts Bushfire dataset --> 
+
+```{r}
+#To create data used in this chapter
+#
+# inverts <- open_dataset("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv", format = "csv")
+# 
+# inverts |> 
+#   filter(family == "apidae") |> 
+#   write_parquet(sink = "data/dap/bees.parquet")
+#
+# Smaller subset of the dataset
+# set.seed(5)
+
+# inverts |>
+#   collect() |> 
+#   sample_frac(0.05) |>
+#   write_parquet(sink = "data/dap/inverts_subset")
+
+
+# Plants data with errors
+# plants <- read_csv("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
+# 
+# plants |>
+#   select(record_id:longitude_used) |>
+#   rename(latitude = latitude_used,
+#          longitude = longitude_used) |>
+#   sample_frac(0.05) |>
+#   write_parquet("data/dap/plants_subset")
+```
+
