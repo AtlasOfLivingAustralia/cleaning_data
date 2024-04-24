@@ -1,0 +1,9 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Where to next? 
+<!-- This is just a placeholder title, I'm sure you can think of something better -->
+
+This section is an opinionated list of aspects of science and programming that you may be interested in exploring next. Rather than writing about *how* to do these things, which has been covered elsewhere, we explain *why* we think you may be interested in these elements, and provide links to resources should you choose to investigate further. 
