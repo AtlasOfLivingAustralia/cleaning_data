@@ -70,5 +70,9 @@ Duckdb is database management system, and the `duckdb` R package...
 
 <!-- SB note to self: test duckplyr out with ecoassets wrangling to figure out speed and usabilitye -->
 
+
+<!-- R4DS also has sections on arrow and duckdb, not sure if you want to link to those? -->
 Resources:  
 https://arrow.apache.org/docs/r/index.html
+
+
