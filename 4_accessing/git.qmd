@@ -7,3 +7,4 @@ Git is one of the most popular open source version control systems used today. W
 Resources:  
 Happy Git and GitHub for the useR: https://happygitwithr.com
 Git clients: https://git-scm.com/downloads/guis
+Visual representation of git via Allison Horst: https://allisonhorst.com/git-github
