@@ -1,12 +1,67 @@
 # Big data
 
-<!-- This is an alt version of the big data chapter, with much less stuff in it. Still incomplete -->
+<!-- This is an alt version of the big data chapter, with much less stuff in it. I think we should use this and delete large-downloads.qmd -->
 
 Once the size of your dataset starts to approach the size of your computer's memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the [`arrow`](https://arrow.apache.org/docs/r/index.html) package for larger than memory data workflows or the [`duckdb`](https://r.duckdb.org/index.html) package for querying databases using SQL.  
 
-### `arrow`
+### Prerequisites
 
-The `arrow` package has many handy functions that make the process of working with large datasets as smooth as possible. This functionality includes the ability to read and write to different file formats (including `parquet` and `feather` for efficient storage), partitioning large datasets, and accessing and wrangling large datasets 
+In this chapter, we will use pardalote occurrence data, which we'll write to disk.
+
+```{r}
+#| eval: false
+library(galah)
+library(readr)
+
+galah_config(email = email = "your-email-here")
+
+galah_call() |>
+  identify("Pardalotus") |>
+  filter(year >= 2015) |>
+  select(genus, 
+         species, 
+         scientificName, 
+         cl22,
+         year,
+         month, 
+         decimalLatitude,
+         decimalLongitude) |> 
+  atlas_occurrences() |> 
+  write_csv(here::here("data", "pardalotes.csv"))
+
+```
+
+### `arrow`  
+
+The `arrow` package allows users to analyse larger than memory datasets using `{dplyr}` verbs. A common workflow might consists of reading in some data, filtering or summarising according to some property of the data, and writing this to a new file. This is relatively simple to do with a small csv file, and we can do something conceptually similar using `{arrow}` for larger datasets[^1]. 
+
+[^1]: The dataset used in this example is relatively small (~ half a million rows), but the benefits of using `{arrow}` become obvious once the number of rows in your dataset approaches tens or hundreds of millions.
+
+We can open the csv file we just downloaded as a dataset instead of reading it into memory...
+ 
+```{r}
+#| message: false
+#| warning: false
+library(arrow)
+pardalotes <- open_dataset(here::here("data", "pardalotes.csv"), format = "csv")
+glimpse(pardalotes)
+```
+
+...and perform some common operations on it before finally bringing it into memory with `collect()`. 
+
+```{r}
+#| message: false
+#| warning: false
+pardalotes |> 
+  select(species, year, cl22) |> 
+  filter(species != "NA", cl22 != "NA")|> 
+  group_by(species, year, cl22) |> 
+  summarise(count = n(), .groups = "drop") |>
+  collect()
+```
+
+The `arrow` package has many other functions that make working with big data as smooth as possible, such as reading and writing different file formats (including `parquet` and `feather` for efficient storage), partitioning datasets for more effective querying, working with multi-file datasets, and interacting with cloud storage. 
+
 
 
 ### `duckdb` and `duckplyr`  
@@ -16,4 +71,4 @@ Duckdb is database management system, and the `duckdb` R package...
 <!-- SB note to self: test duckplyr out with ecoassets wrangling to figure out speed and usabilitye -->
 
 Resources:  
-https://arrow.apache.org/docs/r/articles/data_wrangling.html
+https://arrow.apache.org/docs/r/index.html
