@@ -1,8 +1,9 @@
 # Git
 
-Git is one of the most popular open source version control systems used today. While it is very commonly used in the world of software development, it is less common in the academic and research spheres. This is a shame, since it offers a very powerful way of keeping track of the many versions of documents that researchers inevitably end up wrangling when working on a project[^1]. When used in conjunction with a platform like GitHub or GitLab for hosting files, and a project-oriented workflow in RStudio for separating working directories across projects, git is a rigorous and powerful tool for managing documents, figures, raw data, slide decks, and source code. 
+Git is one of the most popular open source version control systems used today. While it is very commonly used in the world of software development, it is less common in the academic and research spheres. Git is a very powerful tool for keeping track of the many versions of documents that researchers inevitably end up wrangling when working on a project[^1], and especially so when collaborating with others on projects. When used in conjunction with a platform like GitHub or GitLab for hosting files, and a project-oriented workflow in RStudio for separating working directories across projects, Git is a rigorous and powerful tool for managing documents, figures, raw data, slide decks, and source code. Git commands may be executed in a shell, but there are a number of user-friendly Git clients (e.g. GitKraken, Github Desktop, RStudio git pane) which make the process of learning git less daunting if you're just getting started.   
 
 [^1]: If you've ever tried to work out which of `draft_ms_final`, `draft_ms_last_edits`, and `ms_final_vs` is the most updated version of a paper, git is for you.   
 
 Resources:  
-Happy Git and GitHub for the useR (I looked at other resources but I think this is the least stressful one for getting started)
+Happy Git and GitHub for the useR: https://happygitwithr.com
+Git clients: https://git-scm.com/downloads/guis
