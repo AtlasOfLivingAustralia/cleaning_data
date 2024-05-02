@@ -4,9 +4,11 @@ editor:
     wrap: 72
 code-annotations: hover
 number-depth: 3
+editor_options: 
+  chunk_output_type: console
 ---
 
-# Ecological filtering
+# Biological filtering
 
 <!--
 This chapter feels more like an exercise in filtering than a true data cleaning chapter. I imagine many people have many needs, but a lot of these examples show how to build a query rather than how 
@@ -27,6 +29,7 @@ library(tidyr)
 library(stringr)
 library(janitor)
 library(galah)
+library(here)
 
 galah_config(email = Sys.getenv("ALA_EMAIL"),
              username = Sys.getenv("GBIF_USERNAME"),
@@ -47,65 +50,110 @@ plants <- arrow::open_dataset("../data/dap/plants_subset") |>
 
 :::
 
-## Introduced or invasive species
+## Filter using species list
 
-If your project requires only native species, we can filter out those
-records using lists available online.  
+Many investigations use a taxonomic list of species or groups to identify which species are relevant. A common example is using a list of introduced or invasive species to filter relevant occurrence records. Alternatively, its also common to use threatened or sensitive species list to identify native species of interest.
 
-#### galah
+Let's see how to filter records that match a species list using galah and an external list.
+
+#### Using galah
 
 The ALA contains national and state-based conservation status lists. For example, if we wanted to use the Victorian Restricted Species list, we can do a text search for available lists for "victoria" using `search_all(lists, "victoria")`.
 
 ```{r}
-list_results <- search_all(lists, "victoria")
-list_results
+list_search <- search_all(lists, "victoria")
+list_search
 ```
 
 Filtering our result to only authoritative lists can help us find official state lists.
 
 ```{r}
-list_results |> 
+list_search |> 
   filter(isAuthoritative == TRUE)
 ```
 
-We can get save this list by saving its contents using `show_values()`. Then we can use it identify any restricted species by matching names in `restricted_species` to names in our `plants` data.
-
-START HERE
+Now that we have found our desired list, we can return its contents by using `show_values()`.
 
 ```{r}
-# add code to save list, then filter plants data
+vic_species_list <- search_all(lists, "dr490") |> # <1>
+  show_values()
+
+vic_species_list
+```
+1. We are using the list ID `dr490` (specified in the `species_list_uid` column) to make sure we return the correct list
+
+Now we can use our `vic_species_list` to identify any restricted species by matching names in `vic_species_list` to names in our `plants` data.
+
+<!-- This example needs to use different plants data -->
+
+```{r}
+plants_filtered <- plants |>
+  filter(!scientific_name %in% vic_species_list$scientificName)
+
+plants_filtered
 ```
 
+This process has removed xxx records from our data.
 
-We can also use the `species_list_uid` to filter our queries prior to downloading data in galah.
+```{r}
+nrow(plants) - nrow(plants_filtered)
+```
+
+We can also filter our queries *prior* to downloading data in galah by adding a filter specifying `species_list_uid == dr490` to our query.
 
 ```{r}
 galah_call() |>
   identify("plantae") |>
-  filter(species_list_uid == dr490) |>
+  filter(species_list_uid == dr490) |> # <1>
   group_by(species) |>
   atlas_counts()
 ```
+1. We are using the list ID `dr490` (specified in the `species_list_uid` column) to make sure we return the correct list
 
+#### Using an external list
 
-#### GRIIS
-
-Here we are using the list for
-Australia from the [Global Register of Introduced and Invasive Species
-(GRIIS)](https://griis.org/download). After downloading this list, we
-read it into R, and exclude invasive species from our example dataset:
+We can also use lists downloaded outside of galah to filter our data. 
+As an example, let's filter our taxonomic names to only Australian names on the 
+[Global Register of Introduced and Invasive Species
+(GRIIS)](https://griis.org/download). After downloading this list and saving 
+it in your working directory, we can read the list into R. Taxonomic names 
+are held in columns with an `accepted_name` prefix.
 
 ```{r}
+#| eval: false
+griis <- read_csv(here("GRIIS_Australia_20230331-121730.csv"))
+
+glimpse(griis)
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
 library(dplyr)
-griis_ls <- read.csv("../data/lists/GRIIS_Australia_20230331-121730.csv")
-glimpse(griis_ls)
+griis <- read_csv(here("data", 
+                       "lists", 
+                       "GRIIS_Australia_20230331-121730.csv"))
+glimpse(griis)
+```
 
+Now we can check which species names in `griis` match species names in our `plants` data.
+
+```{r}
 # Check which species matched the GRIIS list
-matches <- filter(plants, scientific_name %in% griis_ls$accepted_name.species)
+matches <- plants |> 
+  filter(scientific_name %in% griis$accepted_name.species)
 
-# If you are happy with the matches, you can proceed to remove any records
-# that were matched
-plants_no_griis <- filter(plants, !scientific_name %in% matches)
+matches
+```
+
+After looking through the matches and confirming we are happy with the list of matched species, we can exclude these taxa from our data, removing the rows identified above.
+
+```{r}
+plants_filtered <- plants |>
+  filter(!scientific_name %in% matches)
+
+plants_filtered
 ```
 
 ::: callout-tip
@@ -122,52 +170,57 @@ This is an incredibly complex example that I think comes from Fonti's Inverts Au
 It's not helped that the IUCN example no longer works.
 -->
 
-In most cases, a year filter applied during your download query should
-remove *most* extinct species. Nevertheless, it is important to cross
-check for extinct species. We can do this using the Interim Register of
-Marine and Nonmarine Genera [(IRMNG)](https://www.irmng.org/). The list
+<!-- 
+My new opinion is...the same. This is such a complex example that might be too difficult to demonstrate given this might be the only relevant example in this chapter. And it requires 2 datasets we have to load locally. If it stays, it needs tweaking.
+-->
+
+In most cases, filtering data to a recent year range (e.g., > 2010) should
+remove *most* extinct species. Nevertheless, it can be important to cross
+check for extinct species. 
+
+As an example, we can do this using the Interim Register of
+Marine and Nonmarine Genera [(IRMNG)](https://www.irmng.org/), a list which 
+compiles both living and extinct biota into a single list. The list
 is comprehensive and actively maintained. However, much of the data
 doesn't go down to species level. As such, we recommend using the
 following approach to find *potentially extinct* taxa and further
 investigate the records that are flagged.
 
 The required files are organised by year and can be downloaded from
-[here](https://www.irmng.org/export/), and unzipped to your project
-directory. Below we process the downloaded files and then check for
-matches in our dataset.
+[here](https://www.irmng.org/export/) then unzipped within your project
+directory. We'll read them into R using arrow (see [Large Datasets](LINK to chapter)).
 
 ```{r}
-irmng_taxa <- arrow::open_dataset("../data/lists/IRMNG_genera_DwCA_2023-05-19/taxon_subset") |>
-  collect()
+irmng_taxa <- arrow::open_dataset(here("data", "lists", "IRMNG_genera_DwCA_2023-05-19", "taxon_subset")) |>
+  collect() |>
+  as_tibble()
 
-irmng_sp <- arrow::open_dataset("../data/lists/IRMNG_genera_DwCA_2023-05-19/speciesprofile") |>
-  collect()
+irmng_sp <- arrow::open_dataset(here("data", "lists", "IRMNG_genera_DwCA_2023-05-19", "speciesprofile")) |>
+  collect() |>
+  as_tibble()
 ```
 
 
 ```{r}
-library(stringr)
-inverts <- arrow::open_dataset("../data/galah/inverts") |> dplyr::collect()
-
-awc_pattern <- "(awaiting allocation)"
-insed_pattern <- "incertae sedis"
+# download data
+inverts <- arrow::open_dataset(here("data", "galah", "inverts")) |> collect()
 
 cleaned_irmng_taxa <- irmng_taxa |>
-  mutate(
-    class = ifelse(str_detect(class, pattern = paste0(awc_pattern, "|", insed_pattern)),
-      word(class), class
-    )
-  ) |>
   filter(taxonomicStatus == "accepted") |> # Filter to accepted names
-  filter(
+  filter( # Filter to Animal and plants - change if working with other kingdoms
     kingdom %in% c("Animalia", "Plantae"),
-    !kingdom == "Questionable / non-biota (fossil)"
-  ) # Filter to Animal and plants - change if working with other kingdoms
-
+    kingdom != "Questionable / non-biota (fossil)"
+  ) |> 
+  mutate(
+    class = class |>
+      str_remove(" \\(awaiting allocation\\)") |>
+      str_remove(" incertae sedis")
+    )
+  
 # Join with species profile, remove pesky values and filter to extinct taxa
 extinct_irmng <- irmng_taxa |>
   left_join(irmng_sp, by = "taxonID") |>
-  filter(!scientificName == "Questionable / non-biota (fossil)") |>
+  filter(scientificName != "Questionable / non-biota (fossil)") |>
   filter(isExtinct == TRUE)
 
 # Summary of extinct species by taxonRank
@@ -180,162 +233,23 @@ inverts_2 <- inverts |>
 # Extract unique extinct genus and remove genus that have punctuation in them
 extinct_genus <- extinct_irmng |>
   tidyr::drop_na(genus) |>
-  filter(!str_detect(genus, pattern = regex("[:punct:]"))) |>
+  filter(!str_detect(genus, regex("[:punct:]"))) |>
   pull(genus) |>
   unique()
 
 # Check if there are any matches at genus level
-check <- inverts_2 |>
+inverts_2 |>
   filter(str_detect(genus, pattern = regex(paste0(extinct_genus, collapse = "|")))) |>
   pull(scientificName) |>
   unique()
-
-print(check)
 ```
 
-<!-- Andrew/Notes: Leaving eval = false because I tried to query for a token and got a 403 error. -->
-<!-- Dax: confirming that this code is broken and should be removed if it doesn't work (which is a pity)-->
+<!-- Originally, the below section used an R package to interact with the IUCN API, but this functionality has since been blocked -->
 
-Alternatively, we can use the IUCN to retrieve a list of extinct species
-that are in their database. See the [IUCN
-API](https://apiv3.iucnredlist.org/api/v3/docs#species-category) for
-more information on queries based on species categories. Below we will
-the `rredlist` package to interface with the IUCN API. Note that you
-will need to register for an API token, which can take a day or two to
-be approved. Then we use the `rl_sp_category("EX")` to return extinct
-species, to check against our dataset.
+The IUCN also provides lists of extinct species
+that are in their database. See the [IUCN](LINK) for
+more information.
 
-
-
-```{r}
-#| eval: false
-# Create IUCN token
-rredlist::rl_use_iucn() # Application can take a day or two!
-usethis::edit_r_environ() # Place the approved token in your R environment
-
-extinct_iucn <- rredlist::rl_sp_category("EX")
-skimr::skim(extinct_iucn)
-
-# Note these are extinct species across the globe
-extinct_sp <- tibble(extinct_iucn$result)
-
-# Find matches
-filter(inverts, scientificName %in% extinct_sp$scientific_name) # No matches
-```
-
-## Biological attributes and life cycle stages
-
-In some cases, you may want to filter out records based on attributes
-such as sex or life cycle stage, if this metadata is available for your
-records. In the example below, we download a dataset, including the
-extra metadata fields needed. We then examine the fields we want to
-filter by, to see what values are available and how many records are
-missing values.
-
-```{r}
-#| eval: false
-library(galah)
-
-galah_config(
-  email = Sys.getenv("ALA_EMAIL"),
-  atlas = "Australia"
-)
-
-bilby <- galah_call() |>
-  galah_identify("Macrotis lagotis") |>
-  galah_filter(year == 2022) |>
-  galah_select(group = "basic", sex, lifeStage, reproductiveCondition) |>
-  atlas_occurrences()
-
-# Quick way to check the unique values for each field
-lapply(bilby[c("sex", "lifeStage", "reproductiveCondition")], unique)
-```
-
-The check above shows that the `lifeStage` field has only NA values, so
-we won't be able to use it. The other two fields have values so it's
-worth checking them out in more detail using `skimr::skim()` For this
-example we will focus on the `sex` field.
-
-```{r}
-#| eval: false
-# Skim without charts for a more compact output, making sure sex is treated as a factor
-bilby$sex <- factor(bilby$sex)
-skimr::skim_without_charts(bilby, sex) |>
-  skimr::yank("factor")
-```
-
-The dataset is mostly NA values for the `sex` field, but say that our
-project is focused only on female greater bilbies, now we can do our
-simple filter using `==` as shown below.
-
-```{r}
-#| eval: false
-head(filter(bilby, sex == "FEMALE"), 3)
-```
-
-We could also use `!= "MALE` to get the same result, since we only have
-two factor levels, and `dplyr::filter()` drops NA values. Be aware that
-if filtering with base R subsetting, the same approach would drop male
-rows but keep both female and NA rows.
-
-```{r}
-#| eval: false
-nrow(filter(bilby, sex != "MALE"))
-nrow(filter(bilby[bilby$sex != "MALE", ]))
-```
-
-## Ecosystems
-
-Filtering by ecosystem, such as removing terrestrial records or aquatic
-records, can be necessary depending on the project. Below we demonstrate
-an example of filtering against the [World Register of Marine Species
-(WoRMS)](https://www.marinespecies.org/), to remove marine invertebrates
-from our dataset. Note that you could apply this approach to any other
-ecosystem by using an appropriate list of species.
-
-```{=html}
-<!-- Andrew/Notes: This is worth double checking, I only quickly checked this
-and fixed the second half because it wasn't actually filtering anything even
-though all but 1 of the species were marine. But this is just as far as I could
-understand; I don't know the dataset or anything so its not clear to me if
-what's happening is ok or not. -->
-```
-```{=html}
-<!-- Also - It was written up and coded with
-the goal stated as removing marine species, if interested in terrestrial. But
-this doesn't make sense, the inverts data is all marine but one species? Either
-I'm completely misunderstanding or this was a misunderstanding at some point. As
-I'm writing this I realised that if this was a mix up, the fix is really easy -
-just change the wording to removing non-marine species, and changing the filter.
-Makes a lot more sense -->
-```
-```{=html}
-<!-- Side note - the only species that doesn't get filtered has NA or invalid
-number as the value. not an actual value for confidence in not marine -->
-```
-```{r}
-# Obtain species list
-my_species <- inverts |>
-  pull(scientificName) |>
-  unique()
-
-# Query WoRMs
-marine_check <- purrr::map_dfr(
-  my_species,
-  purrr::possibly(~ worrms::wm_records_name(name = .x) |>
-    mutate(search_term = .x))
-)
-# Filter species that are TRUE for isMarine
-marine_inverts <- marine_check |>
-  filter(isMarine == TRUE)
-
-# Exclude marine invertebrates
-filter(inverts, !scientificName %in% marine_inverts$search_term)
-```
-
-After filtering we are left with only four records of one species. It's
-always worth double checking the results of your filtering to make sure
-any species excluded or included are as expected.
 
 ## Summary
 

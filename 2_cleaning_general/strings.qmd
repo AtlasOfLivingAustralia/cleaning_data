@@ -351,8 +351,9 @@ The code below subsets out unique values for the variable `class` that have uppe
 library(arrow)
 library(tidyverse)
 library(janitor)
+library(here)
 
-bees <- read_parquet("../data/dap/bees.parquet")
+bees <- read_parquet(here("data", "dap", "bees.parquet"))
 
 str_subset(unique(bees$class), "[:upper:]")
 ```

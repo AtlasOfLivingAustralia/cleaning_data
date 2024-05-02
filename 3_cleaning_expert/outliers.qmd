@@ -1,23 +1,7 @@
 # Outliers
 
 <!-- 
-Ok so over the entirety of this book, and particularly in the last few chapters, we already identify and fix many different types of issues that could be categorised as "outliers". BUT, I know that a lot of people will jump straight to this section. It's ultimately what people want to know. My intuition is that we should delete this chapter, but...
-
-...my questions are as follows:
-
-- Do we need to put this outlier definition somewhere in the book? Or is it overkill?
-- Is it useful to show how to manually check the record information on the ALA to check whether a record is an outlier (i.e. view the recordID on biocache, look at the photo, check assertions, make a decision)
-- Should have the "Alternative methods" section at all? It could recommend some articles to help with outlier detection? Is that in-scope of this book? Does this list have to exist before we release this book online?
--->
-
-An outlier is a point located at a significant distance from the majority of the
-species' distribution or available data points. Outliers can be true outliers or
-data errors. Data errors can be caused by a variety of factors including
-mis-identified specimens or incorrect georeferencing. In the absence of a data
-error however, these outliers are considered to be a true point, and are not
-necessary to remove.
-
-Incorrectly identified specimens can be difficult to identify with open source biodiversity data. Often these will be picked up by 1: an image of the species in question which does not match 2: If you notice a species outside of its geographic range, this could be a true outlier, it could be a spatial error, or it could be a different species. (**see --- for more info**)
+This chapter will be deleted. Content is spread across other chapters
 
 ## Alternative methods
 
@@ -33,4 +17,5 @@ detection, and their limitations.
     - For their dataset, the method was useful for identifying geographical
     position errors, but not species level identification errors.
 
-<!-- Andrew did not like the above paper, but perhaps it could be useful to suggest a few papers on outlier detection? I'm honestly not sure -->
+
+-->
