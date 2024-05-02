@@ -2,13 +2,17 @@
 
 In the last chapter, we learned how to see a brief glimpse of our data's structure, including how many rows there are, what columns there are, and where there might be missing data.
 
-In this chapter, we learn how to briefly summarise ecological data. These summaries will fall within three domains: **Taxonomic**, **Temporal** and **Spatial**. Summarising our data will help us see the diversity in our dataset, learn more about its scope, and determine whether it is the right dataset for our analysis.
+In this chapter, we learn how to briefly summarise ecological data. These summaries will fall within three domains: **taxonomic**, **temporal** and **spatial**. 
 
-Over this chapter there are many places where we can use the galah package to summarise our data. The galah package can summarise data on the server-side, prior to downloading any data locally onto your computer, meaning that you can filter or summarise data without needing to have them on your local computer first. 
+Summarising our data will help us see the diversity in our dataset, learn more about its scope, and determine whether it is the right dataset for our analysis.
 
-We will show how to use galah (prior to download) or dplyr (after a download) when both options are available.
+Over this chapter, there are many places where we will use the [galah](https://galah.ala.org.au/) package to summarise our data. The [galah](https://galah.ala.org.au/) package can summarise data on the server-side prior to downloading any data locally onto your computer meaning that you can filter or summarise data without needing to have them on your local computer first. 
+
+We will show how to use [galah](https://galah.ala.org.au/) (*prior* to download) or [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html) (*after* a download) when both options are available.
 
 ### Prerequisite
+
+Here we outline the required packages and data for this guide. 
 
 ```{r prereq}
 #| message: false
@@ -61,6 +65,8 @@ birds <- galah_call() |>
 :::
 
 ## Taxonomic
+
+Let's start with taxonomy. 
 
 ### Counts
 
@@ -130,6 +136,8 @@ birds |>
 
 ## Spatial
 
+Next, the spatial domain. 
+
 ### Counts by region
 
 It can be useful to summarise occurrence numbers by a specific region. With galah, you can do this summarising prior to downloading occurrence records.
@@ -162,7 +170,7 @@ galah_call() |>
 
 Our results show that we have the most records in Queensland and New South Wales.
 
-You can get the same summaries after downloading the data locally with dplyr and janitor.
+You can get the same summaries after downloading the data locally with [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html) and [janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html).
 
 :::{.panel-tabset .nav-pills}
 #### dplyr
@@ -310,13 +318,15 @@ ggplot() +
 
 ## Temporal
 
+Lastly, temporal or time related summaries. 
+
 ### Counts by time scales
 
 Knowing the breakdown of when observations are recorded can reveal trends in seasonality between species. Checking this breakdown can also help you determine whether you have enough data to make inferences about patterns over the span of a week, month, year, decade or even century, or whether you're inferences about temporal trends are limited by the amount of existing data.
 
 #### Year
 
-For example, an easy first summary is to know the number of records in each year. You can do this in galah prior to downloading data. We can search for the correct field to use in galah, determining that field ID `year` seems to suit our needs best.
+For example, an easy first summary is to know the number of records in each year. You can do this in [galah](https://galah.ala.org.au/) prior to downloading data. We can search for the correct field to use in [galah](https://galah.ala.org.au/), determining that field ID `year` seems to suit our needs best.
 
 ```{r}
 search_all(fields, "year")
@@ -352,7 +362,7 @@ birds_date |>
   select(scientificName, eventDate, year, month)
 ```
 
-...and summarise using dplyr or janitor.
+...and summarise using [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html) or [janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html).
 
 :::{.panel-tabset .nav-pills}
 #### dplyr
