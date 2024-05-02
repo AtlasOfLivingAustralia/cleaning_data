@@ -62,6 +62,7 @@ format:
     theme: 
       - lumen
       - theme.css
+      - theme.scss
 
 execute:
   code-annotations: hover
