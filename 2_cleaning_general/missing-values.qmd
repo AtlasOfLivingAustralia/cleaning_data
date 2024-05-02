@@ -236,7 +236,7 @@ Now we'll select the subset of columns from `geckos_species_list` that we wish t
 
 ```{r}
 list_subset <- geckos_species_list |>
-  select(species, class, family)
+  select(species_name, class, family)
 ```
 
 We can use `left_join()` to merge `list_subset` to `geckos_missing`. Records that are identified at least down to the family level now have the correct rank information in the `class_new` and `family_new` columns [^3].
