@@ -7,14 +7,16 @@ editor_options:
 
 This chapter explains how to check the class of each column and edit column names. 
 
-Each column in a table contains data of a specific **class**. A class defines the type of data in a column, which determines how those data are interpreted in R and affects how we can modify those data. For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. 
+Each column in a table contains data of a specific **class**. Classes are the "type" of data in a column and determine how those data are interpreted in R. They impact how we can modify those data or work with them.
 
-Depending on the source of your dataset, the column names in a table may be uninformative (e.g. `col1`, `tga42.D`), oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data.
+For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. You can convert data types through different commands in R if they have been incorrectly interpreted or allocated, but generally, functions will not work if the data type is not compatible. 
+
+Depending on the source of your dataset column names in a table may be uninformative (e.g. `col1`, `tga42.D`). They might also be oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or, internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data. 
 
 
 ### Prerequisites
 
-In this chapter, we will use *Litoria* frog occurrence data since 2020 in Tasmania.
+In this chapter, we will use *Litoria* frog occurrence data since 2020 in Tasmania. Here is how we retrieve that data using [galah](https://galah.ala.org.au/). 
 
 ```{r}
 #| warning: false
@@ -123,11 +125,15 @@ frogs |>
 
 :::
 
-If you are using a `tibble`, the class is also displayed below each column name when you view your table.
+If you are using a `tibble`, the class is also displayed below each column name when you view your table (here there are two classes of data: character <chr> and the double <dbl>). 
 
 ```{r}
 frogs
 ```
+
+
+::: {.callout-note collapse="false"}
+## Our data classes:
 
 From these quick overviews of the data, we've learned:
 
@@ -135,10 +141,16 @@ From these quick overviews of the data, we've learned:
   *  Columns like `decimalLatitude` and `decimalLongitude` are numbers with decimal points (type `double`)
   *  The `eventDate` column contains a date + time (type `POSIXct`/`dttm`)
   *  Columns like `recordID` and `taxonConceptID` contain both text and numbers, but are of type `character` because this type prevents any loss of data[^column-names-and-classes-2].
-
+  
 [^column-names-and-classes-2]: To avoid conflicts, R has an internal coercion hierarchy rule to avoid data loss. The rule of thumb is that if a data type can't exist in a child data type, then the parent data type is used instead. The R coercion hierarchy is:<br>  `logical` `->` `integer` `->` `numeric` `->` `complex` `->` `character`<br><br>You don't need to memorise this, but it's worth being aware of this hierarchy, as R might make decisions to prevent a class error and you might not know why! [Learn more in this article](https://annakrystalli.me/rrresearchACCE20/data-types-structures-and-classes.html).
+  
+:::
 
-Here, the column classes are what we'd expect given the types of data in each column. However, this is not always the case. For instance, changing just one of the values in `decimalLatitude` to a "degrees minutes seconds" format will cause the entire column's class to be changed to `character` to prevent loss of data.
+Here, the column classes are what we'd expect given the types of data in each column. 
+
+However, this is not always the case. 
+
+For instance, changing just one of the values in `decimalLatitude` from its assigned `numeric` value to a "degrees minutes seconds" format causes the entire column class to be changed to `character` to prevent loss of data.
 
 
 ```{r}
@@ -155,7 +167,11 @@ frogs_class$decimalLatitude[5] <- "40° 51' 59 N"
 class(frogs_class$decimalLatitude)
 ```
 
+::: {.callout-warning collapse="false"}
+## Note
+
 A simple typo in the dataset you import into R could be all it takes to change the class of an entire column, so be sure to keep your eyes out for strange column classes!
+:::
 
 ## Column names
 
@@ -177,7 +193,7 @@ Snake case is more popular in R, and is the naming convention we recommend. Data
 colnames(frogs)
 ```
 
-One of the most useful column name cleaning functions is `clean_names()` from the janitor package. This function will make all of your column names consistent, based on your preferred naming convention (defaults to snake case). 
+One of the most useful column name cleaning functions is `clean_names()` from the [janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) package. This function will make all of your column names consistent, based on your preferred naming convention (defaults to snake case). 
 
 ```{r}
 #| warning: false
@@ -189,6 +205,18 @@ frogs_clean <- frogs |>
   colnames()
 frogs_clean
 ```
+
+Now our names are in a consistent `snake_case` format.
+
+```{r}
+#| echo: false
+frogs |>
+  clean_names() |>
+rmarkdown::paged_table()
+```
+
+
+
 
 ### Rename columns
 
@@ -273,6 +301,6 @@ frogs_separate |>
 
 ## Summary
 
-In this chapter, we've explored different ways to check the class of each column in your table to make sure R is interpreting your data correctly, to change column names to make it easier to work with them, and to split or combine columns to access data more conveniently. 
+In this chapter, we've explored different ways to check the class of each column in your table to make sure R is interpreting your data correctly. We also showed how to change column names to make it easier to work with them and to split or combine columns to access data more conveniently. 
 
-In the next chapter we will learn to xxx...
+In the next chapter we will learn to efficiently clean **duplicate** data. Duplicates might occur due to mistakes in data collection or entry, or, from merging data from multiple sources. 
