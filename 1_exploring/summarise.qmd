@@ -136,7 +136,7 @@ birds |>
 
 ## Spatial
 
-Next, the spatial domain. 
+Next, spatial summaries. 
 
 ### Counts by region
 
@@ -318,7 +318,7 @@ ggplot() +
 
 ## Temporal
 
-Lastly, temporal or time related summaries. 
+Lastly, temporal (time related) summaries. 
 
 ### Counts by time scales
 
@@ -459,7 +459,6 @@ ggplot(birds_week, aes(x = week, y = count)) +
   geom_point() + # Add points
   labs(x = "Week", y = "Count") +
   scale_x_continuous(breaks = seq(1, 52, by = 4)) + 
-  # scale_y_log10() +  # Set logarithmic scale for y-axis
   theme_minimal()  # Set a minimal theme
 ```
 
