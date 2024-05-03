@@ -9,7 +9,9 @@ This chapter explains how to check the class of each column and edit column name
 
 Each column in a table contains data of a specific **class**. Classes are the "type" of data in a column and determine how those data are interpreted in R. They impact how we can modify those data or work with them.
 
-For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. You can convert data types through different commands in R if they have been incorrectly interpreted or allocated, but generally, functions will not work if the data type is not compatible. 
+For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. 
+
+You can convert data types through different commands in R if they have been incorrectly interpreted or allocated, but generally, functions will not work if the data type is not compatible. 
 
 Depending on the source of your dataset column names in a table may be uninformative (e.g. `col1`, `tga42.D`). They might also be oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or, internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data. 
 
@@ -125,12 +127,17 @@ frogs |>
 
 :::
 
-If you are using a `tibble`, the class is also displayed below each column name when you view your table (here there are two classes of data: character <chr> and the double <dbl>). 
+If you are using a `tibble`, the class is also displayed below each column name when you view your table (here there are two classes of data: character <chr>,  double <dbl> and date-time <dttm>). 
 
 ```{r}
+#| output: false
 frogs
 ```
 
+```{r}
+#| echo: false
+frogs |> rmarkdown::paged_table()
+```
 
 ::: {.callout-note collapse="false"}
 ## Our data classes:
@@ -337,6 +344,7 @@ frogs_separate |>
 ```
 
 ```{r}
+#| echo: false
 frogs_separate |>
   unite("single_name", 
         genus:species, # select columns to join
@@ -348,6 +356,13 @@ frogs_separate |>
 rmarkdown::paged_table()
 ```
 
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/1/3/a/7/c5363580-9cee-4a4c-8ae9-1dafdc157a31/original" class="rounded"/></img>
+
+::: figure-caption
+[*Litoria raniformis* close-up <br>Photo by sonyaf CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/ce795264-ebec-4e57-9ff4-e3f91440a747)
+:::
+:::
 
 ## Summary
 
