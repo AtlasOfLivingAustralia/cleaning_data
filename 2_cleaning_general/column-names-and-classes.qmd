@@ -137,8 +137,8 @@ frogs
 
 From these quick overviews of the data, we've learned:
 
-  *  Columns like `scientificName` are strings of text (type `character`)
-  *  Columns like `decimalLatitude` and `decimalLongitude` are numbers with decimal points (type `double`)
+  *  Column `scientificName` are strings of text (type `character`)
+  *  Columns `decimalLatitude` and `decimalLongitude` are numbers with decimal points (type `double`)
   *  The `eventDate` column contains a date + time (type `POSIXct`/`dttm`)
   *  Columns like `recordID` and `taxonConceptID` contain both text and numbers, but are of type `character` because this type prevents any loss of data[^column-names-and-classes-2].
   
@@ -209,6 +209,12 @@ frogs_clean
 Now our names are in a consistent `snake_case` format.
 
 ```{r}
+#| output: false
+frogs_clean
+```
+
+
+```{r}
 #| echo: false
 frogs |>
   clean_names() |>
@@ -230,21 +236,43 @@ There are several ways to rename columns in R.
 `dplyr::rename()` provides an easy way to rename one or more columns.
 
 ```{r}
+#| output: false
 frogs |>
   select(decimalLatitude, decimalLongitude) |>
   rename(latitude = decimalLatitude,
          longitude = decimalLongitude)
 ```
 
-`rename_with()` is a more powerful verion of `rename()`. It allows more advanced renaming by using functions to rename matching columns.
+`rename_with()` is a more powerful version of `rename()`. It allows more advanced renaming by using functions to rename matching columns.
 
 ```{r}
+#| output: false
 frogs |>
-  rename_with(toupper, starts_with("decimal"))
+  rename_with(toupper, starts_with("decimal")) 
+```
 
+```{r}
+#| echo: false
+frogs |>
+  rename_with(toupper, starts_with("decimal")) |> 
+  dplyr::select("DECIMALLATITUDE", "DECIMALLONGITUDE") |>
+  rmarkdown::paged_table()
+```
+
+```{r}
+#| output: false
 frogs |>
   rename_with( ~ tolower(gsub("decimal", "new_", .x, fixed = TRUE)))
 ```
+
+```{r}
+#| echo: false
+frogs |>
+  rename_with( ~ tolower(gsub("decimal", "new_", .x, fixed = TRUE))) |>
+  dplyr::select("new_latitude", "new_longitude") |>
+rmarkdown::paged_table()
+```
+
 
 #### `names()` + `<-`
 
@@ -272,6 +300,7 @@ Sometimes it is useful to split information from one column into several columns
 ```{r}
 #| warning: false
 #| message: false
+#| output: false
 library(tidyr)
 
 frogs_separate <- frogs |>
@@ -281,14 +310,22 @@ frogs_separate <- frogs |>
            remove = FALSE         # keep input column
            ) |> 
   select(scientificName, genus, species)
-frogs_separate
 ```
+
+```{r}
+#| echo: false
+frogs_separate |> rmarkdown::paged_table()
+```
+
+
+
 
 ### Join columns
 
 Conversely, we might want to combine information from multiple columns into a single column. We can rejoin the `genus` and `species` columns we created in the previous section using `unite()` from the tidyr package.
 
 ```{r}
+#| output: false
 frogs_separate |>
   unite("single_name", 
         genus:species, # select columns to join
@@ -298,6 +335,19 @@ frogs_separate |>
         ) |>
   select(genus, species, single_name)
 ```
+
+```{r}
+frogs_separate |>
+  unite("single_name", 
+        genus:species, # select columns to join
+        sep = " ",     # separate with a space
+        na.rm = TRUE,  # remove NA values
+        remove = FALSE # keep input column
+        ) |>
+  select(genus, species, single_name) |>
+rmarkdown::paged_table()
+```
+
 
 ## Summary
 
