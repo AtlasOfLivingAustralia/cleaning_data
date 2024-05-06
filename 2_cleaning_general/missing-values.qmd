@@ -6,9 +6,9 @@ editor:
 
 # Missing values
 
-**SB: I tried to provide a bit more context than what previously existed, but it's possible I got too waffly. Will not be offended if you cut everything**
+Biodiversity datasets often contain missing values. However, analysis and visualisation software can differ in their default response to missing values---they might drop missing values, provide a warning about them, or return an error. We don't always know which response we'll get, which can cause problems for us (possibly without our knowing) during analysis later on. This is why it's important to clean missing values effectively. 
 
-Biodiversity datasets often contain missing values, and analysis and visualisation software can have different default behaviours in response to this: they might drop missing values, provide a warning, or return an error. Understanding the nature of missing data can also be useful for informing how you proceed with analysis. For instance, understanding whether missing data are random can influence what you choose to do with it (e.g. remove vs. impute), which in turn can affect the results of statistical models based on those datasets. Understanding where missing data occur in a dataset is therefore an important part of exploratory data analysis. This chapter will show you how to detect and remove missing values.     
+Understanding the nature of missing data can also be useful for informing how you proceed with analysis. For instance, understanding whether missing data are random can influence what you choose to do with them (e.g. remove vs. impute), which in turn can affect the results of statistical models based on those datasets. Identifying where missing data occur in a dataset is therefore an important part of exploratory data analysis. This chapter will show you how to detect and remove missing values.     
 
 ### Prerequisites
 
@@ -20,6 +20,7 @@ In this chapter, we will use gecko occurrence data since 2009 from the ALA.
 #| echo: false
 library(galah)
 library(dplyr)
+library(tidyr)
 galah_config(email = Sys.getenv("ALA_EMAIL"),
              verbose = FALSE)
 geckos <- galah_call() |>
@@ -37,6 +38,7 @@ geckos <- galah_call() |>
 # packages
 library(galah)
 library(dplyr)
+library(tidyr)
 
 # data: Gecko records since 2009
 galah_config(email = "your-email-here") # ALA Registered email
@@ -65,13 +67,18 @@ geckos <- galah_call() |>
 
 There are numerous ways to identify missing values in your data. Here we illustrate a few ways with very different output types.   
 
-**SB: I moved summary() to the beginning here because it seemed like the simplest, and therefore least intimidating, option (I like skimr but I don't think the workflow outlined here is necessarily intuitive). {naniar} is one of my favourite packages for exploring relationships among missing data but I thought it might be beyond the scope of this book, so I've omitted it. I could add a tab if you think it's useful though, or we could add a line at the end of the tabs saying this package may be useful as a next step once they've identified where their missing data is**  
+<!-- 
+SB: I moved summary() to the beginning here because it seemed like the simplest, and therefore least intimidating, option (I like skimr but I don't think the workflow outlined here is necessarily intuitive). {naniar} is one of my favourite packages for exploring relationships among missing data but I thought it might be beyond the scope of this book, so I've omitted it. I could add a tab if you think it's useful though, or we could add a line at the end of the tabs saying this package may be useful as a next step once they've identified where their missing data is 
+
+DK: I agree with the change. {naniar} seems cool but I don't think it quite fits here. Perhaps it could be added at the end? It feels like an advanced way to handle missing values.
+
+-->
 
 :::{.panel-tabset .nav-pills}  
 
 #### `summary()`
 
-The `summary()` function does exactly that - it provides summary statistics for each column in your table. The no-frills output includes the number of missing values in each column (`NA's`). Here, we can tell that there are missing values in the columns: `decimalLatitude`, `decimalLongitude`, `eventDate`, and `month`.  
+The `summary()` function does exactly what its name suggests---it provides summary statistics for each column in your table. The no-frills output includes the number of missing values in each column (`NA's`). Here, we can tell that there are missing values in the columns: `decimalLatitude`, `decimalLongitude`, `eventDate`, and `month`.  
 
 ```{r}
 #| warning: false
@@ -79,9 +86,9 @@ The `summary()` function does exactly that - it provides summary statistics for 
 summary(geckos) 
 ```
 
-#### skimr  
+#### `skim()`  
 
-The skimr package provides a fast and simple way to identify columns with missing values and quantify the level of missing data.   
+The skimr package provides a fast and simple way to identify columns with missing values and quantify the amount of missing data. The output shows that there are 7 columns with missing values, shown in `skim_variable`, along with information about the number of missing values in `n_missing` and the proportion of non-missing values in `complete_rate`.  
 
 ```{r}
 #| warning: false
@@ -94,9 +101,23 @@ geckos |>
   as_tibble()
 ```
 
-The output shows that there are 7 columns with missing values, shown in `skim_variable`, along with information about the number of missing values in `n_missing` and the proportion of non-missing values in `complete_rate`.
 
-Next we can return all rows with a missing variable.
+#### `viz_miss()`  
+
+The [visdat package](https://docs.ropensci.org/visdat/) contains functions to visualise different aspects of dataframes. `vis_miss()` allows users to visualise the extent and location of missing data throughout a dataframe, with additional arguments for customising the visual output through clustering or sorting the missing data. The output provides a visual summary of which columns have missing data and relatively how many rows have missing values.  
+
+```{r}
+#| warning: false
+#| message: false
+library(visdat)
+
+vis_miss(geckos)
+```
+
+:::
+
+
+After identifying missing values in our preferred summary above, another step we can do to identify missing values is return every row that contains a missing value using `filter(if_any(everything(), is.na))`.
 
 ```{r}
 geckos |> 
@@ -113,21 +134,6 @@ geckos |>
   select(scientificName, genus, 
          species, cl22, everything()) # reorder columns
 ```
-
-#### `viz_miss()`  
-
-The visdat package contains functions to visualise different aspects of dataframes. `vis_miss()` allows users to visualise the extent and location of missing data throughout a dataframe, with additional arguments for customising the visual output through clustering or sorting the missing data.  
-
-```{r}
-#| warning: false
-#| message: false
-library(visdat)
-
-vis_miss(geckos)
-```
-
-:::
-
 
 ## Remove `NA` values
 
@@ -153,8 +159,6 @@ If we decide we are happy to exclude these records, we can use `drop_na()` to re
 ```{r}
 #| message: false
 #| warning: false
-library(tidyr)
-
 geckos_filtered <- geckos |>
   drop_na(decimalLongitude, decimalLatitude)
 ```
@@ -180,20 +184,9 @@ As an example, we'll use a slightly modified `geckos_missing` dataset with some 
 #| warning: false
 #| message: false
 #| code-fold: true
+set.seed(87654) # for reproducibility
 
-# download older gecko data
-# geckos_old <- galah_call() |>
-#   identify("Gekkonidae") |>
-#   filter(year > 2004 & year < 2009) |>
-#   select(group = "basic",
-#          kingdom, phylum, order, class, 
-#          family, genus, species, cl22, 
-#          eventDate, month) |>
-#   atlas_occurrences()
-
-# randomly replace class & family with NAs
-set.seed(87654)
-
+# randomly replace some row's class & family names with NAs
 geckos_missing <- geckos |>
   mutate(class = replace(class, 
                          sample(row_number(), 
@@ -211,7 +204,7 @@ geckos_missing |>
   select(scientificName, class, family, genus, species, everything())
 ```
 
-If you have a list of taxonomic names with complete ranking information from your preferred [taxonomic naming authority](link%20back%20to%20section), you can use this information to back-fill your missing data columns. In our case, we can use names from ALA's taxonomic backbone.
+If you have a list of taxonomic names with complete ranking information from your preferred [taxonomic naming authority](../4_accessing/where-to-get-data.qmd#taxonomic-data), you can use this information to back-fill your missing data columns. In our case, we can use names from ALA's taxonomic backbone.
 
 First we'll get the complete list of *Gekkonidae* taxonomic rank names using galah.
 
@@ -274,7 +267,7 @@ geckos_rank |>
   filter(taxonRank == "species")
 ```
 
-However, it is still possible to filter records using the tools above without using the `taxonRank` column. In this case we remove records not identified down to the genus. 
+However, it is still possible to filter records using the tools above without using the `taxonRank` column. In this case we remove records not identified down to the genus by removing rows with a missing `genus` value. 
 
 ```{r}
 geckos_filtered <- geckos |>
@@ -285,6 +278,6 @@ geckos_filtered
 
 ## Summary
 
-This chapter showed ways to find and remove different types of missing records from your dataset.
+This chapter showed ways to find and remove different types of missing records from your dataset. Importantly, there might not be one single cleaned dataset missing all missing values. You might find that in the same workflow, you will clean your dataset in multiple ways to preserve rows that are missing some, but not all, information. For example, some records have complete taxonomic identification but lack spatial coordinates. Other records have spatial coordinates but lack taxonomic information. Depending on your intended type of analysis, you may have to vary how you clean your data for each analysis!
 
-In the next chapter...
+In the next chapter, we'll explain how to identify and clean text data (also known as strings).
