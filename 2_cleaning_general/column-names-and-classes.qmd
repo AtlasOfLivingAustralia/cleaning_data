@@ -5,16 +5,16 @@ editor_options:
 
 # Column classes & names
 
-This chapter explains how to check the class of each column and edit column names. 
+Each column in a dataset contains data of a specific **class**. A class defines the type of data in a column and determines how those data are interpreted in R, and how we can modify those data. For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. Classes are important to understand (or fix) because, generally, functions will not work if the data type is not compatible. 
 
-Each column in a table contains data of a specific **class**. A class defines the type of data in a column, which determines how those data are interpreted in R and affects how we can modify those data. For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. 
+Column names can also cause compatibility issues when working with a dataset. Depending on the source of your dataset, existing column names may be uninformative (e.g. `col1`, `tga42.D`), oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data and avoid errors caused by mismatched or confusing column names. 
 
-Depending on the source of your dataset, the column names in a table may be uninformative (e.g. `col1`, `tga42.D`), oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data.
+This chapter explains how to check the class of each column and edit column names so that they are consistent and ready to use for analyses.
 
 
 ### Prerequisites
 
-In this chapter, we will use *Litoria* frog occurrence data since 2020 in Tasmania.
+In this chapter, we will use *Litoria* frog occurrence data since 2020 in Tasmania. Here is how we retrieve that data using [galah](https://galah.ala.org.au/). 
 
 ```{r}
 #| warning: false
@@ -66,7 +66,7 @@ frogs <- galah_call() |>
 
 Columns define what type of data they contain by having a class, and it's important to know what these classes are because R handles each class differently.
 
-Viewing your data using functions we introduced in the [Inspect chapter](LINK) allows you to get a quick overview of each column's class.
+Viewing your data using functions we introduced in the [Inspect chapter](../1_exploring/inspect.qmd) allows you to get a quick overview of each column's class.
 
 :::{.panel-tabset .nav-pills}
 
@@ -123,22 +123,35 @@ frogs |>
 
 :::
 
-If you are using a `tibble`, the class is also displayed below each column name when you view your table.
+If you are using a `tibble`, the class is also displayed below each column name when you view your table (here there are two classes: character `<chr>`, double `<dbl>` and date-time `<dttm>`). 
 
 ```{r}
+#| output: false
 frogs
 ```
 
+```{r}
+#| echo: false
+frogs |> rmarkdown::paged_table()
+```
+
+::: {.callout-note collapse="false"}
+## Our data classes:
+
 From these quick overviews of the data, we've learned:
 
-  *  Columns like `scientificName` are strings of text (type `character`)
-  *  Columns like `decimalLatitude` and `decimalLongitude` are numbers with decimal points (type `double`)
+  *  Column `scientificName` is strings of text (type `character`)
+  *  Columns `decimalLatitude` and `decimalLongitude` are numbers with decimal points (type `double`)
   *  The `eventDate` column contains a date + time (type `POSIXct`/`dttm`)
   *  Columns like `recordID` and `taxonConceptID` contain both text and numbers, but are of type `character` because this type prevents any loss of data[^column-names-and-classes-2].
-
+  
 [^column-names-and-classes-2]: To avoid conflicts, R has an internal coercion hierarchy rule to avoid data loss. The rule of thumb is that if a data type can't exist in a child data type, then the parent data type is used instead. The R coercion hierarchy is:<br>  `logical` `->` `integer` `->` `numeric` `->` `complex` `->` `character`<br><br>You don't need to memorise this, but it's worth being aware of this hierarchy, as R might make decisions to prevent a class error and you might not know why! [Learn more in this article](https://annakrystalli.me/rrresearchACCE20/data-types-structures-and-classes.html).
+  
+:::
 
-Here, the column classes are what we'd expect given the types of data in each column. However, this is not always the case. For instance, changing just one of the values in `decimalLatitude` to a "degrees minutes seconds" format will cause the entire column's class to be changed to `character` to prevent loss of data.
+Here, the column classes are what we'd expect given the types of data in each column. However, this is not always the case. 
+
+For instance, changing just one of the values in `decimalLatitude` from its assigned `numeric` value to a "degrees minutes seconds" format causes the entire column class to be changed to `character` to prevent loss of data.
 
 
 ```{r}
@@ -155,7 +168,11 @@ frogs_class$decimalLatitude[5] <- "40° 51' 59 N"
 class(frogs_class$decimalLatitude)
 ```
 
+::: {.callout-warning collapse="true"}
+## Note
+
 A simple typo in the dataset you import into R could be all it takes to change the class of an entire column, so be sure to keep your eyes out for strange column classes!
+:::
 
 ## Column names
 
@@ -177,7 +194,7 @@ Snake case is more popular in R, and is the naming convention we recommend. Data
 colnames(frogs)
 ```
 
-One of the most useful column name cleaning functions is `clean_names()` from the janitor package. This function will make all of your column names consistent, based on your preferred naming convention (defaults to snake case). 
+One of the most useful column name cleaning functions is `clean_names()` from the [janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) package. This function will make all of your column names consistent, based on your preferred naming convention (defaults to snake case). 
 
 ```{r}
 #| warning: false
@@ -189,6 +206,16 @@ frogs_clean <- frogs |>
   colnames()
 frogs_clean
 ```
+
+Now our names are in a consistent `snake_case` format.
+
+```{r}
+frogs_clean |>
+  rmarkdown::paged_table()
+```
+
+
+
 
 ### Rename columns
 
@@ -202,21 +229,43 @@ There are several ways to rename columns in R.
 `dplyr::rename()` provides an easy way to rename one or more columns.
 
 ```{r}
+#| output: false
 frogs |>
   select(decimalLatitude, decimalLongitude) |>
   rename(latitude = decimalLatitude,
          longitude = decimalLongitude)
 ```
 
-`rename_with()` is a more powerful verion of `rename()`. It allows more advanced renaming by using functions to rename matching columns.
+`rename_with()` is a more powerful version of `rename()`. It allows more advanced renaming by using functions to rename matching columns.
 
 ```{r}
+#| output: false
 frogs |>
-  rename_with(toupper, starts_with("decimal"))
+  rename_with(toupper, starts_with("decimal")) 
+```
 
+```{r}
+#| echo: false
+frogs |>
+  rename_with(toupper, starts_with("decimal")) |> 
+  dplyr::select("DECIMALLATITUDE", "DECIMALLONGITUDE") |>
+  rmarkdown::paged_table()
+```
+
+```{r}
+#| output: false
 frogs |>
   rename_with( ~ tolower(gsub("decimal", "new_", .x, fixed = TRUE)))
 ```
+
+```{r}
+#| echo: false
+frogs |>
+  rename_with( ~ tolower(gsub("decimal", "new_", .x, fixed = TRUE))) |>
+  dplyr::select("new_latitude", "new_longitude") |>
+rmarkdown::paged_table()
+```
+
 
 #### `names()` + `<-`
 
@@ -244,6 +293,7 @@ Sometimes it is useful to split information from one column into several columns
 ```{r}
 #| warning: false
 #| message: false
+#| output: false
 library(tidyr)
 
 frogs_separate <- frogs |>
@@ -253,14 +303,22 @@ frogs_separate <- frogs |>
            remove = FALSE         # keep input column
            ) |> 
   select(scientificName, genus, species)
-frogs_separate
 ```
+
+```{r}
+#| echo: false
+frogs_separate |> rmarkdown::paged_table()
+```
+
+
+
 
 ### Join columns
 
 Conversely, we might want to combine information from multiple columns into a single column. We can rejoin the `genus` and `species` columns we created in the previous section using `unite()` from the tidyr package.
 
 ```{r}
+#| output: false
 frogs_separate |>
   unite("single_name", 
         genus:species, # select columns to join
@@ -271,8 +329,29 @@ frogs_separate |>
   select(genus, species, single_name)
 ```
 
+```{r}
+#| echo: false
+frogs_separate |>
+  unite("single_name", 
+        genus:species, # select columns to join
+        sep = " ",     # separate with a space
+        na.rm = TRUE,  # remove NA values
+        remove = FALSE # keep input column
+        ) |>
+  select(genus, species, single_name) |>
+rmarkdown::paged_table()
+```
+
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/1/3/a/7/c5363580-9cee-4a4c-8ae9-1dafdc157a31/original" class="rounded"/></img>
+
+::: figure-caption
+[*Litoria raniformis* close-up <br>Photo by sonyaf CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/ce795264-ebec-4e57-9ff4-e3f91440a747)
+:::
+:::
+
 ## Summary
 
-In this chapter, we've explored different ways to check the class of each column in your table to make sure R is interpreting your data correctly, to change column names to make it easier to work with them, and to split or combine columns to access data more conveniently. 
+In this chapter, we've explored different ways to check the class of each column in your table to make sure R is interpreting your data correctly. We also showed how to change column names to make it easier to work with them and to split or combine columns to access data more conveniently. 
 
-In the next chapter we will learn to xxx...
+In the next chapter we will learn to efficiently clean **duplicate** data. Duplicates might occur due to mistakes in data collection or entry, or, from merging data from multiple sources. 
