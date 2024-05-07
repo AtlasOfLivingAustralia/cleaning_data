@@ -165,7 +165,7 @@ package like {[geodata](https://github.com/rspatial/geodata)} or by reading in a
 <!-- Download this file from Teams /data/data_cleaning_book/ -->
 
 ```{r}
-world_clim_raster <- rast(here("data/rasters/aggregated_bioclim.tif"))
+world_clim_raster <- rast(here("data", "rasters", "aggregated_bioclim.tif"))
 ```
 
 Here is an example of what raster data looks like in R...
@@ -257,8 +257,7 @@ make sure the classifications you expect are what you finding. This check will
 help prevent errors later on (though you might still need to re-code data
 manually).
 
-We discuss these considerations in more detail in \[Chapter xxx taxonomy expert
-cleaning\].
+We discuss these considerations in more detail in the [Taxonomic Validation chapter](../3_cleaning-expert/taxonomic_validation.qmd).
 
 Here are some examples of where to find Australian taxonomic information.
 
