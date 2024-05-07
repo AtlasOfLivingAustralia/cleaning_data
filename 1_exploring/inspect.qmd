@@ -74,32 +74,32 @@ From reading FrogID's metadata [@rowley2020frogid], you'll find:
 
 1.  The data is acoustic data[^1]
 2.  This is citizen science data[^2]
-3.  Audio is recorded via a smartphone app
+3.  Audio is recorded via a smartphone app[^3]
 4.  These data record presences, but not absences
 5.  The data are under a Creative Commons license which is relevant for reuse and republishing
 
 [^1]: Meaning the majority of the species recorded are male.
 [^2]: Suggesting these data could be biased towards populated areas
-[^3]: As a result, the authors recommend filtering data to `geographic uncertainty of <3000m` if you require high coordinate precision
+[^3]: As a result, the authors recommend filtering data to `geographic uncertainty of <3000m` if you require high coordinate precision 
+
 
 ::: {.callout-note collapse="true"}
 
 #### Data standards
 
-Many data infrastructures like the Atlas of Living Australia also follow a data
+Many data infrastructures like the Atlas of Living Australia also follow and encourage a data
 standard to help consolidate data from many different data
 providers[^inspect-1].
 
-The data standard used by the Atlas of Living Australia is called **Darwin Core**,
-which defines a [set of standard terms](https://dwc.tdwg.org/terms/)[^inspect-2]
-to use across datasets (used as column names within datasets) and the accepted
-values that are recorded under specific terms. Darwin Core standards also
-require that additional files detailing metadata and data structure are supplied
-along with the dataset, which helps make sure the data is ingested correctly
-into the data infrastructure.
+The data standard used by the Atlas of Living Australia is called **Darwin Core**.
+Darwin Core works by defining a) a [set of standard terms](https://dwc.tdwg.org/terms/)[^inspect-2] 
+to use across datasets as column names, and b) values eligible to be recorded
+underneath these terms. Darwin Core standards require that additional files 
+detailing metadata and data structure are supplied along with the dataset. This 
+helps make sure the data is ingested correctly into the data infrastructure.
 
 Knowing whether your dataset follows a standard can allow you to look up term
-definitions as you become familiar with the data.
+definitions to help you familiarise yourself with the data.
 :::
 
 [^inspect-1]: Making datasets easier to consolidate is also referred to as
@@ -119,7 +119,7 @@ When starting with a new dataset, we want to get an initial idea:
   * What types of data are in each column? 
   * What are their possible values or ranges? 
   
-These answers are usefult o know before jumping into wrangling and cleaning data.
+These answers are useful to know before jumping into wrangling and cleaning data.
 
 There are several ways to return an overview of your data, ranging in how
 comprehensively you wish to summarise your data's structure.
