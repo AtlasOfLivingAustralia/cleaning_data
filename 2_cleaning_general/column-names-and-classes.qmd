@@ -5,15 +5,11 @@ editor_options:
 
 # Column classes & names
 
-This chapter explains how to check the class of each column and edit column names. 
+Each column in a dataset contains data of a specific **class**. A class defines the type of data in a column and determines how those data are interpreted in R, and how we can modify those data. For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. Classes are important to understand (or fix) because, generally, functions will not work if the data type is not compatible. 
 
-Each column in a table contains data of a specific **class**. Classes are the "type" of data in a column and determine how those data are interpreted in R. They impact how we can modify those data or work with them.
+Column names can also cause compatibility issues when working with a dataset. Depending on the source of your dataset, existing column names may be uninformative (e.g. `col1`, `tga42.D`), oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data and avoid errors caused by mismatched or confusing column names. 
 
-For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. 
-
-You can convert data types through different commands in R if they have been incorrectly interpreted or allocated, but generally, functions will not work if the data type is not compatible. 
-
-Depending on the source of your dataset column names in a table may be uninformative (e.g. `col1`, `tga42.D`). They might also be oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or, internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data. 
+This chapter explains how to check the class of each column and edit column names so that they are consistent and ready to use for analyses.
 
 
 ### Prerequisites
@@ -70,7 +66,7 @@ frogs <- galah_call() |>
 
 Columns define what type of data they contain by having a class, and it's important to know what these classes are because R handles each class differently.
 
-Viewing your data using functions we introduced in the [Inspect chapter](LINK) allows you to get a quick overview of each column's class.
+Viewing your data using functions we introduced in the [Inspect chapter](../1_exploring/inspect.qmd) allows you to get a quick overview of each column's class.
 
 :::{.panel-tabset .nav-pills}
 
@@ -127,7 +123,7 @@ frogs |>
 
 :::
 
-If you are using a `tibble`, the class is also displayed below each column name when you view your table (here there are two classes of data: character <chr>,  double <dbl> and date-time <dttm>). 
+If you are using a `tibble`, the class is also displayed below each column name when you view your table (here there are two classes: character `<chr>`, double `<dbl>` and date-time `<dttm>`). 
 
 ```{r}
 #| output: false
@@ -153,9 +149,7 @@ From these quick overviews of the data, we've learned:
   
 :::
 
-Here, the column classes are what we'd expect given the types of data in each column. 
-
-However, this is not always the case. 
+Here, the column classes are what we'd expect given the types of data in each column. However, this is not always the case. 
 
 For instance, changing just one of the values in `decimalLatitude` from its assigned `numeric` value to a "degrees minutes seconds" format causes the entire column class to be changed to `character` to prevent loss of data.
 
@@ -174,7 +168,7 @@ frogs_class$decimalLatitude[5] <- "40° 51' 59 N"
 class(frogs_class$decimalLatitude)
 ```
 
-::: {.callout-warning collapse="false"}
+::: {.callout-warning collapse="true"}
 ## Note
 
 A simple typo in the dataset you import into R could be all it takes to change the class of an entire column, so be sure to keep your eyes out for strange column classes!
@@ -216,16 +210,8 @@ frogs_clean
 Now our names are in a consistent `snake_case` format.
 
 ```{r}
-#| output: false
-frogs_clean
-```
-
-
-```{r}
-#| echo: false
-frogs |>
-  clean_names() |>
-rmarkdown::paged_table()
+frogs_clean |>
+  rmarkdown::paged_table()
 ```
 
 
