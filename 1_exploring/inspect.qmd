@@ -74,15 +74,13 @@ From reading FrogID's metadata [@rowley2020frogid], you'll find:
 
 1.  The data is acoustic data[^1]
 2.  This is citizen science data[^2]
-3.  Audio is recorded via a smartphone app
+3.  Audio is recorded via a smartphone app[^3]
 4.  These data record presences, but not absences
 5.  The data are under a Creative Commons license which is relevant for reuse and republishing
 
 [^1]: Meaning the majority of the species recorded are male.
 [^2]: Suggesting these data could be biased towards populated areas
 [^3]: As a result, the authors recommend filtering data to `geographic uncertainty of <3000m` if you require high coordinate precision 
-
-<!-- Is the third footnote [^3] meant to correspond to the third point :~) OT-->
 
 
 ::: {.callout-note collapse="true"}
