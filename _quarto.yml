@@ -42,11 +42,10 @@ book:
     - 3_cleaning_expert/taxonomic-validation.qmd
     - 3_cleaning_expert/geospatial-investigation.qmd
     - 3_cleaning_expert/geospatial-cleaning.qmd
-    - 3_cleaning_expert/ecological-filtering.qmd
-    - 3_cleaning_expert/outliers.qmd
   - 4_accessing/where-to-get-data.qmd
-  - 4_accessing/large-downloads.qmd
+  - 4_accessing/big-data.qmd
   - 4_accessing/merging.qmd
+  - 4_accessing/git.qmd
   - references.qmd
   - packages.qmd
   - appendix.qmd
