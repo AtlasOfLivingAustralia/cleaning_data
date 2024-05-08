@@ -8,11 +8,15 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Biological filtering
+<!-- IMPORTANT NOTE:
+This chapter used to have lots of examples of biological filters one could use. After thinking about it more, this chapter felt more like a strange collection of examples of fields people might not know about (but for good reason because the data was pretty sparse) or VERY bespoke filtering workflows using confusing or technical examples. I have moved relevant information elsewhere and deleted many examples because they didn't work the way they were advertised originally.
 
-<!--
-This chapter feels more like an exercise in filtering than a true data cleaning chapter. I imagine many people have many needs, but a lot of these examples show how to build a query rather than how 
+I have kept this one Extinct Species example because it seems like a cool list, but the example is very technical compared to most of the book. I'm not certain whether it should be kept anywhere, but the other examples have been deleted.
+- DK
 -->
+
+
+# Biological filtering
 
 ### Prerequisites
 
@@ -49,118 +53,6 @@ plants <- arrow::open_dataset("../data/dap/plants_subset") |>
 :::
 
 :::
-
-## Filter using species list
-
-Many investigations use a taxonomic list of species or groups to identify which species are relevant. A common example is using a list of introduced or invasive species to filter relevant occurrence records. Alternatively, its also common to use threatened or sensitive species list to identify native species of interest.
-
-Let's see how to filter records that match a species list using galah and an external list.
-
-#### Using galah
-
-The ALA contains national and state-based conservation status lists. For example, if we wanted to use the Victorian Restricted Species list, we can do a text search for available lists for "victoria" using `search_all(lists, "victoria")`.
-
-```{r}
-list_search <- search_all(lists, "victoria")
-list_search
-```
-
-Filtering our result to only authoritative lists can help us find official state lists.
-
-```{r}
-list_search |> 
-  filter(isAuthoritative == TRUE)
-```
-
-Now that we have found our desired list, we can return its contents by using `show_values()`.
-
-```{r}
-vic_species_list <- search_all(lists, "dr490") |> # <1>
-  show_values()
-
-vic_species_list
-```
-1. We are using the list ID `dr490` (specified in the `species_list_uid` column) to make sure we return the correct list
-
-Now we can use our `vic_species_list` to identify any restricted species by matching names in `vic_species_list` to names in our `plants` data.
-
-<!-- This example needs to use different plants data -->
-
-```{r}
-plants_filtered <- plants |>
-  filter(!scientific_name %in% vic_species_list$scientificName)
-
-plants_filtered
-```
-
-This process has removed xxx records from our data.
-
-```{r}
-nrow(plants) - nrow(plants_filtered)
-```
-
-We can also filter our queries *prior* to downloading data in galah by adding a filter specifying `species_list_uid == dr490` to our query.
-
-```{r}
-galah_call() |>
-  identify("plantae") |>
-  filter(species_list_uid == dr490) |> # <1>
-  group_by(species) |>
-  atlas_counts()
-```
-1. We are using the list ID `dr490` (specified in the `species_list_uid` column) to make sure we return the correct list
-
-#### Using an external list
-
-We can also use lists downloaded outside of galah to filter our data. 
-As an example, let's filter our taxonomic names to only Australian names on the 
-[Global Register of Introduced and Invasive Species
-(GRIIS)](https://griis.org/download). After downloading this list and saving 
-it in your working directory, we can read the list into R. Taxonomic names 
-are held in columns with an `accepted_name` prefix.
-
-```{r}
-#| eval: false
-griis <- read_csv(here("GRIIS_Australia_20230331-121730.csv"))
-
-glimpse(griis)
-```
-
-```{r}
-#| warning: false
-#| message: false
-#| echo: false
-library(dplyr)
-griis <- read_csv(here("data", 
-                       "lists", 
-                       "GRIIS_Australia_20230331-121730.csv"))
-glimpse(griis)
-```
-
-Now we can check which species names in `griis` match species names in our `plants` data.
-
-```{r}
-# Check which species matched the GRIIS list
-matches <- plants |> 
-  filter(scientific_name %in% griis$accepted_name.species)
-
-matches
-```
-
-After looking through the matches and confirming we are happy with the list of matched species, we can exclude these taxa from our data, removing the rows identified above.
-
-```{r}
-plants_filtered <- plants |>
-  filter(!scientific_name %in% matches)
-
-plants_filtered
-```
-
-::: callout-tip
-You can apply this concept of filtering to any list of species, or other
-fields, that you would like to exclude.
-:::
-
 
 
 ## Extinct species
@@ -244,7 +136,7 @@ inverts_2 |>
   unique()
 ```
 
-<!-- Originally, the below section used an R package to interact with the IUCN API, but this functionality has since been blocked -->
+<!-- Originally, the below section used an R package to interact with the IUCN API, but this functionality has since been blocked. I deleted the old code because it won't work anymore -->
 
 The IUCN also provides lists of extinct species
 that are in their database. See the [IUCN](LINK) for
