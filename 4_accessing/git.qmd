@@ -1,10 +1,43 @@
 # Git
 
-Git is one of the most popular open source version control systems used today. While it is very commonly used in the world of software development, it is less common in the academic and research spheres. Git is a very powerful tool for keeping track of the many versions of documents that researchers inevitably end up wrangling when working on a project[^1], and especially so when collaborating with others on projects. When used in conjunction with a platform like GitHub or GitLab for hosting files, and a project-oriented workflow in RStudio for separating working directories across projects, Git is a rigorous and powerful tool for managing documents, figures, raw data, slide decks, and source code. Git commands may be executed in a shell, but there are a number of user-friendly Git clients (e.g. GitKraken, Github Desktop, RStudio git pane) which make the process of learning git less daunting if you're just getting started.   
+Keeping track of the many versions of documents that inevitably eventuate when working on a project---especially when collaborating with others---is difficult[^1]. [Git](https://git-scm.com/) is a powerful, popular open-source version control system used today. When used in conjunction with a platform like [GitHub](https://github.com/) or [GitLab](https://about.gitlab.com/) for hosting files, Git excels at making managing documents, figures, raw data, and source code easier. 
+[^1]: If you've ever tried to work out which of `draft_ms_final`, `draft_ms_last_edits`, and `ms_final_vs` is the most updated version of a paper, Git is for you.   
 
-[^1]: If you've ever tried to work out which of `draft_ms_final`, `draft_ms_last_edits`, and `ms_final_vs` is the most updated version of a paper, git is for you.   
+If you are new to version control with Git & GitHub, [this cartoon is a nice introduction](https://allisonhorst.com/git-github)!
 
-Resources:  
-Happy Git and GitHub for the useR: https://happygitwithr.com
-Git clients: https://git-scm.com/downloads/guis
-Visual representation of git via Allison Horst: https://allisonhorst.com/git-github
+To getting started with using Git in R, check out [Happy Git and GitHub for the useR](https://happygitwithr.com).
+
+#### Using Git
+
+Git commands may be executed in a shell using a command line (e.g., [Git Bash]()), but there are a number of user-friendly Git clients (e.g. Github Desktop, RStudio git pane, GitKraken) that make the process of learning git less daunting if you are just getting started. Below are some examples and links to download.
+
+::: {.panel-tabset .nav-pills}
+
+#### Git Bash
+
+[Git Bash](https://git-scm.com/downloads) is the default way to interact with Git from the command line. 
+
+![Example of Git Bash. Source: https://gitforwindows.org/](../images/example_git-bash.png)
+
+#### GitHub Desktop
+
+[GitHub Desktop](https://desktop.github.com/) is a more visual point-and-click interface to using Git and GitHub.
+
+![Example of GitHub Desktop. Source: https://desktop.github.com/](../images/example_github-desktop.png)
+
+#### R Studio
+
+[The git pane in R Studio](https://docs.posit.co/ide/user/ide/guide/tools/version-control.html) integrates Git functionality into R Studio.
+
+![Example of the R Studio git pane. Source: https://docs.posit.co/ide/user/ide/guide/tools/version-control.html](../images/example_git-rstudio.png)
+
+#### GitKraken
+
+[GitKraken](https://www.gitkraken.com/) is a popular third-party Git client with an all-in-one interface.
+
+![Example of GitKraken Client. Source: https://www.gitkraken.com/git-client](../images/example_gitkraken.png)
+
+:::
+
+For additional useful Git clients, check out the [GUI page of the Git website](https://git-scm.com/downloads/guis).
+
