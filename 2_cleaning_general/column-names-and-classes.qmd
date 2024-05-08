@@ -123,17 +123,23 @@ frogs |>
 
 :::
 
-If you are using a `tibble`, the class is also displayed below each column name when you view your table (here there are two classes: character `<chr>`, double `<dbl>` and date-time `<dttm>`). 
+If you are using a `tibble`, the class is also displayed below each column name when you view your table. Depending on whether your output is in the console or inline, your tibble may be formatted as a paged table in R Studio.
+
+::: {.panel-tabset .nav-pills}
+
+#### Console
 
 ```{r}
-#| output: false
 frogs
 ```
 
+#### Inline
+
 ```{r}
-#| echo: false
 frogs |> rmarkdown::paged_table()
 ```
+
+:::
 
 ::: {.callout-note collapse="false"}
 ## Our data classes:
@@ -210,7 +216,8 @@ frogs_clean
 Now our names are in a consistent `snake_case` format.
 
 ```{r}
-frogs_clean |>
+frogs |>
+  clean_names() |>
   rmarkdown::paged_table()
 ```
 
@@ -223,17 +230,26 @@ Renaming columns is a frequent data cleaning task. Column names might need renam
 
 There are several ways to rename columns in R.
 
+<!-- 
+I am undecided about hiding the paged_table() step from the user 
+
+On one hand, if you are using R Studio + Quarto, this is probably how it renders anyway
+On the other hand, people might wonder why the output looks differen? I'm not sure.
+- DK
+-->
+
 ::: {.panel-tabset .nav-pills}
 #### `rename()`
 
 `dplyr::rename()` provides an easy way to rename one or more columns.
 
 ```{r}
-#| output: false
+#| df-print: paged
+
 frogs |>
   select(decimalLatitude, decimalLongitude) |>
   rename(latitude = decimalLatitude,
-         longitude = decimalLongitude)
+         longitude = decimalLongitude) 
 ```
 
 `rename_with()` is a more powerful version of `rename()`. It allows more advanced renaming by using functions to rename matching columns.
@@ -241,29 +257,31 @@ frogs |>
 ```{r}
 #| output: false
 frogs |>
-  rename_with(toupper, starts_with("decimal")) 
+  select(decimalLatitude, decimalLongitude) |>
+  rename_with(toupper, starts_with("decimal"))
 ```
 
 ```{r}
 #| echo: false
 frogs |>
+  select(decimalLatitude, decimalLongitude) |>
   rename_with(toupper, starts_with("decimal")) |> 
-  dplyr::select("DECIMALLATITUDE", "DECIMALLONGITUDE") |>
   rmarkdown::paged_table()
 ```
 
 ```{r}
 #| output: false
 frogs |>
+  select(decimalLatitude, decimalLongitude) |>
   rename_with( ~ tolower(gsub("decimal", "new_", .x, fixed = TRUE)))
 ```
 
 ```{r}
 #| echo: false
 frogs |>
+  select(decimalLatitude, decimalLongitude) |>
   rename_with( ~ tolower(gsub("decimal", "new_", .x, fixed = TRUE))) |>
-  dplyr::select("new_latitude", "new_longitude") |>
-rmarkdown::paged_table()
+  rmarkdown::paged_table()
 ```
 
 
