@@ -102,6 +102,9 @@ summary(geckos)
 
 The skimr package provides a fast and simple way to identify columns with missing values and quantify the amount of missing data. The output shows that there are 7 columns with missing values, shown in `skim_variable`, along with information about the number of missing values in `n_missing` and the proportion of non-missing values in `complete_rate`.  
 
+::: {.callout-important title="`skim()` NA's"}
+The output shows that there are 7 columns with missing values (under `skim_variable`), along with information about the number of missing values in `n_missing` and the proportion of `non-missing values` in `complete_rate`.
+:::
 
 ```{r}
 #| warning: false
@@ -114,9 +117,6 @@ geckos |>
   as_tibble()
 ```
 
-::: {.callout-important title="`skim()` NA's"}
-The output shows that there are 7 columns with missing values (under skim_variable), along with information about the number of missing values in n_missing and the proportion of non-missing values in complete_rate.
-:::
 
 #### `viz_miss()`  
 
