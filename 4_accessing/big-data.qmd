@@ -15,6 +15,14 @@ Once the size of your dataset starts to approach the size of your computer's mem
 In this chapter, we will use pardalote occurrence data. You will need to save the pardalotes data locally (i.e. write to disk) as a csv file to use over this chapter
 
 ```{r}
+#| include: false
+library(here)
+library(dplyr)
+library(readr)
+```
+
+
+```{r}
 #| eval: false
 library(galah)
 library(readr)
