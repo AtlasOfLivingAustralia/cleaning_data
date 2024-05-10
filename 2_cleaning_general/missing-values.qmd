@@ -264,21 +264,19 @@ First we'll get the complete list of *Gekkonidae* species taxonomic rank names u
 
 ```{r}
 #| echo: true
+#| output: false
 geckos_species_list <- galah_call() |>
   identify("gekkonidae") |>
   atlas_species()
-
-geckos_species_list
 ```
 
 ```{r}
 #| echo: false
 #| output: true
-geckos_species_list <- galah_call() |>
+galah_call() |>
   identify("gekkonidae") |>
-  atlas_species()
-
-geckos_species_list
+  atlas_species() |>
+rmarkdown::paged_table()
 ```
 
 
@@ -304,7 +302,7 @@ We can use `left_join()` to merge `list_subset` to `geckos_missing`. Records tha
 
 [^3]: This hasn't worked for every row, however, because `scientificName` contains the name of the lowest taxonomic rank the occurrence is identified to. Names like `Christinus` and `Gehyra` are genus names, so in these cases `scientificName` won't match our reference `species_name` column!
 
-<!-- I think this footnote is kinda important to understand why there are NA's in the new columns. im thinking it would be better off not as a footnote especially because the article is about NA's explicitly it might raise some red flags at first glance of the table OT -->
+<!-- I think this footnote is kinda important to understand why there are NA's in the new columns. im thinking it would be better off not as a footnote especially because the article is about NA's explicitly it might raise some red flags at first glance of the table? :-) OT -->
 
 ```{r}
 geckos_missing |>
@@ -364,11 +362,11 @@ geckos_filtered
 
 :::{.aside}
 
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/0/b/0/44f6694a-024a-45cd-896a-b73538fc0b02/original"></img>
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/d/a/d/817ae616-5596-407d-bab3-259ad78adadc/original"></img>
 
 ::: {.figure-caption}
-[*Gehyra dubia* camouflaged over rocks. <br>Photo by Nick Talbot CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/996b962a-442d-412e-adad-59400bad3f6f)
+[*Christinus marmoratus* camouflaged over lichen <br> Photo by Edward CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/69fda312-853a-4780-aeaf-9d6f7c7f47fe)
 :::
 :::
  
