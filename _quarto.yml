@@ -42,10 +42,13 @@ book:
     - 3_cleaning_expert/taxonomic-validation.qmd
     - 3_cleaning_expert/geospatial-investigation.qmd
     - 3_cleaning_expert/geospatial-cleaning.qmd
-  - 4_accessing/where-to-get-data.qmd
-  - 4_accessing/big-data.qmd
-  - 4_accessing/joins.qmd
-  - 4_accessing/git.qmd
+  appendices:
+  - 4_appendices/where-to-get-data.qmd
+  - 4_appendices/big-data.qmd
+  - 4_appendices/data-scope.qmd
+  - 4_appendices/joins.qmd
+  - 4_appendices/reproducible-workflows.qmd
+  - 4_appendices/git.qmd
   - references.qmd
   - packages.qmd
   - appendix.qmd
