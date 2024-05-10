@@ -55,3 +55,14 @@ Although a data infrastructure can use programmatic data quality checks to try t
 #   write_parquet("data/dap/plants_subset")
 ```
 
+
+## Subset of data from Inverts Australia
+
+```{r}
+#| eval: false
+# Inverts subset: arachnid data
+spiders <- here::here("data","dap","inverts_subset") |>
+  open_dataset() |>
+  filter(class == "arachnida") |>
+  collect()
+```

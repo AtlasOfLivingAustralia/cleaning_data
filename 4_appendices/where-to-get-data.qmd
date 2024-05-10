@@ -8,17 +8,15 @@ code-annotations: hover
 
 # Where to get data
 
-This section will detail what open source data is and suggest some places and
-packages for getting data of different types.
-
 There are *many* types of biodiversity data to work with. Some examples include
 observational data of where a species has been observed, climate or
 environmental data for region or area, biological data to compare measures of
 organisms' physical or behavioural traits, and genetic data to compare unique
 DNA or alleles between individuals.
 
-Here, we'll provide some places to look for open source data and suggest some R
-packages that are useful for downloading different types of data.
+Here, we'll detail what open source data is, provide some places to look for 
+open source data and suggest some R packages that are useful for downloading 
+different types of data.
 
 ### Prerequisites
 

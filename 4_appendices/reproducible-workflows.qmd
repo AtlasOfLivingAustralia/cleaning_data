@@ -1,0 +1,34 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+code-annotations: hover
+number-depth: 3
+---
+
+# Reproducible workflows
+
+For a comprehensive summary about reproducibility and using R, see the [Reproducible Workflow chapter](https://tellingstorieswithdata.com/03-workflow.html) in [*Telling Stories with Data*](https://tellingstorieswithdata.com/).
+
+## What does reproducible mean?
+
+## Why does it matter?
+
+## Reproducible environments
+
+### R projects
+
+### `here`
+
+### `renv`
+
+## Documentation
+
+### Code
+
+### Comments
+
+### Quarto
+
+## Version control
+

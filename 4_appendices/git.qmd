@@ -7,7 +7,7 @@ If you are new to version control with Git & GitHub, [this cartoon is a nice int
 
 To getting started with using Git in R, check out [Happy Git and GitHub for the useR](https://happygitwithr.com).
 
-#### Using Git
+## Using Git
 
 Git commands may be executed in a shell using a command line (e.g., [Git Bash]()), but there are a number of user-friendly Git clients (e.g. Github Desktop, RStudio git pane, GitKraken) that make the process of learning git less daunting if you are just getting started. Below are some examples and links to download.
 
