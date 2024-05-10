@@ -50,8 +50,8 @@ book:
   - 4_appendices/joins.qmd
   - 4_appendices/reproducible-workflows.qmd
   - 4_appendices/git.qmd
-  - references.qmd
   - packages.qmd
+  - references.qmd
 
 bibliography: references.bib
 
