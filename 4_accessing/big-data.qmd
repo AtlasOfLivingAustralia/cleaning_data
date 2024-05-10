@@ -12,7 +12,7 @@ Once the size of your dataset starts to approach the size of your computer's mem
 
 ### Prerequisites
 
-In this chapter, we will use pardalote occurrence data. You will need to save the pardalotes data locally (i.e. write to disk) as a csv file to use over this chapter
+In this chapter, we will use pardalote occurrence data. You will need to save the pardalotes data locally (i.e. write to disk) as a csv file to use over this chapter.
 
 ```{r}
 #| include: false
@@ -28,7 +28,7 @@ library(galah)
 library(readr)
 library(here)
 
-galah_config(email = email = "your-email-here")
+galah_config(email = "your-email-here")
 
 galah_call() |>
   identify("Pardalotus") |>
@@ -45,6 +45,16 @@ galah_call() |>
   write_csv(here("data", "pardalotes.csv"))
 
 ```
+
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/6/2/0/1b7b3e7a-80d8-49e2-be69-f2b7ebb10267/original"></img>
+
+::: {.figure-caption}
+[*Pardalotus (Pardalotus) punctatus* eating a snack. Photo by sirkendizzle CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/90dfaafd-a77c-4ccc-842d-3218a1ce64d2)
+:::
+:::
 
 ### `arrow`  
 

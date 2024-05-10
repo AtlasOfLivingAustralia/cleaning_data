@@ -44,7 +44,7 @@ book:
     - 3_cleaning_expert/geospatial-cleaning.qmd
   - 4_accessing/where-to-get-data.qmd
   - 4_accessing/big-data.qmd
-  - 4_accessing/merging.qmd
+  - 4_accessing/joins.qmd
   - 4_accessing/git.qmd
   - references.qmd
   - packages.qmd
