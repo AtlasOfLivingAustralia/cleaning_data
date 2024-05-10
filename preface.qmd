@@ -1,0 +1,70 @@
+---
+filters:
+   - lightbox
+lightbox: auto
+bibliography: references.bib
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+# Preface {.unnumbered}
+
+Ecological data is complex, and we are not experts in cleaning all types
+of data for all types of ecological analyses. We do, however, work with
+ecological data on a daily basis and encounter many of these data
+cleaning issues in our own work. Many people who use the Atlas of Living
+Australia ask how to clean ecological data effectively. The frequency of
+this question made us think that a unified resource to address ways to
+clean ecological data might be useful. We aspired for this book to be an
+up-to-date resource for a diverse range of data cleaning tasks.
+
+In order to ensure content for this book was current and relevant we
+first undertook an informal literature review on ecological data
+cleaning using both peer reviewed and grey literature.
+
+The key themes we searched for were:
+
+1.  Data cleaning for species distribution models
+
+2.  Data cleaning open biodiversity data
+
+3.  Australian and global naming authorities
+
+4.  R packages for biodiversity data cleaning
+
+We selected a collection of papers that matched these key themes, and we
+chose recently published papers where possible to identify workflows
+that use recent or up-to-date packages and tools in R. We added a few
+frequently referenced papers to make the list more comprehensive. In
+addition, we reviewed data cleaning processes from our project partners
+[@marsh2021; @godfree_implications_2021], which included a detailed
+review and discussion of their code base, to understand their processes,
+issues and needs.
+
+From our informal search, we ended up with a list of xxxnumber papers
+and resources (listed [here](LINK)). We read through their methods
+sections and collated their their data cleaning protocols into a
+spreadsheet to determine any steps and their sequence that are
+considered common best practice.
+
+All steps for acquiring and cleaning data were then looked at together
+in order to understand what were essential steps, versus what was done
+in certain use cases. We also investigated the order in which steps were
+undertaken with the idea of developing a streamlined workflow. However
+the diagrams below show the complexity of this, with data cleaning being
+extremely iterative.
+
+![](images/complex_workflow.png) ![](images/simplified_workflow.png)
+
+## Why do we still have to clean data held in data infrastructures?
+
+Data infrastructures aggregate data from thousands of different data
+providers, and standardise them so that data from many disparate sources
+can be used together.
+
+Data providers, however, can provide data with mistakes, and data
+infrastructures are not overarching taxonomic or ecological experts.
+Ultimately, it's a team effort to catch errors, and it's up to data
+providers to double check that any flagged errors are indeed actually
+errors.

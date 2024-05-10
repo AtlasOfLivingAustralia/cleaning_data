@@ -25,6 +25,7 @@ book:
   chapters:
   - index.qmd
   - intro.qmd
+  - preface.qmd
   - data-in-this-book.qmd
   - part: 1_exploring/1_intro.qmd
     chapters:
@@ -51,7 +52,6 @@ book:
   - 4_appendices/git.qmd
   - references.qmd
   - packages.qmd
-  - appendix.qmd
 
 bibliography: references.bib
 
