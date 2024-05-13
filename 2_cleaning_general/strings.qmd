@@ -8,30 +8,27 @@ number-depth: 3
 
 # Strings
 
-This chapter focuses cleaning strings in R. **Maybe state here that most of the cleaning is done with functions from {stringr}, instead of later?**   
 
 
-Sequences of characters, called **strings**, can be formatted in different ways, even when it seems like there are standardised formats for those data. These are just some examples of how the scientific name of a species could be recorded in a dataset:  
+This chapter focuses on cleaning strings. "Strings" is a term used in data science that refers to sequences of characters (e.g. words, compound words, and phrases or sentences). Strings involve an umbrella of possible issues in data cleaning. Errors generally arise from mistakes in the data collection or entry process, or when merging datasets.
 
+How terms are capitalised (or not), whether accidental spaces are placed at the beginning or end of a word or sentence, and whether typos exist - are all things that will impact your ability to consolidate and analyse data accurately and are examples of string cleaning.
+
+These are just some examples of how the scientific name of species could be recorded in a dataset:  
+  
   * `"Dendrolagus lumholtzi"`
   * `"dendrolagus lumholtzi"`
   * `":Dendrolagus_lumholtzi34"`
   * `"  Dendrolagus lumholtzi  "`
 
-Minor differences like upper and lower case letters, extra spaces, quotation marks, and other symbols can all affect analysis of a dataset. Each of these differences can impact how a record is grouped, merged, filtered, or summarised.
 
+You can see differences in these entries between upper and lower case letters, extra spaces, quotation marks, and other symbols can all affect analysis of a dataset. Each of these differences will have an impact how a record is grouped, merged, filtered, or summarised.
+
+In this chapter most of our cleaning is achieved with the `stringr` package. There are alternatives, but we find this package to be the most straightforward. 
 
 ### Prerequisites
 
-In this chapter, we will use tree kangaroo occurrence data.
-
-```{r}
-# WORMS dataset
-worms <- read.csv(here::here("data", "worms", "worms.csv"))
-# AFD dataset
-afd <- read.csv("../data/naming/afd.csv")
-```
-
+To start, we will use tree kangaroo occurrence data, downloaded using ALA's [galah](https://galah.ala.org.au/) package.
 
 ```{r}
 #| warning: false
@@ -82,12 +79,23 @@ library(stringr)
 
 #### Trim
 
+Trim is a useful command to use when there are accidental extra spaces in your entries.
+
+You can trim both sides of this accidental whitespace...
+
 ```{r}
 str_trim("  Genus specificus  ")
+```
+
+... Or just one side if you need to. 
+
+```{r}
 str_trim("  Genus specificus  ", side = "left")
 ```
 
 #### Squish
+
+Squish will achieve the same result as our first trim command.
 
 ```{r}
 str_squish("  Genus   specificus  ")
@@ -95,17 +103,23 @@ str_squish("  Genus   specificus  ")
 
 #### Truncate
 
+You might want to shorten a long name for the purposes of displaying it more easily. `str_trunc` will achieve this and add "..." to indicate that it has been truncated in your data. We've defined the max width of this phrase as 10 characters. 
+
 ```{r}
 str_trunc("Genus specificus", width = 10, side = "right")
 ```
 
 #### Split
 
+In the case you want to split the compounding words into two separately recognised strings, you can do so with `str_split`. 
+
 ```{r}
 str_split("Genus specificus", " ")
 ```
 
 #### Concatenate
+
+If you want to replace a space in your compounding words or phrases with a separator, the function `str_c` can be used. If this is something you are trying to achieve for your column names, the `janitor` package has the function `clean_names()` that will default all column names to `snake_case`. 
 
 ```{r}
 str_c("Genus", "specificus", sep = "_")
@@ -123,17 +137,19 @@ Matching strings using patterns can be a powerful way to identify or filter reco
 str_detect("Genus specificus", "Genus")
 ```
 
-Use `str_detect()` to filter your `data.frame`.
+Use `str_detect()` to filter your `data.frame` for anything including "lum" (a character combination within our string of interest, *Dendrolagus lumholtzi*, 
 
 ```{r}
 # 3 possible names in scientificName column
 tree_kangaroo |> distinct(scientificName)
+```
 
+
+```{r}
 # detect names matching "lum"
 tree_kangaroo |>
   filter(str_detect(scientificName, "lum")) |>
   select(scientificName)
-  
 ```
 
 **DAX: I can't think of a common use case for this, so could remove if you're concerned about length**  
@@ -141,26 +157,20 @@ tree_kangaroo |>
 `str_subset()` is closely related to `str_detect()`, but `str_subset()` returns a character vector of all strings that match.
 
 ```{r}
-# first 10 rows
-tree_kangaroo |>
-  select(scientificName) |>
-  slice(1:10)
-
 # str_subset()
 tree_kangaroo$scientificName |> 
   str_subset("lum") |>
   head(10L)
 ```
 
-
 ### Remove a pattern
 
 ```{r}
-# remove match 
+# remove match for Genus followed by a whitespace
 str_remove("Genus specificus", pattern = "Genus ")
 ```
 
-Use `str_remove()` to clean or extract names.
+Use `str_remove()` to clean or extract names. Here, we extract the species names apart without their genus *Dendrolagus* from `scientificName`into their own column, `species`. 
 
 ```{r}
 tree_kangaroo |>
@@ -173,6 +183,8 @@ tree_kangaroo |>
 ```
 
 ### Locate a pattern
+
+We'll create an example dataset below. 
 
 ```{r}
 records <- c("Genus", 
@@ -187,13 +199,15 @@ Find the start and end position of a pattern.
 str_locate(records, "Genus")
 ```
 
-Find which indices match a pattern.
+Find which indices match a pattern. The output above of `str_locate` indicates that "Genus" is included in the first character of row one, and ends on the fifth character. Likewise in the third row "Genus" is found on the third character and ends on the seventh. 
 
 ```{r}
 str_which(records, "Genus")
 ```
 
-Add this information to a `data.frame`.
+`str_which` tells you the indices or rows that the pattern is visible within.
+
+If you wanted to add pattern information to a `data.frame`....
 
 ```{r}
 tree_kangaroo |>
@@ -206,32 +220,46 @@ tree_kangaroo |>
 1. `[, 1]` returns column 1 of `str_locate()` output
 2. `[, 2]` returns column 2 of `str_locate()` output
 
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/8/1/4/e/3ab85f6a-af7f-47a5-a0d8-19cfae02e418/original"></img>
+
+::: {.figure-caption}
+[*Dendrolagus bennettianus* grasping a tree branch.<br>Photo by David White CC-BY](https://biocache.ala.org.au/occurrences/277f995e-0e7e-45c2-afc6-8fe4bf765294)
+:::
+:::
+
+
+You can see that this output notes that "lum" starts on the thirteenth character and ends on the fifteenth in *Dendrolagus lumholtzi* entries. 
+
 ### Regex matching
 
 The examples above demonstrate the use of basic patterns. But for cases that
-need more specific or advanced matching we can use **regular expressions (regex)**.
+need more specific or advanced matching, we can use **regular expressions (or "regex")**.
 
-Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as [Regex Generator](https://regex-generator.olafneumann.org/), that are extremely helpful. Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values.
+Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as [Regex Generator](https://regex-generator.olafneumann.org/), that are extremely helpful. 
 
-The `str_view()` function is a useful way to see what a regular
-expression will return. The results are shown in the console, and
-elements matched by the regex are surrounded with angle brackets `<` `>`. 
+Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values.
+
+The `str_view()` function is a useful way to see what a regular expression will return. The results are shown in the **console**, and elements matched by the regex are surrounded with angle brackets `<` `>`. 
 
 ```{r}
 # Match the first word in the string (the genus)
-str_view(tree_kangaroo$scientificName, "^[A-Z][a-z]+") # <1>
+str_view(tree_kangaroo$scientificName, "^[A-Z][a-z]+") 
 ```
-1. This regex reads "Do not match all letters (capitalised or not) after word 1."
+
+This regex reads "Do not match all letters (capitalised or not) after word 1."
 
 ```{r}
 # Match only the second word (species name)
-str_view(tree_kangaroo$scientificName, "(?<=\\s)[a-z]+") # <1>
+str_view(tree_kangaroo$scientificName, "(?<=\\s)[a-z]+") 
 ```
-1. This regex reads "Remove everything until and including the space. Return all uncapitalised letters."
+
+This regex reads "Remove everything until and including the space. Return all uncapitalised letters."
 
 ### Replace
 
-A common way to clean strings is to match and replace specific patterns. Here are several examples using the stringr package or base R.
+Another common way to clean strings is to match and *replace* specific patterns. Here are several examples using the `stringr` package, or base R's `gsub()`. `stringr` is more useful with more complicated patterns, but `gsub()` might be more intuitive for basic replacements if you're having difficulty.  
 
 :::{.panel-tabset .nav-pills}
 
@@ -266,6 +294,8 @@ tree_kangaroo |>
   select(scientificName, name_updated)
 ```
 
+The regex reads that at the start of the string, match the position of a pattern where it begins in an uppercase letter and is followed by lowercase letters (here, our genus name). Then, replace it with "`new_name`". 
+
 #### `gsub()`
 
 In base R the `gsub()` function can be used for pattern replacement. 
@@ -296,6 +326,8 @@ tree_kangaroo[,c("scientificName", "name_updated")]
 
 <!-- It might be a good idea to show what advanced regex looks like, but it needs to be a more useful example than the one below --> 
 
+<!-- Yeah I agree - this article is quite long and overwhelming already. How is this example more advanced than the examples provided above? Is it just longer? I need a bit of clarification on that otherwise I think readers will struggle to see the relevance OT --> 
+
 #### Advanced regex
 
 In some cases a more specific detection and replacement is required. 
@@ -305,8 +337,15 @@ Let's say we want to use marine data and taxonomic names from two sources.
 The World Register of Marine Species (WoRMS) uses a combination of
 lower case (scientific_name) and camel case (isExtinct) strings. However, the Australian
 Fauna Directory (AFD) uses screaming snake case e.g. SCIENTIFIC_NAME. To work
-with both, case differences can be conformed to a single style, but the format
+with both, case differences need to be conformed to a single style. The format
 you choose is a matter of personal preference. 
+
+```{r}
+# WORMS dataset
+worms <- read.csv(here::here("data", "worms", "worms.csv"))
+# AFD dataset
+afd <- read.csv("../data/naming/afd.csv")
+```
 
 <!-- Andrew: This does the same as the original chunk but like 1/4 the size -->
 <!-- Dax: That's cool but you can do exactly the same thing with janitor::clean_names()-->
@@ -327,7 +366,7 @@ colnames(worms_small) <- sapply(colnames(worms_small), function(name) {
 
 ## Capitalisation
 
-Capitalisation, also called case style, can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a data set. There are some basic functions available to change the case of strings in `stringr`:
+Capitalisation (also called case style) can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a data set. There are some basic functions available to change the case of strings in `stringr`:
 
 ```{r}
 # example
@@ -341,7 +380,9 @@ str_to_title(tree_kangaroo$scientificName[1])
 str_to_sentence(tree_kangaroo$scientificName[1])
 ```
 
-Normally higher taxonomy are capitalised e.g. Myrtaceae or Aves. Capitalisation errors are usually quick to spot when you print the data object. Alternatively you can try using `str_subset` on columns you expect to have capital letters.
+Normally higher taxonomy are capitalised e.g. *Myrtaceae* or *Aves*. Capitalisation errors are usually quick to spot when you print the data object. 
+
+Alternatively, you can try using `str_subset` on columns you expect to have capital letters.
 
 The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found.
 
@@ -358,13 +399,13 @@ bees <- read_parquet(here("data", "dap", "bees.parquet"))
 str_subset(unique(bees$class), "[:upper:]")
 ```
 
-We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that Insecta is inputted entirely in lowercase.
+We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that *Insecta* is inputted entirely in lowercase.
 
 ```{r}
 str_subset(unique(bees$class), "[:lower:]")
 ```
 
-We can correct the lower case formatting as below, remember to check the fix before overwriting/removing the erroneous column(s)
+To correct the lower case formatting as below, remember to check the fix before overwriting or removing the erroneous column(s). 
 
 ```{r}
 bees |>
@@ -418,35 +459,41 @@ pattern <- regex("Prov(?![:lower:])")
 # Assign these into an object
 str_subset(african_ele$stateProvince, pattern = pattern)
 typos_provinces <- str_subset(african_ele$stateProvince, pattern = pattern)
+```
 
-# Create a new variable `stateProvince_clean`
-# `str_detect` for matches of pattern (returns TRUE for match)
-# `if_else`: if TRUE, the `glue` function will take the first part of the province name enclosed in and join it with word Province.
-# if FALSE , it will just take the corresponding value in stateProvince
-# Note that we are assigning these changes to a new object (`african_ele_2`)
+Create a new variable `stateProvince_clean` and use `str_detect` for matches of pattern (returns TRUE for match). `if_else`: if TRUE, the `glue` function will take the first part of the province name enclosed in and join it with word Province. if FALSE , it will just take the corresponding value in `stateProvince`. Note that we are assigning these changes to a new object (`african_ele_2`). 
+
+
+```{r, eval = TRUE, echo = TRUE}
 african_ele_2 <- african_ele %>%
   mutate(stateProvince_clean = if_else(str_detect(stateProvince, pattern = pattern),
     true = glue('{word(stateProvince, sep = " P")} Province'),
     false = stateProvince
   ))
+```
 
-# Once we've made the correction we want to check we've done it correctly.
-# ALWAYS CHECK YOUR CORRECTIONS
-# Use the `select` function to isolate columns that `starts_with` "stateProvince"
-# Use the `filter` function to subset our the problematic provinces
+Once we've made the correction we want to check we've done it correctly. Use the `select` function to isolate columns that `starts_with` "stateProvince". Use the `filter` function to subset our the problematic provinces.
+
+```{r, eval = TRUE, echo = TRUE}
 african_ele_2 %>%
   select(starts_with("stateProvince")) %>%
   filter(stateProvince %in% typos_provinces)
+```
 
-# Its good practice to check the other values were not affected by your corrections
-# Here we are removing the NA with `drop_na` and subsetting unique rows with `distinct`
+
+It is good practice to check the other values were not affected by your corrections. Here, we are removing the NA with `drop_na` and subsetting unique rows with `distinct`
+
+
+```{r, eval = TRUE, echo = TRUE}
 african_ele_2 %>%
   select(starts_with("stateProvince")) %>%
   tidyr::drop_na() %>%
   distinct()
+```
 
-# Final check
-# Check with the original code that detected the issue
+Final check - check with the original code that detected the issue. 
+
+```{r, eval = TRUE, echo = TRUE}
 african_ele_2 %>%
   pull(stateProvince_clean) %>%
   tabyl() %>%
@@ -461,5 +508,8 @@ There are some other issues that can be corrected in a similar approach:
 -   `Atacora` and `Atakora`
 -   `Coastal Province` and `Coastal`
 
-We recommend consulting reputable sources to delineate and consolidate
-similar values.
+We recommend consulting reputable sources to delineate and consolidate similar values.
+
+## Summary 
+
+In this chapter, we discussed how to adjust data for mismatching character values due to typos or mistakes in data. In this process we also learned how to detect and present patterns in our data. This process is generally referred to as working with strings in data science. In the next chapter, we look at more **advanced cleaning** steps in the ecology space.
