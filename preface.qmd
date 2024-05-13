@@ -18,26 +18,23 @@ cleaning come up so frequently that it made us wonder...*is there a
 general ecological data cleaning workflow that is considered
 best-practice?*
 
-To find out, we undertook an informal literature review on ecological
-data cleaning using both peer reviewed and grey literature.
-
-The key themes we searched for were:
+To find out, we undertook an small, informal literature review on ecological
+data cleaning using both peer-reviewed and grey literature. The key themes we searched for were:
 
 1.  Data cleaning for species distribution models
 2.  Data cleaning open biodiversity data
 3.  Australian and global naming authorities
 4.  R packages for biodiversity data cleaning
 
-We selected a collection of papers that matched these key themes. Where
-possible, we chose recently published papers to identify more recent,
-up-to-date workflows using recent packages and tools in R. We also added
+We selected a collection of papers that matched these themes. We tried to
+choose recently published papers to identify more recent,
+up-to-date workflows that use recent packages and tools in R. We also added
 several frequently referenced papers to make the list more
-comprehensive. In addition, we reviewed data cleaning processes from our
-project partners [@marsh2021; @godfree_implications_2021], which
-included a detailed review and discussion of their code base, to
+comprehensive, and we reviewed data cleaning workflows from our
+project partners [@marsh2021; @godfree_implications_2021] to
 understand their processes, issues and needs.
 
-From our informal search, we ended up with a list of xxxnumber papers
+From our informal search, we ended up with a list of 18 papers
 and resources (listed [here](LINK)) with relevant ecological data
 cleaning workflows. To determine any common, best-practice steps—and any
 common sequences of steps—we read through their methods sections and
