@@ -22,7 +22,7 @@ guidelines can be found
 ## How to cite
 
 You can cite this book as:
-Kar, F., Schneider, M., Schwenke, A., Kellie, D., Balasubramaniam, S., Waite, C., Torresan, 0., Fenker, J., Westgate, M. (2023). ALA's Data Cleaning Booklet. Retrieved Month dd, yyyy, from https://atlasoflivingaustralia.github.io/cleaning_data/
+Kellie, D., Kar, F., Schneider, M., Balasubramaniam, S., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2023). ALA's Data Cleaning Booklet. Retrieved Month dd, yyyy, from https://labs.ala.org.au/books/data-cleaning-booklet/
 
 <!-- This is a placeholder licence -->
 <!-- actual repository should also contain a licence doc; preferably matching I think -->
@@ -40,16 +40,4 @@ The authors of this book currently reside on Ngunnawal and Ngambri (Canberra), W
 This book was inspired by an [Australian Research Data
 Commons](https://ardc.edu.au/) project where our team worked closely with
 research partners to streamline their data cleaning workflows. This book is a
-collaborative effort from the Science and Decision Support team at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/)
-
-Authors:
-
-- Shandiya Balasubramaniam
-- Fonti Kar
-- Dax Kellie
-- Jessica Fenker 
-- Margot Schneider
-- Andrew Schwenke
-- Olivia Torresan
-- Callum Waite
-- Martin Westgate
+collaborative effort from the [Science and Decision Support team](https://labs.ala.org.au/about/) at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/)

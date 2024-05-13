@@ -53,7 +53,9 @@ book:
   - packages.qmd
   - references.qmd
 
-bibliography: references.bib
+bibliography: 
+  - references.bib
+  - data-cleaning-book-references.bib
 
 format:
   html:
