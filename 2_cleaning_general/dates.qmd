@@ -8,7 +8,7 @@ editor:
 
 # Dates
 
-Dates can be formatted in *a lot* of different ways. Here are just a few
+Dates can be formatted across data in *a lot* of different ways. Here are just a few
 examples:
 
 -   `"2020-10-11T14:02:00"`
@@ -25,8 +25,11 @@ In this chapter, we provide some basic functions for cleaning dates and
 times. We also show how to reformat and filter your data set using
 dates.
 
-For a more detailed explanation of handling dates and times in R, see
-the [R 4 Data Science book](https://r4ds.hadley.nz/datetimes.html).
+For a more detailed explanation of handling dates and times in R, 
+the [R for Data Science book](https://r4ds.hadley.nz/datetimes.html) is a great resource.[^r-for-data-science-1]
+
+[^r-for-data-science-1]: Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly.
+
 
 ### Prerequisites
 
@@ -44,14 +47,6 @@ galah_config(email = Sys.getenv("ALA_EMAIL"),
              verbose = FALSE)
 plants <- galah_call() |>
   identify("grevillea") |>
-  atlas_occurrences()
-
-birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2022) |>
-  select(group = "basic", 
-         family, genus, species, 
-         cl22, eventDate, year) |>
   atlas_occurrences()
 ```
 
@@ -84,13 +79,6 @@ birds <- galah_call() |>
 [*Grevillea acanthifolia* flowering.<br>Photo by porcoespinho15 CC-BY-NC
 4.0
 (Int)](https://biocache.ala.org.au/occurrences/a664db4b-1762-4f5c-96eb-b6a52df5d27d)
-:::
-
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
-
-::: {.figure-caption}
-[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
 :::
 
 :::
@@ -140,9 +128,6 @@ df |>
 We can use `%` to be more explicit about what information is in each
 part of our date column, specifying where the 4-digit year (`%Y`),
 2-digit month (`%m`) and 2 digit day (`%d`) are within each string.
-Learn more about date formats in the [R 4 Data Science
-book](https://r4ds.hadley.nz/datetimes.html#tbl-date-formats)
-<!-- This needs a citation too -->.
 
 ```{r}
 df |> 
@@ -177,7 +162,7 @@ pm("2017-11-28T14:02:00")
 
 ### An example using galah
 
-Data downloaded using the galah package is loaded into R as date and
+Data downloaded using the [galah](https://galah.ala.org.au/) package is loaded into R as date and
 time data (class `POSIXct`). As a result, you can immediately begin
 extracting date information using the functions above.
 
@@ -193,6 +178,16 @@ plants |>
          week, day_julian)
 ```
 
+::: aside
+<img src="https://images.ala.org.au/image/details?imageId=b64f6e42-3ba9-4cd2-951b-b55fb9ea0386" class="rounded"/></img>
+
+::: figure-caption
+[*Grevillea acanthifolia* just beginning to flower.<br>Photo by Fagg, M. CC-BY
+4.0
+(Int)](https://biocache.ala.org.au/occurrences/b5adbb1c-a21e-4f29-b7ca-869335c7cb38)
+:::
+
+:::
 
 ## Filter
 
@@ -216,4 +211,4 @@ plants |>
 In this chapter, we provided examples of common functions for cleaning
 dates and times for ecological data sets.
 
-In the next chapter...
+In the next chapter, we look at issues more specific to ecological data. The first will be working with **taxonomy**, or species names and splits.
