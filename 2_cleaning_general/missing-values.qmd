@@ -6,12 +6,9 @@ editor:
 
 # Missing values
 
-
 Biodiversity datasets often contain missing values. However, analysis and visualisation software can differ in their default response to missing values. They might drop missing values, provide a warning about them, or return an error. We don't always know which response we'll get, which can cause problems for us (possibly without our knowing) during analysis later on. This is why it's important to clean missing values effectively. 
 
 Understanding the nature of missing data can also be useful for informing how you proceed with analysis. For instance, understanding whether missing data are random or not can influence what you choose to do with them (e.g. remove vs. impute), which in turn can affect the results of statistical models based on those datasets. Identifying where missing data occur in a dataset is therefore an important part of exploratory data analysis. This chapter will show you how to detect and remove missing values.     
-
-<!-- SB: I tried to provide a bit more context than what previously existed, but it's possible I got too waffly. Will not be offended if you cut everything** -->
 
 ### Prerequisites
 
@@ -70,25 +67,11 @@ geckos <- galah_call() |>
 
 There are numerous ways to identify missing values in your data. Here we illustrate a few ways with very different output types.   
 
-<!-- 
-SB: I moved summary() to the beginning here because it seemed like the simplest, and therefore least intimidating, option (I like skimr but I don't think the workflow outlined here is necessarily intuitive). {naniar} is one of my favourite packages for exploring relationships among missing data but I thought it might be beyond the scope of this book, so I've omitted it. I could add a tab if you think it's useful though, or we could add a line at the end of the tabs saying this package may be useful as a next step once they've identified where their missing data is 
-
-DK: I agree with the change. {naniar} seems cool but I don't think it quite fits here. Perhaps it could be added at the end? It feels like an advanced way to handle missing values.
-
--->
-
-<!-- SB: I moved summary() to the beginning here because it seemed like the simplest, and therefore least intimidating, option (I like skimr but I don't think the workflow outlined here is necessarily intuitive). {naniar} is one of my favourite packages for exploring relationships among missing data but I thought it might be beyond the scope of this book, so I've omitted it. I could add a tab if you think it's useful though, or we could add a line at the end of the tabs saying this package may be useful as a next step once they've identified where their missing data is** -->
-
-
 :::{.panel-tabset .nav-pills}  
 
 #### `summary()`
 
-The `summary()` function (base r) provides summary statistics for each column in your table. The output includes the number of missing values in each column (`NA's`). 
-
-::: {.callout-important title="`summary()` NA's"}
-From this, we can tell that there are missing values in the columns: `decimalLatitude`, `decimalLongitude`, `eventDate`, and `month`.  
-:::
+The `summary()` function (base r) provides summary statistics for each column in your table. The output includes the number of missing values in each column (`NA's`).  Here, we can tell that there are missing values in the columns: `decimalLatitude`, `decimalLongitude`, `eventDate`, and `month`.  
 
 
 ```{r}
@@ -101,10 +84,6 @@ summary(geckos)
 #### `skim()`  
 
 The skimr package provides a fast and simple way to identify columns with missing values and quantify the amount of missing data. The output shows that there are 7 columns with missing values, shown in `skim_variable`, along with information about the number of missing values in `n_missing` and the proportion of non-missing values in `complete_rate`.  
-
-::: {.callout-important title="`skim()` NA's"}
-The output shows that there are 7 columns with missing values (under `skim_variable`), along with information about the number of missing values in `n_missing` and the proportion of `non-missing values` in `complete_rate`.
-:::
 
 ```{r}
 #| warning: false
@@ -135,7 +114,6 @@ vis_miss(geckos)
 
 From here we can return all rows with a missing variable.
 
-
 ```{r}
 geckos |> 
   filter(if_any(everything(), is.na)) |>
@@ -143,7 +121,7 @@ geckos |>
          species, cl22, everything()) # reorder columns
 ```
 
-Or we can specify the column for retrieval of particular `NA`'s (in this case column `cl22`).
+Or we can specify the column to find rows with `NA` values one or more columns in particular (in this case column `cl22`).
 
 ```{r}
 geckos |> 
@@ -204,12 +182,6 @@ We can check that `drop_na()` worked correctly by comparing the number of record
 ```{r}
 nrow(geckos) - nrow(geckos_filtered)
 ```
-
-
-::: {.callout-important title="Excluded records"}
-
-153 records in our dataset had no spatial coordinate information and were excluded.
-:::
 
 
 ## Taxonomic values
@@ -326,7 +298,6 @@ One handy tip you can use with the [galah](https://galah.ala.org.au/) package is
 ```{r}
 #| warning: false
 #| message: false
-#| output: false
 
 geckos_rank <- galah_call() |>
   identify("gekkonidae") |>
@@ -337,15 +308,6 @@ geckos_rank <- galah_call() |>
 geckos_rank |>
   filter(taxonRank == "species")
 ```
-
-```{r}
-#| echo: false
-#| output: true
-geckos_rank |>
-  filter(taxonRank == "species") |>
-rmarkdown::paged_table()
-```
-
 
 However, it is still possible to filter records using the tools above without using the `taxonRank` column. In this case we remove records not identified down to the genus. 
 
@@ -358,7 +320,6 @@ geckos_filtered <- geckos |>
 geckos_filtered
 ```
 
- <!-- need another piccy here but the images portal is down sorry OT --> 
 
 :::{.aside}
 
