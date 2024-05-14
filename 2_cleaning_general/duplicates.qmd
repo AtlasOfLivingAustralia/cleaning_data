@@ -6,11 +6,19 @@ editor:
 
 # Duplicates
 
-**Duplicate** records occur when there are multiple occurrences of the the same entry in a dataset. They can happen in individual datasets (e.g. due to collection or entry error), but are even more likely when using aggregated data sources. Without removing them, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.
+Duplicate records can occur for a number of reasons. A duplicate record might appear in an individual dataset due to collection or entry error. A record might be duplicated when aggregating data sources. Alternatively, a record might be considered a duplicate in the context of one type of analysis, but not another. For example, prior to running species distribution models, records in the same location---even if they are separate observations---are considered duplicates and should be removed to avoid spatial bias. If running multiple models for several time-periods, however, records in the same location may be permitted in the final dataset if they occurred in time-periods. *Context is key when determining how to identify and clean duplicate records in your dataset.*
 
-What is considered a duplicate depends on the analysis you wish to run. Records that duplicate taxonomic, spatial or temporal information may need to be removed to avoid bias. Prior to running species distribution models, for example, you often need to remove duplicate records that overlap the same location.
+It is important to remove duplicates during data cleaning. Without removing duplicate records, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.
 
-In this section we will cover detection and handling of duplicate records as we are working with biodiversity occurrence data. 
+In this section we will introduce detection and handling of duplicate records as we are working with biodiversity occurrence data.
+
+:::{.callout-tip collapse="true"}
+
+The methods used in this chapter to search and clean duplicate records can be applied to other types of data columns, too, not only columns that contain spatial data. 
+
+Depending on your analysis, you might need to use more bespoke methods to clean duplicates. Later chapters like [Taxonomic validation](../3_cleaning_expert/taxonomic-validation.qmd) and [Geospatial cleaning](../3_cleaning_expert/geospatial-cleaning.qmd) cover more advanced detection and cleaning methods.
+
+:::
 
 ### Prerequisites
 
