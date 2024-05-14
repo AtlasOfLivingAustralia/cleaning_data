@@ -4,17 +4,13 @@ editor:
     wrap: 72
 ---
 
-<!-- I think my general comments / proposed changes for this chapter just involve visual cues to different parts so skimming the doc is a little easier! OT :-)  --> 
+# Duplicates
 
-# Duplicates & overlaps
+**Duplicate** records occur when there are multiple occurrences of the the same entry in a dataset. They can happen in individual datasets (e.g. due to collection or entry error), but are even more likely when using aggregated data sources. Without removing them, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.
 
-**Duplicate** records are when there are multiple occurrences of the the same entry in a dataset. They can happen in individual datasets (e.g. due to collection or entry error), but are even more likely when using aggregated data sources. Without removing them, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.
+What is considered a duplicate depends on the analysis you wish to run. Records that duplicate taxonomic, spatial or temporal information may need to be removed to avoid bias. Prior to running species distribution models, for example, you often need to remove duplicate records that overlap the same location.
 
-<!-- this bit below refers to something to me that isn't a duplicate, but the steps followed for a duplicate will be similar. i gave it the name overlap in the title because someone might be looking specifically for steps to deal with that, and won't necessarily clock on duplicate? OT --> 
-
-These are different to **overlapping** records, but similar steps to duplicate record cleaning are used to alleviate them. Overlap as a concept depends on the analysis you wish to run. Usually, overlap occurs when there are **separate** observations of a species, but the records overlap taxonomically, spatially or temporally, and their overlap would potentially bias a result. Prior to running species distribution models, for example, you often need to remove duplicate records that overlap within a certain radius of the same location in order to avoid bias in your model.
-
-In this section we will cover detection and handling of **spatially** duplicate records as we are working with biodiversity occurrence data. There are relevant coding steps for adressing overlapping records in this chapter, too. <!-- if you want to we could add sections on taxonomic and temporal overlap but isn't really necessary I guess OT --> 
+In this section we will cover detection and handling of duplicate records as we are working with biodiversity occurrence data. 
 
 ### Prerequisites
 
@@ -67,7 +63,7 @@ birds <- galah_call() |>
 :::
 :::
 
-## Find spatial duplicates
+## Find duplicates
 
 Let's remove any records that have multiple occurrences in the same location specified by their latitude and longitude coordinates.
 
@@ -94,10 +90,7 @@ birds |>
 
 #### janitor
 
-<!-- I think janitor uses commas like an OR statement, so this returns more rows than dplyr -->
-<!-- Worth including? -->
-
-Return duplicated rows and the number of duplicates of `decimalLatitude` OR `decimalLongitude` (note that this differs from the dplyr example).
+Return duplicated rows and the number of duplicates of `decimalLatitude` OR `decimalLongitude` (note that this differs from the dplyr example because janitor uses commas as an OR statement).
 
 ```{r}
 birds |> 
@@ -105,8 +98,8 @@ birds |>
 ```
 
 :::
-::: {.callout-important title="Data overlaps"}
-In the above `tibble` our results show that there are just over 27,000 records that **overlap** spatially (at the same geographic coordinates).
+::: {.callout-note}
+In the above `tibble` our results show that there are just over 27,000 records that overlap spatially with duplicate coordinates.
 :::
 
 Note that while we want to remove duplicate records, we don't necessarily want to remove *all* duplicates. Our duplicate dataset contains several different species, and sometimes, several species might be in the same location. Rather than removing all but one species in a location, we probably want to remove duplicates *for each species*. This should leave one observation for each species in each location.
@@ -143,31 +136,11 @@ birds |>
   bind_rows()
 ```
 
-Our final data of duplicate records in our dataset looks like this. 
+Splitting by species has reduced the total number of duplicate records by ~3,500 rows because multiple species can have one record with the same coordinates.
 
-```{r}
-#| echo: false
-#| output: true
-birds |>
-  group_split(species) |>
-  map(\(df) 
-      df |> 
-        filter(duplicated(decimalLongitude) & duplicated(decimalLatitude))
-      ) |>
-  bind_rows() |>
-rmarkdown::paged_table()
-```
-
-
-::: {.callout-important title="Splitting"}
-In the `tibble` above, you can see that splitting overlaps by species has reduced the total number of duplicate records by ~3,500 rows.
-:::
-
-## Remove spatial duplicates
+## Remove duplicates
 
 To now *remove* these duplicates from our dataframe, we can use the `!` operator to return records that *are not* duplicated, rather than those that are.
-
-<!-- does the map function... save the previous two lines of code and then make it possible to further filter within the same line? im just guessing, i don't find it super clear or from what package it comes from. maybe worth signposting but also not super necessary if i was able to figure that out i guess? OT --> 
 
 ```{r}
 birds_filtered <- birds |>
@@ -207,7 +180,7 @@ As expected, there are a few species with those latitude and longitude coordinat
 Using `%in%` can be a powerful tool for finding duplicates in your dataframe. Extracting rows like we did above with our `test_row` example above (or a list of values in a column) can help you weed out more specific duplicate records you are interested in.
 
 
-...Now we have our dataset of kingfishers cleaned for spatially duplicate records!
+Here is our final `birds_filtered` dataset of kingfishers cleaned for spatially duplicated records!
 
 ```{r}
 #| echo: false
@@ -227,4 +200,4 @@ birds_filtered |>
 
 ## Summary
 
-This chapter has offered a quick look at how to find duplicate records, remove them from your dataset, and check whether your records have been removed correctly. It has also provided insight into working with spatially overlapping records. You may have to check for duplicates in several ways to ensure you have cleaned all the duplicate records that you wish to remove from your dataset. The next chapter will show you how to clean **missing values** from your dataset.
+This chapter has offered a quick look at how to find duplicate records, remove them from your dataset, and check whether your records have been removed correctly. You may have to check for duplicates in several ways to ensure you have cleaned all duplicate records from your dataset. The next chapter will show you how to clean **missing values** from your dataset.
