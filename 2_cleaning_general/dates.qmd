@@ -8,7 +8,7 @@ editor:
 
 # Dates
 
-Dates can be formatted across data in *a lot* of different ways. Here are just a few
+Dates can be formatted in *a lot* of different ways in datasets. Here are just a few
 examples:
 
 -   `"2020-10-11T14:02:00"`
@@ -26,15 +26,18 @@ times. We also show how to reformat and filter your data set using
 dates.
 
 For a more detailed explanation of handling dates and times in R, 
-the [R for Data Science book](https://r4ds.hadley.nz/datetimes.html) is a great resource.[^r-for-data-science-1]
+the [R for Data Science book](https://r4ds.hadley.nz/datetimes.html) is a great resource.[CITE]
 
-[^r-for-data-science-1]: Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly.
+<!-- 
+Add this citation to references.bib
 
+Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly.
+-->
 
 ### Prerequisites
 
 In this chapter, we will use *Grevillea* (aka spider flower) occurrence
-data.
+data from the ALA.
 
 ```{r}
 #| warning: false
@@ -61,14 +64,6 @@ galah_config(email = "your-email-here")
 
 plants <- galah_call() |>
   identify("grevillea") |>
-  atlas_occurrences()
-
-birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2022) |>
-  select(group = "basic", 
-         family, genus, species, 
-         cl22, eventDate, year) |>
   atlas_occurrences()
 ```
 
@@ -127,7 +122,8 @@ df |>
 
 We can use `%` to be more explicit about what information is in each
 part of our date column, specifying where the 4-digit year (`%Y`),
-2-digit month (`%m`) and 2 digit day (`%d`) are within each string.
+2-digit month (`%m`) and 2 digit day (`%d`) are within each string. 
+Learn more about date formats in the [dates chapter in R for Data Science](https://r4ds.hadley.nz/datetimes.html#tbl-date-formats).
 
 ```{r}
 df |> 
@@ -208,7 +204,7 @@ plants |>
 
 ## Summary
 
-In this chapter, we provided examples of common functions for cleaning
-dates and times for ecological data sets.
+In this chapter, we provided an introduction to common functions for cleaning
+dates and times for ecological data sets. For some data cleaning tasks, you may need to find more advanced workflows for more bespoke date and time formatting.
 
-In the next chapter, we look at issues more specific to ecological data. The first will be working with **taxonomy**, or species names and splits.
+In the next chapter, we look at issues more advanced ecological data cleaning techniques.
