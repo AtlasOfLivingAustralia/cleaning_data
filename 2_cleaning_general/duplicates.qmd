@@ -6,15 +6,17 @@ editor:
 
 # Duplicates
 
-Duplicated records can happen in individual datasets, but are even more likely when using aggregated data sources. Without removing them, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.
+**Duplicate** records occur when there are multiple occurrences of the the same entry in a dataset. They can happen in individual datasets (e.g. due to collection or entry error), but are even more likely when using aggregated data sources. Without removing them, any analyses or visualisations using your data may be misleading. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.
 
-Depending on the analyses you wish to run, you might need to remove records that are separate observations of a species but overlap taxonomically, spatially or temporally. Prior to running species distribution models, for example, you often need to remove duplicate records that overlap the same location.
+What is considered a duplicate depends on the analysis you wish to run. Records that duplicate taxonomic, spatial or temporal information may need to be removed to avoid bias. Prior to running species distribution models, for example, you often need to remove duplicate records that overlap the same location.
 
-In this section we will cover detection and handling of duplicate records.
+In this section we will cover detection and handling of duplicate records as we are working with biodiversity occurrence data. 
 
 ### Prerequisites
 
-In this chapter, we will use occurrence records for kingfishers since 2023.  
+For this demonstration we use occurrence records for kingfishers (*Alcedinidae*) since 2023.
+
+Here's how we download them using [galah](https://galah.ala.org.au/). 
 
 ```{r prereq}
 #| message: false
@@ -63,14 +65,14 @@ birds <- galah_call() |>
 
 ## Find duplicates
 
-Let's remove any records that have multiple occurrences on the same location, specified by their latitude and longitude coordinates.
+Let's remove any records that have multiple occurrences in the same location specified by their latitude and longitude coordinates.
 
 The first thing to do is find the duplicate records.
 
 :::{.panel-tabset .nav-pills}
 #### dplyr
 
-Return the number of duplicates with each set of coordinates.
+Return a summary of the number of duplicates with each set of coordinates.
 
 ```{r}
 birds |> 
@@ -79,21 +81,16 @@ birds |>
   summarise(n = n())
 ```
 
-Return duplicated rows.
+Return a summary of duplicate decimal longitude and latitude rows in the entire dataset. 
 
 ```{r}
 birds |>
   filter(duplicated(decimalLongitude) & duplicated(decimalLatitude))
 ```
 
-
-
 #### janitor
 
-<!-- I think janitor uses commas like an OR statement, so this returns more rows than dplyr -->
-<!-- Worth including? -->
-
-Return duplicated rows and the number of duplicates of `decimalLatitude` OR `decimalLongitude` (note that this differs from the dplyr example).
+Return duplicated rows and the number of duplicates of `decimalLatitude` OR `decimalLongitude` (note that this differs from the dplyr example because janitor uses commas as an OR statement).
 
 ```{r}
 birds |> 
@@ -101,12 +98,13 @@ birds |>
 ```
 
 :::
+::: {.callout-note}
+In the above `tibble` our results show that there are just over 27,000 records that overlap spatially with duplicate coordinates.
+:::
 
-Our results show that there are more than 27,000 records that overlap! 
+Note that while we want to remove duplicate records, we don't necessarily want to remove *all* duplicates. Our duplicate dataset contains several different species, and sometimes, several species might be in the same location. Rather than removing all but one species in a location, we probably want to remove duplicates *for each species*. This should leave one observation for each species in each location.
 
-We want to remove duplicate records, but we don't necessarily want to remove *all* duplicates. Our dataset contains several different species, and sometimes several species might be in the same location. Rather than removing all but one species in a location, we probably want to remove duplicates *for each species*. This should leave one observation for each species in each location.
-
-To filter our duplicates by species, we can first split our data by species...
+To filter our duplicate data by species, we can first split our data by species...
 
 ```{r}
 #| eval: false
@@ -138,11 +136,11 @@ birds |>
   bind_rows()
 ```
 
-Splitting by species has reduced the total number of duplicate records by ~3,500 rows. 
+Splitting by species has reduced the total number of duplicate records by ~3,500 rows because multiple species can have one record with the same coordinates.
 
 ## Remove duplicates
 
-To remove these duplicates from our dataframe, we can use the `!` operator to return records that *are not* duplicated, rather than those that are.
+To now *remove* these duplicates from our dataframe, we can use the `!` operator to return records that *are not* duplicated, rather than those that are.
 
 ```{r}
 birds_filtered <- birds |>
@@ -179,9 +177,27 @@ birds_filtered |>
 
 As expected, there are a few species with those latitude and longitude coordinates, but we now only have 1 row for each species in that location in `birds_filtered`. 
 
-
 Using `%in%` can be a powerful tool for finding duplicates in your dataframe. Extracting rows like we did above with our `test_row` example above (or a list of values in a column) can help you weed out more specific duplicate records you are interested in.
+
+
+Here is our final `birds_filtered` dataset of kingfishers cleaned for spatially duplicated records!
+
+```{r}
+#| echo: false
+birds_filtered |>
+  rmarkdown::paged_table()
+```
+
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/d/5/4/b/cec90fd8-8d85-43aa-9d3a-71c3e73db45d/original"></img>
+
+::: {.figure-caption}
+[*Ceyx azureus* perched on a log. Photo by andrewpavlov CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/ccba93a8-92e2-4291-ad72-24b9553258f0)
+:::
+:::
 
 ## Summary
 
-This chapter has offered a quick look at how to find duplicate records, remove them from your dataset and check whether your records have been removed correctly. You may have to check for duplicates in several ways to ensure you have cleaned all the duplicate records that you wish to remove from your dataset. The next chapter will show you how to clean missing values from your dataset.
+This chapter has offered a quick look at how to find duplicate records, remove them from your dataset, and check whether your records have been removed correctly. You may have to check for duplicates in several ways to ensure you have cleaned all duplicate records from your dataset. The next chapter will show you how to clean **missing values** from your dataset.
