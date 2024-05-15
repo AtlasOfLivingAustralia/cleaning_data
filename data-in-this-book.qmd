@@ -8,9 +8,9 @@ code-annotations: hover
 
 # Data for this book {.unnumbered}
 
-This chapter is a collection of the data used in this book. Most of the data is downloaded from the [Atlas of Living Australia (ALA)]() using the [galah package](), the ALA's R interface to downloading biodiversity data. You may download all the data throughout the book or find the relevant data set for a specific chapter using the code in this chapter.
+This chapter is a collection of the data used in this book. Most of the data is downloaded from the [Atlas of Living Australia (ALA)]() using the [galah package](), the ALA's R interface to downloading biodiversity data. You may download all the data throughout the book before you start, or find the relevant data set for a specific chapter.
 
-All examples in this book are reproducible if run using data in this chapter. Data in this chapter is downloaded using data DOIs that download the exact data used when the book was rendered on xxxxxxdate. Using these data should allow you to match the output of the examples over this book.
+All examples in this book are reproducible if run using data in this chapter. Data in this chapter is downloaded using data DOIs. These download the exact data used when the book was rendered on xxxxxxdate. Using these data should allow you to match the output of the examples over this book.
 
 You can also run examples using code in the *Prerequisites* section at the start of each chapter. This book, however, is unique because data in the ALA is constantly being ingested (including from previous years) which means data downloaded after his book was rendered, even data within a specific time-period (e.g., 2010-2015), *might* differ from data downloaded using the same query at the time of rendering. In general, that is a good thing because data is either growing in quantity or quality, but it can affect the reproducibility of results. However, galah downloads data directly from the ALA, so the data returned by a query in the *Prerequisites* section may return more or less data for you than on the day the book was last rendered. In general, this shouldn't affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book.
 
