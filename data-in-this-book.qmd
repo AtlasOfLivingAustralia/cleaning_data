@@ -8,24 +8,28 @@ code-annotations: hover
 
 # Data for this book {.unnumbered}
 
-This chapter will add some context/metadata of the datasets we use throughout the book.
+This chapter is a collection of the data used in this book. Most of the data is downloaded from the [Atlas of Living Australia (ALA)]() using the [galah package](), the ALA's R interface to downloading biodiversity data. You may download all the data throughout the book or find the relevant data set for a specific chapter using the code in this chapter.
 
-At the moment, all data is either downloaded through galah or saved in the `data` folder. A more cohesive option might be to create an R package that contains data for this book, which is fairly common in other R resources.
+All examples in this book are reproducible if run using data in this chapter. Data in this chapter is downloaded using data DOIs that download the exact data used when the book was rendered on xxxxxxdate. Using these data should allow you to match the output of the examples over this book.
 
-For now, this chapter can act as a place to record any data downloads you use. For example, if you use galah to download data for a specific chapter, record the chapter and the data download here. We may be able to consolidate some datasets if we can keep track of what type of data each chapter requires.
+You can also run examples using code in the *Prerequisites* section at the start of each chapter. This book, however, is unique because data in the ALA is constantly being ingested (including from previous years) which means data downloaded after his book was rendered, even data within a specific time-period (e.g., 2010-2015), *might* differ from data downloaded using the same query at the time of rendering. In general, that is a good thing because data is either growing in quantity or quality, but it can affect the reproducibility of results. However, galah downloads data directly from the ALA, so the data returned by a query in the *Prerequisites* section may return more or less data for you than on the day the book was last rendered. In general, this shouldn't affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book.
 
-## Why clean data from data infrastructures?
+<!-- Long-form version -->
+
+::: {.callout-note collapse="true"}
+#### Why clean data from data infrastructures?
 
 Data infrastructures like the Atlas of Living Australia ingest, aggregate and standardise millions of rows of data from thousands of data providers. Some data comes from large providers with standardised workflows, like state government monitoring programs, [iNaturalist Australia](LINK) or [eBird](LINK). These data providers use workflows that attempt to remove suspicious records prior to sharing data with a Living Atlas, and, in general, these workflows catch many issues that otherwise might need fixing. 
 
-However, not all data providers have standardised workflows. Some data has been transcribed from written survey records and provided by a small or independent data provider. Other data might have been transcribed from archived written records in a museum, or even in a scientists backlog from older research projects. These data are valuable but inevitably prone to errors that are difficult to fix---sheets of paper can get smudged or damp, handwriting can be difficult to read, records might be lacking important details about their location or time of observation. Even in data from standardised workflows, errors like taxonomic misidentification or flipped geospatial coordinates can slip through the cracks because expert knowledge is required to identify and amend individual records. These records can also range in their precision or level of detail, and might not be suitable for every type of analysis.
+However, not all data providers have standardised workflows. Some data has been transcribed from written survey records and provided by a small or independent data provider. Other data might have been transcribed from archived written records in a museum, or even in a scientists backlog from a long-lost research project. These data are valuable but inevitably prone to errors that are difficult to fix---handwriting can be smudged or difficult to read, records might be lacking important details about their location or time of observation. Even in data from standardised workflows, errors like taxonomic misidentification or flipped geospatial coordinates can slip through the cracks because expert knowledge is required to identify and amend individual records. These records can also range in their precision or level of detail, and might not be suitable for every type of analysis.
 
 Although a data infrastructure can use programmatic data quality checks to try to remove more extreme outliers, many errors are context dependent and require verification from the original data provider. Ultimately, the responsibility to fix records falls on the data provider, rather than the data infrastructure, because only the data provider has knowledge required to amend their original data. As a result, we often need to clean data from data infrastructures to be suitable for our research question or analysis.
+:::
 
 <!-- This could be a shorter version of the above? -->
 
 ::: {.callout-note collapse="true"}
-## Why do we still have to clean data held in data infrastructures?
+#### Why do we still have to clean data held in data infrastructures?
 
 Data infrastructures aggregate data from thousands of different data
 providers, and standardise them so that data from many disparate sources
@@ -38,7 +42,30 @@ providers to double check that any flagged errors are indeed actually
 errors.
 :::
 
-## inverts & plants
+## Data
+
+## `birds`
+
+
+
+## `tree_kangaroos`
+
+## `inverts`
+
+The `inverts` dataset is a small sample of a larger dataset, [Curated Plant and Invertebrate Dataset for Bushfire Modelling]
+
+**DOWNLOAD link**
+
+## `plants`
+
+<!-- Not sure if we use the plants dataset? -->
+
+
+
+
+
+
+
 
 <!-- Code from Fonti of how to make data subsets from the Plant/Inverts Bushfire dataset --> 
 
@@ -72,10 +99,9 @@ errors.
 ```
 
 
-## Subset of data from Inverts Australia
-
 ```{r}
 #| eval: false
+#| echo: false
 # Inverts subset: arachnid data
 spiders <- here::here("data","dap","inverts_subset") |>
   open_dataset() |>
