@@ -88,9 +88,3 @@ a {
 .sidebar-logo{
   max-width: 25% !important;
 }
-
-/* tabs nav-pills colours */
-
-.nav-link.active {
-  background-color: #B7CD96!important;
-}

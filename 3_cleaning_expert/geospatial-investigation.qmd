@@ -106,7 +106,7 @@ identify occurrence records with geospatial issues.
 
 ## Quick visualisation
 
-Mentioned in the [Inspect chapter](LINK%20to%20chapter), one of the most
+Mentioned in the [Inspect chapter](../1_exploring/inspect.qmd), one of the most
 straightforward ways to check for spatial errors is to plot your data
 onto a map. More obvious spatial errors are much easier to spot
 visually.
@@ -187,7 +187,7 @@ precise GPS and high-definition camera to make observations of snails,
 their observed location will be of higher certainty than a person using
 a phone camera to make observations of birds in the distance. The exact
 location might also be obscured [for sensitivity
-purposes](LINK%20to%20obfuscated%20coordinates%20section%20below).
+purposes](geospatial-investigation.qmd#obscured-location).
 Uncertainty inevitably affects [how robust the results from species
 distribution models
 are](https://besjournals.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1365-2664.2007.01408.x).
@@ -197,7 +197,7 @@ to include the column
 [`coordinateUncertaintyInMeters`](https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters)---a
 measure of the circular area that captures the true location---to your
 data. We added this column in our [original galah
-query](LINK%20to%20prerequisites%20section).
+query](geospatial-investigation.qmd#prerequisites).
 
 ```{r}
 banksia |>

@@ -578,7 +578,7 @@ animals and plants might be stored, but not where they were observed.
 Common examples are museums and herbaria.
 
 In some cases, like with records of the Gorse Bitter-pea (downloaded at
-the [start of the chapter](LINK)), these locations can appear suspicious
+the [start of the chapter](geospatial-cleaning.qmd#prerequisites)), these locations can appear suspicious
 but not overly obvious. When we map these observations, there is a
 tailing distribution of points in Western Australia with several points
 located near the west coast of Australia.
@@ -604,7 +604,7 @@ ggplot() +
 
 Suspiciously, if we [Google the coordinates of the Western Australia
 Herbarium](https://www.google.com/search?q=western+australia+herbarium+coordinates&sca_esv=3e98302ba505d99d&rlz=1C1GCEB_enAU958AU958&ei=EAHoZaHTI5up2roP_-Wp6AU&ved=0ahUKEwihm_3R9d6EAxWblFYBHf9yCl0Q4dUDCBA&uact=5&oq=western+australia+herbarium+coordinates&gs_lp=Egxnd3Mtd2l6LXNlcnAaAhgCIid3ZXN0ZXJuIGF1c3RyYWxpYSBoZXJiYXJpdW0gY29vcmRpbmF0ZXMyCBAAGIAEGKIEMggQABiABBiiBDIIEAAYiQUYogRI_h5QxgdY1B1wAngAkAEAmAHQAqABvBSqAQUyLTUuNLgBA8gBAPgBAZgCBqAC7AjCAg4QABiABBiKBRiGAxiwA8ICDhAAGIAEGKIEGLADGIsDwgIOEAAYiQUYogQYsAMYiwPCAgYQABgeGA3CAgsQABiABBiKBRiGA8ICCxAAGIAEGKIEGIsDmAMAiAYBkAYHkgcHMi4wLjMuMaAHyys&sclient=gws-wiz-serp),
-the coordinates happen to overlap with one of the points.
+the coordinates overlap with one of the points.
 
 ```{r}
 ggplot() + 
@@ -675,7 +675,7 @@ galah_call() |>
 One way to identify suspicious observations is to use an expert
 distribution to determine whether an occurrence record is within the
 possible range of a species. At the most basic, expert distributions can
-be found in the literature (like [this one](LINK to example)), then
+be found in the literature (like [this one]()), then
 compared visually to your points.
 
 It's also possible to download expert distributions as shapefiles, and

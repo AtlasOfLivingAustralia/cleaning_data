@@ -1,12 +1,49 @@
 /*-- scss:defaults --*/
 
+.sidebar-title {
+  color: #222322;
+}
+
+div.sidebar-item-container .active {
+  font-weight: bold;
+}
+
+.sidebar nav[role=doc-toc] ul>li>a.active, .sidebar nav[role=doc-toc] ul>li>ul>li>a.active{
+  font-weight: bold;
+}
+
+img.quarto-cover-image {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+}
+
+div.sidebar-item-container .active{
+  color: #B8573E !important;
+}
+
+.sidebar-navigation a:hover{
+  color: #B8573E !important;
+}
+
+.nav-link.active {
+  background-color: #B7CD96!important;
+}
+
+.footnotes{
+  font-size: .9rem;
+  color: var(--bs-gray-700);
+}
+
 // colours
 
 // main
-$link-color: #003A70;
+$primary: #E06E53 !default;
+$link-color: #B8573E;
+
+// sidebar
+$sidebar-hl: #E06E53 !default;
 
 // table of contents
 
-$toc-color: #003A70;
-$toc-active-border: #B7CD96;
-$toc-active-background: #b7Cd96;
+$toc-color: #222322;
+$toc-active-border: #222322;
+$toc-active-background: #B7CD96!default;

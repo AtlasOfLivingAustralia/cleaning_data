@@ -7,27 +7,15 @@ biodiversity data. As such, this book isn't a guide to data cleaning in general,
 but a targeted resource for anyone working with or interested in ecology/evolution and geo-referenced 
 biodiversity data.
 
-<!-- beautiful dataviz here? -->
-
-## How to contribute
-
-Contributions to this document are welcome. For questions or feedback, please
-open an issue in our [GitHub
-repository](https://github.com/AtlasOfLivingAustralia/cleaning_data/issues). If
-you'd like to suggest content changes, feel free to submit a pull request. We
-recommend opening an issue first to discuss potential changes. Our contribution
-guidelines can be found
-[here](https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/CONTRIBUTING.md).
-  
-## How to cite
-
-You can cite this book as:
-Kellie, D., Kar, F., Schneider, M., Balasubramaniam, S., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2023). ALA's Data Cleaning Booklet. Retrieved Month dd, yyyy, from https://labs.ala.org.au/books/data-cleaning-booklet/
-
 <!-- This is a placeholder licence -->
 <!-- actual repository should also contain a licence doc; preferably matching I think -->
 This book is available free to read, and is licenced under the 
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/) 
+  
+#### Citation
+
+Kellie, D., Kar, F., Schneider, M., Balasubramaniam, S., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2023). *ALA's Data Cleaning Book*. Retrieved Month dd, yyyy, from https://labs.ala.org.au/books/data-cleaning-book/
+
 
 ## Acknowledgement of Country
 

@@ -3,20 +3,19 @@ project:
   output-dir: _book
 
 book:
-  title: "ALA's Data Cleaning Booklet"
+  title: "ALA's Data Cleaning Book"
   subtitle: "Atlas of Living Australia's practical guide to cleaning ecological data"
   reader-mode: true
   page-navigation: true
   back-to-top-navigation: true
+  search: true
+  repo-url: https://github.com/AtlasOfLivingAustralia/cleaning_data/
   sidebar:
-    search: true 
     logo: images/ala.jpg
-#  author: "Atlas of Living Australia"
-#  date: "18/11/2022"
 
   page-footer:
     left: |
-      The Data Cleaning booklet is a product of the <a href="https://ala.org.au/">Atlas of Living Australia</a>.
+      The Data Cleaning Book is a product of the <a href="https://ala.org.au/">Atlas of Living Australia</a>.
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.
 
@@ -64,9 +63,9 @@ format:
     highlight-style: arrow
     monobackgroundcolor: "#F7F7F7"
     theme: 
-      - lumen
       - theme.css
       - theme.scss
+      - lumen
 
 execute:
   code-annotations: hover
