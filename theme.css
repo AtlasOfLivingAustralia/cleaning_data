@@ -62,13 +62,12 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #222322;
+  background-color: #1A2533;
   padding: 40px;
   width: 110px;
   height: 110px;
   margin-left: auto;
   margin-right: auto;
-  
 }
 
 .circle-button:hover {
@@ -76,7 +75,7 @@ a {
 }
 
 .fa-solid {
-  color: #FFC557;
+  color: #A191B2;
 }
 
 .output-scroll {
@@ -86,5 +85,5 @@ a {
 }
 
 .sidebar-logo{
-  max-width: 25% !important;
+  max-width: 100% !important;
 }

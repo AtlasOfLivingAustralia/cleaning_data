@@ -122,8 +122,8 @@ Australia](https://www.ala.org.au/) (ALA). To retrieve data from these
 services, you will need to create a user account, if you do not already
 have one:
 
--   [Register account: Atlas of Living Australia](https://auth.ala.org.au/userdetails/registration/createAccount)
--   [Register account: Global Biodiversity Information Facility](https://www.gbif.org/user/profile)
+-   [Register an account with Atlas of Living Australia](https://auth.ala.org.au/userdetails/registration/createAccount)
+-   [Register an account with Global Biodiversity Information Facility](https://www.gbif.org/user/profile)
 
 ### R
 
@@ -146,10 +146,8 @@ programming. RStudio provides a range of tools to make working with R
 easier, and you can download and install RStudio for your operating
 system [here](https://posit.co/download/rstudio-desktop/).  
 
-If you prefer a different IDE to RStudio, some great alternatives are:
-
-  *  [Visual Studio Code](https://code.visualstudio.com/)
-  * **other examples**
+Other excellent IDEs like [Visual Studio Code](https://code.visualstudio.com/) 
+can be good alternative options depending on your preferences.
 
 
 ### Packages
@@ -161,7 +159,7 @@ access biodiversity data we will be primarily working with the
 [galah](https://galah.ala.org.au/) package. If you have collected your
 own occurrence data, you should still find this book useful.
 
-A list of the most common packages in this book can be found on the [Packages page](packages.html).
+A list of the most common packages in this book can be found on the [Packages page](4_appendices/packages.html).
 
 ## Conventions {.unnumbered}
 
@@ -181,7 +179,7 @@ mtcars |>
 ```
 
 ::: {.callout-tip appearance="simple"}
-You can copy code by clicking the [{{< fa clipboard title="clipboard">}}]{style="color:#222322;!important"} <!-- I have no idea how to change the colour--> button in the top right corner of a code block.
+You can copy code by clicking the {{< fa clipboard title="clipboard">}} button in the top right corner of a code block.
 :::
 
 ### Code line comments
@@ -197,3 +195,12 @@ mtcars |>
 
 Throughout this book, we use “pipes” in our code (`|>`, or `%>%` from the `magrittr` package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “*and then*”. For example, the code block above can be read as "Get data `mtcars`, *and then* group by `cyl`, *and then* summarise (setting `mean_mpg` to contain the mean of `mpg`)."
 
+## How to contribute
+
+Contributions to this document are welcome. For questions or feedback, please
+open an issue in our [GitHub
+repository](https://github.com/AtlasOfLivingAustralia/cleaning_data/issues). If
+you'd like to suggest content changes, feel free to submit a pull request. We
+recommend opening an issue first to discuss potential changes. Our contribution
+guidelines can be found
+[here](https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/CONTRIBUTING.md).

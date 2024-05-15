@@ -27,17 +27,15 @@ data cleaning using both peer-reviewed and grey literature. The key themes we se
 4.  R packages for biodiversity data cleaning
 
 We selected a collection of papers that matched these themes. We tried to
-choose recently published papers to identify more recent,
-up-to-date workflows that use recent packages and tools in R. We also added
-several frequently referenced papers to make the list more
-comprehensive, and we reviewed data cleaning workflows from our
+choose recently published papers that used 
+up-to-date workflows with recent packages and tools in R. We also added
+several frequently referenced papers for comprehensiveness, and we reviewed data cleaning workflows from our
 project partners [@marsh2021; @godfree_implications_2021] to
 understand their processes, issues and needs.
 
 From our informal search, we ended up with a list of 18 papers
 and resources (listed [here](LINK)) with relevant ecological data
-cleaning workflows. To determine any common, best-practice steps—and any
-common sequences of steps—we read through their methods sections and
+cleaning workflows. To determine any common, best-practice steps—and any common sequences these steps are made in—we read through their methods sections and
 collated their data cleaning protocols into a spreadsheet. Our hope was
 that collating these methods would reveal several clear data cleaning
 workflows that scientists and researchers use regularly to clean their
@@ -71,10 +69,10 @@ people frequently ask how to do it!
 
 This book is our response to questions about how to clean ecological
 data, and to our discovery that (because workflows vary immensely) there
-doesn't seem to be a resource to that describes methods to clean
+doesn't seem to be many resources that consolidate methods to clean
 ecological data in R. We are by no means experts in cleaning all types
 of data for all types of ecological analyses. We do, however, work with
-ecological data on a daily basis and encounter *many* data cleaning
+ecological data on a daily basis and encounter many data cleaning
 issues in our own work. We aspired for this book to be an up-to-date
 resource for a diverse range of data cleaning tasks in R. We hope that
 (at the very least) it is a resource that documents many common

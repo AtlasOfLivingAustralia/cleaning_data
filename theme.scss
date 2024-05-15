@@ -17,15 +17,15 @@ img.quarto-cover-image {
 }
 
 div.sidebar-item-container .active{
-  color: #B8573E !important;
+  color: #003A70 !important;
 }
 
 .sidebar-navigation a:hover{
-  color: #B8573E !important;
+  color: #A191B2 !important;
 }
 
 .nav-link.active {
-  background-color: #B7CD96!important;
+  background-color: #A191B2!important;
 }
 
 .footnotes{
@@ -36,14 +36,14 @@ div.sidebar-item-container .active{
 // colours
 
 // main
-$primary: #E06E53 !default;
-$link-color: #B8573E;
+$primary: #003A70 !default;
+$link-color: #003A70;
 
 // sidebar
-$sidebar-hl: #E06E53 !default;
+$sidebar-hl: #A191B2 !default;
 
 // table of contents
 
-$toc-color: #222322;
-$toc-active-border: #222322;
-$toc-active-background: #B7CD96!default;
+$toc-color: #000;
+$toc-active-border: #003A70;
+$toc-active-background: #EEECEA!default;
