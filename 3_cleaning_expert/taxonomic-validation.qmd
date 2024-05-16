@@ -43,7 +43,7 @@ record of any decisions and changes made with respect to the data.
 In this chapter we will use several datasets:
 
 -   *Alcedinidae* (Kingfisher) occurrence records from 2022 from the ALA
--   *Pygopodidae* (Legless lizard) occurrence records since 2020 from
+-   *Pygopodidae* (Legless lizard) occurrence records from 2021-2023 from
     the ALA
 -   A subset of invertebrate occurrence records taken from the [Curated
     Plant and Invertebrate Data for Bushfire Modelling data
@@ -86,6 +86,7 @@ CC-BY-NC 4.0
 ```{r}
 #| message: false
 #| warning: false
+#| echo: false
 library(here)
 library(readr)
 library(dplyr)
@@ -98,6 +99,51 @@ galah_config(email = Sys.getenv("ALA_EMAIL"),
              username = Sys.getenv("GBIF_USERNAME"),
              password = Sys.getenv("GBIF_PWD"),
              verbose = FALSE)
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, 
+         cl22, eventDate, year) |>
+  atlas_occurrences()
+
+legless_lizards <- galah_call() |>
+  identify("pygopodidae") |>
+  filter(year > 2020 & year < 2024) |>
+  select(group = "basic") |>
+  atlas_occurrences()
+
+inverts <- here::here("data", "dap", "inverts_subset") |>
+  arrow::open_dataset() |> 
+  collect()
+
+eucalypts <- galah_call() |>
+  identify("Eucalyptus") |>
+  filter(eventDate > "2014-01-01T00:00:00Z",
+         eventDate < "2014-06-01T00:00:00Z") |>
+  select(group = "basic", 
+         kingdom, phylum, class, order, 
+         family, genus, species, taxonRank) |>
+  atlas_occurrences()
+
+```
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+library(here)
+library(readr)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(janitor)
+library(galah)
+
+galah_config(email = "your-email-here",
+             username = "your-gbif-email-here",
+             password = "your-gbif-password-here")
 
 birds <- galah_call() |>
   identify("alcedinidae") |>
@@ -179,7 +225,7 @@ birds_2023 <- galah_call() |>
   filter(year == 2023) |>
   atlas_occurrences()
   
-acacia_2018 |>
+birds_2023 |>
   filter(str_detect(scientificName, "Dacelo")) |>
   distinct(scientificName)
 ```
@@ -266,6 +312,16 @@ legless_lizards_filtered <- legless_lizards |>
 
 legless_lizards_filtered
 ```
+
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/7/a/b/3544fca1-e201-4e90-8551-64e73ed6ba7c/original" class="rounded"/></img>
+
+::: figure-caption
+[*Paradelma orientalis* smiling at the camera.<br>Photo by dhfischer
+CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/1ccd81c3-a642-4d78-a6a3-4393978e6a73)
+:::
+:::
 
 This process has removed more than 130 records from our data.
 
@@ -358,6 +414,15 @@ inverts_sample <- inverts |>
 
 inverts_sample |> print(n = 5)
 ```
+
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original" class="rounded"/></img>
+
+::: figure-caption
+[*Paralaoma mucoides* on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/8a44a8df-2819-45d4-b8c5-e6dc7629e0fe)
+:::
+:::
 
 One way to extract names is to search for names matches in a data
 infrastructure like the ALA, which has its own taxonomic backbone. We
@@ -921,7 +986,7 @@ we can search for existing synonyms by supplying the `tsn` to the
 ```{r}
 # Retrieve synonyms
 tsn <- get_tsn(resolved$matched_name)
-synonyms(tsn)
+#synonyms(tsn) # this times out as of 2023-05-16
 ```
 
 #### Homonyms
