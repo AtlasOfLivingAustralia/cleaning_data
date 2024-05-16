@@ -350,6 +350,15 @@ bees <- read_parquet(here("data", "dap", "bees.parquet"))
 str_subset(unique(bees$class), "[:upper:]")
 ```
 
+:::{.aside}
+
+<img class = "rounded" src="https://images.ala.org.au/image/details?imageId=b3e3de8e-b7dd-4edc-8985-74a6e2052b66"></img>
+
+::: {.figure-caption}
+[*Apis (Apis) mellifera* looking for some pollen.<br>Photo by Reiner Richter  CC-BY](https://biocache.ala.org.au/occurrences/93bd7c6e-7872-483b-b12e-f715ac967e29)
+:::
+:::
+
 We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that *Insecta* is inputted entirely in lowercase.
 
 ```{r}
