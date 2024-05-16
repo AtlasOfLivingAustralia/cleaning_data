@@ -1,6 +1,6 @@
 # Summarise
 
-In the last chapter, we learned how to see a brief glimpse of our data's structure, including how many rows there are, what columns there are, and where there might be missing data. In this chapter, we learn how to briefly summarise ecological data. These summaries will fall within three domains: **Taxonomic**, **spatial** and **temporal**. Summarising our data will help us see the diversity in our dataset, learn more about its scope, and determine whether it is the right dataset for our analysis.
+In the last chapter, we learned how to see a brief glimpse of our data's structure, including how many rows there are, what columns there are, and where there might be missing data. In this chapter, we learn how to briefly **summarise** ecological data. These summaries will fall within three domains: **Taxonomic**, **spatial** and **temporal**. Summarising our data will help us see the diversity in our dataset, learn more about its scope, and determine whether it is the right dataset for our analysis.
 
 Over this chapter, there are many places where we will use the [galah](https://galah.ala.org.au/) package to summarise our data. The [galah](https://galah.ala.org.au/) package can summarise data on the server-side prior to downloading any data locally onto your computer meaning that you can filter or summarise data without needing to have them on your local computer first.
 
