@@ -7,7 +7,7 @@ editor:
 # Inspect
 
 Before diving into cleaning, it's always a good idea to familiarise
-yourself with the data. In this chapter we will cover ways to inspect both the
+yourself with the data. In this chapter we will cover ways to **inspect** both the
 data and metadata of a dataset.
 
 ### Prerequisites
@@ -169,6 +169,7 @@ str(birds)
 (Int)](https://biocache.ala.org.au/occurrences/1cb231bd-6000-43dd-9feb-409a29e93779)
 :::
 :::
+
 
 It is also good at this initial point to evaluate whether your dataset is
 what you expect. Ask yourself, does this data look like what you thought it would look like? Are the values in each column reasonable? Are there noticeable gaps or errors that might need
