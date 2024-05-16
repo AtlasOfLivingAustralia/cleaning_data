@@ -64,9 +64,6 @@ Thumbs.db
 .favorites.json
 .vscode/settings.json
 
-# Temporary ignore of rendered files
-_book/
-
 # Rasters
 data/rasters/
 

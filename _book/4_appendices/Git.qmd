@@ -1,0 +1,44 @@
+# Git
+
+Keeping track of the many versions of documents that inevitably eventuate when working on a project---especially when collaborating with others---is difficult[^example]. [Git](https://git-scm.com/) is a powerful, popular open-source version control system used today. When used in conjunction with a platform like [GitHub](https://github.com/) or [GitLab](https://about.gitlab.com/) for hosting files, Git excels at making managing documents, figures, raw data, and source code easier. 
+
+[^example]: If you've ever tried to work out which of `draft_ms_final`, `draft_ms_last_edits`, and `ms_last_edits_final_final` is the most updated version of a document, Git is for you.   
+
+If you are new to version control with Git & GitHub, [this cartoon is a nice introduction](https://allisonhorst.com/git-github)!
+
+To getting started with using Git in R, check out [Happy Git and GitHub for the useR](https://happygitwithr.com).
+
+## Using Git
+
+Git commands may be executed in a shell using a command line (e.g., [Git Bash](https://git-scm.com/downloads)), but there are a number of user-friendly Git clients (e.g. Github Desktop, RStudio git pane, GitKraken) that make the process of learning git less daunting if you are just getting started. Below are some examples and links to download.
+
+::: {.panel-tabset .nav-pills}
+
+#### Git Bash
+
+[Git Bash](https://git-scm.com/downloads) is the default way to interact with Git from the command line. 
+
+![Example of Git Bash. Source: https://gitforwindows.org/](../images/example_git-bash.png)
+
+#### GitHub Desktop
+
+[GitHub Desktop](https://desktop.github.com/) is a more visual point-and-click interface to using Git and GitHub.
+
+![Example of GitHub Desktop. Source: https://desktop.github.com/](../images/example_github-desktop.png)
+
+#### R Studio
+
+[The git pane in R Studio](https://docs.posit.co/ide/user/ide/guide/tools/version-control.html) integrates Git functionality into R Studio.
+
+![Example of the R Studio git pane. Source: https://docs.posit.co/ide/user/ide/guide/tools/version-control.html](../images/example_git-rstudio.png)
+
+#### GitKraken
+
+[GitKraken](https://www.gitkraken.com/) is a popular third-party Git client with an all-in-one interface.
+
+![Example of GitKraken Client. Source: https://www.gitkraken.com/git-client](../images/example_gitkraken.png)
+
+:::
+
+For additional useful Git clients, check out the [GUI page of the Git website](https://git-scm.com/downloads/guis).
+
