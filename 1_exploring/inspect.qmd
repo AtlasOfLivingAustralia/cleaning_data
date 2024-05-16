@@ -160,6 +160,16 @@ str(birds)
 ```
 :::
 
+:::{.aside}
+
+<img class = "rounded" src="https://images.ala.org.au/image/details?imageId=5a0ff06d-d7ac-44d2-a152-b2207cc98ab4"></img>
+
+::: {.figure-caption}
+[*Dacelo (Dacelo) novaeguineae* perched with a fresh worm in its beak. Photo by Rob Shepherd CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/1cb231bd-6000-43dd-9feb-409a29e93779)
+:::
+:::
+
 It is also good at this initial point to evaluate whether your dataset is
 what you expect. Ask yourself, does this data look like what you thought it would look like? Are the values in each column reasonable? Are there noticeable gaps or errors that might need
 to be fixed (or stop you from using the data altogether)?
