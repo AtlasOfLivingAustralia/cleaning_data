@@ -4,15 +4,28 @@ editor:
     wrap: 72
 number-depth: 3
 code-annotations: hover
+
 ---
 
 # Data for this book {.unnumbered}
 
-This chapter is a collection of the data used in this book. Most of the data is downloaded from the [Atlas of Living Australia (ALA)]() using the [galah package](), the ALA's R interface to downloading biodiversity data. You may download all the data throughout the book before you start, or find the relevant data set for a specific chapter.
+This chapter collects all data used in this book. Most of the data is downloaded from the [Atlas of Living Australia (ALA)](https://ala.org.au/) using the [galah package](https://galah.ala.org.au/R/), the ALA's R interface to downloading biodiversity data. 
 
-All examples in this book are reproducible if run using data in this chapter. Data in this chapter is downloaded using data DOIs. These download the exact data used when the book was rendered on xxxxxxdate. Using these data should allow you to match the output of the examples over this book.
+This book is unique because you can download required data at the start of the chapter (in the *Prerequisites* section), or in this chapter (using a data DOI).
 
-You can also run examples using code in the *Prerequisites* section at the start of each chapter. This book, however, is unique because data in the ALA is constantly being ingested (including from previous years) which means data downloaded after his book was rendered, even data within a specific time-period (e.g., 2010-2015), *might* differ from data downloaded using the same query at the time of rendering. In general, that is a good thing because data is either growing in quantity or quality, but it can affect the reproducibility of results. However, galah downloads data directly from the ALA, so the data returned by a query in the *Prerequisites* section may return more or less data for you than on the day the book was last rendered. In general, this shouldn't affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book.
+#### Using DOIs
+
+If you download the data's DOI, all examples in this book using that dataset shoule be reproducible. Data DOIs preserve the exact dataset, so downloading data using the DOI should allow you to match the output of the examples over this book. DOIs are regenerated each time the book is re-rendered. 
+
+#### Using chapter prerequisites
+
+If you download data using galah at the start the chapter, results in your console might not exactly match results in this book. This difference arises because data in the ALA is constantly being ingested (including from previous years). galah downloads data directly from the ALA, meaning that data downloaded after his book was rendered, even using a query for a specific time-period (e.g., 2010-2015), *might* differ from data downloaded using the same query at the time of rendering. 
+
+In general, that is a good thing---updates improve data quantity and/or quality---but it can affect reproducibility. In general, this shouldn't affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book.
+
+The main advantage to using *Prerequisites* sections is that data downloads are transparent and up-to-date.
+
+
 
 <!-- Long-form version -->
 
@@ -44,7 +57,89 @@ errors.
 
 ## Data
 
+```{r}
+#| eval: false
+# add login credentials
+library(galah)
+
+galah_config(email = "your-email-here",
+             username = "your-gbif-email-here",
+             password = "your-gbif-password-here")
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+library(galah)
+
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             username = Sys.getenv("GBIF_USERNAME"),
+             password = Sys.getenv("GBIF_PWD"),
+             verbose = FALSE)
+```
+
+```{r}
+#| eval: false
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, 
+         cl22, eventDate, year) |>
+  atlas_occurrences()
+
+legless_lizards <- galah_call() |>
+  identify("pygopodidae") |>
+  filter(year > 2020) |>
+  select(group = "basic") |>
+  atlas_occurrences()
+
+inverts <- here::here("data", "dap", "inverts_subset") |>
+  arrow::open_dataset() |> 
+  collect()
+
+eucalypts <- galah_call() |>
+  identify("Eucalyptus") |>
+  filter(eventDate > "2014-01-01T00:00:00Z",
+         eventDate < "2014-06-01T00:00:00Z") |>
+  select(group = "basic", 
+         kingdom, phylum, class, order, 
+         family, genus, species, taxonRank) |>
+  atlas_occurrences()
+```
+
+
 ## `birds`
+
+### Inspect chapter
+
+```{r}
+#| code-fold: true
+#| echo: false
+#| eval: false
+# Do do not need to run this code
+# It is used to generate the data DOI when the book is rendered
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, 
+         cl22, eventDate, year) |>
+  atlas_occurrences(mint_doi = TRUE)
+
+doi_birds <- attributes(birds)$doi
+```
+
+```{r}
+#| eval: false
+# doi
+doi_birds
+
+# download
+birds <- galah_call() |> 
+  atlas_occurrences(doi = doi_birds)
+```
 
 
 
@@ -70,32 +165,34 @@ The `inverts` dataset is a small sample of a larger dataset, [Curated Plant and 
 <!-- Code from Fonti of how to make data subsets from the Plant/Inverts Bushfire dataset --> 
 
 ```{r}
-#To create data used in this chapter
-#
-# inverts <- open_dataset("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv", format = "csv")
-# 
-# inverts |> 
-#   filter(family == "apidae") |> 
-#   write_parquet(sink = "data/dap/bees.parquet")
-#
-# Smaller subset of the dataset
-# set.seed(5)
+#| echo: false
+#| eval: false
+# To create data used in this chapter taken from bushfire data
 
-# inverts |>
-#   collect() |> 
-#   sample_frac(0.05) |>
-#   write_parquet(sink = "data/dap/inverts_subset")
+inverts <- open_dataset("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv", format = "csv")
+
+inverts |>
+  filter(family == "apidae") |>
+  write_parquet(sink = "data/dap/bees.parquet")
+
+# Smaller subset of the dataset
+set.seed(5)
+
+inverts |>
+  collect() |>
+  sample_frac(0.05) |>
+  write_parquet(sink = "data/dap/inverts_subset")
 
 
 # Plants data with errors
-# plants <- read_csv("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
-# 
-# plants |>
-#   select(record_id:longitude_used) |>
-#   rename(latitude = latitude_used,
-#          longitude = longitude_used) |>
-#   sample_frac(0.05) |>
-#   write_parquet("data/dap/plants_subset")
+plants <- read_csv("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
+
+plants |>
+  select(record_id:longitude_used) |>
+  rename(latitude = latitude_used,
+         longitude = longitude_used) |>
+  sample_frac(0.05) |>
+  write_parquet("data/dap/plants_subset")
 ```
 
 
