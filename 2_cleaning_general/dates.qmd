@@ -207,4 +207,4 @@ plants |>
 In this chapter, we provided an introduction to common functions for cleaning
 dates and times for ecological data sets. For some data cleaning tasks, you may need to find more advanced workflows for more bespoke date and time formatting.
 
-In the next chapter, we look at issues more advanced ecological data cleaning techniques.
+In the next chapter, we look at issues that require more advanced ecological data cleaning techniques.
