@@ -15,7 +15,7 @@ This book is unique because you can download required data at the start of the c
 
 #### Using DOIs
 
-If you download the data's DOI, all examples in this book using that dataset shoule be reproducible. Data DOIs preserve the exact dataset, so downloading data using the DOI should allow you to match the output of the examples over this book. DOIs are regenerated each time the book is re-rendered. 
+If you download the data using its associated DOI, all examples in this book using that dataset should be reproducible. Data DOIs preserve the exact data download, so this method should allow you to match the output of the examples over this book. DOIs are regenerated each time the book is re-rendered. 
 
 #### Using chapter prerequisites
 
