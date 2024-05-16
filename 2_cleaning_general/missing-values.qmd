@@ -326,7 +326,7 @@ geckos_filtered
 <img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/d/a/d/817ae616-5596-407d-bab3-259ad78adadc/original"></img>
 
 ::: {.figure-caption}
-[*Christinus marmoratus* camouflaged over lichen <br> Photo by Edward CC-BY-NC 4.0
+[*Christinus marmoratus* camouflaged over lichen. <br> Photo by Edward CC-BY-NC 4.0
 (Int)](https://biocache.ala.org.au/occurrences/69fda312-853a-4780-aeaf-9d6f7c7f47fe)
 :::
 :::
