@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA’s Data Cleaning Booklet - Introduction</title>
+<title>ALA’s Data Cleaning Book - Introduction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./data.html" rel="next">
+<link href="./preface.html" rel="next">
 <link href="./index.html" rel="prev">
+<link href="./images/book_cover.jpg" rel="icon" type="image/jpeg">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -75,6 +76,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -130,11 +133,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/ala.jpg" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./images/ALA_Logo_Inline_RGB.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ALA’s Data Cleaning Booklet</a> 
+      <a href="./">ALA’s Data Cleaning Book</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -164,8 +168,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data for this book</span></span></a>
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-in-this-book.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data for this book</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -180,13 +190,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_exploring/inspect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./1_exploring/summarise.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summarise</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summarise</span></span></a>
   </div>
 </li>
       </ul>
@@ -203,31 +213,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./2_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./2_cleaning_general/duplicates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./2_cleaning_general/missing-values.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./2_cleaning_general/strings.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./2_cleaning_general/dates.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
       </ul>
@@ -244,65 +254,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./3_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_cleaning_expert/ecological-filtering.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Ecological filtering</span></span></a>
+  <a href="./3_cleaning_expert/geospatial-investigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Geospatial investigation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_cleaning_expert/geospatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Geospatial data</span></span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./3_cleaning_expert/outliers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Outliers</span></span></a>
+  <a href="./3_cleaning_expert/geospatial-cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Geospatial cleaning</span></span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_accessing/where-to-get-data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
+  <a href="./4_appendices/where-to-get-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_accessing/large-downloads.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Large downloads</span></span></a>
+  <a href="./4_appendices/big-data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Big data</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_accessing/merging.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Merging multiple datasets</span></span></a>
+  <a href="./4_appendices/data-scope.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Data scope</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">References</span></span></a>
+  <a href="./4_appendices/joins.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Joins</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_appendices/reproducible-workflows.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Reproducible workflows</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./4_appendices/git.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Git</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./packages.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
+ <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./appendix.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Appendix</span></span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -328,6 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#code-blocks" id="toc-code-blocks" class="nav-link" data-scroll-target="#code-blocks">Code blocks</a></li>
   <li><a href="#code-line-comments" id="toc-code-line-comments" class="nav-link" data-scroll-target="#code-line-comments">Code line comments</a></li>
   </ul></li>
+  <li><a href="#how-to-contribute" id="toc-how-to-contribute" class="nav-link" data-scroll-target="#how-to-contribute">How to contribute</a></li>
   </ul>
 </nav>
     </div>
@@ -353,49 +381,76 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<!-- In ecology and biology, researchers, managers and decision makers often
-want to answer questions about where species live, what
-biological and environmental factors affect their survival and success,
-and how these factors might affect their future survival. These questions are 
-difficult but essential to answer for conservation and ecosystem management. 
-
-To address these questions, many ecologists must combine large amounts
-of species data from different sources for analysis. These data usually
-vary in structure, formatting, and quality because each data source
-might structure their data a little differently to the next. Merging
-them correctly can be challenging and time consuming. Formatting errors,
-spelling errors, taxonomic inconsistencies and spatial errors are some
-of the most common problems, but the ecologist must fix these errors
-before the data can be analysed.
-
-There is, however, no ‘one-size-fits-all’ approach to cleaning
-ecological data. What is considered a "clean" dataset varies depending
-on the project and the data sources. Yet there are some common processes
-and concepts that can be applied to many data cleaning workflows. This
-book aims to offer these processes and concepts in one place.
-
-Many ecologists and researchers choose to use code for data wrangling,
-analysis and visualisation. There are many languages (e.g., Python, R,
-Julia) that can achieve the same result. This book is a resource to
-assist researchers and decision makers that wish to clean geo-referenced
-biodiversity data using R.-->
-<p>Data cleaning is a process that biologists and ecologists invariably have to engage with before they can answer questions using data. Depending on the sources of the data, it may be necessary to standardise formats, correct spelling errors, and resolve taxonomic inconsistency and spatial <strong>[SMTH]</strong> before these data can be analysed. The “correct” degree of data cleaning will depend on the project and the questions being asked of the data, so there is no one-size-fits-all approach. There are, however, some common processes that will be broadly applicable to many data cleaning workflows. This book consolidates those processes into a resource for users who are interested in understanding how to clean their datasets.</p>
+<p>Data cleaning is a process that biologists and ecologists invariably have to engage with before they can answer questions using data. Depending on the sources of the data, it may be necessary to standardise formats, correct spelling errors, and resolve taxonomic inconsistency and spatial errors before these data can be analysed. The “correct” degree of data cleaning will depend on the project and the questions being asked of the data, so there is no one-size-fits-all approach. There are, however, some common processes that will be broadly applicable to many data cleaning workflows. This book consolidates those processes into a resource for users who are interested in understanding how to clean their datasets.</p>
+<div class="figure-caption">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/hex_plot_small.png" class="img-fluid figure-img"></p>
+<figcaption>Global density of 2.1 billion geo-referenced biodiversity data in the Global Biodiversity Information Facility (GBIF)</figcaption>
+</figure>
+</div>
+</div>
 <section id="who-is-this-book-for" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="who-is-this-book-for">Who is this book for?</h2>
-<p>If you are new to working with georeferenced biodiversity data in R, or are looking for a quick reference to data cleaning processes or concepts in R, then this book is for you. By learning how to download and apply common data cleaning steps, you will also develop a better understanding of biodiversity data, and common issues to be aware of.</p>
-<p>We use R as it is commonly used across ecological projects, and has a rich ecosystem of packages for data cleaning and visualisation. It’s also free and open source.</p>
+<p>If you are new to working with geo-referenced biodiversity data in R, or are looking for a quick reference to data cleaning processes or concepts in R, then this book is for you! By learning how to download and apply common data cleaning steps, you will also develop a better understanding of biodiversity data, and common issues to be aware of.</p>
 </section>
 <section id="what-this-book-covers" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="what-this-book-covers">What this book covers</h2>
 <p>In this book, we provide an overview of a typical data cleaning workflow for open-access geo-referenced biodiversity data—from acquisition, to error identification, to correction. These processes are broken down into four sections. The chapters within each section include practical guidelines, example R code, and additional resources that may aid with each data cleaning step.</p>
-<p>The first section is about <strong>accessing data</strong>. [summary]</p>
-<p>The second section is about <strong>exploring data</strong>. [summary]</p>
-<p>The third section is about <strong>general data cleaning processes</strong>. [summary]</p>
-<p>The fourth section is about <strong>data cleaning processes that require expertise in your study species</strong>. [summary]</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="centre-it quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><a href="1_accessing/access_intro.html"> <button class="circle-button"><p></p>
+<p><i class="fa-solid fa-magnifying-glass fa-3x" aria-label="magnifying-glass"></i></p>
+</button>
+</a></p><p></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>The first section is about <strong>exploring data</strong>. This section briefly introduces ways to inspect and summarise your data taxonomically, spatially and temporally to figure out what might need cleaning.</p>
+</div>
+</div>
+</div>
+<hr>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="centre-it quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><a href="1_accessing/access_intro.html"> <button class="circle-button"><p></p>
+<p><i class="fa-solid fa-broom fa-3x" aria-label="broom"></i></p>
+</button>
+</a></p><p></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>The second section is about <strong>general data cleaning processes</strong>. This section provides a checklist of data science tools and functions to clean different aspects of your data like strings, dates and missing values.</p>
+</div>
+</div>
+</div>
+<hr>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="centre-it quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><a href="1_accessing/access_intro.html"> <button class="circle-button"><p></p>
+<p><i class="fa-solid fa-bugs fa-3x" aria-label="bugs"></i></p>
+</button>
+</a></p><p></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>The third section is about <strong>data cleaning processes that require expertise in your study species</strong>. This section discusses ways to spot errors that require ecological consideration of how best to handle each issue for your specific research question.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="what-we-dont-cover" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="what-we-dont-cover">What we don’t cover</h2>
-<p>The areas of research and uses of biodiversity data are many and varied. Here we have focused on just one facet - downloading and cleaning georeferenced occurrence / biodiversity data. As such, this book will not cover:</p>
+<p>The areas of research and uses of biodiversity data are many and varied. Here we have focused on just one facet—downloading and cleaning geo-referenced occurrence/biodiversity data. As such, this book will not cover:</p>
 <ul>
 <li>Hypothesis testing or experimental design</li>
 <li>How to clean environmental data that is not occurrence / biodiversity data (e.g.&nbsp;trait data)</li>
@@ -408,24 +463,24 @@ biodiversity data using R.-->
 <h3 class="anchored" data-anchor-id="user-accounts">User accounts</h3>
 <p>We will be working with point-based species occurrence data retrieved from online infrastructures such as <a href="https://www.gbif.org/">Global Biodiversity Information Facility</a> (GBIF) and the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). To retrieve data from these services, you will need to create a user account, if you do not already have one:</p>
 <ul>
-<li><a href="https://auth.ala.org.au/userdetails/registration/createAccount">Register account: Atlas of Living Australia</a></li>
-<li><a href="https://www.gbif.org/user/profile">Register account: Global Biodiversity Information Facility</a></li>
+<li><a href="https://auth.ala.org.au/userdetails/registration/createAccount">Register an account with Atlas of Living Australia</a></li>
+<li><a href="https://www.gbif.org/user/profile">Register an account with Global Biodiversity Information Facility</a></li>
 </ul>
 </section>
 <section id="r" class="level3">
 <h3 class="anchored" data-anchor-id="r">R</h3>
-<p>To get the most out of this book, a basic knowledge of using R and RStudio is recommended. If you are new to R or need a refresher, there are many amazing and freely available resources available online. <a href="https://datacarpentry.org/R-ecology-lesson/">Data Analysis and Visualisation in R for Ecologists</a>, and <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> are both excellent starting points.</p>
+<p>To get the most out of this book, a basic knowledge of using R and RStudio is recommended. We use R because it is commonly used across ecological projects and has a rich ecosystem of packages for data cleaning and visualisation. If you are new to R or need a refresher, there are many amazing and freely available resources available online. <a href="https://datacarpentry.org/R-ecology-lesson/">Data Analysis and Visualisation in R for Ecologists</a> and <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> are both excellent starting points.</p>
 <p>Download R from <a href="https://cloud.r-project.org/">CRAN</a>, selecting the version that matches your operating system, and install it on your device.</p>
 </section>
 <section id="rstudio" class="level3">
 <h3 class="anchored" data-anchor-id="rstudio">RStudio</h3>
-<p>RStudio is an integrated development environment (IDE) for R programming. RStudio provides a range of tools to make working with R easier, and you can download and install RStudio for your operating system <a href="https://posit.co/download/rstudio-desktop/">here</a>.<br>
-<strong>Should we offer a list of other IDEs that also work for R?</strong></p>
+<p>RStudio is an integrated development environment (IDE) for R programming. RStudio provides a range of tools to make working with R easier, and you can download and install RStudio for your operating system <a href="https://posit.co/download/rstudio-desktop/">here</a>.</p>
+<p>Other excellent IDEs like <a href="https://code.visualstudio.com/">Visual Studio Code</a> can be good alternative options depending on your preferences.</p>
 </section>
 <section id="packages" class="level3">
 <h3 class="anchored" data-anchor-id="packages">Packages</h3>
-<p>We use a range of R packages throughout the book, primarily for data cleaning and visualisation. These packages will be noted at the beginning of a code block, typically at the start of a chapter. To access biodiversity data we will be working with the <a href="https://galah.ala.org.au/"><code>galah</code></a> package. If you have collected your own occurrence data, you should still find this book useful.</p>
-<p>A list of the most common packages in this book can be found on the <a href="packages.html">Packages page</a>.</p>
+<p>We use a range of R packages throughout the book, primarily for data cleaning and visualisation. These packages will be typically noted at the beginning of a chapter, and occassionally a code block. To access biodiversity data we will be primarily working with the <a href="https://galah.ala.org.au/">galah</a> package. If you have collected your own occurrence data, you should still find this book useful.</p>
+<p>A list of the most common packages in this book can be found on the <a href="4_appendices/packages.html">Packages page</a>.</p>
 </section>
 </section>
 <section id="conventions" class="level2 unnumbered">
@@ -447,7 +502,7 @@ biodiversity data using R.-->
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p>You can copy code by clicking the [clipboard icon] button in the top right corner of a code block.</p>
+<p>You can copy code by clicking the <i class="fa-solid fa-clipboard" title="clipboard" aria-label="clipboard"></i> button in the top right corner of a code block.</p>
 </div>
 </div>
 </div>
@@ -467,11 +522,14 @@ biodiversity data using R.-->
 </dl>
 </div>
 </div>
-<p>Throughout this book, we use “pipes” in our code (<code>|&gt;</code>, or <code>%&gt;%</code> from the <code>magrittr</code> package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “and then”.</p>
-<p>For example, the code block above can be read as “Get data <code>mtcars</code>, <strong>and then</strong> group by <code>cyl</code>, <strong>and then</strong> summarise (setting <code>mean_mpg</code> to contain the mean of <code>mpg</code>).”</p>
-
-
+<p>Throughout this book, we use “pipes” in our code (<code>|&gt;</code>, or <code>%&gt;%</code> from the <code>magrittr</code> package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “<em>and then</em>”. For example, the code block above can be read as “Get data <code>mtcars</code>, <em>and then</em> group by <code>cyl</code>, <em>and then</em> summarise (setting <code>mean_mpg</code> to contain the mean of <code>mpg</code>).”</p>
 </section>
+</section>
+<section id="how-to-contribute" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-contribute">How to contribute</h2>
+<p>Contributions to this document are welcome. For questions or feedback, please open an issue in our <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/issues">GitHub repository</a>. If you’d like to suggest content changes, feel free to submit a pull request. We recommend opening an issue first to discuss potential changes. Our contribution guidelines can be found <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/CONTRIBUTING.md">here</a>.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -903,8 +961,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./data.html" class="pagination-link" aria-label="<span class='chapter-number'>1</span>&nbsp; <span class='chapter-title'>Data for this book</span>">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Data for this book</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./preface.html" class="pagination-link" aria-label="Preface">
+        <span class="nav-page-text">Preface</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -912,13 +970,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>The Data Cleaning booklet is a product of the <a href="https://ala.org.au/">Atlas of Living Australia</a>.</p>
+<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    </div>
+<p>The ALA is supported by NCRIS, is hosted by CSIRO, and is the Australian node of GBIF. <img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
+</div>
     <div class="nav-footer-right">
-<p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
 </div>
   </div>
 </footer>
