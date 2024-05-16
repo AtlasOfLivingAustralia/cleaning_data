@@ -8,61 +8,17 @@ editor_options:
 
 This section will detail some steps and functions to clean a dataset for analysis. **These steps will remove problematic values that are due to the data's formatting**, solved by more general data cleaning tasks. These tasks include removing duplicates, correcting dates, and removing or correcting missing or unexpected values.
 
-The steps in this chapter are not linear, and they don't have to be done in order. Treat this section as more of a checklist.
+The steps in this chapter are not linear, and they don't have to be done in order. We intend this section to be treated more like a checklist or a roadmap for data cleaning rather than a comprehensive, step-by-step guide. 
 
-<!-- Placeholder for nice visualisation -->
-![](../images/map_galah_radius.png)
+![An uninformative, artistic representation of kingfisher records near Sydney, New South Wales, Australia](../images/map_galah_radius.png)
 
-<!-- Suggest to remove as the buttons don't make navigation any easier
+::: aside
 
-Click on the following chapters to get started:
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/e/b/3/c/a83dce83-614d-4630-9fff-07dde027c3be/original" class="rounded"/></img>
 
-::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
-
-::: {style="width: 33.3%; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa diagram-next size=3x >}}](duplicates.html)
-</div>
-[**Duplicates**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
+::: figure-caption
+[*Todiramphus (Cyanalcyon) pyrrhopygius* diving through the air. Photo by diana_shang CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/6aa0e692-4adf-4066-b260-3b010858278a)
 :::
-
-::: {style="width: 33.3%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa user-secret size=3x >}}](missing-values.html)
-</div>
-[**Missing values**]{style="color: #efa123; text-align: center;"}
 :::
-
-::: {style="width: 33.33%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa spell-check size=3x >}}](unexpected-values.html)
-</div>
-[**Unexpected values**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 33.33%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa quote-right size=3x >}}](strings.html)
-</div>
-[**Strings**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 33.3%; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa calendar-days size=3x >}}](dates.html)
-</div>
-[**Dates**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 33.3%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa table size=3x >}}](column-names-and-classes.html)
-</div>
-[**Column names + classes**]{style="color: #efa123; text-align: center;"}
-:::
-
-:::
-
--->
-
 

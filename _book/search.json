@@ -164,7 +164,7 @@
     "href": "1_exploring/1_intro.html",
     "title": "Exploring biodiversity data",
     "section": "",
-    "text": "This section details how to get an initial glimpse of your dataset, explore its structure, and create summaries of the different types of data within it. The first chapter hows how to check metadata and data structure. The second chapter introduces functions for summarising data in galah like atlas_counts() and demonstrates ways to quickly visualise different aspects of your data.",
+    "text": "This section details how to get an initial glimpse of your dataset, explore its structure, and create summaries of the different types of data within it. The first chapter shows how to check metadata and data structure. The second chapter introduces functions for summarising data in galah like atlas_counts() and demonstrates ways to quickly visualise different aspects of your data.\n\n\n\nAn uninformative, artistic representation of seasonal observations of bowerbirds over the year\n\n\n\n\n\n\n\n\n\nPtilonorhynchus violaceus holding a lovely blue thing. Photo by andrewpavlov CC-BY-NC 4.0 (Int)",
     "crumbs": [
       "Exploring biodiversity data"
     ]
@@ -295,7 +295,7 @@
     "href": "2_cleaning_general/1_intro.html",
     "title": "General data cleaning",
     "section": "",
-    "text": "This section will detail some steps and functions to clean a dataset for analysis. These steps will remove problematic values that are due to the data’s formatting, solved by more general data cleaning tasks. These tasks include removing duplicates, correcting dates, and removing or correcting missing or unexpected values.\nThe steps in this chapter are not linear, and they don’t have to be done in order. Treat this section as more of a checklist.",
+    "text": "This section will detail some steps and functions to clean a dataset for analysis. These steps will remove problematic values that are due to the data’s formatting, solved by more general data cleaning tasks. These tasks include removing duplicates, correcting dates, and removing or correcting missing or unexpected values.\nThe steps in this chapter are not linear, and they don’t have to be done in order. We intend this section to be treated more like a checklist or a roadmap for data cleaning rather than a comprehensive, step-by-step guide.\n\n\n\nAn uninformative, artistic representation of kingfisher records near Sydney, New South Wales, Australia\n\n\n\n\n\n\n\n\n\nTodiramphus (Cyanalcyon) pyrrhopygius diving through the air. Photo by diana_shang CC-BY-NC 4.0 (Int)",
     "crumbs": [
       "General data cleaning"
     ]

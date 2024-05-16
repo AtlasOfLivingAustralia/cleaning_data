@@ -6,7 +6,17 @@ editor_options:
 
 # Exploring biodiversity data
 
-This section details how to get an initial glimpse of your dataset, explore its structure, and create summaries of the different types of data within it. The first chapter hows how to check metadata and data structure. The second chapter introduces functions for summarising data in galah like `atlas_counts()` and demonstrates ways to quickly visualise different aspects of your data.
+This section details how to get an initial glimpse of your dataset, explore its structure, and create summaries of the different types of data within it. The first chapter shows how to check metadata and data structure. The second chapter introduces functions for summarising data in galah like `atlas_counts()` and demonstrates ways to quickly visualise different aspects of your data.
 
+![An uninformative, artistic representation of seasonal observations of bowerbirds over the year](../images/ridgeplot_bowerbirds.png)
 
-<!-- I think a nice visualisation should go here. One that is artsy but still relates to data summaries -->
+::: aside
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/d/c/3/5/1ecc22ef-4e2d-47e6-96d5-4bd26ff553cd/original" class="rounded"/></img>
+
+::: figure-caption
+[*Ptilonorhynchus violaceus* holding a lovely blue thing. Photo by
+andrewpavlov CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/81b635f7-1893-48a0-bd92-b36b82eecdab)
+:::
+:::
