@@ -61,11 +61,11 @@ birds <- galah_call() |>
 
 :::{.aside}
 
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/d/c/4/9/b57dfc5b-06a4-4e98-8836-5239727794cd/original"></img>
 
 ::: {.figure-caption}
-[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
+[*Todiramphus (Todiramphus) sanctus* collecting a crab for lunch. Photo by Peter and Shelly CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/84e11633-bdff-4c37-a759-d1abf2b7d9ba)
 :::
 :::
 
