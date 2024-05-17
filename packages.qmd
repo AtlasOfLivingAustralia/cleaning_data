@@ -32,16 +32,16 @@ locations.<br> <br>
 :::
 
 
-## Visualise your data
+## Visualise your data:
 
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
-</a href="https://docs.ropensci.org/skimr/reference/skim.html">
-![](images/hex/skimr_logo.png){style="width:70%;"}
+::: {style="width: 25%;"}
+</a href="https://github.com/ropensci/skimr">
+![](images/hex/skimr_logo.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
 ### skimr
 
 A helpful tool to quickly summarise your data, particularly prior to
@@ -58,12 +58,12 @@ histograms.
 
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
+::: {style="width: 25%;"}
 </a href="https://www.tidyverse.org">
-![](images/hex/tidyverse_logo.png){style="width:70%;"}
+![](images/hex/tidyverse_logo.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
 ### tidyverse
 
 {tidyverse} is an umbrella package installing many packages into R that
@@ -80,7 +80,9 @@ data.
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
-</a href="https://www.tidyverse.org">
+
+</a href="https://cran.r-project.org/web/packages/ozmaps/index.html">
+
 ![](images/hex/ozmaps_plot.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
@@ -94,12 +96,12 @@ data.
 
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
-</a href="https://www.tidyverse.org">
-![](images/hex/sf_hex.png){style="width:70%;"}
+::: {style="width: 25%;"}
+</a href="https://r-spatial.github.io/sf/">
+![](images/hex/sf_hex.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
 ### sf
 
 {sf} allows users to encode spatial vector data. It simplifies the process of working with spatial vectors in R. This package is often a prerequisite for packages that spatially map lines or points across geographical spaces. 
@@ -107,18 +109,18 @@ data.
 :::
 :::
 
-
 ## General cleaning
 
 
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
+::: {style="width: 25%;"}
 </a href="https://dplyr.tidyverse.org/"> 
-![](images/hex/dplyr_hex.png){style="width:70%;"}
+![](images/hex/dplyr_hex.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
+
 ### dplyr
 
 {dplyr} is a fundamental package of the tidyverse. It allows you to manipulate and filter your data to create summaries, or to restructure your data (e.g. columns and rows) into  preferable positions or format for further analysis. 
@@ -127,37 +129,30 @@ data.
 :::
 
 
-
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
-</a href="https://dplyr.tidyverse.org/"> 
-![](images/hex/tidyr_hex.png){style="width:70%;"}
+::: {style="width: 25%;"}
+</a href="https://tidyr.tidyverse.org/"> 
+![](images/hex/tidyr_hex.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
 ### tidyr
 
 Alike dplyr, {tidyr} is a package with reformatting tools that allows you to manipulate your data in such a way that it can be analysed in a preferred manner. If your goal is to have "tidy data": where each variable as a column, each observation within those variables as a row, and each value within a single cell - this package provides whole of data set functions to achieve that. You can also use the `drop_na` function to remove redundant `NA` values from your dataset. 
 
-
 :::
 :::
-
-
-
-
-
-
 
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
-</a href="https://github.com/sfirke/janitor">
-![](images/hex/stringr_hex.png){style="width:70%;"}
+::: {style="width: 25%;"}
+</a href="https://stringr.tidyverse.org/">
+![](images/hex/stringr_hex.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
+
 ### stringr
 
 {stringr} is a package within the tidyverse. It allows you to identify patterns and clean string data (data that involves characters, words or sentences) for things like typos or accidental spaces. Errors like these can impact your ability to merge data together and conduct accurate analyses, therefore, they are important to pick up in the initial phases of data cleaning. 
@@ -169,7 +164,9 @@ Alike dplyr, {tidyr} is a package with reformatting tools that allows you to man
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
-</a href="https://github.com/sfirke/janitor">
+
+</a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html">
+
 ![](images/hex/janitor_logo.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
@@ -190,12 +187,14 @@ data.
 
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
-</a href="https://github.com/sfirke/janitor">
-![](images/hex/herepkg.png){style="width:70%;"}
+::: {style="width: 25%;"}
+
+</a href="https://here.r-lib.org/index.html">
+
+![](images/hex/herepkg.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
 ### here
 
 {here} is a package that simplifies file referencing when working with importing and exporting files. Base systems can be complex, fragile and dependent on the way you organise your files. It allows intuitive means of directing to a file within the R interface (artwork by [allison_horst](https://x.com/allison_horst?lang=en)) 
@@ -205,57 +204,38 @@ data.
 
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
-</a href="https://github.com/sfirke/janitor">
-![](images/hex/ggplot2_hex.png){style="width:70%;"}
+::: {style="width: 25%;"}
+</a href="https://ggplot2.tidyverse.org/">
+
+![](images/hex/ggplot2_hex.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
 ### ggplot2
 
-{ggplot2} is a tidyverse package and a cult classic in data science. It allows users to visualise data in a range of different ways and enables the use of copious extension packages, allowing freedom to create a broad range of data visualisations.  
+{ggplot2} is a tidyverse package that allows users to visualise data in a range of different ways. It also functions with other extension packages, allowing freedom to create a broad range of data visualisations.  
 :::
 :::
 
 
 ## Taxonomic validation
 
-::: {style="display: flex;"}
-
-::: {style="width: 60%;"}
-</a href="https://github.com/sfirke/janitor">
-![](images/hex/ropenscience_hex.png){style="width:70%;"}
-:::
-
-::: {style="width: 40%;"}
-### worrms
-
-{worrms} is an R interface to the World Register of Marine Species (WoRMS).This package has the ability to cross-check taxonomic synonyms in their database using taxonomic ID's.  
-
-:::
-:::
-
 
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
-</a href="https://github.com/sfirke/janitor">
-![](images/hex/ropenscience_hex.png){style="width:70%;"}
+::: {style="width: 25%;"}
+
+</a href="https://docs.ropensci.org/taxize/articles/taxize.html">
+
+![](images/hex/ropenscience_hex.png){style="padding-right:15px; padding-left:15px;"}
 :::
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
+
 ### taxize
 
 {taxize} allows users the ability to search taxonomic synonyms over many taxonomic data sources using scientific and common names to resolve synonyms in their data.  
 
 :::
 :::
-
-
-
-
-
-
-
-
 
