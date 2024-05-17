@@ -13,13 +13,13 @@ editor:
 
 ::: {style="display: flex;"}
 
-::: {style="width: 60%;"}
+::: {style="width: 25%;"}
 <a href="https://galah.ala.org.au">
-![](images/hex/galah_logo.png){width="70%"} </a>
+![](images/hex/galah_logo.png){style="padding-right:15px; padding-left:15px;"} </a>
 :::
 
 
-::: {style="width: 40%;"}
+::: {style="width: 75%;"}
 ### galah
 
 {galah} is an R and Python interface to biodiversity data hosted by the
@@ -28,41 +28,6 @@ species occurrence records (observations, specimens, eDNA records,
 etc.), taxonomic information, or associated media such as images or
 sounds, and to restrict their queries to particular taxa or
 locations.<br> <br>
-:::
-:::
-
-::: {style="display: flex;"}
-
-::: {style="width: 60%;"}
-<a href="https://www.gbif.org/tool/81747/rgbif">
-![](images/hex/rgbif_logo.png){width="70%"} </a>
-:::
-
-::: {style="width: 40%;"}
-### rgbif
-
-{rgbif} is the Global Biodiversity Information Facility (GBIF)'s R
-package for downloading global biodiversity occurrence data and is the
-main node for all living atlases. Users can locate, restrict, and
-download occurrence records of interest across the globe as well
-associated multimedia. {rgbif} is one of four clients available to
-retrieve data. It is also available in Python, Ruby and PHP languages.
-:::
-:::
-
-
-::: {style="display: flex;"}
-
-::: {style="width: 60%;"}
-</a href="https://docs.ropensci.org/spocc/">
-![](images/hex/spocc_logo.png){width="70%"} </a> ::: 
-:::
-
-::: {style="width: 40%;"}
-### spocc
-spocc {spocc} is an umbrella package that can retrieve data from
-multiple open-access biodiversity data repositories: GBIF, iNaturalist,
-VertNet, eBird, iDigBio, OBIS and the Atlas of Living Australia.
 :::
 :::
 
@@ -112,19 +77,106 @@ data.
 :::
 :::
 
+::: {style="display: flex;"}
+
+::: {style="width: 25%;"}
+</a href="https://www.tidyverse.org">
+![](images/hex/ozmaps_plot.png){style="padding-right:15px; padding-left:15px;"}
+:::
+
+::: {style="width: 75%;"}
+### ozmaps
+
+{ozmaps} is a package that hosts a collection of Australian mapping spatial object data: coastlines, state outlines, local government areas and electoral boundaries. It streamlines the process of visualising biodiversity data in the context of Australia without needing to externally download shapefiles, for example. Data for ozmaps is derived from the Australian Bureau of Statistics (2016). 
+
+:::
+:::
+
+::: {style="display: flex;"}
+
+::: {style="width: 60%;"}
+</a href="https://www.tidyverse.org">
+![](images/hex/sf_hex.png){style="width:70%;"}
+:::
+
+::: {style="width: 40%;"}
+### sf
+
+{sf} allows users to encode spatial vector data. It simplifies the process of working with spatial vectors in R. This package is often a prerequisite for packages that spatially map lines or points across geographical spaces. 
+
+:::
+:::
+
+
 ## General cleaning
+
+
+::: {style="display: flex;"}
+
+::: {style="width: 60%;"}
+</a href="https://dplyr.tidyverse.org/"> 
+![](images/hex/dplyr_hex.png){style="width:70%;"}
+:::
+
+::: {style="width: 40%;"}
+### dplyr
+
+{dplyr} is a fundamental package of the tidyverse. It allows you to manipulate and filter your data to create summaries, or to restructure your data (e.g. columns and rows) into  preferable positions or format for further analysis. 
+
+:::
+:::
+
+
+
+::: {style="display: flex;"}
+
+::: {style="width: 60%;"}
+</a href="https://dplyr.tidyverse.org/"> 
+![](images/hex/tidyr_hex.png){style="width:70%;"}
+:::
+
+::: {style="width: 40%;"}
+### tidyr
+
+Alike dplyr, {tidyr} is a package with reformatting tools that allows you to manipulate your data in such a way that it can be analysed in a preferred manner. If your goal is to have "tidy data": where each variable as a column, each observation within those variables as a row, and each value within a single cell - this package provides whole of data set functions to achieve that. You can also use the `drop_na` function to remove redundant `NA` values from your dataset. 
+
+
+:::
+:::
+
+
+
+
+
+
 
 ::: {style="display: flex;"}
 
 ::: {style="width: 60%;"}
 </a href="https://github.com/sfirke/janitor">
-![](images/hex/janitor_logo.png){style="width:70%;"}
+![](images/hex/stringr_hex.png){style="width:70%;"}
 :::
 
 ::: {style="width: 40%;"}
+### stringr
+
+{stringr} is a package within the tidyverse. It allows you to identify patterns and clean string data (data that involves characters, words or sentences) for things like typos or accidental spaces. Errors like these can impact your ability to merge data together and conduct accurate analyses, therefore, they are important to pick up in the initial phases of data cleaning. 
+
+:::
+:::
+
+
+::: {style="display: flex;"}
+
+::: {style="width: 25%;"}
+</a href="https://github.com/sfirke/janitor">
+![](images/hex/janitor_logo.png){style="padding-right:15px; padding-left:15px;"}
+:::
+
+::: {style="width: 75%;"}
 ### janitor
 
-{janitor} is an effective R package to use for pre-cleaning data,
+{janitor} is a R package to use for pre-cleaning data,
 especially when working with large data sets. It can help prepare data
 column names into a consistent format in order for combining data sets
 or simply the ease of processing of data later on (`clean_names`). For
@@ -136,28 +188,68 @@ data.
 :::
 
 
-### Taxonomic cleaning
+::: {style="display: flex;"}
+
+::: {style="width: 60%;"}
+</a href="https://github.com/sfirke/janitor">
+![](images/hex/herepkg.png){style="width:70%;"}
+:::
+
+::: {style="width: 40%;"}
+### here
+
+{here} is a package that simplifies file referencing when working with importing and exporting files. Base systems can be complex, fragile and dependent on the way you organise your files. It allows intuitive means of directing to a file within the R interface (artwork by [allison_horst](https://x.com/allison_horst?lang=en)) 
+:::
+:::
+
 
 ::: {style="display: flex;"}
 
 ::: {style="width: 60%;"}
-</a href="https://github.com/sfirke/">
-![](images/hex/dwctaxon_logo.png){style="width:70%;"}
+</a href="https://github.com/sfirke/janitor">
+![](images/hex/ggplot2_hex.png){style="width:70%;"}
 :::
 
 ::: {style="width: 40%;"}
-### dwctaxon
+### ggplot2
 
-{dwctaxon} is a package built for editing and validating Darwin Core (a biodiversity data structure that uses standardised row and column names) taxonomy data. As some species have lots of different accepted names or synonyms, this mismatch can impact the ability to merge varying datasets as the same species may be recognized as lots of different ones. It is useful for use as part of the cleaning and formatting process. 
+{ggplot2} is a tidyverse package and a cult classic in data science. It allows users to visualise data in a range of different ways and enables the use of copious extension packages, allowing freedom to create a broad range of data visualisations.  
+:::
+:::
+
+
+## Taxonomic validation
+
+::: {style="display: flex;"}
+
+::: {style="width: 60%;"}
+</a href="https://github.com/sfirke/janitor">
+![](images/hex/ropenscience_hex.png){style="width:70%;"}
+:::
+
+::: {style="width: 40%;"}
+### worrms
+
+{worrms} is an R interface to the World Register of Marine Species (WoRMS).This package has the ability to cross-check taxonomic synonyms in their database using taxonomic ID's.  
 
 :::
 :::
 
 
+::: {style="display: flex;"}
 
+::: {style="width: 60%;"}
+</a href="https://github.com/sfirke/janitor">
+![](images/hex/ropenscience_hex.png){style="width:70%;"}
+:::
 
+::: {style="width: 40%;"}
+### taxize
 
+{taxize} allows users the ability to search taxonomic synonyms over many taxonomic data sources using scientific and common names to resolve synonyms in their data.  
 
+:::
+:::
 
 
 
