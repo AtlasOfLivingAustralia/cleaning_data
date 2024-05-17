@@ -25,8 +25,8 @@ occurrences with maps.
 
 ### Prerequisites
 
-In this chapter we'll use data of *Banksia serrata* occurrences since
-2022 and quokka occurrences.
+In this chapter we'll use data of *Banksia serrata* occurrence records since
+2022 and quokka occurrence records from the ALA.
 
 ```{r}
 #| warning: false
@@ -318,8 +318,6 @@ species](https://support.ala.org.au/support/solutions/articles/6000261705-workin
 In this chapter, we showed some ways to investigate the geospatial
 coordinates of your data and determine its level of precision,
 uncertainty or obscurity.
-
-...more cool text
 
 In the next chapter, we'll see examples of issues with coordinates that
 require fixing or removing.

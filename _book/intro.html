@@ -396,17 +396,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="what-this-book-covers" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="what-this-book-covers">What this book covers</h2>
-<p>In this book, we provide an overview of a typical data cleaning workflow for open-access geo-referenced biodiversity data—from acquisition, to error identification, to correction. These processes are broken down into four sections. The chapters within each section include practical guidelines, example R code, and additional resources that may aid with each data cleaning step.</p>
+<p>In this book, we provide an overview of a typical data cleaning workflow for open-access geo-referenced biodiversity data—from acquisition, to error identification, to correction. These processes are broken down into three main sections. The chapters within each section include practical guidelines, example R code, and additional resources that may aid with each data cleaning step.</p>
 <div>
 
 </div>
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="centre-it quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p><a href="1_accessing/access_intro.html"> <button class="circle-button"><p></p>
-<p><i class="fa-solid fa-magnifying-glass fa-3x" aria-label="magnifying-glass"></i></p>
-</button>
-</a></p><p></p>
+<p><a href="1_accessing/access_intro.html"> <button class="circle-button"> <i class="fa-solid fa-magnifying-glass fa-3x" aria-label="magnifying-glass"></i> </button> </a></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <p>The first section is about <strong>exploring data</strong>. This section briefly introduces ways to inspect and summarise your data taxonomically, spatially and temporally to figure out what might need cleaning.</p>
@@ -420,10 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="centre-it quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p><a href="1_accessing/access_intro.html"> <button class="circle-button"><p></p>
-<p><i class="fa-solid fa-broom fa-3x" aria-label="broom"></i></p>
-</button>
-</a></p><p></p>
+<p><a href="1_accessing/access_intro.html"> <button class="circle-button"> <i class="fa-solid fa-broom fa-3x" aria-label="broom"></i> </button> </a></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <p>The second section is about <strong>general data cleaning processes</strong>. This section provides a checklist of data science tools and functions to clean different aspects of your data like strings, dates and missing values.</p>
@@ -437,16 +431,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="centre-it quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p><a href="1_accessing/access_intro.html"> <button class="circle-button"><p></p>
-<p><i class="fa-solid fa-bugs fa-3x" aria-label="bugs"></i></p>
-</button>
-</a></p><p></p>
+<p><a href="1_accessing/access_intro.html"> <button class="circle-button"> <i class="fa-solid fa-bugs fa-3x" aria-label="bugs"></i> </button> </a></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>The third section is about <strong>data cleaning processes that require expertise in your study species</strong>. This section discusses ways to spot errors that require ecological consideration of how best to handle each issue for your specific research question.</p>
+<p>The third section is about <strong>data cleaning processes that require expertise in your study species</strong>. This section discusses ways to spot errors that require ecological consideration about how best to handle each issue for your specific research question.</p>
 </div>
 </div>
 </div>
+<p>This book attempts to fill a niche between works that discuss data cleaning principles without using code (e.g., Chapman 2005) and articles that describe technical solutions to computational problems (e.g., <a href="https://brunobrr.github.io/bdc/#:~:text=bdc%20contains%20functions%20to%20harmonize,%2C%20spatial%2C%20and%20temporal%20data.">the bdc toolkit</a>).</p>
 </section>
 <section id="what-we-dont-cover" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="what-we-dont-cover">What we don’t cover</h2>
@@ -456,12 +448,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>How to clean environmental data that is not occurrence / biodiversity data (e.g.&nbsp;trait data)</li>
 <li>How to perform analyses (e.g.&nbsp;species distribution modelling)</li>
 </ul>
+<p>In addition, while the principles we cover to clean data apply to many types of data (not just biodiversity data), our perspective is strongly focused on cleaning “unstructured” occurrence data with one row per observation (as provided by the <a href="https://www.gbif.org/">Global Biodiversity Information Facility (GBIF)</a> and it’s <a href="https://www.gbif.org/the-gbif-network">partner nodes</a>).</p>
 </section>
 <section id="requirements" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="requirements">Requirements</h2>
 <section id="user-accounts" class="level3">
 <h3 class="anchored" data-anchor-id="user-accounts">User accounts</h3>
-<p>We will be working with point-based species occurrence data retrieved from online infrastructures such as <a href="https://www.gbif.org/">Global Biodiversity Information Facility</a> (GBIF) and the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). To retrieve data from these services, you will need to create a user account, if you do not already have one:</p>
+<p>We will be working with point-based species occurrence data retrieved from online infrastructures such as the <a href="https://www.gbif.org/">Global Biodiversity Information Facility</a> (GBIF) and the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). To retrieve data from these services, you will need to create a user account, if you do not already have one:</p>
 <ul>
 <li><a href="https://auth.ala.org.au/userdetails/registration/createAccount">Register an account with Atlas of Living Australia</a></li>
 <li><a href="https://www.gbif.org/user/profile">Register an account with Global Biodiversity Information Facility</a></li>
@@ -479,7 +472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="packages" class="level3">
 <h3 class="anchored" data-anchor-id="packages">Packages</h3>
-<p>We use a range of R packages throughout the book, primarily for data cleaning and visualisation. These packages will be typically noted at the beginning of a chapter, and occassionally a code block. To access biodiversity data we will be primarily working with the <a href="https://galah.ala.org.au/">galah</a> package. If you have collected your own occurrence data, you should still find this book useful.</p>
+<p>We use a range of R packages throughout the book, primarily for data cleaning and visualisation. These packages will be typically noted at the beginning of a chapter, and occasionally a code block. To access biodiversity data we will be primarily working with the <a href="https://galah.ala.org.au/">galah</a> package. If you have collected your own occurrence data, you should still find this book useful.</p>
 <p>A list of the most common packages in this book can be found on the <a href="4_appendices/packages.html">Packages page</a>.</p>
 </section>
 </section>

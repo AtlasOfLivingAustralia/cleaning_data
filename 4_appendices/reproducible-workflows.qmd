@@ -23,9 +23,9 @@ Reproducibility refers to the ability for a result or output to be reliably retu
 
 #### Example scenario
 
-Let's say a scientific paper claims that a species of frog has an 80% probability of shifting its distribution southward by 60 kilometres. Without being able to reproduce the result (or the data on which that result is based on), it's difficult to know how trustworthy this statistic really is or the extent that this result should affect our understanding of this species. What factors are influencing this statistic? What is the sample population that this statistic was derived from? What data cleaning steps were made prior to analysis? 
+Let's say a scientific paper claims that a species of frog has an 80% probability of shifting its distribution southward by 60 kilometres. Without being able to reproduce the result (or the data on which that result is based), it's difficult to know how trustworthy this statistic really is or the extent that this result should affect our understanding of this species. What factors are influencing this statistic? What is the sample population that this statistic was derived from? What data cleaning steps were made prior to analysis? 
 
-A reproducible workflow---from raw data to analysis to the the final result---allows me to at least attempt to answer some of these questions!
+A reproducible workflow---from raw data to analysis to the the final result---allows us to at least attempt to answer some of these questions!
 
 :::
 
@@ -76,7 +76,7 @@ R projects simplify folder/file paths and allow projects to be shared more easil
 
 ### `here`
 
-File paths can be fragile. Small mistakes can prevent a file from being found, including misspellings or the use of a `/` rather than a `\`. The [here package](https://here.r-lib.org/) sets safe file paths for project-oriented workflows. It works seamlessly with R projects because it sets the path relative to the top-level directory, meaning it works seamlessly with R Projects.
+File paths can be fragile. Small mistakes can prevent a file from being found, including misspellings or the use of a `/` rather than a `\`. The [here package](https://here.r-lib.org/) sets safe file paths for project-oriented workflows. The here package sets the path relative to the top-level directory, meaning it works seamlessly with R Projects.
 
 ```{r}
 #| eval: false

@@ -4,7 +4,8 @@ editor:
     wrap: 72
 number-depth: 3
 code-annotations: hover
-
+execute: 
+  eval: false
 ---
 
 # Data for this book {.unnumbered}
@@ -79,40 +80,30 @@ galah_config(email = Sys.getenv("ALA_EMAIL"),
              verbose = FALSE)
 ```
 
+<!-- If we do commit to using DOIs, this is how to paste them into a code chunk -->
+
+```{r}
+#| eval: true
+thing <- "a text string"
+
+test <- glue::glue(
+  "
+  birds <- galah_call() |>
+    atlas_occurrences(doi = \"{thing}\")
+  ")
+```
+
+
 ```{r}
 #| eval: false
-birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2022) |>
-  select(group = "basic", 
-         family, genus, species, 
-         cl22, eventDate, year) |>
-  atlas_occurrences()
-
-legless_lizards <- galah_call() |>
-  identify("pygopodidae") |>
-  filter(year > 2020) |>
-  select(group = "basic") |>
-  atlas_occurrences()
-
-inverts <- here::here("data", "dap", "inverts_subset") |>
-  arrow::open_dataset() |> 
-  collect()
-
-eucalypts <- galah_call() |>
-  identify("Eucalyptus") |>
-  filter(eventDate > "2014-01-01T00:00:00Z",
-         eventDate < "2014-06-01T00:00:00Z") |>
-  select(group = "basic", 
-         kingdom, phylum, class, order, 
-         family, genus, species, taxonRank) |>
-  atlas_occurrences()
+#| code: !expr test
+#| echo: true
 ```
 
 
 ## `birds`
 
-### Inspect chapter
+### Inspect
 
 ```{r}
 #| code-fold: true
@@ -141,15 +132,118 @@ birds <- galah_call() |>
   atlas_occurrences(doi = doi_birds)
 ```
 
+### Summarise
+
+```{r}
+#| code-fold: true
+#| echo: false
+#| eval: false
+# Do do not need to run this code
+# It is used to generate the data DOI when the book is rendered
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, cl22, eventDate, month) |>
+  atlas_occurrences(mint_doi = TRUE)
+
+doi_birds <- attributes(birds)$doi
+```
+
+```{r}
+#| eval: false
+# doi
+doi_birds
+
+# download
+birds <- galah_call() |> 
+  atlas_occurrences(doi = doi_birds)
+```
+
+
+### Duplicates
+
+```{r}
+#| code-fold: true
+#| echo: false
+#| eval: false
+# Do do not need to run this code
+# It is used to generate the data DOI when the book is rendered
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2023) |>
+  select(group = "basic", 
+         family, genus, species, cl22, eventDate, month) |>
+  atlas_occurrences(mint_doi = TRUE)
+
+doi_birds <- attributes(birds)$doi
+```
+
+```{r}
+#| eval: false
+# doi
+doi_birds
+
+# download
+birds <- galah_call() |> 
+  atlas_occurrences(doi = doi_birds)
+```
+
+
+## `legless_lizards`
+
+```{r}
+legless_lizards <- galah_call() |>
+  identify("pygopodidae") |>
+  filter(year > 2020) |>
+  select(group = "basic") |>
+  atlas_occurrences()
+```
+
+
+## `frogs`
+
+### Column classes & names
+
+```{r}
+frogs <- galah_call() |>
+  identify("Litoria") |>
+  filter(year >= 2020, 
+         cl22 == "Tasmania") |>
+  select(group = "basic",
+         genus, species) |>
+  atlas_occurrences()
+```
 
 
 ## `tree_kangaroos`
 
 ## `inverts`
 
-The `inverts` dataset is a small sample of a larger dataset, [Curated Plant and Invertebrate Dataset for Bushfire Modelling]
+The `inverts` dataset is a small sample of a larger dataset, [Curated Plant and Invertebrate Dataset for Bushfire Modelling]. Click on the link below to download the data. Save the csv in your working directory and load it using the code below.
 
 **DOWNLOAD link**
+
+```{r}
+inverts <- here::here("data", "dap", "inverts_subset") |>
+  arrow::open_dataset() |> 
+  collect()
+```
+
+
+## `eucalypts`
+
+```{r}
+eucalypts <- galah_call() |>
+  identify("Eucalyptus") |>
+  filter(eventDate > "2014-01-01T00:00:00Z",
+         eventDate < "2014-06-01T00:00:00Z") |>
+  select(group = "basic", 
+         kingdom, phylum, class, order, 
+         family, genus, species, taxonRank) |>
+  atlas_occurrences()
+```
+
 
 ## `plants`
 

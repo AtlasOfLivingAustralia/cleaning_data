@@ -37,7 +37,61 @@ to correct or remove records that appear suspicious.
 
 ### Prerequisites
 
-In this chapter we'll use data of ...
+In this chapter we'll use several datasets:
+
+  * MacDonnell's desert fuschia (*Eremophila macdonnellii*) occurrence records from the ALA
+  * Red-eyed tree frog (*Litoria chloris*) occurrence records in 2013 from the ALA
+  * Kowari (*Dasyuroides byrnei*, a native mouse) occurrence records from the ALA
+  * *Acacia* occurrence records from the ALA
+  * Common brown butterfly (*Heteronympha merope*) occurrence records in 2014 from the ALA
+  * Bitter pea (*Daviesia ulicifolia*) occurrence records from the ALA
+
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"/></img>
+
+::: figure-caption
+[*Eremophila macdonnellii* aka MacDonnell's desert fuschia.<br>Photo by
+M. Fagg CC-BY 3.0
+(Au)](https://biocache.ala.org.au/occurrences/fcf8a190-5e7b-45b9-9f7d-402dd3e230fd)
+:::
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/original" class="rounded"/></img>
+
+::: figure-caption
+[*Litoria chloris* standing on leaves.<br>Photo by Reiner Richter
+CC-BY](https://biocache.ala.org.au/occurrences/e0d5d604-e148-408e-8dbf-984f42701b4c)
+:::
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/original" class="rounded"/></img>
+
+::: figure-caption
+[*Dasyuroides byrnei* pair captured in red light.<br>Photo by Ged Tranter 
+CC-BY](https://biocache.ala.org.au/occurrences/fa0c5c98-007a-4af9-b6db-0c8dcacaeaf5)
+:::
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/original" class="rounded"/></img>
+
+::: figure-caption
+[*Acacia aneura* flowering.<br>Photo by rachbaxter CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/9081b056-df23-495c-806e-fc5b265afb3a)
+:::
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"/></img>
+
+::: figure-caption
+[*Heteronympha merope merope* resting on leaf litter.<br>Photo by
+Mononymous CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/6f6f172b-5d8e-4879-b77c-3517e08819e8)
+:::
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/original" class="rounded"/></img>
+
+::: figure-caption
+[*Daviesia ulicifolia ruscifolia* flowering.<br>Photo by Warren
+Tomlinson CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/fde7691c-37f3-40a0-a2b7-628b0d0240c7)
+:::
+:::
 
 ```{r}
 #| warning: false
@@ -69,6 +123,15 @@ frogs <- galah_call() |>
          cl22, eventDate) |>
   atlas_occurrences()
 
+native_mice <- galah_call() |>
+  identify("Dasyuroides byrnei") |>
+  select(scientificName, decimalLongitude, decimalLatitude,
+         eventDate,
+         country, countryCode, locality, 
+         COUNTRY_COORDINATE_MISMATCH,
+         group = "assertions") |>
+  atlas_occurrences()
+
 acacias <- galah_call() |>
   identify("acacia aneura") |>
   select(group = "basic",
@@ -91,45 +154,6 @@ bitter_peas <- galah_call() |>
   atlas_occurrences()
 ```
 
-::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"/></img>
-
-::: figure-caption
-[*Eremophila macdonnellii* aka MacDonnell's desert fuschia.<br>Photo by
-M. Fagg CC-BY 3.0
-(Au)](https://biocache.ala.org.au/occurrences/fcf8a190-5e7b-45b9-9f7d-402dd3e230fd)
-:::
-
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/original" class="rounded"/></img>
-
-::: figure-caption
-[*Litoria chloris* standing on leaves.<br>Photo by Reiner Richter
-CC-BY](https://biocache.ala.org.au/occurrences/e0d5d604-e148-408e-8dbf-984f42701b4c)
-:::
-
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/original" class="rounded"/></img>
-
-::: figure-caption
-[*Acacia aneura* flowering.<br>Photo by rachbaxter CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/9081b056-df23-495c-806e-fc5b265afb3a)
-:::
-
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"/></img>
-
-::: figure-caption
-[*Heteronympha merope merope* resting on leaf litter.<br>Photo by
-Mononymous CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/6f6f172b-5d8e-4879-b77c-3517e08819e8)
-:::
-
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/original" class="rounded"/></img>
-
-::: figure-caption
-[*Daviesia ulicifolia ruscifolia* flowering.<br>Photo by Warren
-Tomlinson CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/fde7691c-37f3-40a0-a2b7-628b0d0240c7)
-:::
-:::
 
 ## Missing coordinates
 
@@ -171,42 +195,6 @@ discarding. Here are several coordinate issues that can be identified
 and corrected. Follow the link to each case study to learn how to
 identify and fix the issue.
 
-### Flipped coordinates
-
-Flipped coordinates typically appear as a clustering of points, whereby
-swapping the latitude and longitude will place the coordinates where
-they are expected. [@jin2020]
-
-**Dax's note: I don't think this is a very good example, but I'm not
-sure whether there are any examples of this on the ALA. Not sure if this
-should be included at all then, if that's the case.**
-
-<!-- This example doesn't feel fixable. Include it? -->
-
-```{r}
-#| fig-height: 3
-native_mice <- galah_call() |>
-  identify("Dasyuroides byrnei") |>
-  select(scientificName, decimalLongitude, decimalLatitude,
-         eventDate,
-         country, countryCode, locality, 
-         COUNTRY_COORDINATE_MISMATCH,
-         group = "assertions") |>
-  atlas_occurrences()
-  
-native_mice |>
-  filter(COUNTRY_COORDINATE_MISMATCH == TRUE) |>
-  select(decimalLongitude, decimalLatitude, eventDate, country, countryCode, locality)
-
-# Retrieve map of Australia
-aus <- st_transform(ozmap_country, 4326)
-
-ggplot() + 
-  geom_sf(data = aus) +
-  geom_point(data = native_mice,
-             aes(x = decimalLongitude,
-                 y = decimalLatitude))
-```
 
 ### Swapped numeric sign
 
@@ -246,6 +234,9 @@ its location.
 ```{r}
 #| fig-height: 2
 #| fig-align: center
+# Retrieve map of Australia
+aus <- st_transform(ozmap_country, 4326)
+
 ggplot() + 
   geom_sf(data = aus) +
   geom_point(data = desert_plant,
@@ -331,9 +322,7 @@ ggplot() +
   geom_point(data = frogs,
              aes(x = decimalLongitude,
                  y = decimalLatitude),
-             colour = "#557755") +
-  theme_light()
-
+             colour = "#557755")
 ```
 
 Let's check the `countryCode` column to see whether this might be an
@@ -410,9 +399,7 @@ ggplot() +
   geom_point(data = frogs_fixed,
              aes(x = decimalLongitude,
                  y = decimalLatitude),
-             colour = "#557755") +
-  theme_light()
-
+             colour = "#557755")
 ```
 
 ## Issues to remove records
@@ -423,6 +410,70 @@ prior to analysis.
 
 Here are some examples of geospatial errors that might need to be
 identified and removed in your dataset.
+
+### Flipped coordinates
+
+Flipped coordinates typically appear as a clustering of points, whereby
+swapping the latitude and longitude will place the coordinates where
+they are expected [@jin2020].
+
+Let's use occurrence data of Kowari (a native, carnivorous mouse species) as an 
+example (downloaded at the
+[start of the chapter](geospatial-cleaning.html#prerequisites)). 
+If using the galah package, you can add the `COUNTRY_COORDINATE_MISMATCH` 
+assertion column to your download to find occurrence records flagged as 
+with mismatching coordinates and country data.
+
+::: aside
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/original" class="rounded"/></img>
+
+::: figure-caption
+[*Dasyuroides byrnei* pair captured in red light.<br>Photo by Ged Tranter 
+CC-BY](https://biocache.ala.org.au/occurrences/fa0c5c98-007a-4af9-b6db-0c8dcacaeaf5)
+:::
+:::
+
+```{r}
+native_mice <- native_mice |>
+  drop_na(decimalLongitude, decimalLatitude)
+  
+native_mice |>
+  select(COUNTRY_COORDINATE_MISMATCH, everything())
+```
+
+Sometimes, flipped coordinates can be fixed by switching the latitude and longitude coordinates. Other times, like in this example, the way to fix the coordinates isn't obvious.
+
+```{r}
+#| fig-height: 2.5
+ggplot() + 
+  geom_sf(data = aus) +
+  geom_point(data = native_mice,
+             aes(x = decimalLongitude,
+                 y = decimalLatitude,
+             colour = COUNTRY_COORDINATE_MISMATCH)) + 
+  pilot::scale_color_pilot()
+```
+
+To remove these points from our data, we can filter our records to only records with coordinates within Australia's land border.
+
+```{r}
+#| fig-height: 2.5
+native_mice_filtered <- native_mice |>
+  filter(decimalLongitude > 100,
+         decimalLongitude < 155,
+         decimalLatitude > -45,
+         decimalLatitude < -10)
+
+ggplot() + 
+  geom_sf(data = aus) +
+  geom_point(data = native_mice,
+             aes(x = decimalLongitude,
+                 y = decimalLatitude,
+             colour = COUNTRY_COORDINATE_MISMATCH)) + 
+  pilot::scale_color_pilot()
+```
+
 
 ### Zero coordinates
 
@@ -470,6 +521,7 @@ We can remove the problematic record by filtering our data to remove
 records with longitude or latitude coordinates that equal zero.
 
 ```{r}
+#| fig-height: 3.2
 acacias_filtered <- acacias |>
   filter(decimalLongitude != 0,
          decimalLatitude != 0)
@@ -604,7 +656,7 @@ ggplot() +
 
 Suspiciously, if we [Google the coordinates of the Western Australia
 Herbarium](https://www.google.com/search?q=western+australia+herbarium+coordinates&sca_esv=3e98302ba505d99d&rlz=1C1GCEB_enAU958AU958&ei=EAHoZaHTI5up2roP_-Wp6AU&ved=0ahUKEwihm_3R9d6EAxWblFYBHf9yCl0Q4dUDCBA&uact=5&oq=western+australia+herbarium+coordinates&gs_lp=Egxnd3Mtd2l6LXNlcnAaAhgCIid3ZXN0ZXJuIGF1c3RyYWxpYSBoZXJiYXJpdW0gY29vcmRpbmF0ZXMyCBAAGIAEGKIEMggQABiABBiiBDIIEAAYiQUYogRI_h5QxgdY1B1wAngAkAEAmAHQAqABvBSqAQUyLTUuNLgBA8gBAPgBAZgCBqAC7AjCAg4QABiABBiKBRiGAxiwA8ICDhAAGIAEGKIEGLADGIsDwgIOEAAYiQUYogQYsAMYiwPCAgYQABgeGA3CAgsQABiABBiKBRiGA8ICCxAAGIAEGKIEGIsDmAMAiAYBkAYHkgcHMi4wLjMuMaAHyys&sclient=gws-wiz-serp),
-the coordinates overlap with one of the points.
+the coordinates overlap with one of the points. We have highlighted this point in orange.
 
 ```{r}
 ggplot() + 
@@ -613,8 +665,7 @@ ggplot() +
              aes(x = decimalLongitude,
                  y = decimalLatitude),
              colour = "#204466") +
-  geom_point(aes(x = 115.8,
-                 y = -31.9),
+  geom_point(aes(x = 115.8, y = -31.9), # point coordinates
              colour = "#f28100") +
   theme(legend.position = "none")
 ```

@@ -243,7 +243,7 @@ aus_counts <- aus |>
 aus_counts
 ```
 
-Now we can use this data to create a choropleth map[^choro].
+Now we can use these data to create a choropleth map[^choro].
 
 [^choro]: For more advanced examples of making choropleth maps, check out the ALA Labs articles [counting points in shapefiles](https://labs.ala.org.au/posts/2023-01-12_counting-points-in-shapefiles/) and [using multiple colour scales](https://labs.ala.org.au/posts/2022-05-23-ggnewscale/).
 
@@ -256,7 +256,7 @@ ggplot() +
   theme_void()
 ```
 
-The [sf package]() also has specialised functions for spatial joins like [`st_join()`](https://r-spatial.github.io/sf/reference/st_join.html), which can be especially useful for joins using points (e.g., `POINT`) and shapes (e.g., `POLYGON`, `MULTIPOLYGON`). Below is a small example where we use the point location to join with the state/territory. Note that we lose the `POINT` location in favour of the state `MULTIPOLYGON` shape, held in the column `geometry`.
+The [sf package](https://r-spatial.github.io/sf/) also has specialised functions for spatial joins like [`st_join()`](https://r-spatial.github.io/sf/reference/st_join.html), which can be especially useful for joins using points (e.g., `POINT`) and shapes (e.g., `POLYGON`, `MULTIPOLYGON`). Below is a small example where we use the point location to join with the state/territory. Note that we lose the `POINT` location in favour of the state `MULTIPOLYGON` shape, held in the column `geometry`.
 
 ```{r}
 # convert record coordinates to sf POINT class
