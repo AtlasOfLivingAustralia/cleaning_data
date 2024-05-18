@@ -32,6 +32,25 @@ locations.<br> <br>
 :::
 
 
+::: {style="display: flex;"}
+
+::: {style="width: 25%;"}
+
+</a href="https://here.r-lib.org/index.html">
+
+![](images/hex/herepkg.png){style="padding-right:15px; padding-left:15px;"}
+:::
+
+::: {style="width: 75%;"}
+### here
+
+{here} is a package that simplifies file referencing and importing and exporting files. Base systems can be complex, fragile and dependent on the way you organise your files. It allows intuitive means of directing to a file within the R interface in order for you to import pre-downloaded data into your system. It is also useful generally for data cleaning purposes. (artwork by [allison_horst](https://x.com/allison_horst?lang=en)) 
+:::
+:::
+
+
+
+
 ## Visualise your data:
 
 ::: {style="display: flex;"}
@@ -167,7 +186,7 @@ Alike dplyr, {tidyr} is a package with reformatting tools that allows you to man
 
 </a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html">
 
-![](images/hex/janitor_logo.png){style="padding-right:15px; padding-left:15px;"}
+![](images/hex/janitor_logo.png){style="padding-right:15px; padding-left:38px;"}
 :::
 
 ::: {style="width: 75%;"}
@@ -181,23 +200,6 @@ example, you might want to keep all column names lower case using
 underscores instead. You can quickly find any duplicate records
 (`get_dupes()`) using and produce counts of various combinations of
 data.
-:::
-:::
-
-
-::: {style="display: flex;"}
-
-::: {style="width: 25%;"}
-
-</a href="https://here.r-lib.org/index.html">
-
-![](images/hex/herepkg.png){style="padding-right:15px; padding-left:15px;"}
-:::
-
-::: {style="width: 75%;"}
-### here
-
-{here} is a package that simplifies file referencing when working with importing and exporting files. Base systems can be complex, fragile and dependent on the way you organise your files. It allows intuitive means of directing to a file within the R interface (artwork by [allison_horst](https://x.com/allison_horst?lang=en)) 
 :::
 :::
 
