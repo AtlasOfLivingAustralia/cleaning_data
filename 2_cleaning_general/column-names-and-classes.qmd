@@ -5,7 +5,7 @@ editor_options:
 
 # Column classes & names
 
-Each column in a dataset contains data of a specific **class**. A class defines the type of data in a column and determines how those data are interpreted in R, and how we can modify those data. For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. Classes are important to understand (or fix) because, generally, functions will not work if the data type is not compatible. 
+Each column in a dataset contains data of a specific class. A class defines the type of data in a column and determines how those data are interpreted in R, and how we can modify those data. For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. Classes are important to understand (or fix) because, generally, functions will not work if the data type is not compatible. 
 
 Column names can also cause compatibility issues when working with a dataset. Depending on the source of your dataset, existing column names may be uninformative (e.g. `col1`, `tga42.D`), oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data and avoid errors caused by mismatched or confusing column names. 
 
@@ -14,7 +14,7 @@ This chapter explains how to check the class of each column and edit column name
 
 ### Prerequisites
 
-In this chapter, we will use *Litoria* frog occurrence data since 2020 in Tasmania. Here is how we retrieve that data using [galah](https://galah.ala.org.au/). 
+In this chapter, we will use *Litoria* frog occurrence data since 2020 in Tasmania from the ALA. 
 
 ```{r}
 #| warning: false
@@ -33,26 +33,59 @@ frogs <- galah_call() |>
   select(group = "basic",
          genus, species) |>
   atlas_occurrences()
+
+doi_frogs <- "https://doi.org/10.26197/ala.5570ae7f-5beb-4640-9227-2a681029f804"
 ```
+
+:::{.callout-note collapse="true"}
+
+#### Original galah query
+
+**Note:** You don't need to run this code block to read this chapter. 
+
+This code chunk will download the latest data from the ALA, which might not reproduce the *exact* results in this chapter (but will be very close anyway).
 
 ```{r}
 #| eval: false
-# packages
 library(galah)
-library(dplyr)
-
-# data: frog records
 galah_config(email = "your-email-here")
 
 frogs <- galah_call() |>
   identify("Litoria") |>
   filter(year >= 2020, 
          cl22 == "Tasmania") |>
-  select(group = "basic",
-         genus, species) |>
-  atlas_occurrences()
-
+  select(group = "basic", genus, species) |>
+  atlas_occurrences() # <1>
 ```
+1. To create a DOI for your download, use `atlas_occurrences(mint_doi = TRUE)`
+
+:::
+
+```{r}
+#| echo: false
+test <- glue::glue(
+"
+# packages
+library(galah)
+library(dplyr)
+
+galah_config(email = \"your-email-here\")
+
+frogs <- galah_call() |>
+  filter(
+    doi == \"{doi_frogs}\"
+    ) |>
+  atlas_occurrences()
+"
+)
+```
+
+```{r}
+#| eval: false
+#| code: !expr test
+#| echo: true
+```
+
 
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/a/8/f/c3c17ed0-952c-46c5-8de2-0069ff38f8a2/original" class="rounded"/></img>
