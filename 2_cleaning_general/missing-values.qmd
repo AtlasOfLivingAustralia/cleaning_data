@@ -326,7 +326,7 @@ geckos_filtered
 <img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/d/a/d/817ae616-5596-407d-bab3-259ad78adadc/original"></img>
 
 ::: {.figure-caption}
-[*Christinus marmoratus* camouflaged over lichen <br> Photo by Edward CC-BY-NC 4.0
+[*Christinus marmoratus* camouflaged over lichen. <br> Photo by Edward CC-BY-NC 4.0
 (Int)](https://biocache.ala.org.au/occurrences/69fda312-853a-4780-aeaf-9d6f7c7f47fe)
 :::
 :::
@@ -343,5 +343,5 @@ rmarkdown::paged_table()
 
 This chapter showed ways to find and remove different types of missing records from your dataset. Importantly, there might not be one single cleaned dataset missing all missing values. You might find that in the same workflow, you will clean your dataset in multiple ways to preserve rows that are missing some, but not all, information. For example, some records have complete taxonomic identification but lack spatial coordinates. Other records have spatial coordinates but lack taxonomic information. Depending on your intended type of analysis, you may have to vary how you clean your data for each analysis!
 
-In the next chapter we will address working with **strings** (character sequences). Strings often involve correcting for things like typos or extra spacing that are difficult to pick up at a first glance.
+In the next chapter we will address working with strings (character sequences). Strings often involve correcting for things like typos or extra spacing that are difficult to pick up at a first glance.
 
