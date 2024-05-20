@@ -9,25 +9,23 @@ editor:
 
 # Packages
 
-## Download data:
-
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
 <a href="https://galah.ala.org.au">
-![](images/hex/galah_logo.png){style="padding-right:15px; padding-left:15px;"} </a>
+![](images/hex/galah_logo.png){.hex-logo} </a>
 :::
 
 
 ::: {style="width: 75%;"}
 ### galah
 
-{galah} is an R and Python interface to biodiversity data hosted by the
+[galah](https://galah.ala.org.au) is an R and Python interface to biodiversity data hosted by the
 Atlas of Living Australia (ALA). It enables users to locate and download
 species occurrence records (observations, specimens, eDNA records,
 etc.), taxonomic information, or associated media such as images or
 sounds, and to restrict their queries to particular taxa or
-locations.<br> <br>
+locations.
 :::
 :::
 
@@ -36,63 +34,45 @@ locations.<br> <br>
 
 ::: {style="width: 25%;"}
 
-</a href="https://here.r-lib.org/index.html">
+<a href="https://here.r-lib.org/index.html">
 
-![](images/hex/herepkg.png){style="padding-right:15px; padding-left:15px;"}
+![](images/hex/herepkg.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 ### here
 
-{here} is a package that simplifies file referencing and importing and exporting files. Base systems can be complex, fragile and dependent on the way you organise your files. It allows intuitive means of directing to a file within the R interface in order for you to import pre-downloaded data into your system. It is also useful generally for data cleaning purposes. (artwork by [allison_horst](https://x.com/allison_horst?lang=en)) 
+[here](https://here.r-lib.org/index.html) is a package for easy file referencing in project-oriented workflows. The here package creates relative paths relative the top-file directory in ways that are more robust from errors. Artwork by [allison_horst](https://x.com/allison_horst?lang=en).
 :::
 :::
 
-
-
-
-## Visualise your data:
 
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
-</a href="https://github.com/ropensci/skimr">
-![](images/hex/skimr_logo.png){style="padding-right:15px; padding-left:15px;"}
+<a href="https://docs.ropensci.org/skimr/">
+![](images/hex/skimr_logo.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 ### skimr
 
-A helpful tool to quickly summarise your data, particularly prior to
-data cleaning or whilst in the process of choosing an analysis. You can
-also use the `skim` function to calculate the number of columns or rows,
-view the number of empty or N/A data cells, and describe constituent
-data types. The `summary` function provides summary statistics of
-numerical data such as means, medians, minimum and maximums, as well as
-quartiles. `skim` allows the user to have a basic grasp of the spread of
-numercial data through averages, standard deviations and mini
-histograms.
+[skimr](https://docs.ropensci.org/skimr/) is a package for providing rich summaries with summary statistics of data in R. Users can `skim()` these summary statistics to quickly and more completely understand their data.
 :::
 :::
 
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
-</a href="https://www.tidyverse.org">
-![](images/hex/tidyverse_logo.png){style="padding-right:15px; padding-left:15px;"}
+<a href="https://www.tidyverse.org">
+![](images/hex/tidyverse_logo.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 ### tidyverse
 
-{tidyverse} is an umbrella package installing many packages into R that
-are useful for data wrangling, cleaning and analysis. Some notable
-packages within the tidyverse are {dplyr}, {ggplot2} and {stringr}. For
-example, you can use {dplyr} to add new columns to your data, filter
-your data for certain values and arrange rows in a preferred order;
-{ggplot2} can plot and visualise your data, and {stringr} can (though
-not limited to) help you locate and fix typos and extra spaces in your
-data.
+[tidyverse](https://www.tidyverse.org) is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structure. Some notable
+packages within the tidyverse are dplyr, tidyr and ggplot2.
 :::
 :::
 
@@ -100,15 +80,15 @@ data.
 
 ::: {style="width: 25%;"}
 
-</a href="https://cran.r-project.org/web/packages/ozmaps/index.html">
+<a href="https://github.com/mdsumner/ozmaps">
 
-![](images/hex/ozmaps_plot.png){style="padding-right:15px; padding-left:15px;"}
+![](images/hex/ozmaps_plot.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 ### ozmaps
 
-{ozmaps} is a package that hosts a collection of Australian mapping spatial object data: coastlines, state outlines, local government areas and electoral boundaries. It streamlines the process of visualising biodiversity data in the context of Australia without needing to externally download shapefiles, for example. Data for ozmaps is derived from the Australian Bureau of Statistics (2016). 
+[ozmaps](https://github.com/mdsumner/ozmaps) is a package that hosts a collection of Australian mapping spatial object data: coastlines, state outlines, local government areas and electoral boundaries. It streamlines the process of downloading shapefiles of Australia. Data for ozmaps is derived from the Australian Bureau of Statistics (2016). 
 
 :::
 :::
@@ -116,14 +96,14 @@ data.
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
-</a href="https://r-spatial.github.io/sf/">
-![](images/hex/sf_hex.png){style="padding-right:15px; padding-left:15px;"}
+<a href="https://r-spatial.github.io/sf/">
+![](images/hex/sf_hex.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 ### sf
 
-{sf} allows users to encode spatial vector data. It simplifies the process of working with spatial vectors in R. This package is often a prerequisite for packages that spatially map lines or points across geographical spaces. 
+[sf](https://r-spatial.github.io/sf/) allows users to encode spatial vector data. The sf package provides access to [simple features](https://en.wikipedia.org/wiki/Simple_Features) in R, allowing users to conduct geometrical operations using coordinate reference systems for spatial data manipulation.
 
 :::
 :::
@@ -134,15 +114,15 @@ data.
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
-</a href="https://dplyr.tidyverse.org/"> 
-![](images/hex/dplyr_hex.png){style="padding-right:15px; padding-left:15px;"}
+<a href="https://dplyr.tidyverse.org/"> 
+![](images/hex/dplyr_hex.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 
 ### dplyr
 
-{dplyr} is a fundamental package of the tidyverse. It allows you to manipulate and filter your data to create summaries, or to restructure your data (e.g. columns and rows) into  preferable positions or format for further analysis. 
+[dplyr](https://dplyr.tidyverse.org) is a popular package for data manipulation, providing a consistent set of verbs (e.g., `filter()`, `select()`, `mutate()`, `group_by()`) to restructure your data. 
 
 :::
 :::
@@ -151,14 +131,14 @@ data.
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
-</a href="https://tidyr.tidyverse.org/"> 
-![](images/hex/tidyr_hex.png){style="padding-right:15px; padding-left:15px;"}
+<a href="https://tidyr.tidyverse.org/"> 
+![](images/hex/tidyr_hex.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 ### tidyr
 
-Alike dplyr, {tidyr} is a package with reformatting tools that allows you to manipulate your data in such a way that it can be analysed in a preferred manner. If your goal is to have "tidy data": where each variable as a column, each observation within those variables as a row, and each value within a single cell - this package provides whole of data set functions to achieve that. You can also use the `drop_na` function to remove redundant `NA` values from your dataset. 
+[tidyr](https://tidyr.tidyverse.org) is a package to help you make "tidy data", where each variable is a column, each observation is a row, and each value value is a cell. 
 
 :::
 :::
@@ -166,15 +146,15 @@ Alike dplyr, {tidyr} is a package with reformatting tools that allows you to man
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
-</a href="https://stringr.tidyverse.org/">
-![](images/hex/stringr_hex.png){style="padding-right:15px; padding-left:15px;"}
+<a href="https://stringr.tidyverse.org/">
+![](images/hex/stringr_hex.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 
 ### stringr
 
-{stringr} is a package within the tidyverse. It allows you to identify patterns and clean string data (data that involves characters, words or sentences) for things like typos or accidental spaces. Errors like these can impact your ability to merge data together and conduct accurate analyses, therefore, they are important to pick up in the initial phases of data cleaning. 
+[stringr](https://stringr.tidyverse.org/) is a package with a cohesive set of functions to filter, match and correct strings and characters. 
 
 :::
 :::
@@ -184,22 +164,15 @@ Alike dplyr, {tidyr} is a package with reformatting tools that allows you to man
 
 ::: {style="width: 25%;"}
 
-</a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html">
+<a href="https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html">
 
-![](images/hex/janitor_logo.png){style="padding-right:15px; padding-left:38px;"}
+![](images/hex/janitor_logo.png){.hex-logo style="padding-left:34px!important; padding-right:20px!important;"} </a>
 :::
 
 ::: {style="width: 75%;"}
 ### janitor
 
-{janitor} is a R package to use for pre-cleaning data,
-especially when working with large data sets. It can help prepare data
-column names into a consistent format in order for combining data sets
-or simply the ease of processing of data later on (`clean_names`). For
-example, you might want to keep all column names lower case using
-underscores instead. You can quickly find any duplicate records
-(`get_dupes()`) using and produce counts of various combinations of
-data.
+[janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) is a package with a collection of helper functions for initial data exploration, summarising and data cleaning.
 :::
 :::
 
@@ -207,15 +180,15 @@ data.
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
-</a href="https://ggplot2.tidyverse.org/">
+<a href="https://ggplot2.tidyverse.org/">
 
-![](images/hex/ggplot2_hex.png){style="padding-right:15px; padding-left:15px;"}
+![](images/hex/ggplot2_hex.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 ### ggplot2
 
-{ggplot2} is a tidyverse package that allows users to visualise data in a range of different ways. It also functions with other extension packages, allowing freedom to create a broad range of data visualisations.  
+[ggplot2](https://ggplot2.tidyverse.org/) is a package for visualising data using [The Grammar of Graphics](https://r4ds.had.co.nz/data-visualisation.html), where users assign variables to display, the type of graphics to use, and additional aesthetics or theme formatting. 
 :::
 :::
 
@@ -227,16 +200,16 @@ data.
 
 ::: {style="width: 25%;"}
 
-</a href="https://docs.ropensci.org/taxize/articles/taxize.html">
+<a href="https://docs.ropensci.org/taxize/articles/taxize.html">
 
-![](images/hex/ropenscience_hex.png){style="padding-right:15px; padding-left:15px;"}
+![](images/hex/ropenscience_hex.png){.hex-logo} </a>
 :::
 
 ::: {style="width: 75%;"}
 
 ### taxize
 
-{taxize} allows users the ability to search taxonomic synonyms over many taxonomic data sources using scientific and common names to resolve synonyms in their data.  
+[taxize](https://docs.ropensci.org/taxize/articles/taxize.html) allows users the ability to search taxonomic names over many taxonomic data sources using scientific and common names to resolve synonyms in their data.  
 
 :::
 :::
