@@ -305,6 +305,11 @@ birds <- galah_call() |>
 doi <- attributes(birds)$doi
 doi_table <- add_doi("Summarise", "birds", doi)
 
+
+
+# write csv
+arrow::write_parquet(doi_table,
+                     here::here("data-raw", "doi_table"))
 ```
 
 

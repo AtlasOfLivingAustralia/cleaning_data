@@ -37,6 +37,16 @@ frogs <- galah_call() |>
 doi_frogs <- "https://doi.org/10.26197/ala.5570ae7f-5beb-4640-9227-2a681029f804"
 ```
 
+```{r}
+#| eval: false
+library(arrow)
+
+doi_table <- open_dataset(here::here("data-raw", "doi_table")) |>
+  filter(chapter == "Summarise") |>
+  collect()
+```
+
+
 :::{.callout-note collapse="true"}
 
 #### Original galah query
