@@ -8,7 +8,7 @@ number-depth: 3
 
 # Strings
 
-**Strings** are sequences of characters that make up spaces, letters, abbreviations, words or sentences. They can be formatted in many different ways in an individual dataset. For example, these are just some possible ways the scientific name of species could be recorded in a dataset:  
+*Strings* are sequences of characters that make up spaces, letters, abbreviations, words or sentences. They can be formatted in many different ways in an individual dataset. For example, these are just some possible ways the scientific name of species could be recorded in a dataset:  
   
   * `"Dendrolagus lumholtzi"`
   * `"dendrolagus lumholtzi"`
@@ -21,7 +21,7 @@ In this chapter, we focus on general data science techniques to clean strings in
 
 ### Prerequisites
 
-In this chapter, we will use tree kangaroo occurrence data from the ALA.
+In this chapter, we will use tree kangaroo (*Dendrolagus*) occurrence data from the ALA and a subset of bee (*Apidae*) data taken from the [Curated Plant and Invertebrate Data for Bushfire Modelling data set](https://data.csiro.au/collection/csiro:56679).
 
 ```{r}
 #| warning: false
@@ -30,11 +30,18 @@ In this chapter, we will use tree kangaroo occurrence data from the ALA.
 # packages
 library(galah)
 library(dplyr)
+library(arrow)
+library(tidyverse)
+library(janitor)
+library(here)
+
 galah_config(email = Sys.getenv("ALA_EMAIL"),
              verbose = FALSE)
 tree_kangaroo <- galah_call() |>
   galah_identify("Dendrolagus") |>
   atlas_occurrences()
+
+bees <- read_parquet(here("data", "dap", "bees.parquet"))
 ```
 
 ```{r}
@@ -49,6 +56,8 @@ galah_config(email = "your-email-here")
 tree_kangaroo <- galah_call() |>
   identify("Dendrolagus") |>
   atlas_occurrences()
+
+bees <- read_parquet(here("path", "to", "bees.parquet"))
 ```
 
 :::{.aside}
@@ -57,6 +66,12 @@ tree_kangaroo <- galah_call() |>
 
 ::: {.figure-caption}
 [*Dendrolagus lumholtzi* sitting on a branch.<br>Photo by matthewkwan  CC-BY](https://biocache.ala.org.au/occurrences/290bcdef-d02a-49fe-b96b-96865527f02f)
+:::
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/0/e/5/277a5c28-827a-49c7-8588-d16333925e00/original"></img>
+
+::: {.figure-caption}
+[*Braunsapis* species hovering in front of a ghost gum tree flower.<br>Photo by Zig Madycki CC-BY-NC-ND 4.0 (Int)](https://biocache.ala.org.au/occurrences/92928258-92a1-4e6b-b9e2-46da0d8df383)
 :::
 :::
 
@@ -335,20 +350,20 @@ str_to_sentence(tree_kangaroo$scientificName[1])
 
 Normally higher taxonomy are capitalised e.g. *Myrtaceae* or *Aves*. Capitalisation errors are usually quick to spot when you print the data object. Alternatively, you can try using `str_subset()` to return capitalisation matches in columns you expect to have capital letters.
 
-The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found.
+For example, in our `bees` dataset (downloaded at [start of this chapter](strings.qmd#Prerequisites)) some higher taxonomy columns don't capitalise names. The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found.
 
-```{r load-bees-data}
-#| warning: false
-#| message: false
-library(arrow)
-library(tidyverse)
-library(janitor)
-library(here)
-
-bees <- read_parquet(here("data", "dap", "bees.parquet"))
-
+```{r}
 str_subset(unique(bees$class), "[:upper:]")
 ```
+
+:::{.aside}
+
+<img class = "rounded" src="https://images.ala.org.au/image/details?imageId=b3e3de8e-b7dd-4edc-8985-74a6e2052b66"></img>
+
+::: {.figure-caption}
+[*Apis (Apis) mellifera* looking for some pollen.<br>Photo by Reiner Richter  CC-BY](https://biocache.ala.org.au/occurrences/93bd7c6e-7872-483b-b12e-f715ac967e29)
+:::
+:::
 
 We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that *Insecta* is inputted entirely in lowercase.
 
@@ -374,4 +389,4 @@ bees_corrected <- bees |>
 
 In this chapter, we discussed how to identify and clean strings and character patterns data. As you might have noticed, there truly are *many* ways that strings can appear in datasets, which is why there are so many tools and functions to detect them! 
 
-In the next chapter, we look at how to clean **dates** and other temporal data.
+In the next chapter, we look at how to clean dates and other temporal data.
