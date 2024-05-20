@@ -59,6 +59,7 @@ birds <- galah_call() |>
   atlas_occurrences()
 ```
 
+
 :::{.aside}
 
 <img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
@@ -68,6 +69,7 @@ birds <- galah_call() |>
 (Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
 :::
 :::
+
 
 ## Find duplicates
 
@@ -121,6 +123,17 @@ birds |>
 birds |>
   group_split(species)
 ```
+
+
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/d/c/4/9/b57dfc5b-06a4-4e98-8836-5239727794cd/original"></img>
+
+::: {.figure-caption}
+[*Todiramphus (Todiramphus) sanctus* collecting a crab for lunch. Photo by Peter and Shelly CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/84e11633-bdff-4c37-a759-d1abf2b7d9ba)
+:::
+:::
 
 
 ...and use `purrr::map()`[^1] to remove duplicates for each species group, binding our dataframes together again with `bind_rows()`.
@@ -183,10 +196,10 @@ As expected, there are a few species with those latitude and longitude coordinat
 Using `%in%` can be a powerful tool for finding duplicates in your dataframe. Extracting rows like we did above with our `test_row` example above (or a list of values in a column) can help you weed out more specific duplicate records you are interested in.
 
 
-Here is our final `birds_filtered` dataset of kingfishers cleaned for spatially duplicated records!
+Our kingfisher data, `birds_filtered`, is now clean from spatially duplicated records!
 
 ```{r}
-#| echo: false
+#| code-fold: true
 birds_filtered |>
   rmarkdown::paged_table()
 ```
