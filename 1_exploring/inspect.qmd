@@ -7,10 +7,12 @@ editor:
 # Inspect
 
 Before diving into cleaning, it's always a good idea to familiarise
-yourself with the data. In this chapter we will cover ways to inspect both the
+yourself with the data. In this chapter we will cover ways to initially inspect both the
 data and metadata of a dataset.
 
 ### Prerequisites
+
+In this chapter we will use Kinfisher (*Alcedinidae*) occurrence records in 2023 from the ALA.
 
 ```{r prereq}
 #| message: false
@@ -125,7 +127,7 @@ There are several ways to return an overview of your data, ranging in how
 comprehensively you wish to summarise your data's structure.
 
 ::: {.panel-tabset .nav-pills}
-#### glimpse()
+#### `glimpse()`
 
 Return a condensed summary of your data's structure using `glimpse()` from
 dplyr.
@@ -138,7 +140,7 @@ library(dplyr)
 glimpse(birds)
 ```
 
-#### skim()
+#### `skim()`
 
 Return tables of descriptive statistics for each variable, grouped by data type
 (e.g., `numeric`, `character`, `date`) using `skim()` from skimr.
@@ -151,7 +153,7 @@ library(skimr)
 skim(birds)
 ```
 
-#### str()
+#### `str()`
 
 Return a quick summary of your data's structure using base R `str()`
 
@@ -159,6 +161,17 @@ Return a quick summary of your data's structure using base R `str()`
 str(birds)
 ```
 :::
+
+:::{.aside}
+
+<img class = "rounded" src="https://images.ala.org.au/image/details?imageId=5a0ff06d-d7ac-44d2-a152-b2207cc98ab4"></img>
+
+::: {.figure-caption}
+[*Dacelo (Dacelo) novaeguineae* perched with a fresh worm in its beak. Photo by Rob Shepherd CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/1cb231bd-6000-43dd-9feb-409a29e93779)
+:::
+:::
+
 
 It is also good at this initial point to evaluate whether your dataset is
 what you expect. Ask yourself, does this data look like what you thought it would look like? Are the values in each column reasonable? Are there noticeable gaps or errors that might need
