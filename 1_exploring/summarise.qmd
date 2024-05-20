@@ -50,13 +50,17 @@ birds <- galah_call() |>
   atlas_occurrences()
 ```
 
-::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original" class="rounded"/></img>
 
-::: figure-caption
-[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></img>
+
+::: {.figure-caption}
+[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
 :::
 :::
+
 
 ## Taxonomic
 
@@ -123,7 +127,17 @@ birds |>
   tabyl(species) |>
   adorn_pct_formatting()
 ```
+
 :::
+
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/1/f/9/6/d7f7f9c3-bd0b-4bf6-a76a-10a003c469f1/original" class="rounded"/></img>
+
+::: figure-caption
+[*Syma torotoro* perched on a branch. Photo by Matt Goodwin CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/681dcc16-c29c-4aea-8c5d-85cc766689cc)
+:::
+:::
+
 
 ## Spatial
 
@@ -189,6 +203,15 @@ birds |>
   tabyl(cl22, species) |>
   adorn_pct_formatting()
 ```
+:::
+
+
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/e/e/4/4/cb5df529-5251-417c-864d-1345142a44ee/original" class="rounded"/></img>
+
+::: figure-caption
+[*Dacelo (Dacelo) novaeguineae* perched on a backyard fence. Photo by laura_free19 CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/69cff4b0-d9d1-4d63-bdd7-9d3fccf130c1)
+:::
 :::
 
 ### Maps
@@ -347,6 +370,7 @@ birds_date |>
 
 ...and summarise using [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html) or [janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html).
 
+
 ::: {.panel-tabset .nav-pills}
 #### dplyr
 
@@ -380,6 +404,14 @@ birds_date |>
   tabyl(month) |>
   arrange(desc(month))
 ```
+:::
+
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/d/8/2/4/f42e7f72-2525-47a8-aa80-39cc6f91428d/original" class="rounded"/></img>
+
+::: figure-caption
+[*Tanysiptera (Uralcyon) sylvia* perched on a branch. Photo by Kris Bernard CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/d451576a-027b-4450-9a1c-9e9a35fa8912)
+:::
 :::
 
 #### Line plots

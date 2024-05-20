@@ -221,7 +221,13 @@ frogs |>
   rmarkdown::paged_table()
 ```
 
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/e/e/4/8/53fabae9-22c2-448d-9352-bc7cf9e584ee/original" class="rounded"/></img>
 
+::: figure-caption
+[*Litoria ewingii* nestled in the mud. <br>Photo by george_vaughan CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/157896a8-868c-4e5f-87f1-d6063450c624)
+:::
+:::
 
 
 ### Rename columns
