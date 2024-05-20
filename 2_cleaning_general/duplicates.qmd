@@ -6,7 +6,7 @@ editor:
 
 # Duplicates
 
-**Duplicate** records can occur for a number of reasons. A duplicate record might appear in an individual dataset due to collection or entry error. A record might be duplicated when aggregating data sources. Alternatively, a record might be considered a duplicate in the context of one type of analysis, but not another. For example, prior to running species distribution models, records in the same location---even if they are separate observations---are considered duplicates and should be removed to avoid spatial bias. If running multiple models for several time-periods, however, records in the same location may be permitted in the final dataset if they occurred in different time-periods. *Context is key when determining how to identify and clean duplicate records in your dataset.*
+Duplicate records can occur for a number of reasons. A duplicate record might appear in an individual dataset due to collection or entry error. A record might be duplicated when aggregating data sources. Alternatively, a record might be considered a duplicate in the context of one type of analysis, but not another. For example, prior to running species distribution models, records in the same location---even if they are separate observations---are considered duplicates and should be removed to avoid spatial bias. If running multiple models for several time-periods, however, records in the same location may be permitted in the final dataset if they occurred in different time-periods. *Context is key when determining how to identify and clean duplicate records in your dataset.*
 
 Understanding how to replace duplicates is important because skipping this step could result in misleading analyses or visualisations. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods. 
 
@@ -196,10 +196,10 @@ As expected, there are a few species with those latitude and longitude coordinat
 Using `%in%` can be a powerful tool for finding duplicates in your dataframe. Extracting rows like we did above with our `test_row` example above (or a list of values in a column) can help you weed out more specific duplicate records you are interested in.
 
 
-Here is our final `birds_filtered` dataset of kingfishers cleaned for spatially duplicated records!
+Our kingfisher data, `birds_filtered`, is now clean from spatially duplicated records!
 
 ```{r}
-#| echo: false
+#| code-fold: true
 birds_filtered |>
   rmarkdown::paged_table()
 ```
