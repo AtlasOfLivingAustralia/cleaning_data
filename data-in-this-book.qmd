@@ -252,6 +252,62 @@ eucalypts <- galah_call() |>
 
 
 
+<!-- Generate data DOIs for all the data in this book -->
+
+```{r}
+#| echo: false
+#| eval: false
+
+source(here::here("scripts", "doi-functions.R"))
+
+## Run this entire chunk to update the DOIs used in this dataset
+
+library(galah)
+
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             username = Sys.getenv("GBIF_USERNAME"),
+             password = Sys.getenv("GBIF_PWD"),
+             verbose = FALSE)
+
+# create blank table
+doi_table <- tibble(name = NULL,
+                    chapter = NULL,
+                    doi = NULL)
+
+# ---
+
+## Inspect
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, 
+         cl22, eventDate, year) |>
+  atlas_occurrences(mint_doi = TRUE)
+
+# add to table
+doi <- attributes(birds)$doi
+doi_table <- add_doi("Inspect", "birds", doi)
+
+# ---
+
+## Summarise
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, cl22, eventDate, month) |>
+  atlas_occurrences(mint_doi = TRUE)
+
+# add to table
+doi <- attributes(birds)$doi
+doi_table <- add_doi("Summarise", "birds", doi)
+
+```
+
+
 
 
 
