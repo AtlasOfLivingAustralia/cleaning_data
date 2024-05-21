@@ -8,355 +8,86 @@ execute:
   eval: false
 ---
 
-# Data for this book {.unnumbered}
+# Data in this book {.unnumbered}
 
-This chapter collects all data used in this book. Most of the data is downloaded from the [Atlas of Living Australia (ALA)](https://ala.org.au/) using the [galah package](https://galah.ala.org.au/R/), the ALA's R interface to downloading biodiversity data. 
+This chapter contains several datasets used in this book which you can download using the supplied download link.
 
-This book is unique because you can download required data at the start of the chapter (in the *Prerequisites* section), or in this chapter (using a data DOI).
+This book mainly uses data DOIs to preserve reproducible data downloads, as most data is downloaded from the [Atlas of Living Australia (ALA)](https://ala.org.au/) using the [galah package](https://galah.ala.org.au/R/), the ALA's R interface to downloading biodiversity data. You can download data using these DOIs at the beginning of each chapter (in the *Prerequisites* section). We also supply the original data download query at the start of each chapter, which you can choose to use instead. 
 
-#### Using DOIs
+::: {.callout-note collapse="true" appearance="simple"}
 
-If you download the data using its associated DOI, all examples in this book using that dataset should be reproducible. Data DOIs preserve the exact data download, so this method should allow you to match the output of the examples over this book. DOIs are regenerated each time the book is re-rendered. 
+#### Using original download queries
 
-#### Using chapter prerequisites
+If you download data using a galah query (not a DOI), the results you return when running the examples in this book might not exactly match results in this book. This difference arises because data in the ALA is constantly being ingested (including from previous years). galah downloads data directly from the ALA, meaning that data downloaded after the date this book was rendered, even using a query for a specific time-period (e.g., 2010-2015), *might* differ from data downloaded using the same query at the time of rendering. In general, that is a good thing---updates improve data quantity and/or quality---but it can affect reproducibility. In general, this shouldn't affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book. The main advantage to using *Prerequisites* sections is that data downloads are transparent and up-to-date.
 
-If you download data using galah at the start the chapter, results in your console might not exactly match results in this book. This difference arises because data in the ALA is constantly being ingested (including from previous years). galah downloads data directly from the ALA, meaning that data downloaded after his book was rendered, even using a query for a specific time-period (e.g., 2010-2015), *might* differ from data downloaded using the same query at the time of rendering. 
-
-In general, that is a good thing---updates improve data quantity and/or quality---but it can affect reproducibility. In general, this shouldn't affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book.
-
-The main advantage to using *Prerequisites* sections is that data downloads are transparent and up-to-date.
-
-
-
-<!-- Long-form version -->
-
-::: {.callout-note collapse="true"}
-#### Why clean data from data infrastructures?
-
-Data infrastructures like the Atlas of Living Australia ingest, aggregate and standardise millions of rows of data from thousands of data providers. Some data comes from large providers with standardised workflows, like state government monitoring programs, [iNaturalist Australia](LINK) or [eBird](LINK). These data providers use workflows that attempt to remove suspicious records prior to sharing data with a Living Atlas, and, in general, these workflows catch many issues that otherwise might need fixing. 
-
-However, not all data providers have standardised workflows. Some data has been transcribed from written survey records and provided by a small or independent data provider. Other data might have been transcribed from archived written records in a museum, or even in a scientists backlog from a long-lost research project. These data are valuable but inevitably prone to errors that are difficult to fix---handwriting can be smudged or difficult to read, records might be lacking important details about their location or time of observation. Even in data from standardised workflows, errors like taxonomic misidentification or flipped geospatial coordinates can slip through the cracks because expert knowledge is required to identify and amend individual records. These records can also range in their precision or level of detail, and might not be suitable for every type of analysis.
-
-Although a data infrastructure can use programmatic data quality checks to try to remove more extreme outliers, many errors are context dependent and require verification from the original data provider. Ultimately, the responsibility to fix records falls on the data provider, rather than the data infrastructure, because only the data provider has knowledge required to amend their original data. As a result, we often need to clean data from data infrastructures to be suitable for our research question or analysis.
 :::
 
-<!-- This could be a shorter version of the above? -->
-
-::: {.callout-note collapse="true"}
-#### Why do we still have to clean data held in data infrastructures?
-
-Data infrastructures aggregate data from thousands of different data
-providers, and standardise them so that data from many disparate sources
-can be used together.
-
-Data providers, however, can provide data with mistakes, and data
-infrastructures are not overarching taxonomic or ecological experts.
-Ultimately, it's a team effort to catch errors, and it's up to data
-providers to double check that any flagged errors are indeed actually
-errors.
-:::
-
-## Data
-
-```{r}
-#| eval: false
-# add login credentials
-library(galah)
-
-galah_config(email = "your-email-here",
-             username = "your-gbif-email-here",
-             password = "your-gbif-password-here")
-```
+### Prerequisites
 
 ```{r}
 #| warning: false
 #| message: false
-#| echo: false
-library(galah)
-
-galah_config(email = Sys.getenv("ALA_EMAIL"),
-             username = Sys.getenv("GBIF_USERNAME"),
-             password = Sys.getenv("GBIF_PWD"),
-             verbose = FALSE)
+library(arrow)
+library(dplyr)
+library(readr)
 ```
 
-<!-- If we do commit to using DOIs, this is how to paste them into a code chunk -->
+## Data
 
-```{r}
-#| eval: true
-thing <- "a text string"
+### `inverts`
 
-test <- glue::glue(
-  "
-  birds <- galah_call() |>
-    atlas_occurrences(doi = \"{thing}\")
-  ")
-```
+This is a subset of a larger dataset---[Curated Plant and Invertebrate Dataset for Bushfire Modelling](https://data.csiro.au/collection/csiro:56679). 
 
+::: aside
 
-```{r}
-#| eval: false
-#| code: !expr test
-#| echo: true
-```
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original" class="rounded"/></img>
 
+::: figure-caption
+[*Paralaoma mucoides* on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/8a44a8df-2819-45d4-b8c5-e6dc7629e0fe)
+:::
+:::
 
-## `birds`
+Click on the download button below to download as a parquet file. Save the parquet in your working directory and load it using the code below.
 
-### Inspect
-
-```{r}
-#| code-fold: true
-#| echo: false
-#| eval: false
-# Do do not need to run this code
-# It is used to generate the data DOI when the book is rendered
-birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2022) |>
-  select(group = "basic", 
-         family, genus, species, 
-         cl22, eventDate, year) |>
-  atlas_occurrences(mint_doi = TRUE)
-
-doi_birds <- attributes(birds)$doi
-```
+{{< downloadthis data/dap/inverts_subset.parquet dname="inverts" label="Download inverts data" icon="database-fill-down" id=download-button >}}
 
 ```{r}
 #| eval: false
-# doi
-doi_birds
-
-# download
-birds <- galah_call() |> 
-  atlas_occurrences(doi = doi_birds)
-```
-
-### Summarise
-
-```{r}
-#| code-fold: true
-#| echo: false
-#| eval: false
-# Do do not need to run this code
-# It is used to generate the data DOI when the book is rendered
-birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2022) |>
-  select(group = "basic", 
-         family, genus, species, cl22, eventDate, month) |>
-  atlas_occurrences(mint_doi = TRUE)
-
-doi_birds <- attributes(birds)$doi
-```
-
-```{r}
-#| eval: false
-# doi
-doi_birds
-
-# download
-birds <- galah_call() |> 
-  atlas_occurrences(doi = doi_birds)
-```
-
-
-### Duplicates
-
-```{r}
-#| code-fold: true
-#| echo: false
-#| eval: false
-# Do do not need to run this code
-# It is used to generate the data DOI when the book is rendered
-birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2023) |>
-  select(group = "basic", 
-         family, genus, species, cl22, eventDate, month) |>
-  atlas_occurrences(mint_doi = TRUE)
-
-doi_birds <- attributes(birds)$doi
-```
-
-```{r}
-#| eval: false
-# doi
-doi_birds
-
-# download
-birds <- galah_call() |> 
-  atlas_occurrences(doi = doi_birds)
-```
-
-
-## `legless_lizards`
-
-```{r}
-legless_lizards <- galah_call() |>
-  identify("pygopodidae") |>
-  filter(year > 2020) |>
-  select(group = "basic") |>
-  atlas_occurrences()
-```
-
-
-## `frogs`
-
-### Column classes & names
-
-```{r}
-frogs <- galah_call() |>
-  identify("Litoria") |>
-  filter(year >= 2020, 
-         cl22 == "Tasmania") |>
-  select(group = "basic",
-         genus, species) |>
-  atlas_occurrences()
-```
-
-
-## `tree_kangaroos`
-
-## `inverts`
-
-The `inverts` dataset is a small sample of a larger dataset, [Curated Plant and Invertebrate Dataset for Bushfire Modelling]. Click on the link below to download the data. Save the csv in your working directory and load it using the code below.
-
-**DOWNLOAD link**
-
-```{r}
-inverts <- here::here("data", "dap", "inverts_subset") |>
+#| warning: false
+#| message: false
+inverts <- here("path", "to", "inverts.parquet") |>
   arrow::open_dataset() |> 
   collect()
 ```
 
+### `gbif_species_list`
 
-## `eucalypts`
+A species list of *Eucalyptus* downloaded from GBIF.
 
-```{r}
-eucalypts <- galah_call() |>
-  identify("Eucalyptus") |>
-  filter(eventDate > "2014-01-01T00:00:00Z",
-         eventDate < "2014-06-01T00:00:00Z") |>
-  select(group = "basic", 
-         kingdom, phylum, class, order, 
-         family, genus, species, taxonRank) |>
-  atlas_occurrences()
-```
+Click on the download button below to download as a parquet file. Save the parquet in your working directory and load it using the code below.
 
-
-## `plants`
-
-<!-- Not sure if we use the plants dataset? -->
-
-
-
-
-<!-- Generate data DOIs for all the data in this book -->
-
-```{r}
-#| echo: false
-#| eval: false
-
-source(here::here("scripts", "doi-functions.R"))
-
-## Run this entire chunk to update the DOIs used in this dataset
-
-library(galah)
-
-galah_config(email = Sys.getenv("ALA_EMAIL"),
-             username = Sys.getenv("GBIF_USERNAME"),
-             password = Sys.getenv("GBIF_PWD"),
-             verbose = FALSE)
-
-# create blank table
-doi_table <- tibble(name = NULL,
-                    chapter = NULL,
-                    doi = NULL)
-
-# ---
-
-## Inspect
-
-birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2022) |>
-  select(group = "basic", 
-         family, genus, species, 
-         cl22, eventDate, year) |>
-  atlas_occurrences(mint_doi = TRUE)
-
-# add to table
-doi <- attributes(birds)$doi
-doi_table <- add_doi("Inspect", "birds", doi)
-
-# ---
-
-## Summarise
-
-birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2022) |>
-  select(group = "basic", 
-         family, genus, species, cl22, eventDate, month) |>
-  atlas_occurrences(mint_doi = TRUE)
-
-# add to table
-doi <- attributes(birds)$doi
-doi_table <- add_doi("Summarise", "birds", doi)
-
-
-
-# write csv
-arrow::write_parquet(doi_table,
-                     here::here("data-raw", "doi_table"))
-```
-
-
-
-
-
-
-<!-- Code from Fonti of how to make data subsets from the Plant/Inverts Bushfire dataset --> 
-
-```{r}
-#| echo: false
-#| eval: false
-# To create data used in this chapter taken from bushfire data
-
-inverts <- open_dataset("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/invertebrate.data.csv", format = "csv")
-
-inverts |>
-  filter(family == "apidae") |>
-  write_parquet(sink = "data/dap/bees.parquet")
-
-# Smaller subset of the dataset
-set.seed(5)
-
-inverts |>
-  collect() |>
-  sample_frac(0.05) |>
-  write_parquet(sink = "data/dap/inverts_subset")
-
-
-# Plants data with errors
-plants <- read_csv("../data_cleaning_workflows/ignore/Curated_Plant_and_Invertebrate_Data_for_Bushfire_Modelling/vascularplant.data.csv")
-
-plants |>
-  select(record_id:longitude_used) |>
-  rename(latitude = latitude_used,
-         longitude = longitude_used) |>
-  sample_frac(0.05) |>
-  write_parquet("data/dap/plants_subset")
-```
-
+{{< downloadthis data/lists/gbif_eucalyptus.parquet dname="gbif_species_list" label="Download gbif_species_list data" icon="database-fill-down" id=download-button >}}
 
 ```{r}
 #| eval: false
-#| echo: false
-# Inverts subset: arachnid data
-spiders <- here::here("data","dap","inverts_subset") |>
-  open_dataset() |>
-  filter(class == "arachnida") |>
+gbif_species_list <- here("path", "to", "gbif_species_list.parquet") |>
+  arrow::read_parquet() |>
   collect()
 ```
+
+
+### `marine_sp`
+
+A subset of World Register of Marine Species (WoRMS) data.
+
+Click on the download button to download as a .csv file. Save the csv in your working directory and load it using the code below.
+
+{{< downloadthis data/worms/worms.csv dname="marine_sp" label="Download marine_sp data" icon="database-fill-down" id=download-button >}}
+
+```{r}
+#| eval: false
+marine_sp <- readr::read_csv(
+  here("path","to", "worms.csv"))
+```
+

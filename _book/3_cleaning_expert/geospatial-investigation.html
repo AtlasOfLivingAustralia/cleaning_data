@@ -539,7 +539,7 @@ Using “Assertions”
   coordinatePrecision     n
                 &lt;dbl&gt; &lt;int&gt;
 1         0.000000001    82
-2        NA             720</code></pre>
+2        NA             727</code></pre>
 </div>
 </div>
 <p>Filter your records to only those under a specific measure of precision.</p>
@@ -559,7 +559,7 @@ Using “Assertions”
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         coordinateUncertaintyInMeters</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 802 × 2
+<pre><code># A tibble: 809 × 2
    scientificName  coordinateUncertaintyInMeters
    &lt;chr&gt;                                   &lt;dbl&gt;
  1 Banksia serrata                           316
@@ -572,7 +572,7 @@ Using “Assertions”
  8 Banksia serrata                            NA
  9 Banksia serrata                            NA
 10 Banksia serrata                          2457
-# ℹ 792 more rows</code></pre>
+# ℹ 799 more rows</code></pre>
 </div>
 </div>
 <p>There is a range of coordinate uncertainty in our data, with many falling within 10m of uncertainty.</p>
@@ -581,21 +581,21 @@ Using “Assertions”
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(coordinateUncertaintyInMeters) <span class="sc">|&gt;</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 154 × 2
-# Groups:   coordinateUncertaintyInMeters [154]
+<pre><code># A tibble: 155 × 2
+# Groups:   coordinateUncertaintyInMeters [155]
    coordinateUncertaintyInMeters     n
                            &lt;dbl&gt; &lt;int&gt;
  1                             1     4
  2                             2     6
  3                             3    35
- 4                             4   137
+ 4                             4   139
  5                             5    59
  6                             6    18
- 7                             7    13
+ 7                             7    14
  8                             8    27
- 9                             9    18
+ 9                             9    19
 10                            10    70
-# ℹ 144 more rows</code></pre>
+# ℹ 145 more rows</code></pre>
 </div>
 </div>
 <p>If your analysis requires greater certainty, you can then filter your records to a smaller area of uncertainty.</p>

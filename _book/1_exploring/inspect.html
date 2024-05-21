@@ -180,20 +180,20 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../preface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data-in-this-book.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data for this book</span></a>
+ <span class="menu-text">Data in this book</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -387,22 +387,54 @@ div.csl-indent {
 </header>
 
 
-<p>Before diving into cleaning, it’s always a good idea to familiarise yourself with the data. In this chapter we will cover ways to inspect both the data and metadata of a dataset.</p>
+<p>Before diving into cleaning, it’s always a good idea to familiarise yourself with the data. In this chapter we will cover ways to initially inspect both the data and metadata of a dataset.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="1.0.1">
 <h3 data-number="1.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">1.0.1</span> Prerequisites</h3>
+<p>In this chapter we will use Kinfisher (<em>Alcedinidae</em>) occurrence records in 2023 from the ALA.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Original download queries
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Note:</strong> You don’t need to run this code block to read this chapter. This code downloads the latest data from the ALA (which won’t exactly reproduce results in this chapter).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, genus, species) <span class="sc">|&gt;</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-2-8" class="code-annotation-target"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="8" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data: Kingfisher records from 2023</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>) <span class="co"># ALA Registered email</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, genus, species) <span class="sc">|&gt;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org/10.26197/ala.55960665-74c2-4d1f-81ad-ba4cdd2269fa"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
@@ -431,7 +463,7 @@ div.csl-indent {
 <li>The data are under a Creative Commons license which is relevant for reuse and republishing</li>
 </ol>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -440,7 +472,7 @@ Data standards
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Many data infrastructures like the Atlas of Living Australia also follow and encourage a data standard to help consolidate data from many different data providers<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
 <p>The data standard used by the Atlas of Living Australia is called <strong>Darwin Core</strong>. Darwin Core works by defining a) a <a href="https://dwc.tdwg.org/terms/">set of standard terms</a><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> to use across datasets as column names, and b) values eligible to be recorded underneath these terms. Darwin Core standards require that additional files detailing metadata and data structure are supplied along with the dataset. This helps make sure the data is ingested correctly into the data infrastructure.</p>
@@ -449,7 +481,7 @@ Data standards
 </div>
 </div>
 </section>
-<section id="a-first-glimpse" class="level2" data-number="1.2">
+<section id="a-first-glimpse" class="level2 page-columns page-full" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="a-first-glimpse"><span class="header-section-number">1.2</span> A first glimpse</h2>
 <p>When starting with a new dataset, we want to get an initial idea:</p>
 <ul>
@@ -461,7 +493,7 @@ Data standards
 <p>These answers are useful to know before jumping into wrangling and cleaning data.</p>
 <p>There are several ways to return an overview of your data, ranging in how comprehensively you wish to summarise your data’s structure.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">glimpse()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">skim()</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">str()</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><code>glimpse()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>skim()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false"><code>str()</code></a></li></ul>
 <div class="tab-content nav-pills">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Return a condensed summary of your data’s structure using <code>glimpse()</code> from dplyr.</p>
@@ -470,7 +502,7 @@ Data standards
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 45,985
+<pre><code>Rows: 45,997
 Columns: 10
 $ recordID         &lt;chr&gt; "00018120-2238-4122-ac0a-697a56de98ef", "00030a7e-a6c…
 $ scientificName   &lt;chr&gt; "Dacelo (Dacelo) novaeguineae", "Todiramphus (Todiram…
@@ -501,7 +533,7 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 </tr>
 <tr class="even">
 <td style="text-align: left;">Number of rows</td>
-<td style="text-align: left;">45985</td>
+<td style="text-align: left;">45997</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
@@ -569,7 +601,7 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">45985</td>
+<td style="text-align: right;">45997</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -722,8 +754,8 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">2022-12-31 16:04:00</td>
 <td style="text-align: left;">2023-12-31 19:28:00</td>
-<td style="text-align: left;">2023-02-17 06:18:00</td>
-<td style="text-align: right;">27063</td>
+<td style="text-align: left;">2023-02-17 06:22:00</td>
+<td style="text-align: right;">27074</td>
 </tr>
 </tbody>
 </table>
@@ -735,17 +767,17 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>spc_tbl_ [45,985 × 10] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ recordID        : chr [1:45985] "00018120-2238-4122-ac0a-697a56de98ef" "00030a7e-a6cc-4f13-b37c-6672ca0b0ed3" "0005aa70-a30f-4ff0-9c82-9d05e66717d0" "0005e748-e148-4f57-8946-3d45d3a7dbcc" ...
- $ scientificName  : chr [1:45985] "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" ...
- $ taxonConceptID  : chr [1:45985] "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" ...
- $ decimalLatitude : num [1:45985] -27.4 -35.1 -25.3 -29.3 -37.9 ...
- $ decimalLongitude: num [1:45985] 153 147 153 149 145 ...
- $ eventDate       : POSIXct[1:45985], format: "2023-03-09 06:27:00" "2023-02-07 13:32:00" ...
- $ occurrenceStatus: chr [1:45985] "PRESENT" "PRESENT" "PRESENT" "PRESENT" ...
- $ dataResourceName: chr [1:45985] "eBird Australia" "eBird Australia" "iNaturalist Australia" "NSW BioNet Atlas" ...
- $ genus           : chr [1:45985] "Dacelo" "Todiramphus" "Dacelo" "Todiramphus" ...
- $ species         : chr [1:45985] "Dacelo novaeguineae" "Todiramphus sanctus" "Dacelo novaeguineae" "Todiramphus sanctus" ...
+<pre><code>spc_tbl_ [45,997 × 10] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ recordID        : chr [1:45997] "00018120-2238-4122-ac0a-697a56de98ef" "00030a7e-a6cc-4f13-b37c-6672ca0b0ed3" "0005aa70-a30f-4ff0-9c82-9d05e66717d0" "0005e748-e148-4f57-8946-3d45d3a7dbcc" ...
+ $ scientificName  : chr [1:45997] "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" "Dacelo (Dacelo) novaeguineae" "Todiramphus (Todiramphus) sanctus" ...
+ $ taxonConceptID  : chr [1:45997] "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/135cc880-f84e-4470-a1c1-fbce3a0ed534" ...
+ $ decimalLatitude : num [1:45997] -27.4 -35.1 -25.3 -29.3 -37.9 ...
+ $ decimalLongitude: num [1:45997] 153 147 153 149 145 ...
+ $ eventDate       : POSIXct[1:45997], format: "2023-03-09 06:27:00" "2023-02-07 13:32:00" ...
+ $ occurrenceStatus: chr [1:45997] "PRESENT" "PRESENT" "PRESENT" "PRESENT" ...
+ $ dataResourceName: chr [1:45997] "eBird Australia" "eBird Australia" "iNaturalist Australia" "NSW BioNet Atlas" ...
+ $ genus           : chr [1:45997] "Dacelo" "Todiramphus" "Dacelo" "Todiramphus" ...
+ $ species         : chr [1:45997] "Dacelo novaeguineae" "Todiramphus sanctus" "Dacelo novaeguineae" "Todiramphus sanctus" ...
  - attr(*, "spec")=
   .. cols(
   ..   recordID = col_character(),
@@ -766,7 +798,13 @@ $ species          &lt;chr&gt; "Dacelo novaeguineae", "Todiramphus sanctus", "Da
 </div>
 </div>
 </div>
-<p>It is also good at this initial point to evaluate whether your dataset is what you expect. Ask yourself, does this data look like what you thought it would look like? Are the values in each column reasonable? Are there noticeable gaps or errors that might need to be fixed (or stop you from using the data altogether)?</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img class="rounded" src="https://images.ala.org.au/image/details?imageId=5a0ff06d-d7ac-44d2-a152-b2207cc98ab4"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/1cb231bd-6000-43dd-9feb-409a29e93779"><em>Dacelo (Dacelo) novaeguineae</em> perched with a fresh worm in its beak. Photo by Rob Shepherd CC-BY-NC 4.0 (Int)</a></p>
+</div>
+</div></div><p>It is also good at this initial point to evaluate whether your dataset is what you expect. Ask yourself, does this data look like what you thought it would look like? Are the values in each column reasonable? Are there noticeable gaps or errors that might need to be fixed (or stop you from using the data altogether)?</p>
 </section>
 <section id="next-steps" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="next-steps"><span class="header-section-number">1.3</span> Next steps</h2>
@@ -1190,13 +1228,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
-<p>The ALA is supported by NCRIS, is hosted by CSIRO, and is the Australian node of GBIF. <img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
+<p><img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
 </div>
     <div class="nav-footer-right">
-<p>This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
 </div>
   </div>
 </footer>

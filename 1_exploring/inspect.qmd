@@ -27,22 +27,77 @@ birds <- galah_call() |>
   filter(year == 2023) |>
   select(group = "basic", genus, species) |>
   atlas_occurrences()
+
+doi_birds <- "https://doi.org/10.26197/ala.55960665-74c2-4d1f-81ad-ba4cdd2269fa"
 ```
 
-```{r}
+```{r internal-setup}
 #| eval: false
+#| echo: false
+#| warning: false
+#| message: false
 # packages
 library(ggplot2)
 library(galah)
+library(dplyr)
+library(arrow)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
 
-# data: Kingfisher records from 2023
-galah_config(email = "your-email-here") # ALA Registered email
+doi_table <- open_dataset(here::here("data", "galah-doi", "doi_table")) |>
+  filter(chapter == "Inspect") |>
+  collect()
+
+doi_birds <- doi_table |> filter(name == "birds") |> pull(name)
+
+birds <- galah_call() |>
+  filter(doi == doi_birds) |>
+  atlas_occurrences()
+```
+
+
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Original download queries
+
+**Note:** You don't need to run this code block to read this chapter. This code downloads the latest data from the ALA (which won't exactly reproduce results in this chapter).
+
+```{r orig-query}
+#| eval: false
+library(galah)
+galah_config(email = "your-email-here")
 
 birds <- galah_call() |>
   identify("alcedinidae") |>
   filter(year == 2023) |>
   select(group = "basic", genus, species) |>
+  atlas_occurrences() # <1>
+```
+1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
+
+:::
+
+```{r user-download}
+#| echo: false
+test <- glue::glue(
+"
+# packages
+library(galah)
+library(ggplot2)
+
+galah_config(email = \"your-email-here\")
+
+birds <- galah_call() |>
+  filter(doi == \"{doi_birds}\") |>
   atlas_occurrences()
+"
+)
+```
+
+```{r user-download-printed}
+#| eval: false
+#| code: !expr test
+#| echo: true
 ```
 
 :::{.aside}

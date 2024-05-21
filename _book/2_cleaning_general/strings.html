@@ -375,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><strong>Strings</strong> are sequences of characters that make up spaces, letters, abbreviations, words or sentences. They can be formatted in many different ways in an individual dataset. For example, these are just some possible ways the scientific name of species could be recorded in a dataset:</p>
+<p><em>Strings</em> are sequences of characters that make up spaces, letters, abbreviations, words or sentences. They can be formatted in many different ways in an individual dataset. For example, these are just some possible ways the scientific name of species could be recorded in a dataset:</p>
 <ul>
 <li><code>"Dendrolagus lumholtzi"</code></li>
 <li><code>"dendrolagus lumholtzi"</code></li>
@@ -386,7 +386,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this chapter, we focus on general data science techniques to clean strings in a dataset.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="6.0.1">
 <h3 data-number="6.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">6.0.1</span> Prerequisites</h3>
-<p>In this chapter, we will use tree kangaroo occurrence data from the ALA.</p>
+<p>In this chapter, we will use tree kangaroo (<em>Dendrolagus</em>) occurrence data from the ALA and a subset of bee (<em>Apidae</em>) data taken from the <a href="https://data.csiro.au/collection/csiro:56679">Curated Plant and Invertebrate Data for Bushfire Modelling data set</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
@@ -397,13 +397,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Dendrolagus"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>bees <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"bees.parquet"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/d/7/e/1f21b7e5-1cc7-45a0-8f83-d8e5dd51e7d2/original"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/290bcdef-d02a-49fe-b96b-96865527f02f"><em>Dendrolagus lumholtzi</em> sitting on a branch.<br>Photo by matthewkwan CC-BY</a></p>
+</div>
+<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/0/e/5/277a5c28-827a-49c7-8588-d16333925e00/original"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/92928258-92a1-4e6b-b9e2-46da0d8df383"><em>Braunsapis</em> species hovering in front of a ghost gum tree flower.<br>Photo by Zig Madycki CC-BY-NC-ND 4.0 (Int)</a></p>
 </div>
 </div></div></section>
 <section id="basic-string-manipulation" class="level2" data-number="6.1">
@@ -827,7 +833,7 @@ In some cases a more specific detection and replacement is required.
 -->
 </section>
 </section>
-<section id="capitalisation" class="level2" data-number="6.3">
+<section id="capitalisation" class="level2 page-columns page-full" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="capitalisation"><span class="header-section-number">6.3</span> Capitalisation</h2>
 <p>Capitalisation (also called case style) can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a data set. There are some basic functions available to change the case of strings in <code>stringr</code>:</p>
 <div class="cell">
@@ -856,21 +862,20 @@ In some cases a more specific detection and replacement is required.
 </div>
 </div>
 <p>Normally higher taxonomy are capitalised e.g.&nbsp;<em>Myrtaceae</em> or <em>Aves</em>. Capitalisation errors are usually quick to spot when you print the data object. Alternatively, you can try using <code>str_subset()</code> to return capitalisation matches in columns you expect to have capital letters.</p>
-<p>The code below subsets out unique values for the variable <code>class</code> that have upper case letters. Notice that no matches are found.</p>
+<p>For example, in our <code>bees</code> dataset (downloaded at <a href="../2_cleaning_general/strings.html#Prerequisites">start of this chapter</a>) some higher taxonomy columns don’t capitalise names. The code below subsets out unique values for the variable <code>class</code> that have upper case letters. Notice that no matches are found.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>bees <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"dap"</span>, <span class="st">"bees.parquet"</span>))</span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(<span class="fu">unique</span>(bees<span class="sc">$</span>class), <span class="st">"[:upper:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(<span class="fu">unique</span>(bees<span class="sc">$</span>class), <span class="st">"[:upper:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>character(0)</code></pre>
 </div>
 </div>
-<p>We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that <em>Insecta</em> is inputted entirely in lowercase.</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img class="rounded" src="https://images.ala.org.au/image/details?imageId=b3e3de8e-b7dd-4edc-8985-74a6e2052b66"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/93bd7c6e-7872-483b-b12e-f715ac967e29"><em>Apis (Apis) mellifera</em> looking for some pollen.<br>Photo by Reiner Richter CC-BY</a></p>
+</div>
+</div></div><p>We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that <em>Insecta</em> is inputted entirely in lowercase.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(<span class="fu">unique</span>(bees<span class="sc">$</span>class), <span class="st">"[:lower:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -907,7 +912,7 @@ In some cases a more specific detection and replacement is required.
 <section id="summary" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.4</span> Summary</h2>
 <p>In this chapter, we discussed how to identify and clean strings and character patterns data. As you might have noticed, there truly are <em>many</em> ways that strings can appear in datasets, which is why there are so many tools and functions to detect them!</p>
-<p>In the next chapter, we look at how to clean <strong>dates</strong> and other temporal data.</p>
+<p>In the next chapter, we look at how to clean dates and other temporal data.</p>
 
 
 </section>

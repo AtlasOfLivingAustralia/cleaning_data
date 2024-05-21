@@ -17,18 +17,18 @@ book:
   page-footer:
     border: true
     left: |
-      The Data Cleaning Book is a product of <a href="https://ala.org.au/">![](../images/logo.jpg){style='width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}</a>
+      The Data Cleaning Book is a product of <a href="https://ala.org.au/">![](../images/logo.jpg){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}</a>
     center: |
-      The ALA is supported by NCRIS, is hosted by CSIRO, and is the Australian node of GBIF. ![](../images/NCRIS_logo.png){style='width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](../images/CSIRO_logo.png){style='width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](../images/GBIF-2015.png){style='width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}
+      ![](../images/NCRIS_logo.png){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](../images/CSIRO_logo.png){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](../images/GBIF-2015.png){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}
     right: |
-      This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a [Creative Commons Attribution 3.0 Australia License](https://creativecommons.org/licenses/by/3.0/au/).
+      This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a [Creative Commons Attribution 3.0 Australia License](https://creativecommons.org/licenses/by/3.0/au/).
 
   cover-image: images/book_cover2.jpg 
 
   chapters:
   - index.qmd
-  - intro.qmd
   - preface.qmd
+  - intro.qmd
   - data-in-this-book.qmd
   - part: 1_exploring/1_intro.qmd
     chapters:

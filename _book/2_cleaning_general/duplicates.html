@@ -415,7 +415,7 @@ Tip
 <p><a href="https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3"><em>Todiramphus (Todiramphus) sanctus</em> perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)</a></p>
 </div>
 </div></div></section>
-<section id="find-duplicates" class="level2" data-number="4.1">
+<section id="find-duplicates" class="level2 page-columns page-full" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="find-duplicates"><span class="header-section-number">4.1</span> Find duplicates</h2>
 <p>Let’s remove any records that have multiple occurrences in the same location specified by their latitude and longitude coordinates.</p>
 <p>The first thing to do is find the duplicate records.</p>
@@ -740,7 +740,13 @@ the `.groups` argument.</code></pre>
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>…and use <code>purrr::map()</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to remove duplicates for each species group, binding our dataframes together again with <code>bind_rows()</code>.</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/d/c/4/9/b57dfc5b-06a4-4e98-8836-5239727794cd/original"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/84e11633-bdff-4c37-a759-d1abf2b7d9ba"><em>Todiramphus (Todiramphus) sanctus</em> collecting a crab for lunch. Photo by Peter and Shelly CC-BY-NC 4.0 (Int)</a></p>
+</div>
+</div></div><p>…and use <code>purrr::map()</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to remove duplicates for each species group, binding our dataframes together again with <code>bind_rows()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -839,8 +845,13 @@ the `.groups` argument.</code></pre>
 </div>
 <p>As expected, there are a few species with those latitude and longitude coordinates, but we now only have 1 row for each species in that location in <code>birds_filtered</code>.</p>
 <p>Using <code>%in%</code> can be a powerful tool for finding duplicates in your dataframe. Extracting rows like we did above with our <code>test_row</code> example above (or a list of values in a column) can help you weed out more specific duplicate records you are interested in.</p>
-<p>Here is our final <code>birds_filtered</code> dataset of kingfishers cleaned for spatially duplicated records!</p>
+<p>Our kingfisher data, <code>birds_filtered</code>, is now clean from spatially duplicated records!</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">

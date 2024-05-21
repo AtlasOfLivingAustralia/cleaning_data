@@ -814,16 +814,16 @@ div.csl-indent {
 <pre><code># A tibble: 1,334 × 131
    COUNTRY_COORDINATE_MISMATCH scientificName   decimalLongitude decimalLatitude
    &lt;lgl&gt;                       &lt;chr&gt;                       &lt;dbl&gt;           &lt;dbl&gt;
- 1 FALSE                       Dasyuroides byr…            141.            -24.2
- 2 FALSE                       Dasyuroides byr…            139.            -26.8
- 3 FALSE                       Dasyuroides byr…            139.            -24.0
- 4 FALSE                       Dasyuroides byr…            141.            -24.1
- 5 TRUE                        Dasyuroides byr…             36.3           -59.0
- 6 FALSE                       Dasyuroides byr…            140.            -27.0
- 7 FALSE                       Dasyuroides byr…            141.            -24.1
- 8 FALSE                       Dasyuroides byr…            140.            -27.0
- 9 FALSE                       Dasyuroides byr…            139.            -26.8
-10 FALSE                       Dasyuroides byr…            140.            -27.0
+ 1 TRUE                        Dasyuroides byr…             31.5           -54.2
+ 2 FALSE                       Dasyuroides byr…            140.            -27.0
+ 3 FALSE                       Dasyuroides byr…            140.            -27.0
+ 4 FALSE                       Dasyuroides byr…            141.            -24.2
+ 5 FALSE                       Dasyuroides byr…            135.            -25.9
+ 6 FALSE                       Dasyuroides byr…            141.            -23.8
+ 7 FALSE                       Dasyuroides byr…            140.            -27.0
+ 8 FALSE                       Dasyuroides byr…            140.            -23.7
+ 9 TRUE                        Dasyuroides byr…             32.3           -56.8
+10 FALSE                       Dasyuroides byr…            139.            -25.6
 # ℹ 1,324 more rows
 # ℹ 127 more variables: eventDate &lt;dttm&gt;, country &lt;chr&gt;, countryCode &lt;chr&gt;,
 #   locality &lt;chr&gt;, AMBIGUOUS_COLLECTION &lt;lgl&gt;, AMBIGUOUS_INSTITUTION &lt;lgl&gt;,
@@ -891,7 +891,7 @@ div.csl-indent {
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>acacias <span class="sc">|&gt;</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ZERO_COORDINATE, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10,703 × 11
+<pre><code># A tibble: 10,704 × 11
    ZERO_COORDINATE recordID        scientificName taxonConceptID decimalLatitude
    &lt;lgl&gt;           &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;
  1 FALSE           0013ae12-fda4-… Acacia aneura  https://id.bi…           -31.5
@@ -904,7 +904,7 @@ div.csl-indent {
  8 FALSE           0035cb4f-85e5-… Acacia aneura… https://id.bi…           -29.5
  9 FALSE           003cce3b-f3f8-… Acacia aneura  https://id.bi…           -29.1
 10 FALSE           0049bcbb-c8c2-… Acacia aneura  https://id.bi…           -25.5
-# ℹ 10,693 more rows
+# ℹ 10,694 more rows
 # ℹ 6 more variables: decimalLongitude &lt;dbl&gt;, eventDate &lt;dttm&gt;,
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;, countryCode &lt;chr&gt;,
 #   locality &lt;chr&gt;</code></pre>
@@ -1196,7 +1196,7 @@ record locations.
 <span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">species =</span> <span class="st">"scientificName"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `ne_50m_land' from data source 
-  `C:\Users\KEL329\AppData\Local\Temp\Rtmp6pb646\ne_50m_land.shp' 
+  `C:\Users\KEL329\AppData\Local\Temp\Rtmpy4lUfQ\ne_50m_land.shp' 
   using driver `ESRI Shapefile'
 Simple feature collection with 1420 features and 3 fields
 Geometry type: MULTIPOLYGON

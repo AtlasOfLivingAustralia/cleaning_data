@@ -109,6 +109,40 @@ sources in your download. You can directly contact data providers to ensure the
 data hasn't been pre-filtered before downloading.
 :::
 
+
+<!-- 
+I feel like this is an important point to make in this book, but it is kinda hidden here. It could go in the intro, but there's not a particular place for this kind of info there either? - DK 
+-->
+
+<!-- Long-form version -->
+
+::: {.callout-note collapse="true"}
+#### Why do we still have to clean data from data infrastructures? (long)
+
+Data infrastructures like the Atlas of Living Australia ingest, aggregate and standardise millions of rows of data from thousands of data providers. Some data comes from large providers with standardised workflows, like state government monitoring programs, [iNaturalist Australia](LINK) or [eBird](LINK). These data providers use workflows that attempt to remove suspicious records prior to sharing data with a Living Atlas, and, in general, these workflows catch many issues that otherwise might need fixing. 
+
+However, not all data providers have standardised workflows. Some data has been transcribed from written survey records and provided by a small or independent data provider. Other data might have been transcribed from archived written records in a museum, or even in a scientists backlog from a long-lost research project. These data are valuable but inevitably prone to errors that are difficult to fix---handwriting can be smudged or difficult to read, records might be lacking important details about their location or time of observation. Even in data from standardised workflows, errors like taxonomic misidentification or flipped geospatial coordinates can slip through the cracks because expert knowledge is required to identify and amend individual records. These records can also range in their precision or level of detail, and might not be suitable for every type of analysis.
+
+Although a data infrastructure can use programmatic data quality checks to try to remove more extreme outliers, many errors are context dependent and require verification from the original data provider. Ultimately, the responsibility to fix records falls on the data provider, rather than the data infrastructure, because only the data provider has knowledge required to amend their original data. As a result, we often need to clean data from data infrastructures to be suitable for our research question or analysis.
+:::
+
+<!-- This could be a shorter version of the above? -->
+
+::: {.callout-note collapse="true"}
+#### Why do we still have to clean data held in data infrastructures? (short)
+
+Data infrastructures aggregate data from thousands of different data
+providers, and standardise them so that data from many disparate sources
+can be used together.
+
+Data providers, however, can provide data with mistakes, and data
+infrastructures are not overarching taxonomic or ecological experts.
+Ultimately, it's a team effort to catch errors, and it's up to data
+providers to double check that any flagged errors are indeed actually
+errors.
+:::
+
+
 ### Spatial data
 
 Spatial data contain information that corresponds to an area on the globe and

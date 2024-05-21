@@ -50,38 +50,6 @@ In this chapter we will use several datasets:
     set](https://data.csiro.au/collection/csiro:56679)
 -   *Eucalyptus* occurrence records from 2014 from the ALA
 
-::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original" class="rounded"/></img>
-
-::: figure-caption
-[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by
-Kerri-Lee Harris CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
-:::
-
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/7/a/b/3544fca1-e201-4e90-8551-64e73ed6ba7c/original" class="rounded"/></img>
-
-::: figure-caption
-[*Paradelma orientalis* smiling at the camera.<br>Photo by dhfischer
-CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/1ccd81c3-a642-4d78-a6a3-4393978e6a73)
-:::
-
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original" class="rounded"/></img>
-
-::: figure-caption
-[*Paralaoma mucoides* on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/8a44a8df-2819-45d4-b8c5-e6dc7629e0fe)
-:::
-
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/original" class="rounded"/></img>
-
-::: figure-caption
-[*Eucalyptus leucoxylon* leaves and flowers.<br>Photo by davidsando
-CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2)
-:::
-:::
 
 ```{r}
 #| message: false
@@ -173,6 +141,40 @@ eucalypts <- galah_call() |>
   atlas_occurrences()
 
 ```
+
+
+::: aside
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original" class="rounded"/></img>
+
+::: figure-caption
+[*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by
+Kerri-Lee Harris CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
+:::
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/7/a/b/3544fca1-e201-4e90-8551-64e73ed6ba7c/original" class="rounded"/></img>
+
+::: figure-caption
+[*Paradelma orientalis* smiling at the camera.<br>Photo by dhfischer
+CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/1ccd81c3-a642-4d78-a6a3-4393978e6a73)
+:::
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original" class="rounded"/></img>
+
+::: figure-caption
+[*Paralaoma mucoides* on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/8a44a8df-2819-45d4-b8c5-e6dc7629e0fe)
+:::
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/original" class="rounded"/></img>
+
+::: figure-caption
+[*Eucalyptus leucoxylon* leaves and flowers.<br>Photo by davidsando
+CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2)
+:::
+:::
 
 ## Preview names
 
@@ -933,6 +935,22 @@ by supplying its `AphiaID` to the `wm_synonyms()` function.
 ```{r}
 #| warning: false
 #| message: false
+#| eval: false
+library(worrms)
+
+marine_sp <- read_csv(here::here("worms.csv")) # <1>
+
+marine_sp |>
+  filter(scientificname == "Lupocyclus inaequalis") |>
+  select(AphiaID, scientificname, status)
+```
+1. This is a subset of the WoRMS dataset. You can download it from the [Data in this book chapter](../4_appendices/data-in-this-book.html#marine_sp)
+
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
 library(worrms)
 
 marine_sp <- read_csv(here::here("data",

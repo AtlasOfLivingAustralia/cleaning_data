@@ -160,14 +160,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
+  <a href="../preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../preface.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
+  <a href="../intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -500,6 +500,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
 <p>If your project relates to data from a specific data provider, it also might be best to download data directly from the source.</p>
 <p>For example, a common citizen science tool to collect species observations is <a href="https://www.inaturalist.org/">iNaturalist</a>. Downloading directly from the original data source can help to ensure you don’t have any stray data from other sources in your download. You can directly contact data providers to ensure the data hasn’t been pre-filtered before downloading.</p>
+</div>
+</div>
+</div>
+<!-- 
+I feel like this is an important point to make in this book, but it is kinda hidden here. It could go in the intro, but there's not a particular place for this kind of info there either? - DK 
+-->
+<!-- Long-form version -->
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why do we still have to clean data from data infrastructures? (long)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Data infrastructures like the Atlas of Living Australia ingest, aggregate and standardise millions of rows of data from thousands of data providers. Some data comes from large providers with standardised workflows, like state government monitoring programs, <a href="LINK">iNaturalist Australia</a> or <a href="LINK">eBird</a>. These data providers use workflows that attempt to remove suspicious records prior to sharing data with a Living Atlas, and, in general, these workflows catch many issues that otherwise might need fixing.</p>
+<p>However, not all data providers have standardised workflows. Some data has been transcribed from written survey records and provided by a small or independent data provider. Other data might have been transcribed from archived written records in a museum, or even in a scientists backlog from a long-lost research project. These data are valuable but inevitably prone to errors that are difficult to fix—handwriting can be smudged or difficult to read, records might be lacking important details about their location or time of observation. Even in data from standardised workflows, errors like taxonomic misidentification or flipped geospatial coordinates can slip through the cracks because expert knowledge is required to identify and amend individual records. These records can also range in their precision or level of detail, and might not be suitable for every type of analysis.</p>
+<p>Although a data infrastructure can use programmatic data quality checks to try to remove more extreme outliers, many errors are context dependent and require verification from the original data provider. Ultimately, the responsibility to fix records falls on the data provider, rather than the data infrastructure, because only the data provider has knowledge required to amend their original data. As a result, we often need to clean data from data infrastructures to be suitable for our research question or analysis.</p>
+</div>
+</div>
+</div>
+<!-- This could be a shorter version of the above? -->
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why do we still have to clean data held in data infrastructures? (short)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Data infrastructures aggregate data from thousands of different data providers, and standardise them so that data from many disparate sources can be used together.</p>
+<p>Data providers, however, can provide data with mistakes, and data infrastructures are not overarching taxonomic or ecological experts. Ultimately, it’s a team effort to catch errors, and it’s up to data providers to double check that any flagged errors are indeed actually errors.</p>
 </div>
 </div>
 </div>

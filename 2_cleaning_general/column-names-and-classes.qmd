@@ -1,4 +1,9 @@
 ---
+editor: 
+  markdown: 
+    wrap: 72
+code-annotations: hover
+number-depth: 3
 editor_options: 
   chunk_output_type: console
 ---
@@ -37,25 +42,38 @@ frogs <- galah_call() |>
 doi_frogs <- "https://doi.org/10.26197/ala.5570ae7f-5beb-4640-9227-2a681029f804"
 ```
 
-```{r}
+```{r internal-setup}
 #| eval: false
+#| echo: false
+#| warning: false
+#| message: false
+# packages
+library(galah)
+library(dplyr)
 library(arrow)
 
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
+
 doi_table <- open_dataset(here::here("data-raw", "doi_table")) |>
-  filter(chapter == "Summarise") |>
+  filter(chapter == "Column names") |>
   collect()
+
+doi_frogs <- doi_table |> filter(name == "frogs") |> pull(name)
+
+frogs <- galah_call() |>
+  filter(doi == doi_frogs) |>
+  atlas_occurrences()
 ```
 
 
-:::{.callout-note collapse="true"}
+:::{.callout-note collapse="true" appearance="minimal"}
 
-#### Original galah query
+#### Original download queries
 
-**Note:** You don't need to run this code block to read this chapter. 
+**Note:** You don't need to run this code block to read this chapter. This code downloads the latest data from the ALA (which won't exactly reproduce results in this chapter).
 
-This code chunk will download the latest data from the ALA, which might not reproduce the *exact* results in this chapter (but will be very close anyway).
-
-```{r}
+```{r orig-query}
 #| eval: false
 library(galah)
 galah_config(email = "your-email-here")
@@ -67,11 +85,11 @@ frogs <- galah_call() |>
   select(group = "basic", genus, species) |>
   atlas_occurrences() # <1>
 ```
-1. To create a DOI for your download, use `atlas_occurrences(mint_doi = TRUE)`
+1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
 
 :::
 
-```{r}
+```{r user-download}
 #| echo: false
 test <- glue::glue(
 "
@@ -82,15 +100,13 @@ library(dplyr)
 galah_config(email = \"your-email-here\")
 
 frogs <- galah_call() |>
-  filter(
-    doi == \"{doi_frogs}\"
-    ) |>
+  filter(doi == \"{doi_frogs}\") |>
   atlas_occurrences()
 "
 )
 ```
 
-```{r}
+```{r user-download-printed}
 #| eval: false
 #| code: !expr test
 #| echo: true
@@ -218,7 +234,7 @@ class(frogs_class$decimalLatitude)
 ```
 
 ::: {.callout-warning collapse="true"}
-## Note
+## Look out for typos
 
 A simple typo in the dataset you import into R could be all it takes to change the class of an entire column, so be sure to keep your eyes out for strange column classes!
 :::
@@ -243,7 +259,7 @@ Snake case is more popular in R, and is the naming convention we recommend. Data
 colnames(frogs)
 ```
 
-One of the most useful column name cleaning functions is `clean_names()` from the [janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) package. This function will make all of your column names consistent, based on your preferred naming convention (defaults to snake case). 
+One of the most useful column name cleaning functions is `clean_names()` from the [janitor package](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html). This function will make all of your column names consistent, based on your preferred naming convention (defaults to snake case). 
 
 ```{r}
 #| warning: false
@@ -259,9 +275,10 @@ frogs_clean
 Now our names are in a consistent `snake_case` format.
 
 ```{r}
+#| code-fold: true
 frogs |>
   clean_names() |>
-  rmarkdown::paged_table()
+  rmarkdown::paged_table() # nice format
 ```
 
 ::: aside
@@ -283,7 +300,12 @@ There are several ways to rename columns in R.
 I am undecided about hiding the paged_table() step from the user 
 
 On one hand, if you are using R Studio + Quarto, this is probably how it renders anyway
-On the other hand, people might wonder why the output looks differen? I'm not sure.
+On the other hand, people might wonder why the output looks different? I'm not sure.
+- DK
+
+
+Update: I decided to stick with the code look, not html table, in the below sections because I don't think the extra step to make the table html was 
+necessary. I did apply it to later examples because I thought it improved readability
 - DK
 -->
 
@@ -301,37 +323,22 @@ frogs |>
          longitude = decimalLongitude) 
 ```
 
-`rename_with()` is a more powerful version of `rename()`. It allows more advanced renaming by using functions to rename matching columns.
+`rename_with()` is a more powerful version of `rename()`. It allows more advanced renaming by using functions to rename matching columns. Here we convert column names starting with "decimal" to uppercase.
 
 ```{r}
-#| output: false
 frogs |>
   select(decimalLatitude, decimalLongitude) |>
   rename_with(toupper, starts_with("decimal"))
 ```
 
-```{r}
-#| echo: false
-frogs |>
-  select(decimalLatitude, decimalLongitude) |>
-  rename_with(toupper, starts_with("decimal")) |> 
-  rmarkdown::paged_table()
-```
+And here we append the prefix "new_" to columns with names containing "decimal", and convert them to lowercase.
 
 ```{r}
-#| output: false
 frogs |>
   select(decimalLatitude, decimalLongitude) |>
-  rename_with( ~ tolower(gsub("decimal", "new_", .x, fixed = TRUE)))
+  rename_with( ~ tolower(gsub("decimal", "new_", .x, fixed = TRUE))) # <1>
 ```
-
-```{r}
-#| echo: false
-frogs |>
-  select(decimalLatitude, decimalLongitude) |>
-  rename_with( ~ tolower(gsub("decimal", "new_", .x, fixed = TRUE))) |>
-  rmarkdown::paged_table()
-```
+1. `.x` is shorthand for the variable this function will be applied to. In this case, `.x` refers to our `frogs` data frame.
 
 
 #### `names()` + `<-`
@@ -360,7 +367,6 @@ Sometimes it is useful to split information from one column into several columns
 ```{r}
 #| warning: false
 #| message: false
-#| output: false
 library(tidyr)
 
 frogs_separate <- frogs |>
@@ -370,11 +376,8 @@ frogs_separate <- frogs |>
            remove = FALSE         # keep input column
            ) |> 
   select(scientificName, genus, species)
-```
 
-```{r}
-#| echo: false
-frogs_separate |> rmarkdown::paged_table()
+frogs_separate |> rmarkdown::paged_table() # nice format
 ```
 
 
@@ -385,8 +388,7 @@ frogs_separate |> rmarkdown::paged_table()
 Conversely, we might want to combine information from multiple columns into a single column. We can rejoin the `genus` and `species` columns we created in the previous section using `unite()` from the tidyr package.
 
 ```{r}
-#| output: false
-frogs_separate |>
+frogs_united <- frogs_separate |>
   unite("single_name", 
         genus:species, # select columns to join
         sep = " ",     # separate with a space
@@ -394,19 +396,8 @@ frogs_separate |>
         remove = FALSE # keep input column
         ) |>
   select(genus, species, single_name)
-```
 
-```{r}
-#| echo: false
-frogs_separate |>
-  unite("single_name", 
-        genus:species, # select columns to join
-        sep = " ",     # separate with a space
-        na.rm = TRUE,  # remove NA values
-        remove = FALSE # keep input column
-        ) |>
-  select(genus, species, single_name) |>
-rmarkdown::paged_table()
+frogs_united |> rmarkdown::paged_table() # nice format
 ```
 
 ::: aside

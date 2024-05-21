@@ -182,20 +182,20 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../preface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data-in-this-book.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data for this book</span></a>
+ <span class="menu-text">Data in this book</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -434,25 +434,7 @@ Tip
 <li>A subset of invertebrate occurrence records taken from the <a href="https://data.csiro.au/collection/csiro:56679">Curated Plant and Invertebrate Data for Bushfire Modelling data set</a></li>
 <li><em>Eucalyptus</em> occurrence records from 2014 from the ALA</li>
 </ul>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original" class="rounded"></p>
-<div class="figure-caption">
-<p><a href="https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3"><em>Todiramphus (Todiramphus) sanctus</em> perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)</a></p>
-</div>
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/7/a/b/3544fca1-e201-4e90-8551-64e73ed6ba7c/original" class="rounded"></p>
-<div class="figure-caption">
-<p><a href="https://biocache.ala.org.au/occurrences/1ccd81c3-a642-4d78-a6a3-4393978e6a73"><em>Paradelma orientalis</em> smiling at the camera.<br>Photo by dhfischer CC-BY-NC 4.0 (Int)</a></p>
-</div>
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original" class="rounded"></p>
-<div class="figure-caption">
-<p><a href="https://biocache.ala.org.au/occurrences/8a44a8df-2819-45d4-b8c5-e6dc7629e0fe"><em>Paralaoma mucoides</em> on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0 (Int)</a></p>
-</div>
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/original" class="rounded"></p>
-<div class="figure-caption">
-<p><a href="https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2"><em>Eucalyptus leucoxylon</em> leaves and flowers.<br>Photo by davidsando CC-BY-NC 4.0 (Int)</a></p>
-</div>
-</div></div><div class="cell">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -492,7 +474,25 @@ Tip
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>         family, genus, species, taxonRank) <span class="sc">|&gt;</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original" class="rounded"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3"><em>Todiramphus (Todiramphus) sanctus</em> perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)</a></p>
+</div>
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/7/a/b/3544fca1-e201-4e90-8551-64e73ed6ba7c/original" class="rounded"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/1ccd81c3-a642-4d78-a6a3-4393978e6a73"><em>Paradelma orientalis</em> smiling at the camera.<br>Photo by dhfischer CC-BY-NC 4.0 (Int)</a></p>
+</div>
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original" class="rounded"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/8a44a8df-2819-45d4-b8c5-e6dc7629e0fe"><em>Paralaoma mucoides</em> on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0 (Int)</a></p>
+</div>
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/original" class="rounded"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2"><em>Eucalyptus leucoxylon</em> leaves and flowers.<br>Photo by davidsando CC-BY-NC 4.0 (Int)</a></p>
+</div>
+</div></div></section>
 <section id="preview-names" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="preview-names"><span class="header-section-number">8.1</span> Preview names</h2>
 <p>One of the simplest ways to determine whether there are any immediate issues with taxonomic names is to print some of them. Most biodiversity datasets have a <code>scientificName</code> or <code>scientific_name</code> field that specifies the lowest identifiable scientific name for each record. Looking at <code>scientificName</code> in our <code>birds</code> data, we can already notice some characteristics of the names in our data, namely that:</p>
@@ -700,7 +700,7 @@ Tip
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>legless_lizards_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,785 × 8
+<pre><code># A tibble: 1,788 × 8
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 001129f4-4824… Pygopus lepid… https://biodi…           -34.0             151.
@@ -711,9 +711,9 @@ Tip
  6 010eb86a-7bd4… Lialis burton… https://biodi…           -30.2             153.
  7 0175d058-1e71… Delma molleri  https://biodi…           -34.7             139.
  8 01a4f92d-4ffe… Pygopus schra… https://biodi…           -22.6             143.
- 9 01d7a158-0c85… Lialis burton… https://biodi…           -33.7             151.
-10 01d95a83-f8fe… Delma borea    https://biodi…           -13.5             131.
-# ℹ 1,775 more rows
+ 9 01c2316f-9ee9… Pygopus lepid… https://biodi…           -32.8             119.
+10 01d7a158-0c85… Lialis burton… https://biodi…           -33.7             151.
+# ℹ 1,778 more rows
 # ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;</code></pre>
 </div>
@@ -808,7 +808,7 @@ $ accepted_name                    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, N
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>legless_lizards_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,927 × 8
+<pre><code># A tibble: 1,930 × 8
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 001129f4-4824… Pygopus lepid… https://biodi…           -34.0             151.
@@ -820,8 +820,8 @@ $ accepted_name                    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, N
  7 010eb86a-7bd4… Lialis burton… https://biodi…           -30.2             153.
  8 0175d058-1e71… Delma molleri  https://biodi…           -34.7             139.
  9 01a4f92d-4ffe… Pygopus schra… https://biodi…           -22.6             143.
-10 01d7a158-0c85… Lialis burton… https://biodi…           -33.7             151.
-# ℹ 1,917 more rows
+10 01c2316f-9ee9… Pygopus lepid… https://biodi…           -32.8             119.
+# ℹ 1,920 more rows
 # ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;</code></pre>
 </div>
@@ -1507,15 +1507,23 @@ Search tip
 <p>The <a href="https://docs.ropensci.org/worrms/">worrms package</a> is the R interface to the World Register of Marine Species (WoRMS). When working with data from this database, the worrms R package has the ability to cross-check synonyms in their database using their taxonomic ID (<code>AphiaID</code>).</p>
 <p>For example, we can return existing synonyms for <em>Lupocyclus inaequalis</em> by supplying its <code>AphiaID</code> to the <code>wm_synonyms()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worrms)</span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,</span>
-<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"worms"</span>,</span>
-<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"worms.csv"</span>))</span>
-<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
-<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-87"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-87-1"><a href="#annotated-cell-87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worrms)</span>
+<span id="annotated-cell-87-2"><a href="#annotated-cell-87-2" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-87" data-target-annotation="1">1</button><span id="annotated-cell-87-3" class="code-annotation-target"><a href="#annotated-cell-87-3" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"worms.csv"</span>))</span>
+<span id="annotated-cell-87-4"><a href="#annotated-cell-87-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-87-5"><a href="#annotated-cell-87-5" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-87-6"><a href="#annotated-cell-87-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-87-7"><a href="#annotated-cell-87-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-87" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-87" data-code-lines="3" data-code-annotation="1">This is a subset of the WoRMS dataset. You can download it from the <a href="../4_appendices/data-in-this-book.html#marine_sp">Data in this book chapter</a></span>
+</dd>
+</dl>
+</div>
+</div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   AphiaID scientificname        status  
@@ -1525,11 +1533,11 @@ Search tip
 </div>
 <p>Our search returns a superseded synonym <em>Goniosoma inaequale</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(AphiaID) <span class="sc">|&gt;</span></span>
-<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wm_synonyms</span>() <span class="sc">|&gt;</span></span>
-<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(AphiaID) <span class="sc">|&gt;</span></span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wm_synonyms</span>() <span class="sc">|&gt;</span></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   AphiaID scientificname      status                
@@ -1545,13 +1553,13 @@ Search tip
 <p>We can match names against up to 118 data sources including GBIF, Catalogue of Life, World Register of Marine Species using <code>gnr_resolve()</code> and return one or more names scored by how well-matched they are to these sources.</p>
 <p>Let’s search for any synonyms of <em>Litoria caerulea</em> as an example.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(taxize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(taxize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: package 'taxize' was built under R version 4.3.3</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resolve names</span></span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(<span class="fu">unique</span>(<span class="st">"litoria caerulea"</span>), <span class="at">best_match_only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>resolved</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Resolve names</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(<span class="fu">unique</span>(<span class="st">"litoria caerulea"</span>), <span class="at">best_match_only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>resolved</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 5
   user_supplied_name submitted_name   matched_name     data_source_title score
@@ -1561,8 +1569,8 @@ Search tip
 </div>
 <p>Using the resolved name, we can search for its Taxonomic Serial Number using <code>get_tsn()</code>, which taxize uses to as a taxonomic identifier. Then we can search for existing synonyms by supplying the <code>tsn</code> to the <code>synonyms()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve synonyms</span></span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>tsn <span class="ot">&lt;-</span> <span class="fu">get_tsn</span>(resolved<span class="sc">$</span>matched_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve synonyms</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>tsn <span class="ot">&lt;-</span> <span class="fu">get_tsn</span>(resolved<span class="sc">$</span>matched_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>══  1 queries  ═══════════════</code></pre>
 </div>
@@ -1578,23 +1586,23 @@ Retrieving data for taxon 'Litoria caerulea'</code></pre>
 • Found: 1 
 • Not Found: 0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co">#synonyms(tsn) # this times out as of 2023-05-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co">#synonyms(tsn) # this times out as of 2023-05-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="homonyms" class="level4">
 <h4 class="anchored" data-anchor-id="homonyms">Homonyms</h4>
 <p>If a name matches multiple names, <code>get_tsn_()</code> will return all matches.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># resolve morganella name</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(<span class="st">"morganella"</span>, <span class="at">best_match_only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve matches</span></span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>tsn <span class="ot">&lt;-</span> <span class="fu">get_tsn_</span>(resolved<span class="sc">$</span>matched_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># resolve morganella name</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(<span class="st">"morganella"</span>, <span class="at">best_match_only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve matches</span></span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>tsn <span class="ot">&lt;-</span> <span class="fu">get_tsn_</span>(resolved<span class="sc">$</span>matched_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Retrieving data for taxon 'Morganella'</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>tsn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>tsn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$Morganella
 # A tibble: 8 × 4
@@ -1657,10 +1665,10 @@ attr(,"db")
 <!-- The below is meant to work but it doesn't at all with a small sample -->
 <p>If you are using a list of many names, you can use the other names to establish taxonomic context for matching by adding <code>with_context = TRUE</code> to <code>gnr_resolve()</code>. This context reduces the chances of returning taxonomic homonyms.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example:</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a>list_of_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name1"</span>, <span class="st">"name2"</span>, <span class="st">"name3"</span>, ...)</span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(list_of_names, <span class="at">with_context =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example:</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>list_of_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name1"</span>, <span class="st">"name2"</span>, <span class="st">"name3"</span>, ...)</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(list_of_names, <span class="at">with_context =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </div>
@@ -2159,13 +2167,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
-<p>The ALA is supported by NCRIS, is hosted by CSIRO, and is the Australian node of GBIF. <img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
+<p><img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
 </div>
     <div class="nav-footer-right">
-<p>This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
 </div>
   </div>
 </footer>
