@@ -429,52 +429,42 @@ Tip
 <h3 data-number="8.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">8.0.1</span> Prerequisites</h3>
 <p>In this chapter we will use several datasets:</p>
 <ul>
-<li><em>Alcedinidae</em> (Kingfisher) occurrence records from 2022 from the ALA</li>
-<li><em>Pygopodidae</em> (Legless lizard) occurrence records from 2021-2023 from the ALA</li>
-<li>A subset of invertebrate occurrence records taken from the <a href="https://data.csiro.au/collection/csiro:56679">Curated Plant and Invertebrate Data for Bushfire Modelling data set</a></li>
+<li>Kingfisher (<em>Alcedinidae</em>) occurrence records from 2022 from the ALA</li>
+<li>Legless lizard (<em>Pygopodidae</em>) occurrence records from 2021-2023 from the ALA</li>
+<li>A subset of invertebrate occurrence records taken from the <a href="https://data.csiro.au/collection/csiro:56679">Curated Plant and Invertebrate Data for Bushfire Modelling data set</a>. Download the <code>inverts</code> dataset from the <a href="../data-in-this-book.html#inverts">Data in this book chapter</a>.</li>
 <li><em>Eucalyptus</em> occurrence records from 2014 from the ALA</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">username =</span> <span class="st">"your-gbif-email-here"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">password =</span> <span class="st">"your-gbif-password-here"</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>,       <span class="co"># ALA-registered email</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">username =</span> <span class="st">"your-email-here"</span>,    <span class="co"># GBIF account email</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">password =</span> <span class="st">"your-password-here"</span>) <span class="co"># GBIF account password</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>         family, genus, species, </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>         cl22, eventDate, year) <span class="sc">|&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org/10.26197/ala.d37501c0-a32b-43f7-b1a8-660deccc9ea7"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>legless_lizards <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org/10.26197/ala.3d88b810-b1f8-4a5e-a71a-1e847f922054"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>legless_lizards <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"pygopodidae"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>inverts <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"dap"</span>, <span class="st">"inverts_subset"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  arrow<span class="sc">::</span><span class="fu">open_dataset</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>eucalypts <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Eucalyptus"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;</span> <span class="st">"2014-01-01T00:00:00Z"</span>,</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>         eventDate <span class="sc">&lt;</span> <span class="st">"2014-06-01T00:00:00Z"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, </span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>         kingdom, phylum, class, order, </span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>         family, genus, species, taxonRank) <span class="sc">|&gt;</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>inverts <span class="ot">&lt;-</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"inverts.parquet"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  arrow<span class="sc">::</span><span class="fu">open_dataset</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>eucalypts <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org/10.26197/ala.48ccdb77-3d23-4543-8a03-1a1c487f6bc0"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
+<!-- Queries -->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original" class="rounded"></p>
 <div class="figure-caption">
@@ -492,7 +482,58 @@ Tip
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2"><em>Eucalyptus leucoxylon</em> leaves and flowers.<br>Photo by davidsando CC-BY-NC 4.0 (Int)</a></p>
 </div>
-</div></div></section>
+</div></div><div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Original download queries
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Note:</strong> You don’t need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-41"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-41-1"><a href="#annotated-cell-41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="annotated-cell-41-2"><a href="#annotated-cell-41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="annotated-cell-41-3"><a href="#annotated-cell-41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-41-4"><a href="#annotated-cell-41-4" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-5"><a href="#annotated-cell-41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-6"><a href="#annotated-cell-41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-7"><a href="#annotated-cell-41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, </span>
+<span id="annotated-cell-41-8"><a href="#annotated-cell-41-8" aria-hidden="true" tabindex="-1"></a>         family, genus, species, </span>
+<span id="annotated-cell-41-9"><a href="#annotated-cell-41-9" aria-hidden="true" tabindex="-1"></a>         cl22, eventDate, year) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-41" data-target-annotation="1">1</button><span id="annotated-cell-41-10" class="code-annotation-target"><a href="#annotated-cell-41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="annotated-cell-41-11"><a href="#annotated-cell-41-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-41-12"><a href="#annotated-cell-41-12" aria-hidden="true" tabindex="-1"></a>legless_lizards <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-13"><a href="#annotated-cell-41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"pygopodidae"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-14"><a href="#annotated-cell-41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-15"><a href="#annotated-cell-41-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-16"><a href="#annotated-cell-41-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="annotated-cell-41-17"><a href="#annotated-cell-41-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-41-18"><a href="#annotated-cell-41-18" aria-hidden="true" tabindex="-1"></a>eucalypts <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-19"><a href="#annotated-cell-41-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Eucalyptus"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-20"><a href="#annotated-cell-41-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;</span> <span class="st">"2014-01-01T00:00:00Z"</span>,</span>
+<span id="annotated-cell-41-21"><a href="#annotated-cell-41-21" aria-hidden="true" tabindex="-1"></a>         eventDate <span class="sc">&lt;</span> <span class="st">"2014-06-01T00:00:00Z"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-22"><a href="#annotated-cell-41-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, </span>
+<span id="annotated-cell-41-23"><a href="#annotated-cell-41-23" aria-hidden="true" tabindex="-1"></a>         kingdom, phylum, class, order, </span>
+<span id="annotated-cell-41-24"><a href="#annotated-cell-41-24" aria-hidden="true" tabindex="-1"></a>         family, genus, species, taxonRank) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-41-25"><a href="#annotated-cell-41-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-41" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-41" data-code-lines="10,16,25" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="preview-names" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="preview-names"><span class="header-section-number">8.1</span> Preview names</h2>
 <p>One of the simplest ways to determine whether there are any immediate issues with taxonomic names is to print some of them. Most biodiversity datasets have a <code>scientificName</code> or <code>scientific_name</code> field that specifies the lowest identifiable scientific name for each record. Looking at <code>scientificName</code> in our <code>birds</code> data, we can already notice some characteristics of the names in our data, namely that:</p>
@@ -700,20 +741,20 @@ Tip
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>legless_lizards_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,788 × 8
+<pre><code># A tibble: 1,967 × 8
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 001129f4-4824… Pygopus lepid… https://biodi…           -34.0             151.
  2 0031c737-922a… Pygopus lepid… https://biodi…           -36.0             150.
- 3 0063af2c-e070… Pygopus lepid… https://biodi…           -34.9             139.
- 4 00a9ffcd-ec03… Lialis burton… https://biodi…           -27.5             153.
- 5 00dc4542-426a… Aprasia pseud… https://biodi…           -34.7             139.
- 6 010eb86a-7bd4… Lialis burton… https://biodi…           -30.2             153.
- 7 0175d058-1e71… Delma molleri  https://biodi…           -34.7             139.
- 8 01a4f92d-4ffe… Pygopus schra… https://biodi…           -22.6             143.
- 9 01c2316f-9ee9… Pygopus lepid… https://biodi…           -32.8             119.
-10 01d7a158-0c85… Lialis burton… https://biodi…           -33.7             151.
-# ℹ 1,778 more rows
+ 3 005dfdd2-4a93… Lialis burton… https://biodi…           -29.1             152.
+ 4 0063af2c-e070… Pygopus lepid… https://biodi…           -34.9             139.
+ 5 00a9ffcd-ec03… Lialis burton… https://biodi…           -27.5             153.
+ 6 00dc4542-426a… Aprasia pseud… https://biodi…           -34.7             139.
+ 7 010eb86a-7bd4… Lialis burton… https://biodi…           -30.2             153.
+ 8 0157207c-3a91… Pygopus lepid… https://biodi…           -33.7             150.
+ 9 0175d058-1e71… Delma molleri  https://biodi…           -34.7             139.
+10 0184f709-9cec… Pygopus lepid… https://biodi…           -33.7             150.
+# ℹ 1,957 more rows
 # ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;</code></pre>
 </div>
@@ -808,20 +849,20 @@ $ accepted_name                    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, N
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>legless_lizards_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,930 × 8
+<pre><code># A tibble: 2,109 × 8
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 001129f4-4824… Pygopus lepid… https://biodi…           -34.0             151.
  2 0027660b-3e75… Aprasia parap… https://biodi…           -35.4             149 
  3 0031c737-922a… Pygopus lepid… https://biodi…           -36.0             150.
- 4 0063af2c-e070… Pygopus lepid… https://biodi…           -34.9             139.
- 5 00a9ffcd-ec03… Lialis burton… https://biodi…           -27.5             153.
- 6 00dc4542-426a… Aprasia pseud… https://biodi…           -34.7             139.
- 7 010eb86a-7bd4… Lialis burton… https://biodi…           -30.2             153.
- 8 0175d058-1e71… Delma molleri  https://biodi…           -34.7             139.
- 9 01a4f92d-4ffe… Pygopus schra… https://biodi…           -22.6             143.
-10 01c2316f-9ee9… Pygopus lepid… https://biodi…           -32.8             119.
-# ℹ 1,920 more rows
+ 4 005dfdd2-4a93… Lialis burton… https://biodi…           -29.1             152.
+ 5 0063af2c-e070… Pygopus lepid… https://biodi…           -34.9             139.
+ 6 00a9ffcd-ec03… Lialis burton… https://biodi…           -27.5             153.
+ 7 00dc4542-426a… Aprasia pseud… https://biodi…           -34.7             139.
+ 8 010eb86a-7bd4… Lialis burton… https://biodi…           -30.2             153.
+ 9 0157207c-3a91… Pygopus lepid… https://biodi…           -33.7             150.
+10 0175d058-1e71… Delma molleri  https://biodi…           -34.7             139.
+# ℹ 2,099 more rows
 # ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;</code></pre>
 </div>
@@ -887,7 +928,7 @@ Tip
 </div>
 <p>…and use those names to search using <code>search_taxa()</code> from galah. We’ll save the results in <code>names_matches_ala</code>.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Search tip">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -896,7 +937,7 @@ Search tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>Anytime you search for taxonomic matches using names, it’s good to double check the urls returned in <code>taxon_concept_id</code> to make sure your search matched the result you expected!</p>
 </div>
@@ -1000,7 +1041,7 @@ Search tip
 </div>
 </div>
 </section>
-<section id="identifying-mismatches-in-species-lists" class="level3" data-number="8.4.2">
+<section id="identifying-mismatches-in-species-lists" class="level3 page-columns page-full" data-number="8.4.2">
 <h3 data-number="8.4.2" class="anchored" data-anchor-id="identifying-mismatches-in-species-lists"><span class="header-section-number">8.4.2</span> Identifying mismatches in species lists</h3>
 <p>Higher taxonomy from different data providers may not always match. If this is the case, you will need to back-fill the higher taxonomic ranks using data from your preferred taxonomic naming authority.</p>
 <p>Let’s use data of Eucalyptus observations we downloaded from the ALA as an example.</p>
@@ -1026,7 +1067,13 @@ Search tip
 #   order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;, taxonRank &lt;chr&gt;</code></pre>
 </div>
 </div>
-<p>This occurrence data contains observations of over 373 species.</p>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/original" class="rounded"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2"><em>Eucalyptus leucoxylon</em> leaves and flowers.<br>Photo by davidsando CC-BY-NC 4.0 (Int)</a></p>
+</div>
+</div></div><p>This occurrence data contains observations of over 373 species.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>eucalypts <span class="sc">|&gt;</span></span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxonRank <span class="sc">!=</span> <span class="st">"genus"</span>) <span class="sc">|&gt;</span></span>
@@ -1507,18 +1554,18 @@ Search tip
 <p>The <a href="https://docs.ropensci.org/worrms/">worrms package</a> is the R interface to the World Register of Marine Species (WoRMS). When working with data from this database, the worrms R package has the ability to cross-check synonyms in their database using their taxonomic ID (<code>AphiaID</code>).</p>
 <p>For example, we can return existing synonyms for <em>Lupocyclus inaequalis</em> by supplying its <code>AphiaID</code> to the <code>wm_synonyms()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-87"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-87-1"><a href="#annotated-cell-87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worrms)</span>
-<span id="annotated-cell-87-2"><a href="#annotated-cell-87-2" aria-hidden="true" tabindex="-1"></a></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-87" data-target-annotation="1">1</button><span id="annotated-cell-87-3" class="code-annotation-target"><a href="#annotated-cell-87-3" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"worms.csv"</span>))</span>
-<span id="annotated-cell-87-4"><a href="#annotated-cell-87-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-87-5"><a href="#annotated-cell-87-5" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-87-6"><a href="#annotated-cell-87-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-87-7"><a href="#annotated-cell-87-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-88"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-88-1"><a href="#annotated-cell-88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worrms)</span>
+<span id="annotated-cell-88-2"><a href="#annotated-cell-88-2" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-88" data-target-annotation="1">1</button><span id="annotated-cell-88-3" class="code-annotation-target"><a href="#annotated-cell-88-3" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"worms.csv"</span>))</span>
+<span id="annotated-cell-88-4"><a href="#annotated-cell-88-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-88-5"><a href="#annotated-cell-88-5" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-88-6"><a href="#annotated-cell-88-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-88-7"><a href="#annotated-cell-88-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-87" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-88" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-87" data-code-lines="3" data-code-annotation="1">This is a subset of the WoRMS dataset. You can download it from the <a href="../4_appendices/data-in-this-book.html#marine_sp">Data in this book chapter</a></span>
+<span data-code-cell="annotated-cell-88" data-code-lines="3" data-code-annotation="1">This is a subset of the WoRMS dataset. You can download it from the <a href="../4_appendices/data-in-this-book.html#marine_sp">Data in this book chapter</a></span>
 </dd>
 </dl>
 </div>
@@ -1620,20 +1667,20 @@ Retrieving data for taxon 'Morganella'</code></pre>
 </div>
 <p>You can then use each <code>tsn</code> number to return the complete classification of the taxonomic name.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-97"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-97-1"><a href="#annotated-cell-97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve upstream taxonomy</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-97" data-target-annotation="1">1</button><span id="annotated-cell-97-2" class="code-annotation-target"><a href="#annotated-cell-97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">classification</span>(tsn<span class="sc">$</span>Morganella<span class="sc">$</span>tsn[<span class="dv">1</span>],</span>
-<span id="annotated-cell-97-3"><a href="#annotated-cell-97-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">upto =</span> <span class="st">"family"</span>, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-97" data-target-annotation="2">2</button><span id="annotated-cell-97-4" class="code-annotation-target"><a href="#annotated-cell-97-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">db =</span> <span class="st">"itis"</span></span>
-<span id="annotated-cell-97-5"><a href="#annotated-cell-97-5" aria-hidden="true" tabindex="-1"></a>               )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-98"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-98-1"><a href="#annotated-cell-98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve upstream taxonomy</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-98" data-target-annotation="1">1</button><span id="annotated-cell-98-2" class="code-annotation-target"><a href="#annotated-cell-98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">classification</span>(tsn<span class="sc">$</span>Morganella<span class="sc">$</span>tsn[<span class="dv">1</span>],</span>
+<span id="annotated-cell-98-3"><a href="#annotated-cell-98-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">upto =</span> <span class="st">"family"</span>, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-98" data-target-annotation="2">2</button><span id="annotated-cell-98-4" class="code-annotation-target"><a href="#annotated-cell-98-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">db =</span> <span class="st">"itis"</span></span>
+<span id="annotated-cell-98-5"><a href="#annotated-cell-98-5" aria-hidden="true" tabindex="-1"></a>               )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-97" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-98" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-97" data-code-lines="2" data-code-annotation="1">Indexes the first number in the <code>tsn</code> column <code>"200902"</code></span>
+<span data-code-cell="annotated-cell-98" data-code-lines="2" data-code-annotation="1">Indexes the first number in the <code>tsn</code> column <code>"200902"</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-97" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-98" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-97" data-code-lines="4" data-code-annotation="2">Specifies database</span>
+<span data-code-cell="annotated-cell-98" data-code-lines="4" data-code-annotation="2">Specifies database</span>
 </dd>
 </dl>
 </div>

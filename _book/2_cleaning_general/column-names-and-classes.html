@@ -381,7 +381,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="prerequisites" class="level3 page-columns page-full" data-number="3.0.1">
 <h3 data-number="3.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">3.0.1</span> Prerequisites</h3>
 <p>In this chapter, we will use <em>Litoria</em> frog occurrence data since 2020 in Tasmania from the ALA.</p>
-<div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>) <span class="co"># ALA-registered email</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>frogs <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org/10.26197/ala.ef807c28-be44-47bb-882c-ac359cbdc5af"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+<!-- Queries -->
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/a/8/f/c3c17ed0-952c-46c5-8de2-0069ff38f8a2/original" class="rounded"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/44ed2cdd-ab7c-4974-b2fd-6a6394d5cd7b"><em>Litoria watjulumensis</em> seated on a rock.<br>Photo by simono CC-BY-NC 4.0 (Int)</a></p>
+</div>
+</div></div><div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -393,7 +410,7 @@ Original download queries
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Note:</strong> You don’t need to run this code block to read this chapter. This code downloads the latest data from the ALA (which won’t exactly reproduce results in this chapter).</p>
+<p><strong>Note:</strong> You don’t need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-9"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
 <span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
@@ -402,13 +419,14 @@ Original download queries
 <span id="annotated-cell-9-5"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Litoria"</span>) <span class="sc">|&gt;</span></span>
 <span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2020</span>, </span>
 <span id="annotated-cell-9-7"><a href="#annotated-cell-9-7" aria-hidden="true" tabindex="-1"></a>         cl22 <span class="sc">==</span> <span class="st">"Tasmania"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-9-8"><a href="#annotated-cell-9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, genus, species) <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-9" class="code-annotation-target"><a href="#annotated-cell-9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-9-8"><a href="#annotated-cell-9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>,</span>
+<span id="annotated-cell-9-9"><a href="#annotated-cell-9-9" aria-hidden="true" tabindex="-1"></a>         genus, species) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-10" class="code-annotation-target"><a href="#annotated-cell-9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-9" data-code-lines="9" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
+<span data-code-cell="annotated-cell-9" data-code-lines="10" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
 </dd>
 </dl>
 </div>
@@ -416,24 +434,7 @@ Original download queries
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>frogs <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org/10.26197/ala.5570ae7f-5beb-4640-9227-2a681029f804"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-
-<div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/a/8/f/c3c17ed0-952c-46c5-8de2-0069ff38f8a2/original" class="rounded"></p>
-<div class="figure-caption">
-<p><a href="https://biocache.ala.org.au/occurrences/44ed2cdd-ab7c-4974-b2fd-6a6394d5cd7b"><em>Litoria watjulumensis</em> seated on a rock.<br>Photo by simono CC-BY-NC 4.0 (Int)</a></p>
-</div>
-</div></div></section>
+</section>
 <section id="column-classes" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="column-classes"><span class="header-section-number">3.1</span> Column classes</h2>
 <p>Columns define what type of data they contain by having a class, and it’s important to know what these classes are because R handles each class differently.</p>
@@ -493,7 +494,7 @@ $ species          &lt;chr&gt; "Litoria raniformis", "Litoria raniformis", "Lito
   ..   species = col_character()
   .. )
  - attr(*, "problems")=&lt;externalptr&gt; 
- - attr(*, "search_url")= chr "https://biocache.ala.org.au/occurrences/search?&amp;q=*%3A*&amp;fq=%28year%3A%5B2020+TO+*%5D+AND+%28cl22%3A%22Tasmania%"| __truncated__</code></pre>
+ - attr(*, "doi")= chr "https://doi.org/10.26197/ala.ef807c28-be44-47bb-882c-ac359cbdc5af"</code></pre>
 </div>
 </div>
 </div>

@@ -3,8 +3,8 @@ project:
   output-dir: _book
 
 book:
-  title: "ALA's Data Cleaning Book"
-  subtitle: "Atlas of Living Australia's practical guide to cleaning ecological data"
+  title: "Cleaning Biodiversity Data in R"
+  subtitle: "Atlas of Living Australia's practical guide to cleaning ecological data in R"
   favicon: images/book_cover.jpg
   reader-mode: true
   page-navigation: true
@@ -17,7 +17,7 @@ book:
   page-footer:
     border: true
     left: |
-      The Data Cleaning Book is a product of <a href="https://ala.org.au/">![](../images/logo.jpg){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}</a>
+      Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/">![](../images/logo.jpg){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}</a>
     center: |
       ![](../images/NCRIS_logo.png){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](../images/CSIRO_logo.png){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](../images/GBIF-2015.png){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}
     right: |

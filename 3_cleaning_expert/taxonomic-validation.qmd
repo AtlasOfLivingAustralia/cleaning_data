@@ -42,19 +42,19 @@ record of any decisions and changes made with respect to the data.
 
 In this chapter we will use several datasets:
 
--   *Alcedinidae* (Kingfisher) occurrence records from 2022 from the ALA
--   *Pygopodidae* (Legless lizard) occurrence records from 2021-2023 from
+-   Kingfisher (*Alcedinidae*) occurrence records from 2022 from the ALA
+-   Legless lizard (*Pygopodidae*) occurrence records from 2021-2023 from
     the ALA
 -   A subset of invertebrate occurrence records taken from the [Curated
     Plant and Invertebrate Data for Bushfire Modelling data
-    set](https://data.csiro.au/collection/csiro:56679)
+    set](https://data.csiro.au/collection/csiro:56679). Download the `inverts` dataset from the [Data in this book chapter](../data-in-this-book.html#inverts).
 -   *Eucalyptus* occurrence records from 2014 from the ALA
 
-
-```{r}
-#| message: false
-#| warning: false
+```{r prereq-internal}
 #| echo: false
+#| warning: false
+#| message: false
+# packages
 library(here)
 library(readr)
 library(dplyr)
@@ -62,45 +62,45 @@ library(tidyr)
 library(stringr)
 library(janitor)
 library(galah)
-
 galah_config(email = Sys.getenv("ALA_EMAIL"),
              username = Sys.getenv("GBIF_USERNAME"),
              password = Sys.getenv("GBIF_PWD"),
              verbose = FALSE)
 
+# get DOIs for chapter
+doi_table <- here::here("data", "galah-dois", "doi_table") |>
+  arrow::open_dataset() |>
+  filter(chapter == "Taxonomic validation") |>
+  collect()
+
+# extract dois
+doi_birds <- doi_table |> filter(name == "birds") |> pull(doi)
+doi_legless_lizards <- doi_table |> filter(name == "legless_lizards") |> pull(doi)
+doi_eucalypts <- doi_table |> filter(name == "eucalypts") |> pull(doi)
+
+# download
 birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2022) |>
-  select(group = "basic", 
-         family, genus, species, 
-         cl22, eventDate, year) |>
+  filter(doi == doi_birds) |>
   atlas_occurrences()
 
 legless_lizards <- galah_call() |>
-  identify("pygopodidae") |>
-  filter(year > 2020 & year < 2024) |>
-  select(group = "basic") |>
+  filter(doi == doi_legless_lizards) |>
   atlas_occurrences()
 
-inverts <- here::here("data", "dap", "inverts_subset") |>
+inverts <- here::here("data", "dap", "inverts_subset.parquet") |>
   arrow::open_dataset() |> 
   collect()
 
 eucalypts <- galah_call() |>
-  identify("Eucalyptus") |>
-  filter(eventDate > "2014-01-01T00:00:00Z",
-         eventDate < "2014-06-01T00:00:00Z") |>
-  select(group = "basic", 
-         kingdom, phylum, class, order, 
-         family, genus, species, taxonRank) |>
+  filter(doi == doi_eucalypts) |>
   atlas_occurrences()
-
 ```
 
-```{r}
-#| message: false
-#| warning: false
-#| eval: false
+```{r prereq-external}
+#| echo: false
+test <- glue::glue(
+"
+# packages
 library(here)
 library(readr)
 library(dplyr)
@@ -108,38 +108,33 @@ library(tidyr)
 library(stringr)
 library(janitor)
 library(galah)
-
-galah_config(email = "your-email-here",
-             username = "your-gbif-email-here",
-             password = "your-gbif-password-here")
+galah_config(email = \"your-email-here\",       # ALA-registered email
+             username = \"your-email-here\",    # GBIF account email
+             password = \"your-password-here\") # GBIF account password
 
 birds <- galah_call() |>
-  identify("alcedinidae") |>
-  filter(year == 2022) |>
-  select(group = "basic", 
-         family, genus, species, 
-         cl22, eventDate, year) |>
+  filter(doi == \"{doi_birds}\") |>
   atlas_occurrences()
 
 legless_lizards <- galah_call() |>
-  identify("pygopodidae") |>
-  filter(year > 2020) |>
-  select(group = "basic") |>
+  filter(doi == \"{doi_legless_lizards}\") |>
   atlas_occurrences()
 
-inverts <- here::here("data", "dap", "inverts_subset") |>
+inverts <- here::here(\"path\", \"to\", \"inverts.parquet\") |>
   arrow::open_dataset() |> 
   collect()
 
 eucalypts <- galah_call() |>
-  identify("Eucalyptus") |>
-  filter(eventDate > "2014-01-01T00:00:00Z",
-         eventDate < "2014-06-01T00:00:00Z") |>
-  select(group = "basic", 
-         kingdom, phylum, class, order, 
-         family, genus, species, taxonRank) |>
+  filter(doi == \"{doi_eucalypts}\") |>
   atlas_occurrences()
+"
+)
+```
 
+```{r prereq-printed}
+#| eval: false
+#| code: !expr test
+#| echo: true
 ```
 
 
@@ -174,6 +169,45 @@ CC-BY-NC 4.0
 CC-BY-NC 4.0
 (Int)](https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2)
 :::
+:::
+
+<!-- Queries -->
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Original download queries
+
+**Note:** You don't need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.
+
+```{r prereq-orig-query}
+#| eval: false
+library(galah)
+galah_config(email = "your-email-here")
+
+birds <- galah_call() |>
+  identify("alcedinidae") |>
+  filter(year == 2022) |>
+  select(group = "basic", 
+         family, genus, species, 
+         cl22, eventDate, year) |>
+  atlas_occurrences() # <1>
+
+legless_lizards <- galah_call() |>
+  identify("pygopodidae") |>
+  filter(year > 2020) |>
+  select(group = "basic") |>
+  atlas_occurrences() # <1>
+
+eucalypts <- galah_call() |>
+  identify("Eucalyptus") |>
+  filter(eventDate > "2014-01-01T00:00:00Z",
+         eventDate < "2014-06-01T00:00:00Z") |>
+  select(group = "basic", 
+         kingdom, phylum, class, order, 
+         family, genus, species, taxonRank) |>
+  atlas_occurrences() # <1>
+```
+1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
+
 :::
 
 ## Preview names
@@ -517,6 +551,17 @@ an example.
 ```{r}
 eucalypts
 ```
+
+::: aside
+
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/original" class="rounded"/></img>
+
+::: figure-caption
+[*Eucalyptus leucoxylon* leaves and flowers.<br>Photo by davidsando
+CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2)
+:::
+:::
 
 This occurrence data contains observations of over 373 species.
 

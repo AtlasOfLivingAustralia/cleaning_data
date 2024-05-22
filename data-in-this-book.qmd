@@ -34,6 +34,33 @@ library(readr)
 
 ## Data
 
+### `bees`
+
+This is a subset of a larger dataset---[Curated Plant and Invertebrate Dataset for Bushfire Modelling](https://data.csiro.au/collection/csiro:56679). 
+
+::: aside
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/0/e/5/277a5c28-827a-49c7-8588-d16333925e00/original"></img>
+
+::: {.figure-caption}
+[*Braunsapis* species hovering in front of a ghost gum tree flower.<br>Photo by Zig Madycki CC-BY-NC-ND 4.0 (Int)](https://biocache.ala.org.au/occurrences/92928258-92a1-4e6b-b9e2-46da0d8df383)
+:::
+:::
+
+Click on the download button below to download as a parquet file. Save the parquet in your working directory and load it using the code below.
+
+{{< downloadthis data/dap/bees.parquet dname="bees" label="Download bees data" icon="database-fill-down" id=download-button >}}
+
+```{r}
+#| eval: false
+#| warning: false
+#| message: false
+bees <- here("path", "to", "bees.parquet") |>
+  arrow::open_dataset() |> 
+  collect()
+```
+
+
 ### `inverts`
 
 This is a subset of a larger dataset---[Curated Plant and Invertebrate Dataset for Bushfire Modelling](https://data.csiro.au/collection/csiro:56679). 
@@ -60,6 +87,7 @@ inverts <- here("path", "to", "inverts.parquet") |>
   arrow::open_dataset() |> 
   collect()
 ```
+
 
 ### `gbif_species_list`
 

@@ -46,6 +46,103 @@ In this chapter we'll use several datasets:
   * Common brown butterfly (*Heteronympha merope*) occurrence records in 2014 from the ALA
   * Bitter pea (*Daviesia ulicifolia*) occurrence records from the ALA
 
+```{r prereq-internal}
+#| echo: false
+#| warning: false
+#| message: false
+# packages
+library(galah)
+library(ggplot2)
+library(dplyr)
+library(sf)
+library(ozmaps)
+library(tidyr)
+library(stringr)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
+
+# get DOIs for chapter
+doi_table <- here::here("data", "galah-dois", "doi_table") |>
+  arrow::open_dataset() |>
+  filter(chapter == "Geospatial cleaning") |>
+  collect()
+
+# extract dois
+doi_desert_plant <- doi_table |> filter(name == "desert_plant") |> pull(doi)
+doi_frogs <- doi_table |> filter(name == "frogs") |> pull(doi)
+doi_native_mice <- doi_table |> filter(name == "native_mice") |> pull(doi)
+doi_acacias <- doi_table |> filter(name == "acacias") |> pull(doi)
+doi_butterflies <- doi_table |> filter(name == "butterflies") |> pull(doi)
+doi_bitter_peas <- doi_table |> filter(name == "bitter_peas") |> pull(doi)
+
+# download
+desert_plant <- galah_call() |>
+  filter(doi == doi_desert_plant) |>
+  atlas_occurrences()
+frogs <- galah_call() |>
+  filter(doi == doi_frogs) |>
+  atlas_occurrences()
+native_mice <- galah_call() |>
+  filter(doi == doi_native_mice) |>
+  atlas_occurrences()
+acacias <- galah_call() |>
+  filter(doi == doi_acacias) |>
+  atlas_occurrences()
+butterflies <- galah_call() |>
+  filter(doi == doi_butterflies) |>
+  atlas_occurrences()
+bitter_peas <- galah_call() |>
+  filter(doi == doi_bitter_peas) |>
+  atlas_occurrences()
+```
+
+```{r prereq-external}
+#| echo: false
+test <- glue::glue(
+"
+# packages
+library(galah)
+library(ggplot2)
+library(dplyr)
+library(sf)
+library(ozmaps)
+library(tidyr)
+library(stringr)
+galah_config(email = \"your-email-here\") # ALA-registered email
+
+desert_plant <- galah_call() |>
+  filter(doi == \"{doi_desert_plant}\") |>
+  atlas_occurrences()
+
+frogs <- galah_call() |>
+  filter(doi == \"{doi_frogs}\") |>
+  atlas_occurrences()
+
+native_mice <- galah_call() |>
+  filter(doi == \"{doi_native_mice}\") |>
+  atlas_occurrences()
+
+acacias <- galah_call() |>
+  filter(doi == \"{doi_acacias}\") |>
+  atlas_occurrences()
+
+butterflies <- galah_call() |>
+  filter(doi == \"{doi_butterflies}\") |>
+  atlas_occurrences()
+
+bitter_peas <- galah_call() |>
+  filter(doi == \"{doi_bitter_peas}\") |>
+  atlas_occurrences()
+"
+)
+```
+
+```{r prereq-printed}
+#| eval: false
+#| code: !expr test
+#| echo: true
+```
+
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"/></img>
 
@@ -93,26 +190,23 @@ Tomlinson CC-BY-NC 4.0
 :::
 :::
 
-```{r}
-#| warning: false
-#| message: false
-library(galah)
-library(ggplot2)
-library(dplyr)
-library(sf)
-library(ozmaps)
-library(tidyr)
-library(stringr)
+<!-- Queries -->
+:::{.callout-note collapse="true" appearance="minimal"}
 
-galah_config(atlas = "Australia",
-             email = Sys.getenv("ALA_EMAIL"),
-             verbose = FALSE)
+#### Original download queries
+
+**Note:** You don't need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.
+
+```{r prereq-orig-query}
+#| eval: false
+library(galah)
+galah_config(email = "your-email-here")
 
 desert_plant <- galah_call() |>
   identify("Eremophila macdonnellii") |>
   select(group = "basic", 
          PRESUMED_SWAPPED_COORDINATE) |> # add assertion column
-  atlas_occurrences()
+  atlas_occurrences() # <1>
 
 frogs <- galah_call() |>
   identify("Litoria chloris") |>
@@ -121,7 +215,7 @@ frogs <- galah_call() |>
          countryCode, locality,
          family, genus, species, 
          cl22, eventDate) |>
-  atlas_occurrences()
+  atlas_occurrences() # <1>
 
 native_mice <- galah_call() |>
   identify("Dasyuroides byrnei") |>
@@ -130,14 +224,14 @@ native_mice <- galah_call() |>
          country, countryCode, locality, 
          COUNTRY_COORDINATE_MISMATCH,
          group = "assertions") |>
-  atlas_occurrences()
+  atlas_occurrences() # <1>
 
 acacias <- galah_call() |>
   identify("acacia aneura") |>
   select(group = "basic",
          ZERO_COORDINATE, # add assertion column
          countryCode, locality) |>
-  atlas_occurrences()
+  atlas_occurrences() # <1>
 
 butterflies <- galah_call() |>
   identify("Heteronympha merope") |>
@@ -147,13 +241,15 @@ butterflies <- galah_call() |>
          COORDINATES_CENTRE_OF_COUNTRY, # add assertion column
          COORDINATES_CENTRE_OF_STATEPROVINCE, # add assertion column
          countryCode, locality) |>
-  atlas_occurrences()
+  atlas_occurrences() # <1>
 
 bitter_peas <- galah_call() |>
   identify("Daviesia ulicifolia") |>
-  atlas_occurrences()
+  atlas_occurrences() # <1>
 ```
+1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
 
+:::
 
 ## Missing coordinates
 
@@ -815,43 +911,4 @@ sharks |>
 The difficulty with cleaning Great White Shark occurrence data is that these sharks have a *massive* habitat range, and these locations along (what appear to be) the North American coast and Madagascar could very well be true occurrences. In this case, we might need to decide the spatial range that makes sense for our specific investigation. Be sure to consider the taxonomic and spatial range of
 your species before jumping into data cleaning!
 
-## Recycle bin
 
-```{=html}
-<!--
-This was in the "Remove coordinates" section
-I'm not sure if we will be able to find any examples of this happening
--->
-```
-#### Equal longitude/latitude
-
-Some records might have an accidental duplicated coordinate, resulting
-in longitude and latitude coordinates that are the same. You can
-identify and filter these records by checking for equal lat/lon
-coordinates.
-
-```{r}
-#| eval: false
-# Need to find some data that has this
-banksia |>
-  filter(decimalLatitude == decimalLongitude)
-```
-
-```{=html}
-<!-- 
-This was in the "Remove coordinates" section
-This is a risk of all specimen records. Is it worth including? 
-It's the same issue as zoos, aquariums section too. Might be repeating content
--->
-```
-#### Capital cities, urban areas, buildings
-
-A risk of using data of many types is that sometimes, if observations
-and specimen data are mixed, some coordinates will specify the location
-of the specimen, not the observation. These records must be excluded if
-you are interested in analysing occurrence locations.
-
-```{r}
-# example of many samples in cities (USA & Europe)
-# Placynthiella uliginosa
-```

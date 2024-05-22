@@ -2,12 +2,31 @@
 # Use this script to generate data DOIs for all galah queries in this book
 # ---------------------------------------------------------------------------- #
 
-## NOTE:
-#  - To generate new DOIs when re-rendering the book, run this entire script.
-#  - To update a single DOI, use `update_doi()` instead of `add_doi()`.
+### TO UPDATE ALL DOIs (when re-rendering book):
+#  - Run this entire script.
 
+### TO UPDATE ONE DOI ONLY:
+#  - 1. Download the data you wish to update with galah
+#  - 2. Uncomment the code below and fill in with desired dataframe chapter name & dataframe name
+#  - 3. Run the uncommented lines below
+
+# library(galah)
+# library(here)
+# library(arrow)
+# source(here::here("scripts", "doi-functions.R"))
+# doi_table <- here::here("data", "galah-dois", "doi_table") |>
+#   arrow::open_dataset() |>
+#   collect()
+#
+# doi_table <- update_doi("chapter-name", "df-name", attributes(df)$doi)
+
+
+# --------
 
 library(galah)
+library(here)
+library(readr)
+library(arrow)
 source(here::here("scripts", "doi-functions.R"))
 
 galah_config(email = Sys.getenv("ALA_EMAIL"),
@@ -300,14 +319,16 @@ pardalotes <- galah_call() |>
 doi <- attributes(pardalotes)$doi
 doi_table <- add_doi("Big data", "pardalotes", doi)
 
-
+# update pardalotes.csv for Big data chapter
+readr::write_csv(pardalotes,
+                 here::here("data", "pardalotes.csv"))
 
 ### Joins ---------------------
 
 
 pardalotes <- galah_call() |>
   identify("Pardalotus") |>
-  filter(year >= 2015) |>
+  filter(year == 2015) |>
   select(genus, 
          species, 
          scientificName, 

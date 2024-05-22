@@ -21,83 +21,41 @@ This chapter explains how to check the class of each column and edit column name
 
 In this chapter, we will use *Litoria* frog occurrence data since 2020 in Tasmania from the ALA. 
 
-```{r}
-#| warning: false
-#| message: false
-#| echo: false
-# packages
-library(galah)
-library(dplyr)
-
-galah_config(email = Sys.getenv("ALA_EMAIL"),
-             verbose = FALSE)
-frogs <- galah_call() |>
-  identify("Litoria") |>
-  filter(year >= 2020, 
-         cl22 == "Tasmania") |>
-  select(group = "basic",
-         genus, species) |>
-  atlas_occurrences()
-
-doi_frogs <- "https://doi.org/10.26197/ala.5570ae7f-5beb-4640-9227-2a681029f804"
-```
-
-```{r internal-setup}
-#| eval: false
+```{r prereq-internal}
 #| echo: false
 #| warning: false
 #| message: false
 # packages
-library(galah)
-library(dplyr)
 library(arrow)
+library(galah)
+library(dplyr)
 
 galah_config(email = Sys.getenv("ALA_EMAIL"),
              verbose = FALSE)
 
-doi_table <- open_dataset(here::here("data-raw", "doi_table")) |>
-  filter(chapter == "Column names") |>
+# get DOIs for chapter
+doi_table <- here::here("data", "galah-dois", "doi_table") |>
+  open_dataset() |>
+  filter(chapter == "Column classes") |>
   collect()
 
-doi_frogs <- doi_table |> filter(name == "frogs") |> pull(name)
+# extract dois
+doi_frogs <- doi_table |> filter(name == "frogs") |> pull(doi)
 
+# download
 frogs <- galah_call() |>
   filter(doi == doi_frogs) |>
   atlas_occurrences()
 ```
 
-
-:::{.callout-note collapse="true" appearance="minimal"}
-
-#### Original download queries
-
-**Note:** You don't need to run this code block to read this chapter. This code downloads the latest data from the ALA (which won't exactly reproduce results in this chapter).
-
-```{r orig-query}
-#| eval: false
-library(galah)
-galah_config(email = "your-email-here")
-
-frogs <- galah_call() |>
-  identify("Litoria") |>
-  filter(year >= 2020, 
-         cl22 == "Tasmania") |>
-  select(group = "basic", genus, species) |>
-  atlas_occurrences() # <1>
-```
-1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
-
-:::
-
-```{r user-download}
+```{r prereq-external}
 #| echo: false
 test <- glue::glue(
 "
 # packages
 library(galah)
 library(dplyr)
-
-galah_config(email = \"your-email-here\")
+galah_config(email = \"your-email-here\") # ALA-registered email
 
 frogs <- galah_call() |>
   filter(doi == \"{doi_frogs}\") |>
@@ -106,7 +64,7 @@ frogs <- galah_call() |>
 )
 ```
 
-```{r user-download-printed}
+```{r prereq-printed}
 #| eval: false
 #| code: !expr test
 #| echo: true
@@ -119,6 +77,31 @@ frogs <- galah_call() |>
 ::: figure-caption
 [*Litoria watjulumensis* seated on a rock.<br>Photo by simono CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/44ed2cdd-ab7c-4974-b2fd-6a6394d5cd7b)
 :::
+:::
+
+<!-- Queries -->
+
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Original download queries
+
+**Note:** You don't need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.
+
+```{r prereq-orig-query}
+#| eval: false
+library(galah)
+galah_config(email = "your-email-here")
+
+frogs <- galah_call() |>
+  identify("Litoria") |>
+  filter(year >= 2020, 
+         cl22 == "Tasmania") |>
+  select(group = "basic",
+         genus, species) |>
+  atlas_occurrences() # <1>
+```
+1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
+
 :::
 
 ## Column classes

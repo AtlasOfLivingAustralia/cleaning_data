@@ -14,13 +14,85 @@ If you work with biodiversity data, odds are high that you will need to join 2 s
 
 In this chapter, we will use pardalote occurrence data from 2015 in the ALA.
 
-```{r}
-#| eval: false
+```{r prereq-internal}
+#| echo: false
+#| warning: false
+#| message: false
+# packages
 library(galah)
 library(dplyr)
 library(here)
 library(ggplot2)
+galah_config(email = Sys.getenv("ALA_EMAIL"),
+             verbose = FALSE)
 
+# get DOIs for chapter
+doi_table <- here::here("data", "galah-dois", "doi_table") |>
+  arrow::open_dataset() |>
+  filter(chapter == "Joins") |>
+  collect()
+
+# extract dois
+doi_pardalotes <- doi_table |> filter(name == "pardalotes") |> pull(doi)
+
+# download
+pardalotes <- galah_call() |>
+  filter(doi == doi_pardalotes) |>
+  atlas_occurrences()
+
+pardalotes_taxonomy <- galah_call() |>
+  identify("Pardalotus") |>
+  atlas_species()
+```
+
+```{r prereq-external}
+#| echo: false
+test <- glue::glue(
+"
+# packages
+library(galah)
+library(dplyr)
+library(here)
+library(ggplot2)
+galah_config(email = \"your-email-here\") # ALA-registered email
+
+pardalotes <- galah_call() |>
+  filter(doi == \"{doi_pardalotes}\") |>
+  atlas_occurrences()
+
+pardalotes_taxonomy <- galah_call() |>
+  identify(\"Pardalotus\") |>
+  atlas_species()
+"
+)
+```
+
+```{r prereq-printed}
+#| eval: false
+#| code: !expr test
+#| echo: true
+```
+
+:::{.aside}
+
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/6/2/0/1b7b3e7a-80d8-49e2-be69-f2b7ebb10267/original"></img>
+
+::: {.figure-caption}
+[*Pardalotus (Pardalotus) punctatus* eating a snack. Photo by sirkendizzle CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/90dfaafd-a77c-4ccc-842d-3218a1ce64d2)
+:::
+:::
+
+<!-- Queries -->
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Original download queries
+
+**Note:** You don't need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.
+
+```{r prereq-orig-query}
+#| eval: false
+library(galah)
 galah_config(email = "your-email-here")
 
 pardalotes <- galah_call() |>
@@ -34,53 +106,10 @@ pardalotes <- galah_call() |>
          month, 
          decimalLatitude,
          decimalLongitude) |> 
-  atlas_occurrences()
-
-pardalotes_taxonomy <- galah_call() |>
-  identify("Pardalotus") |>
-  atlas_species()
-  
+  atlas_occurrences() # <1>
 ```
+1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
 
-```{r}
-#| echo: false
-#| warning: false
-#| message: false
-library(galah)
-library(dplyr)
-library(here)
-library(ggplot2)
-
-galah_config(email = Sys.getenv("ALA_EMAIL"),
-             verbose = FALSE)
-
-pardalotes <- galah_call() |>
-  identify("Pardalotus") |>
-  filter(year == 2015) |>
-  select(genus, 
-         species, 
-         scientificName, 
-         cl22,
-         year,
-         month,
-         decimalLatitude,
-         decimalLongitude,
-         cl959) |> 
-  atlas_occurrences()
-
-pardalotes_taxonomy <- galah_call() |>
-  identify("Pardalotus") |>
-  atlas_species()
-```
-
-:::{.aside}
-
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/6/2/0/1b7b3e7a-80d8-49e2-be69-f2b7ebb10267/original"></img>
-
-::: {.figure-caption}
-[*Pardalotus (Pardalotus) punctatus* eating a snack. Photo by sirkendizzle CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/90dfaafd-a77c-4ccc-842d-3218a1ce64d2)
-:::
 :::
 
 ## Keys

@@ -21,43 +21,64 @@ In this chapter, we focus on general data science techniques to clean strings in
 
 ### Prerequisites
 
-In this chapter, we will use tree kangaroo (*Dendrolagus*) occurrence data from the ALA and a subset of bee (*Apidae*) data taken from the [Curated Plant and Invertebrate Data for Bushfire Modelling data set](https://data.csiro.au/collection/csiro:56679).
+In this chapter, we will use tree kangaroo (*Dendrolagus*) occurrence data from the ALA and a subset of bee (*Apidae*) data taken from the [Curated Plant and Invertebrate Data for Bushfire Modelling data set](https://data.csiro.au/collection/csiro:56679). Download the `bees` dataset from the [Data in this book chapter](../data-in-this-book.html).
 
-```{r}
+```{r prereq-internal}
+#| echo: false
 #| warning: false
 #| message: false
-#| echo: false
 # packages
 library(galah)
 library(dplyr)
-library(arrow)
 library(tidyverse)
 library(janitor)
 library(here)
-
 galah_config(email = Sys.getenv("ALA_EMAIL"),
              verbose = FALSE)
+
+# get DOIs for chapter
+doi_table <- here::here("data", "galah-dois", "doi_table") |>
+  arrow::open_dataset() |>
+  filter(chapter == "Strings") |>
+  collect()
+
+# extract dois
+doi_tree_kangaroo <- doi_table |> filter(name == "tree_kangaroo") |> pull(doi)
+
+# download
 tree_kangaroo <- galah_call() |>
-  galah_identify("Dendrolagus") |>
+  filter(doi == doi_tree_kangaroo) |>
   atlas_occurrences()
 
 bees <- read_parquet(here("data", "dap", "bees.parquet"))
 ```
 
-```{r}
-#| eval: false
+```{r prereq-external}
+#| echo: false
+test <- glue::glue(
+"
 # packages
 library(galah)
 library(dplyr)
-
-# data: tree kangaroo records
-galah_config(email = "your-email-here")
+library(tidyverse)
+library(janitor)
+library(here)
+library(arrow)
+galah_config(email = \"your-email-here\") # ALA-registered email
 
 tree_kangaroo <- galah_call() |>
-  identify("Dendrolagus") |>
+  filter(doi == \"{doi_tree_kangaroo}\") |>
   atlas_occurrences()
 
-bees <- read_parquet(here("path", "to", "bees.parquet"))
+bees <- read_parquet(here(\"path\", \"to\", \"bees.parquet\"))
+"
+)
+```
+
+```{r prereq-printed}
+#| eval: false
+#| code: !expr test
+#| echo: true
 ```
 
 :::{.aside}
@@ -73,6 +94,26 @@ bees <- read_parquet(here("path", "to", "bees.parquet"))
 ::: {.figure-caption}
 [*Braunsapis* species hovering in front of a ghost gum tree flower.<br>Photo by Zig Madycki CC-BY-NC-ND 4.0 (Int)](https://biocache.ala.org.au/occurrences/92928258-92a1-4e6b-b9e2-46da0d8df383)
 :::
+:::
+
+<!-- Queries -->
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Original download queries
+
+**Note:** You don't need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.
+
+```{r prereq-orig-query}
+#| eval: false
+library(galah)
+galah_config(email = "your-email-here")
+
+tree_kangaroo <- galah_call() |>
+  galah_identify("Dendrolagus") |>
+  atlas_occurrences() # <1>
+```
+1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
+
 :::
 
 ## Basic string manipulation

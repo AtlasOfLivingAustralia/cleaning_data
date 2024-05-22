@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA’s Data Cleaning Book - Appendix B — Big data</title>
+<title>Cleaning Biodiversity Data in R - Appendix B — Big data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -134,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <img src="../images/ALA_Logo_Inline_RGB.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">ALA’s Data Cleaning Book</a> 
+      <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
@@ -160,20 +160,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../preface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data-in-this-book.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data for this book</span></a>
+ <span class="menu-text">Data in this book</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -369,35 +369,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Once the size of your dataset starts to approach the size of your computer’s memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the <a href="https://arrow.apache.org/docs/r/index.html"><code>arrow</code></a> package for larger than memory data workflows or the <a href="https://r.duckdb.org/index.html"><code>duckdb</code></a> package for querying databases using SQL.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="B.0.1">
 <h3 data-number="B.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">B.0.1</span> Prerequisites</h3>
-<p>In this chapter, we will use pardalote occurrence data. You will need to save the pardalotes data locally (i.e.&nbsp;write to disk) as a csv file to use over this chapter.</p>
+<p>In this chapter, we will use <em>Pardalote</em> occurrence data. You will need to save the <code>pardalotes</code> data locally (i.e.&nbsp;write to disk) as a csv file to use over this chapter.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>) <span class="co"># ALA-registered email</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Pardalotus"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2015</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genus, </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>         species, </span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         scientificName, </span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>         cl22,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>         year,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>         month, </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>         decimalLatitude,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>         decimalLongitude) <span class="sc">|&gt;</span> </span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"pardalotes.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org/10.26197/ala.b6280c07-0414-42c0-8505-8b2141af679c"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"pardalotes.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
+<!-- Queries -->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/6/2/0/1b7b3e7a-80d8-49e2-be69-f2b7ebb10267/original"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/90dfaafd-a77c-4ccc-842d-3218a1ce64d2"><em>Pardalotus (Pardalotus) punctatus</em> eating a snack. Photo by sirkendizzle CC-BY-NC 4.0 (Int)</a></p>
 </div>
-</div></div></section>
+</div></div><div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Original download queries
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Note:</strong> You don’t need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>pardalotes <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Pardalotus"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2015</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-4-7"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genus, </span>
+<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a>         species, </span>
+<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a>         scientificName, </span>
+<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a>         cl22,</span>
+<span id="annotated-cell-4-11"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a>         year,</span>
+<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a>         month, </span>
+<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>         decimalLatitude,</span>
+<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>         decimalLongitude) <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1">1</button><span id="annotated-cell-4-15" class="code-annotation-target"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="15" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="arrow" class="level3" data-number="B.0.2">
 <h3 data-number="B.0.2" class="anchored" data-anchor-id="arrow"><span class="header-section-number">B.0.2</span> <code>arrow</code></h3>
 <p>The <code>arrow</code> package allows users to analyse larger than memory datasets using <code>{dplyr}</code> verbs. A common workflow might consists of reading in some data, filtering or summarising according to some property of the data, and writing this to a new file. This is relatively simple to do with a small csv file, and we can do something conceptually similar using <code>{arrow}</code> for larger datasets<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
@@ -408,15 +441,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(pardalotes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>FileSystemDataset with 1 csv file
-282,856 rows x 8 columns
+556,387 rows x 8 columns
 $ genus            &lt;string&gt; "Pardalotus", "Pardalotus", "Pardalotus", "Pardalotu…
-$ species          &lt;string&gt; "Pardalotus striatus", "Pardalotus striatus", "Parda…
+$ species          &lt;string&gt; "Pardalotus striatus", "Pardalotus punctatus", "Pard…
 $ scientificName   &lt;string&gt; "Pardalotus (Pardalotinus) striatus", "Pardalotus (P…
-$ cl22             &lt;string&gt; "Victoria", "Australian Capital Territory", "Victori…
-$ year              &lt;int64&gt; 2022, 2020, 2022, 2020, 2021, 2021, 2020, 2022, 2021…
-$ month             &lt;int64&gt; 1, 10, 8, 5, 5, 7, 8, 10, 5, 10, 9, 3, 2, 10, 1, 7, …
-$ decimalLatitude  &lt;double&gt; -36.64821, -35.26053, -37.06421, -33.58889, -23.2356…
-$ decimalLongitude &lt;double&gt; 145.0214, 148.9459, 142.6475, 150.8716, 150.7958, 14…</code></pre>
+$ cl22             &lt;string&gt; "New South Wales", "New South Wales", "Queensland", …
+$ year              &lt;int64&gt; 2019, 2021, 2017, 2020, 2019, 2015, 2017, 2019, 2018…
+$ month             &lt;int64&gt; 1, 1, 4, 7, 1, 8, 11, 10, 10, 2, 3, 3, 4, 7, 2, 8, 1…
+$ decimalLatitude  &lt;double&gt; -30.47737, -32.73097, -27.84881, -37.28375, -41.4003…
+$ decimalLongitude &lt;double&gt; 151.7397, 152.0799, 153.1975, 145.3821, 146.0305, 14…</code></pre>
 </div>
 </div>
 <p>…and perform some common operations on it before finally bringing it into memory with <code>collect()</code>.</p>
@@ -428,20 +461,20 @@ $ decimalLongitude &lt;double&gt; 145.0214, 148.9459, 142.6475, 150.8716, 150.79
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 99 × 4
-   species               year cl22                         count
-   &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;                        &lt;int&gt;
- 1 Pardalotus striatus   2022 Victoria                     12880
- 2 Pardalotus striatus   2020 Australian Capital Territory  3552
- 3 Pardalotus punctatus  2020 New South Wales               7988
- 4 Pardalotus striatus   2021 Queensland                   15606
- 5 Pardalotus striatus   2020 New South Wales               6323
- 6 Pardalotus punctatus  2022 Victoria                     18632
- 7 Pardalotus striatus   2021 South Australia               2847
- 8 Pardalotus punctatus  2021 South Australia                898
- 9 Pardalotus striatus   2020 Queensland                   14446
-10 Pardalotus striatus   2021 Australian Capital Territory  4048
-# ℹ 89 more rows</code></pre>
+<pre><code># A tibble: 206 × 4
+   species               year cl22            count
+   &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;           &lt;int&gt;
+ 1 Pardalotus striatus   2019 New South Wales  4900
+ 2 Pardalotus punctatus  2021 New South Wales 12035
+ 3 Pardalotus striatus   2017 Queensland       8724
+ 4 Pardalotus striatus   2020 Victoria        11009
+ 5 Pardalotus punctatus  2019 Tasmania          837
+ 6 Pardalotus striatus   2015 Tasmania          759
+ 7 Pardalotus punctatus  2017 Queensland       2289
+ 8 Pardalotus punctatus  2019 New South Wales  7961
+ 9 Pardalotus punctatus  2018 South Australia   632
+10 Pardalotus punctatus  2022 Victoria        18632
+# ℹ 196 more rows</code></pre>
 </div>
 </div>
 <p>The <code>arrow</code> package has many other functions that make working with big data as smooth as possible, such as reading and writing different file formats (including <strong>parquet</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> and <strong>feather</strong> for efficient storage), partitioning datasets for more effective querying, working with multi-file datasets, and interacting with cloud storage.</p>
@@ -902,13 +935,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
-<p>The ALA is supported by NCRIS, is hosted by CSIRO, and is the Australian node of GBIF. <img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
+<p><img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
 </div>
     <div class="nav-footer-right">
-<p>This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
 </div>
   </div>
 </footer>

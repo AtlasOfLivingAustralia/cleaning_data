@@ -28,9 +28,11 @@ occurrences with maps.
 In this chapter we'll use data of *Banksia serrata* occurrence records since
 2022 and quokka occurrence records from the ALA.
 
-```{r}
+```{r prereq-internal}
+#| echo: false
 #| warning: false
 #| message: false
+# packages
 library(galah)
 library(ggplot2)
 library(dplyr)
@@ -38,24 +40,53 @@ library(sf)
 library(ozmaps)
 library(tidyr)
 library(stringr)
-
-galah_config(atlas = "Australia",
-             email = Sys.getenv("ALA_EMAIL"),
+galah_config(email = Sys.getenv("ALA_EMAIL"),
              verbose = FALSE)
 
+# get DOIs for chapter
+doi_table <- here::here("data", "galah-dois", "doi_table") |>
+  arrow::open_dataset() |>
+  filter(chapter == "Geospatial investigation") |>
+  collect()
+
+# extract dois
+doi_banksia <- doi_table |> filter(name == "banksia") |> pull(doi)
+doi_quokkas <- doi_table |> filter(name == "quokkas") |> pull(doi)
+
+# download
 banksia <- galah_call() |>
-  identify("banksia serrata") |>
-  filter(year > 2022) |>
-  select(group = "basic",
-         coordinatePrecision, 
-         coordinateUncertaintyInMeters) |>
+  filter(doi == doi_banksia) |>
   atlas_occurrences()
 
 quokkas <- galah_call() |>
-  identify("Setonix brachyurus") |>
-  galah_select(group = "basic", 
-               dataGeneralizations) |>
+  filter(doi == doi_quokkas) |>
   atlas_occurrences()
+```
+
+```{r prereq-external}
+#| echo: false
+test <- glue::glue(
+"
+# packages
+library(galah)
+library(dplyr)
+galah_config(email = \"your-email-here\") # ALA-registered email
+
+banksia <- galah_call() |>
+  filter(doi == \"{doi_banksia}\") |>
+  atlas_occurrences()
+
+quokkas <- galah_call() |>
+  filter(doi == \"{doi_quokkas}\") |>
+  atlas_occurrences()
+"
+)
+```
+
+```{r prereq-printed}
+#| eval: false
+#| code: !expr test
+#| echo: true
 ```
 
 ::: aside
@@ -73,6 +104,36 @@ quokkas <- galah_call() |>
 CC-BY-NC 4.0
 (Int)](https://biocache.ala.org.au/occurrences/077bb0ae-3ecc-451a-a216-2bf0ebed7954)
 :::
+:::
+
+<!-- Queries -->
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Original download queries
+
+**Note:** You don't need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.
+
+```{r prereq-orig-query}
+#| eval: false
+library(galah)
+galah_config(email = "your-email-here")
+
+banksia <- galah_call() |>
+  identify("banksia serrata") |>
+  filter(year > 2022) |>
+  select(group = "basic",
+         coordinatePrecision, 
+         coordinateUncertaintyInMeters) |>
+  atlas_occurrences() # <1>
+
+quokkas <- galah_call() |>
+  identify("Setonix brachyurus") |>
+  galah_select(group = "basic", 
+               dataGeneralizations) |>
+  atlas_occurrences() # <1>
+```
+1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
+
 :::
 
 ::: {.callout-important collapse="true"}

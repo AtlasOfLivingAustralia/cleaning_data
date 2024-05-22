@@ -160,20 +160,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../preface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data-in-this-book.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data for this book</span></a>
+ <span class="menu-text">Data in this book</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -386,22 +386,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this chapter, we focus on general data science techniques to clean strings in a dataset.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="6.0.1">
 <h3 data-number="6.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">6.0.1</span> Prerequisites</h3>
-<p>In this chapter, we will use tree kangaroo (<em>Dendrolagus</em>) occurrence data from the ALA and a subset of bee (<em>Apidae</em>) data taken from the <a href="https://data.csiro.au/collection/csiro:56679">Curated Plant and Invertebrate Data for Bushfire Modelling data set</a>.</p>
+<p>In this chapter, we will use tree kangaroo (<em>Dendrolagus</em>) occurrence data from the ALA and a subset of bee (<em>Apidae</em>) data taken from the <a href="https://data.csiro.au/collection/csiro:56679">Curated Plant and Invertebrate Data for Bushfire Modelling data set</a>. Download <code>bees</code> dataset from the <a href="../data-in-this-book.html">Data in this book chapter</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data: tree kangaroo records</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Dendrolagus"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>bees <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"bees.parquet"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>) <span class="co"># ALA-registered email</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org/10.26197/ala.eee89655-ee77-4dab-9e26-5c25f0d1bd74"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>bees <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"bees.parquet"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
+<!-- Queries -->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/d/7/e/1f21b7e5-1cc7-45a0-8f83-d8e5dd51e7d2/original"></p>
 <div class="figure-caption">
@@ -411,7 +414,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/92928258-92a1-4e6b-b9e2-46da0d8df383"><em>Braunsapis</em> species hovering in front of a ghost gum tree flower.<br>Photo by Zig Madycki CC-BY-NC-ND 4.0 (Int)</a></p>
 </div>
-</div></div></section>
+</div></div><div class="callout callout-style-simple callout-note no-icon callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Original download query
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Note:</strong> You don’t need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-29"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-29-1"><a href="#annotated-cell-29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="annotated-cell-29-2"><a href="#annotated-cell-29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="annotated-cell-29-3"><a href="#annotated-cell-29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-29-4"><a href="#annotated-cell-29-4" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-29-5"><a href="#annotated-cell-29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">galah_identify</span>(<span class="st">"Dendrolagus"</span>) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-29" data-target-annotation="1">1</button><span id="annotated-cell-29-6" class="code-annotation-target"><a href="#annotated-cell-29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-29" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-29" data-code-lines="6" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="basic-string-manipulation" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="basic-string-manipulation"><span class="header-section-number">6.1</span> Basic string manipulation</h2>
 <p>The <code>stringr</code> package provides a number of useful functions for working with strings.</p>
@@ -509,7 +544,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(scientificName, <span class="st">"lum"</span>)) <span class="sc">|&gt;</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 797 × 1
+<pre><code># A tibble: 799 × 1
    scientificName       
    &lt;chr&gt;                
  1 Dendrolagus lumholtzi
@@ -522,7 +557,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Dendrolagus lumholtzi
  9 Dendrolagus lumholtzi
 10 Dendrolagus lumholtzi
-# ℹ 787 more rows</code></pre>
+# ℹ 789 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -546,7 +581,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,286 × 2
+<pre><code># A tibble: 1,288 × 2
    scientificName           species     
    &lt;chr&gt;                    &lt;chr&gt;       
  1 Dendrolagus lumholtzi    lumholtzi   
@@ -559,7 +594,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Dendrolagus lumholtzi    lumholtzi   
  9 Dendrolagus              &lt;NA&gt;        
 10 Dendrolagus bennettianus bennettianus
-# ℹ 1,276 more rows</code></pre>
+# ℹ 1,278 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -611,7 +646,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,286 × 3
+<pre><code># A tibble: 1,288 × 3
    scientificName           start   end
    &lt;chr&gt;                    &lt;int&gt; &lt;int&gt;
  1 Dendrolagus lumholtzi       13    15
@@ -624,7 +659,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Dendrolagus lumholtzi       13    15
  9 Dendrolagus                 NA    NA
 10 Dendrolagus bennettianus    NA    NA
-# ℹ 1,276 more rows</code></pre>
+# ℹ 1,278 more rows</code></pre>
 </div>
 </div>
 
@@ -671,7 +706,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [18] │ &lt;Dendrolagus&gt; lumholtzi
 [19] │ &lt;Dendrolagus&gt; lumholtzi
 [20] │ &lt;Dendrolagus&gt; lumholtzi
-... and 1266 more</code></pre>
+... and 1268 more</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -706,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [25] │ Dendrolagus &lt;bennettianus&gt;
 [27] │ Dendrolagus &lt;lumholtzi&gt;
 [28] │ Dendrolagus &lt;lumholtzi&gt;
-... and 883 more</code></pre>
+... and 885 more</code></pre>
 </div>
 </div>
 </section>
@@ -738,23 +773,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Replace a matched pattern in a dataframe.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-48"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-48-1"><a href="#annotated-cell-48-1" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-48-2"><a href="#annotated-cell-48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="annotated-cell-48-3"><a href="#annotated-cell-48-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name_updated =</span> <span class="fu">str_replace</span>(</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-48" data-target-annotation="1">1</button><span id="annotated-cell-48-4" class="code-annotation-target"><a href="#annotated-cell-48-4" aria-hidden="true" tabindex="-1"></a>      scientificName, <span class="st">"^[A-Z][a-z]+"</span>, <span class="st">"new_name"</span></span>
-<span id="annotated-cell-48-5"><a href="#annotated-cell-48-5" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="annotated-cell-48-6"><a href="#annotated-cell-48-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-48-7"><a href="#annotated-cell-48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, name_updated)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-49"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-49-1"><a href="#annotated-cell-49-1" aria-hidden="true" tabindex="-1"></a>tree_kangaroo <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-49-2"><a href="#annotated-cell-49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="annotated-cell-49-3"><a href="#annotated-cell-49-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">name_updated =</span> <span class="fu">str_replace</span>(</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-49" data-target-annotation="1">1</button><span id="annotated-cell-49-4" class="code-annotation-target"><a href="#annotated-cell-49-4" aria-hidden="true" tabindex="-1"></a>      scientificName, <span class="st">"^[A-Z][a-z]+"</span>, <span class="st">"new_name"</span></span>
+<span id="annotated-cell-49-5"><a href="#annotated-cell-49-5" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="annotated-cell-49-6"><a href="#annotated-cell-49-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-49-7"><a href="#annotated-cell-49-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, name_updated)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-48" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-49" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-48" data-code-lines="4" data-code-annotation="1">This regex reads “Do not match all letters (capitalised or not) after word one.” We then this with “<code>new_name</code>”.</span>
+<span data-code-cell="annotated-cell-49" data-code-lines="4" data-code-annotation="1">This regex reads “Do not match all letters (capitalised or not) after word one.” We then this with “<code>new_name</code>”.</span>
 </dd>
 </dl>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,286 × 2
+<pre><code># A tibble: 1,288 × 2
    scientificName           name_updated         
    &lt;chr&gt;                    &lt;chr&gt;                
  1 Dendrolagus lumholtzi    new_name lumholtzi   
@@ -767,7 +802,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Dendrolagus lumholtzi    new_name lumholtzi   
  9 Dendrolagus              new_name             
 10 Dendrolagus bennettianus new_name bennettianus
-# ℹ 1,276 more rows</code></pre>
+# ℹ 1,278 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -796,7 +831,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>tree_kangaroo[,<span class="fu">c</span>(<span class="st">"scientificName"</span>, <span class="st">"name_updated"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,286 × 2
+<pre><code># A tibble: 1,288 × 2
    scientificName           name_updated         
    &lt;chr&gt;                    &lt;chr&gt;                
  1 Dendrolagus lumholtzi    new_name lumholtzi   
@@ -809,7 +844,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  8 Dendrolagus lumholtzi    new_name lumholtzi   
  9 Dendrolagus              new_name             
 10 Dendrolagus bennettianus new_name bennettianus
-# ℹ 1,276 more rows</code></pre>
+# ℹ 1,278 more rows</code></pre>
 </div>
 </div>
 </div>
@@ -1355,13 +1390,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
-<p>The ALA is supported by NCRIS, is hosted by CSIRO, and is the Australian node of GBIF. <img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
+<p><img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
 </div>
     <div class="nav-footer-right">
-<p>This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
 </div>
   </div>
 </footer>
