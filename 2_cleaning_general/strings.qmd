@@ -33,6 +33,7 @@ library(dplyr)
 library(tidyverse)
 library(janitor)
 library(here)
+library(arrow)
 galah_config(email = Sys.getenv("ALA_EMAIL"),
              verbose = FALSE)
 
@@ -50,7 +51,7 @@ tree_kangaroo <- galah_call() |>
   filter(doi == doi_tree_kangaroo) |>
   atlas_occurrences()
 
-bees <- read_parquet(here("data", "dap", "bees.parquet"))
+bees <- arrow::read_parquet(here("data", "dap", "bees.parquet"))
 ```
 
 ```{r prereq-external}

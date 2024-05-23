@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "ALA’s Data Cleaning Book",
+    "title": "Cleaning Biodiversity Data in R",
     "section": "",
     "text": "Welcome\nWelcome to the Atlas of Living Australia’s Data Cleaning Booklet. This book is designed to be a practical guide on cleaning geo-referenced biodiversity data using R. We focus on processes and challenges you’ll face with biodiversity data. As such, this book isn’t a guide to data cleaning in general, but a targeted resource for anyone working with or interested in ecology/evolution and geo-referenced biodiversity data.\nThis book is available free to read, and is licenced under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License",
     "crumbs": [
@@ -12,7 +12,7 @@
   {
     "objectID": "index.html#acknowledgement-of-country",
     "href": "index.html#acknowledgement-of-country",
-    "title": "ALA’s Data Cleaning Book",
+    "title": "Cleaning Biodiversity Data in R",
     "section": "Acknowledgement of Country",
     "text": "Acknowledgement of Country\nThe Atlas of Living Australia acknowledges that we live and work on Aboriginal and Torres Strait Islander lands, rivers, and seas. Indigenous Australian peoples held and continue to hold incomparably intricate environmental knowledge as first peoples of this country. As a data repository we are working to acknowledge and archive in a culturally sensitive way many different kinds of this knowledge with communities.\nThe authors of this book currently reside on Ngunnawal and Ngambri (Canberra), Wurundjeri and Bunurong (Melbourne), Turrbal and Yuggera (Brisbane), and Gadigal (Sydney) lands, and we pay our respects to Elders past and present.",
     "crumbs": [
@@ -22,7 +22,7 @@
   {
     "objectID": "index.html#acknowledgements",
     "href": "index.html#acknowledgements",
-    "title": "ALA’s Data Cleaning Book",
+    "title": "Cleaning Biodiversity Data in R",
     "section": "Acknowledgements",
     "text": "Acknowledgements\nThis book was inspired by an Australian Research Data Commons project where our team worked closely with research partners to streamline their data cleaning workflows. This book is a collaborative effort from the Science and Decision Support team at the Atlas of Living Australia (ALA)",
     "crumbs": [
@@ -481,7 +481,7 @@
     "href": "2_cleaning_general/strings.html",
     "title": "6  Strings",
     "section": "",
-    "text": "6.0.1 Prerequisites\nIn this chapter, we will use tree kangaroo (Dendrolagus) occurrence data from the ALA and a subset of bee (Apidae) data taken from the Curated Plant and Invertebrate Data for Bushfire Modelling data set. Download bees dataset from the Data in this book chapter.\n# packages\nlibrary(galah)\nlibrary(dplyr)\nlibrary(tidyverse)\nlibrary(janitor)\nlibrary(here)\nlibrary(arrow)\ngalah_config(email = \"your-email-here\") # ALA-registered email\n\ntree_kangaroo &lt;- galah_call() |&gt;\n  filter(doi == \"https://doi.org/10.26197/ala.eee89655-ee77-4dab-9e26-5c25f0d1bd74\") |&gt;\n  atlas_occurrences()\n\nbees &lt;- read_parquet(here(\"path\", \"to\", \"bees.parquet\"))",
+    "text": "6.0.1 Prerequisites\nIn this chapter, we will use tree kangaroo (Dendrolagus) occurrence data from the ALA and a subset of bee (Apidae) data taken from the Curated Plant and Invertebrate Data for Bushfire Modelling data set. Download the bees dataset from the Data in this book chapter.\n# packages\nlibrary(galah)\nlibrary(dplyr)\nlibrary(tidyverse)\nlibrary(janitor)\nlibrary(here)\nlibrary(arrow)\ngalah_config(email = \"your-email-here\") # ALA-registered email\n\ntree_kangaroo &lt;- galah_call() |&gt;\n  filter(doi == \"https://doi.org/10.26197/ala.eee89655-ee77-4dab-9e26-5c25f0d1bd74\") |&gt;\n  atlas_occurrences()\n\nbees &lt;- read_parquet(here(\"path\", \"to\", \"bees.parquet\"))",
     "crumbs": [
       "General data cleaning",
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Strings</span>"
