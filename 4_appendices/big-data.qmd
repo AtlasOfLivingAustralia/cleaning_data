@@ -147,6 +147,8 @@ dplyr::tbl(con, "pardalotes") |>
   group_by(species, year, cl22) |> 
   summarise(count = n(), .groups = "drop") |>
   collect()
+  
+dbDisconnect(con)  
 ```
 
 One of the great really cool things about duckdb and arrow (you probs want to rephrase this a bit more professionally) is zero-copy integration, which means you can pass datasets back and forth between the two engines within an analysis pipeline, with very little loss of efficiency. So if there is some functionality that is not supported by one of the packages, but is by the other, you can simply switch in the middle of an analysis. The duckdb and arrow blogs have written about this in greater detail [here](https://arrow.apache.org/blog/2021/12/03/arrow-duckdb/) and [here](https://duckdb.org/2021/12/03/duck-arrow.html). 
