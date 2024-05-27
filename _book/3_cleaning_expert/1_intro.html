@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA’s Data Cleaning Book - Ecological data cleaning</title>
+<title>Cleaning Biodiversity Data in R - Ecological data cleaning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -42,8 +42,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -75,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -102,7 +100,7 @@ ul.task-list li input[type="checkbox"] {
       <img src="../images/ALA_Logo_Inline_RGB.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">ALA’s Data Cleaning Book</a> 
+      <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
@@ -128,20 +126,20 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../preface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../data-in-this-book.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data for this book</span></a>
+ <span class="menu-text">Data in this book</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -305,7 +303,7 @@ ul.task-list li input[type="checkbox"] {
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -326,46 +324,25 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This section details data cleaning methods that rely on ecological/biological expert knowledge of your dataset. Not everything will apply to every dataset, and will depend on the species or clades that are in the data. The first chapter explains ways to search your taxonomy and verify there are no inconsistencies in names or hiearchy. The second chapter…</p>
+<p>This section will tackle data cleaning methods that rely on ecological/biological expert knowledge of your data. Not every step in this section will apply to every dataset. Whether you apply each step will depend on the taxonomic groups and species in your dataset.</p>
+<p>The first chapter explains ways to search your taxonomy and verify there are no inconsistencies in taxonomic names. The second chapter shows ways to determine uncertainty within your data’s spatial coordinates. The third chapter then shows how to identify different geospatial issues that might exist in your data and how to fix them.</p>
 <!-- Visualisation placeholder -->
-<p><img src="../images/final_tree.png" class="img-fluid"></p>
-<!--
-::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
-
-::: {style="width: 25%; justify-content: space-between"}
-<div class="circle-button">
-  [](taxonomic-synonyms.html)
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/circlular-lines_legumes.png" class="img-fluid figure-img"></p>
+<figcaption>An uninformative, artistic representation of the top 5 most recorded legume/bean (<em>Fabaceae</em>) species in the ALA</figcaption>
+</figure>
 </div>
-[**Taxonomic validation**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
-:::
 
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [](taxonomy.html)
+
+
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/e/5/6/0e74441a-3c60-4839-82b1-5fac98a765e7/original" class="rounded"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/623abb42-6252-41e7-b473-0d2adb343995"><em>Hardenbergia violacea</em> (Native Lilac) flowering. Photo by Kaitlyn CC-BY-NC 4.0 (Int)</a></p>
 </div>
-[**Taxonomy**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [](geospatial.html)
-</div>
-[**Geospatial data**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [](outliers.html)
-</div>
-[**Outliers**]{style="color: #efa123; text-align: center;"}
-:::
-
-:::
--->
-
-
-
-</main> <!-- /main -->
+</div></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -764,13 +741,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
-<p>The ALA is supported by NCRIS, is hosted by CSIRO, and is the Australian node of GBIF. <img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 50px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
+<p><img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
 </div>
     <div class="nav-footer-right">
-<p>This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
 </div>
   </div>
 </footer>

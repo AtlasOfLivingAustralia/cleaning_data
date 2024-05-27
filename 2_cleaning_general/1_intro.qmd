@@ -10,7 +10,7 @@ This section will detail some steps and functions to clean a dataset for analysi
 
 The steps in this chapter are not linear, and they don't have to be done in order. We intend this section to be treated more like a checklist or a roadmap for data cleaning rather than a comprehensive, step-by-step guide. 
 
-![An uninformative, artistic representation of kingfisher records near Sydney, New South Wales, Australia](../images/map_galah_radius.png)
+![An uninformative, artistic representation of kingfisher records near Sydney, New South Wales, Australia](../images/map_kingfishers.png)
 
 ::: aside
 

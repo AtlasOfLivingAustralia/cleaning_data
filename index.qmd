@@ -1,21 +1,43 @@
 # Welcome {.unnumbered}
 
-Welcome to the Atlas of Living Australia's Data Cleaning Booklet. This book is
-designed to be a practical guide on cleaning geo-referenced biodiversity data
+This book is a practical guide on cleaning geo-referenced biodiversity data
 using R. We focus on processes and challenges you'll face with
 biodiversity data. As such, this book isn't a guide to data cleaning in general,
 but a targeted resource for anyone working with or interested in ecology/evolution and geo-referenced 
 biodiversity data.
 
+#### License 
+
 <!-- This is a placeholder licence -->
 <!-- actual repository should also contain a licence doc; preferably matching I think -->
 This book is available free to read, and is licenced under the 
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/) 
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). This means that the book can be shared, revised, retained and redistributed as long as appropriate credit is given to the authors. Modified versions must be distributed under the same license.
   
 #### Citation
 
-Kellie, D., Kar, F., Schneider, M., Balasubramaniam, S., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2023). *ALA's Data Cleaning Book*. Retrieved Month dd, yyyy, from https://labs.ala.org.au/books/data-cleaning-book/
+```{r}
+#| include: false
+#| message: false
+#| warning: false
+library(gh)
+library(lubridate)
+library(stringr)
 
+releases <- gh("GET /repos/AtlasOfLivingAustralia/cleaning_data/releases", 
+   owner = "AtlasOfLivingAustralia",
+   repo = "cleaning_data")
+
+release_number <- releases[[1]][["tag_name"]] |>
+  stringr::str_sub(start = 2) # remove "v"
+
+date_rendered <- lubridate::today() |> 
+  lubridate::stamp("1 March, 1999")()
+```
+
+
+Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://ala.org.au/cleaning-bd-in-r](LINK) <!-- Eventually replace with DOI-->
+
+This book was last rendered on `{r} date_rendered`.
 
 ## Acknowledgement of Country
 

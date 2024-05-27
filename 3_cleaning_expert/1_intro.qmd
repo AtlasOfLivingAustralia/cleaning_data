@@ -5,42 +5,20 @@ editor_options:
 
 # Ecological data cleaning
 
-This section details data cleaning methods that rely on ecological/biological expert knowledge of your dataset. Not everything will apply to every dataset, and will depend on the species or clades that are in the data. The first chapter explains ways to search your taxonomy and verify there are no inconsistencies in names or hiearchy. The second chapter...
+This section will tackle data cleaning methods that rely on ecological/biological expert knowledge of your data. Not every step in this section will apply to every dataset. Whether you apply each step will depend on the taxonomic groups and species in your dataset. 
+
+The first chapter explains ways to search your taxonomy and verify there are no inconsistencies in taxonomic names. The second chapter shows ways to determine uncertainty within your data's spatial coordinates. The third chapter then shows how to identify different geospatial issues that might exist in your data and how to fix them.
 
 <!-- Visualisation placeholder -->
 
-![](../images/final_tree.png)
+![An uninformative, artistic representation of the top 5 most recorded legume/bean (*Fabaceae*) species in the ALA ](../images/circlular-lines_legumes.png)
 
-<!--
-::: {style="display: flex; flex-wrap: wrap; justify-content: space-between; margin-left: 20px; margin-right: 20px; margin-bottom: 20px; text-align: center"}
+::: aside
 
-::: {style="width: 25%; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa list-check size=3x >}}](taxonomic-synonyms.html)
-</div>
-[**Taxonomic validation**]{style="color: #efa123; font-size: 15.5px; text-align: center;"}
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/e/5/6/0e74441a-3c60-4839-82b1-5fac98a765e7/original" class="rounded"/></img>
+
+::: figure-caption
+[*Hardenbergia violacea* (Native Lilac) flowering. Photo by Kaitlyn CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/623abb42-6252-41e7-b473-0d2adb343995)
 :::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa mosquito size=3x >}}](taxonomy.html)
-</div>
-[**Taxonomy**]{style="color: #efa123; text-align: center;"}
 :::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa earth-oceania size=3x >}}](geospatial.html)
-</div>
-[**Geospatial data**]{style="color: #efa123; text-align: center;"}
-:::
-
-::: {style="width: 25%; text-align: center; justify-content: space-between"}
-<div class="circle-button">
-  [{{< fa boxes-packing size=3x >}}](outliers.html)
-</div>
-[**Outliers**]{style="color: #efa123; text-align: center;"}
-:::
-
-:::
--->
