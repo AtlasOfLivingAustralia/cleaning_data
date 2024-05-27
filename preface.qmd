@@ -10,45 +10,40 @@ editor:
 
 # Preface {.unnumbered}
 
-Ecological and biological data are complex, and, as a result, data
-cleaning can be a daunting task. People who work with ecological or
-biological data want to know how to clean their data effectively. At the
-[Atlas of Living Australia](https://ala.org.au/), questions about data
-cleaning come up so frequently that it made us wonder...*is there a
-general ecological data cleaning workflow that is considered
-best-practice?*
+Ecological and biological data are complex, and so data cleaning can be
+a daunting task. People who work with ecological or biological data want
+to know how to clean their data effectively. At the [Atlas of Living
+Australia](https://ala.org.au/), questions about data cleaning come up
+so frequently that it made us wonder...*is there a general ecological
+data cleaning workflow that is considered best-practice?*
 
-To find out, we undertook an small, informal literature review on ecological
-data cleaning using both peer-reviewed and grey literature. The key themes we searched for were:
+To find out, we undertook an small, informal literature review on
+ecological data cleaning using both peer-reviewed and grey literature.
+The key themes we searched for were:
 
 1.  Data cleaning for species distribution models
 2.  Data cleaning open biodiversity data
 3.  Australian and global naming authorities
 4.  R packages for biodiversity data cleaning
 
-We selected a collection of papers that matched these themes. We tried to
-choose recently published papers that used 
-up-to-date workflows with recent packages and tools in R. We also added
-several frequently referenced papers for comprehensiveness, and we reviewed data cleaning workflows from our
-project partners [@marsh2021; @godfree_implications_2021] to
-understand their processes, issues and needs.
+We selected a collection of papers that matched these themes. We tried
+to choose recently published papers that used up-to-date workflows with
+recent packages and tools in R. We also added several frequently
+referenced papers for comprehensiveness, and we reviewed data cleaning
+workflows from our project partners [@marsh2021;
+@godfree_implications_2021] to understand their processes, issues and
+needs.
 
-From our informal search, we ended up with a list of 18 papers
-and resources (listed [here](LINK)) with relevant ecological data
-cleaning workflows. To determine any common, best-practice steps—and any common sequences these steps are made in—we read through their methods sections and
-collated their data cleaning protocols into a spreadsheet. Our hope was
-that collating these methods would reveal several clear data cleaning
-workflows that scientists and researchers use regularly to clean their
-data.
+From our informal search, we ended up with a list of 18 papers and
+resources (listed
+[here](https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/data/lit-search/informal-lit-search.xlsx))
+with relevant ecological data cleaning workflows. To determine any
+common, best-practice steps—and any common sequences these steps are
+made in—we read through their methods sections and collated their data
+cleaning protocols into a spreadsheet. Our hope was that collating these
+methods would reveal several clear data cleaning workflows that
+scientists and researchers use regularly to clean their data.
 
-```{=html}
-<!--
-All steps for acquiring and cleaning data were then looked at together
-in order to understand what were essential steps, versus what was done
-in certain use cases. We also investigated the order in which steps were
-undertaken with the idea of developing a streamlined workflow. 
--->
-```
 But, to our surprise, that's not what we found. Instead, the steps to
 cleaning ecological data were *even messier* than we first thought. The
 diagrams below visualise the findings of our spreadsheet, showing the
@@ -63,8 +58,8 @@ simple](images/simplified_workflow.png)
 
 In the end, our search showed us that *there is no single, unified,
 step-by-step workflow to clean all types of ecological data*. Instead,
-data are cleaned in a **huge** variety of ways, and depending on the
-type investigation the process can look completely different. No wonder
+data are cleaned in a **huge** variety of ways, and the process can look
+completely different depending on the type of investigation. No wonder
 people frequently ask how to do it!
 
 This book is our response to questions about how to clean ecological
@@ -72,8 +67,10 @@ data, and to our discovery that (because workflows vary immensely) there
 doesn't seem to be many resources that consolidate methods to clean
 ecological data in R. We are by no means experts in cleaning all types
 of data for all types of ecological analyses. We do, however, work with
-ecological data on a daily basis and encounter many data cleaning
-issues in our own work. We aspired for this book to be an up-to-date
-resource for a diverse range of data cleaning tasks in R. We hope that
-(at the very least) it is a resource that documents many common
-ecological data cleaning steps in one place!
+ecological data on a daily basis and encounter many data cleaning issues
+in our own work. We aspired for this book to be an up-to-date resource
+for a diverse range of data cleaning tasks in R. We hope that (at the
+very least) it is a resource that documents many common ecological data
+cleaning steps in one place!
+
+*Dax Kellie*<br>*27 May, 2024*
