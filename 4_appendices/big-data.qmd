@@ -8,7 +8,7 @@ number-depth: 3
 
 # Big data
 
-Once the size of your dataset starts to approach the size of your computer's memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the [`arrow`](https://arrow.apache.org/docs/r/index.html) package for larger than memory data workflows or the [`duckdb`](https://r.duckdb.org/index.html) package for querying databases using SQL.  
+Once the size of your dataset starts to approach the size of your computer's memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the [`arrow`](https://arrow.apache.org/docs/r/index.html) package for larger than memory data workflows or the [`duckdb`](https://r.duckdb.org/index.html) package for accessing and managing databases.  
 
 ### Prerequisites
 
@@ -98,9 +98,9 @@ pardalotes <- galah_call() |>
 
 ### `arrow`  
 
-The `arrow` package allows users to analyse larger than memory datasets using `{dplyr}` verbs. A common workflow might consists of reading in some data, filtering or summarising according to some property of the data, and writing this to a new file. This is relatively simple to do with a small csv file, and we can do something conceptually similar using `{arrow}` for larger datasets[^1]. 
+The `arrow` package allows users to analyse larger than memory datasets using `{dplyr}` verbs. A common workflow might consists of reading in some data, filtering or summarising according to some property of the data, and writing this to a new file. This is relatively simple to do with a small csv file, and we can do something conceptually similar using `{arrow}` for larger datasets[^large-dataset]. 
 
-[^1]: The dataset used in this example is relatively small (~ half a million rows), but the benefits of using `{arrow}` become obvious once the number of rows in your dataset approaches tens or hundreds of millions.
+[^large-dataset]: The dataset used in this example is relatively small (~ half a million rows), but the benefits of using `{arrow}` become obvious once the number of rows in your dataset approaches tens or hundreds of millions.
 
 We can open the csv file we just downloaded as a dataset instead of reading it into memory...
  
@@ -127,14 +127,29 @@ pardalotes |>
 
 The `arrow` package has many other functions that make working with big data as smooth as possible, such as reading and writing different file formats (including **parquet**[^parquet] and **feather** for efficient storage), partitioning datasets for more effective querying, working with multi-file datasets, and interacting with cloud storage. 
 
-[^parquet]: parquet files, which use a columnar storage format[^2] rather than a row storage format like csv files, can be especially handy. for saving and manipulating large data sets. They are designed for efficient data storage while allowing for data manipulation before bringing the data into memory.
+[^parquet]: Parquet files use a columnar storage format (rather than a row storage format, as csv files do) and provide an especially efficient way to store and retrieve large datasets. 
 
-### `duckdb` and `duckplyr`  
 
-Duckdb is database management system, and the {duckdb} R package...  
+### `duckdb` and `dbplyr`  
 
-<!-- SB note to self: test duckplyr out with ecoassets wrangling to figure out speed and usabilitye -->
+DuckDB is a database management system that can read, write, and manipulate larger-than-memory datasets. This can be very useful for working with large relational tables, for instance, or appending large amounts of data to existing datasets. To do this programmatically in R, without having to use SQL, we can use dbplyr together with duckdb to perform a similar operation to the one we did using arrow above. Here, we write the pardalotes dataset to an in-memory database and then summarise it. 
 
+```{r}
+library(duckdb)
+library(dbplyr)  
+
+con <- dbConnect(duckdb()) 
+duckdb_register(con, "pardalotes", pardalotes)  
+  
+dplyr::tbl(con, "pardalotes") |>
+  select(species, year, cl22) |> 
+  filter(species != "NA", cl22 != "NA")|> 
+  group_by(species, year, cl22) |> 
+  summarise(count = n(), .groups = "drop") |>
+  collect()
+```
+
+One of the great really cool things about duckdb and arrow (you probs want to rephrase this a bit more professionally) is zero-copy integration, which means you can pass datasets back and forth between the two engines within an analysis pipeline, with very little loss of efficiency. So if there is some functionality that is not supported by one of the packages, but is by the other, you can simply switch in the middle of an analysis. The duckdb and arrow blogs have written about this in greater detail [here](https://arrow.apache.org/blog/2021/12/03/arrow-duckdb/) and [here](https://duckdb.org/2021/12/03/duck-arrow.html). 
 
 <!-- R4DS also has sections on arrow and duckdb, not sure if you want to link to those? -->
 Resources:  
