@@ -339,8 +339,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">B.0.1</span> Prerequisites</a></li>
-  <li><a href="#arrow" id="toc-arrow" class="nav-link" data-scroll-target="#arrow"><span class="header-section-number">B.0.2</span> <code>arrow</code></a></li>
-  <li><a href="#duckdb-and-duckplyr" id="toc-duckdb-and-duckplyr" class="nav-link" data-scroll-target="#duckdb-and-duckplyr"><span class="header-section-number">B.0.3</span> <code>duckdb</code> and <code>duckplyr</code></a></li>
+  <li><a href="#arrow" id="toc-arrow" class="nav-link" data-scroll-target="#arrow"><span class="header-section-number">B.0.2</span> arrow</a></li>
+  <li><a href="#duckdb-and-dbplyr" id="toc-duckdb-and-dbplyr" class="nav-link" data-scroll-target="#duckdb-and-dbplyr"><span class="header-section-number">B.0.3</span> duckdb and dbplyr</a></li>
   </ul>
 </nav>
     </div>
@@ -366,7 +366,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Once the size of your dataset starts to approach the size of your computer’s memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the <a href="https://arrow.apache.org/docs/r/index.html"><code>arrow</code></a> package for larger than memory data workflows or the <a href="https://r.duckdb.org/index.html"><code>duckdb</code></a> package for querying databases using SQL.</p>
+<p>Once the size of your dataset starts to approach the size of your computer’s memory (or vastly exceeds it!), it becomes difficult to process this data using R. There are a few different approaches to managing this, such as using the <a href="https://arrow.apache.org/docs/r/index.html">arrow package</a> for larger than memory data workflows or the <a href="https://r.duckdb.org/index.html">duckdb package</a> for accessing and managing databases.</p>
+<p>Here we briefly summarise how arrow and duckdb work. For more complete summaries of these packages, check out the <a href="https://r4ds.hadley.nz/arrow">arrow chapter</a> and <a href="https://r4ds.hadley.nz/databases">databases chapter</a> in <em>R for Data Science</em>.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="B.0.1">
 <h3 data-number="B.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">B.0.1</span> Prerequisites</h3>
 <p>In this chapter, we will use <em>Pardalote</em> occurrence data. You will need to save the <code>pardalotes</code> data locally (i.e.&nbsp;write to disk) as a csv file to use over this chapter.</p>
@@ -403,26 +404,26 @@ Original download queries
 <div class="callout-body-container callout-body">
 <p><strong>Note:</strong> You don’t need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
-<span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
-<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>pardalotes <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Pardalotus"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-4-6"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2015</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-4-7"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genus, </span>
-<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a>         species, </span>
-<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a>         scientificName, </span>
-<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a>         cl22,</span>
-<span id="annotated-cell-4-11"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a>         year,</span>
-<span id="annotated-cell-4-12"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a>         month, </span>
-<span id="annotated-cell-4-13"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>         decimalLatitude,</span>
-<span id="annotated-cell-4-14"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>         decimalLongitude) <span class="sc">|&gt;</span> </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1">1</button><span id="annotated-cell-4-15" class="code-annotation-target"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="annotated-cell-6-3"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a>pardalotes <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Pardalotus"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2015</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-6-7"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genus, </span>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a>         species, </span>
+<span id="annotated-cell-6-9"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a>         scientificName, </span>
+<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a>         cl22,</span>
+<span id="annotated-cell-6-11"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a>         year,</span>
+<span id="annotated-cell-6-12"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a>         month, </span>
+<span id="annotated-cell-6-13"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a>         decimalLatitude,</span>
+<span id="annotated-cell-6-14"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a>         decimalLongitude) <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-15" class="code-annotation-target"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="15" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="15" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
 </dd>
 </dl>
 </div>
@@ -432,8 +433,8 @@ Original download queries
 </div>
 </section>
 <section id="arrow" class="level3" data-number="B.0.2">
-<h3 data-number="B.0.2" class="anchored" data-anchor-id="arrow"><span class="header-section-number">B.0.2</span> <code>arrow</code></h3>
-<p>The <code>arrow</code> package allows users to analyse larger than memory datasets using <code>{dplyr}</code> verbs. A common workflow might consists of reading in some data, filtering or summarising according to some property of the data, and writing this to a new file. This is relatively simple to do with a small csv file, and we can do something conceptually similar using <code>{arrow}</code> for larger datasets<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<h3 data-number="B.0.2" class="anchored" data-anchor-id="arrow"><span class="header-section-number">B.0.2</span> arrow</h3>
+<p>The <a href="https://arrow.apache.org/docs/r/index.html">arrow package</a> allows users to analyse larger-than-memory datasets using dplyr verbs. A common workflow might consists of reading in some data, filtering or summarising according to some property of the data, and writing this to a new file. This is relatively simple to do with a small csv file, and we can do something conceptually similar using arrow for larger datasets<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>We can open the csv file we just downloaded as a dataset instead of reading it into memory…</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
@@ -477,23 +478,53 @@ $ decimalLongitude &lt;double&gt; 151.7397, 152.0799, 153.1975, 145.3821, 146.03
 # ℹ 196 more rows</code></pre>
 </div>
 </div>
-<p>The <code>arrow</code> package has many other functions that make working with big data as smooth as possible, such as reading and writing different file formats (including <strong>parquet</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> and <strong>feather</strong> for efficient storage), partitioning datasets for more effective querying, working with multi-file datasets, and interacting with cloud storage.</p>
+<p>arrow has many other functions that make working with big data as smooth as possible, such as reading and writing different file formats (including <strong>parquet</strong><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> and <strong>feather</strong> for efficient storage), partitioning datasets for more effective querying, working with multi-file datasets, and interacting with cloud storage.</p>
 </section>
-<section id="duckdb-and-duckplyr" class="level3" data-number="B.0.3">
-<h3 data-number="B.0.3" class="anchored" data-anchor-id="duckdb-and-duckplyr"><span class="header-section-number">B.0.3</span> <code>duckdb</code> and <code>duckplyr</code></h3>
-<p>Duckdb is database management system, and the {duckdb} R package…</p>
-<!-- SB note to self: test duckplyr out with ecoassets wrangling to figure out speed and usabilitye -->
-<!-- R4DS also has sections on arrow and duckdb, not sure if you want to link to those? -->
-<p>Resources:<br>
-https://arrow.apache.org/docs/r/index.html</p>
+<section id="duckdb-and-dbplyr" class="level3" data-number="B.0.3">
+<h3 data-number="B.0.3" class="anchored" data-anchor-id="duckdb-and-dbplyr"><span class="header-section-number">B.0.3</span> duckdb and dbplyr</h3>
+<p><a href="https://duckdb.org/">DuckDB</a> is a database management system that can read, write, and manipulate larger-than-memory datasets using <a href="https://aws.amazon.com/what-is/sql/">SQL</a> (a standard language for accessing and manipulating databases). This can be very useful for working with large relational tables, for instance, or appending large amounts of data to existing datasets. To do access and manipulate these datasets programmatically in R without having to use SQL, we can use <a href="https://dbplyr.tidyverse.org/">dbplyr</a> together with <a href="https://r.duckdb.org/index.html">duckdb</a>.</p>
+<p>As a small example, we’ll perform a similar operation to the one we did above using arrow. Here, we write the <code>pardalotes</code> dataset to an in-memory database and then summarise it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(duckdb)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbplyr)  </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">duckdb</span>()) </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">duckdb_register</span>(con, <span class="st">"pardalotes"</span>, pardalotes)  </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">tbl</span>(con, <span class="st">"pardalotes"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, year, cl22) <span class="sc">|&gt;</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species <span class="sc">!=</span> <span class="st">"NA"</span>, cl22 <span class="sc">!=</span> <span class="st">"NA"</span>)<span class="sc">|&gt;</span> </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species, year, cl22) <span class="sc">|&gt;</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 206 × 4
+   species               year cl22                         count
+   &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;                        &lt;dbl&gt;
+ 1 Pardalotus striatus   2017 Queensland                    8724
+ 2 Pardalotus punctatus  2022 Victoria                     18632
+ 3 Pardalotus punctatus  2021 Victoria                     19797
+ 4 Pardalotus striatus   2019 Victoria                      8067
+ 5 Pardalotus striatus   2018 Western Australia             4009
+ 6 Pardalotus punctatus  2016 New South Wales               6168
+ 7 Pardalotus striatus   2020 South Australia               1856
+ 8 Pardalotus striatus   2018 Victoria                      9484
+ 9 Pardalotus striatus   2021 Australian Capital Territory  4048
+10 Pardalotus striatus   2019 Western Australia             3371
+# ℹ 196 more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>One of the really cool things about duckdb and arrow is <strong>zero-copy integration</strong>, which allows you to pass datasets back and forth between the two engines within an analysis pipeline with very little loss of efficiency. If there is some functionality that is not supported by one of the packages but is supported by the other, you can simply switch in the middle of an analysis!</p>
+<p>The duckdb and arrow blogs have written about this in greater detail <a href="https://arrow.apache.org/blog/2021/12/03/arrow-duckdb/">here</a> and <a href="https://duckdb.org/2021/12/03/duck-arrow.html">here</a>.</p>
 
 
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>The dataset used in this example is relatively small (~ half a million rows), but the benefits of using <code>{arrow}</code> become obvious once the number of rows in your dataset approaches tens or hundreds of millions.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>parquet files, which use a columnar storage format[^2] rather than a row storage format like csv files, can be especially handy. for saving and manipulating large data sets. They are designed for efficient data storage while allowing for data manipulation before bringing the data into memory.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>The dataset used in this example is relatively small (~ half a million rows), but the benefits of using arrow become obvious once the number of rows in your dataset approaches tens or hundreds of millions.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Parquet files use a columnar storage format (rather than a row storage format, as csv files do) and provide an especially efficient way to store and retrieve large datasets.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

@@ -35,7 +35,7 @@ date_rendered <- lubridate::today() |>
 ```
 
 
-Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://ala.org.au/cleaning-bd-in-r](LINK) <!-- Eventually replace with DOI-->
+Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., <!--Fenker, J.-->, Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://ala.org.au/cleaning-bd-in-r](LINK) <!-- Eventually replace with DOI-->
 
 This book was last rendered on `{r} date_rendered`.
 

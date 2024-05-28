@@ -931,7 +931,7 @@
     "href": "4_appendices/big-data.html#footnotes",
     "title": "Appendix B — Big data",
     "section": "",
-    "text": "The dataset used in this example is relatively small (~ half a million rows), but the benefits of using {arrow} become obvious once the number of rows in your dataset approaches tens or hundreds of millions.↩︎\nparquet files, which use a columnar storage format[^2] rather than a row storage format like csv files, can be especially handy. for saving and manipulating large data sets. They are designed for efficient data storage while allowing for data manipulation before bringing the data into memory.↩︎",
+    "text": "The dataset used in this example is relatively small (~ half a million rows), but the benefits of using arrow become obvious once the number of rows in your dataset approaches tens or hundreds of millions.↩︎\nParquet files use a columnar storage format (rather than a row storage format, as csv files do) and provide an especially efficient way to store and retrieve large datasets.↩︎",
     "crumbs": [
       "Appendices",
       "<span class='chapter-number'>B</span>  <span class='chapter-title'>Big data</span>"
