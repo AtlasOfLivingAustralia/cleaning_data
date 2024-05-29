@@ -18,7 +18,9 @@ This book mainly uses data DOIs to preserve reproducible data downloads, as most
 
 #### Using original download queries
 
-If you download data using a galah query (not a DOI), the results you return when running the examples in this book might not exactly match results in this book. This difference arises because data in the ALA is constantly being ingested (including from previous years). galah downloads data directly from the ALA, meaning that data downloaded after the date this book was rendered, even using a query for a specific time-period (e.g., 2010-2015), *might* differ from data downloaded using the same query at the time of rendering. In general, that is a good thing---updates improve data quantity and/or quality---but it can affect reproducibility. In general, this shouldn't affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book. The main advantage to using *Prerequisites* sections is that data downloads are transparent and up-to-date.
+If you download data using a galah query (rather than a DOI), the results you return when running the examples might not exactly match results in this book. This difference arises because data in the ALA is constantly being ingested (including from previous years) and galah downloads data directly from the ALA. This means that using the same query after the date this book was last rendered---even a query for a specific time-period (e.g., 2010--2015)---*might* return different data today. 
+
+In general, that is a good thing; updates improve data quantity and/or quality. But they can affect reproducibility, too. Getting the latest data shouldn't affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book. The main advantage to using *Prerequisites* sections is that data downloads are transparent and up-to-date.
 
 :::
 
@@ -30,6 +32,7 @@ If you download data using a galah query (not a DOI), the results you return whe
 library(arrow)
 library(dplyr)
 library(readr)
+library(here)
 ```
 
 ## Data
@@ -55,9 +58,7 @@ Click on the download button below to download as a parquet file. Save the parqu
 #| eval: false
 #| warning: false
 #| message: false
-bees <- here("path", "to", "bees.parquet") |>
-  arrow::open_dataset() |> 
-  collect()
+bees <- read_parquet(here("path", "to", "bees.parquet"))
 ```
 
 
@@ -83,9 +84,7 @@ Click on the download button below to download as a parquet file. Save the parqu
 #| eval: false
 #| warning: false
 #| message: false
-inverts <- here("path", "to", "inverts.parquet") |>
-  arrow::open_dataset() |> 
-  collect()
+inverts <- read_parquet(here("path", "to", "inverts.parquet"))
 ```
 
 
@@ -99,9 +98,7 @@ Click on the download button below to download as a parquet file. Save the parqu
 
 ```{r}
 #| eval: false
-gbif_species_list <- here("path", "to", "gbif_species_list.parquet") |>
-  arrow::read_parquet() |>
-  collect()
+gbif_species_list <- read_parquet(here("path", "to", "gbif_species_list.parquet"))
 ```
 
 
@@ -115,7 +112,6 @@ Click on the download button to download as a .csv file. Save the csv in your wo
 
 ```{r}
 #| eval: false
-marine_sp <- readr::read_csv(
-  here("path","to", "worms.csv"))
+marine_sp <- read_csv(here("path","to", "worms.csv"))
 ```
 

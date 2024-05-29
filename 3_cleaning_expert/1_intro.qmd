@@ -1,6 +1,5 @@
 ---
-editor_options: 
-  chunk_output_type: console
+lightbox: true
 ---
 
 # Ecological data cleaning

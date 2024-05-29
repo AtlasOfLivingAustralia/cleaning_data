@@ -15,7 +15,7 @@ or amended.
 
 This process of changing taxonomy makes working with open source
 biodiversity data difficult. Views may differ within the literature or
-across authorities about what taxonomy is true. In different countries,
+across authorities about which taxonomy is true. In different countries,
 one taxonomy might suit the native taxonomic diversity better than other
 taxonomies. Data infrastructures must also make choices about which
 taxonomic authorities they choose to use, and different infrastructures
@@ -30,7 +30,7 @@ tricky to identify and clean when working with taxonomic data.
 While there is no perfect solution, some tips, tricks and tools do
 exist. In this chapter we will go through some of these to clean
 taxonomic data. This includes ways to deal with missing taxonomic
-information, taxonomic synonyms, homonyms, \[and other stuff\].
+information, taxonomic synonyms and homonyms.
 
 ::: {.callout-tip collapse="true"}
 Cleaning taxonomic names can require a lot of changes! When cleaning
@@ -47,8 +47,13 @@ In this chapter we will use several datasets:
     the ALA
 -   A subset of invertebrate occurrence records taken from the [Curated
     Plant and Invertebrate Data for Bushfire Modelling data
-    set](https://data.csiro.au/collection/csiro:56679). Download the `inverts` dataset from the [Data in this book chapter](../data-in-this-book.html#inverts).
+    set](https://data.csiro.au/collection/csiro:56679), saved in the `inverts.parquet` file 
 -   *Eucalyptus* occurrence records from 2014 from the ALA
+-   *Eucalyptus* species list downloaded from GBIF, saved in the `gbif_species_list.parquet` file
+
+::: aside
+Download the `inverts.parquet` and `gbif_species_list.parquet` files from the [Data in this book chapter](../data-in-this-book.html#inverts).
+:::
 
 ```{r prereq-internal}
 #| echo: false
@@ -94,6 +99,9 @@ inverts <- here::here("data", "dap", "inverts_subset.parquet") |>
 eucalypts <- galah_call() |>
   filter(doi == doi_eucalypts) |>
   atlas_occurrences()
+
+gbif_species_list <- arrow::read_parquet(
+  here::here("data", "lists", "gbif_eucalyptus.parquet"))
 ```
 
 ```{r prereq-external}
@@ -120,13 +128,15 @@ legless_lizards <- galah_call() |>
   filter(doi == \"{doi_legless_lizards}\") |>
   atlas_occurrences()
 
-inverts <- here::here(\"path\", \"to\", \"inverts.parquet\") |>
-  arrow::open_dataset() |> 
-  collect()
+inverts <- arrow::read_parquet(
+  here(\"path\", \"to\", \"inverts.parquet\"))
 
 eucalypts <- galah_call() |>
   filter(doi == \"{doi_eucalypts}\") |>
   atlas_occurrences()
+
+gbif_species_list <- arrow::read_parquet(
+  here(\"path\", \"to\", \"gbif_eucalyptus.parquet\"))
 "
 )
 ```
@@ -195,7 +205,7 @@ legless_lizards <- galah_call() |>
   identify("pygopodidae") |>
   filter(year > 2020) |>
   select(group = "basic") |>
-  atlas_occurrences() # <1>
+  atlas_occurrences()
 
 eucalypts <- galah_call() |>
   identify("Eucalyptus") |>
@@ -204,7 +214,11 @@ eucalypts <- galah_call() |>
   select(group = "basic", 
          kingdom, phylum, class, order, 
          family, genus, species, taxonRank) |>
-  atlas_occurrences() # <1>
+  atlas_occurrences()
+
+gbif_species_list <- request_data("species") |>
+  identify("Eucalyptus") |>
+  collect()
 ```
 1. We created a custom DOI for our download by using `atlas_occurrences(mint_doi = TRUE)`.
 
@@ -219,10 +233,10 @@ specifies the lowest identifiable scientific name for each record.
 Looking at `scientificName` in our `birds` data, we can already notice
 some characteristics of the names in our data, namely that:
 
-a)  Records have been identified to different taxonomic ranks (we can
+  1.  Records have been identified to different taxonomic ranks (we can
     see subspecies, species, genus and family names)
-b)  Some names are formatted in all capitals while others are not
-c)  Some names have bracketed parts
+  2.  Some names are formatted in all capitals while others are not
+  3.  Some names have bracketed parts
 
 ```{r}
 birds |>
@@ -297,13 +311,14 @@ your needs best.
 ## Matching names to a species list
 
 Many investigations use a taxonomic list of species or groups to help
-identify which species are relevant. Some common examples are using a
-lists of introduced, invasive, threatened or sensitive species to
-identify species records of interest.
+identify which species are relevant. Using lists of introduced, invasive, 
+threatened or sensitive species to identify species records of interest is a 
+common example.
 
-There are several ways to filter records to those that match names on a
-species list. Let's see how to match a species list accessed using
-galah, or an external species list loaded into R.
+There are several ways to filter records to match names on a
+species list. First, we'll use a species list accessed using galah to filter 
+records, which offers other functionality for filtering data prior to download. 
+Then we'll use an external species list loaded into R to filter records.
 
 #### galah
 
@@ -585,10 +600,20 @@ Let's go through the steps to match our taxonomy in our `eucalypts` data
 to GBIF's taxonomy. We can download a species list of *Eucalyptus* from
 GBIF. This list returns nearly 1,700 species names.
 
+:::aside
+Download the `gbif_species_list.parquet` file from the [Data in this book chapter](../data-in-this-book.html#gbif_species_list).
+:::
+
+
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Original download query
+
+**Note:** This is the original query to download this species list from GBIF. It takes several minutes to download, if you would like to download the most up-to-date version of this list.
+
 ```{r}
 #| eval: false
-# This is the original query to download our species list
-# It takes several minutes to download
+library(galah)
 gbif_species_list <- request_data("species") |>
   identify("Eucalyptus") |>
   collect()
@@ -596,16 +621,12 @@ gbif_species_list <- request_data("species") |>
 gbif_species_list
 ```
 
-```{r}
-#| code-fold: true
-#| code-summary: Code to load local version of species list
-# load species list
-gbif_species_list <- arrow::read_parquet(
-  here::here("data", "lists", "gbif_eucalyptus")) |>
-  collect()
+:::
 
+```{r}
 gbif_species_list
 ```
+
 
 To investigate whether the complete taxonomy---from kingdom to
 species---matches between our ALA data and GBIF species list, let's get
@@ -878,12 +899,22 @@ whether a search returns the taxonomic information you expect.
 ### Checking for synonyms
 
 Some species lists return accepted names *and* synonyms. For example,
-here is a species list of *Eucalyptus* downloaded from GBIF.
+here is a species list of *Eucalyptus* downloaded from GBIF (which we used 
+earlier in the chapter).
+
+:::aside
+Download the `gbif_species_list.parquet` file from the [Data in this book chapter](../data-in-this-book.html#gbif_species_list).
+:::
+
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Original download query
+
+**Note:** This is the original query to download this species list from GBIF. It takes several minutes to download, if you would like to download the most up-to-date version of this list.
 
 ```{r}
 #| eval: false
-# This is the original query to download our species list
-# It takes several minutes to download
+library(galah)
 gbif_species_list <- request_data("species") |>
   identify("Eucalyptus") |>
   collect()
@@ -891,16 +922,14 @@ gbif_species_list <- request_data("species") |>
 gbif_species_list
 ```
 
-```{r}
-#| code-fold: true
-#| code-summary: Code to load local version of species list
-# load species list
-gbif_species_list <- arrow::read_parquet(
-  here::here("data", "lists", "gbif_eucalyptus")) |>
-  collect()
+:::
 
+
+```{r}
 gbif_species_list
 ```
+
+
 
 GBIF species lists include a `taxonomicStatus` column that supplies
 information of whether a taxonomic name is accepted or a synonym. A good
@@ -975,7 +1004,13 @@ cross-check synonyms in their database using their taxonomic ID
 (`AphiaID`).
 
 For example, we can return existing synonyms for *Lupocyclus inaequalis*
-by supplying its `AphiaID` to the `wm_synonyms()` function.
+by supplying its `AphiaID` to the `wm_synonyms()` function. 
+We'll use a subset of the WoRMS dataset, saved in the `worms.csv` file. 
+
+:::aside
+Download the `worms.csv` file from the 
+[Data in this book chapter](../data-in-this-book.html#marine_sp).
+:::
 
 ```{r}
 #| warning: false
@@ -983,13 +1018,12 @@ by supplying its `AphiaID` to the `wm_synonyms()` function.
 #| eval: false
 library(worrms)
 
-marine_sp <- read_csv(here::here("worms.csv")) # <1>
+marine_sp <- read_csv(here::here("worms.csv")) 
 
 marine_sp |>
   filter(scientificname == "Lupocyclus inaequalis") |>
   select(AphiaID, scientificname, status)
 ```
-1. This is a subset of the WoRMS dataset. You can download it from the [Data in this book chapter](../4_appendices/data-in-this-book.html#marine_sp)
 
 
 ```{r}

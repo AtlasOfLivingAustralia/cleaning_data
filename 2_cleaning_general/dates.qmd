@@ -26,13 +26,7 @@ times. We also show how to reformat and filter your data set using
 dates.
 
 For a more detailed explanation of handling dates and times in R, 
-the [Dates and Times chapter of R for Data Science](https://r4ds.hadley.nz/datetimes.html) is a fantastic resource.[CITE]
-
-<!-- 
-Add this citation to references.bib
-
-Wickham, H., Çetinkaya-Rundel, M., & Grolemund, G. (2023). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly.
--->
+the [Dates and Times chapter](https://r4ds.hadley.nz/datetimes.html) in *R for Data Science* is a fantastic resource.
 
 ### Prerequisites
 

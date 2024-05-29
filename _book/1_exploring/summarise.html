@@ -455,7 +455,7 @@ Original download queries
 <pre><code># A tibble: 1 × 1
    count
    &lt;int&gt;
-1 140673</code></pre>
+1 140669</code></pre>
 </div>
 </div>
 <p>…or group by a taxonomic clade like genus…</p>
@@ -469,7 +469,7 @@ Original download queries
 <pre><code># A tibble: 5 × 2
   genus       count
   &lt;chr&gt;       &lt;int&gt;
-1 Dacelo      92570
+1 Dacelo      92566
 2 Todiramphus 40856
 3 Ceyx         5905
 4 Tanysiptera   886
@@ -487,7 +487,7 @@ Original download queries
 <pre><code># A tibble: 10 × 2
    species                  count
    &lt;chr&gt;                    &lt;int&gt;
- 1 Dacelo novaeguineae      85303
+ 1 Dacelo novaeguineae      85299
  2 Todiramphus sanctus      25904
  3 Todiramphus macleayii     9865
  4 Dacelo leachii            7261
@@ -620,14 +620,14 @@ Original download queries
 <pre><code># A tibble: 8 × 2
   cl22                         count
   &lt;chr&gt;                        &lt;int&gt;
-1 Queensland                   50290
-2 New South Wales              38772
-3 Victoria                     24065
+1 Queensland                   50291
+2 New South Wales              38767
+3 Victoria                     24064
 4 Northern Territory            9787
-5 Western Australia             7650
+5 Western Australia             7651
 6 Australian Capital Territory  3519
 7 Tasmania                      2441
-8 South Australia               2432</code></pre>
+8 South Australia               2433</code></pre>
 </div>
 </div>
 <p>We can also group our counts by state/territory <em>and</em> a taxonomic rank like genus.</p>
@@ -641,15 +641,15 @@ Original download queries
 <pre><code># A tibble: 26 × 3
    cl22            genus       count
    &lt;chr&gt;           &lt;chr&gt;       &lt;int&gt;
- 1 Queensland      Dacelo      27039
+ 1 Queensland      Dacelo      27040
  2 Queensland      Todiramphus 19397
  3 Queensland      Ceyx         2563
  4 Queensland      Tanysiptera   885
  5 Queensland      Syma          338
- 6 New South Wales Dacelo      29763
+ 6 New South Wales Dacelo      29758
  7 New South Wales Todiramphus  7531
  8 New South Wales Ceyx         1467
- 9 Victoria        Dacelo      19778
+ 9 Victoria        Dacelo      19777
 10 Victoria        Todiramphus  3770
 # ℹ 16 more rows</code></pre>
 </div>
@@ -917,14 +917,14 @@ Original download queries
 <pre><code># A tibble: 8 × 2
   year   count
   &lt;chr&gt;  &lt;int&gt;
-1 2022  140673
+1 2022  140669
 2 2021  128781
-3 2020  109046
-4 2018   95741
+3 2020  109047
+4 2018   95742
 5 2019   93952
 6 2017   78728
-7 2023   46006
-8 2024    2498</code></pre>
+7 2023   46013
+8 2024    2650</code></pre>
 </div>
 </div>
 <p>You can summarise after downloading counts locally with help from the lubridate package.</p>

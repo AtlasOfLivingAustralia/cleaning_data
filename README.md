@@ -7,7 +7,7 @@ acquisition, to error identification, to correction.
 
 ### Citation
 
-Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., <!--Fenker, J.-->, Westgate, M. (2024). Cleaning Biodiversity Data in R. (Version 0.1.0). [https://ala.org.au/cleaning-bd-in-r](LINK)
+Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., <!--Fenker, J.-->, Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version 0.1.0). [https://ala.org.au/cleaning-bd-in-r](LINK)
 
 ### License
 

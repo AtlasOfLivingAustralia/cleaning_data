@@ -6,7 +6,7 @@ editor:
     wrap: 72
 editor_options: 
   chunk_output_type: console
-bibliography: references.bib 
+bibliography: [references.bib, data-cleaning-book-references.bib]
 csl: methods-in-ecology-and-evolution.csl
 code-annotations: hover
 df-print: kable
@@ -89,10 +89,10 @@ issue for your specific research question.
 :::
 
 This book attempts to fill a niche between works that discuss data
-cleaning principles without using code (e.g., Chapman 2005) and articles
+cleaning principles without using code (e.g., [@chapman_principles_2005]) and articles
 that describe technical solutions to computational problems (e.g., [the
 bdc
-toolkit](https://brunobrr.github.io/bdc/#:~:text=bdc%20contains%20functions%20to%20harmonize,%2C%20spatial%2C%20and%20temporal%20data.)).
+toolkit](https://brunobrr.github.io/bdc/#:~:text=bdc%20contains%20functions%20to%20harmonize,%2C%20spatial%2C%20and%20temporal%20data.); [@ribeiro_bdc_2024]).
 
 ## What we don't cover {.unnumbered}
 

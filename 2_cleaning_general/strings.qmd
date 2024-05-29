@@ -21,7 +21,11 @@ In this chapter, we focus on general data science techniques to clean strings in
 
 ### Prerequisites
 
-In this chapter, we will use tree kangaroo (*Dendrolagus*) occurrence data from the ALA and a subset of bee (*Apidae*) data taken from the [Curated Plant and Invertebrate Data for Bushfire Modelling data set](https://data.csiro.au/collection/csiro:56679). Download the `bees` dataset from the [Data in this book chapter](../data-in-this-book.html).
+In this chapter, we will use tree kangaroo (*Dendrolagus*) occurrence data from the ALA and a subset of bee (*Apidae*) data taken from the [Curated Plant and Invertebrate Data for Bushfire Modelling data set](https://data.csiro.au/collection/csiro:56679), saved in the `bees.parquet` file. 
+
+::: aside
+Download the `bees.parquet` file from the [Data in this book chapter](../data-in-this-book.html).
+:::
 
 ```{r prereq-internal}
 #| echo: false
@@ -282,7 +286,7 @@ The `str_view()` function is a useful way to see what a regular expression will 
 # Match the first word in the string (the genus)
 str_view(tree_kangaroo$scientificName, "^[A-Z][a-z]+") # <1>
 ```
-1. This regex reads "Do not match all letters (capitalised or not) after word one."
+1. This regex reads "Match and omit all letters (capitalised or not) after word one."
 
 ```{r}
 # Match only the second word (species name)
@@ -326,7 +330,7 @@ tree_kangaroo |>
   ) |>
   select(scientificName, name_updated)
 ```
-1. This regex reads "Do not match all letters (capitalised or not) after word one." We then this with "`new_name`". 
+1. This regex reads "Match and omit all letters (capitalised or not) after word one." We then replace this with "`new_name`". 
 
 #### `gsub()`
 

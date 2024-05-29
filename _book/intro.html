@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -438,7 +458,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>This book attempts to fill a niche between works that discuss data cleaning principles without using code (e.g., Chapman 2005) and articles that describe technical solutions to computational problems (e.g., <a href="https://brunobrr.github.io/bdc/#:~:text=bdc%20contains%20functions%20to%20harmonize,%2C%20spatial%2C%20and%20temporal%20data.">the bdc toolkit</a>).</p>
+<p>This book attempts to fill a niche between works that discuss data cleaning principles without using code (e.g., <span class="citation" data-cites="chapman_principles_2005">(<a href="references.html#ref-chapman_principles_2005" role="doc-biblioref">Chapman, 2005</a>)</span>) and articles that describe technical solutions to computational problems (e.g., <a href="https://brunobrr.github.io/bdc/#:~:text=bdc%20contains%20functions%20to%20harmonize,%2C%20spatial%2C%20and%20temporal%20data.">the bdc toolkit</a>; <span class="citation" data-cites="ribeiro_bdc_2024">(<a href="references.html#ref-ribeiro_bdc_2024" role="doc-biblioref">Ribeiro et al., 2024</a>)</span>).</p>
 </section>
 <section id="what-we-dont-cover" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="what-we-dont-cover">What we don’t cover</h2>
@@ -523,6 +543,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Contributions to this document are welcome. For questions or feedback, please open an issue in our <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/issues">GitHub repository</a>. If you’d like to suggest content changes, feel free to submit a pull request. We recommend opening an issue first to discuss potential changes. Our contribution guidelines can be found <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/CONTRIBUTING.md">here</a>.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-chapman_principles_2005" class="csl-entry" role="listitem">
+Chapman, A. D. (2005). <em>Principles and methods of data cleaning</em>. GBIF.
+</div>
+<div id="ref-ribeiro_bdc_2024" class="csl-entry" role="listitem">
+Ribeiro, B., Velazco, S., Guidoni-Martins, K., Tessarolo, G., &amp; Jardim, L. (2024). <em>Bdc: <span>Biodiversity</span> <span>Data</span> <span>Cleaning</span></em>. <a href="https://brunobrr.github.io/bdc/ (website) https://github.com/brunobrr/bdc">https://brunobrr.github.io/bdc/ (website) https://github.com/brunobrr/bdc</a>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

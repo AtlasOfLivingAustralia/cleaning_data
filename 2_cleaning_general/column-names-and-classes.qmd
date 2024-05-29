@@ -35,7 +35,7 @@ galah_config(email = Sys.getenv("ALA_EMAIL"),
 
 # get DOIs for chapter
 doi_table <- here::here("data", "galah-dois", "doi_table") |>
-  open_dataset() |>
+  arrow::open_dataset() |>
   filter(chapter == "Column classes") |>
   collect()
 

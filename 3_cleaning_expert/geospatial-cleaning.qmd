@@ -563,7 +563,7 @@ native_mice_filtered <- native_mice |>
 
 ggplot() + 
   geom_sf(data = aus) +
-  geom_point(data = native_mice,
+  geom_point(data = native_mice_filtered,
              aes(x = decimalLongitude,
                  y = decimalLatitude,
              colour = COUNTRY_COORDINATE_MISMATCH)) + 
@@ -742,6 +742,9 @@ Tomlinson CC-BY-NC 4.0
 :::
 
 ```{r}
+bitter_peas <- bitter_peas |>
+  drop_na(decimalLongitude, decimalLatitude) # remove NA values
+
 ggplot() + 
   geom_sf(data = aus) +
   geom_point(data = bitter_peas,
@@ -882,6 +885,8 @@ The Great White Shark.
 
 ```{r}
 #| code-fold: true
+#| warning: false
+#| message: false
 #| fig-height: 2.3
 # Download occurrence records
 sharks <- galah_call() |>

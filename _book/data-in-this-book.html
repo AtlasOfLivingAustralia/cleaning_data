@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA’s Data Cleaning Book - Data in this book</title>
+<title>Cleaning Biodiversity Data in R - Data in this book</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -135,7 +135,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <img src="./images/ALA_Logo_Inline_RGB.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">ALA’s Data Cleaning Book</a> 
+      <a href="./">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
@@ -386,7 +386,8 @@ Using original download queries
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>If you download data using a galah query (not a DOI), the results you return when running the examples in this book might not exactly match results in this book. This difference arises because data in the ALA is constantly being ingested (including from previous years). galah downloads data directly from the ALA, meaning that data downloaded after the date this book was rendered, even using a query for a specific time-period (e.g., 2010-2015), <em>might</em> differ from data downloaded using the same query at the time of rendering. In general, that is a good thing—updates improve data quantity and/or quality—but it can affect reproducibility. In general, this shouldn’t affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book. The main advantage to using <em>Prerequisites</em> sections is that data downloads are transparent and up-to-date.</p>
+<p>If you download data using a galah query (rather than a DOI), the results you return when running the examples might not exactly match results in this book. This difference arises because data in the ALA is constantly being ingested (including from previous years) and galah downloads data directly from the ALA. This means that using the same query after the date this book was last rendered—even a query for a specific time-period (e.g., 2010–2015)—<em>might</em> return different data today.</p>
+<p>In general, that is a good thing; updates improve data quantity and/or quality. But they can affect reproducibility, too. Getting the latest data shouldn’t affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book. The main advantage to using <em>Prerequisites</em> sections is that data downloads are transparent and up-to-date.</p>
 </div>
 </div>
 </div>
@@ -395,7 +396,8 @@ Using original download queries
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(arrow)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data" class="level2 page-columns page-full">
@@ -420,9 +422,7 @@ Using original download queries
       document.body.removeChild(a);
         });"><button class="btn btn-default downloadthis  " id="download-button"><i class="bi bi-database-fill-down"></i> Download bees data </button></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bees <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"bees.parquet"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  arrow<span class="sc">::</span><span class="fu">open_dataset</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>bees <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"bees.parquet"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="inverts" class="level3 page-columns page-full">
@@ -445,9 +445,7 @@ Using original download queries
       document.body.removeChild(a);
         });"><button class="btn btn-default downloadthis  " id="download-button"><i class="bi bi-database-fill-down"></i> Download inverts data </button></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>inverts <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"inverts.parquet"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  arrow<span class="sc">::</span><span class="fu">open_dataset</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>inverts <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"inverts.parquet"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="gbif_species_list" class="level3">
@@ -464,9 +462,7 @@ Using original download queries
       document.body.removeChild(a);
         });"><button class="btn btn-default downloadthis  " id="download-button"><i class="bi bi-database-fill-down"></i> Download gbif_species_list data </button></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gbif_species_list <span class="ot">&lt;-</span> <span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"gbif_species_list.parquet"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  arrow<span class="sc">::</span><span class="fu">read_parquet</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gbif_species_list <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="fu">here</span>(<span class="st">"path"</span>, <span class="st">"to"</span>, <span class="st">"gbif_species_list.parquet"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="marine_sp" class="level3">
@@ -483,8 +479,7 @@ Using original download queries
       document.body.removeChild(a);
         });"><button class="btn btn-default downloadthis  " id="download-button"><i class="bi bi-database-fill-down"></i> Download marine_sp data </button></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">here</span>(<span class="st">"path"</span>,<span class="st">"to"</span>, <span class="st">"worms.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"path"</span>,<span class="st">"to"</span>, <span class="st">"worms.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -929,7 +924,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
 <p><img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>

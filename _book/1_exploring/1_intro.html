@@ -42,6 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -327,11 +330,10 @@ ul.task-list li input[type="checkbox"] {
 <p>This section details how to get an initial glimpse of your dataset, explore its structure, and create summaries of the different types of data within it. The first chapter shows how to check metadata and data structure. The second chapter introduces functions for summarising data in galah like <code>atlas_counts()</code> and demonstrates ways to quickly visualise different aspects of your data.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/ridgeplot_bowerbirds.png" class="img-fluid figure-img"></p>
+<p><a href="../images/ridgeplot_bowerbirds.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" data-glightbox="description: .lightbox-desc-1" title="An uninformative, artistic representation of seasonal observations of bowerbirds over the year"><img src="../images/ridgeplot_bowerbirds.png" class="img-fluid figure-img" alt="An uninformative, artistic representation of seasonal observations of bowerbirds over the year"></a></p>
 <figcaption>An uninformative, artistic representation of seasonal observations of bowerbirds over the year</figcaption>
 </figure>
 </div>
-
 
 
 
@@ -340,7 +342,11 @@ ul.task-list li input[type="checkbox"] {
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/81b635f7-1893-48a0-bd92-b36b82eecdab"><em>Ptilonorhynchus violaceus</em> holding a lovely blue thing. Photo by andrewpavlov CC-BY-NC 4.0 (Int)</a></p>
 </div>
-</div></div></main> <!-- /main -->
+</div></div><div class="hidden" aria-hidden="true">
+<span class="glightbox-desc lightbox-desc-1">An uninformative, artistic representation of seasonal observations of bowerbirds over the year</span>
+</div>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -749,6 +755,31 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","loop":false,"openEffect":"zoom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
+        }
+      }
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
+          </script>
 
 
 

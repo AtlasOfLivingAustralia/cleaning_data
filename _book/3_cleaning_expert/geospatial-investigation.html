@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ALA’s Data Cleaning Book - 9&nbsp; Geospatial investigation</title>
+<title>Cleaning Biodiversity Data in R - 9&nbsp; Geospatial investigation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -134,7 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <img src="../images/ALA_Logo_Inline_RGB.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="../">ALA’s Data Cleaning Book</a> 
+      <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
@@ -511,7 +511,8 @@ Using “Assertions”
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"orchid"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -715,7 +716,8 @@ Note on <code>dataGeneralizations</code>
 <span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">114</span>,<span class="dv">120</span>) <span class="sc">+</span> </span>
 <span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">36</span>,<span class="sc">-</span><span class="dv">31</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 2 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -1181,7 +1183,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>The Data Cleaning Book is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
 <p><img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
