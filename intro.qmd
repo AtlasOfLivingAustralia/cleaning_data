@@ -55,9 +55,9 @@ aid with each data cleaning step.
 {{< fa magnifying-glass size=3x >}} </button> </a>
 :::
 
-The first section is about **exploring data**. This section briefly
-introduces ways to inspect and summarise your data taxonomically,
-spatially and temporally to figure out what might need cleaning.
+The first section is about **exploring data**. This section introduces ways to 
+inspect and summarise taxonomic, spatial, and temporal elements in your data to
+identify areas that need cleaning. 
 :::
 
 ------------------------------------------------------------------------
@@ -70,7 +70,7 @@ spatially and temporally to figure out what might need cleaning.
 
 The second section is about **general data cleaning processes**. This
 section provides a checklist of data science tools and functions to
-clean different aspects of your data like strings, dates and missing
+clean different aspects of your data like strings, dates, and missing
 values.
 :::
 
@@ -105,6 +105,8 @@ cover:
 -   How to clean environmental data that is not occurrence /
     biodiversity data (e.g. trait data)
 -   How to perform analyses (e.g. species distribution modelling)
+
+<!--I understand what this section is saying, but it's confusing where it's currently placed because it's talking about what we do, not what we don't (which the section is about). I think it should be rephrased if it's necessary for it to be here, or it could possibly be moved to the above section on what the book does cover. Or maybe removed altogether if we don't feel strongly about making this point here; it's briefly covered below in Requirements-->
 
 In addition, while the principles we cover to clean data apply to many types 
 of data (not just biodiversity data), our perspective is strongly focused on
@@ -172,7 +174,7 @@ A list of the most common packages in this book can be found on the
 
 ### Code blocks
 
-Demonstrations and instructions throughout this book are accompanied by
+Examples throughout this book are accompanied by
 code blocks. These blocks show how a particular task was executed in R:
 
 ```{r}
