@@ -41,9 +41,11 @@ This book was last rendered on `{r} date_rendered`.
 
 ## Acknowledgement of Country
 
-The Atlas of Living Australia acknowledges that we live and work on Aboriginal and Torres Strait Islander lands, rivers, and seas. Indigenous Australian peoples held and continue to hold incomparably intricate environmental knowledge as first peoples of this country. As a data repository we are working to acknowledge and archive in a culturally sensitive way many different kinds of this [knowledge with communities](https://www.ala.org.au/indigenous-ecological-knowledge/).
+<!--I have been told we are not a data repository. I'm not certain what we are, though. Possibly a data aggregator. Probably April would know how we would like to be referred-->
 
-The authors of this book currently reside on Ngunnawal and Ngambri (Canberra), Wurundjeri and Bunurong (Melbourne), Turrbal and Yuggera (Brisbane), and Gadigal (Sydney) lands, and we pay our respects to Elders past and present.   
+The Atlas of Living Australia acknowledges that we live and work on Aboriginal and Torres Strait Islander lands, rivers, and seas. Indigenous Australian peoples held and continue to hold incomparably intricate environmental knowledge as first peoples of this country. We are working with communities to acknowledge and archive these different types of [knowledge](https://www.ala.org.au/indigenous-ecological-knowledge/) in a culturally sensitive way.
+
+The authors of this book currently reside on Ngunnawal and Ngambri (Canberra), Wurundjeri and Bunurong (Melbourne), Turrbal and Yuggera (Brisbane), Kaurna (Adelaide), and Gadigal (Sydney) lands, and we pay our respects to Elders past and present.   
 
 ## Acknowledgements {.unnumbered}
 
