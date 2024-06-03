@@ -8,9 +8,7 @@ number-depth: 3
 
 # Inspect
 
-Before diving into cleaning, it's always a good idea to familiarise
-yourself with the data. In this chapter we will cover ways to initially inspect both the
-data and metadata of a dataset.
+Before diving into cleaning, it’s a good idea to familiarise yourself with the data. In this chapter we will cover ways to initially inspect the data and metadata of a dataset.
 
 ### Prerequisites
 
@@ -102,32 +100,25 @@ birds <- galah_call() |>
 
 ## Getting to know your data
 
-**Metadata** describes your dataset, defines its variables and previews their
-contents. Metadata tells you details like what unit of
-measurement was used, what the conditions were like, or whether a
-certain observation might be an outlier.
+**Metadata** is a description of data, where information about different aspects of the data is documented. Some examples include definitions of the variables being measured, how and why the data were collected, and any data standards used. Reviewing the metadata associated with a dataset can be very helpful for understanding the types of data you are working with and any considerations that may need to be accounted for in your analyses. 
 
-Reviewing the metadata of your dataset is always a good first step, as it allows
-you to understand the kind of data you are working with and any potential
-limitations of the data that might affect your analyses later.
-
-Many datasets include descriptions of the data's taxonomic, spatial and temporal
-scope. An example of well formatted metadata is of [FrogID from the Australian
+Many datasets include descriptions of the data's taxonomic, spatial, and temporal
+parameters. An example of well formatted metadata is of [FrogID from the Australian
 Museum](https://collections.ala.org.au/public/show/dr14760).
 
 ![Metadata of the FrogID dataset on the ALA](images/example_frogid.png)
 
-From reading FrogID's metadata [@rowley2020frogid], we can find that:
+From reading FrogID's metadata [@rowley2020frogid], we understand that:
 
-1.  The data is acoustic data[^1]
+1.  The dataset comprises acoustic data[^1]
 2.  This is citizen science data[^2]
 3.  Audio is recorded via a smartphone app[^3]
 4.  These data record presences, but not absences
 5.  The data are under a Creative Commons license which is relevant for reuse and republishing
 
-[^1]: Meaning the majority of the species recorded are male.
-[^2]: Suggesting these data could be biased towards populated areas
-[^3]: As a result, the authors recommend filtering data to `geographic uncertainty of <3000m` if you require high coordinate precision 
+[^1]: Meaning the majority of individuals recorded are male.
+[^2]: Suggesting these data could be biased towards populated areas.
+[^3]: As a result, the authors recommend filtering data to `geographic uncertainty of <3000m` if you require high coordinate precision. 
 
 
 ::: {.callout-note collapse="true"}
@@ -217,15 +208,11 @@ str(birds)
 :::
 :::
 
+At this early stage, it's helpful to assess whether your dataset meets your expectations. Consider if the data appear as anticipated. Are the values in each column reasonable? Are there any noticeable gaps or errors that might need to be corrected, or that could potentially render the data unusable?
 
-It is also good at this initial point to evaluate whether your dataset is
-what you expect. Ask yourself, does this data look like what you thought it would look like? Are the values in each column reasonable? Are there noticeable gaps or errors that might need
-to be fixed (or stop you from using the data altogether)?
 
 ## Next steps
 
-We have just learned some ways to initially inspect our dataset. Keep in mind, we don't expect everything in our dataset to be perfect. Some issues are expected, and may reveal that there are issues with our query or with the data themselves. The
-initial inspection is a good opportunity to get an idea of where these issues might be and how serious they are.
+We have just learned some ways to initially inspect our dataset. Keep in mind, we don't expect everything to be perfect. Some issues are expected and may indicate problems with our query or the data itself. This initial inspection is a good opportunity to identify where these issues might be and assess their severity.
 
-When you are satisfied that the dataset is largely as expected, you are ready to start summarising your data.
-
+When you are confident that the dataset is largely as expected, you are ready to start summarising your data.
