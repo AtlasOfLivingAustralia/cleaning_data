@@ -8,11 +8,10 @@ number-depth: 3
 
 # Summarise
 
-In the last chapter, we learned how to see a brief glimpse of our data's structure, including how many rows there are, what columns there are, and where there might be missing data. In this chapter, we learn how to briefly summarise ecological data. These summaries will fall within three domains: **Taxonomic**, **spatial** and **temporal**. Summarising our data will help us see the diversity in our dataset, learn more about its scope, and determine whether it is the right dataset for our analysis.
+In the previous chapter, we learned how to get an overview of our data's structure,  including the number of rows, the columns present, and any missing data. In this chapter, we will focus on summarising ecological data across three key domains: **taxonomic**, **spatial**, and **temporal**. Summarising data can provide insight into the scope and variation in our dataset, and help in evaluating its suitability for our analysis.  
 
-Over this chapter, there are many places where we will use the [galah](https://galah.ala.org.au/) package to summarise our data. The [galah](https://galah.ala.org.au/) package can summarise data on the server-side prior to downloading any data locally onto your computer meaning that you can filter or summarise data without needing to have them on your local computer first.
+Where possible, we will use the [galah](https://galah.ala.org.au/) package to summarise data. galah can summarise data on the server-side before they are downloaded, enabling you to filter or summarise the data without needing to have them on your local computer first. We will demonstrate how to use galah (*prior* to download) or other suitable cleaning packages (*after* a download) when both options are available. 
 
-We will show how to use [galah](https://galah.ala.org.au/) (*prior* to download) or [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html) (*after* a download) when both options are available.
 
 ### Prerequisites
 
@@ -112,7 +111,7 @@ birds <- galah_call() |>
 
 ### Counts
 
-Prior to downloading occurrences, it can be useful to see a taxonomic breakdown of what occurrence records exist for our download query. To see how many total occurrence records there are for *Alcendinidae*, we can count the total number of records...
+Prior to downloading data, it can be useful to see a taxonomic breakdown of the occurrence records that exist for our query. For example, with the *Alcedinidae* dataset, we can count the total number of occurrence records...
 
 ```{r}
 galah_call() |>
@@ -121,7 +120,7 @@ galah_call() |>
   atlas_counts()
 ```
 
-...or group by a taxonomic clade like genus...
+...or group by a taxonomic rank like genus...
 
 ```{r}
 galah_call() |>
@@ -143,7 +142,7 @@ galah_call() |>
 
 Our results show that the large majority of records are of *Dacelo novaeguineae* (aka the Laughing Kookaburra).
 
-You can get the same summaries after downloading the data locally using dplyr or janitor.
+You can get the same summaries after downloading the data locally using [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html) or [janitor](https://sfirke.github.io/janitor/index.html).
 
 ::: {.panel-tabset .nav-pills}
 #### dplyr
@@ -262,7 +261,7 @@ birds |>
 
 ### Maps
 
-We can use maps to visually summarise our data. To do so, we will use the [sf package](https://r-spatial.github.io/sf/) to handle spatial data, and the [ozmaps package](https://mdsumner.github.io/ozmaps/) to get maps of Australia (as [vector data](../4_appendices/where-to-get-data.qmd#spatial-data)).
+We can use maps to visualise summaries of our data. To illustrate, we will use the [sf package](https://r-spatial.github.io/sf/) to handle spatial data, and the [ozmaps package](https://mdsumner.github.io/ozmaps/) to get maps of Australia (as [vector data](../4_appendices/where-to-get-data.qmd#spatial-data)).
 
 ```{r}
 #| message: false
@@ -271,9 +270,7 @@ library(sf)
 library(ozmaps)
 ```
 
-The easiest way to get a spatial summary is to create a quick map of observations.
-
-There are a few stray data points in our `birds` data that are outside of Australia. For simplicity, we will filter our data to records within Australia's land mass.
+There are a few occurrence records in our `birds` dataset that are outside of Australia. For simplicity, we will filter our data to records within Australia's land mass.
 
 ```{r}
 # filter records to within Australia
@@ -284,7 +281,7 @@ birds_filtered <- birds |>
          decimalLatitude < -10)
 ```
 
-Our first step is to get a map of Australia, and an excellent place to get one is from the ozmaps package. We will transform its Coordinate Reference System (CRS)[^summarise-1] projection to EPSG:4326 to match the CRS projection of ALA data[^summarise-2].
+Our first step is to get a map of Australia from the ozmaps package. We will transform its Coordinate Reference System (CRS)[^summarise-1] projection to EPSG:4326 to match the CRS projection of ALA data[^summarise-2].
 
 [^summarise-1]: The Coordinate Reference System (CRS) determines how to display our shape of Australia, which exists on a spherical globe (the Earth), onto a flat surface (our map).
 
@@ -301,7 +298,7 @@ Then we can plot our occurrence points onto our map.
 ::: {.panel-tabset .nav-pills}
 #### Point map
 
-Point maps are quick and useful visualisations of where your occurrence records are located. Here we have also adjusted the size and alpha values to make the points slightly larger and more transparent.
+Point maps are quick and effective ways to visually inspect the locations of your occurrence records. Here we have also adjusted the size and alpha values to make the points larger and more transparent.
 
 ```{r}
 # Plot the observations on our map of Australia
@@ -320,7 +317,7 @@ ggplot() +
 
 #### Point density map
 
-We can use the [ggpointdensity package](https://github.com/LKremer/ggpointdensity) to visualise locations where there are many overlapping occurrences. With over 40,000 points plotted on our map, `geom_pointdensity()` allows us to see areas with higher densities of observations.
+We can use the [ggpointdensity package](https://github.com/LKremer/ggpointdensity) to visualise locations with many overlapping occurrences. With over 40,000 points plotted on our map, `geom_pointdensity()` allows us to see areas with higher densities of observations.
 
 ```{r}
 #| warning: false
@@ -374,7 +371,7 @@ ggplot() +
 
 ### Counts by time scales
 
-Knowing the breakdown of *when* observations are recorded can reveal trends in seasonality between species. Checking this breakdown can also help you determine whether you have enough data to make inferences about patterns over the span of a week, month, year, decade or even century, or whether you're inferences about temporal trends are limited by the amount of existing data.
+Understanding the distribution of *when* observations are recorded can reveal seasonal trends among species. Checking this distribution can also help you determine whether you have enough data to infer patterns over different time spans—such as a week, month, year, decade, or even century—or whether your inferences about temporal trends are limited by the available data.
 
 #### Year
 
@@ -384,8 +381,7 @@ For example, an easy first summary is to know the number of records in each year
 search_all(fields, "year")
 ```
 
-Now we can use the field ID `year` to group our counts, returning years since 2016.
-
+Now we can use the field ID `year` to group our counts, returning years 2016 and onwards.
 ```{r}
 galah_call() |>
   identify("alcedinidae") |>
@@ -394,7 +390,7 @@ galah_call() |>
   atlas_counts()
 ```
 
-You can summarise after downloading counts locally with help from the lubridate package.
+Alternatively, you can use the lubridate package to summarise after downloading counts.
 
 We'll convert our column `eventDate` to a `date` class in R. Then we can extract relevant date data...
 
@@ -472,8 +468,7 @@ There are a few records that seem to be from 2021 despite downloading data for 2
 # filter dataset to 2022 only
 birds_day <- birds_date |>
   filter(year(eventDate) == 2022) |>
-  mutate(
-    day = yday(eventDate))
+  mutate(day = yday(eventDate))
 ```
 
 Now we can group our records by each day of the year, and summarise the record count for each day...
@@ -524,6 +519,6 @@ Our temporal plots show that occurrences generally drop in the earlier months, t
 
 ## Summary
 
-In this chapter we have provided a few ways to summarise your data taxonomically, spatially and temporally. We hope that you can copy these code chunks and use them to summarise your own data. Summarising and visualising data is one of the most useful ways to spot errors for data cleaning. As such, we suggest using these tools often over your entire analysis.
+In this chapter we have provided a few ways to summarise your data taxonomically, spatially, and temporally. We hope that these code chunks will help you in summarising your own data. Summarising and visualising data are some of the most useful ways to spot errors for data cleaning. As such, we suggest using these tools often though the course of your analysis.
 
 In the next part of this book, we will tackle these issues to clean your dataset.
