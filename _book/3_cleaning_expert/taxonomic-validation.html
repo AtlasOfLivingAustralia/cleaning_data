@@ -703,8 +703,8 @@ Original download queries
 <pre><code># A tibble: 2 × 19
   species_list_uid listName        listType dateCreated lastUpdated lastUploaded
   &lt;chr&gt;            &lt;chr&gt;           &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       
-1 dr655            Victoria : Con… CONSERV… 2015-04-04… 2023-06-07… 2023-06-07T…
-2 dr490            Victorian Rest… SENSITI… 2013-06-23… 2024-05-29… 2024-05-29T…
+1 dr655            Victoria : Con… CONSERV… 2015-04-04… 2024-05-30… 2024-05-30T…
+2 dr490            Victorian Rest… SENSITI… 2013-06-23… 2024-05-30… 2024-05-30T…
 # ℹ 13 more variables: lastMatched &lt;chr&gt;, username &lt;chr&gt;, itemCount &lt;int&gt;,
 #   region &lt;chr&gt;, isAuthoritative &lt;lgl&gt;, isInvasive &lt;lgl&gt;, isThreatened &lt;lgl&gt;,
 #   wkt &lt;chr&gt;, category &lt;chr&gt;, generalisation &lt;chr&gt;, authority &lt;chr&gt;,
@@ -728,20 +728,20 @@ Original download queries
 </div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>vic_species_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2,487 × 6
+<pre><code># A tibble: 137 × 6
         id name                  commonName scientificName lsid  dataResourceUid
      &lt;int&gt; &lt;chr&gt;                 &lt;chr&gt;      &lt;chr&gt;          &lt;chr&gt; &lt;chr&gt;          
- 1 5874348 Ambassis agassizii    Agassiz's… Ambassis agas… http… dr490          
- 2 5874130 Bidyanus bidyanus     Silver Pe… Bidyanus bidy… http… dr490          
- 3 5874650 Chelodina expansa     Broad-she… Chelodina (Ch… http… dr490          
- 4 5874480 Chelodina longicollis Snake-nec… Chelodina (Ch… http… dr490          
- 5 5875374 Cherax destructor al… White Yab… Cherax destru… http… dr490          
- 6 5875512 Craterocephalus fluv… Murray Ha… Craterocephal… http… dr490          
- 7 5876021 Emydura macquarii     Macquarie… Emydura macqu… http… dr490          
- 8 5874812 Engaeus curvisuturus  Curve-tai… Engaeus curvi… http… dr490          
- 9 5874006 Engaeus hemicirratul… Gippsland… Engaeus hemic… http… dr490          
-10 5875183 Engaeus karnanga      South Gip… Engaeus karna… http… dr490          
-# ℹ 2,477 more rows</code></pre>
+ 1 5920169 Engaeus australis     Lilly Pil… Engaeus austr… http… dr490          
+ 2 5920143 Engaeus fultoni       Otway Bur… Engaeus fulto… http… dr490          
+ 3 5920250 Engaeus mallacoota    Mallacoot… Engaeus malla… http… dr490          
+ 4 5920180 Engaeus phyllocercus  Narracan … Engaeus phyll… http… dr490          
+ 5 5920240 Engaeus rostrogaleat… Strzeleck… Engaeus rostr… http… dr490          
+ 6 5920203 Engaeus sericatus     Hairy Bur… Engaeus seric… http… dr490          
+ 7 5920217 Engaeus sternalis     Warragul … Engaeus stern… http… dr490          
+ 8 5920238 Engaeus strictifrons  Portland … Engaeus stric… http… dr490          
+ 9 5920170 Engaeus urostrictus   Dandenong… Engaeus urost… http… dr490          
+10 5920214 Euastacus bidawalus   East Gipp… Euastacus bid… http… dr490          
+# ℹ 127 more rows</code></pre>
 </div>
 </div>
 <p>Now we can use our <code>vic_species_list</code> to identify any restricted species by matching names in our <code>legless_lizards</code> data to names in <code>vic_species_list</code>.</p>
@@ -751,20 +751,20 @@ Original download queries
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>legless_lizards_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,892 × 8
+<pre><code># A tibble: 1,967 × 8
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 001129f4-4824… Pygopus lepid… https://biodi…           -34.0             151.
- 2 0027660b-3e75… Aprasia parap… https://biodi…           -35.4             149 
- 3 0031c737-922a… Pygopus lepid… https://biodi…           -36.0             150.
- 4 005dfdd2-4a93… Lialis burton… https://biodi…           -29.1             152.
- 5 0063af2c-e070… Pygopus lepid… https://biodi…           -34.9             139.
- 6 00a9ffcd-ec03… Lialis burton… https://biodi…           -27.5             153.
- 7 00dc4542-426a… Aprasia pseud… https://biodi…           -34.7             139.
- 8 010eb86a-7bd4… Lialis burton… https://biodi…           -30.2             153.
- 9 0157207c-3a91… Pygopus lepid… https://biodi…           -33.7             150.
-10 0175d058-1e71… Delma molleri  https://biodi…           -34.7             139.
-# ℹ 1,882 more rows
+ 2 0031c737-922a… Pygopus lepid… https://biodi…           -36.0             150.
+ 3 005dfdd2-4a93… Lialis burton… https://biodi…           -29.1             152.
+ 4 0063af2c-e070… Pygopus lepid… https://biodi…           -34.9             139.
+ 5 00a9ffcd-ec03… Lialis burton… https://biodi…           -27.5             153.
+ 6 00dc4542-426a… Aprasia pseud… https://biodi…           -34.7             139.
+ 7 010eb86a-7bd4… Lialis burton… https://biodi…           -30.2             153.
+ 8 0157207c-3a91… Pygopus lepid… https://biodi…           -33.7             150.
+ 9 0175d058-1e71… Delma molleri  https://biodi…           -34.7             139.
+10 0184f709-9cec… Pygopus lepid… https://biodi…           -33.7             150.
+# ℹ 1,957 more rows
 # ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
 #   dataResourceName &lt;chr&gt;</code></pre>
 </div>
@@ -779,7 +779,7 @@ Original download queries
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(legless_lizards) <span class="sc">-</span> <span class="fu">nrow</span>(legless_lizards_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 217</code></pre>
+<pre><code>[1] 142</code></pre>
 </div>
 </div>
 <p>We can also filter our queries <em>prior</em> to downloading data in galah by adding a filter specifying <code>species_list_uid == dr490</code> to our query.</p>
@@ -801,7 +801,7 @@ Original download queries
 <pre><code># A tibble: 2 × 2
   species               count
   &lt;chr&gt;                 &lt;int&gt;
-1 Aprasia parapulchella   686
+1 Aprasia parapulchella   687
 2 Aprasia aurita           96</code></pre>
 </div>
 </div>
@@ -2237,10 +2237,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src="../images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src="..\images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
-<p><img src="../images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="../images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
+<p><img src="..\images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="..\images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="..\images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
 </div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>

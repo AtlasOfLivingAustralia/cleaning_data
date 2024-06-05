@@ -60,7 +60,11 @@ ehthumbs.db
 Thumbs.db
 .Rproj.user
 
+# quarto things
 /.quarto/
+/_book/
+
+# vscode things
 .favorites.json
 .vscode/settings.json
 
