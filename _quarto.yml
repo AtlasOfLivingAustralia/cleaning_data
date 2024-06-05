@@ -10,7 +10,7 @@ project:
 book:
   title: "Cleaning Biodiversity Data in R"
   subtitle: "Atlas of Living Australia's practical guide to cleaning ecological data in R"
-  favicon: images/book_cover.jpg
+  favicon: images/cleaner_logo.png
   reader-mode: true
   page-navigation: true
   back-to-top-navigation: true
@@ -28,7 +28,7 @@ book:
     right: |
       This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a [Creative Commons Attribution 3.0 Australia License](https://creativecommons.org/licenses/by/3.0/au/).
 
-  cover-image: images/book_cover2.jpg 
+  cover-image: images/cleaner_logo.png
 
   chapters:
   - index.qmd
