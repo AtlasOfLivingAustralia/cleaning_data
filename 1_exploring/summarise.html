@@ -378,9 +378,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In the last chapter, we learned how to see a brief glimpse of our data’s structure, including how many rows there are, what columns there are, and where there might be missing data. In this chapter, we learn how to briefly summarise ecological data. These summaries will fall within three domains: <strong>Taxonomic</strong>, <strong>spatial</strong> and <strong>temporal</strong>. Summarising our data will help us see the diversity in our dataset, learn more about its scope, and determine whether it is the right dataset for our analysis.</p>
-<p>Over this chapter, there are many places where we will use the <a href="https://galah.ala.org.au/">galah</a> package to summarise our data. The <a href="https://galah.ala.org.au/">galah</a> package can summarise data on the server-side prior to downloading any data locally onto your computer meaning that you can filter or summarise data without needing to have them on your local computer first.</p>
-<p>We will show how to use <a href="https://galah.ala.org.au/">galah</a> (<em>prior</em> to download) or <a href="https://dplyr.tidyverse.org/articles/dplyr.html">dplyr</a> (<em>after</em> a download) when both options are available.</p>
+<p>In the previous chapter, we learned how to get an overview of our data’s structure, including the number of rows, the columns present, and any missing data. In this chapter, we will focus on summarising ecological data across three key domains: <strong>taxonomic</strong>, <strong>spatial</strong>, and <strong>temporal</strong>. Summarising data can provide insight into the scope and variation in our dataset, and help in evaluating its suitability for our analysis.</p>
+<p>Where possible, we will use the <a href="https://galah.ala.org.au/">galah</a> package to summarise data. galah can summarise data on the server-side before they are downloaded, enabling you to filter or summarise the data without needing to have them on your local computer first. We will demonstrate how to use galah (<em>prior</em> to download) or other suitable cleaning packages (<em>after</em> a download) when both options are available.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="2.0.1">
 <h3 data-number="2.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">2.0.1</span> Prerequisites</h3>
 <p>In this chapter, we will use occurrence records for <em>Alcedinidae</em> (Kingfishers) in 2023 from the ALA.</p>
@@ -445,7 +444,7 @@ Original download queries
 <h2 data-number="2.1" class="anchored" data-anchor-id="taxonomic"><span class="header-section-number">2.1</span> Taxonomic</h2>
 <section id="counts" class="level3 page-columns page-full" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="counts"><span class="header-section-number">2.1.1</span> Counts</h3>
-<p>Prior to downloading occurrences, it can be useful to see a taxonomic breakdown of what occurrence records exist for our download query. To see how many total occurrence records there are for <em>Alcendinidae</em>, we can count the total number of records…</p>
+<p>Prior to downloading data, it can be useful to see a taxonomic breakdown of the occurrence records that exist for our query. For example, with the <em>Alcedinidae</em> dataset, we can count the total number of occurrence records…</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
@@ -458,7 +457,7 @@ Original download queries
 1 140812</code></pre>
 </div>
 </div>
-<p>…or group by a taxonomic clade like genus…</p>
+<p>…or group by a taxonomic rank like genus…</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
@@ -500,7 +499,7 @@ Original download queries
 </div>
 </div>
 <p>Our results show that the large majority of records are of <em>Dacelo novaeguineae</em> (aka the Laughing Kookaburra).</p>
-<p>You can get the same summaries after downloading the data locally using dplyr or janitor.</p>
+<p>You can get the same summaries after downloading the data locally using <a href="https://dplyr.tidyverse.org/articles/dplyr.html">dplyr</a> or <a href="https://sfirke.github.io/janitor/index.html">janitor</a>.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">janitor</a></li></ul>
 <div class="tab-content nav-pills">
@@ -770,13 +769,12 @@ Original download queries
 </div></div></section>
 <section id="maps" class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="maps"><span class="header-section-number">2.2.2</span> Maps</h3>
-<p>We can use maps to visually summarise our data. To do so, we will use the <a href="https://r-spatial.github.io/sf/">sf package</a> to handle spatial data, and the <a href="https://mdsumner.github.io/ozmaps/">ozmaps package</a> to get maps of Australia (as <a href="../4_appendices/where-to-get-data.html#spatial-data">vector data</a>).</p>
+<p>We can use maps to visualise summaries of our data. To illustrate, we will use the <a href="https://r-spatial.github.io/sf/">sf package</a> to handle spatial data, and the <a href="https://mdsumner.github.io/ozmaps/">ozmaps package</a> to get maps of Australia (as <a href="../4_appendices/where-to-get-data.html#spatial-data">vector data</a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ozmaps)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The easiest way to get a spatial summary is to create a quick map of observations.</p>
-<p>There are a few stray data points in our <code>birds</code> data that are outside of Australia. For simplicity, we will filter our data to records within Australia’s land mass.</p>
+<p>There are a few occurrence records in our <code>birds</code> dataset that are outside of Australia. For simplicity, we will filter our data to records within Australia’s land mass.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter records to within Australia</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
@@ -785,7 +783,7 @@ Original download queries
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>         decimalLatitude <span class="sc">&gt;</span> <span class="sc">-</span><span class="dv">45</span>,</span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>         decimalLatitude <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Our first step is to get a map of Australia, and an excellent place to get one is from the ozmaps package. We will transform its Coordinate Reference System (CRS)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> projection to EPSG:4326 to match the CRS projection of ALA data<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>Our first step is to get a map of Australia from the ozmaps package. We will transform its Coordinate Reference System (CRS)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> projection to EPSG:4326 to match the CRS projection of ALA data<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get map of australia, and transform projection</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>aus <span class="ot">&lt;-</span> ozmaps<span class="sc">::</span>ozmap_states <span class="sc">|&gt;</span></span>
@@ -796,7 +794,7 @@ Original download queries
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Point map</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Point density map</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Facetted maps</a></li></ul>
 <div class="tab-content nav-pills">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<p>Point maps are quick and useful visualisations of where your occurrence records are located. Here we have also adjusted the size and alpha values to make the points slightly larger and more transparent.</p>
+<p>Point maps are quick and effective ways to visually inspect the locations of your occurrence records. Here we have also adjusted the size and alpha values to make the points larger and more transparent.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the observations on our map of Australia</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
@@ -820,7 +818,7 @@ Original download queries
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<p>We can use the <a href="https://github.com/LKremer/ggpointdensity">ggpointdensity package</a> to visualise locations where there are many overlapping occurrences. With over 40,000 points plotted on our map, <code>geom_pointdensity()</code> allows us to see areas with higher densities of observations.</p>
+<p>We can use the <a href="https://github.com/LKremer/ggpointdensity">ggpointdensity package</a> to visualise locations with many overlapping occurrences. With over 40,000 points plotted on our map, <code>geom_pointdensity()</code> allows us to see areas with higher densities of observations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpointdensity)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis) <span class="co"># colour palette</span></span>
@@ -886,7 +884,7 @@ Original download queries
 <h2 data-number="2.3" class="anchored" data-anchor-id="temporal"><span class="header-section-number">2.3</span> Temporal</h2>
 <section id="counts-by-time-scales" class="level3 page-columns page-full" data-number="2.3.1">
 <h3 data-number="2.3.1" class="anchored" data-anchor-id="counts-by-time-scales"><span class="header-section-number">2.3.1</span> Counts by time scales</h3>
-<p>Knowing the breakdown of <em>when</em> observations are recorded can reveal trends in seasonality between species. Checking this breakdown can also help you determine whether you have enough data to make inferences about patterns over the span of a week, month, year, decade or even century, or whether you’re inferences about temporal trends are limited by the amount of existing data.</p>
+<p>Understanding the distribution of <em>when</em> observations are recorded can reveal seasonal trends among species. Checking this distribution can also help you determine whether you have enough data to infer patterns over different time spans—such as a week, month, year, decade, or even century—or whether your inferences about temporal trends are limited by the available data.</p>
 <section id="year" class="level4 page-columns page-full">
 <h4 class="anchored" data-anchor-id="year">Year</h4>
 <p>For example, an easy first summary is to know the number of records in each year. You can do this in <a href="https://galah.ala.org.au/">galah</a> prior to downloading data. We can search for the correct field to use in <a href="https://galah.ala.org.au/">galah</a>, determining that field ID <code>year</code> seems to suit our needs best.</p>
@@ -906,7 +904,7 @@ Original download queries
 8 namePublishedInYear Name Published In Year fields</code></pre>
 </div>
 </div>
-<p>Now we can use the field ID <code>year</code> to group our counts, returning years since 2016.</p>
+<p>Now we can use the field ID <code>year</code> to group our counts, returning years 2016 and onwards.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
@@ -927,7 +925,7 @@ Original download queries
 8 2024    2870</code></pre>
 </div>
 </div>
-<p>You can summarise after downloading counts locally with help from the lubridate package.</p>
+<p>Alternatively, you can use the lubridate package to summarise after downloading counts.</p>
 <p>We’ll convert our column <code>eventDate</code> to a <code>date</code> class in R. Then we can extract relevant date data…</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using our pre-downloaded dataset</span></span>
@@ -1058,8 +1056,7 @@ Original download queries
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter dataset to 2022 only</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>birds_day <span class="ot">&lt;-</span> birds_date <span class="sc">|&gt;</span></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">year</span>(eventDate) <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span></span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">day =</span> <span class="fu">yday</span>(eventDate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">yday</span>(eventDate))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we can group our records by each day of the year, and summarise the record count for each day…</p>
 <div class="cell">
@@ -1135,7 +1132,7 @@ Original download queries
 </section>
 <section id="summary" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.4</span> Summary</h2>
-<p>In this chapter we have provided a few ways to summarise your data taxonomically, spatially and temporally. We hope that you can copy these code chunks and use them to summarise your own data. Summarising and visualising data is one of the most useful ways to spot errors for data cleaning. As such, we suggest using these tools often over your entire analysis.</p>
+<p>In this chapter we have provided a few ways to summarise your data taxonomically, spatially, and temporally. We hope that these code chunks will help you in summarising your own data. Summarising and visualising data are some of the most useful ways to spot errors for data cleaning. As such, we suggest using these tools often though the course of your analysis.</p>
 <p>In the next part of this book, we will tackle these issues to clean your dataset.</p>
 
 
