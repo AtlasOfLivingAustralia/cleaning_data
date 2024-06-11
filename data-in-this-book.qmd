@@ -10,9 +10,7 @@ execute:
 
 # Data in this book {.unnumbered}
 
-This chapter contains several datasets used in this book which you can download using the supplied download link.
-
-This book mainly uses data DOIs to preserve reproducible data downloads, as most data is downloaded from the [Atlas of Living Australia (ALA)](https://ala.org.au/) using the [galah package](https://galah.ala.org.au/R/), the ALA's R interface to downloading biodiversity data. You can download data using these DOIs at the beginning of each chapter (in the *Prerequisites* section). We also supply the original data download query at the start of each chapter, which you can choose to use instead. 
+This book uses data DOIs to preserve reproducible data downloads, as most data is downloaded from the [Atlas of Living Australia (ALA)](https://ala.org.au/) using the [galah package](https://galah.ala.org.au/R/), the ALA's R interface to downloading biodiversity data. At the beginning of each chapter, in the *Prerequisites* section, we have provided options for you to either download the identical dataset using these DOIs or reproduce the query using our code.  
 
 ::: {.callout-note collapse="true" appearance="simple"}
 
@@ -23,6 +21,9 @@ If you download data using a galah query (rather than a DOI), the results you re
 In general, that is a good thing; updates improve data quantity and/or quality. But they can affect reproducibility, too. Getting the latest data shouldn't affect whether the example works correctly, but it may affect whether the results you return in your console match the results returned in this book. The main advantage to using *Prerequisites* sections is that data downloads are transparent and up-to-date.
 
 :::
+
+There are a few datasets used in this book that were not retrieved from the ALA. To ensure reproducibility, we have provided download links to those datasets in this chapter. 
+
 
 ### Prerequisites
 
