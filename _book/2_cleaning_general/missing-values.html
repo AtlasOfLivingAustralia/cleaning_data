@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../">
 <link href="../2_cleaning_general/strings.html" rel="next">
 <link href="../2_cleaning_general/duplicates.html" rel="prev">
-<link href="../images/cleaner_logo.png" rel="icon" type="image/png">
+<link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -782,7 +782,7 @@ Original download queries
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxonRank <span class="sc">==</span> <span class="st">"species"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(taxonRank, scientificName, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,822 × 9
+<pre><code># A tibble: 1,823 × 9
    taxonRank scientificName        recordID       taxonConceptID decimalLatitude
    &lt;chr&gt;     &lt;chr&gt;                 &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;
  1 species   Gehyra variegata      001c2b9f-34c8… https://biodi…           -22.7
@@ -795,7 +795,7 @@ Original download queries
  8 species   Christinus marmoratus 00c15ed1-873e… https://biodi…           -35.4
  9 species   Christinus marmoratus 00d886f8-1ee4… https://biodi…           -35.0
 10 species   Gehyra variegata      00e80fcb-843d… https://biodi…           -29.9
-# ℹ 1,812 more rows
+# ℹ 1,813 more rows
 # ℹ 4 more variables: decimalLongitude &lt;dbl&gt;, eventDate &lt;dttm&gt;,
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;</code></pre>
 </div>
