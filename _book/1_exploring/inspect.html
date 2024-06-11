@@ -387,7 +387,7 @@ div.csl-indent {
 </header>
 
 
-<p>Before diving into cleaning, it’s always a good idea to familiarise yourself with the data. In this chapter we will cover ways to initially inspect both the data and metadata of a dataset.</p>
+<p>Before diving into cleaning, it’s a good idea to familiarise yourself with the data. In this chapter we will cover ways to initially inspect the data and metadata of a dataset.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="1.0.1">
 <h3 data-number="1.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">1.0.1</span> Prerequisites</h3>
 <p>In this chapter we will use Kingfisher (<em>Alcedinidae</em>) occurrence records in 2023 from the ALA.</p>
@@ -446,18 +446,17 @@ Original download queries
 </section>
 <section id="getting-to-know-your-data" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="getting-to-know-your-data"><span class="header-section-number">1.1</span> Getting to know your data</h2>
-<p><strong>Metadata</strong> describes your dataset, defines its variables and previews their contents. Metadata tells you details like what unit of measurement was used, what the conditions were like, or whether a certain observation might be an outlier.</p>
-<p>Reviewing the metadata of your dataset is always a good first step, as it allows you to understand the kind of data you are working with and any potential limitations of the data that might affect your analyses later.</p>
-<p>Many datasets include descriptions of the data’s taxonomic, spatial and temporal scope. An example of well formatted metadata is of <a href="https://collections.ala.org.au/public/show/dr14760">FrogID from the Australian Museum</a>.</p>
+<p><strong>Metadata</strong> is a description of data, where information about different aspects of the data is documented. Some examples include definitions of the variables being measured, how and why the data were collected, and any data standards used. Reviewing the metadata associated with a dataset can be very helpful for understanding the types of data you are working with and any considerations that may need to be accounted for in your analyses.</p>
+<p>Many datasets include descriptions of the data’s taxonomic, spatial, and temporal parameters. An example of well formatted metadata is of <a href="https://collections.ala.org.au/public/show/dr14760">FrogID from the Australian Museum</a>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/example_frogid.png" class="img-fluid figure-img"></p>
 <figcaption>Metadata of the FrogID dataset on the ALA</figcaption>
 </figure>
 </div>
-<p>From reading FrogID’s metadata <span class="citation" data-cites="rowley2020frogid">(<a href="../references.html#ref-rowley2020frogid" role="doc-biblioref">Rowley and Callaghan 2020</a>)</span>, we can find that:</p>
+<p>From reading FrogID’s metadata <span class="citation" data-cites="rowley2020frogid">(<a href="../references.html#ref-rowley2020frogid" role="doc-biblioref">Rowley and Callaghan 2020</a>)</span>, we understand that:</p>
 <ol type="1">
-<li>The data is acoustic data<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
+<li>The dataset comprises acoustic data<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
 <li>This is citizen science data<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
 <li>Audio is recorded via a smartphone app<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
 <li>These data record presences, but not absences</li>
@@ -847,12 +846,12 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/1cb231bd-6000-43dd-9feb-409a29e93779"><em>Dacelo (Dacelo) novaeguineae</em> perched with a fresh worm in its beak. Photo by Rob Shepherd CC-BY-NC 4.0 (Int)</a></p>
 </div>
-</div></div><p>It is also good at this initial point to evaluate whether your dataset is what you expect. Ask yourself, does this data look like what you thought it would look like? Are the values in each column reasonable? Are there noticeable gaps or errors that might need to be fixed (or stop you from using the data altogether)?</p>
+</div></div><p>At this early stage, it’s helpful to assess whether your dataset meets your expectations. Consider if the data appear as anticipated. Are the values in each column reasonable? Are there any noticeable gaps or errors that might need to be corrected, or that could potentially render the data unusable?</p>
 </section>
 <section id="next-steps" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="next-steps"><span class="header-section-number">1.3</span> Next steps</h2>
-<p>We have just learned some ways to initially inspect our dataset. Keep in mind, we don’t expect everything in our dataset to be perfect. Some issues are expected, and may reveal that there are issues with our query or with the data themselves. The initial inspection is a good opportunity to get an idea of where these issues might be and how serious they are.</p>
-<p>When you are satisfied that the dataset is largely as expected, you are ready to start summarising your data.</p>
+<p>We have just learned some ways to initially inspect our dataset. Keep in mind, we don’t expect everything to be perfect. Some issues are expected and may indicate problems with our query or the data itself. This initial inspection is a good opportunity to identify where these issues might be and assess their severity.</p>
+<p>When you are confident that the dataset is largely as expected, you are ready to start summarising your data.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -864,9 +863,9 @@ Rowley, Jodi JL, and Corey T Callaghan. 2020. <span>“The FrogID Dataset: Exper
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>Meaning the majority of the species recorded are male.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Suggesting these data could be biased towards populated areas<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>As a result, the authors recommend filtering data to <code>geographic uncertainty of &lt;3000m</code> if you require high coordinate precision<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Meaning the majority of individuals recorded are male.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Suggesting these data could be biased towards populated areas.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>As a result, the authors recommend filtering data to <code>geographic uncertainty of &lt;3000m</code> if you require high coordinate precision.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Making datasets easier to consolidate is also referred to as <em>interoperability</em>, <a href="https://ardc.edu.au/resource/fair-data/">one of the principles of FAIR data</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>We suggest using <code>Ctrl/CMD + F</code> and searching your variable name on the webpage. Don’t hesitate to Google variable names if you are unsure what they represent.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>

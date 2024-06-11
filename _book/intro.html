@@ -426,7 +426,7 @@ div.csl-indent {
 <p><a href="1_accessing/access_intro.html"> <button class="circle-button"> <i class="fa-solid fa-magnifying-glass fa-3x" aria-label="magnifying-glass"></i> </button> </a></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>The first section is about <strong>exploring data</strong>. This section briefly introduces ways to inspect and summarise your data taxonomically, spatially and temporally to figure out what might need cleaning.</p>
+<p>The first section is about <strong>exploring data</strong>. This section introduces ways to inspect and summarise taxonomic, spatial, and temporal elements in your data to identify areas that need cleaning.</p>
 </div>
 </div>
 </div>
@@ -440,7 +440,7 @@ div.csl-indent {
 <p><a href="1_accessing/access_intro.html"> <button class="circle-button"> <i class="fa-solid fa-broom fa-3x" aria-label="broom"></i> </button> </a></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<p>The second section is about <strong>general data cleaning processes</strong>. This section provides a checklist of data science tools and functions to clean different aspects of your data like strings, dates and missing values.</p>
+<p>The second section is about <strong>general data cleaning processes</strong>. This section provides a checklist of data science tools and functions to clean different aspects of your data like strings, dates, and missing values.</p>
 </div>
 </div>
 </div>
@@ -459,6 +459,7 @@ div.csl-indent {
 </div>
 </div>
 <p>This book attempts to fill a niche between works that discuss data cleaning principles without using code (e.g., <span class="citation" data-cites="chapman_principles_2005">(<a href="references.html#ref-chapman_principles_2005" role="doc-biblioref">Chapman, 2005</a>)</span>) and articles that describe technical solutions to computational problems (e.g., <a href="https://brunobrr.github.io/bdc/#:~:text=bdc%20contains%20functions%20to%20harmonize,%2C%20spatial%2C%20and%20temporal%20data.">the bdc toolkit</a>; <span class="citation" data-cites="ribeiro_bdc_2024">(<a href="references.html#ref-ribeiro_bdc_2024" role="doc-biblioref">Ribeiro et al., 2024</a>)</span>).</p>
+<p>Although the principles we cover to clean data apply to many types of data (not just biodiversity data), our perspective is strongly focused on cleaning “unstructured” occurrence data with one row per observation (as provided by the <a href="https://www.gbif.org/">Global Biodiversity Information Facility (GBIF)</a> and it’s <a href="https://www.gbif.org/the-gbif-network">partner nodes</a>).</p>
 </section>
 <section id="what-we-dont-cover" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="what-we-dont-cover">What we don’t cover</h2>
@@ -468,7 +469,6 @@ div.csl-indent {
 <li>How to clean environmental data that is not occurrence / biodiversity data (e.g.&nbsp;trait data)</li>
 <li>How to perform analyses (e.g.&nbsp;species distribution modelling)</li>
 </ul>
-<p>In addition, while the principles we cover to clean data apply to many types of data (not just biodiversity data), our perspective is strongly focused on cleaning “unstructured” occurrence data with one row per observation (as provided by the <a href="https://www.gbif.org/">Global Biodiversity Information Facility (GBIF)</a> and it’s <a href="https://www.gbif.org/the-gbif-network">partner nodes</a>).</p>
 </section>
 <section id="requirements" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="requirements">Requirements</h2>
@@ -500,14 +500,14 @@ div.csl-indent {
 <h2 class="unnumbered anchored" data-anchor-id="conventions">Conventions</h2>
 <section id="code-blocks" class="level3">
 <h3 class="anchored" data-anchor-id="code-blocks">Code blocks</h3>
-<p>Demonstrations and instructions throughout this book are accompanied by code blocks. These blocks show how a particular task was executed in R:</p>
+<p>Examples throughout this book are accompanied by code blocks. These blocks show how a particular task was executed in R:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a code block with a comment</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(package<span class="sc">-</span>name)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mean_mpg =</span> <span class="fu">mean</span>(mpg))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-tip">
 <div class="callout-body d-flex">
@@ -524,18 +524,23 @@ div.csl-indent {
 <h3 class="anchored" data-anchor-id="code-line-comments">Code line comments</h3>
 <p>Some code blocks have circled numbers near the right edge of the code block. You can hover over these numbers to read additional context about that specific line of code.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(cyl)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mean_bill_length =</span> <span class="fu">mean</span>(bill_length_mm))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="1">This line of code groups <code>mtcars</code> data by each distinct value in the variable <code>cyl</code></span>
+<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="1">This line of code groups <code>penguins</code> data by each distinct value in the variable <code>species</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="3" data-code-annotation="2">This line of code summarises each species’ mean bill length, saving the output in a new column <code>mean_bill_length</code></span>
 </dd>
 </dl>
 </div>
 </div>
-<p>Throughout this book, we use “pipes” in our code (<code>|&gt;</code>, or <code>%&gt;%</code> from the <code>magrittr</code> package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “<em>and then</em>”. For example, the code block above can be read as “Get data <code>mtcars</code>, <em>and then</em> group by <code>cyl</code>, <em>and then</em> summarise (setting <code>mean_mpg</code> to contain the mean of <code>mpg</code>).”</p>
+<p>Throughout this book, we use “pipes” in our code (<code>|&gt;</code>, or <code>%&gt;%</code> from the <code>magrittr</code> package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “<em>and then</em>”. For example, the code block above can be read as “Get data <code>penguins</code>, <em>and then</em> group by <code>species</code>, <em>and then</em> summarise (setting <code>mean_bill_length</code> to contain the mean of <code>bill_length_mm</code>).”</p>
 </section>
 </section>
 <section id="how-to-contribute" class="level2">
