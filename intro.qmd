@@ -94,6 +94,13 @@ that describe technical solutions to computational problems (e.g., [the
 bdc
 toolkit](https://brunobrr.github.io/bdc/#:~:text=bdc%20contains%20functions%20to%20harmonize,%2C%20spatial%2C%20and%20temporal%20data.); [@ribeiro_bdc_2024]).
 
+Although the principles we cover to clean data apply to many types 
+of data (not just biodiversity data), our perspective is strongly focused on
+cleaning "unstructured" occurrence data with one row per observation (as
+provided by the [Global Biodiversity Information Facility
+(GBIF)](https://www.gbif.org/) and it's [partner
+nodes](https://www.gbif.org/the-gbif-network)).
+
 ## What we don't cover {.unnumbered}
 
 The areas of research and uses of biodiversity data are many and varied.
@@ -105,15 +112,6 @@ cover:
 -   How to clean environmental data that is not occurrence /
     biodiversity data (e.g. trait data)
 -   How to perform analyses (e.g. species distribution modelling)
-
-<!--I understand what this section is saying, but it's confusing where it's currently placed because it's talking about what we do, not what we don't (which the section is about). I think it should be rephrased if it's necessary for it to be here, or it could possibly be moved to the above section on what the book does cover. Or maybe removed altogether if we don't feel strongly about making this point here; it's briefly covered below in Requirements-->
-
-In addition, while the principles we cover to clean data apply to many types 
-of data (not just biodiversity data), our perspective is strongly focused on
-cleaning "unstructured" occurrence data with one row per observation (as
-provided by the [Global Biodiversity Information Facility
-(GBIF)](https://www.gbif.org/) and it's [partner
-nodes](https://www.gbif.org/the-gbif-network)).
 
 ## Requirements {.unnumbered}
 
@@ -181,10 +179,10 @@ code blocks. These blocks show how a particular task was executed in R:
 #| eval: false
 # This is a code block with a comment
 library(package-name)
+library(palmerpenguins)
 
-mtcars |>
-   dplyr::group_by(cyl) |>
-   dplyr::summarise(mean_mpg = mean(mpg))
+penguins |>
+   dplyr::group_by(species)
 ```
 
 ::: {.callout-tip appearance="simple"}
@@ -200,19 +198,21 @@ that specific line of code.
 
 ```{r}
 #| eval: false
-mtcars |>
-  dplyr::group_by(cyl) # <1>
+penguins |>
+  dplyr::group_by(species) |> # <1>
+  dplyr::summarise(mean_bill_length = mean(bill_length_mm)) # <2>
 ```
 
-1.  This line of code groups `mtcars` data by each distinct value in the
-    variable `cyl`
+1.  This line of code groups `penguins` data by each distinct value in the
+    variable `species`
+2.  This line of code summarises each species' mean bill length, saving the output in a new column `mean_bill_length`
 
 Throughout this book, we use “pipes” in our code (`|>`, or `%>%` from
 the `magrittr` package). Pipes allow you to chain multiple functions
 sequentially to an object or a dataset. Pipes can be read as saying
 “*and then*”. For example, the code block above can be read as "Get data
-`mtcars`, *and then* group by `cyl`, *and then* summarise (setting
-`mean_mpg` to contain the mean of `mpg`)."
+`penguins`, *and then* group by `species`, *and then* summarise (setting
+`mean_bill_length` to contain the mean of `bill_length_mm`)."
 
 ## How to contribute
 

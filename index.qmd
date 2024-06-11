@@ -35,13 +35,11 @@ date_rendered <- lubridate::today() |>
 ```
 
 
-Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., <!--Fenker, J.-->, Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://ala.org.au/cleaning-bd-in-r](LINK) <!-- Eventually replace with DOI-->
+Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://ala.org.au/cleaning-bd-in-r](LINK) <!-- Eventually replace with DOI-->
 
 This book was last rendered on `{r} date_rendered`.
 
 ## Acknowledgement of Country
-
-<!--I have been told we are not a data repository. I'm not certain what we are, though. Possibly a data aggregator. Probably April would know how we would like to be referred-->
 
 The Atlas of Living Australia acknowledges that we live and work on Aboriginal and Torres Strait Islander lands, rivers, and seas. Indigenous Australian peoples held and continue to hold incomparably intricate environmental knowledge as first peoples of this country. We are working with communities to acknowledge and archive these different types of [knowledge](https://www.ala.org.au/indigenous-ecological-knowledge/) in a culturally sensitive way.
 
