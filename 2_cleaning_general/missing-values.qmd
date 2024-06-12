@@ -160,7 +160,7 @@ geckos |>
          species, cl22, everything()) # reorder columns
 ```
 
-Or we can specify the column to find rows with `NA` values one or more columns in particular (in this case column `cl22`).
+Or we can specify a column to find rows with `NA` values (in this case column `cl22`).
 
 ```{r}
 geckos |> 
@@ -220,9 +220,9 @@ nrow(geckos) - nrow(geckos_filtered)
 
 ### Missing higher rank
 
-Sometimes data can be missing information in columns with higher taxonomic rankings, even if observations have been taxonomically identified down to the species level. In this case, the goal isn't only to remove the missing values, but to fill missing information with the correct information.
+Sometimes data can be missing information in columns with higher taxonomic rankings, even if observations have been taxonomically identified down to the species level. In this case, the goal isn't only to remove the missing values, but to fill in the gaps with the correct information.
 
-As an example, we'll use a slightly modified `geckos_missing` dataset with some missing data add into the higher columns[^1]. Below is a preview, and you'll notice that there are `NA` values in the `class` and `family` columns as you skim across the pages. 
+As an example, we'll use a slightly modified `geckos_missing` dataset with some missing data added into the higher columns[^1]. Below is a preview, and you'll notice that there are `NA` values in the `class` and `family` columns as you skim across the pages. 
 
 [^1]: The Atlas of Living Australia matches taxonomic names when data is ingested from data providers. This process means that it's very rare for a species to be missing higher taxonomic rank names. This might not be the case for other data sources, though!
 
@@ -251,7 +251,7 @@ geckos_missing |>
   select(scientificName, class, family, genus, species, everything())
 ```
 
-
+<!-- This internal link did not work for me -SB -->
 If you have a list of taxonomic names with complete ranking information from your preferred [taxonomic naming authority](../4_accessing/where-to-get-data.qmd#taxonomic-data), you can use this information to back-fill your missing data columns. In our case, we can use names from ALA's taxonomic backbone.
 
 First we'll get the complete list of *Gekkonidae* species taxonomic rank names using [galah](https://galah.ala.org.au/).
@@ -260,13 +260,20 @@ First we'll get the complete list of *Gekkonidae* species taxonomic rank names u
 geckos_species_list <- galah_call() |>
   identify("gekkonidae") |>
   atlas_species()
+
+head(geckos_species_list)
 ```
 
 To match the complete names in `geckos_species_list` with the missing names in `geckos_missing`, we can use a strategy of match-and-merge. 
 
+<!-- Just a note that for some taxa e.g. birds this will not work at all because subgenus is almost always included in scientificName -SB -->
+
 Using a reference column, we'll merge our complete names data to our missing data. The information in the `species_name` column of `geckos_species_list` contains both the genus and species names; this is just like the `scientificName` column of our `geckos_missing` dataset[^2]. We can use these columns as our reference columns.
 
-<!--i'm a little confused as to why we are slicing the species_list and the _missing tibbles? is it just because you want to show an example with a small amount of data so it is digestible and less overwhelming? OT --> 
+<!--i'm a little confused as to why we are slicing the species_list and the _missing tibbles? is it just because you want to show an example with a small amount of data so it is digestible and less overwhelming? OT 
+
+I am similarly confused by this -SB
+--> 
 
 ```{r}
 geckos_species_list |> select(species_name) |> slice(10:15)
@@ -346,7 +353,6 @@ geckos_filtered
  
 ## Summary
 
-This chapter showed ways to find and remove different types of missing records from your dataset. Importantly, there might not be one single cleaned dataset missing all missing values. You might find that in the same workflow, you will clean your dataset in multiple ways to preserve rows that are missing some, but not all, information. For example, some records have complete taxonomic identification but lack spatial coordinates. Other records have spatial coordinates but lack taxonomic information. Depending on your intended type of analysis, you may have to vary how you clean your data for each analysis!
+This chapter showed ways to find and remove different types of missing records from your dataset. It's important to note that there might not be a single cleaned dataset without any missing values. You might find that in the same workflow, you will clean your dataset in multiple ways to preserve rows that are missing some, but not all, information. For example, some records may have complete taxonomic identification but lack spatial coordinates, while others have spatial coordinates but lack taxonomic information. Depending on the type of analysis you intend to perform, you may need to adjust your data cleaning approach accordingly.
 
 In the next chapter we will address working with strings (character sequences). Strings often involve correcting for things like typos or extra spacing that are difficult to pick up at a first glance.
-
