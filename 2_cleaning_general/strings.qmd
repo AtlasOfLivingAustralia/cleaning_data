@@ -15,7 +15,7 @@ number-depth: 3
   * `":Dendrolagus_lumholtzi34"`
   * `"  Dendrolagus lumholtzi  "`
 
-Terms might be capitalised (or not), have (accidental) spaces at the beginning or end of a word or sentence, possess typos or punctuation; all of these things impact your ability to consolidate and analyse data accurately.
+Terms might be capitalised (or not), have accidental spaces at the beginning or end of a word or sentence, contain typos, or include punctuation; all of these things can impact your ability to consolidate and analyse data accurately.
 
 In this chapter, we focus on general data science techniques to clean strings in a dataset.
 
@@ -278,6 +278,9 @@ tree_kangaroo |>
 The examples above demonstrate the use of basic patterns. But for cases that
 need more specific or advanced matching, we can use **regular expressions (or "regex")**. Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as [Regex Generator](https://regex-generator.olafneumann.org/), that are extremely helpful. 
 
+
+<!-- I've never used Regex Generator so I can't comment on it's usefulness, but when I clicked on the link to check it worked, I noticed that R is not listed as one of the languages on the list where it gives you code snippets. I realise this probably doesn't matter because you can just copy/paste the regex-y bit of code into our examples here, but I wondered if it might be confusing to someone who's unfamiliar with regex -SB  -->
+
 Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values.
 
 The `str_view()` function is a useful way to see what a regular expression will return. The results are shown in the **console**, and elements matched by the regex are surrounded with angle brackets `<` `>`. 
@@ -369,6 +372,9 @@ Yeah I agree - this article is quite long and overwhelming already. How is this 
 
 Ok ommitting for now because the example wasn't great anyway. Will have to think of another example if it ever comes up. I think galah has one monster one I made, which could show how bespoke you can get 
 - DK
+
+I saw this section as an intro to regex, so I don't think we should include an advanced example in the book. There are plenty of resources online if the basic examples here are insufficient for readers' needs 
+- SB
 -->
 
 <!--
@@ -380,7 +386,7 @@ In some cases a more specific detection and replacement is required.
 
 ## Capitalisation
 
-Capitalisation (also called case style) can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a data set. There are some basic functions available to change the case of strings in `stringr`:
+Capitalisation (also called case style) can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a dataset. There are some basic functions available to change the case of strings in `stringr`:
 
 ```{r}
 # example
@@ -394,9 +400,9 @@ str_to_title(tree_kangaroo$scientificName[1])
 str_to_sentence(tree_kangaroo$scientificName[1])
 ```
 
-Normally higher taxonomy are capitalised e.g. *Myrtaceae* or *Aves*. Capitalisation errors are usually quick to spot when you print the data object. Alternatively, you can try using `str_subset()` to return capitalisation matches in columns you expect to have capital letters.
+Normally names of higher taxonomy ranks are capitalised e.g. *Myrtaceae*, *Aves*. Capitalisation errors are usually easy to spot when you print the data object. Alternatively, you can use `str_subset()` to return capitalisation matches in columns you expect to have capital letters.
 
-For example, in our `bees` dataset (downloaded at [start of this chapter](strings.qmd#Prerequisites)) some higher taxonomy columns don't capitalise names. The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found.
+For example, in our `bees` dataset (downloaded at the [start of this chapter](strings.qmd#Prerequisites)) some higher taxonomy columns don't capitalise names. The code below subsets out unique values for the variable `class` that have uppercase letters. Notice that no matches are found.
 
 ```{r}
 str_subset(unique(bees$class), "[:upper:]")
@@ -411,13 +417,13 @@ str_subset(unique(bees$class), "[:upper:]")
 :::
 :::
 
-We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that *Insecta* is inputted entirely in lowercase.
+We can verify that there are no uppercase matches by looking at the unique values containing lowercase letters. This reveals that *Insecta* is entirely in lowercase.
 
 ```{r}
 str_subset(unique(bees$class), "[:lower:]")
 ```
 
-We can correct the lower case formatting as below, remember to check the fix before overwriting/removing the erroneous column(s).
+We can correct the lowercase formatting as shown below. Remember to verify the correction before overwriting or removing the erroneous column(s).
 
 ```{r}
 bees |>
@@ -433,6 +439,6 @@ bees_corrected <- bees |>
 
 ## Summary 
 
-In this chapter, we discussed how to identify and clean strings and character patterns data. As you might have noticed, there truly are *many* ways that strings can appear in datasets, which is why there are so many tools and functions to detect them! 
+In this chapter, we explored how to identify and clean strings and character pattern data. As you may have noticed, there are *many* ways in which strings could be formatted, which is why there are so many tools and functions for detecting and modifying them.  
 
-In the next chapter, we look at how to clean dates and other temporal data.
+In the next chapter, we'll look at how to clean date and time data.
