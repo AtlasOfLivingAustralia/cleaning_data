@@ -8,24 +8,17 @@ number-depth: 3
 
 # Dates
 
-Dates can be formatted in *a lot* of different ways in datasets. Here are just a few
-examples:
+Information about dates and times can be formatted in many different ways in datasets. For example, you might encounter:
 
 -   `"2020-10-11T14:02:00"`
 -   `"11 October 2020"`
 -   `"10/11/2020"`
 
-Sometimes multiple date formats are within one data set, especially if
-one data set combines data from more than one source. Usually you will
-need to extract several different types of information using dates, like
-the week number or the interval of time between two dates. You may also
-need to use dates and times to filter or clean your data set.
+It's common to find multiple date formats within a single dataset, especially when combining data from various sources. Often, you'll need to extract different types of information from dates, such as the week number or the interval between two dates. You may also need to filter your dataset by dates or times. 
 
-In this chapter, we provide some basic functions for cleaning dates and
-times. We also show how to reformat and filter your data set using
-dates.
+In this chapter, we'll introduce some basic functions for cleaning dates and times. We'll also demonstrate how to reformat and filter your dataset using dates.
 
-For a more detailed explanation of handling dates and times in R, 
+For a more comprehensive guide on handling dates and times in R, 
 the [Dates and Times chapter](https://r4ds.hadley.nz/datetimes.html) in *R for Data Science* is a fantastic resource.
 
 ### Prerequisites
@@ -112,11 +105,8 @@ plants <- galah_call() |>
 
 ## Basic date manipulation
 
-One of the most useful data cleaning packages for dates is the lubridate
-package. Below are some examples of common date cleaning functions. You
-can find more at the [lubridate package
-website](https://r4ds.hadley.nz/datetimes.html).
-
+One of the most useful data cleaning packages for dates is the [lubridate
+package](https://lubridate.tidyverse.org). Below are some examples of common date cleaning functions. 
 ```{r}
 #| warning: false
 #| message: false
@@ -126,7 +116,7 @@ library(lubridate)
 
 ### Reformat
 
-The lubridate package is incredibly good at reformatting dates written in many different styles to *YYYY-MM-DD* format. Here are a few examples.
+We can use functions in the lubridate package to reformat dates written in different ways to *YYYY-MM-DD* format.
 
 ```{r}
 date("2017-10-11T14:02:00")
@@ -166,7 +156,7 @@ df |>
 
 ### Extract
 
-The lubridate package is also very good at extracting specific information from a longer date. This is very useful for summarising, filtering or plotting.
+Sometimes we might need to extract certain elements of a longer date-time value for summarising, filtering, or plotting data. 
 
 #### Date information
 
@@ -177,7 +167,7 @@ week("2017-11-28T14:02:00")
 day("2017-11-28T14:02:00")
 ```
 
-### Time information
+#### Time information
 
 ```{r}
 ymd_hms("2017-11-28T14:02:00")
@@ -190,9 +180,7 @@ pm("2017-11-28T14:02:00")
 
 ### An example using galah
 
-Data downloaded using the [galah](https://galah.ala.org.au/) package is loaded into R as date and
-time data (class `POSIXct`). As a result, you can immediately begin
-extracting date information using the functions above.
+Data downloaded using the [galah](https://galah.ala.org.au/) package are loaded into R as date and time data (class `POSIXct`). As a result, you can immediately begin extracting date/time information using the functions above.
 
 ```{r}
 plants |>
@@ -236,7 +224,6 @@ plants |>
 
 ## Summary
 
-In this chapter, we provided an introduction to common functions for cleaning
-dates and times for ecological data sets. For some data cleaning tasks, you may need to find more advanced workflows for more bespoke date and time formatting.
+In this chapter, we introduced common functions for cleaning dates and times in ecological datasets. For some data cleaning tasks, you may need to explore more advanced workflows to handle specific date and time formatting requirements.
 
 In the next chapter, we look at issues that require more advanced ecological data cleaning techniques.
