@@ -10,7 +10,7 @@ number-depth: 3
 
 Duplicate records can occur for a number of reasons. For instance, a duplicate record might appear in an individual dataset due to errors in data collection or entry, or occur when aggregating multiple data sources. Alternatively, a record might be considered a duplicate in the context of one type of analysis, but not another. For example, prior to running species distribution models, records in the same location---even if they are separate observations---are considered duplicates and should be removed to avoid spatial bias. If you're running multiple models for several time-periods, however, you may need to include records in the same location if they occurred in different time-periods. *Context is key when determining how to identify and clean duplicate records in your dataset.*
 
-Identifying duplicates is important to avoid misleading analyses or visualisations; duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations, or time periods. In this chapter we will introduce ways of detecting and handling duplicate records in biodiversity data. 
+Identifying duplicates is important to avoid misleading analyses or visualisations. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations, or time periods. In this chapter we will introduce ways of detecting and handling duplicate records in biodiversity data. 
 
 ### Prerequisites
 
