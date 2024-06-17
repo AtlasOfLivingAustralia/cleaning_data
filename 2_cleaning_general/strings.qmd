@@ -15,7 +15,7 @@ number-depth: 3
   * `":Dendrolagus_lumholtzi34"`
   * `"  Dendrolagus lumholtzi  "`
 
-Terms might be capitalised (or not), have (accidental) spaces at the beginning or end of a word or sentence, possess typos or punctuation; all of these things impact your ability to consolidate and analyse data accurately.
+Terms might be capitalised (or not), have accidental spaces at the beginning or end of a word or sentence, contain typos, or include punctuation; all of these things can impact your ability to consolidate and analyse data accurately.
 
 In this chapter, we focus on general data science techniques to clean strings in a dataset.
 
@@ -276,7 +276,9 @@ tree_kangaroo |>
 ### Regex matching
 
 The examples above demonstrate the use of basic patterns. But for cases that
-need more specific or advanced matching, we can use **regular expressions (or "regex")**. Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as [Regex Generator](https://regex-generator.olafneumann.org/), that are extremely helpful. 
+need more specific or advanced matching, we can use **regular expressions (or "regex")**. Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as [Regex 101](https://regex101.com/)[^regex-link], that are extremely helpful. [ChatGPT](https://chatgpt.com/) is also great for building more complex regex snippets. 
+
+[^regex-link: Snippets from this website need additional editing to work correctly in R.]
 
 Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values.
 
@@ -360,27 +362,10 @@ tree_kangaroo[,c("scientificName", "name_updated")]
 ```
 :::
 
-<!-- 
-It might be a good idea to show what advanced regex looks like, but it needs to be a more useful example than the one below 
-- DK
-
-Yeah I agree - this article is quite long and overwhelming already. How is this example more advanced than the examples provided above? Is it just longer? I need a bit of clarification on that otherwise I think readers will struggle to see the relevance 
-- OT 
-
-Ok ommitting for now because the example wasn't great anyway. Will have to think of another example if it ever comes up. I think galah has one monster one I made, which could show how bespoke you can get 
-- DK
--->
-
-<!--
-#### Advanced regex
-
-In some cases a more specific detection and replacement is required. 
-
--->
 
 ## Capitalisation
 
-Capitalisation (also called case style) can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a data set. There are some basic functions available to change the case of strings in `stringr`:
+Capitalisation (also called case style) can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a dataset. There are some basic functions available to change the case of strings in `stringr`:
 
 ```{r}
 # example
@@ -394,9 +379,9 @@ str_to_title(tree_kangaroo$scientificName[1])
 str_to_sentence(tree_kangaroo$scientificName[1])
 ```
 
-Normally higher taxonomy are capitalised e.g. *Myrtaceae* or *Aves*. Capitalisation errors are usually quick to spot when you print the data object. Alternatively, you can try using `str_subset()` to return capitalisation matches in columns you expect to have capital letters.
+Normally names of higher taxonomy ranks are capitalised e.g. *Myrtaceae*, *Aves*. Capitalisation errors are usually easy to spot when you print the data object. Alternatively, you can use `str_subset()` to return capitalisation matches in columns you expect to have capital letters.
 
-For example, in our `bees` dataset (downloaded at [start of this chapter](strings.qmd#Prerequisites)) some higher taxonomy columns don't capitalise names. The code below subsets out unique values for the variable `class` that have upper case letters. Notice that no matches are found.
+For example, in our `bees` dataset (downloaded at the [start of this chapter](strings.qmd#Prerequisites)) some higher taxonomy columns don't capitalise names. The code below subsets out unique values for the variable `class` that have uppercase letters. Notice that no matches are found.
 
 ```{r}
 str_subset(unique(bees$class), "[:upper:]")
@@ -411,13 +396,13 @@ str_subset(unique(bees$class), "[:upper:]")
 :::
 :::
 
-We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that *Insecta* is inputted entirely in lowercase.
+We can verify that there are no uppercase matches by looking at the unique values containing lowercase letters. This reveals that *Insecta* is entirely in lowercase.
 
 ```{r}
 str_subset(unique(bees$class), "[:lower:]")
 ```
 
-We can correct the lower case formatting as below, remember to check the fix before overwriting/removing the erroneous column(s).
+We can correct the lowercase formatting as shown below. Remember to verify the correction before overwriting or removing the erroneous column(s).
 
 ```{r}
 bees |>
@@ -433,6 +418,6 @@ bees_corrected <- bees |>
 
 ## Summary 
 
-In this chapter, we discussed how to identify and clean strings and character patterns data. As you might have noticed, there truly are *many* ways that strings can appear in datasets, which is why there are so many tools and functions to detect them! 
+In this chapter, we explored how to identify and clean strings and character pattern data. As you may have noticed, there are *many* ways in which strings could be formatted, which is why there are so many tools and functions for detecting and modifying them.  
 
-In the next chapter, we look at how to clean dates and other temporal data.
+In the next chapter, we'll look at how to clean date and time data.

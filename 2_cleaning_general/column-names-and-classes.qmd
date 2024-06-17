@@ -10,7 +10,7 @@ editor_options:
 
 # Column classes & names
 
-Each column in a dataset contains data of a specific class. A class defines the type of data in a column and determines how those data are interpreted in R, and how we can modify those data. For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what *types* of data are in each column of your table will ensure those data behave as expected later on. Classes are important to understand (or fix) because, generally, functions will not work if the data type is not compatible. 
+Each column in a dataset contains values of a specific type, or *class*. A class defines the type of data in a column and determines how those data are interpreted in R, and how we can modify those data. For instance, it doesn't make sense to apply a mathematical equation to a word or a sentence. The phrase "hello" doesn't reveal whether something is true or false. Knowing what types, or classes, of data are in each column of your table will ensure those data behave as expected later on. Classes are important to understand because, generally, functions only work on compatible data types. 
 
 Column names can also cause compatibility issues when working with a dataset. Depending on the source of your dataset, existing column names may be uninformative (e.g. `col1`, `tga42.D`), oddly formatted once imported into R (e.g. `How.Much.Soil.Is.In.This.Plot..`), or internally inconsistent (e.g. `species_name`, `scientificName`). Modifying these can make it much easier to work with the data and avoid errors caused by mismatched or confusing column names. 
 
@@ -219,7 +219,7 @@ class(frogs_class$decimalLatitude)
 ::: {.callout-warning collapse="true"}
 ## Look out for typos
 
-A simple typo in the dataset you import into R could be all it takes to change the class of an entire column, so be sure to keep your eyes out for strange column classes!
+A simple typo in the dataset you import into R could be all it takes to change the class of an entire column, so be sure to keep your eyes out for unexpected column classes!
 :::
 
 ## Column names
@@ -228,7 +228,7 @@ There are many reasons why you might need to change the name of one or more colu
 
 ### Make column names consistent
 
-Column names should use consistent naming conventions. R is case sensitive, so two names with the same letters but different capitalisations are considered different names (e.g. `event` vs. `Event`). Using a consistent naming convention, like camel case or snake case, makes it easier to avoid these errors. Common naming formats include "snake case" and "camel case", which are popular because they are both human- and machine-readable. 
+Column names should use consistent naming conventions. R is case sensitive, so two names with the same letters but different capitalisations are considered different names (e.g. `event` vs. `Event`). Using a naming convention which is both human- and machine-readable (e.g. camel case, snake case), and being consistent in your usage of it, makes it less likely that you will make these sorts of errors.  
 
 **Camel case** begins in lowercase and uses uppercase for the first letter of every subsequent word (e.g. `scientificName`, `dataResourceName`, `eventDate`).  
 
@@ -275,7 +275,7 @@ frogs |>
 
 ### Rename columns
 
-Renaming columns is a frequent data cleaning task. Column names might need renaming to make it clearer what data they contain, or to make a name consistent with another dataset prior to merging their contents.
+Renaming columns is a common data cleaning task. It may be necessary to rename columns to clarify the data they contain or to ensure consistency with another dataset before merging them.
 
 There are several ways to rename columns in R.
 
@@ -290,6 +290,8 @@ On the other hand, people might wonder why the output looks different? I'm not s
 Update: I decided to stick with the code look, not html table, in the below sections because I don't think the extra step to make the table html was 
 necessary. I did apply it to later examples because I thought it improved readability
 - DK
+
+I think you made the right decisions -SB
 -->
 
 ::: {.panel-tabset .nav-pills}
@@ -326,7 +328,7 @@ frogs |>
 
 #### `names()` + `<-`
 
-Index a specific column name in base R with the help of `names()`. Assign a new column name to replace an old column name using the assign operator `<-`.
+Index a specific column name in base R with the help of `names()`. Assign a new column name to replace an old column name using the assignment operator `<-`.
 
 ```{r}
 names(frogs)[names(frogs) == "decimalLatitude"] <- "latitude"
@@ -393,6 +395,8 @@ frogs_united |> rmarkdown::paged_table() # nice format
 
 ## Summary
 
-In this chapter, we've explored different ways to check the class of each column in your table to make sure R is interpreting your data correctly. We also showed how to change column names to make it easier to work with them and to split or combine columns to access data more conveniently. 
+In this chapter, we explored different ways to check the class of each column in your table to make sure R is interpreting your data correctly. We also demonstrated how to rename columns for easier handling and how to split or combine columns to access data more conveniently. 
 
-In the next chapter we will learn to efficiently clean **duplicate** data. Duplicates might occur due to mistakes in data collection or entry, or, from merging data from multiple sources. 
+In this chapter, we examined various methods to verify the class of each column in your table, ensuring that R correctly interprets your data. We also demonstrated how to rename columns for easier handling and how to split or combine columns for more convenient data access.
+
+In the next chapter, we will learn how to efficiently clean **duplicate** data. Duplicates can arise from errors in data collection or entry, or from merging data from multiple sources.
