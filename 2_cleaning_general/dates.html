@@ -343,8 +343,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#reformat" id="toc-reformat" class="nav-link" data-scroll-target="#reformat"><span class="header-section-number">7.1.1</span> Reformat</a></li>
   <li><a href="#extract" id="toc-extract" class="nav-link" data-scroll-target="#extract"><span class="header-section-number">7.1.2</span> Extract</a></li>
-  <li><a href="#time-information" id="toc-time-information" class="nav-link" data-scroll-target="#time-information"><span class="header-section-number">7.1.3</span> Time information</a></li>
-  <li><a href="#an-example-using-galah" id="toc-an-example-using-galah" class="nav-link" data-scroll-target="#an-example-using-galah"><span class="header-section-number">7.1.4</span> An example using galah</a></li>
+  <li><a href="#an-example-using-galah" id="toc-an-example-using-galah" class="nav-link" data-scroll-target="#an-example-using-galah"><span class="header-section-number">7.1.3</span> An example using galah</a></li>
   </ul></li>
   <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">7.2</span> Filter</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.3</span> Summary</a></li>
@@ -373,15 +372,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Dates can be formatted in <em>a lot</em> of different ways in datasets. Here are just a few examples:</p>
+<p>Information about dates and times can be formatted in many different ways in datasets. For example, you might encounter:</p>
 <ul>
 <li><code>"2020-10-11T14:02:00"</code></li>
 <li><code>"11 October 2020"</code></li>
 <li><code>"10/11/2020"</code></li>
 </ul>
-<p>Sometimes multiple date formats are within one data set, especially if one data set combines data from more than one source. Usually you will need to extract several different types of information using dates, like the week number or the interval of time between two dates. You may also need to use dates and times to filter or clean your data set.</p>
-<p>In this chapter, we provide some basic functions for cleaning dates and times. We also show how to reformat and filter your data set using dates.</p>
-<p>For a more detailed explanation of handling dates and times in R, the <a href="https://r4ds.hadley.nz/datetimes.html">Dates and Times chapter</a> in <em>R for Data Science</em> is a fantastic resource.</p>
+<p>It’s common to find multiple date formats within a single dataset, especially when combining data from various sources. Often, you’ll need to extract different types of information from dates, such as the week number or the interval between two dates. You may also need to filter your dataset by dates or times.</p>
+<p>In this chapter, we’ll introduce some basic functions for cleaning dates and times. We’ll also demonstrate how to reformat and filter your dataset using dates.</p>
+<p>For a more comprehensive guide on handling dates and times in R, the <a href="https://r4ds.hadley.nz/datetimes.html">Dates and Times chapter</a> in <em>R for Data Science</em> is a fantastic resource.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="7.0.1">
 <h3 data-number="7.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">7.0.1</span> Prerequisites</h3>
 <p>In this chapter, we will use Spider flower (<em>Grevillea</em>) occurrence records in the ALA.</p>
@@ -437,13 +436,13 @@ Original download queries
 </section>
 <section id="basic-date-manipulation" class="level2 page-columns page-full" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="basic-date-manipulation"><span class="header-section-number">7.1</span> Basic date manipulation</h2>
-<p>One of the most useful data cleaning packages for dates is the lubridate package. Below are some examples of common date cleaning functions. You can find more at the <a href="https://r4ds.hadley.nz/datetimes.html">lubridate package website</a>.</p>
+<p>One of the most useful data cleaning packages for dates is the <a href="https://lubridate.tidyverse.org">lubridate package</a>. Below are some examples of common date cleaning functions.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="reformat" class="level3" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="reformat"><span class="header-section-number">7.1.1</span> Reformat</h3>
-<p>The lubridate package is incredibly good at reformatting dates written in many different styles to <em>YYYY-MM-DD</em> format. Here are a few examples.</p>
+<p>We can use functions in the lubridate package to reformat dates written in different ways to <em>YYYY-MM-DD</em> format.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>(<span class="st">"2017-10-11T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -506,7 +505,7 @@ Caused by warning:
 </section>
 <section id="extract" class="level3" data-number="7.1.2">
 <h3 data-number="7.1.2" class="anchored" data-anchor-id="extract"><span class="header-section-number">7.1.2</span> Extract</h3>
-<p>The lubridate package is also very good at extracting specific information from a longer date. This is very useful for summarising, filtering or plotting.</p>
+<p>Sometimes we might need to extract certain elements of a longer date-time value for summarising, filtering, or plotting data.</p>
 <section id="date-information" class="level4">
 <h4 class="anchored" data-anchor-id="date-information">Date information</h4>
 <div class="cell">
@@ -528,9 +527,8 @@ Caused by warning:
 </div>
 </div>
 </section>
-</section>
-<section id="time-information" class="level3" data-number="7.1.3">
-<h3 data-number="7.1.3" class="anchored" data-anchor-id="time-information"><span class="header-section-number">7.1.3</span> Time information</h3>
+<section id="time-information" class="level4">
+<h4 class="anchored" data-anchor-id="time-information">Time information</h4>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -558,9 +556,10 @@ Caused by warning:
 </div>
 </div>
 </section>
-<section id="an-example-using-galah" class="level3 page-columns page-full" data-number="7.1.4">
-<h3 data-number="7.1.4" class="anchored" data-anchor-id="an-example-using-galah"><span class="header-section-number">7.1.4</span> An example using galah</h3>
-<p>Data downloaded using the <a href="https://galah.ala.org.au/">galah</a> package is loaded into R as date and time data (class <code>POSIXct</code>). As a result, you can immediately begin extracting date information using the functions above.</p>
+</section>
+<section id="an-example-using-galah" class="level3 page-columns page-full" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="an-example-using-galah"><span class="header-section-number">7.1.3</span> An example using galah</h3>
+<p>Data downloaded using the <a href="https://galah.ala.org.au/">galah</a> package are loaded into R as date and time data (class <code>POSIXct</code>). As a result, you can immediately begin extracting date/time information using the functions above.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">|&gt;</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -649,7 +648,7 @@ Caused by warning:
 </section>
 <section id="summary" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.3</span> Summary</h2>
-<p>In this chapter, we provided an introduction to common functions for cleaning dates and times for ecological data sets. For some data cleaning tasks, you may need to find more advanced workflows for more bespoke date and time formatting.</p>
+<p>In this chapter, we introduced common functions for cleaning dates and times in ecological datasets. For some data cleaning tasks, you may need to explore more advanced workflows to handle specific date and time formatting requirements.</p>
 <p>In the next chapter, we look at issues that require more advanced ecological data cleaning techniques.</p>
 
 

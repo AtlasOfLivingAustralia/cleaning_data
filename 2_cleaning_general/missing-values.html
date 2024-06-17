@@ -562,7 +562,7 @@ Original download queries
 #   phylum &lt;chr&gt;, order &lt;chr&gt;, class &lt;chr&gt;, family &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>Or we can specify the column to find rows with <code>NA</code> values one or more columns in particular (in this case column <code>cl22</code>).</p>
+<p>Or we can specify a column to find rows with <code>NA</code> values (in this case column <code>cl22</code>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>geckos <span class="sc">|&gt;</span> </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">if_any</span>(cl22, is.na)) <span class="sc">|&gt;</span> </span>
@@ -654,8 +654,8 @@ Original download queries
 <h2 data-number="5.3" class="anchored" data-anchor-id="taxonomic-values"><span class="header-section-number">5.3</span> Taxonomic values</h2>
 <section id="missing-higher-rank" class="level3" data-number="5.3.1">
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="missing-higher-rank"><span class="header-section-number">5.3.1</span> Missing higher rank</h3>
-<p>Sometimes data can be missing information in columns with higher taxonomic rankings, even if observations have been taxonomically identified down to the species level. In this case, the goal isn’t only to remove the missing values, but to fill missing information with the correct information.</p>
-<p>As an example, we’ll use a slightly modified <code>geckos_missing</code> dataset with some missing data add into the higher columns<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Below is a preview, and you’ll notice that there are <code>NA</code> values in the <code>class</code> and <code>family</code> columns as you skim across the pages.</p>
+<p>Sometimes data can be missing information in columns with higher taxonomic rankings, even if observations have been taxonomically identified down to the species level. In this case, the goal isn’t only to remove the missing values, but to fill in the gaps with the correct information.</p>
+<p>As an example, we’ll use a slightly modified <code>geckos_missing</code> dataset with some missing data added into the higher columns<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Below is a preview, and you’ll notice that there are <code>NA</code> values in the <code>class</code> and <code>family</code> columns as you skim across the pages.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -696,18 +696,49 @@ Original download queries
 #   kingdom &lt;chr&gt;, phylum &lt;chr&gt;, order &lt;chr&gt;, cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>If you have a list of taxonomic names with complete ranking information from your preferred <a href="../4_accessing/where-to-get-data.qmd#taxonomic-data">taxonomic naming authority</a>, you can use this information to back-fill your missing data columns. In our case, we can use names from ALA’s taxonomic backbone.</p>
+<p>If you have a list of taxonomic names with complete ranking information from your preferred <a href="../4_accessing/where-to-get-data.html#taxonomic-data">taxonomic naming authority</a>, you can use this information to back-fill your missing data columns. In our case, we can use names from ALA’s taxonomic backbone.</p>
 <p>First we’ll get the complete list of <em>Gekkonidae</em> species taxonomic rank names using <a href="https://galah.ala.org.au/">galah</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>geckos_species_list <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"gekkonidae"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_species</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_species</span>()</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(geckos_species_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 11
+  taxon_concept_id species_name scientific_name_auth…¹ taxon_rank kingdom phylum
+  &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;                  &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt; 
+1 https://biodive… Heteronotia… (Gray, 1845)           species    Animal… Chord…
+2 https://biodive… Christinus … (Gray, 1845)           species    Animal… Chord…
+3 https://biodive… Gehyra vari… (Duméril &amp; Bibron, 18… species    Animal… Chord…
+4 https://biodive… Hemidactylu… Duméril &amp; Bibron, 1836 species    Animal… Chord…
+5 https://biodive… Gehyra dubia (Macleay, 1877)        species    Animal… Chord…
+6 https://biodive… Gehyra vers… Hutchinson, Sistrom, … species    Animal… Chord…
+# ℹ abbreviated name: ¹​scientific_name_authorship
+# ℹ 5 more variables: class &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,
+#   vernacular_name &lt;chr&gt;</code></pre>
+</div>
 </div>
 <p>To match the complete names in <code>geckos_species_list</code> with the missing names in <code>geckos_missing</code>, we can use a strategy of match-and-merge.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>For some taxonomic groups like birds this will not work because <a href="../3_cleaning_expert/taxonomic-validation.html#example-2-subgenera">subgenus is almost always included</a> in <code>scientificName</code>. In this scenario, you might need to use more advanced methods like those in the <a href="../3_cleaning_expert/taxonomic-validation.html">Taxonomic Validation chapter</a> to match and back-fill taxonomic information.</p>
+</div>
+</div>
+</div>
 <p>Using a reference column, we’ll merge our complete names data to our missing data. The information in the <code>species_name</code> column of <code>geckos_species_list</code> contains both the genus and species names; this is just like the <code>scientificName</code> column of our <code>geckos_missing</code> dataset<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. We can use these columns as our reference columns.</p>
-<!--i'm a little confused as to why we are slicing the species_list and the _missing tibbles? is it just because you want to show an example with a small amount of data so it is digestible and less overwhelming? OT -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>geckos_species_list <span class="sc">|&gt;</span> <span class="fu">select</span>(species_name) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>geckos_species_list <span class="sc">|&gt;</span> <span class="fu">select</span>(species_name) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>) <span class="co"># see sample of data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 1
   species_name           
@@ -719,7 +750,7 @@ Original download queries
 5 Nactus eboracensis     
 6 Gehyra punctata        </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>geckos_missing <span class="sc">|&gt;</span> <span class="fu">select</span>(scientificName) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>geckos_missing <span class="sc">|&gt;</span> <span class="fu">select</span>(scientificName) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>) <span class="co"># see sample of data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 1
   scientificName         
@@ -734,18 +765,18 @@ Original download queries
 </div>
 <p>Now we’ll select the subset of columns from <code>geckos_species_list</code> that we wish to join with <code>geckos_missing</code> (and our reference column, <code>species_name</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>list_subset <span class="ot">&lt;-</span> geckos_species_list <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_name, class, family)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>list_subset <span class="ot">&lt;-</span> geckos_species_list <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species_name, class, family)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can use <code>left_join()</code> to merge <code>list_subset</code> to <code>geckos_missing</code>. Records that are identified at least down to the family level now have the correct rank information in the <code>class_new</code> and <code>family_new</code> columns <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
-<!-- I think this footnote is kinda important to understand why there are NA's in the new columns. im thinking it would be better off not as a footnote especially because the article is about NA's explicitly it might raise some red flags at first glance of the table? :-) OT -->
+<p>We can use <code>left_join()</code> to merge <code>list_subset</code> to <code>geckos_missing</code>. Records that are identified at least down to the family level now have the correct rank information in the <code>class_new</code> and <code>family_new</code> columns [^3].</p>
+<p>This hasn’t worked for every row, however, because <code>scientificName</code> contains the name of the lowest taxonomic rank the occurrence is identified to. Names like <code>Christinus</code> and <code>Gehyra</code> are genus names, so in these cases <code>scientificName</code> won’t match our reference <code>species_name</code> column!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>geckos_missing <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(list_subset, </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">join_by</span>(scientificName <span class="sc">==</span> species_name), </span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">"_old"</span>, <span class="st">"_new"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, class_old, family_old, class_new, family_new) <span class="sc">|&gt;</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">20</span><span class="sc">:</span><span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>geckos_missing <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(list_subset, </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">join_by</span>(scientificName <span class="sc">==</span> species_name), </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">"_old"</span>, <span class="st">"_new"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, class_old, family_old, class_new, family_new) <span class="sc">|&gt;</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">20</span><span class="sc">:</span><span class="dv">30</span>) <span class="co"># see sample of data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 11 × 5
    scientificName         class_old family_old class_new family_new
@@ -763,24 +794,23 @@ Original download queries
 11 Christinus marmoratus  Reptilia  Gekkonidae Reptilia  Gekkonidae</code></pre>
 </div>
 </div>
-<!--same here w the slicing OT -->
 </section>
 <section id="insufficient-taxonomic-identification" class="level3 page-columns page-full" data-number="5.3.2">
 <h3 data-number="5.3.2" class="anchored" data-anchor-id="insufficient-taxonomic-identification"><span class="header-section-number">5.3.2</span> Insufficient taxonomic identification</h3>
 <p>If a record is not identified down to the necessary taxonomic level required for your analysis (e.g.&nbsp;down to species or sub-species level), then the record should be removed.</p>
-<p>One handy tip you can use with the <a href="https://galah.ala.org.au/">galah</a> package is to add the column <a href="https://dwc.tdwg.org/terms/#dwc:taxonRank"><code>taxonRank</code></a>. This column usefully shows the taxonomic level of names in <code>scientificName</code><a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. <code>taxonRank</code> can be useful because we can filter to only include records down to a specific rank.</p>
+<p>One handy tip you can use with the <a href="https://galah.ala.org.au/">galah</a> package is to add the column <a href="https://dwc.tdwg.org/terms/#dwc:taxonRank"><code>taxonRank</code></a>. This column usefully shows the taxonomic level of names in <code>scientificName</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. <code>taxonRank</code> can be useful because we can filter to only include records down to a specific rank.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>geckos_rank <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"gekkonidae"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>,</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>         taxonRank) <span class="sc">|&gt;</span> <span class="co"># add column</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># return records identified to species level</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>geckos_rank <span class="sc">|&gt;</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxonRank <span class="sc">==</span> <span class="st">"species"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(taxonRank, scientificName, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>geckos_rank <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"gekkonidae"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>         taxonRank) <span class="sc">|&gt;</span> <span class="co"># add column</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># return records identified to species level</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>geckos_rank <span class="sc">|&gt;</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxonRank <span class="sc">==</span> <span class="st">"species"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(taxonRank, scientificName, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,823 × 9
    taxonRank scientificName        recordID       taxonConceptID decimalLatitude
@@ -802,11 +832,11 @@ Original download queries
 </div>
 <p>However, it is still possible to filter records using the tools above without using the <code>taxonRank</code> column. In this case we remove records not identified down to the genus.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>geckos_filtered <span class="ot">&lt;-</span> geckos <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(genus) <span class="sc">|&gt;</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, genus, species, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>geckos_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>geckos_filtered <span class="ot">&lt;-</span> geckos <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(genus) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, genus, species, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>geckos_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27,363 × 17
    scientificName        genus   species recordID taxonConceptID decimalLatitude
@@ -838,7 +868,7 @@ Original download queries
 </section>
 <section id="summary-1" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="summary-1"><span class="header-section-number">5.4</span> Summary</h2>
-<p>This chapter showed ways to find and remove different types of missing records from your dataset. Importantly, there might not be one single cleaned dataset missing all missing values. You might find that in the same workflow, you will clean your dataset in multiple ways to preserve rows that are missing some, but not all, information. For example, some records have complete taxonomic identification but lack spatial coordinates. Other records have spatial coordinates but lack taxonomic information. Depending on your intended type of analysis, you may have to vary how you clean your data for each analysis!</p>
+<p>This chapter showed ways to find and remove different types of missing records from your dataset. It’s important to note that there might not be a single cleaned dataset without any missing values. You might find that in the same workflow, you will clean your dataset in multiple ways to preserve rows that are missing some, but not all, information. For example, some records may have complete taxonomic identification but lack spatial coordinates, while others have spatial coordinates but lack taxonomic information. Depending on the type of analysis you intend to perform, you may need to adjust your data cleaning approach accordingly.</p>
 <p>In the next chapter we will address working with strings (character sequences). Strings often involve correcting for things like typos or extra spacing that are difficult to pick up at a first glance.</p>
 
 
@@ -848,8 +878,7 @@ Original download queries
 <ol>
 <li id="fn1"><p>The Atlas of Living Australia matches taxonomic names when data is ingested from data providers. This process means that it’s very rare for a species to be missing higher taxonomic rank names. This might not be the case for other data sources, though!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>This column contains the name of the lowest taxonomic rank the occurrence is identified to.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>This hasn’t worked for every row, however, because <code>scientificName</code> contains the name of the lowest taxonomic rank the occurrence is identified to. Names like <code>Christinus</code> and <code>Gehyra</code> are genus names, so in these cases <code>scientificName</code> won’t match our reference <code>species_name</code> column!<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>This column contains the name of the lowest taxonomic rank the occurrence is identified to.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This column contains the name of the lowest taxonomic rank the occurrence is identified to.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

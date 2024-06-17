@@ -369,26 +369,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Duplicate records can occur for a number of reasons. A duplicate record might appear in an individual dataset due to collection or entry error. A record might be duplicated when aggregating data sources. Alternatively, a record might be considered a duplicate in the context of one type of analysis, but not another. For example, prior to running species distribution models, records in the same location—even if they are separate observations—are considered duplicates and should be removed to avoid spatial bias. If running multiple models for several time-periods, however, records in the same location may be permitted in the final dataset if they occurred in different time-periods. <em>Context is key when determining how to identify and clean duplicate records in your dataset.</em></p>
-<p>Understanding how to replace duplicates is important because skipping this step could result in misleading analyses or visualisations. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods.</p>
-<p>In this chapter we will introduce detection and handling of duplicate records as we are working with biodiversity occurrence data.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Tip
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>The methods used in this chapter to search and clean duplicate records can be applied to other types of data columns, too, not only columns that contain spatial data.</p>
-<p>Depending on your analysis, you might need to use more bespoke methods to clean duplicates. Later chapters like <a href="../3_cleaning_expert/taxonomic-validation.html">Taxonomic validation</a> and <a href="../3_cleaning_expert/geospatial-cleaning.html">Geospatial cleaning</a> cover more advanced detection and cleaning methods.</p>
-</div>
-</div>
-</div>
+<p>Duplicate records can occur for a number of reasons. For instance, a duplicate record might appear in an individual dataset due to errors in data collection or entry, or occur when aggregating multiple data sources. Alternatively, a record might be considered a duplicate in the context of one type of analysis, but not another. For example, prior to running species distribution models, records in the same location—even if they are separate observations—are considered duplicates and should be removed to avoid spatial bias. If you’re running multiple models for several time-periods, however, you may need to include records in the same location if they occurred in different time-periods. <em>Context is key when determining how to identify and clean duplicate records in your dataset.</em></p>
+<p>Identifying duplicates is important to avoid misleading analyses or visualisations. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations, or time periods. In this chapter we will introduce ways of detecting and handling duplicate records in biodiversity data.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="4.0.1">
 <h3 data-number="4.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">4.0.1</span> Prerequisites</h3>
 <p>In this chapter, we will use kingfisher (<em>Alcedinidae</em>) occurrence data in 2023 from the ALA.</p>
@@ -411,7 +393,7 @@ Tip
 <p><a href="https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3"><em>Todiramphus (Todiramphus) sanctus</em> perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)</a></p>
 </div>
 </div></div><div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -420,7 +402,7 @@ Original download queries
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Note:</strong> You don’t need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.</p>
 <div class="cell">
@@ -448,25 +430,20 @@ Original download queries
 </section>
 <section id="find-duplicates" class="level2 page-columns page-full" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="find-duplicates"><span class="header-section-number">4.1</span> Find duplicates</h2>
-<p>Let’s remove any records that have multiple occurrences in the same location specified by their latitude and longitude coordinates.</p>
+<p>As an first example, let’s remove all spatially-duplicated records, based on latitude and longitude coordinate values.</p>
 <p>The first thing to do is find the duplicate records.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">dplyr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">janitor</a></li></ul>
 <div class="tab-content nav-pills">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Return a summary of the number of duplicates with each set of coordinates.</p>
+<p>Return a summary of the number of duplicates for each set of coordinates.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(decimalLongitude, decimalLatitude) <span class="sc">|&gt;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'decimalLongitude'. You can override using
-the `.groups` argument.</code></pre>
-</div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5,252 × 3
-# Groups:   decimalLongitude [5,234]
    decimalLongitude decimalLatitude     n
               &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;
  1             115.           -34.1     2
@@ -484,8 +461,8 @@ the `.groups` argument.</code></pre>
 </div>
 <p>Return a summary of duplicate decimal longitude and latitude rows in the entire dataset.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 27,278 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
@@ -510,8 +487,8 @@ the `.groups` argument.</code></pre>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <p>Return duplicated rows and the number of duplicates of <code>decimalLatitude</code> OR <code>decimalLongitude</code> (note that this differs from the dplyr example because janitor uses commas as an OR statement).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_dupes</span>(decimalLatitude, decimalLongitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_dupes</span>(decimalLatitude, decimalLongitude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 32,503 × 14
    decimalLatitude decimalLongitude dupe_count recordID           scientificName
@@ -535,11 +512,12 @@ the `.groups` argument.</code></pre>
 </div>
 </div>
 </div>
-<p>In the above <code>tibble</code> our results show that there are just over 27,000 records that overlap spatially with duplicate coordinates. While we want to remove duplicate records, we don’t necessarily want to remove <em>all</em> duplicates. Our duplicate dataset contains several different species, and sometimes, several species might be in the same location. Rather than removing all but one species in a location, we probably want to remove duplicates <em>for each species</em>. This should leave one observation for each species in each location.</p>
+<p>In the above <code>tibble</code> our results show that there are just over 27,000 records that overlap spatially with duplicate coordinates. That seems like a lot! It would be rare to remove duplicates so broadly without considering <em>why</em> we need to remove duplicates; we don’t necessarily want to remove <em>all</em> of them.</p>
+<p>Instead, if we are interested in comparing species in our data, it might be more useful to find duplicate spatial records <strong>for each species</strong>. We can split our data by species and remove records where there is more than one observation of the same species in the same location. This should leave one observation for each species in each location.</p>
 <p>To filter our duplicate data by species, we can first split our data by species…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell output-scroll">
 <div class="cell-output cell-output-stdout">
@@ -779,7 +757,7 @@ the `.groups` argument.</code></pre>
 </div>
 </div></div><p>…and use <code>purrr::map()</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to remove duplicates for each species group, binding our dataframes together again with <code>bind_rows()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'purrr'</code></pre>
@@ -789,13 +767,13 @@ Attaching package: 'purrr'</code></pre>
 
     %||%</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(species) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(df) </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>      df <span class="sc">|&gt;</span> </span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude))</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>birds <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(df) </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>      df <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 23,776 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
@@ -816,19 +794,19 @@ Attaching package: 'purrr'</code></pre>
 #   cl22 &lt;chr&gt;, month &lt;dbl&gt;</code></pre>
 </div>
 </div>
-<p>Splitting by species has reduced the total number of duplicate records by ~3,500 rows because more than one species cmultiple species can have one record with the same coordinates.</p>
+<p>Splitting by species has reduced the total number of duplicate records by ~3,500 rows because we’ve made it possible for multiple species to have records with the same spatial coordinates.</p>
 </section>
 <section id="remove-duplicates" class="level2 page-columns page-full" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="remove-duplicates"><span class="header-section-number">4.2</span> Remove duplicates</h2>
 <p>To now <em>remove</em> these duplicates from our dataframe, we can use the <code>!</code> operator to return records that <em>are not</em> duplicated, rather than those that are.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(species) <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(df) </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>      df <span class="sc">|&gt;</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">duplicated</span>(decimalLatitude))) <span class="sc">|&gt;</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>birds_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_split</span>(species) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(df) </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>      df <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">duplicated</span>(decimalLatitude))) <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>birds_filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 22,011 × 13
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
@@ -851,12 +829,12 @@ Attaching package: 'purrr'</code></pre>
 </div>
 <p>To check our results, we can grab a random row from our unfiltered dataframe…</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>test_row <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude)) <span class="sc">|&gt;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">10</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>test_row <span class="sc">|&gt;</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, decimalLatitude, decimalLongitude, recordID) <span class="co"># show relevant columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>test_row <span class="ot">&lt;-</span> birds <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(decimalLongitude) <span class="sc">&amp;</span> <span class="fu">duplicated</span>(decimalLatitude)) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">10</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>test_row <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, decimalLatitude, decimalLongitude, recordID) <span class="co"># show relevant columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   species             decimalLatitude decimalLongitude recordID                 
@@ -866,12 +844,12 @@ Attaching package: 'purrr'</code></pre>
 </div>
 <p>…and see whether any rows in <code>birds_filtered</code> have the same combination of longitude and latitude coordinates.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    decimalLatitude <span class="sc">%in%</span> test_row<span class="sc">$</span>decimalLatitude <span class="sc">&amp;</span> </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>      decimalLongitude <span class="sc">%in%</span> test_row<span class="sc">$</span>decimalLongitude</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, decimalLatitude, decimalLongitude, recordID) <span class="co"># show relevant columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    decimalLatitude <span class="sc">%in%</span> test_row<span class="sc">$</span>decimalLatitude <span class="sc">&amp;</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>      decimalLongitude <span class="sc">%in%</span> test_row<span class="sc">$</span>decimalLongitude</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(species, decimalLatitude, decimalLongitude, recordID) <span class="co"># show relevant columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 4
   species               decimalLatitude decimalLongitude recordID               
@@ -888,8 +866,8 @@ Attaching package: 'purrr'</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>birds_filtered <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div data-pagedtable="false">
@@ -908,7 +886,8 @@ Attaching package: 'purrr'</code></pre>
 </div></div></section>
 <section id="summary" class="level2" data-number="4.3">
 <h2 data-number="4.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">4.3</span> Summary</h2>
-<p>This chapter has offered a quick look at how to find duplicate records, remove them from your dataset, and check whether your records have been removed correctly. You may have to check for duplicates in several ways to ensure you have cleaned all duplicate records from your dataset. The next chapter will show you how to clean <strong>missing values</strong> from your dataset.</p>
+<p>This chapter has introduced some ways to find duplicated records, remove them from datasets, and check if the changes were correctly made. These methods can be more broadly applied to other types of data as well, not just spatial data. Depending on your analysis, you may need to use bespoke methods for handling duplicates. Later chapters like <a href="../3_cleaning_expert/taxonomic-validation.html">Taxonomic validation</a> and <a href="../3_cleaning_expert/geospatial-cleaning.html">Geospatial cleaning</a> cover more advanced detection and cleaning methods.</p>
+<p>In the next chapter, we will discuss ways of handling <strong>missing values</strong> in your dataset.</p>
 
 
 </section>
