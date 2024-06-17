@@ -251,8 +251,7 @@ geckos_missing |>
   select(scientificName, class, family, genus, species, everything())
 ```
 
-<!-- This internal link did not work for me -SB -->
-If you have a list of taxonomic names with complete ranking information from your preferred [taxonomic naming authority](../4_accessing/where-to-get-data.qmd#taxonomic-data), you can use this information to back-fill your missing data columns. In our case, we can use names from ALA's taxonomic backbone.
+If you have a list of taxonomic names with complete ranking information from your preferred [taxonomic naming authority](../4_accessing/where-to-get-data.html#taxonomic-data), you can use this information to back-fill your missing data columns. In our case, we can use names from ALA's taxonomic backbone.
 
 First we'll get the complete list of *Gekkonidae* species taxonomic rank names using [galah](https://galah.ala.org.au/).
 
@@ -266,18 +265,18 @@ head(geckos_species_list)
 
 To match the complete names in `geckos_species_list` with the missing names in `geckos_missing`, we can use a strategy of match-and-merge. 
 
-<!-- Just a note that for some taxa e.g. birds this will not work at all because subgenus is almost always included in scientificName -SB -->
+:::{.callout-note collapse="true"}
+
+For some taxonomic groups like birds this will not work because [subgenus is almost always included](../3_cleaning_expert/taxonomic-validation.html#example-2-subgenera) in `scientificName`. In this scenario, you might need to use more advanced methods like those in the [Taxonomic Validation chapter](../3_cleaning_expert/taxonomic-validation.html) to match and back-fill taxonomic information. 
+
+:::
 
 Using a reference column, we'll merge our complete names data to our missing data. The information in the `species_name` column of `geckos_species_list` contains both the genus and species names; this is just like the `scientificName` column of our `geckos_missing` dataset[^2]. We can use these columns as our reference columns.
 
-<!--i'm a little confused as to why we are slicing the species_list and the _missing tibbles? is it just because you want to show an example with a small amount of data so it is digestible and less overwhelming? OT 
-
-I am similarly confused by this -SB
---> 
 
 ```{r}
-geckos_species_list |> select(species_name) |> slice(10:15)
-geckos_missing |> select(scientificName) |> slice(10:15)
+geckos_species_list |> select(species_name) |> slice(10:15) # see sample of data
+geckos_missing |> select(scientificName) |> slice(10:15) # see sample of data
 ```
 
 Now we'll select the subset of columns from `geckos_species_list` that we wish to join with `geckos_missing` (and our reference column, `species_name`).
@@ -289,9 +288,8 @@ list_subset <- geckos_species_list |>
 
 We can use `left_join()` to merge `list_subset` to `geckos_missing`. Records that are identified at least down to the family level now have the correct rank information in the `class_new` and `family_new` columns [^3].
 
-[^3]: This hasn't worked for every row, however, because `scientificName` contains the name of the lowest taxonomic rank the occurrence is identified to. Names like `Christinus` and `Gehyra` are genus names, so in these cases `scientificName` won't match our reference `species_name` column!
+This hasn't worked for every row, however, because `scientificName` contains the name of the lowest taxonomic rank the occurrence is identified to. Names like `Christinus` and `Gehyra` are genus names, so in these cases `scientificName` won't match our reference `species_name` column!
 
-<!-- I think this footnote is kinda important to understand why there are NA's in the new columns. im thinking it would be better off not as a footnote especially because the article is about NA's explicitly it might raise some red flags at first glance of the table? :-) OT -->
 
 ```{r}
 geckos_missing |>
@@ -299,10 +297,10 @@ geckos_missing |>
             by = join_by(scientificName == species_name), 
             suffix = c("_old", "_new")) |>
   select(scientificName, class_old, family_old, class_new, family_new) |>
-  slice(20:30)
+  slice(20:30) # see sample of data
 ```
 
-<!--same here w the slicing OT --> 
+
 
 ### Insufficient taxonomic identification  
 

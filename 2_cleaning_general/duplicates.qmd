@@ -12,8 +12,6 @@ Duplicate records can occur for a number of reasons. For instance, a duplicate r
 
 Identifying duplicates is important to avoid misleading analyses or visualisations; duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations, or time periods. In this chapter we will introduce ways of detecting and handling duplicate records in biodiversity data. 
 
-<!-- I've incorporated the tip into the summary at the end of the chapter because I found it confusing to read before going into the methods we discuss in the chapter -->
-
 ### Prerequisites
 
 In this chapter, we will use kingfisher (*Alcedinidae*) occurrence data in 2023 from the ALA.
@@ -105,7 +103,7 @@ birds <- galah_call() |>
 
 ## Find duplicates
 
-Let's remove spatially-duplicated records, based on latitude and longitude coordinate values. 
+As an first example, let's remove all spatially-duplicated records, based on latitude and longitude coordinate values.
 
 The first thing to do is find the duplicate records.
 
@@ -139,7 +137,9 @@ birds |>
 
 :::
 
-In the above `tibble` our results show that there are just over 27,000 records that overlap spatially with duplicate coordinates. While we want to remove duplicate records, we don't necessarily want to remove *all* duplicates. Our duplicate dataset contains several different species, and sometimes, several species might be in the same location. Rather than removing all but one species in a location, we probably want to remove duplicates *for each species*. This should leave one observation for each species in each location.
+In the above `tibble` our results show that there are just over 27,000 records that overlap spatially with duplicate coordinates. That seems like a lot! It would be rare to remove duplicates so broadly without considering *why* we need to remove duplicates; we don't necessarily want to remove *all* of them. 
+
+Instead, if we are interested in comparing species in our data, it might be more useful to find duplicate spatial records **for each species**. We can split our data by species and remove records where there is more than one observation of the same species in the same location. This should leave one observation for each species in each location.
 
 To filter our duplicate data by species, we can first split our data by species...
 
@@ -184,7 +184,7 @@ birds |>
   bind_rows()
 ```
 
-Splitting by species has reduced the total number of duplicate records by ~3,500 rows because multiple species could have records with the same spatial coordinates. 
+Splitting by species has reduced the total number of duplicate records by ~3,500 rows because we've made it possible for multiple species to have records with the same spatial coordinates. 
 
 ## Remove duplicates
 

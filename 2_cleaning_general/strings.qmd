@@ -276,10 +276,9 @@ tree_kangaroo |>
 ### Regex matching
 
 The examples above demonstrate the use of basic patterns. But for cases that
-need more specific or advanced matching, we can use **regular expressions (or "regex")**. Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as [Regex Generator](https://regex-generator.olafneumann.org/), that are extremely helpful. 
+need more specific or advanced matching, we can use **regular expressions (or "regex")**. Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as [Regex 101](https://regex101.com/)[^regex-link], that are extremely helpful. [ChatGPT](https://chatgpt.com/) is also great for building more complex regex snippets. 
 
-
-<!-- I've never used Regex Generator so I can't comment on it's usefulness, but when I clicked on the link to check it worked, I noticed that R is not listed as one of the languages on the list where it gives you code snippets. I realise this probably doesn't matter because you can just copy/paste the regex-y bit of code into our examples here, but I wondered if it might be confusing to someone who's unfamiliar with regex -SB  -->
+[^regex-link: Snippets from this website need additional editing to work correctly in R.]
 
 Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values.
 
@@ -363,26 +362,6 @@ tree_kangaroo[,c("scientificName", "name_updated")]
 ```
 :::
 
-<!-- 
-It might be a good idea to show what advanced regex looks like, but it needs to be a more useful example than the one below 
-- DK
-
-Yeah I agree - this article is quite long and overwhelming already. How is this example more advanced than the examples provided above? Is it just longer? I need a bit of clarification on that otherwise I think readers will struggle to see the relevance 
-- OT 
-
-Ok ommitting for now because the example wasn't great anyway. Will have to think of another example if it ever comes up. I think galah has one monster one I made, which could show how bespoke you can get 
-- DK
-
-I saw this section as an intro to regex, so I don't think we should include an advanced example in the book. There are plenty of resources online if the basic examples here are insufficient for readers' needs 
-- SB
--->
-
-<!--
-#### Advanced regex
-
-In some cases a more specific detection and replacement is required. 
-
--->
 
 ## Capitalisation
 
