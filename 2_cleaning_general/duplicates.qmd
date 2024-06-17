@@ -8,19 +8,11 @@ number-depth: 3
 
 # Duplicates
 
-Duplicate records can occur for a number of reasons. A duplicate record might appear in an individual dataset due to collection or entry error. A record might be duplicated when aggregating data sources. Alternatively, a record might be considered a duplicate in the context of one type of analysis, but not another. For example, prior to running species distribution models, records in the same location---even if they are separate observations---are considered duplicates and should be removed to avoid spatial bias. If running multiple models for several time-periods, however, records in the same location may be permitted in the final dataset if they occurred in different time-periods. *Context is key when determining how to identify and clean duplicate records in your dataset.*
+Duplicate records can occur for a number of reasons. For instance, a duplicate record might appear in an individual dataset due to errors in data collection or entry, or occur when aggregating multiple data sources. Alternatively, a record might be considered a duplicate in the context of one type of analysis, but not another. For example, prior to running species distribution models, records in the same location---even if they are separate observations---are considered duplicates and should be removed to avoid spatial bias. If you're running multiple models for several time-periods, however, you may need to include records in the same location if they occurred in different time-periods. *Context is key when determining how to identify and clean duplicate records in your dataset.*
 
-Understanding how to replace duplicates is important because skipping this step could result in misleading analyses or visualisations. Duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations or time periods. 
+Identifying duplicates is important to avoid misleading analyses or visualisations; duplicates can give the impression that there are more data than there really are and bias your analyses to favour certain species, locations, or time periods. In this chapter we will introduce ways of detecting and handling duplicate records in biodiversity data. 
 
-In this chapter we will introduce detection and handling of duplicate records as we are working with biodiversity occurrence data.
-
-:::{.callout-tip collapse="true"}
-
-The methods used in this chapter to search and clean duplicate records can be applied to other types of data columns, too, not only columns that contain spatial data. 
-
-Depending on your analysis, you might need to use more bespoke methods to clean duplicates. Later chapters like [Taxonomic validation](../3_cleaning_expert/taxonomic-validation.qmd) and [Geospatial cleaning](../3_cleaning_expert/geospatial-cleaning.qmd) cover more advanced detection and cleaning methods.
-
-:::
+<!-- I've incorporated the tip into the summary at the end of the chapter because I found it confusing to read before going into the methods we discuss in the chapter -->
 
 ### Prerequisites
 
@@ -113,20 +105,20 @@ birds <- galah_call() |>
 
 ## Find duplicates
 
-Let's remove any records that have multiple occurrences in the same location specified by their latitude and longitude coordinates.
+Let's remove spatially-duplicated records, based on latitude and longitude coordinate values. 
 
 The first thing to do is find the duplicate records.
 
 :::{.panel-tabset .nav-pills}
 #### dplyr
 
-Return a summary of the number of duplicates with each set of coordinates.
+Return a summary of the number of duplicates for each set of coordinates.
 
 ```{r}
 birds |> 
   group_by(decimalLongitude, decimalLatitude) |>
   filter(n() > 1) |>
-  summarise(n = n())
+  summarise(n = n(), .groups = "drop")
 ```
 
 Return a summary of duplicate decimal longitude and latitude rows in the entire dataset. 
@@ -192,7 +184,7 @@ birds |>
   bind_rows()
 ```
 
-Splitting by species has reduced the total number of duplicate records by ~3,500 rows because more than one species cmultiple species can have one record with the same coordinates.
+Splitting by species has reduced the total number of duplicate records by ~3,500 rows because multiple species could have records with the same spatial coordinates. 
 
 ## Remove duplicates
 
@@ -256,4 +248,6 @@ birds_filtered |>
 
 ## Summary
 
-This chapter has offered a quick look at how to find duplicate records, remove them from your dataset, and check whether your records have been removed correctly. You may have to check for duplicates in several ways to ensure you have cleaned all duplicate records from your dataset. The next chapter will show you how to clean **missing values** from your dataset.
+This chapter has introduced some ways to find duplicated records, remove them from datasets, and check if the changes were correctly made. These methods can be more broadly applied to other types of data as well, not just spatial data. Depending on your analysis, you may need to use bespoke methods for handling duplicates. Later chapters like [Taxonomic validation](../3_cleaning_expert/taxonomic-validation.qmd) and [Geospatial cleaning](../3_cleaning_expert/geospatial-cleaning.qmd) cover more advanced detection and cleaning methods.
+
+In the next chapter, we will discuss ways of handling **missing values** in your dataset. 
