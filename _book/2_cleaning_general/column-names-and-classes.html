@@ -375,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Each column in a dataset contains data of a specific class. A class defines the type of data in a column and determines how those data are interpreted in R, and how we can modify those data. For instance, it doesn’t make sense to apply a mathematical equation to a word or a sentence. The phrase “hello” doesn’t reveal whether something is true or false. Knowing what <em>types</em> of data are in each column of your table will ensure those data behave as expected later on. Classes are important to understand (or fix) because, generally, functions will not work if the data type is not compatible.</p>
+<p>Each column in a dataset contains values of a specific type, or <em>class</em>. A class defines the type of data in a column and determines how those data are interpreted in R, and how we can modify those data. For instance, it doesn’t make sense to apply a mathematical equation to a word or a sentence. The phrase “hello” doesn’t reveal whether something is true or false. Knowing what types, or classes, of data are in each column of your table will ensure those data behave as expected later on. Classes are important to understand because, generally, functions only work on compatible data types.</p>
 <p>Column names can also cause compatibility issues when working with a dataset. Depending on the source of your dataset, existing column names may be uninformative (e.g.&nbsp;<code>col1</code>, <code>tga42.D</code>), oddly formatted once imported into R (e.g.&nbsp;<code>How.Much.Soil.Is.In.This.Plot..</code>), or internally inconsistent (e.g.&nbsp;<code>species_name</code>, <code>scientificName</code>). Modifying these can make it much easier to work with the data and avoid errors caused by mismatched or confusing column names.</p>
 <p>This chapter explains how to check the class of each column and edit column names so that they are consistent and ready to use for analyses.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="3.0.1">
@@ -917,7 +917,7 @@ Look out for typos
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p>A simple typo in the dataset you import into R could be all it takes to change the class of an entire column, so be sure to keep your eyes out for strange column classes!</p>
+<p>A simple typo in the dataset you import into R could be all it takes to change the class of an entire column, so be sure to keep your eyes out for unexpected column classes!</p>
 </div>
 </div>
 </div>
@@ -927,7 +927,7 @@ Look out for typos
 <p>There are many reasons why you might need to change the name of one or more columns in a table. We’ve outlined a few of the more common use cases here.</p>
 <section id="make-column-names-consistent" class="level3 page-columns page-full" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="make-column-names-consistent"><span class="header-section-number">3.2.1</span> Make column names consistent</h3>
-<p>Column names should use consistent naming conventions. R is case sensitive, so two names with the same letters but different capitalisations are considered different names (e.g.&nbsp;<code>event</code> vs.&nbsp;<code>Event</code>). Using a consistent naming convention, like camel case or snake case, makes it easier to avoid these errors. Common naming formats include “snake case” and “camel case”, which are popular because they are both human- and machine-readable.</p>
+<p>Column names should use consistent naming conventions. R is case sensitive, so two names with the same letters but different capitalisations are considered different names (e.g.&nbsp;<code>event</code> vs.&nbsp;<code>Event</code>). Using a naming convention which is both human- and machine-readable (e.g.&nbsp;camel case, snake case), and being consistent in your usage of it, makes it less likely that you will make these sorts of errors.</p>
 <p><strong>Camel case</strong> begins in lowercase and uses uppercase for the first letter of every subsequent word (e.g.&nbsp;<code>scientificName</code>, <code>dataResourceName</code>, <code>eventDate</code>).</p>
 <p><strong>Snake case</strong> uses lowercase letters only, with words separated by an underscore <code>_</code> (e.g.&nbsp;<code>scientific_name</code>, <code>data_resource_name</code>, <code>event_date</code>).</p>
 <p>Snake case is more popular in R, and is the naming convention we recommend. Data downloaded from the ALA is in camel case<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
@@ -979,7 +979,7 @@ Look out for typos
 </div></div></section>
 <section id="rename-columns" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="rename-columns"><span class="header-section-number">3.2.2</span> Rename columns</h3>
-<p>Renaming columns is a frequent data cleaning task. Column names might need renaming to make it clearer what data they contain, or to make a name consistent with another dataset prior to merging their contents.</p>
+<p>Renaming columns is a common data cleaning task. It may be necessary to rename columns to clarify the data they contain or to ensure consistency with another dataset before merging them.</p>
 <p>There are several ways to rename columns in R.</p>
 <!-- 
 I am undecided about hiding the paged_table() step from the user 
@@ -992,6 +992,8 @@ On the other hand, people might wonder why the output looks different? I'm not s
 Update: I decided to stick with the code look, not html table, in the below sections because I don't think the extra step to make the table html was 
 necessary. I did apply it to later examples because I thought it improved readability
 - DK
+
+I think you made the right decisions -SB
 -->
 <div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true"><code>rename()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false"><code>names()</code> + <code>&lt;-</code></a></li></ul>
@@ -1074,7 +1076,7 @@ necessary. I did apply it to later examples because I thought it improved readab
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<p>Index a specific column name in base R with the help of <code>names()</code>. Assign a new column name to replace an old column name using the assign operator <code>&lt;-</code>.</p>
+<p>Index a specific column name in base R with the help of <code>names()</code>. Assign a new column name to replace an old column name using the assignment operator <code>&lt;-</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(frogs)[<span class="fu">names</span>(frogs) <span class="sc">==</span> <span class="st">"decimalLatitude"</span>] <span class="ot">&lt;-</span> <span class="st">"latitude"</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(frogs)[<span class="fu">names</span>(frogs) <span class="sc">==</span> <span class="st">"decimalLongitude"</span>] <span class="ot">&lt;-</span> <span class="st">"longitude"</span></span>
@@ -1157,8 +1159,9 @@ necessary. I did apply it to later examples because I thought it improved readab
 </section>
 <section id="summary" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">3.3</span> Summary</h2>
-<p>In this chapter, we’ve explored different ways to check the class of each column in your table to make sure R is interpreting your data correctly. We also showed how to change column names to make it easier to work with them and to split or combine columns to access data more conveniently.</p>
-<p>In the next chapter we will learn to efficiently clean <strong>duplicate</strong> data. Duplicates might occur due to mistakes in data collection or entry, or, from merging data from multiple sources.</p>
+<p>In this chapter, we explored different ways to check the class of each column in your table to make sure R is interpreting your data correctly. We also demonstrated how to rename columns for easier handling and how to split or combine columns to access data more conveniently.</p>
+<p>In this chapter, we examined various methods to verify the class of each column in your table, ensuring that R correctly interprets your data. We also demonstrated how to rename columns for easier handling and how to split or combine columns for more convenient data access.</p>
+<p>In the next chapter, we will learn how to efficiently clean <strong>duplicate</strong> data. Duplicates can arise from errors in data collection or entry, or from merging data from multiple sources.</p>
 
 
 </section>

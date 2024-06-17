@@ -382,7 +382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>":Dendrolagus_lumholtzi34"</code></li>
 <li><code>"  Dendrolagus lumholtzi  "</code></li>
 </ul>
-<p>Terms might be capitalised (or not), have (accidental) spaces at the beginning or end of a word or sentence, possess typos or punctuation; all of these things impact your ability to consolidate and analyse data accurately.</p>
+<p>Terms might be capitalised (or not), have accidental spaces at the beginning or end of a word or sentence, contain typos, or include punctuation; all of these things can impact your ability to consolidate and analyse data accurately.</p>
 <p>In this chapter, we focus on general data science techniques to clean strings in a dataset.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="6.0.1">
 <h3 data-number="6.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">6.0.1</span> Prerequisites</h3>
@@ -674,7 +674,8 @@ Original download queries
 </div></div></section>
 <section id="regex-matching" class="level3" data-number="6.2.4">
 <h3 data-number="6.2.4" class="anchored" data-anchor-id="regex-matching"><span class="header-section-number">6.2.4</span> Regex matching</h3>
-<p>The examples above demonstrate the use of basic patterns. But for cases that need more specific or advanced matching, we can use <strong>regular expressions (or “regex”)</strong>. Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as <a href="https://regex-generator.olafneumann.org/">Regex Generator</a>, that are extremely helpful.</p>
+<p>The examples above demonstrate the use of basic patterns. But for cases that need more specific or advanced matching, we can use <strong>regular expressions (or “regex”)</strong>. Regex is a powerful tool used to match patterns, replace characters, and extract text from strings. Regex can be complex and unintuitive, but there are websites available, such as <a href="https://regex101.com/">Regex 101</a>[^regex-link], that are extremely helpful. <a href="https://chatgpt.com/">ChatGPT</a> is also great for building more complex regex snippets.</p>
+<p>[^regex-link: Snippets from this website need additional editing to work correctly in R.]</p>
 <p>Here we explore a few basic examples, and keep in mind that these methods can be applied to both column name strings and column values.</p>
 <p>The <code>str_view()</code> function is a useful way to see what a regular expression will return. The results are shown in the <strong>console</strong>, and elements matched by the regex are surrounded with angle brackets <code>&lt;</code> <code>&gt;</code>.</p>
 <div class="cell">
@@ -853,27 +854,11 @@ Original download queries
 </div>
 </div>
 </div>
-<!-- 
-It might be a good idea to show what advanced regex looks like, but it needs to be a more useful example than the one below 
-- DK
-
-Yeah I agree - this article is quite long and overwhelming already. How is this example more advanced than the examples provided above? Is it just longer? I need a bit of clarification on that otherwise I think readers will struggle to see the relevance 
-- OT 
-
-Ok ommitting for now because the example wasn't great anyway. Will have to think of another example if it ever comes up. I think galah has one monster one I made, which could show how bespoke you can get 
-- DK
--->
-<!--
-#### Advanced regex
-
-In some cases a more specific detection and replacement is required. 
-
--->
 </section>
 </section>
 <section id="capitalisation" class="level2 page-columns page-full" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="capitalisation"><span class="header-section-number">6.3</span> Capitalisation</h2>
-<p>Capitalisation (also called case style) can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a data set. There are some basic functions available to change the case of strings in <code>stringr</code>:</p>
+<p>Capitalisation (also called case style) can vary between data providers. Each data provider can have their own naming conventions, and even small differences in conventions must be standardised in order to use a dataset. There are some basic functions available to change the case of strings in <code>stringr</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example</span></span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tree_kangaroo<span class="sc">$</span>scientificName[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -899,8 +884,8 @@ In some cases a more specific detection and replacement is required.
 <pre><code>[1] "Dendrolagus lumholtzi"</code></pre>
 </div>
 </div>
-<p>Normally higher taxonomy are capitalised e.g.&nbsp;<em>Myrtaceae</em> or <em>Aves</em>. Capitalisation errors are usually quick to spot when you print the data object. Alternatively, you can try using <code>str_subset()</code> to return capitalisation matches in columns you expect to have capital letters.</p>
-<p>For example, in our <code>bees</code> dataset (downloaded at <a href="../2_cleaning_general/strings.html#Prerequisites">start of this chapter</a>) some higher taxonomy columns don’t capitalise names. The code below subsets out unique values for the variable <code>class</code> that have upper case letters. Notice that no matches are found.</p>
+<p>Normally names of higher taxonomy ranks are capitalised e.g.&nbsp;<em>Myrtaceae</em>, <em>Aves</em>. Capitalisation errors are usually easy to spot when you print the data object. Alternatively, you can use <code>str_subset()</code> to return capitalisation matches in columns you expect to have capital letters.</p>
+<p>For example, in our <code>bees</code> dataset (downloaded at the <a href="../2_cleaning_general/strings.html#Prerequisites">start of this chapter</a>) some higher taxonomy columns don’t capitalise names. The code below subsets out unique values for the variable <code>class</code> that have uppercase letters. Notice that no matches are found.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(<span class="fu">unique</span>(bees<span class="sc">$</span>class), <span class="st">"[:upper:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -913,14 +898,14 @@ In some cases a more specific detection and replacement is required.
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/93bd7c6e-7872-483b-b12e-f715ac967e29"><em>Apis (Apis) mellifera</em> looking for some pollen.<br>Photo by Reiner Richter CC-BY</a></p>
 </div>
-</div></div><p>We can confirm that there are no upper case matches by subsetting unique values that have lower case letters to see what is going on. This shows us that <em>Insecta</em> is inputted entirely in lowercase.</p>
+</div></div><p>We can verify that there are no uppercase matches by looking at the unique values containing lowercase letters. This reveals that <em>Insecta</em> is entirely in lowercase.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(<span class="fu">unique</span>(bees<span class="sc">$</span>class), <span class="st">"[:lower:]"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "insecta"</code></pre>
 </div>
 </div>
-<p>We can correct the lower case formatting as below, remember to check the fix before overwriting/removing the erroneous column(s).</p>
+<p>We can correct the lowercase formatting as shown below. Remember to verify the correction before overwriting or removing the erroneous column(s).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>bees <span class="sc">|&gt;</span></span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">class_corrected =</span> <span class="fu">str_to_sentence</span>(class)) <span class="sc">|&gt;</span></span>
@@ -949,8 +934,8 @@ In some cases a more specific detection and replacement is required.
 </section>
 <section id="summary" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">6.4</span> Summary</h2>
-<p>In this chapter, we discussed how to identify and clean strings and character patterns data. As you might have noticed, there truly are <em>many</em> ways that strings can appear in datasets, which is why there are so many tools and functions to detect them!</p>
-<p>In the next chapter, we look at how to clean dates and other temporal data.</p>
+<p>In this chapter, we explored how to identify and clean strings and character pattern data. As you may have noticed, there are <em>many</em> ways in which strings could be formatted, which is why there are so many tools and functions for detecting and modifying them.</p>
+<p>In the next chapter, we’ll look at how to clean date and time data.</p>
 
 
 </section>
