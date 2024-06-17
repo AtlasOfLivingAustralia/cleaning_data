@@ -9,9 +9,9 @@ This section details how to get an initial glimpse of your dataset, explore its 
 ![An uninformative, artistic representation of seasonal observations of bowerbirds over the year](../images/ridgeplot_bowerbirds.png)
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/d/c/3/5/1ecc22ef-4e2d-47e6-96d5-4bd26ff553cd/original" class="rounded"/></img>
+<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/f/3/2/5d2497d2-b153-4260-bdc1-2cd4de4023f5/original" class="rounded"/></img>
 
 ::: figure-caption
-[*Ptilonorhynchus violaceus* holding a lovely blue thing. Photo by andrewpavlov CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/81b635f7-1893-48a0-bd92-b36b82eecdab)
+[*Ptilonorhynchus violaceus* perched on a wooden stump. Photo by Michael Hains CC-BY-NC 3.0 (Au)](https://biocache.ala.org.au/occurrences/ba1e6a70-63ef-4df1-adb2-a2dcda494b5e)
 :::
 :::
