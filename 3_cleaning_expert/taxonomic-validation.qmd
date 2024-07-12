@@ -6,36 +6,35 @@ number-depth: 3
 # Taxonomic validation
 
 Taxonomic classification is in a state of constant change. Advances in
-taxonomy, especially in molecular biology have allowed researchers to
+methods, especially in molecular biology, have allowed researchers to
 describe new species more efficiently than ever before
-[@garraffoni2019integrative]. Modern approaches have enabled
-reclassification of organisms that have been incorrectly described in
+[@garraffoni2019integrative]. Modern approaches have also enabled the
+reclassification of organisms that were incorrectly described in
 the past. As new discoveries are made, taxonomies are frequently updated
 or amended.
 
-This process of changing taxonomy makes working with open source
-biodiversity data difficult. Views may differ within the literature or
-across authorities about which taxonomy is true. In different countries,
-one taxonomy might suit the native taxonomic diversity better than other
-taxonomies. Data infrastructures must also make choices about which
-taxonomic authorities they choose to use, and different infrastructures
-inevitably make different decisions.
+This process of changing taxonomy makes working with open-source biodiversity
+data challenging. Views may differ within the literature or across authorities
+about which taxonomy is correct. In different countries, one taxonomy might
+better describe the native taxonomic diversity than others. Data infrastructures
+must also make choices about which taxonomic authorities to use, and different
+infrastructures inevitably make different decisions.
 
 As a result, most taxonomic data will need checking and cleaning before
-use. You will encounter situations where the same species has several
-taxonomic names (synonyms) or where the same name can refer to several
-entirely different taxonomic groups (homonyms). These situations can be
-tricky to identify and clean when working with taxonomic data.
+analysis. You will encounter situations where the same taxon has several
+names (synonyms) or where the same name can refer to several
+entirely unrelated taxa (homonyms). These situations can be
+tricky to identify and therefore clean when working with taxonomic data.
 
-While there is no perfect solution, some tips, tricks and tools do
+While there is no perfect solution, some tips, tricks, and tools do
 exist. In this chapter we will go through some of these to clean
-taxonomic data. This includes ways to deal with missing taxonomic
-information, taxonomic synonyms and homonyms.
+taxonomic data, including ways of dealing with missing taxonomic
+information, and detecting synonyms and homonyms.
 
 ::: {.callout-tip collapse="true"}
-Cleaning taxonomic names can require a lot of changes! When cleaning
-taxonomic names, we recommend that you maintain a clear and explicit
-record of any decisions and changes made with respect to the data.
+Cleaning taxonomic names can require a lot of changes! For every change, we 
+recommend keeping detailed records of your modifications and your reasons for
+making those decisions.  
 :::
 
 ### Prerequisites
@@ -226,17 +225,18 @@ gbif_species_list <- request_data("species") |>
 
 ## Preview names
 
-One of the simplest ways to determine whether there are any immediate
-issues with taxonomic names is to print some of them. Most biodiversity
-datasets have a `scientificName` or `scientific_name` field that
-specifies the lowest identifiable scientific name for each record.
-Looking at `scientificName` in our `birds` data, we can already notice
-some characteristics of the names in our data, namely that:
+One of the simplest ways to determine whether there are any immediate issues
+with taxonomic names is to preview a subset of the names. Most biodiversity
+datasets will have a field for the scientific names of taxa (e.g.
+`scientificName`, `scientific_name`), describing the lowest taxonomic level to
+which taxa have been identified. Looking at `scientificName` in our `birds`
+data, we can observe some characteristics of the names in this dataset, namely
+that:
 
-  1.  Records have been identified to different taxonomic ranks (we can
-    see subspecies, species, genus and family names)
-  2.  Some names are formatted in all capitals while others are not
-  3.  Some names have bracketed parts
+  1.  Records have been identified to different taxonomic ranks (family, genus,
+  species, subspecies)
+  2.  Some names are in uppercase, others are in sentence case
+  3.  Where subgenera are included, they appear within parentheses 
 
 ```{r}
 birds |>
@@ -244,19 +244,18 @@ birds |>
   print(n = 25)
 ```
 
-A quick preview helps us determine what to do next to clean them.
 
 ## Name format
 
 Different data providers might use different formats in their taxonomic
 names to delineate between taxonomic ranks. It doesn't matter which
-format your data uses as long as it remains consistent.
+format your data uses as long as it is consistent.
 
 #### Example 1: Subspecies
 
-An an example, data from the ALA specifies subspecies of Acacia
-observations using `"subsp."` in the scientific name, whereas subspecies
-of bird observations simply add an additional name.
+An an example, the ALA uses `"subsp."` to designate subspecies of Acacia
+observations in the scientific name, whereas subspecies of bird observations 
+simply include the subspecific epithet after the specific epithet.
 
 ```{r}
 #| warning: false
@@ -285,9 +284,11 @@ this naming format is consistent.
 
 #### Example 2: Subgenera
 
-Subgenera are present in many Animalian clades, but their formatting can
-vary. In the ALA's `scientificName` field, subgenera are specified in
-brackets between the genus and species names.
+<!-- I found this example confusing. The previous example discusses how the same taxonomic rank (subspecies) is displayed differently across taxonomic groups in the same field (scientificName), which seems like a good thing to highlight. But this example illustrates how different fields (scientificName, species) contain different information, which seems like something you would expect (or why even have two different fields?). I think it's worth highlighting if, similarly to subspecies, subgenera are displayed differently across taxa within scientificName. Otherwise I would get rid of this example. The ALA does do this very odd thing with subgenera where they're included in scientificame, but often left blank in the subgenus field. Probably not something we need to highlight here though -SB  -->
+
+Subgenera are present in many Animalian clades, but their formatting can vary. 
+In the ALA’s `scientificName` field, subgenera are specified in brackets between
+the genus and species names.
 
 ```{r}
 #| warning: false
@@ -310,21 +311,20 @@ your needs best.
 
 ## Matching names to a species list
 
-Many investigations use a taxonomic list of species or groups to help
-identify which species are relevant. Using lists of introduced, invasive, 
-threatened or sensitive species to identify species records of interest is a 
-common example.
+Many investigations rely on taxonomic lists of species or groups to identify
+relevant species. A common example is using lists of introduced, invasive,
+threatened, or sensitive species to identify records of interest.
 
-There are several ways to filter records to match names on a
-species list. First, we'll use a species list accessed using galah to filter 
-records, which offers other functionality for filtering data prior to download. 
-Then we'll use an external species list loaded into R to filter records.
+There are several ways to filter records to match names on a species list.
+First, we'll use a species list accessed via galah to filter records, which also
+provides additional functionality for filtering data prior to download. Then,
+we'll use an external species list loaded into R to filter records.
 
 #### galah
 
-The ALA contains national and state-based conservation status lists. For
-example, if we wanted to use the Victorian Restricted Species list, we
-can do a text search for available lists for "victoria" using
+The ALA contains both national and state-based conservation status lists. For
+example, if we want to use the Victorian Restricted Species list, we can perform
+a text search for available lists using the term "victoria" with
 `search_all(lists, "victoria")`.
 
 ```{r}
@@ -332,7 +332,7 @@ list_search <- search_all(lists, "victoria")
 list_search
 ```
 
-Filtering our result to only authoritative lists can help us find
+Filtering our results to authoritative lists only can help us find
 official state lists.
 
 ```{r}
@@ -340,8 +340,7 @@ list_search |>
   filter(isAuthoritative == TRUE)
 ```
 
-Now that we have found our desired list, we can return its contents by
-using `show_values()`.
+Now that we've found our list, we can view the contents of the list using `show_values()`.
 
 ```{r}
 vic_species_list <- search_all(lists, "dr490") |> # <1>
@@ -353,9 +352,8 @@ vic_species_list
 1.  We are using the list ID `dr490` (specified in the
     `species_list_uid` column) to make sure we return the correct list
 
-Now we can use our `vic_species_list` to identify any restricted species
-by matching names in our `legless_lizards` data to names in
-`vic_species_list`.
+We can now compare the taxa in `vic_species_list` to those in our
+`legless_lizards` dataset to identify any restricted species.
 
 ```{r}
 legless_lizards_filtered <- legless_lizards |>
@@ -374,7 +372,7 @@ CC-BY-NC 4.0
 :::
 :::
 
-This process has removed more than 130 records from our data.
+This process has removed more than 140 records from our dataset.
 
 ```{r}
 nrow(legless_lizards) - nrow(legless_lizards_filtered)
@@ -396,12 +394,14 @@ galah_call() |>
 
 #### Using an external list
 
-We can also use lists downloaded outside of galah to filter our data. As
-an example, let's filter our taxonomic names to only Australian names on
+We can also use lists downloaded outside of galah to filter our data. As an
+example, let's filter our taxonomic names to include only Australian names from
 the [Global Register of Introduced and Invasive Species
-(GRIIS)](https://griis.org/download). After downloading this list and
-saving it in your working directory, we can read the list into R.
-Taxonomic names are held in columns with an `accepted_name` prefix.
+(GRIIS)](https://griis.org/download). After downloading this list and saving it
+in your working directory, we can read the list into R. Taxonomic names are
+stored in columns with an `accepted_name` prefix.
+
+<!-- Given that this can now be downloaded from the website again as a simplified checklist i.e. single csv file, should we name the file something a bit more sensible than "GRIIS_Australia_20230331-121730.csv"? Probably also worth downloading the latest version because there have been some significant changes to the contents of the list in the last year or so -SB  -->
 
 ```{r}
 #| eval: false
@@ -420,8 +420,10 @@ griis <- read_csv(here("data",
 glimpse(griis)
 ```
 
-Now we can check which species names in our `legless_lizards` data match
+Now we can check which species names in our `legless_lizards` dataset match
 names in `griis`.
+
+<!-- Text says legless lizards but code says eucalypts -SB  -->
 
 ```{r}
 # Check which species matched the GRIIS list
@@ -431,9 +433,9 @@ matches <- eucalypts |>
 matches
 ```
 
-After looking through the matches and confirming we are happy with the
-list of matched species, we can exclude these taxa from our data,
-removing the rows identified above.
+After reviewing the matches and confirming we're happy with the
+list of matched species, we can exclude these taxa from our data by
+removing the identified rows.
 
 ```{r}
 legless_lizards_filtered <- legless_lizards |>
@@ -451,13 +453,12 @@ fields, that you would like to exclude.
 
 ### Missing higher taxonomic information
 
-It's not uncommon to receive data that contains some but not all
-taxonomic rank information. Missing this information can make it
-difficult to summarise data or create taxonomic visualisations later on.
+It's not uncommon to receive data that are missing information at some taxonomic
+levels, but this can make it tricky to summarise data or create visualisations
+based on taxonomy later on.
 
 As an example, here is a small sample of our `inverts` dataset. You'll
-notice that we only have `scientific_name`, `class` and `family`
-information.
+notice that we only have information on `scientific_name`, `class`, and `family`.
 
 ```{r}
 inverts_sample <- inverts |>
@@ -475,10 +476,10 @@ inverts_sample |> print(n = 5)
 :::
 :::
 
-One way to extract names is to search for names matches in a data
-infrastructure like the ALA, which has its own taxonomic backbone. We
-can extract the names from our `inverts_sample` and save the strings in
-`taxa_sample_names`...
+One way to fill in values at the missing taxonomic levels (e.g. phylum, order)
+is to get this information from a data infrastructure like the ALA, which has
+its own taxonomic backbone. We'll start by extracting the scientific names of
+taxa in `inverts_sample` and saving these as `taxa_sample_names`.
 
 ```{r}
 taxa_sample_names <- inverts_sample |>
@@ -489,13 +490,13 @@ taxa_sample_names <- inverts_sample |>
 taxa_sample_names[1:5] # first 5 names
 ```
 
-...and use those names to search using `search_taxa()` from galah. We'll
-save the results in `names_matches_ala`.
+We can then search for those names in the ALA using using `search_taxa()` from
+galah. We'll save the results in `names_matches_ala`.
 
 ::: {.callout-tip collapse="true" title="Search tip"}
-Anytime you search for taxonomic matches using names, it's good to
-double check the urls returned in `taxon_concept_id` to make sure your
-search matched the result you expected!
+Anytime you search for taxonomic matches using names, it's good practice to
+double check the urls returned in `taxon_concept_id` to make sure your results
+match the names you expected!
 :::
 
 ```{r}
@@ -503,13 +504,12 @@ names_matches_ala <- search_taxa(taxa_sample_names)
 names_matches_ala
 ```
 
-Now we can merge this information into our `inverts_sample` data so we
-can use it.
+Now we can merge this information into our `inverts_sample` dataset.
 
-First, let's select relevant columns from `names_matches_ala` that we
-want to use. Before joining, let's rename the columns so we can tell
-apart our initial names from the ALA names by adding an `"_ala"` suffix
-to each column name.
+First, let's select the columns from `names_matches_ala` that we want, and
+rename those so we can differentiate between the columns in `inverts_sample` and
+the ones we just downloaded using galah. We'll suffix the columns in
+`names_matches_ala` with `"_ala"`.
 
 ```{r}
 names_matches_renamed <- names_matches_ala |>
@@ -532,10 +532,16 @@ our `inverts_sample` data.
 ```{r}
 inverts_sample_with_ranks <- names_matches_renamed |>
   right_join(inverts_sample,                          # join to `inverts_sample`
-             join_by(scientific_name == scientific_name)
-             )
+             join_by(scientific_name == scientific_name))
 inverts_sample_with_ranks
 ```
+
+We can verify the join worked correctly by checking that names in the original
+`family` column are identical to those in the new `family_ala` column. If there
+were mismatches, the join would produce more rows than initially occurred in
+`inverts_sample`: rows not matching to a scientific name would have returned
+columns with `NA` values, which would not join to those in `inverts_sample`.
+
 
 To double check that our join worked correctly by making sure names in
 our original `family` column all match our new `family_ala` column. If
@@ -579,11 +585,12 @@ CC-BY-NC 4.0
 :::
 
 This occurrence data contains observations of over 373 species.
+<!-- This would contain subspecies though, I think, so probably fewer than 373 species? -SB  -->
 
 ```{r}
 eucalypts |>
   filter(taxonRank != "genus") |>
-  distinct(scientificName) |>
+  distinct(scientificName) |> 
   count(name = "n_species")
 ```
 
@@ -802,16 +809,15 @@ eucalypts_updated_names |>
 
 ## Detecting synonyms
 
-Scientific discoveries and advances in taxonomic classification can
-cause taxonomic names to change. A taxonomic **synonym** refers to a
-scientific name that a taxon that goes by a different name. Synonyms can
-come about when a taxon was once referred to a taxon that has since had
-its accepted scientific name changed. Synonyms are important because
-older records referred to by a synonym can still be searched for and
-linked to other taxonomic records.
+Scientific discoveries and advances in our understanding of evolutionary
+relationships can cause changes in taxonomy. These taxonomic changes can
+sometimes result in synonyms being created. Taxonomic **synonyms** refer to two
+or more names of the same rank, that denote the same taxon. It can be difficult
+to spot synonyms in your dataset, but ignoring them can result in errors during
+analysis, such as artificially inflated numbers of taxa or assuming misleading
+relationships among taxa.
 
-Synonyms can be tricky to deal with during data cleaning because they
-can be difficult to spot. Here are several examples of synonyms.
+Here are some examples of synonyms.
 
 ::: {.panel-tabset .nav-pills}
 #### Frogs
@@ -885,7 +891,7 @@ ala_taxa |>
 :::
 :::
 
-In the above examples, taxonomic searches match correctly on GBIF
+In the above examples, taxonomic searches match correctly in GBIF
 because GBIF uses a special, massive database of accepted and superseded
 names and synonyms. This massive names database allows GBIF to match
 *lots* of different names. ALA, on the other hand, uses a much smaller
@@ -936,6 +942,8 @@ information of whether a taxonomic name is accepted or a synonym. A good
 example is the list of names for *Eucalyptus leucoxylon*, which has a
 number of accepted subspecies names and synonyms.
 
+<!-- I find this example a bit confusing because I'm not sure what I'm supposed to take away from it. From looking at the output for a minute or two, I don't find it entirely intuitive (and I'm also confused about some things which are unrelated to what's being demonstrated here e.g. there are rows where acceptedScientificName contains subsp. but the value in taxonRank is SPECIES). I think it might be worth spelling out in more detail what exactly we're expecting readers to take away from this - SB -->
+
 ```{r}
 gbif_species_list |>
   filter(species == "Eucalyptus leucoxylon") |>
@@ -944,34 +952,30 @@ gbif_species_list |>
 
 ## Detecting homonyms
 
-Taxonomy is a complex field of science to categorise *millions* of
-species on the taxonomic tree. With so many species to name and order
-taxonomically, sometimes one name can have identical spelling to another
-name in an entirely different place on the taxonomic tree.
-
-For example, the name *Morganella* is a [genus of
+Homonyms are identical names that are used to refer to different taxa. For
+example, the name *Morganella* is a [genus of
 bacteria](https://bie.ala.org.au/species/NZOR-6-116469), a [genus of
 fungi](https://bie.ala.org.au/species/https://id.biodiversity.org.au/node/fungi/60091999#overview),
 a [genus of scale
 insect](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/3d1bad6b-4753-430c-a009-c6f4787b3421),
 and a [genus of
-brachiopod](https://en.wikipedia.org/wiki/List_of_brachiopod_genera)
-from the Devonian period[^taxonomic-validation-5]!
+brachiopod](https://en.wikipedia.org/wiki/List_of_brachiopod_genera) from the
+Devonian period[^taxonomic-validation-5]!
 
 [^taxonomic-validation-5]: Referred to as "[the Age of
     Fishes](https://www.nps.gov/articles/000/devonian-period.htm#)", the
     Devonian Period occurred \~419 to \~359 million years ago.
 
 When you search for names with `search_taxa()` from the galah package,
-you'll receive a warning that there is a homonym issue.
+you'll receive a warning if there is a homonym issue.
 
 ```{r}
 search_taxa("morganella")
 ```
 
-You can to clarify the taxonomic name by providing other taxonomic ranks
-in a `tibble`. Using the `taxon_concept_id` rather than the name will
-enable you to retrieve data using the correct classification.
+You can specify your query by providing other taxonomic ranks in a `tibble`. In
+a piped workflow, using the `taxon_concept_id` rather than the name will enable
+you to retrieve data for the correct taxon.
 
 ```{r}
 taxa <- search_taxa(tibble(kingdom = "Fungi", genus = "Morganella"))
@@ -1054,7 +1058,7 @@ marine_sp |>
 ### taxize
 
 The [taxize package](https://github.com/ropensci/taxize) allows users to
-search over many taxonomic data sources for hierarchial taxonomic
+search across many taxonomic data sources for hierarchical taxonomic
 information, such as species names (scientific and common), to resolve
 synonyms and homonyms.
 
@@ -1079,6 +1083,8 @@ Using the resolved name, we can search for its Taxonomic Serial Number
 using `get_tsn()`, which taxize uses to as a taxonomic identifier. Then
 we can search for existing synonyms by supplying the `tsn` to the
 `synonyms()` function.
+
+<!-- A note to check whether this still times out - SB -->
 
 ```{r}
 # Retrieve synonyms
