@@ -11,7 +11,7 @@ Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan,
 
 ### License
 
-This book is available free to read, and is licenced under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). This means that the book can be shared, revised, retained and redistributed as long as appropriate credit is given to the authors.
+This book is available free to read, and is licenced under a [CC BY-NC-ND 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). This means that the book can be shared and redistributed as long as appropriate credit is given to the authors, and any minor changes are indicated appropriately. Modified versions that remix or modify the content may not be distributed. See our [licensing and contributing guidelines](https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/licensing.md) for more information.
 
 ### How to contribute
 

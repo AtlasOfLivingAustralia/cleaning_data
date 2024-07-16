@@ -33,7 +33,7 @@ book:
   chapters:
   - index.qmd
   - preface.qmd
-  - intro.qmd
+  - introduction.qmd
   - data-in-this-book.qmd
   - part: 1_exploring/1_intro.qmd
     chapters:

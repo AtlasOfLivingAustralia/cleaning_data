@@ -1,0 +1,21 @@
+## Licensing
+
+First of all, we encourage you to check out the [nice little summary from Hadley Wickham](https://github.com/hadley/r-pkgs/blob/main/copyright.Rmd) about what copyright and open-source licensing mean for code and software in the [R packages book](https://r-pkgs.org/) GitHub repository.
+
+In a nutshell, copyright laws can be strict about what rights the copyright holder has and what others can do with that copyrighted material. Only the author has the right to copy, modify and share their code, but under **fair-use** it's usually ok to share code snippets of open-source code (and code sharing for presentations or teaching falls under this category).
+
+Open-source licenses provide one standard way to relax the strictness on copyright laws, too, making it easier for others to share code and resources. This book falls under one of those. We very much encourage others to share and use the resources in this book.
+
+### Derivatives & modified versions
+
+However, there are some limitations to what exactly can be shared, namely any modified or derivative work is not allowed to be shared. This refers to output like a separate book containing the this book's contents translated into another language, and it also includes any forked versions with modifications or bug fixes.
+
+### Contributing
+
+If you would like to suggest additions, changes, modifications or bug fixes, it's best to do one of the following things:
+
+-   Create an [issue on GitHub](https://github.com/AtlasOfLivingAustralia/cleaning_data/issues) about what it is you wish to add, change or fix. The authors and/or maintainers will be able to work with you to figure out the best way forward.
+
+-   Contact [support@ala.org.au](mailto:support@ala.org.au) with information about what you wish to add, change or fix.
+
+-   [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the `cleaning_data` GitHub repository and [submit a pull request](https://github.com/AtlasOfLivingAustralia/cleaning_data/pulls) with your changes. This method can be very helpful for small changes, but can create merging nightmares for large changes. If you are proposing a major addition/change consider submitting an issue or sending an email first.
