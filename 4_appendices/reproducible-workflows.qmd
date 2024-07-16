@@ -9,9 +9,11 @@ bibliography: ../data-cleaning-book-references.bib
 
 # Reproducible workflows
 
-One of the strengths of using code for data cleaning, analysis and visualisation is that code *should* be easier to share and use to reproduce results than point-and-click software. However, research finds that code isn't shared very often in ecological and evolutionary journals [@kimmel_empirical_2023], and when it is shared, a surprisingly small proportion of coding workflows run from start to finish [@culina_low_2020; @roche_public_2015].
+One of the strengths of using code for data cleaning, analysis and visualisation is that, compared to point-and-click software, code is easier to share and use to reproduce results. However, every messy code script won't magically run on another person's computer (or even in a few months on your own computer) if a few steps aren't taken to ensure code can be reliably run again. These steps include small but meaningful things like managing folders/file paths, tracking packages, and documenting what certain code snippets are meant to do. 
 
-This chapter details how to improve the reproducibility of your R code workflows, originally described in [this Nature Eco Evo blog](https://communities.springernature.com/posts/improving-code-reproducibility-small-steps-with-big-impacts).
+Without the ability to reproduce results, it is very difficult to verify or build on previous findings. Research finds that code sharing isn't very common in ecology and evolution research [@kimmel_empirical_2023], and when code is shared, a surprisingly small proportion of coding workflows run from start to finish [@culina_low_2020; @roche_public_2015]. Taking steps to improve the reproducibility of your code will improve the usefulness and longevity of your analyses.
+
+This chapter details how to improve the reproducibility of your R code workflows. Many of these steps were originally described in [this Nature Eco Evo blog](https://communities.springernature.com/posts/improving-code-reproducibility-small-steps-with-big-impacts).
 
 For another comprehensive summary about reproducibility and using R, see the [Reproducible Workflow chapter](https://tellingstorieswithdata.com/03-workflow.html) in [*Telling Stories with Data*](https://tellingstorieswithdata.com/).
 
@@ -29,18 +31,18 @@ A reproducible workflow---from raw data to analysis to the the final result---al
 
 :::
 
-Data cleaning is an essential step of an analytic workflow. Without the ability to reproduce the cleaned dataset used in an analysis, often an entire analysis might not be able to be run again, much less reproduce an individual result!  
+Data cleaning is an essential step of an analytic workflow. However, there are [many different ways people can choose to go about data cleaning](../preface.html). Without knowing how a "clean" dataset was produced from raw data, or without the ability to reproduce the cleaned dataset yourself, entire analyses can go to waste because they can't be run again, much less reproduce an individual result!  
 
 
 ## Reproducible environments
 
-To allow coding scripts to run again, it's important to be able to reproduce the environment that the original code was able to successfully run in. In R, this usually involves setting your working directory correctly so that files and packages can be located and loaded[^wd]. Below are several ways to make working environments better for sharing.
+To allow coding scripts to run again, it's important to be able to reproduce the environment in which the original code was successfully run. In R, this usually involves setting your working directory correctly so that files and packages can be located and loaded[^wd]. Below are several ways to make working environments better for sharing.
 
-[^wd]: A common way to first learn to set a working directory in R is clicking on Session --> Set Working Directory, or using `setwd()`. Both of these methods are poor practice for reproducibility because they require users to manually enter paths that are prone to break when the script is opened on another computer or in a new location.
+[^wd]: A common way to first learn to set a working directory in R is to use the dropdown toolbar to navigate to Session --> Set Working Directory, or use `setwd()`. Both of these methods are poor practice for reproducibility because they require users to manually enter paths that are prone to break when the script is opened on another computer or in a new location.
 
 ### R projects
 
-[R projects](https://r4ds.hadley.nz/workflow-scripts#projects) are the best way to set project directories when using R Studio. `.Rproj` files tell R Studio what the top directory is for a project. Opening an R project (either in R Studio or by opening the `Rproj` file) automatically opens the project directory and sets the working directory. All file paths will stem from that top directory while using that R project. 
+[R projects](https://r4ds.hadley.nz/workflow-scripts#projects) are the best way to set project directories when using R Studio. R Projects create `.Rproj` files that tell R Studio what the top directory is for a project. Opening an R project (either in R Studio or by opening the `Rproj` file) then automatically opens the project directory and sets the working directory. All file paths will stem from that top directory while using that R project. 
 
 To create a new R Project, use File --> New Project.
 

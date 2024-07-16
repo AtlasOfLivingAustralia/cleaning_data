@@ -186,7 +186,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -396,8 +396,9 @@ div.csl-indent {
 </header>
 
 
-<p>One of the strengths of using code for data cleaning, analysis and visualisation is that code <em>should</em> be easier to share and use to reproduce results than point-and-click software. However, research finds that code isn’t shared very often in ecological and evolutionary journals <span class="citation" data-cites="kimmel_empirical_2023">(<a href="../references.html#ref-kimmel_empirical_2023" role="doc-biblioref">Kimmel, Avolio, and Ferraro 2023</a>)</span>, and when it is shared, a surprisingly small proportion of coding workflows run from start to finish <span class="citation" data-cites="culina_low_2020 roche_public_2015">(<a href="../references.html#ref-culina_low_2020" role="doc-biblioref">Culina et al. 2020</a>; <a href="../references.html#ref-roche_public_2015" role="doc-biblioref">Roche et al. 2015</a>)</span>.</p>
-<p>This chapter details how to improve the reproducibility of your R code workflows, originally described in <a href="https://communities.springernature.com/posts/improving-code-reproducibility-small-steps-with-big-impacts">this Nature Eco Evo blog</a>.</p>
+<p>One of the strengths of using code for data cleaning, analysis and visualisation is that, compared to point-and-click software, code is easier to share and use to reproduce results. However, every messy code script won’t magically run on another person’s computer (or even in a few months on your own computer) if a few steps aren’t taken to ensure code can be reliably run again. These steps include small but meaningful things like managing folders/file paths, tracking packages, and documenting what certain code snippets are meant to do.</p>
+<p>Without the ability to reproduce results, it is very difficult to verify or build on previous findings. Research finds that code sharing isn’t very common in ecology and evolution research <span class="citation" data-cites="kimmel_empirical_2023">(<a href="../references.html#ref-kimmel_empirical_2023" role="doc-biblioref">Kimmel, Avolio, and Ferraro 2023</a>)</span>, and when code is shared, a surprisingly small proportion of coding workflows run from start to finish <span class="citation" data-cites="culina_low_2020 roche_public_2015">(<a href="../references.html#ref-culina_low_2020" role="doc-biblioref">Culina et al. 2020</a>; <a href="../references.html#ref-roche_public_2015" role="doc-biblioref">Roche et al. 2015</a>)</span>. Taking steps to improve the reproducibility of your code will improve the usefulness and longevity of your analyses.</p>
+<p>This chapter details how to improve the reproducibility of your R code workflows. Many of these steps were originally described in <a href="https://communities.springernature.com/posts/improving-code-reproducibility-small-steps-with-big-impacts">this Nature Eco Evo blog</a>.</p>
 <p>For another comprehensive summary about reproducibility and using R, see the <a href="https://tellingstorieswithdata.com/03-workflow.html">Reproducible Workflow chapter</a> in <a href="https://tellingstorieswithdata.com/"><em>Telling Stories with Data</em></a>.</p>
 <section id="what-does-reproducibility-mean" class="level2" data-number="E.1">
 <h2 data-number="E.1" class="anchored" data-anchor-id="what-does-reproducibility-mean"><span class="header-section-number">E.1</span> What does reproducibility mean?</h2>
@@ -419,14 +420,14 @@ Example scenario
 </div>
 </div>
 </div>
-<p>Data cleaning is an essential step of an analytic workflow. Without the ability to reproduce the cleaned dataset used in an analysis, often an entire analysis might not be able to be run again, much less reproduce an individual result!</p>
+<p>Data cleaning is an essential step of an analytic workflow. However, there are <a href="../preface.html">many different ways people can choose to go about data cleaning</a>. Without knowing how a “clean” dataset was produced from raw data, or without the ability to reproduce the cleaned dataset yourself, entire analyses can go to waste because they can’t be run again, much less reproduce an individual result!</p>
 </section>
 <section id="reproducible-environments" class="level2" data-number="E.2">
 <h2 data-number="E.2" class="anchored" data-anchor-id="reproducible-environments"><span class="header-section-number">E.2</span> Reproducible environments</h2>
-<p>To allow coding scripts to run again, it’s important to be able to reproduce the environment that the original code was able to successfully run in. In R, this usually involves setting your working directory correctly so that files and packages can be located and loaded<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Below are several ways to make working environments better for sharing.</p>
+<p>To allow coding scripts to run again, it’s important to be able to reproduce the environment in which the original code was successfully run. In R, this usually involves setting your working directory correctly so that files and packages can be located and loaded<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Below are several ways to make working environments better for sharing.</p>
 <section id="r-projects" class="level3" data-number="E.2.1">
 <h3 data-number="E.2.1" class="anchored" data-anchor-id="r-projects"><span class="header-section-number">E.2.1</span> R projects</h3>
-<p><a href="https://r4ds.hadley.nz/workflow-scripts#projects">R projects</a> are the best way to set project directories when using R Studio. <code>.Rproj</code> files tell R Studio what the top directory is for a project. Opening an R project (either in R Studio or by opening the <code>Rproj</code> file) automatically opens the project directory and sets the working directory. All file paths will stem from that top directory while using that R project.</p>
+<p><a href="https://r4ds.hadley.nz/workflow-scripts#projects">R projects</a> are the best way to set project directories when using R Studio. R Projects create <code>.Rproj</code> files that tell R Studio what the top directory is for a project. Opening an R project (either in R Studio or by opening the <code>Rproj</code> file) then automatically opens the project directory and sets the working directory. All file paths will stem from that top directory while using that R project.</p>
 <p>To create a new R Project, use File –&gt; New Project.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -529,7 +530,7 @@ Roche, Dominique G., Loeske E. B. Kruuk, Robert Lanfear, and Sandra A. Binning. 
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>A common way to first learn to set a working directory in R is clicking on Session –&gt; Set Working Directory, or using <code>setwd()</code>. Both of these methods are poor practice for reproducibility because they require users to manually enter paths that are prone to break when the script is opened on another computer or in a new location.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>A common way to first learn to set a working directory in R is to use the dropdown toolbar to navigate to Session –&gt; Set Working Directory, or use <code>setwd()</code>. Both of these methods are poor practice for reproducibility because they require users to manually enter paths that are prone to break when the script is opened on another computer or in a new location.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

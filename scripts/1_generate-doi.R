@@ -21,7 +21,7 @@
 # doi_table <- update_doi("chapter-name", "df-name", attributes(df)$doi)
 
 
-# --------
+# DOWNLOAD --------
 
 library(galah)
 library(here)
@@ -299,7 +299,7 @@ doi_table <- add_doi("Geospatial cleaning", "bitter_peas", doi)
 
 
 
-# Big data ---------------------
+### Big data ---------------------
 
 
 pardalotes <- galah_call() |>
@@ -326,9 +326,10 @@ readr::write_csv(pardalotes,
 ### Joins ---------------------
 
 
-pardalotes <- galah_call() |>
-  identify("Pardalotus") |>
-  filter(year == 2015) |>
+starlings <- galah_call() |>
+  identify("Sturnidae") |>
+  filter(year == 2015,
+         month == 9) |>
   select(genus, 
          species, 
          scientificName, 
@@ -340,8 +341,8 @@ pardalotes <- galah_call() |>
   atlas_occurrences(mint_doi = TRUE)
 
 # add to table
-doi <- attributes(pardalotes)$doi
-doi_table <- add_doi("Joins", "pardalotes", doi)
+doi <- attributes(starlings)$doi
+doi_table <- add_doi("Joins", "starlings", doi)
 
 
 

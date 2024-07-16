@@ -8,11 +8,13 @@ number-depth: 3
 
 # Joins
 
-If you work with biodiversity data, odds are high that you will need to join 2 separate datasets at some point to test how spatial, temporal or environmental factors influence species. This chapter is a brief overview of several common types of joins [dplyr]() to help get started. For a comprehensive introduction to joins, check out the [Joins chapter in R for Data Science](https://r4ds.hadley.nz/joins).
+If you work with biodiversity data, odds are high that you will need to join 2 separate datasets at some point to test how spatial, temporal or environmental factors influence species. This chapter is a brief overview of several common types of joins in [dplyr](https://dplyr.tidyverse.org/) to help get started. 
+
+For a comprehensive introduction to joins, check out the [Joins chapter in R for Data Science](https://r4ds.hadley.nz/joins).
 
 ### Prerequisites
 
-In this chapter, we will use pardalote occurrence data from 2015 in the ALA.
+In this chapter, we will use starling occurrence data from September, 2015 in the ALA.
 
 ```{r prereq-internal}
 #| echo: false
@@ -33,15 +35,15 @@ doi_table <- here::here("data", "galah-dois", "doi_table") |>
   collect()
 
 # extract dois
-doi_pardalotes <- doi_table |> filter(name == "pardalotes") |> pull(doi)
+doi_starlings <- doi_table |> filter(name == "starlings") |> pull(doi)
 
 # download
-pardalotes <- galah_call() |>
-  filter(doi == doi_pardalotes) |>
+starlings <- galah_call() |>
+  filter(doi == doi_starlings) |>
   atlas_occurrences()
 
-pardalotes_taxonomy <- galah_call() |>
-  identify("Pardalotus") |>
+starlings_taxonomy <- galah_call() |>
+  identify("Sturnidae") |>
   atlas_species()
 ```
 
@@ -56,12 +58,12 @@ library(here)
 library(ggplot2)
 galah_config(email = \"your-email-here\") # ALA-registered email
 
-pardalotes <- galah_call() |>
-  filter(doi == \"{doi_pardalotes}\") |>
+starlings <- galah_call() |>
+  filter(doi == \"{doi_starlings}\") |>
   atlas_occurrences()
 
-pardalotes_taxonomy <- galah_call() |>
-  identify(\"Pardalotus\") |>
+starlings_taxonomy <- galah_call() |>
+  identify(\"Sturnidae\") |>
   atlas_species()
 "
 )
@@ -75,11 +77,11 @@ pardalotes_taxonomy <- galah_call() |>
 
 :::{.aside}
 
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/6/2/0/1b7b3e7a-80d8-49e2-be69-f2b7ebb10267/original"></img>
+<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/9/0/8/4/4a8c739b-5c41-4754-b064-ea96d0104809/original"></img>
 
 ::: {.figure-caption}
-[*Pardalotus (Pardalotus) punctatus* eating a snack. Photo by sirkendizzle CC-BY-NC 4.0
-(Int)](https://biocache.ala.org.au/occurrences/90dfaafd-a77c-4ccc-842d-3218a1ce64d2)
+[*Sturnus (Sturnus) vulgaris* perched on a branch. Photo by Rob Solic CC-BY-NC 4.0
+(Int)](https://biocache.ala.org.au/occurrences/80d72213-1a92-43d3-bcb2-eb008d49319e)
 :::
 :::
 
@@ -95,9 +97,10 @@ pardalotes_taxonomy <- galah_call() |>
 library(galah)
 galah_config(email = "your-email-here")
 
-pardalotes <- galah_call() |>
-  identify("Pardalotus") |>
-  filter(year == 2015) |>
+starlings <- galah_call() |>
+  identify("Sturnidae") |>
+  filter(year == 2015,
+         month == 9) |>
   select(genus, 
          species, 
          scientificName, 
@@ -116,57 +119,60 @@ pardalotes <- galah_call() |>
 
 Joining dataframes relies on setting a *key*---one or more columns that exist in a primary table that correspond to one or more columns in a second table. Two dataframes that we intend to join are matched according to the designated key.
 
-As a basic example, let's say we want to add complete taxonomic information to our `pardalotes` dataframe, which contains occurrence records with some, but not all, taxonomic information. `pardalotes_taxonomy` contains complete taxonomic information for *Pardalotus*.
+As a basic example, let's say we want to add complete taxonomic information to our `starlings` dataframe, which contains occurrence records with some, but not all, taxonomic information. `starlings_taxonomy` contains complete taxonomic information for *Sturnidae*.
 
 :::{.panel-tabset .nav-pills}
 
-#### `pardalotes`
+#### `starlings`
 
 ```{r}
-pardalotes
+starlings
 ```
 
-#### `pardalotes_taxonomy`
+#### `starlings_taxonomy`
 
 ```{r}
-pardalotes_taxonomy
+starlings_taxonomy
 ```
 :::
 
-Let's join our `pardalotes` dataframe with `pardalotes_taxonomy`. The column `scientificName` in `pardalotes` appears to contain (in general) the same information in column `species_name` in `pardalotes_taxonomy`.
+Let's join our `starlings` dataframe with `starlings_taxonomy`. The column `genus` in `starlings` appears to contain the same information in column `genus` in `starlings_taxonomy`.
+
 
 ::: {.panel-tabset .nav-pills}
 
-#### `pardalotes$scientificName`
+#### `starlings$genus`
 
 ```{r}
-pardalotes |>
-  select(scientificName)
+starlings |>
+  select(genus) |> 
+  distinct()
 ```
 
 
-#### `pardalotes_taxonomy$species_name`
+#### `starlings_taxonomy$genus`
 
 ```{r}
-pardalotes_taxonomy |>
-  select(species_name)
+starlings_taxonomy |>
+  select(genus)
 ```
 
 
 :::
 
-We can use these columns as a key to join the additional taxonomic information to our pardalotes occurrence records. We can also use the `genus` column as a second key to match any observations that have been identified down to genus, but not species, level.
+We can use these columns as a key to join the additional taxonomic information to our starlings occurrence records[^genus].
+
+[^genus]: Using `genus` is also a better choice than `species` or `scientificName` in this instance because they appear to contain similar *but not exactly the same* information to `starlings_taxonomy$species_name`. Using these columns as a key for our join would result in missing information after joining due to mismatches.
 
 ```{r}
-pardalotes |>
-  left_join(pardalotes_taxonomy, 
-            join_by(scientificName == species_name, 
-                    genus == genus)
-            ) |>
+starlings |>
+  left_join(starlings_taxonomy, 
+            join_by(genus == genus)) |>
   
   rmarkdown::paged_table() # paged output
 ```
 
+Note that we received some warnings indicating that some rows had multiple matches. Make sure to read these warning messages carefully if you ever receive them because they might tell you that something unexpected happened during your join! In our case, the warnings are the result of several genera in `starlings_taxonomy` having the same genus name, which is something we already knew about and doesn't worry us.
 
 ## Basic types of joins
 
@@ -252,10 +258,10 @@ aus
 ```
 1. This line transforms the CRS projection of our map to match the CRS projection of ALA data.
 
-Our `pardalotes` data also contains the state/territory of each occurrence in column `cl22`. We can group by state/territory and summarise the number of occurrences to get an overall count by state/territory.
+Our `starlings` data also contains the state/territory of each occurrence in column `cl22`. We can group by state/territory and summarise the number of occurrences to get an overall count by state/territory.
 
 ```{r}
-counts_by_state <- pardalotes |>
+counts_by_state <- starlings |>
   group_by(cl22) |>
   count()
 
@@ -289,14 +295,14 @@ The [sf package](https://r-spatial.github.io/sf/) also has specialised functions
 
 ```{r}
 # convert record coordinates to sf POINT class
-pardalotes_sf <- pardalotes |>
+starlings_sf <- starlings |>
   tidyr::drop_na() |>
   st_as_sf(coords = c("decimalLongitude", "decimalLatitude"), 
            crs = 4326)
 
 # join points to aus states that intersect spatially
 states_with_species <- st_join(x = aus, 
-                               y = pardalotes_sf,
+                               y = starlings_sf,
                             join = st_intersects,
                             left = FALSE)
 
