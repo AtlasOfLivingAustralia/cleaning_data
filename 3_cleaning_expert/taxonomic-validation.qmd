@@ -405,18 +405,20 @@ stored in columns with an `accepted_name` prefix.
 
 ```{r}
 #| eval: false
-griis <- read_csv(here("GRIIS_Australia_20230331-121730.csv"))
+griis <- read_csv(here("griis_australia_20240712-155356.csv")) # <1>
 
 glimpse(griis)
 ```
+1. We renamed the downloaded file from `record 20240712-155356.csv` to `griis_australia_20240712-155356.csv`
 
 ```{r}
 #| warning: false
 #| message: false
 #| echo: false
 griis <- read_csv(here("data", 
-                       "lists", 
-                       "GRIIS_Australia_20230331-121730.csv"))
+                       "lists",
+                       "griis",
+                       "griis_australia_20240712-155356.csv"))
 glimpse(griis)
 ```
 
@@ -999,61 +1001,6 @@ There are several packages available that can be used to query different
 taxonomic databases and check for synonyms.
 
 ::: {.panel-tabset .nav-pills}
-### worrms
-
-The [worrms package](https://docs.ropensci.org/worrms/) is the R
-interface to the World Register of Marine Species (WoRMS). When working
-with data from this database, the worrms R package has the ability to
-cross-check synonyms in their database using their taxonomic ID
-(`AphiaID`).
-
-For example, we can return existing synonyms for *Lupocyclus inaequalis*
-by supplying its `AphiaID` to the `wm_synonyms()` function. 
-We'll use a subset of the WoRMS dataset, saved in the `worms.csv` file. 
-
-:::aside
-Download the `worms.csv` file from the 
-[Data in this book chapter](../data-in-this-book.html#marine_sp).
-:::
-
-```{r}
-#| warning: false
-#| message: false
-#| eval: false
-library(worrms)
-
-marine_sp <- read_csv(here::here("worms.csv")) 
-
-marine_sp |>
-  filter(scientificname == "Lupocyclus inaequalis") |>
-  select(AphiaID, scientificname, status)
-```
-
-
-```{r}
-#| warning: false
-#| message: false
-#| echo: false
-library(worrms)
-
-marine_sp <- read_csv(here::here("data",
-                                 "worms",
-                                 "worms.csv"))
-
-marine_sp |>
-  filter(scientificname == "Lupocyclus inaequalis") |>
-  select(AphiaID, scientificname, status)
-```
-
-Our search returns a superseded synonym *Goniosoma inaequale*.
-
-```{r}
-marine_sp |>
-  filter(scientificname == "Lupocyclus inaequalis") |>
-  pull(AphiaID) |>
-  wm_synonyms() |>
-  select(AphiaID, scientificname, status)
-```
 
 ### taxize
 
@@ -1133,6 +1080,63 @@ list_of_names <- c("name1", "name2", "name3", ...)
 
 resolved <- gnr_resolve(list_of_names, with_context = TRUE)
 ```
+
+### worrms
+
+The [worrms package](https://docs.ropensci.org/worrms/) is the R
+interface to the World Register of Marine Species (WoRMS). When working
+with data from this database, the worrms R package has the ability to
+cross-check synonyms in their database using their taxonomic ID
+(`AphiaID`).
+
+For example, we can return existing synonyms for *Lupocyclus inaequalis*
+by supplying its `AphiaID` to the `wm_synonyms()` function. 
+We'll use a subset of the WoRMS dataset, saved in the `worms.csv` file. 
+
+:::aside
+Download the `worms.csv` file from the 
+[Data in this book chapter](../data-in-this-book.html#marine_sp).
+:::
+
+```{r}
+#| warning: false
+#| message: false
+#| eval: false
+library(worrms)
+
+marine_sp <- read_csv(here::here("worms.csv")) 
+
+marine_sp |>
+  filter(scientificname == "Lupocyclus inaequalis") |>
+  select(AphiaID, scientificname, status)
+```
+
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+library(worrms)
+
+marine_sp <- read_csv(here::here("data",
+                                 "worms",
+                                 "worms.csv"))
+
+marine_sp |>
+  filter(scientificname == "Lupocyclus inaequalis") |>
+  select(AphiaID, scientificname, status)
+```
+
+Our search returns a superseded synonym *Goniosoma inaequale*.
+
+```{r}
+marine_sp |>
+  filter(scientificname == "Lupocyclus inaequalis") |>
+  pull(AphiaID) |>
+  wm_synonyms() |>
+  select(AphiaID, scientificname, status)
+```
+
 :::
 
 ## Input from experts
