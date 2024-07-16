@@ -8,10 +8,8 @@ biodiversity data.
 
 #### License 
 
-<!-- This is a placeholder licence -->
-<!-- actual repository should also contain a licence doc; preferably matching I think -->
 This book is available free to read, and is licenced under the 
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). This means that the book can be shared, revised, retained and redistributed as long as appropriate credit is given to the authors. Modified versions must be distributed under the same license.
+[CC BY-NC-ND 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). This means that the book can be shared and redistributed as long as appropriate credit is given to the authors, and any minor changes are indicated appropriately. Modified versions that remix or modify the content may not be distributed.
   
 #### Citation
 
@@ -35,7 +33,7 @@ date_rendered <- lubridate::today() |>
 ```
 
 
-Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://ala.org.au/cleaning-bd-in-r](LINK) <!-- Eventually replace with DOI-->
+Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://cleaning-data-r.ala.org.au/](https://cleaning-data-r.ala.org.au/) <!-- Eventually replace with DOI-->
 
 This book was last rendered on `{r} date_rendered`.
 

@@ -21,11 +21,11 @@ div.sidebar-item-container .active{
 }
 
 .sidebar-navigation a:hover{
-  color: #A191B2 !important;
+  color: #E54D23 !important;
 }
 
 .nav-link.active {
-  background-color: #A191B2!important;
+  background-color: #efc078!important;
 }
 
 .footnotes{
@@ -40,7 +40,7 @@ $primary: #003A70 !default;
 $link-color: #003A70;
 
 // sidebar
-$sidebar-hl: #A191B2 !default;
+$sidebar-hl: #E54D23 !default;
 
 // table of contents
 
@@ -59,7 +59,7 @@ $toc-active-background: #EEECEA!default;
 // download buttons
 #download-button {
   border-width: 1.5px 1.5px 1.5px 1.5px;
-  background-color: #A191B2;
+  background-color: #efc078;
   color: #fff;
   border-color: #003A70;
 }

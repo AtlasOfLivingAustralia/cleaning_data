@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bs-nav-pills-link-active-bg: #FFC557;
+  --bs-nav-pills-link-active-bg: #efc078;
 }
 
 .clipped {
@@ -75,7 +75,7 @@ a {
 }
 
 .fa-solid {
-  color: #A191B2;
+  color: #E54D23;
 }
 
 .output-scroll {
