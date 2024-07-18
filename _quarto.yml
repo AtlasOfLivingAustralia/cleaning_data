@@ -22,11 +22,11 @@ book:
   page-footer:
     border: true
     left: |
-      Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/">![](/images/logo.jpg){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}</a>
+      Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/">![](/images/ALA_Logo_Inline_RGB.png){style='width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}</a>
     center: |
-      ![](/images/NCRIS_logo.png){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](/images/CSIRO_logo.png){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](/images/GBIF-2015.png){style='width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}
+      ![](/images/NCRIS_logo.png){style='width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](/images/CSIRO_logo.png){style='width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}![](/images/GBIF-2015.png){style='width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;'}
     right: |
-      This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a [Creative Commons Attribution 3.0 Australia License](https://creativecommons.org/licenses/by/3.0/au/).
+      This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a [CC-BY-NC-ND 4.0 Int License](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 
   cover-image: images/cleaner-shrimp_cover.png
 

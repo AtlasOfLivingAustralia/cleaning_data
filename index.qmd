@@ -33,9 +33,15 @@ date_rendered <- lubridate::today() |>
 ```
 
 
-Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://cleaning-data-r.ala.org.au/](https://cleaning-data-r.ala.org.au/) <!-- Eventually replace with DOI-->
+Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://doi.org/10.54102/ala.77009](https://doi.org/10.54102/ala.77009). 
 
-This book was last rendered on `{r} date_rendered`.
+**This book was last rendered on `{r} date_rendered`.**
+
+#### Cover
+
+The [Pacific Cleaner Shrimp (*Lysmata amboinensis*)](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/55ed63d8-7382-4611-8016-08553e0fe20d) is a cleaning hero of coral reef ecosystems across the tropics. These shrimps clean parasites and dead tissue from "client" fish, which helps to heal wounds and improve health. 
+
+{{< fa paintbrush title="paintbrush">}} Credit: [Dax Kellie](https://labs.ala.org.au/about/Kellie_Dax/) 2024
 
 ## Acknowledgement of Country
 
