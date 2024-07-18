@@ -8,6 +8,8 @@ editor_options:
   chunk_output_type: console
 ---
 
+<!-- I'm not certain if you're still trying to make a decision about this chapter - having skimmed it, I'm not clear on what the example actually is... -SB -->
+
 <!-- IMPORTANT NOTE:
 This chapter used to have lots of examples of biological filters one could use. After thinking about it more, this chapter felt more like a strange collection of examples of fields people might not know about (but for good reason because the data was pretty sparse) or VERY bespoke filtering workflows using confusing or technical examples. I have moved relevant information elsewhere and deleted many examples because they didn't work the way they were advertised originally.
 
