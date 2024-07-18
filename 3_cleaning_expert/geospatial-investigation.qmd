@@ -287,15 +287,15 @@ banksia <- banksia |>
 
 ## Obscured location
 
-Occurrence records of sensitive, endangered, or critically endangered
-species may be obscured (i.e. generalised, obfuscated) to protect the
-true location of the species. This process blurs the of an organism
-actual location to avoid risks like poaching or capture while still
-allowing their data to be included in broader summaries.
+Occurrence records of sensitive, endangered, or critically endangered species
+may be deliberately obscured (i.e. generalised or obfuscated) to protect the
+true locations of these species. This process blurs an organism's actual
+location to avoid risks like poaching or capture while still allowing their data
+to be included in broader summaries.
 
-In the ALA, the field `dataGeneralizations` contains information of
-whether a record has been has been obscured and the size of the area the
-point has been generalised to.
+In the ALA, the field `dataGeneralizations` indicates whether a record has been
+has been obscured and provides information on the size of the area to which the
+point has been generalised.
 
 ::: {.callout-note collapse="true"}
 #### Note on `dataGeneralizations`
@@ -324,7 +324,7 @@ obscured_tortoise_count <- galah_call() |>
   
 ```
 
-
+<!-- Added inline code to avoid differences in numbers through code and in text - SB -->
 For example, the Western Swamp Tortoise is [a critically endangered
 species in Western
 Australia](https://www.dcceew.gov.au/environment/biodiversity/threatened/action-plan/priority-reptiles/western-swamp-tortoise).
@@ -349,12 +349,12 @@ galah_call() |>
 
 #### What do obscured data look like?
 
-Quokka data offer a nice example to get an idea of what to look for when
+Quokka data offer a nice example of what to look for when
 data points have been obscured. When plotted, obscured occurrence data
-appears as if points were plotted onto a grid
+appear as if points were placed onto a grid
 [^geospatial-investigation-1].
 
-[^geospatial-investigation-1]: This is pretty much what actually
+[^geospatial-investigation-1]: This *is* what actually
     happened---locations have been "snapped" onto a grid determined by
     the generalised distance.
 
@@ -382,18 +382,18 @@ ggplot() +
 ```
 
 Keep in mind that survey data can also appear gridded if survey
-locations were dispersed at equal distance, so be sure to double check
-before assuming data has been obscured!
+locations were evenly spaced, so be sure to double check
+before assuming data have been obscured!
 
-For more information, check out ALA's [support article about working
+For more information, check out the ALA's [support article about working
 with threatened, migratory and sensitive
 species](https://support.ala.org.au/support/solutions/articles/6000261705-working-with-conservation-and-sensitive-species-information).
 
 ## Summary
 
 In this chapter, we showed some ways to investigate the geospatial
-coordinates of your data and determine its level of precision,
-uncertainty or obscurity.
+coordinates of your data and determine the level of precision,
+uncertainty (accuracy?), or obfucsation.
 
 In the next chapter, we'll see examples of issues with coordinates that
-require fixing or removing.
+require correcting or removing.
