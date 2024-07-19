@@ -254,7 +254,7 @@ bitter_peas <- galah_call() |>
 ## Missing coordinates
 
 Mentioned in the [Missing Values
-chapter](../2_cleaning_general/missing-values.qmd), many spatial
+chapter](../2_general-cleaning/missing-values.qmd), many spatial
 analytical tools are not compatible with missing coordinate data. We
 recommend identifying the rows that have missing data before deciding to
 exclude them.

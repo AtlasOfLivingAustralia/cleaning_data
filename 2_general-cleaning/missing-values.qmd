@@ -267,7 +267,7 @@ To match the complete names in `geckos_species_list` with the missing names in `
 
 :::{.callout-note collapse="true"}
 
-For some taxonomic groups like birds this will not work because [subgenus is almost always included](../3_cleaning_expert/taxonomic-validation.html#example-2-subgenera) in `scientificName`. In this scenario, you might need to use more advanced methods like those in the [Taxonomic Validation chapter](../3_cleaning_expert/taxonomic-validation.html) to match and back-fill taxonomic information. 
+For some taxonomic groups like birds this will not work because [subgenus is almost always included](../3_ecological-cleaning/taxonomic-validation.html#example-2-subgenera) in `scientificName`. In this scenario, you might need to use more advanced methods like those in the [Taxonomic Validation chapter](../3_cleaning_expert/taxonomic-validation.html) to match and back-fill taxonomic information. 
 
 :::
 

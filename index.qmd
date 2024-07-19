@@ -6,13 +6,6 @@ biodiversity data. As such, this book isn't a guide to data cleaning in general,
 but a targeted resource for anyone working with or interested in ecology/evolution and geo-referenced 
 biodiversity data.
 
-#### License 
-
-This book is available free to read, and is licenced under the 
-[CC BY-NC-ND 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). This means that the book can be shared and redistributed as long as appropriate credit is given to the authors, and any minor changes are indicated appropriately. Modified versions that remix or modify the content may not be distributed.
-  
-#### Citation
-
 ```{r}
 #| include: false
 #| message: false
@@ -32,10 +25,16 @@ date_rendered <- lubridate::today() |>
   lubridate::stamp("1 March, 1999")()
 ```
 
-
-Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://doi.org/10.54102/ala.77009](https://doi.org/10.54102/ala.77009). 
-
 **This book was last rendered on `{r} date_rendered`.**
+
+#### License 
+
+This book is available free to read, and is licenced under the 
+[CC BY-NC-ND 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). This means that the book can be shared and redistributed as long as appropriate credit is given to the authors, and any minor changes are indicated appropriately. Modified versions that remix or modify the content may not be distributed.
+  
+#### Citation
+
+Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, O., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://doi.org/10.54102/ala.77009](https://doi.org/10.54102/ala.77009). 
 
 #### Cover
 

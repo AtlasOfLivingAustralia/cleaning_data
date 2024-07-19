@@ -186,7 +186,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../intro.html" class="sidebar-item-text sidebar-link">
+  <a href="../introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -221,7 +221,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../2_cleaning_general/1_intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../2_general-cleaning/1_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">General data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -230,31 +230,31 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2_cleaning_general/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2_cleaning_general/duplicates.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/duplicates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2_cleaning_general/missing-values.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/missing-values.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2_cleaning_general/strings.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/strings.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2_cleaning_general/dates.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/dates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
@@ -262,7 +262,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../3_cleaning_expert/1_intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../3_ecological-cleaning/1_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ecological data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -271,19 +271,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../3_cleaning_expert/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
+  <a href="../3_ecological-cleaning/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../3_cleaning_expert/geospatial-investigation.html" class="sidebar-item-text sidebar-link">
+  <a href="../3_ecological-cleaning/geospatial-investigation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Geospatial investigation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../3_cleaning_expert/geospatial-cleaning.html" class="sidebar-item-text sidebar-link">
+  <a href="../3_ecological-cleaning/geospatial-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Geospatial cleaning</span></span></a>
   </div>
 </li>
@@ -398,7 +398,7 @@ div.csl-indent {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>) <span class="co"># ALA-registered email</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org/10.26197/ala.55960665-74c2-4d1f-81ad-ba4cdd2269fa"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org /10.26197/ala.702e73e4-ba9d-471a-a0a4-872ecb5d0f32"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- Images -->
@@ -502,7 +502,7 @@ Data standards
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 140,670
+<pre><code>Rows: 140,835
 Columns: 13
 $ recordID         &lt;chr&gt; "00000eb7-95a6-40ad-acc5-9b58ed2ab95b", "0000c741-b70…
 $ scientificName   &lt;chr&gt; "Dacelo (Dacelo) novaeguineae", "Dacelo (Dacelo) nova…
@@ -536,7 +536,7 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
 </tr>
 <tr class="even">
 <td style="text-align: left;">Number of rows</td>
-<td style="text-align: left;">140670</td>
+<td style="text-align: left;">140835</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
@@ -604,7 +604,7 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">36</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">140670</td>
+<td style="text-align: right;">140835</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
@@ -679,7 +679,7 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
 </tr>
 <tr class="odd">
 <td style="text-align: left;">cl22</td>
-<td style="text-align: right;">1717</td>
+<td style="text-align: right;">1718</td>
 <td style="text-align: right;">0.99</td>
 <td style="text-align: right;">8</td>
 <td style="text-align: right;">28</td>
@@ -725,11 +725,11 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">-28.84</td>
-<td style="text-align: right;">7.92</td>
+<td style="text-align: right;">7.91</td>
 <td style="text-align: right;">-43.58</td>
 <td style="text-align: right;">-34.97</td>
-<td style="text-align: right;">-30.52</td>
-<td style="text-align: right;">-26.31</td>
+<td style="text-align: right;">-30.54</td>
+<td style="text-align: right;">-26.32</td>
 <td style="text-align: right;">35.6</td>
 <td style="text-align: left;">▇▆▁▁▁</td>
 </tr>
@@ -737,12 +737,12 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
 <td style="text-align: left;">decimalLongitude</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">146.10</td>
+<td style="text-align: right;">146.09</td>
 <td style="text-align: right;">8.80</td>
 <td style="text-align: right;">96.87</td>
 <td style="text-align: right;">145.11</td>
 <td style="text-align: right;">148.95</td>
-<td style="text-align: right;">152.39</td>
+<td style="text-align: right;">152.38</td>
 <td style="text-align: right;">174.8</td>
 <td style="text-align: left;">▁▁▂▇▁</td>
 </tr>
@@ -790,8 +790,8 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
 <td style="text-align: right;">1</td>
 <td style="text-align: left;">2021-12-31 18:07:00</td>
 <td style="text-align: left;">2022-12-31 22:50:00</td>
-<td style="text-align: left;">2022-07-31 07:39:00</td>
-<td style="text-align: right;">77113</td>
+<td style="text-align: left;">2022-07-31 08:00:00</td>
+<td style="text-align: right;">77135</td>
 </tr>
 </tbody>
 </table>
@@ -803,20 +803,20 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>spc_tbl_ [140,670 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ recordID        : chr [1:140670] "00000eb7-95a6-40ad-acc5-9b58ed2ab95b" "0000c741-b706-49dc-864e-bf9be82982a8" "0001057f-c7e9-4ae2-b7db-f0f03b4e52a0" "000121a3-a27e-4656-ad55-e817ebf05341" ...
- $ scientificName  : chr [1:140670] "Dacelo (Dacelo) novaeguineae" "Dacelo (Dacelo) novaeguineae" "Dacelo (Dacelo) novaeguineae" "Dacelo (Dacelo) novaeguineae" ...
- $ taxonConceptID  : chr [1:140670] "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" ...
- $ decimalLatitude : num [1:140670] -37.8 -37.7 -43 -36.9 -32.9 ...
- $ decimalLongitude: num [1:140670] 145 144 147 147 152 ...
- $ eventDate       : POSIXct[1:140670], format: "2022-04-19 11:30:00" "2022-12-25 07:37:00" ...
- $ occurrenceStatus: chr [1:140670] "PRESENT" "PRESENT" "PRESENT" "PRESENT" ...
- $ dataResourceName: chr [1:140670] "eBird Australia" "eBird Australia" "eBird Australia" "eBird Australia" ...
- $ family          : chr [1:140670] "Alcedinidae" "Alcedinidae" "Alcedinidae" "Alcedinidae" ...
- $ genus           : chr [1:140670] "Dacelo" "Dacelo" "Dacelo" "Dacelo" ...
- $ species         : chr [1:140670] "Dacelo novaeguineae" "Dacelo novaeguineae" "Dacelo novaeguineae" "Dacelo novaeguineae" ...
- $ cl22            : chr [1:140670] "Victoria" "Victoria" "Tasmania" "Victoria" ...
- $ year            : num [1:140670] 2022 2022 2022 2022 2022 ...
+<pre><code>spc_tbl_ [140,835 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ recordID        : chr [1:140835] "00000eb7-95a6-40ad-acc5-9b58ed2ab95b" "0000c741-b706-49dc-864e-bf9be82982a8" "0001057f-c7e9-4ae2-b7db-f0f03b4e52a0" "000121a3-a27e-4656-ad55-e817ebf05341" ...
+ $ scientificName  : chr [1:140835] "Dacelo (Dacelo) novaeguineae" "Dacelo (Dacelo) novaeguineae" "Dacelo (Dacelo) novaeguineae" "Dacelo (Dacelo) novaeguineae" ...
+ $ taxonConceptID  : chr [1:140835] "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" ...
+ $ decimalLatitude : num [1:140835] -37.8 -37.7 -43 -36.9 -32.9 ...
+ $ decimalLongitude: num [1:140835] 145 144 147 147 152 ...
+ $ eventDate       : POSIXct[1:140835], format: "2022-04-19 11:30:00" "2022-12-25 07:37:00" ...
+ $ occurrenceStatus: chr [1:140835] "PRESENT" "PRESENT" "PRESENT" "PRESENT" ...
+ $ dataResourceName: chr [1:140835] "eBird Australia" "eBird Australia" "eBird Australia" "eBird Australia" ...
+ $ family          : chr [1:140835] "Alcedinidae" "Alcedinidae" "Alcedinidae" "Alcedinidae" ...
+ $ genus           : chr [1:140835] "Dacelo" "Dacelo" "Dacelo" "Dacelo" ...
+ $ species         : chr [1:140835] "Dacelo novaeguineae" "Dacelo novaeguineae" "Dacelo novaeguineae" "Dacelo novaeguineae" ...
+ $ cl22            : chr [1:140835] "Victoria" "Victoria" "Tasmania" "Victoria" ...
+ $ year            : num [1:140835] 2022 2022 2022 2022 2022 ...
  - attr(*, "spec")=
   .. cols(
   ..   recordID = col_character(),
@@ -834,7 +834,7 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
   ..   year = col_double()
   .. )
  - attr(*, "problems")=&lt;externalptr&gt; 
- - attr(*, "doi")= chr "https://doi.org/10.26197/ala.55960665-74c2-4d1f-81ad-ba4cdd2269fa"</code></pre>
+ - attr(*, "doi")= chr "https://doi.org /10.26197/ala.702e73e4-ba9d-471a-a0a4-872ecb5d0f32"</code></pre>
 </div>
 </div>
 </div>
@@ -1309,13 +1309,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src="..\images/logo.jpg" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src="..\images/ALA_Logo_Inline_RGB.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
-<p><img src="..\images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="..\images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"><img src="..\images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 40px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></p>
+<p><a href="https://www.education.gov.au/ncris"><img src="..\images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a><a href="https://www.csiro.au/en/"><img src="..\images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a><a href="https://www.gbif.org/en/"><img src="..\images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>
     <div class="nav-footer-right">
-<p>This book was built with <a href="https://quarto.org/">Quarto</a>.<br>This work is licensed under a <a href="https://creativecommons.org/licenses/by/3.0/au/">Creative Commons Attribution 3.0 Australia License</a>.</p>
+<p>This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC-BY-NC-ND 4.0 Int License</a></p>
 </div>
   </div>
 </footer>

@@ -248,6 +248,6 @@ birds_filtered |>
 
 ## Summary
 
-This chapter has introduced some ways to find duplicated records, remove them from datasets, and check if the changes were correctly made. These methods can be more broadly applied to other types of data as well, not just spatial data. Depending on your analysis, you may need to use bespoke methods for handling duplicates. Later chapters like [Taxonomic validation](../3_cleaning_expert/taxonomic-validation.qmd) and [Geospatial cleaning](../3_cleaning_expert/geospatial-cleaning.qmd) cover more advanced detection and cleaning methods.
+This chapter has introduced some ways to find duplicated records, remove them from datasets, and check if the changes were correctly made. These methods can be more broadly applied to other types of data as well, not just spatial data. Depending on your analysis, you may need to use bespoke methods for handling duplicates. Later chapters like [Taxonomic validation](../3_ecological-cleaning/taxonomic-validation.qmd) and [Geospatial cleaning](../3_cleaning_expert/geospatial-cleaning.qmd) cover more advanced detection and cleaning methods.
 
 In the next chapter, we will discuss ways of handling **missing values** in your dataset. 
