@@ -253,7 +253,7 @@ format your data uses as long as it is consistent.
 
 #### Example 1: Subspecies
 
-An an example, the ALA uses `"subsp."` to designate subspecies of Acacia
+As an example, the ALA uses `"subsp."` to designate subspecies of Acacia
 observations in the scientific name, whereas subspecies of bird observations 
 simply include the subspecific epithet after the specific epithet.
 
@@ -280,34 +280,9 @@ birds_2023 |>
 ```
 
 Although both are correct, be sure to check your data to make sure that
-this naming format is consistent.
+this naming format is consistent. Other taxonomic names (like subgenera) can differ between taxonomic groups, too.
 
-#### Example 2: Subgenera
 
-<!-- I found this example confusing. The previous example discusses how the same taxonomic rank (subspecies) is displayed differently across taxonomic groups in the same field (scientificName), which seems like a good thing to highlight. But this example illustrates how different fields (scientificName, species) contain different information, which seems like something you would expect (or why even have two different fields?). I think it's worth highlighting if, similarly to subspecies, subgenera are displayed differently across taxa within scientificName. Otherwise I would get rid of this example. The ALA does do this very odd thing with subgenera where they're included in scientificame, but often left blank in the subgenus field. Probably not something we need to highlight here though -SB  -->
-
-Subgenera are present in many Animalian clades, but their formatting can vary. 
-In the ALA’s `scientificName` field, subgenera are specified in brackets between
-the genus and species names.
-
-```{r}
-#| warning: false
-#| message: false
-birds |>
-  filter(str_detect(scientificName, "Dacelo")) |>
-  distinct(scientificName)
-```
-
-They are not, however, specified in the `species` field.
-
-```{r}
-birds |>
-  filter(str_detect(species, "Dacelo")) |>
-  distinct(species)
-```
-
-Again, both are correct, so be sure to use the naming format that suits
-your needs best.
 
 ## Matching names to a species list
 
@@ -405,11 +380,11 @@ stored in columns with an `accepted_name` prefix.
 
 ```{r}
 #| eval: false
-griis <- read_csv(here("griis_australia_20240712-155356.csv")) # <1>
+griis <- read_csv(here("griis_australia_20240712.csv")) # <1>
 
 glimpse(griis)
 ```
-1. We renamed the downloaded file from `record 20240712-155356.csv` to `griis_australia_20240712-155356.csv`
+1. We renamed the downloaded file from `record 20240712-155356.csv` to `griis_australia_20240712.csv`
 
 ```{r}
 #| warning: false
@@ -418,18 +393,16 @@ glimpse(griis)
 griis <- read_csv(here("data", 
                        "lists",
                        "griis",
-                       "griis_australia_20240712-155356.csv"))
+                       "griis_australia_20240712.csv"))
 glimpse(griis)
 ```
 
 Now we can check which species names in our `legless_lizards` dataset match
 names in `griis`.
 
-<!-- Text says legless lizards but code says eucalypts -SB  -->
-
 ```{r}
 # Check which species matched the GRIIS list
-matches <- eucalypts |> 
+matches <- legless_lizards |> 
   filter(scientificName %in% griis$accepted_name.species)
 
 matches
@@ -493,7 +466,8 @@ taxa_sample_names[1:5] # first 5 names
 ```
 
 We can then search for those names in the ALA using using `search_taxa()` from
-galah. We'll save the results in `names_matches_ala`.
+galah. We'll save the results in `names_matches_ala`. The results contain 
+complete taxonomic information from `kingdom` to `species`.
 
 ::: {.callout-tip collapse="true" title="Search tip"}
 Anytime you search for taxonomic matches using names, it's good practice to
@@ -533,8 +507,9 @@ our `inverts_sample` data.
 
 ```{r}
 inverts_sample_with_ranks <- names_matches_renamed |>
-  right_join(inverts_sample,                          # join to `inverts_sample`
+  right_join(inverts_sample,
              join_by(scientific_name == scientific_name))
+
 inverts_sample_with_ranks
 ```
 
@@ -586,13 +561,12 @@ CC-BY-NC 4.0
 :::
 :::
 
-This occurrence data contains observations of over 373 species.
-<!-- This would contain subspecies though, I think, so probably fewer than 373 species? -SB  -->
+This occurrence data contains observations of over 300 species.
 
 ```{r}
 eucalypts |>
   filter(taxonRank != "genus") |>
-  distinct(scientificName) |> 
+  distinct(species) |> 
   count(name = "n_species")
 ```
 
@@ -944,13 +918,18 @@ information of whether a taxonomic name is accepted or a synonym. A good
 example is the list of names for *Eucalyptus leucoxylon*, which has a
 number of accepted subspecies names and synonyms.
 
-<!-- I find this example a bit confusing because I'm not sure what I'm supposed to take away from it. From looking at the output for a minute or two, I don't find it entirely intuitive (and I'm also confused about some things which are unrelated to what's being demonstrated here e.g. there are rows where acceptedScientificName contains subsp. but the value in taxonRank is SPECIES). I think it might be worth spelling out in more detail what exactly we're expecting readers to take away from this - SB -->
-
 ```{r}
 gbif_species_list |>
   filter(species == "Eucalyptus leucoxylon") |>
   select(species, taxonRank, taxonomicStatus, acceptedScientificName)
 ```
+
+All names under `species` are *Eucalyptus leucoxylon*, and yet there are **lots* 
+of names associated with varieties, subspecies and species. The main takeaway 
+from this example is that some species can have many accepted names and synonyms 
+depending on the taxonomic level you are interested in. GBIF species lists 
+are one useful way to determine what accepted names might be suitable for your 
+data.
 
 ## Detecting homonyms
 
@@ -1019,6 +998,8 @@ they are to these sources.
 Let's search for any synonyms of *Litoria caerulea* as an example.
 
 ```{r}
+#| warning: false
+#| message: false
 library(taxize)
 
 # Resolve names
@@ -1031,12 +1012,12 @@ using `get_tsn()`, which taxize uses to as a taxonomic identifier. Then
 we can search for existing synonyms by supplying the `tsn` to the
 `synonyms()` function.
 
-<!-- A note to check whether this still times out - SB -->
+<!-- Note: `synonyms()` has timed out in the past (and could be a source of future errors) -->
 
 ```{r}
 # Retrieve synonyms
 tsn <- get_tsn(resolved$matched_name)
-#synonyms(tsn) # this times out as of 2023-05-16
+synonyms(tsn)
 ```
 
 #### Homonyms
