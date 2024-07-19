@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cleaning Biodiversity Data in R - Preface</title>
+<title>Cleaning Biodiversity Data in R - Introduction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -50,8 +84,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./introduction.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./data-in-this-book.html" rel="next">
+<link href="./preface.html" rel="prev">
 <link href="./images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -62,9 +96,8 @@ div.csl-indent {
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -105,7 +138,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preface.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./introduction.html">Introduction</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -149,13 +182,13 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preface.html" class="sidebar-item-text sidebar-link active">
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
@@ -323,14 +356,35 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#who-is-this-book-for" id="toc-who-is-this-book-for" class="nav-link active" data-scroll-target="#who-is-this-book-for">Who is this book for?</a></li>
+  <li><a href="#what-this-book-covers" id="toc-what-this-book-covers" class="nav-link" data-scroll-target="#what-this-book-covers">What this book covers</a></li>
+  <li><a href="#what-we-dont-cover" id="toc-what-we-dont-cover" class="nav-link" data-scroll-target="#what-we-dont-cover">What we don’t cover</a></li>
+  <li><a href="#requirements" id="toc-requirements" class="nav-link" data-scroll-target="#requirements">Requirements</a>
+  <ul class="collapse">
+  <li><a href="#user-accounts" id="toc-user-accounts" class="nav-link" data-scroll-target="#user-accounts">User accounts</a></li>
+  <li><a href="#r" id="toc-r" class="nav-link" data-scroll-target="#r">R</a></li>
+  <li><a href="#rstudio" id="toc-rstudio" class="nav-link" data-scroll-target="#rstudio">RStudio</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a></li>
+  </ul></li>
+  <li><a href="#conventions" id="toc-conventions" class="nav-link" data-scroll-target="#conventions">Conventions</a>
+  <ul class="collapse">
+  <li><a href="#code-blocks" id="toc-code-blocks" class="nav-link" data-scroll-target="#code-blocks">Code blocks</a></li>
+  <li><a href="#code-line-comments" id="toc-code-line-comments" class="nav-link" data-scroll-target="#code-line-comments">Code line comments</a></li>
+  </ul></li>
+  <li><a href="#how-to-contribute" id="toc-how-to-contribute" class="nav-link" data-scroll-target="#how-to-contribute">How to contribute</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Preface</h1>
+<h1 class="title">Introduction</h1>
 </div>
 
 
@@ -347,46 +401,162 @@ div.csl-indent {
 </header>
 
 
-<p>People working with ecological or biological data want to know how to clean data effectively, but data cleaning can be a daunting task because of the complexity inherent in these types of data. At the <a href="https://ala.org.au/">Atlas of Living Australia</a>, questions about data cleaning come up so frequently that it made us wonder…<em>is there a general ecological data cleaning workflow that is considered best-practice?</em></p>
-<p>To find out, we undertook an informal literature review on ecological data cleaning processes using peer-reviewed and grey literature. The key themes we searched for were:</p>
-<ol type="1">
-<li>Data cleaning for species distribution models</li>
-<li>Data cleaning open biodiversity data</li>
-<li>Australian and global naming authorities</li>
-<li>R packages for biodiversity data cleaning</li>
-</ol>
-<p>We created a collection of papers that matched these themes, choosing recently published papers that used up-to-date workflows with recent packages and tools in R. We also added several frequently referenced papers for comprehensiveness, and we reviewed data cleaning workflows from our project partners <span class="citation" data-cites="marsh2021 godfree_implications_2021">(<a href="references.html#ref-marsh2021" role="doc-biblioref">Marsh et al. 2021</a>; <a href="references.html#ref-godfree_implications_2021" role="doc-biblioref">Godfree et al. 2021</a>)</span> to understand their processes, issues, and needs.</p>
-<p>From our informal search, we ended up with a list of 18 papers and resources (listed <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/data/lit-search/informal-lit-search.xlsx">here</a>) with relevant ecological data cleaning workflows. To determine any common, best-practice steps—and common sequences for ordering these steps—we read through their methods sections and collated their data cleaning protocols into a spreadsheet. Our hope was that collating these methods would reveal several clear data cleaning workflows that scientists and researchers use regularly to clean their data.</p>
-<p>But, to our surprise, that’s not what we found. Instead, the steps to cleaning ecological data were <em>even messier</em> than we first thought. The diagrams below visualise the findings of our spreadsheet, showing the complexity of processes used to clean data, many of which are iterative.</p>
+<p>Data cleaning is a process that biologists and ecologists invariably have to engage with before they can answer questions using data. Depending on the sources of the data, it may be necessary to standardise formats, correct spelling errors, and resolve taxonomic inconsistency and spatial errors before these data can be analysed. The “correct” degree of data cleaning will depend on the project and the questions being asked of the data, so there is no one-size-fits-all approach. There are, however, some common processes that will be broadly applicable to many data cleaning workflows. This book consolidates those processes into a resource for users who are interested in understanding how to clean their datasets.</p>
+<div class="figure-caption">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/complex_workflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" data-glightbox="description: .lightbox-desc-1" title="A flow diagram of possible ecological data cleaning workflows"><img src="images/complex_workflow.png" class="img-fluid figure-img" alt="A flow diagram of possible ecological data cleaning workflows"></a></p>
-<figcaption>A flow diagram of possible ecological data cleaning workflows</figcaption>
+<p><img src="images/hex_plot_small.png" class="img-fluid figure-img"></p>
+<figcaption>Global density of 2.1 billion geo-referenced biodiversity data points in the Global Biodiversity Information Facility (GBIF)</figcaption>
 </figure>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/simplified_workflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" data-glightbox="description: .lightbox-desc-2" title="A simplified flow diagram of possible ecological data cleaning workflows, which still looks not very simple"><img src="images/simplified_workflow.png" class="img-fluid figure-img" alt="A simplified flow diagram of possible ecological data cleaning workflows, which still looks not very simple"></a></p>
-<figcaption>A simplified flow diagram of possible ecological data cleaning workflows, which still looks not very simple</figcaption>
-</figure>
 </div>
-<p>In the end, our search showed us that <em>there is no single, unified, step-by-step workflow to clean all types of ecological data</em>. Instead, data are cleaned in a <strong>huge</strong> variety of ways, and the process can look completely different depending on the type of investigation. No wonder people frequently ask how to do it!</p>
-<p>This book is our response to questions about how to clean ecological data, and to our discovery that (because workflows vary immensely) there don’t seem to be many resources that consolidate methods to clean ecological data in R. We are by no means experts in cleaning all types of data for all types of ecological analyses. We do, however, work with ecological data on a daily basis and encounter many data cleaning issues in our own work. We aspired for this book to be an up-to-date resource for a diverse range of data cleaning tasks in R. We hope that (at the very least) it is a resource that documents many common ecological data cleaning steps in one place!</p>
-<p><em>Dax Kellie</em><br><em>27 May, 2024</em></p>
+<section id="who-is-this-book-for" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="who-is-this-book-for">Who is this book for?</h2>
+<p>If you are new to working with geo-referenced biodiversity data in R, or are looking for a quick reference to data cleaning processes or concepts in R, then this book is for you! By learning how to download and apply common data cleaning steps, you will also develop a better understanding of biodiversity data, and common issues to be aware of.</p>
+</section>
+<section id="what-this-book-covers" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="what-this-book-covers">What this book covers</h2>
+<p>In this book, we provide an overview of a typical data cleaning workflow for open-access geo-referenced biodiversity data—from acquisition, to error identification, to correction. These processes are broken down into three main sections. The chapters within each section include practical guidelines, example R code, and additional resources that may aid with each data cleaning step.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="centre-it quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><a href="1_accessing/access_intro.html" style="text-decoration:none;"> <button class="circle-button"> <i class="fa-solid fa-magnifying-glass fa-3x" aria-label="magnifying-glass"></i> </button> </a></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>The first section is about <strong>exploring data</strong>. This section introduces ways to inspect and summarise taxonomic, spatial, and temporal elements in your data to identify areas that need cleaning.</p>
+</div>
+</div>
+</div>
+<hr>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="centre-it quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><a href="1_accessing/access_intro.html" style="text-decoration:none;"> <button class="circle-button"> <i class="fa-solid fa-broom fa-3x" aria-label="broom"></i> </button> </a></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>The second section is about <strong>general data cleaning processes</strong>. This section provides a checklist of data science tools and functions to clean different aspects of your data like strings, dates, and missing values.</p>
+</div>
+</div>
+</div>
+<hr>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="centre-it quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p><a href="1_accessing/access_intro.html" style="text-decoration:none;"> <button class="circle-button"> <i class="fa-solid fa-bugs fa-3x" aria-label="bugs"></i> </button> </a></p>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<p>The third section is about <strong>data cleaning processes that require expertise in your study species</strong>. This section discusses ways to spot errors that require ecological consideration about how best to handle each issue for your specific research question.</p>
+</div>
+</div>
+</div>
+<p>This book attempts to fill a niche between works that discuss data cleaning principles without using code (e.g., <span class="citation" data-cites="chapman_principles_2005">(<a href="references.html#ref-chapman_principles_2005" role="doc-biblioref">Chapman, 2005</a>)</span>) and articles that describe technical solutions to computational problems (e.g., <a href="https://brunobrr.github.io/bdc/#:~:text=bdc%20contains%20functions%20to%20harmonize,%2C%20spatial%2C%20and%20temporal%20data.">the bdc toolkit</a>; <span class="citation" data-cites="ribeiro_bdc_2024">(<a href="references.html#ref-ribeiro_bdc_2024" role="doc-biblioref">Ribeiro et al., 2024</a>)</span>).</p>
+<p>Although the principles we cover to clean data apply to many types of data (not just biodiversity data), our perspective is strongly focused on cleaning “unstructured” occurrence data with one row per observation (as provided by the <a href="https://www.gbif.org/">Global Biodiversity Information Facility (GBIF)</a> and it’s <a href="https://www.gbif.org/the-gbif-network">partner nodes</a>).</p>
+</section>
+<section id="what-we-dont-cover" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="what-we-dont-cover">What we don’t cover</h2>
+<p>The areas of research and uses of biodiversity data are many and varied. Here we have focused on just one facet—downloading and cleaning geo-referenced occurrence/biodiversity data. As such, this book will not cover:</p>
+<ul>
+<li>Hypothesis testing or experimental design</li>
+<li>How to clean environmental data that is not occurrence / biodiversity data (e.g.&nbsp;trait data)</li>
+<li>How to perform analyses (e.g.&nbsp;species distribution modelling)</li>
+</ul>
+</section>
+<section id="requirements" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="requirements">Requirements</h2>
+<section id="user-accounts" class="level3">
+<h3 class="anchored" data-anchor-id="user-accounts">User accounts</h3>
+<p>We will be working with point-based species occurrence data retrieved from online infrastructures such as the <a href="https://www.gbif.org/">Global Biodiversity Information Facility</a> (GBIF) and the <a href="https://www.ala.org.au/">Atlas of Living Australia</a> (ALA). To retrieve data from these services, you will need to create a user account, if you do not already have one:</p>
+<ul>
+<li><a href="https://auth.ala.org.au/userdetails/registration/createAccount">Register an account with Atlas of Living Australia</a></li>
+<li><a href="https://www.gbif.org/user/profile">Register an account with Global Biodiversity Information Facility</a></li>
+</ul>
+</section>
+<section id="r" class="level3">
+<h3 class="anchored" data-anchor-id="r">R</h3>
+<p>To get the most out of this book, a basic knowledge of using R and RStudio is recommended. We use R because it is commonly used across ecological projects and has a rich ecosystem of packages for data cleaning and visualisation. If you are new to R or need a refresher, there are many amazing and freely available resources available online. <a href="https://datacarpentry.org/R-ecology-lesson/">Data Analysis and Visualisation in R for Ecologists</a> and <a href="https://r4ds.had.co.nz/index.html">R for Data Science</a> are both excellent starting points.</p>
+<p>Download R from <a href="https://cloud.r-project.org/">CRAN</a>, selecting the version that matches your operating system, and install it on your device.</p>
+</section>
+<section id="rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="rstudio">RStudio</h3>
+<p>RStudio is an integrated development environment (IDE) for R programming. RStudio provides a range of tools to make working with R easier, and you can download and install RStudio for your operating system <a href="https://posit.co/download/rstudio-desktop/">here</a>.</p>
+<p>Other excellent IDEs like <a href="https://code.visualstudio.com/">Visual Studio Code</a> can be good alternative options depending on your preferences.</p>
+</section>
+<section id="packages" class="level3">
+<h3 class="anchored" data-anchor-id="packages">Packages</h3>
+<p>We use a range of R packages throughout the book, primarily for data cleaning and visualisation. These packages will be typically noted at the beginning of a chapter, and occasionally a code block. To access biodiversity data we will be primarily working with the <a href="https://galah.ala.org.au/">galah</a> package. If you have collected your own occurrence data, you should still find this book useful.</p>
+<p>A list of the most common packages in this book can be found on the <a href="4_appendices/packages.html">Packages page</a>.</p>
+</section>
+</section>
+<section id="conventions" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="conventions">Conventions</h2>
+<section id="code-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="code-blocks">Code blocks</h3>
+<p>Examples throughout this book are accompanied by code blocks. These blocks show how a particular task was executed in R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a code block with a comment</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(package<span class="sc">-</span>name)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">group_by</span>(species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>You can copy code by clicking the <i class="fa-solid fa-clipboard" title="clipboard" aria-label="clipboard"></i> button in the top right corner of a code block.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="code-line-comments" class="level3">
+<h3 class="anchored" data-anchor-id="code-line-comments">Code line comments</h3>
+<p>Some code blocks have circled numbers near the right edge of the code block. You can hover over these numbers to read additional context about that specific line of code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mean_bill_length =</span> <span class="fu">mean</span>(bill_length_mm))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="1">This line of code groups <code>penguins</code> data by each distinct value in the variable <code>species</code></span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="3" data-code-annotation="2">This line of code summarises each species’ mean bill length, saving the output in a new column <code>mean_bill_length</code></span>
+</dd>
+</dl>
+</div>
+</div>
+<p>Throughout this book, we use “pipes” in our code (<code>|&gt;</code>, or <code>%&gt;%</code> from the <code>magrittr</code> package). Pipes allow you to chain multiple functions sequentially to an object or a dataset. Pipes can be read as saying “<em>and then</em>”. For example, the code block above can be read as “Get data <code>penguins</code>, <em>and then</em> group by <code>species</code>, <em>and then</em> summarise (setting <code>mean_bill_length</code> to contain the mean of <code>bill_length_mm</code>).”</p>
+</section>
+</section>
+<section id="how-to-contribute" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-contribute">How to contribute</h2>
+<p>Suggestions, contributions, questions or other feedback to improve this book are welcome. We recommend opening an issue in our <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/issues">GitHub repository</a> first to discuss improvements or potential changes. More helpful information about licensing and contributing guidelines can be found <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/licensing.md">here</a>.</p>
 
 
-<div class="hidden" aria-hidden="true">
-<span class="glightbox-desc lightbox-desc-1">A flow diagram of possible ecological data cleaning workflows</span>
-<span class="glightbox-desc lightbox-desc-2">A simplified flow diagram of possible ecological data cleaning workflows, which still looks not very simple</span>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-chapman_principles_2005" class="csl-entry" role="listitem">
+Chapman, A. D. (2005). <em>Principles and methods of data cleaning</em>. GBIF.
 </div>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-godfree_implications_2021" class="csl-entry" role="listitem">
-Godfree, Robert C., Nunzio Knerr, Francisco Encinas-Viso, David Albrecht, David Bush, D. Christine Cargill, Mark Clements, et al. 2021. <span>“Implications of the 2019–2020 Megafires for the Biogeography and Conservation of <span>Australian</span> Vegetation.”</span> <em>Nature Communications</em> 12 (1): 1023. <a href="https://doi.org/10.1038/s41467-021-21266-5">https://doi.org/10.1038/s41467-021-21266-5</a>.
-</div>
-<div id="ref-marsh2021" class="csl-entry" role="listitem">
-Marsh, Jess, Payal Bal, Hannah Fraser, Kate Umbers, Aaron Greenville, Libby Rumpff, and John Woinarski. 2021. <span>“Assessment of the Impacts of the 2019-20 Wildfires of Southern and Eastern Australia on Invertebrate Species Final Report.”</span>
+<div id="ref-ribeiro_bdc_2024" class="csl-entry" role="listitem">
+Ribeiro, B., Velazco, S., Guidoni-Martins, K., Tessarolo, G., &amp; Jardim, L. (2024). <em>Bdc: <span>Biodiversity</span> <span>Data</span> <span>Cleaning</span></em>. <a href="https://brunobrr.github.io/bdc/ (website) https://github.com/brunobrr/bdc">https://brunobrr.github.io/bdc/ (website) https://github.com/brunobrr/bdc</a>
 </div>
 </div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -712,25 +882,64 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       };
     }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
           }
-        });
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
       }
   const findCites = (el) => {
     const parentEl = el.parentElement;
@@ -773,13 +982,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link  aria-label=" welcome"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
+      <a href="./preface.html" class="pagination-link  aria-label=" preface"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./data-in-this-book.html" class="pagination-link" aria-label="Data in this book">
+        <span class="nav-page-text">Data in this book</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -797,31 +1006,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","loop":false,"selector":".lightbox","openEffect":"zoom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
-    }
-  });
-
-};
-          </script>
 
 
 

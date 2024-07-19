@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cleaning Biodiversity Data in R - Preface</title>
+<title>Cleaning Biodiversity Data in R - General data cleaning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,51 +20,31 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./introduction.html" rel="next">
-<link href="./index.html" rel="prev">
-<link href="./images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../2_general-cleaning/column-names-and-classes.html" rel="next">
+<link href="../1_exploring/summarise.html" rel="prev">
+<link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -96,7 +76,7 @@ div.csl-indent {
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -105,7 +85,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./preface.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../2_general-cleaning/1_intro.html">General data cleaning</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -119,11 +99,11 @@ div.csl-indent {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/ALA_Logo_Inline_RGB.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/ALA_Logo_Inline_RGB.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Cleaning Biodiversity Data in R</a> 
+      <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
     <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
@@ -143,31 +123,31 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./preface.html" class="sidebar-item-text sidebar-link active">
+  <a href="../preface.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
+  <a href="../introduction.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-in-this-book.html" class="sidebar-item-text sidebar-link">
+  <a href="../data-in-this-book.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Data in this book</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./1_exploring/1_intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../1_exploring/1_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exploring biodiversity data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -176,13 +156,13 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_exploring/inspect.html" class="sidebar-item-text sidebar-link">
+  <a href="../1_exploring/inspect.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_exploring/summarise.html" class="sidebar-item-text sidebar-link">
+  <a href="../1_exploring/summarise.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summarise</span></span></a>
   </div>
 </li>
@@ -190,7 +170,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./2_general-cleaning/1_intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../2_general-cleaning/1_intro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">General data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -199,31 +179,31 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_general-cleaning/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/column-names-and-classes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_general-cleaning/duplicates.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/duplicates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Duplicates</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_general-cleaning/missing-values.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/missing-values.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Missing values</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_general-cleaning/strings.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/strings.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Strings</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_general-cleaning/dates.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/dates.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
@@ -231,7 +211,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./3_ecological-cleaning/1_intro.html" class="sidebar-item-text sidebar-link">
+            <a href="../3_ecological-cleaning/1_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ecological data cleaning</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -240,19 +220,19 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_ecological-cleaning/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
+  <a href="../3_ecological-cleaning/taxonomic-validation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Taxonomic validation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_ecological-cleaning/geospatial-investigation.html" class="sidebar-item-text sidebar-link">
+  <a href="../3_ecological-cleaning/geospatial-investigation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Geospatial investigation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./3_ecological-cleaning/geospatial-cleaning.html" class="sidebar-item-text sidebar-link">
+  <a href="../3_ecological-cleaning/geospatial-cleaning.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Geospatial cleaning</span></span></a>
   </div>
 </li>
@@ -269,49 +249,49 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_appendices/where-to-get-data.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_appendices/where-to-get-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Where to get data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_appendices/big-data.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_appendices/big-data.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Big data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_appendices/data-scope.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_appendices/data-scope.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Data scope</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_appendices/joins.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_appendices/joins.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Joins</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_appendices/reproducible-workflows.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_appendices/reproducible-workflows.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">Reproducible workflows</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./4_appendices/git.html" class="sidebar-item-text sidebar-link">
+  <a href="../4_appendices/git.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Git</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./packages.html" class="sidebar-item-text sidebar-link">
+  <a href="../packages.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">G</span>&nbsp; <span class="chapter-title">Packages</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">H</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
 </li>
@@ -326,11 +306,11 @@ div.csl-indent {
         
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Preface</h1>
+<h1 class="title">General data cleaning</h1>
 </div>
 
 
@@ -347,45 +327,24 @@ div.csl-indent {
 </header>
 
 
-<p>People working with ecological or biological data want to know how to clean data effectively, but data cleaning can be a daunting task because of the complexity inherent in these types of data. At the <a href="https://ala.org.au/">Atlas of Living Australia</a>, questions about data cleaning come up so frequently that it made us wonder…<em>is there a general ecological data cleaning workflow that is considered best-practice?</em></p>
-<p>To find out, we undertook an informal literature review on ecological data cleaning processes using peer-reviewed and grey literature. The key themes we searched for were:</p>
-<ol type="1">
-<li>Data cleaning for species distribution models</li>
-<li>Data cleaning open biodiversity data</li>
-<li>Australian and global naming authorities</li>
-<li>R packages for biodiversity data cleaning</li>
-</ol>
-<p>We created a collection of papers that matched these themes, choosing recently published papers that used up-to-date workflows with recent packages and tools in R. We also added several frequently referenced papers for comprehensiveness, and we reviewed data cleaning workflows from our project partners <span class="citation" data-cites="marsh2021 godfree_implications_2021">(<a href="references.html#ref-marsh2021" role="doc-biblioref">Marsh et al. 2021</a>; <a href="references.html#ref-godfree_implications_2021" role="doc-biblioref">Godfree et al. 2021</a>)</span> to understand their processes, issues, and needs.</p>
-<p>From our informal search, we ended up with a list of 18 papers and resources (listed <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/data/lit-search/informal-lit-search.xlsx">here</a>) with relevant ecological data cleaning workflows. To determine any common, best-practice steps—and common sequences for ordering these steps—we read through their methods sections and collated their data cleaning protocols into a spreadsheet. Our hope was that collating these methods would reveal several clear data cleaning workflows that scientists and researchers use regularly to clean their data.</p>
-<p>But, to our surprise, that’s not what we found. Instead, the steps to cleaning ecological data were <em>even messier</em> than we first thought. The diagrams below visualise the findings of our spreadsheet, showing the complexity of processes used to clean data, many of which are iterative.</p>
+<p>This section details some steps and functions for cleaning a dataset in preparation for analysis. The aim is to address issues arising from data formatting through general cleaning tasks, such as removing duplicates, correcting dates, and handling missing or unexpected values.</p>
+<p>The steps provided here are not meant to be followed in linear order. Instead, think of this section as a checklist or roadmap for data cleaning, rather than a comprehensive, step-by-step guide.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="images/complex_workflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" data-glightbox="description: .lightbox-desc-1" title="A flow diagram of possible ecological data cleaning workflows"><img src="images/complex_workflow.png" class="img-fluid figure-img" alt="A flow diagram of possible ecological data cleaning workflows"></a></p>
-<figcaption>A flow diagram of possible ecological data cleaning workflows</figcaption>
+<p><a href="../images/map_kingfishers.png" class="lightbox" data-glightbox="description: .lightbox-desc-1" data-gallery="quarto-lightbox-gallery-1" title="An uninformative, artistic representation of kingfisher records near Sydney, New South Wales, Australia"><img src="../images/map_kingfishers.png" class="img-fluid figure-img" alt="An uninformative, artistic representation of kingfisher records near Sydney, New South Wales, Australia"></a></p>
+<figcaption>An uninformative, artistic representation of kingfisher records near Sydney, New South Wales, Australia</figcaption>
 </figure>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="images/simplified_workflow.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" data-glightbox="description: .lightbox-desc-2" title="A simplified flow diagram of possible ecological data cleaning workflows, which still looks not very simple"><img src="images/simplified_workflow.png" class="img-fluid figure-img" alt="A simplified flow diagram of possible ecological data cleaning workflows, which still looks not very simple"></a></p>
-<figcaption>A simplified flow diagram of possible ecological data cleaning workflows, which still looks not very simple</figcaption>
-</figure>
-</div>
-<p>In the end, our search showed us that <em>there is no single, unified, step-by-step workflow to clean all types of ecological data</em>. Instead, data are cleaned in a <strong>huge</strong> variety of ways, and the process can look completely different depending on the type of investigation. No wonder people frequently ask how to do it!</p>
-<p>This book is our response to questions about how to clean ecological data, and to our discovery that (because workflows vary immensely) there don’t seem to be many resources that consolidate methods to clean ecological data in R. We are by no means experts in cleaning all types of data for all types of ecological analyses. We do, however, work with ecological data on a daily basis and encounter many data cleaning issues in our own work. We aspired for this book to be an up-to-date resource for a diverse range of data cleaning tasks in R. We hope that (at the very least) it is a resource that documents many common ecological data cleaning steps in one place!</p>
-<p><em>Dax Kellie</em><br><em>27 May, 2024</em></p>
 
 
-<div class="hidden" aria-hidden="true">
-<span class="glightbox-desc lightbox-desc-1">A flow diagram of possible ecological data cleaning workflows</span>
-<span class="glightbox-desc lightbox-desc-2">A simplified flow diagram of possible ecological data cleaning workflows, which still looks not very simple</span>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/e/b/3/c/a83dce83-614d-4630-9fff-07dde027c3be/original" class="rounded"></p>
+<div class="figure-caption">
+<p><a href="https://biocache.ala.org.au/occurrences/6aa0e692-4adf-4066-b260-3b010858278a"><em>Todiramphus (Cyanalcyon) pyrrhopygius</em> diving through the air. Photo by diana_shang CC-BY-NC 4.0 (Int)</a></p>
 </div>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-godfree_implications_2021" class="csl-entry" role="listitem">
-Godfree, Robert C., Nunzio Knerr, Francisco Encinas-Viso, David Albrecht, David Bush, D. Christine Cargill, Mark Clements, et al. 2021. <span>“Implications of the 2019–2020 Megafires for the Biogeography and Conservation of <span>Australian</span> Vegetation.”</span> <em>Nature Communications</em> 12 (1): 1023. <a href="https://doi.org/10.1038/s41467-021-21266-5">https://doi.org/10.1038/s41467-021-21266-5</a>.
-</div>
-<div id="ref-marsh2021" class="csl-entry" role="listitem">
-Marsh, Jess, Payal Bal, Hannah Fraser, Kate Umbers, Aaron Greenville, Libby Rumpff, and John Woinarski. 2021. <span>“Assessment of the Impacts of the 2019-20 Wildfires of Southern and Eastern Australia on Invertebrate Species Final Report.”</span>
-</div>
+</div></div><div class="hidden" aria-hidden="true">
+<span class="glightbox-desc lightbox-desc-1">An uninformative, artistic representation of kingfisher records near Sydney, New South Wales, Australia</span>
 </div>
 
 </main> <!-- /main -->
@@ -773,13 +732,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link  aria-label=" welcome"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Welcome</span>
+      <a href="../1_exploring/summarise.html" class="pagination-link  aria-label=" &lt;span="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summarise</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text">Introduction</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../2_general-cleaning/column-names-and-classes.html" class="pagination-link" aria-label="<span class='chapter-number'>3</span>&nbsp; <span class='chapter-title'>Column classes &amp; names</span>">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Column classes &amp; names</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -787,17 +746,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src=".\images/ALA_Logo_Inline_RGB.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p>Cleaning Biodiversity Data in R is a product of <a href="https://ala.org.au/"><img src="..\images/ALA_Logo_Inline_RGB.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>   
     <div class="nav-footer-center">
-<p><a href="https://www.education.gov.au/ncris"><img src=".\images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a><a href="https://www.csiro.au/en/"><img src=".\images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a><a href="https://www.gbif.org/en/"><img src=".\images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
+<p><a href="https://www.education.gov.au/ncris"><img src="..\images/NCRIS_logo.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a><a href="https://www.csiro.au/en/"><img src="..\images/CSIRO_logo.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a><a href="https://www.gbif.org/en/"><img src="..\images/GBIF-2015.png" class="img-fluid" style="width: auto; height: 35px; padding-left: 10px; padding-right: 10px; margin-bottom:5px;"></a></p>
 </div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>. This work is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC-BY-NC-ND 4.0 Int License</a></p>
 </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","loop":false,"selector":".lightbox","openEffect":"zoom"});
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;

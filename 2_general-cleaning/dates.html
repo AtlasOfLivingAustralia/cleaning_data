@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cleaning Biodiversity Data in R - 1&nbsp; Inspect</title>
+<title>Cleaning Biodiversity Data in R - 7&nbsp; Dates</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -54,27 +54,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -84,8 +64,8 @@ div.csl-indent {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../1_exploring/summarise.html" rel="next">
-<link href="../1_exploring/1_intro.html" rel="prev">
+<link href="../3_ecological-cleaning/1_intro.html" rel="next">
+<link href="../2_general-cleaning/strings.html" rel="prev">
 <link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -136,7 +116,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../1_exploring/1_intro.html">Exploring biodiversity data</a></li><li class="breadcrumb-item"><a href="../1_exploring/inspect.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Inspect</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../2_general-cleaning/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../2_general-cleaning/dates.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dates</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -207,7 +187,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../1_exploring/inspect.html" class="sidebar-item-text sidebar-link active">
+  <a href="../1_exploring/inspect.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Inspect</span></span></a>
   </div>
 </li>
@@ -254,7 +234,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../2_general-cleaning/dates.html" class="sidebar-item-text sidebar-link">
+  <a href="../2_general-cleaning/dates.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dates</span></span></a>
   </div>
 </li>
@@ -358,19 +338,24 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">1.0.1</span> Prerequisites</a></li>
-  <li><a href="#getting-to-know-your-data" id="toc-getting-to-know-your-data" class="nav-link" data-scroll-target="#getting-to-know-your-data"><span class="header-section-number">1.1</span> Getting to know your data</a></li>
-  <li><a href="#a-first-glimpse" id="toc-a-first-glimpse" class="nav-link" data-scroll-target="#a-first-glimpse"><span class="header-section-number">1.2</span> A first glimpse</a></li>
-  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps"><span class="header-section-number">1.3</span> Next steps</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">7.0.1</span> Prerequisites</a></li>
+  <li><a href="#basic-date-manipulation" id="toc-basic-date-manipulation" class="nav-link" data-scroll-target="#basic-date-manipulation"><span class="header-section-number">7.1</span> Basic date manipulation</a>
+  <ul class="collapse">
+  <li><a href="#reformat" id="toc-reformat" class="nav-link" data-scroll-target="#reformat"><span class="header-section-number">7.1.1</span> Reformat</a></li>
+  <li><a href="#extract" id="toc-extract" class="nav-link" data-scroll-target="#extract"><span class="header-section-number">7.1.2</span> Extract</a></li>
+  <li><a href="#an-example-using-galah" id="toc-an-example-using-galah" class="nav-link" data-scroll-target="#an-example-using-galah"><span class="header-section-number">7.1.3</span> An example using galah</a></li>
+  </ul></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">7.2</span> Filter</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.3</span> Summary</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../1_exploring/1_intro.html">Exploring biodiversity data</a></li><li class="breadcrumb-item"><a href="../1_exploring/inspect.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Inspect</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../2_general-cleaning/1_intro.html">General data cleaning</a></li><li class="breadcrumb-item"><a href="../2_general-cleaning/dates.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dates</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Inspect</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Dates</span></h1>
 </div>
 
 
@@ -387,27 +372,34 @@ div.csl-indent {
 </header>
 
 
-<p>Before diving into cleaning, it’s a good idea to familiarise yourself with the data. In this chapter we will cover ways to initially inspect the data and metadata of a dataset.</p>
-<section id="prerequisites" class="level3 page-columns page-full" data-number="1.0.1">
-<h3 data-number="1.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">1.0.1</span> Prerequisites</h3>
-<p>In this chapter we will use Kingfisher (<em>Alcedinidae</em>) occurrence records in 2023 from the ALA.</p>
+<p>Information about dates and times can be formatted in many different ways in datasets. For example, you might encounter:</p>
+<ul>
+<li><code>"2020-10-11T14:02:00"</code></li>
+<li><code>"11 October 2020"</code></li>
+<li><code>"10/11/2020"</code></li>
+</ul>
+<p>It’s common to find multiple date formats within a single dataset, especially when combining data from various sources. Often, you’ll need to extract different types of information from dates, such as the week number or the interval between two dates. You may also need to filter your dataset by dates or times.</p>
+<p>In this chapter, we’ll introduce some basic functions for cleaning dates and times. We’ll also demonstrate how to reformat and filter your dataset using dates.</p>
+<p>For a more comprehensive guide on handling dates and times in R, the <a href="https://r4ds.hadley.nz/datetimes.html">Dates and Times chapter</a> in <em>R for Data Science</em> is a fantastic resource.</p>
+<section id="prerequisites" class="level3 page-columns page-full" data-number="7.0.1">
+<h3 data-number="7.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">7.0.1</span> Prerequisites</h3>
+<p>In this chapter, we will use Spider flower (<em>Grevillea</em>) occurrence records in the ALA.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>) <span class="co"># ALA-registered email</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org /10.26197/ala.702e73e4-ba9d-471a-a0a4-872ecb5d0f32"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>plants <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(doi <span class="sc">==</span> <span class="st">"https://doi.org /10.26197/ala.27544a26-31b5-4a36-955d-30a1bb8a4636"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<!-- Images -->
 
-<!-- Queries-->
+<!-- Queries -->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></p>
+<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/8/a/8/9fc9b089-9cb5-401b-bbe4-bf40c12f8a8c/original" class="rounded"></p>
 <div class="figure-caption">
-<p><a href="https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3"><em>Todiramphus (Todiramphus) sanctus</em> perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)</a></p>
+<p><a href="https://biocache.ala.org.au/occurrences/a664db4b-1762-4f5c-96eb-b6a52df5d27d"><em>Grevillea acanthifolia</em> flowering.<br>Photo by porcoespinho15 CC-BY-NC 4.0 (Int)</a></p>
 </div>
 </div></div><div class="callout callout-style-simple callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -423,19 +415,17 @@ Original download queries
 <div class="callout-body-container callout-body">
 <p><strong>Note:</strong> You don’t need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
-<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
-<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>birds <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"alcedinidae"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2023</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, genus, species) <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-8" class="code-annotation-target"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-21"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-21-1"><a href="#annotated-cell-21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="annotated-cell-21-2"><a href="#annotated-cell-21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="annotated-cell-21-3"><a href="#annotated-cell-21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-21-4"><a href="#annotated-cell-21-4" aria-hidden="true" tabindex="-1"></a>plants <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-21-5"><a href="#annotated-cell-21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"grevillea"</span>) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-21" data-target-annotation="1">1</button><span id="annotated-cell-21-6" class="code-annotation-target"><a href="#annotated-cell-21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-21" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="8" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
+<span data-code-cell="annotated-cell-21" data-code-lines="6" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
 </dd>
 </dl>
 </div>
@@ -444,431 +434,224 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="getting-to-know-your-data" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="getting-to-know-your-data"><span class="header-section-number">1.1</span> Getting to know your data</h2>
-<p><strong>Metadata</strong> is a description of data, where information about different aspects of the data is documented. Some examples include definitions of the variables being measured, how and why the data were collected, and any data standards used. Reviewing the metadata associated with a dataset can be very helpful for understanding the types of data you are working with and any considerations that may need to be accounted for in your analyses.</p>
-<p>Many datasets include descriptions of the data’s taxonomic, spatial, and temporal parameters. An example of well formatted metadata is of <a href="https://collections.ala.org.au/public/show/dr14760">FrogID from the Australian Museum</a>.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/example_frogid.png" class="img-fluid figure-img"></p>
-<figcaption>Metadata of the FrogID dataset on the ALA</figcaption>
-</figure>
+<section id="basic-date-manipulation" class="level2 page-columns page-full" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="basic-date-manipulation"><span class="header-section-number">7.1</span> Basic date manipulation</h2>
+<p>One of the most useful data cleaning packages for dates is the <a href="https://lubridate.tidyverse.org">lubridate package</a>. Below are some examples of common date cleaning functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>From reading FrogID’s metadata <span class="citation" data-cites="rowley2020frogid">(<a href="../references.html#ref-rowley2020frogid" role="doc-biblioref">Rowley and Callaghan 2020</a>)</span>, we understand that:</p>
-<ol type="1">
-<li>The dataset comprises acoustic data<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></li>
-<li>This is citizen science data<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></li>
-<li>Audio is recorded via a smartphone app<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></li>
-<li>These data record presences, but not absences</li>
-<li>The data are under a Creative Commons license which is relevant for reuse and republishing</li>
-</ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="reformat" class="level3" data-number="7.1.1">
+<h3 data-number="7.1.1" class="anchored" data-anchor-id="reformat"><span class="header-section-number">7.1.1</span> Reformat</h3>
+<p>We can use functions in the lubridate package to reformat dates written in different ways to <em>YYYY-MM-DD</em> format.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>(<span class="st">"2017-10-11T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2017-10-11"</code></pre>
 </div>
-<div class="callout-title-container flex-fill">
-Data standards
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dmy</span>(<span class="st">"11 October 2020"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2020-10-11"</code></pre>
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mdy</span>(<span class="st">"10/11/2020"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2020-10-11"</code></pre>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Many data infrastructures like the Atlas of Living Australia also follow and encourage a data standard to help consolidate data from many different data providers<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
-<p>The data standard used by the Atlas of Living Australia is called <strong>Darwin Core</strong>. Darwin Core works by defining a) a <a href="https://dwc.tdwg.org/terms/">set of standard terms</a><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> to use across datasets as column names, and b) values eligible to be recorded underneath these terms. Darwin Core standards require that additional files detailing metadata and data structure are supplied along with the dataset. This helps make sure the data is ingested correctly into the data infrastructure.</p>
-<p>Knowing whether your dataset follows a standard can allow you to look up term definitions to help you familiarise yourself with the data.</p>
 </div>
+<p>Sometimes dates are presented in formats that do not translate cleanly into R. For example, the following date format isn’t converted correctly when we try to convert it to a date.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">c</span>(<span class="st">"X2020.01.22"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>           <span class="st">"X2020.01.22"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           <span class="st">"X2020.01.22"</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>           <span class="st">"X2020.01.22"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">as_date</span>(date)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: There was 1 warning in `mutate()`.
+ℹ In argument: `date = as_date(date)`.
+Caused by warning:
+! All formats failed to parse. No formats found.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 1
+  date  
+  &lt;date&gt;
+1 NA    
+2 NA    
+3 NA    
+4 NA    </code></pre>
+</div>
+</div>
+<p>We can use <code>%</code> to be more explicit about what information is in each part of our date column, specifying where the 4-digit year (<code>%Y</code>), 2-digit month (<code>%m</code>) and 2 digit day (<code>%d</code>) are within each string. Learn more about date formats in the <a href="https://r4ds.hadley.nz/datetimes.html#tbl-date-formats">dates chapter in R for Data Science</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">date =</span> <span class="fu">as_date</span>(date, <span class="at">format =</span> <span class="st">"X%Y.%m.%d"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 1
+  date      
+  &lt;date&gt;    
+1 2020-01-22
+2 2020-01-22
+3 2020-01-22
+4 2020-01-22</code></pre>
 </div>
 </div>
 </section>
-<section id="a-first-glimpse" class="level2 page-columns page-full" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="a-first-glimpse"><span class="header-section-number">1.2</span> A first glimpse</h2>
-<p>When starting with a new dataset, we want to get an initial idea:</p>
-<ul>
-<li>How many rows and columns are there?</li>
-<li>What are the column names?</li>
-<li>What types of data are in each column?</li>
-<li>What are their possible values or ranges?</li>
-</ul>
-<p>These answers are useful to know before jumping into wrangling and cleaning data.</p>
-<p>There are several ways to return an overview of your data, ranging in how comprehensively you wish to summarise your data’s structure.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><code>glimpse()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>skim()</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false"><code>str()</code></a></li></ul>
-<div class="tab-content nav-pills">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Return a condensed summary of your data’s structure using <code>glimpse()</code> from dplyr.</p>
+<section id="extract" class="level3" data-number="7.1.2">
+<h3 data-number="7.1.2" class="anchored" data-anchor-id="extract"><span class="header-section-number">7.1.2</span> Extract</h3>
+<p>Sometimes we might need to extract certain elements of a longer date-time value for summarising, filtering, or plotting data.</p>
+<section id="date-information" class="level4">
+<h4 class="anchored" data-anchor-id="date-information">Date information</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">year</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Rows: 140,835
-Columns: 13
-$ recordID         &lt;chr&gt; "00000eb7-95a6-40ad-acc5-9b58ed2ab95b", "0000c741-b70…
-$ scientificName   &lt;chr&gt; "Dacelo (Dacelo) novaeguineae", "Dacelo (Dacelo) nova…
-$ taxonConceptID   &lt;chr&gt; "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4…
-$ decimalLatitude  &lt;dbl&gt; -37.77953, -37.70718, -42.96048, -36.89798, -32.90858…
-$ decimalLongitude &lt;dbl&gt; 145.0460, 143.5939, 147.2209, 147.0573, 151.6859, 150…
-$ eventDate        &lt;dttm&gt; 2022-04-19 11:30:00, 2022-12-25 07:37:00, 2022-10-27…
-$ occurrenceStatus &lt;chr&gt; "PRESENT", "PRESENT", "PRESENT", "PRESENT", "PRESENT"…
-$ dataResourceName &lt;chr&gt; "eBird Australia", "eBird Australia", "eBird Australi…
-$ family           &lt;chr&gt; "Alcedinidae", "Alcedinidae", "Alcedinidae", "Alcedin…
-$ genus            &lt;chr&gt; "Dacelo", "Dacelo", "Dacelo", "Dacelo", "Dacelo", "To…
-$ species          &lt;chr&gt; "Dacelo novaeguineae", "Dacelo novaeguineae", "Dacelo…
-$ cl22             &lt;chr&gt; "Victoria", "Victoria", "Tasmania", "Victoria", "New …
-$ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022,…</code></pre>
+<pre><code>[1] 2017</code></pre>
 </div>
-</div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>Return tables of descriptive statistics for each variable, grouped by data type (e.g., <code>numeric</code>, <code>character</code>, <code>date</code>) using <code>skim()</code> from skimr.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<caption>Data summary</caption>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Name</td>
-<td style="text-align: left;">birds</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Number of rows</td>
-<td style="text-align: left;">140835</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Number of columns</td>
-<td style="text-align: left;">13</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">_______________________</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Column type frequency:</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">character</td>
-<td style="text-align: left;">9</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">numeric</td>
-<td style="text-align: left;">3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">POSIXct</td>
-<td style="text-align: left;">1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">________________________</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Group variables</td>
-<td style="text-align: left;">None</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: character</strong></p>
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 22%">
-<col style="width: 13%">
-<col style="width: 18%">
-<col style="width: 5%">
-<col style="width: 5%">
-<col style="width: 8%">
-<col style="width: 12%">
-<col style="width: 14%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">skim_variable</th>
-<th style="text-align: right;">n_missing</th>
-<th style="text-align: right;">complete_rate</th>
-<th style="text-align: right;">min</th>
-<th style="text-align: right;">max</th>
-<th style="text-align: right;">empty</th>
-<th style="text-align: right;">n_unique</th>
-<th style="text-align: right;">whitespace</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">recordID</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">36</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">140835</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">scientificName</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">42</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">22</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">taxonConceptID</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">73</td>
-<td style="text-align: right;">73</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">22</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">occurrenceStatus</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">dataResourceName</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">family</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">genus</td>
-<td style="text-align: right;">116</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">species</td>
-<td style="text-align: right;">2859</td>
-<td style="text-align: right;">0.98</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">10</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">cl22</td>
-<td style="text-align: right;">1718</td>
-<td style="text-align: right;">0.99</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">28</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">0</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: numeric</strong></p>
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 17%">
-<col style="width: 10%">
-<col style="width: 14%">
-<col style="width: 8%">
-<col style="width: 5%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 8%">
-<col style="width: 7%">
-<col style="width: 6%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">skim_variable</th>
-<th style="text-align: right;">n_missing</th>
-<th style="text-align: right;">complete_rate</th>
-<th style="text-align: right;">mean</th>
-<th style="text-align: right;">sd</th>
-<th style="text-align: right;">p0</th>
-<th style="text-align: right;">p25</th>
-<th style="text-align: right;">p50</th>
-<th style="text-align: right;">p75</th>
-<th style="text-align: right;">p100</th>
-<th style="text-align: left;">hist</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">decimalLatitude</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">-28.84</td>
-<td style="text-align: right;">7.91</td>
-<td style="text-align: right;">-43.58</td>
-<td style="text-align: right;">-34.97</td>
-<td style="text-align: right;">-30.54</td>
-<td style="text-align: right;">-26.32</td>
-<td style="text-align: right;">35.6</td>
-<td style="text-align: left;">▇▆▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">decimalLongitude</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">146.09</td>
-<td style="text-align: right;">8.80</td>
-<td style="text-align: right;">96.87</td>
-<td style="text-align: right;">145.11</td>
-<td style="text-align: right;">148.95</td>
-<td style="text-align: right;">152.38</td>
-<td style="text-align: right;">174.8</td>
-<td style="text-align: left;">▁▁▂▇▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">year</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2022.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">2022.00</td>
-<td style="text-align: right;">2022.00</td>
-<td style="text-align: right;">2022.00</td>
-<td style="text-align: right;">2022.00</td>
-<td style="text-align: right;">2022.0</td>
-<td style="text-align: left;">▁▁▇▁▁</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: POSIXct</strong></p>
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 13%">
-<col style="width: 9%">
-<col style="width: 13%">
-<col style="width: 18%">
-<col style="width: 18%">
-<col style="width: 18%">
-<col style="width: 8%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">skim_variable</th>
-<th style="text-align: right;">n_missing</th>
-<th style="text-align: right;">complete_rate</th>
-<th style="text-align: left;">min</th>
-<th style="text-align: left;">max</th>
-<th style="text-align: left;">median</th>
-<th style="text-align: right;">n_unique</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">eventDate</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: left;">2021-12-31 18:07:00</td>
-<td style="text-align: left;">2022-12-31 22:50:00</td>
-<td style="text-align: left;">2022-07-31 08:00:00</td>
-<td style="text-align: right;">77135</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>Return a quick summary of your data’s structure using base R <code>str()</code></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(birds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">month</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>spc_tbl_ [140,835 × 13] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ recordID        : chr [1:140835] "00000eb7-95a6-40ad-acc5-9b58ed2ab95b" "0000c741-b706-49dc-864e-bf9be82982a8" "0001057f-c7e9-4ae2-b7db-f0f03b4e52a0" "000121a3-a27e-4656-ad55-e817ebf05341" ...
- $ scientificName  : chr [1:140835] "Dacelo (Dacelo) novaeguineae" "Dacelo (Dacelo) novaeguineae" "Dacelo (Dacelo) novaeguineae" "Dacelo (Dacelo) novaeguineae" ...
- $ taxonConceptID  : chr [1:140835] "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" "https://biodiversity.org.au/afd/taxa/1fc76c4d-4830-4129-9b86-1c7e944c3c50" ...
- $ decimalLatitude : num [1:140835] -37.8 -37.7 -43 -36.9 -32.9 ...
- $ decimalLongitude: num [1:140835] 145 144 147 147 152 ...
- $ eventDate       : POSIXct[1:140835], format: "2022-04-19 11:30:00" "2022-12-25 07:37:00" ...
- $ occurrenceStatus: chr [1:140835] "PRESENT" "PRESENT" "PRESENT" "PRESENT" ...
- $ dataResourceName: chr [1:140835] "eBird Australia" "eBird Australia" "eBird Australia" "eBird Australia" ...
- $ family          : chr [1:140835] "Alcedinidae" "Alcedinidae" "Alcedinidae" "Alcedinidae" ...
- $ genus           : chr [1:140835] "Dacelo" "Dacelo" "Dacelo" "Dacelo" ...
- $ species         : chr [1:140835] "Dacelo novaeguineae" "Dacelo novaeguineae" "Dacelo novaeguineae" "Dacelo novaeguineae" ...
- $ cl22            : chr [1:140835] "Victoria" "Victoria" "Tasmania" "Victoria" ...
- $ year            : num [1:140835] 2022 2022 2022 2022 2022 ...
- - attr(*, "spec")=
-  .. cols(
-  ..   recordID = col_character(),
-  ..   scientificName = col_character(),
-  ..   taxonConceptID = col_character(),
-  ..   decimalLatitude = col_double(),
-  ..   decimalLongitude = col_double(),
-  ..   eventDate = col_datetime(format = ""),
-  ..   occurrenceStatus = col_character(),
-  ..   dataResourceName = col_character(),
-  ..   family = col_character(),
-  ..   genus = col_character(),
-  ..   species = col_character(),
-  ..   cl22 = col_character(),
-  ..   year = col_double()
-  .. )
- - attr(*, "problems")=&lt;externalptr&gt; 
- - attr(*, "doi")= chr "https://doi.org /10.26197/ala.702e73e4-ba9d-471a-a0a4-872ecb5d0f32"</code></pre>
+<pre><code>[1] 11</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">week</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">day</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 28</code></pre>
 </div>
 </div>
+</section>
+<section id="time-information" class="level4">
+<h4 class="anchored" data-anchor-id="time-information">Time information</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2017-11-28 14:02:00 UTC"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2017-11-28T14:02:00"</span>, <span class="at">tz =</span> <span class="st">"Australia/Melbourne"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2017-11-28 14:02:00 AEDT"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2017-11-28T14:02:00"</span>) <span class="sc">|&gt;</span> <span class="fu">hour</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 14</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ymd_hms</span>(<span class="st">"2017-11-28T14:02:00"</span>) <span class="sc">|&gt;</span> <span class="fu">minute</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">am</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pm</span>(<span class="st">"2017-11-28T14:02:00"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="an-example-using-galah" class="level3 page-columns page-full" data-number="7.1.3">
+<h3 data-number="7.1.3" class="anchored" data-anchor-id="an-example-using-galah"><span class="header-section-number">7.1.3</span> An example using galah</h3>
+<p>Data downloaded using the <a href="https://galah.ala.org.au/">galah</a> package are loaded into R as date and time data (class <code>POSIXct</code>). As a result, you can immediately begin extracting date/time information using the functions above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">|&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">year</span>(eventDate),</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">month =</span> <span class="fu">month</span>(eventDate),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">week =</span> <span class="fu">isoweek</span>(eventDate),</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">day_julian =</span> <span class="fu">yday</span>(eventDate)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(eventDate, year, month, </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>         week, day_julian)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 194,926 × 5
+   eventDate            year month  week day_julian
+   &lt;dttm&gt;              &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+ 1 2018-07-08 00:00:00  2018     7    27        189
+ 2 2019-11-14 00:00:00  2019    11    46        318
+ 3 2003-09-19 00:00:00  2003     9    38        262
+ 4 2019-09-06 00:00:00  2019     9    36        249
+ 5 2022-08-31 00:00:00  2022     8    35        243
+ 6 1996-10-30 00:00:00  1996    10    44        304
+ 7 1948-09-20 00:00:00  1948     9    39        264
+ 8 1988-10-13 00:00:00  1988    10    41        287
+ 9 2022-10-10 00:00:00  2022    10    41        283
+10 2020-10-21 00:00:00  2020    10    43        295
+# ℹ 194,916 more rows</code></pre>
 </div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img class="rounded" src="https://images.ala.org.au/image/details?imageId=5a0ff06d-d7ac-44d2-a152-b2207cc98ab4"></p>
+<p><img src="https://images.ala.org.au/image/details?imageId=b64f6e42-3ba9-4cd2-951b-b55fb9ea0386" class="rounded"></p>
 <div class="figure-caption">
-<p><a href="https://biocache.ala.org.au/occurrences/1cb231bd-6000-43dd-9feb-409a29e93779"><em>Dacelo (Dacelo) novaeguineae</em> perched with a fresh worm in its beak. Photo by Rob Shepherd CC-BY-NC 4.0 (Int)</a></p>
+<p><a href="https://biocache.ala.org.au/occurrences/b5adbb1c-a21e-4f29-b7ca-869335c7cb38"><em>Grevillea acanthifolia</em> just beginning to flower.<br>Photo by Fagg, M. CC-BY 4.0 (Int)</a></p>
 </div>
-</div></div><p>At this early stage, it’s helpful to assess whether your dataset meets your expectations. Consider if the data appear as anticipated. Are the values in each column reasonable? Are there any noticeable gaps or errors that might need to be corrected, or that could potentially render the data unusable?</p>
+</div></div></section>
 </section>
-<section id="next-steps" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="next-steps"><span class="header-section-number">1.3</span> Next steps</h2>
-<p>We have just learned some ways to initially inspect our dataset. Keep in mind, we don’t expect everything to be perfect. Some issues are expected and may indicate problems with our query or the data itself. This initial inspection is a good opportunity to identify where these issues might be and assess their severity.</p>
-<p>When you are confident that the dataset is largely as expected, you are ready to start summarising your data.</p>
+<section id="filter" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="filter"><span class="header-section-number">7.2</span> Filter</h2>
+<p>We can filter datasets to include or exclude data from certain dates or date ranges.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return records after 2015</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;=</span> <span class="fu">ymd</span>(<span class="st">"2016-01-01"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 57,771 × 8
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 00005eb8-4b84… Grevillea mur… https://id.bi…           -35.8             138.
+ 2 000143a7-20e2… Grevillea jun… https://id.bi…           -33.7             151.
+ 3 00020893-9823… Grevillea aqu… https://id.bi…           -37.3             142.
+ 4 0002cd90-4099… Grevillea tre… https://id.bi…           -30.9             134.
+ 5 00040117-eae2… Grevillea par… https://id.bi…           -32.8             152.
+ 6 00045361-870d… Grevillea bux… https://id.bi…           -33.7             151.
+ 7 00053e34-1bdb… Grevillea ros… https://id.bi…           -37.7             145.
+ 8 0006e628-69d5… Grevillea rhi… https://id.bi…           -29.5             152.
+ 9 00075a74-e3de… Grevillea par… https://id.bi…           -34.2             151.
+10 0008295a-79de… Grevillea cel… https://id.bi…           -37.7             148.
+# ℹ 57,761 more rows
+# ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># return records between 2015 &amp; 2018</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>plants <span class="sc">|&gt;</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(eventDate <span class="sc">&gt;=</span> <span class="fu">ymd</span>(<span class="st">"2016-01-01"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>           eventDate <span class="sc">&lt;=</span> <span class="fu">ymd</span>(<span class="st">"2017-12-31"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9,246 × 8
+   recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
+   &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+ 1 000b499b-dc80… Grevillea bux… https://id.bi…           -33.7             151.
+ 2 000e2c2b-953e… Grevillea hil… https://id.bi…            NA                NA 
+ 3 0014b88f-ecc5… Grevillea gut… https://id.bi…           -32.5             152.
+ 4 001ac6ed-1de5… Grevillea ser… https://id.bi…           -32.2             150.
+ 5 001c6599-0f27… Grevillea aca… https://id.bi…           -33.4             150.
+ 6 001f301f-0192… Grevillea dry… https://id.bi…           -12.5             131.
+ 7 002a8fb4-e1f9… Grevillea cal… https://id.bi…           -33.7             151.
+ 8 002e9fb9-ff3b… Grevillea cal… https://id.bi…           -33.7             151.
+ 9 0038f556-0591… Grevillea lin… https://id.bi…           -33.7             151.
+10 003d2b67-6db4… Grevillea par… https://id.bi…           -34.3             151.
+# ℹ 9,236 more rows
+# ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
+#   dataResourceName &lt;chr&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="summary" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.3</span> Summary</h2>
+<p>In this chapter, we introduced common functions for cleaning dates and times in ecological datasets. For some data cleaning tasks, you may need to explore more advanced workflows to handle specific date and time formatting requirements.</p>
+<p>In the next chapter, we look at issues that require more advanced ecological data cleaning techniques.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-rowley2020frogid" class="csl-entry" role="listitem">
-Rowley, Jodi JL, and Corey T Callaghan. 2020. <span>“The FrogID Dataset: Expert-Validated Occurrence Records of Australia’s Frogs Collected by Citizen Scientists.”</span> <em>ZooKeys</em> 912: 139.
-</div>
-</div>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>Meaning the majority of individuals recorded are male.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Suggesting these data could be biased towards populated areas.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>As a result, the authors recommend filtering data to <code>geographic uncertainty of &lt;3000m</code> if you require high coordinate precision.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4"><p>Making datasets easier to consolidate is also referred to as <em>interoperability</em>, <a href="https://ardc.edu.au/resource/fair-data/">one of the principles of FAIR data</a>.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>We suggest using <code>Ctrl/CMD + F</code> and searching your variable name on the webpage. Don’t hesitate to Google variable names if you are unsure what they represent.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
 </section>
 
 </main> <!-- /main -->
@@ -1295,13 +1078,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../1_exploring/1_intro.html" class="pagination-link  aria-label=" exploring="" biodiversity="" data"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Exploring biodiversity data</span>
+      <a href="../2_general-cleaning/strings.html" class="pagination-link  aria-label=" &lt;span="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Strings</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../1_exploring/summarise.html" class="pagination-link" aria-label="<span class='chapter-number'>2</span>&nbsp; <span class='chapter-title'>Summarise</span>">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Summarise</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../3_ecological-cleaning/1_intro.html" class="pagination-link" aria-label="Ecological data cleaning">
+        <span class="nav-page-text">Ecological data cleaning</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
