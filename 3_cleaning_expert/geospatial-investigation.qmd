@@ -8,20 +8,9 @@ code-annotations: hover
 
 # Geospatial investigation {#sec-geospatial-cleaning}
 
-An important part of observational data is their location, specifying where each 
-observation of an organism or species took place. These locations can
-range from locality descriptions (e.g., "Near Tellera Hill station") to
-exact longitude and latitude coordinates tracked by a GPS system. The
-accuracy of these geospatial data will determine what types of
-ecological analyses you can use the data for. It is important to know
-how precise observations are, along with the range of uncertainty around
-an observation's location, to contextualise any findings or conclusions
-made using the data.
+An important part of observational data is the location, specifying where each observation of an organism or species took place. These locations can range from locality descriptions (e.g. “Near Tellera Hill station”) to exact longitude and latitude coordinates tracked by a GPS system. The accuracy of these geospatial data will determine the types of ecological analyses you can perform. It is important to know the precision of these observations, along with the range of uncertainty around an observation’s location, to contextualize any findings or conclusions made using the data.
 
-In this chapter, we will discuss some different ways to assess the
-precision and uncertainty of occurrence record coordinates and highlight
-how to look for spatial characteristics or errors when visualising
-occurrences with maps.
+In this chapter, we will discuss some different ways to assess the precision and uncertainty of coordinates associated with occurrence records, and highlight how to identify spatial characteristics or errors when visualizing occurrences on maps.
 
 ### Prerequisites
 
@@ -139,9 +128,11 @@ quokkas <- galah_call() |>
 ::: {.callout-important collapse="true"}
 ## Using "Assertions"
 
+<!-- I think it might be helpful here to clarify the wording to be explicit about whether an assertion is the actual data quality check, or a column in the database that flags DQ after running checks, or both - SB -->
+
 To check data quality, data infrastructures like the Atlas of Living
 Australia have *assertions*---columns that data infrastructures use to
-flag when a record has an issue that fails a data cleaning check. If we
+flag when a record has an issue that fails a data quality check. If we
 use galah to download records, we can use assertions columns in our
 query to help identify and clean suspicious records.
 
@@ -161,7 +152,7 @@ assertions |>
   print(n = 5)
 ```
 
-Over this chapter, we will detail when an assertion column can help
+In this chapter, we will detail when an assertion column can help
 identify occurrence records with geospatial issues.
 :::
 
@@ -190,6 +181,8 @@ ggplot() +
              colour = "orchid")
 ```
 
+<!-- I think it would be helpful to expand on this slightly: we've told readers to plot observations on a map to look for erros, but it may not be intuitive to know what eactly to look for in the first instance. I don't know if there are any errors here worth pointing out, but if not, maybe just a couple of lines to explain what we quickly eyeballed to check that it looks right e.g. no records in the ocean, restricted to the SE coast (are Tas records valid?) - SB -->
+
 ## Precision
 
 Not all observations have the same degree of precision. Coordinate
@@ -203,11 +196,11 @@ your research question and analysis. A fine-scale question will require
 data measured at a fine-scale to answer it. National or global scale
 questions require less precise data.
 
-When downloading data from the ALA with the galah package, it's possible
-to include the column
-[`coordinatePrecision`](https://dwc.tdwg.org/terms/#dwc:coordinatePrecision)---a
-decimal representation of how precise the coordinates of an observation
-are---to your data.
+When downloading data from the ALA with the galah package, it's possible to
+include the
+[`coordinatePrecision`](https://dwc.tdwg.org/terms/#dwc:coordinatePrecision)
+field with your data; this provides a decimal representation of the precision of
+coordinates for each observation.
 
 ```{r}
 banksia |>
@@ -229,6 +222,8 @@ banksia |>
   count()
 ```
 
+<!-- Could potentially remove this step; I don't think it adds much - SB -->
+
 Filter your records to only those under a specific measure of precision.
 
 ```{r}
@@ -239,6 +234,8 @@ banksia <- banksia |>
 ```
 
 ## Uncertainty
+
+<!-- I got a little confused here initially, and I wonder if it would be less (potentially) confusing to refer to precision and accuracy instead, and explain that accuracy is referred to as uncertainty in the ALA? I'm still not even sure I have correctly understood this, so feel free to ignore if I've gotten it wrong - SB -->
 
 Similarly, not all observations have the same degree of location
 certainty. An organism's *exact* location will likely have an area of
@@ -253,11 +250,12 @@ Uncertainty inevitably affects [how robust the results from species
 distribution models
 are](https://besjournals.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1365-2664.2007.01408.x).
 
-When downloading data from the ALA with the galah package, it's possible
-to include the column
-[`coordinateUncertaintyInMeters`](https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters)---a
-measure of the circular area that captures the true location---to your
-data. We added this column in our [original galah
+When downloading data from the ALA with the galah package, it's possible to
+include the
+[`coordinateUncertaintyInMeters`](https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters)
+field with your data. This refers to the margin of error, represented as a
+circular area, around the true location of the recorded observation. We added
+this column in our [original galah
 query](geospatial-investigation.qmd#prerequisites).
 
 ```{r}
@@ -272,9 +270,10 @@ falling within 10m of uncertainty.
 
 ```{r}
 banksia |> 
-  group_by(coordinateUncertaintyInMeters) |>
-  count()
+  count(coordinateUncertaintyInMeters) 
 ```
+
+<!-- Similarly, not sure this step adds much here - SB -->
 
 If your analysis requires greater certainty, you can then filter your
 records to a smaller area of uncertainty.
@@ -288,15 +287,15 @@ banksia <- banksia |>
 
 ## Obscured location
 
-Occurrence records of sensitive, endangered or critically endangered
-species my be obscured (i.e. generalised, obfuscated) to protect the
-true location of the species. This process blurs the of an organism
-actual location to avoid risks like poaching or capture while still
-allowing their data to be included in broader summaries.
+Occurrence records of sensitive, endangered, or critically endangered species
+may be deliberately obscured (i.e. generalised or obfuscated) to protect the
+true locations of these species. This process blurs an organism's actual
+location to avoid risks like poaching or capture while still allowing their data
+to be included in broader summaries.
 
-In the ALA, the field `dataGeneralizations` contains information of
-whether a record has been has been obscured and the size of the area the
-point has been generalised to.
+In the ALA, the field `dataGeneralizations` indicates whether a record has been
+has been obscured and provides information on the size of the area to which the
+point has been generalised.
 
 ::: {.callout-note collapse="true"}
 #### Note on `dataGeneralizations`
@@ -310,10 +309,26 @@ generalised/obscured.
 search_all(fields, "dataGeneralization")
 ```
 
+
+```{r}
+#| echo: false
+
+total_tortoise_count <- galah_call() |>
+  identify("Pseudemydura umbrina") |>
+  atlas_counts()
+
+obscured_tortoise_count <- galah_call() |>
+  identify("Pseudemydura umbrina") |>
+  group_by(dataGeneralizations) |>
+  atlas_counts()
+  
+```
+
+<!-- Added inline code to avoid differences in numbers through code and in text - SB -->
 For example, the Western Swamp Tortoise is [a critically endangered
 species in Western
 Australia](https://www.dcceew.gov.au/environment/biodiversity/threatened/action-plan/priority-reptiles/western-swamp-tortoise).
-There are 97 total observations of this species in the ALA.
+There are `r total_tortoise_count` records of this species in the ALA.
 
 ```{r}
 galah_call() |>
@@ -321,8 +336,8 @@ galah_call() |>
   atlas_counts()
 ```
 
-Grouping record counts by the `dataGeneralizations` column shows that 96
-of the 97 records have been obscured by 10 km.
+Grouping record counts by the `dataGeneralizations` column shows that 
+`r obscured_tortoise_count$count` of the `r total_tortoise_count` records have been obscured by 10 km.
 
 ```{r}
 #| column: body-outset-right
@@ -334,12 +349,12 @@ galah_call() |>
 
 #### What do obscured data look like?
 
-Quokka data offer a nice example to get an idea of what to look for when
+Quokka data offer a nice example of what to look for when
 data points have been obscured. When plotted, obscured occurrence data
-appears as if points were plotted onto a grid
+appear as if points were placed onto a grid
 [^geospatial-investigation-1].
 
-[^geospatial-investigation-1]: This is pretty much what actually
+[^geospatial-investigation-1]: This *is* what actually
     happened---locations have been "snapped" onto a grid determined by
     the generalised distance.
 
@@ -367,18 +382,18 @@ ggplot() +
 ```
 
 Keep in mind that survey data can also appear gridded if survey
-locations were dispersed at equal distance, so be sure to double check
-before assuming data has been obscured!
+locations were evenly spaced, so be sure to double check
+before assuming data have been obscured!
 
-For more information, check out ALA's [support article about working
+For more information, check out the ALA's [support article about working
 with threatened, migratory and sensitive
 species](https://support.ala.org.au/support/solutions/articles/6000261705-working-with-conservation-and-sensitive-species-information).
 
 ## Summary
 
 In this chapter, we showed some ways to investigate the geospatial
-coordinates of your data and determine its level of precision,
-uncertainty or obscurity.
+coordinates of your data and determine the level of precision,
+uncertainty (accuracy?), or obfucsation.
 
 In the next chapter, we'll see examples of issues with coordinates that
-require fixing or removing.
+require correcting or removing.
