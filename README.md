@@ -1,21 +1,20 @@
-# Cleaning Biodiversity Data in R
+# Cleaning Biodiversity Data in R <a href="https://cleaning-data-r.ala.org.au/"><img src="images/cleaner-shrimp_cover.png" class="rounded" align="right" style="margin: 20px 10px 20px 10px;" height="300"/></a>
 
-This is the repository for the book *Cleaning Biodiversity Data in R*. 
-In this book, we provide an overview of a typical data cleaning workflow
-for open-access geo-referenced biodiversity data—from
-acquisition, to error identification, to correction.
+<https://cleaning-data-r.ala.org.au/>
+
+This is the repository for the book *Cleaning Biodiversity Data in R*. In this book, we provide an overview of a typical data cleaning workflow for open-access geo-referenced biodiversity data—from acquisition, to error identification, to correction.
 
 ### Citation
 
-Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, 0., Waite, C., <!--Fenker, J.-->, Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version 0.1.0). [https://ala.org.au/cleaning-bd-in-r](LINK)
+Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, O., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version 0.1.0). <https://doi.org/10.54102/ala.77009>.
 
 ### License
 
 This book is available free to read, and is licenced under a [CC BY-NC-ND 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). This means that the book can be shared and redistributed as long as appropriate credit is given to the authors, and any minor changes are indicated appropriately. Modified versions that remix or modify the content may not be distributed. See our [licensing and contributing guidelines](https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/licensing.md) for more information.
 
-### How to contribute
+### Contributing
 
-This is a living document and we welcome contributions and suggestions. Please submit a [GitHub issue](https://github.com/AtlasOfLivingAustralia/cleaning_data/issues) detailing any feedback or content requests.
+This is a living document and we welcome suggestions and contributions. Please submit a [GitHub issue](https://github.com/AtlasOfLivingAustralia/cleaning_data/issues) detailing any feedback or content requests. See our [licensing and contributing guidelines](https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/licensing.qmd) for more information.
 
 ### Acknowledgements
 
