@@ -2,7 +2,8 @@
 
 <https://cleaning-data-r.ala.org.au/>
 
-This is the repository for the book *Cleaning Biodiversity Data in R*. In this book, we provide an overview of a typical data cleaning workflow for open-access geo-referenced biodiversity data—from acquisition, to error identification, to correction.
+This is the repository for the book *Cleaning Biodiversity Data in R*. This book is a practical guide for cleaning geo-referenced biodiversity data
+using R. It focuses specifically on the processes and challenges you'll face with biodiversity data.
 
 ### Citation
 

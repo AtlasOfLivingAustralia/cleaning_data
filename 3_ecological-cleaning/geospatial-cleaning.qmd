@@ -399,7 +399,8 @@ frogs
 ```
 
 When we plot the coordinates of our red-eyed tree frog occurrences, there is an
-unexpected observation near Japan. This is quite surprising---red-eyed
+unexpected observation near Japan (or where Japan would appear if we had plotted 
+more countries and not just Australia). This is quite surprising---red-eyed
 tree frogs are not native to Japan!
 
 ```{r}
@@ -409,7 +410,6 @@ aus <- st_transform(ozmap_country, 4326)
 # Map
 ggplot() +
   geom_sf(data = aus,
-          fill = NA,
           colour = "grey60") +
   geom_point(data = frogs,
              aes(x = decimalLongitude,
@@ -486,7 +486,6 @@ Mapping our data again shows our outlier is an outlier no longer!
 #| code-fold: true
 ggplot() +
   geom_sf(data = aus,
-          fill = NA,
           colour = "grey60") +
   geom_point(data = frogs_fixed,
              aes(x = decimalLongitude,
@@ -738,7 +737,7 @@ ggplot() +
   geom_point(data = bitter_peas,
              aes(x = decimalLongitude,
                  y = decimalLatitude),
-             colour = pilot::pilot_color("navy"))
+             colour = "#204466")
 ```
 
 Suspiciously, if we [Google the coordinates of the Western Australia
@@ -826,7 +825,13 @@ Other packages exist to make identifying and cleaning geospatial coordinates
 more streamlined. The advantage of using these packages is that they can 
 run many checks over coordinates at one time, rather than 
 identifying each error separately like we did over this chapter. This process 
-can make finding possible spatial outliers faster.
+can make finding possible spatial outliers faster. The disadvantage is that 
+checks might be more difficult to tweak compared to manual checks. Manual 
+checks can also make the steps you made to clean your data clearer (and easier to 
+edit later) in a complete data cleaning workflow. 
+
+Choose the package (or mix of packages and functions) that work best for you and 
+your data cleaning needs.
 
 #### CoordinateCleaner
 

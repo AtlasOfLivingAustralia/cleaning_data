@@ -1,8 +1,8 @@
 # Welcome {.unnumbered}
 
 This book is a practical guide for cleaning geo-referenced biodiversity data
-using R. It focuses specifically on the processes and challenges associated with
-biodiversity data. As such, it is not a general guide to data cleaning but a
+using R. It focuses specifically on the processes and challenges you'll face with
+biodiversity data. As such, this book isn't a general guide to data cleaning but a
 targeted resource for those working with or interested in ecology, evolution,
 and geo-referenced biodiversity data.
 
@@ -38,7 +38,7 @@ Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan,
 
 #### Cover
 
-The [Pacific Cleaner Shrimp (*Lysmata amboinensis*)](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/55ed63d8-7382-4611-8016-08553e0fe20d) is a cleaning hero of coral reef ecosystems across the tropics. These shrimps clean parasites and dead tissue from "client" fish, which helps to heal wounds and improve health. 
+The [Pacific Cleaner Shrimp (*Lysmata amboinensis*)](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/55ed63d8-7382-4611-8016-08553e0fe20d) is a cleaning hero of coral reef ecosystems across the tropics. These shrimps clean parasites and dead tissue from "client" fish, which helps to heal the fish's wounds and improve their health. 
 
 {{< fa paintbrush title="paintbrush">}} Credit: [Dax Kellie](https://labs.ala.org.au/about/Kellie_Dax/) 2024
 
