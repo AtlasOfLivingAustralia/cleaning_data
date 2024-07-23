@@ -26,7 +26,7 @@ for species with larger ranges or analyses involving many species over a large
 area, these errors become much more difficult to identify.
 
 Every dataset has its own combination of issues requiring bespoke cleaning
-methods. It is crucial to clean geospatial data effectively to ensure their
+methods (e.g. [@jin2020]). It is crucial to clean geospatial data effectively to ensure their
 usefulness, as errors can lead to unexpected results in species range estimates
 and analytic outputs.
 
@@ -251,10 +251,8 @@ bitter_peas <- galah_call() |>
 
 ## Missing coordinates
 
-<!-- Maybe we should link to section 5.2.1 specifically, since that's the part of the chapter that discusses missing data and spatial analyses? -SB -->
-
 As discussed in [Missing Values
-chapter](../2_general-cleaning/missing-values.qmd), many spatial
+chapter](../2_general-cleaning/missing-values.html##missing-coordinates), many spatial
 analytical tools are not compatible with missing coordinate data. We
 recommend identifying the rows that have missing data before deciding to
 exclude them.
@@ -269,6 +267,8 @@ desert_plant |>
 <!-- desert_plant |> filter(!is.na(decimalLatitude), !is.na(decimalLongitude)) -->
 <!-- Only because we've used filter to identify NAs above, and so it logically follows to do the inverse using the same function rather than introduce a new (albeit very nice) function -SB  -->
 
+<!-- I see what you are saying, but I think we keep it. I think drop_na() makes a lot of sense and we might as well suggest the best function for the job -DK -->
+
 You can use `drop_na()` to remove missing values from your dataset.
 
 ```{r}
@@ -277,14 +277,12 @@ desert_plant <- desert_plant |>
   tidyr::drop_na(decimalLatitude, decimalLongitude) # <1>
 ```
 
-1.  You could also use `drop_na(starts_with("decimal"))` to achieve the
+1.  You could also use `filter(!is.na(decimalLatitude), !is.na(decimalLongitude))` to achieve the
     same thing
 
-## Issues to fix records
+## Correcting fixable coordinate errors
 
-<!-- I think this header could be more informative, but I can't think of any alternatives. I don't think I understand what the header means -SB -->
-
-<!-- Update: possible header options are "Correcting Fixable Coordinate Errors" and "Excluding Unfixable Coordinate Errors". Also see comments in slack about turning this into 1 example instead of 2 -SB -->
+<!-- Possible header options are "Correcting Fixable Coordinate Errors" and "Excluding Unfixable Coordinate Errors". Also see comments in slack about turning this into 1 example instead of 2 -SB -->
 
 Spatial outliers can sometimes result from taxonomic misidentification, but not
 always. Occasionally, records that appear as outliers are true observations of a
@@ -295,10 +293,8 @@ in coordinates.
 
 Many coordinate issues can be solved through data manipulation rather than
 discarding the data. Here are several coordinate issues that can be identified
-and corrected. Follow the link to each case study to learn how to identify and
-fix the issue.
+and corrected. 
 
-<!-- Where are the abovementioned case studies? -SB -->
 
 ### Swapped numeric sign
 
@@ -345,29 +341,28 @@ ggplot() +
   pilot::scale_color_pilot()
 ```
 
-We can correct the numeric signs using `case_when()` from dplyr, which
-works the same as an `ifelse` statement (but can handle many of
-statements at once). The first updates our `decimalLongitude` column so
+We can correct the numeric signs using `if_else()` from dplyr. The first 
+statement updates our `decimalLongitude` column so
 that when `decimalLongitude` is less than 0, we remove the negative
 symbol by multiplying by -1, otherwise we keep the original longitude
-value. The second updates our `decimalLatitude` column using the same
+value. The second statement updates our `decimalLatitude` column using the same
 process.
-
-<!-- I personally find if_else() statements much easier to read when there are only two options. I don't feel strongly about changing this but I'm curious to know if there are any other benefits to using case_when(). -SB -->
 
 ```{r}
 #| warning: false
 #| message: false
 desert_plant_filtered <- desert_plant |>
   mutate(
-    decimalLongitude = case_when(
-      decimalLongitude < 0 ~ decimalLongitude * -1,
-      .default = decimalLongitude
+    decimalLongitude = if_else(decimalLongitude < 0,
+      decimalLongitude * -1,
+      decimalLongitude
     ),
-    decimalLatitude = case_when(
-      decimalLatitude > 0 ~ decimalLatitude * -1,
-      .default = decimalLatitude
-    ))
+    decimalLatitude = if_else(decimalLatitude > 0,
+      decimalLatitude * -1,
+      decimalLatitude
+    )
+  )
+
 ```
 
 And here's the updated map, with the corrected coordinates. 
@@ -499,7 +494,7 @@ ggplot() +
              colour = "#557755")
 ```
 
-## Issues to remove records
+## Excluding unfixable coordinate errors
 
 Some coordinates issues cannot be fixed or inferred. In this case, it is
 important that you identify which records have issues and remove them
@@ -510,11 +505,9 @@ identified and removed in your dataset.
 
 ### Flipped coordinates
 
-Flipped coordinates typically appear as a clustering of points, whereby
-swapping the latitude and longitude will place the coordinates where
-they are expected [@jin2020].
-
-<!-- I don't understand why flipped coords would appear as a cluster of points. It's also unclear why we're citing this paper here - it's a great overview of a lot of geographical data cleaning, so perhaps it was supposed to go in the intro to this section? - SB -->
+Records with flipped coordinates typically appear as a group of points in an 
+unexpected location, whereby swapping the latitude and longitude will place 
+the coordinates where they are expected.
 
 Let's use occurrence records of Kowari (a native, carnivorous mouse species) as
 an example. Including the `COUNTRY_COORDINATE_MISMATCH` assertion column when
@@ -636,7 +629,7 @@ ggplot() +
 area, are sometimes assigned to an occurrence record when the original
 observation location was provided as a description. If a record was
 collected using a vague locality description or through incorrect
-georeferencing, centroids can be used to categorise the record into
+geo-referencing, centroids can be used to categorise the record into
 broadly the correct area[^geospatial-cleaning-1].
 
 [^geospatial-cleaning-1]: This can happen when record locations are
@@ -809,16 +802,13 @@ galah_call() |>
 ```
 :::
 
+<!-- 
 ## Use expert distributions
 
-*Coming soon...* <!--once galah supports expert distributions...-->
+*Coming soon...* once galah supports expert distributions...
+This section can have an example expert distribution, then plot points on the 
+top, then find which points are outside of the distribution to investigate 
 
-<!-- This section can have an example expert distribution, then plot points on the top, then find which points are outside of the distribution to investigate -->
-
-<!-- Maybe remove this section if we don't have anything for now? Looks like a draft otherwise -SB -->
-
-````{=html}
-<!--
 One way to identify suspicious observations is to use an expert
 distribution to determine whether an occurrence record is within the
 possible range of a species. At the most basic, expert distributions can
@@ -828,16 +818,15 @@ compared visually to your points.
 It's also possible to download expert distributions as shapefiles, and
 these can be plotted on a map to directly compare with your occurrence
 record locations.
-
-
-```{r}
-
-```
-
 -->
-````
 
 ## Packages
+
+Other packages exist to make identifying and cleaning geospatial coordinates 
+more streamlined. The advantage of using these packages is that they can 
+run many checks over coordinates at one time, rather than 
+identifying each error separately like we did over this chapter. This process 
+can make finding possible spatial outliers faster.
 
 #### CoordinateCleaner
 
@@ -848,8 +837,6 @@ palaentological data. It is particularly useful for cleaning data from GBIF.
 
 Here is an example of a general cleaning function, but there are many
 more bespoke options that the package offers.
-
-<!-- I don't understand why this is here, and I don't know what I'm supposed to takeaway from this. I think we should either remove or expand on what's being demonstrated here -SB-->
 
 ```{r}
 #| warning: false
