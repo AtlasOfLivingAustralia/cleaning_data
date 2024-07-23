@@ -8,32 +8,30 @@ code-annotations: hover
 
 # Geospatial cleaning {#sec-geospatial-cleaning}
 
-Geospatial observational data provides essential information about
-species' locations over time and space, and can be used with ecological data 
-to understand interactions of species with their environment. However, 
-geospatial data can be difficult to work with. Seemingly minor issues can have 
-large impacts on the data's validity.
+Geospatial observational data provide essential information about species’
+locations over time and space, and can be combined with ecological data to
+understand species-environment interactions. However, working with geospatial
+data can be challenging, as seemingly minor issues can significantly impact data
+validity.
 
-**Outliers**—points located at large-enough distances from the majority
-of the species' observations to skew an overall distribution—are a major
-challenge for geospatial data cleaning. Identifying outliers can be
-difficult because it's not always clear whether an outlier is a true
-outlier or a data error. Data errors can result from species
-misidenfitication or incorrect geo-referencing. Other accidental data
-errors like reversing numeric symbols, mistyping a coordinate number or
-entering the wrong location can have dramatic consequences on a species'
-reported location as well. For some species with smaller ranges, these
-errors will be easier to find. For species with larger ranges or
-analyses with many species over a larger area, these errors will be much
-more difficult to identify.
+**Outliers**—data points that are considerably distant from the majority of a
+species’ observations and can skew overall distribution—are a major challenge in
+geospatial data cleaning. Identifying outliers can be difficult because it's not
+always clear whether they are true outliers or data errors. Errors can result
+from species misidentification or incorrect geo-referencing. Other accidental
+errors, such as reversing numeric symbols, mistyping coordinates, or entering
+incorrect locations, can dramatically affect the reported location of a species.
+For species with smaller ranges, these errors may be easier to detect. However,
+for species with larger ranges or analyses involving many species over a large
+area, these errors become much more difficult to identify.
 
-Every dataset has its own combination of issues that will require
-bespoke cleaning to address them. It is important to clean geospatial
-data effectively if they are to be useful, as geospatial errors can lead
-to unexpected results of species range estimates and analytic output.
+Every dataset has its own combination of issues requiring bespoke cleaning
+methods (e.g. [@jin2020]). It is crucial to clean geospatial data effectively to ensure their
+usefulness, as errors can lead to unexpected results in species range estimates
+and analytic outputs.
 
-In this chapter, we show some common issues with coordinate data and how
-to correct or remove records that appear suspicious.
+In this chapter, we will highlight common issues with coordinate data and
+demonstrate how to correct or remove suspicious-seeming records.
 
 ### Prerequisites
 
@@ -253,8 +251,8 @@ bitter_peas <- galah_call() |>
 
 ## Missing coordinates
 
-Mentioned in the [Missing Values
-chapter](../2_general-cleaning/missing-values.qmd), many spatial
+As discussed in [Missing Values
+chapter](../2_general-cleaning/missing-values.html##missing-coordinates), many spatial
 analytical tools are not compatible with missing coordinate data. We
 recommend identifying the rows that have missing data before deciding to
 exclude them.
@@ -265,6 +263,12 @@ desert_plant |>
   filter(is.na(decimalLatitude) | is.na (decimalLongitude))
 ```
 
+<!-- Incredibly minor point, but I wondered if it would be simpler to do something like: -->
+<!-- desert_plant |> filter(!is.na(decimalLatitude), !is.na(decimalLongitude)) -->
+<!-- Only because we've used filter to identify NAs above, and so it logically follows to do the inverse using the same function rather than introduce a new (albeit very nice) function -SB  -->
+
+<!-- I see what you are saying, but I think we keep it. I think drop_na() makes a lot of sense and we might as well suggest the best function for the job -DK -->
+
 You can use `drop_na()` to remove missing values from your dataset.
 
 ```{r}
@@ -273,37 +277,34 @@ desert_plant <- desert_plant |>
   tidyr::drop_na(decimalLatitude, decimalLongitude) # <1>
 ```
 
-1.  You could also use `drop_na(starts_with("decimal"))` to achieve the
+1.  You could also use `filter(!is.na(decimalLatitude), !is.na(decimalLongitude))` to achieve the
     same thing
 
-## Issues to fix records
+## Correcting fixable coordinate errors
 
-Spatial outliers can sometimes be due to taxonomic misidentification,
-but not always. Sometimes, records that appear as outliers can be true
-observations of a species, but the record has a mistake in its
-coordinates. To avoid deleting data that can be included in your
-analysis, it's good practice to use several sources of spatial
-information to decide whether an unexpected data point is due to a small
-but fixable error in coordinates, or not.
+<!-- Possible header options are "Correcting Fixable Coordinate Errors" and "Excluding Unfixable Coordinate Errors". Also see comments in slack about turning this into 1 example instead of 2 -SB -->
 
-Many coordinates issues can be solved with data manipulation instead of
-discarding. Here are several coordinate issues that can be identified
-and corrected. Follow the link to each case study to learn how to
-identify and fix the issue.
+Spatial outliers can sometimes result from taxonomic misidentification, but not
+always. Occasionally, records that appear as outliers are true observations of a
+species but contain mistakes in their coordinates. To avoid unnecessarily
+deleting data, it's good practice to use multiple sources of spatial information
+to decide whether an unexpected data point is due to a small but fixable error
+in coordinates.
+
+Many coordinate issues can be solved through data manipulation rather than
+discarding the data. Here are several coordinate issues that can be identified
+and corrected. 
 
 
 ### Swapped numeric sign
 
-If there is a clustering of points mirrored to another hemisphere,
-consider swapping the sign and correct rather than discarding the
-points.
+If you notice a cluster of points mirrored in the opposite hemisphere, consider
+correcting the sign instead of discarding the points.
 
-Let's use MacDonnell's desert fuschia occurrence records
-for our example (downloaded at the [start of the
-chapter](geospatial-cleaning.qmd#prerequisites)). If using the galah
-package, we can add the `PRESUMED_SWAPPED_COORDINATE` assertion column
-to our download to help find occurrence records flagged as suspicious
-for swapped coordinates.
+Let's use MacDonnell's desert fuschia occurrence records for our example. Including the
+`PRESUMED_SWAPPED_COORDINATE` assertion column when downloading records using
+the galah package allows us to identify records flagged as potentially having
+swapped coordinates.
 
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"/></img>
@@ -323,9 +324,7 @@ desert_plant |>
   select(PRESUMED_SWAPPED_COORDINATE, everything())
 ```
 
-We can see this single record highlighted in orange on our map, sitting
-in a very similar location to where Australia would be if we mirrored
-its location.
+If we plot these records on a map and colour the points based on values in the `PRESUMED_SWAPPED_COORDINATE` assertion column, we can see that there is a single record (in orange) that looks like its coordinates have been mirrored across hemispheres.   
 
 ```{r}
 #| fig-height: 2
@@ -342,12 +341,11 @@ ggplot() +
   pilot::scale_color_pilot()
 ```
 
-We can fix the numeric symbols using `case_when()` from dplyr, which
-works the same as an `ifelse` statement (but can handle many of
-statements at once). The first updates our `decimalLongitude` column so
+We can correct the numeric signs using `if_else()` from dplyr. The first 
+statement updates our `decimalLongitude` column so
 that when `decimalLongitude` is less than 0, we remove the negative
 symbol by multiplying by -1, otherwise we keep the original longitude
-value. The second updates our `decimalLatitude` column using the same
+value. The second statement updates our `decimalLatitude` column using the same
 process.
 
 ```{r}
@@ -355,17 +353,19 @@ process.
 #| message: false
 desert_plant_filtered <- desert_plant |>
   mutate(
-    decimalLongitude = case_when(
-      decimalLongitude < 0 ~ decimalLongitude * -1,
-      .default = decimalLongitude
+    decimalLongitude = if_else(decimalLongitude < 0,
+      decimalLongitude * -1,
+      decimalLongitude
     ),
-    decimalLatitude = case_when(
-      decimalLatitude > 0 ~ decimalLatitude * -1,
-      .default = decimalLatitude
-    ))
+    decimalLatitude = if_else(decimalLatitude > 0,
+      decimalLatitude * -1,
+      decimalLatitude
+    )
+  )
+
 ```
 
-Our updated map has fixed the coordinates of our record.
+And here's the updated map, with the corrected coordinates. 
 
 ```{r}
 #| fig-height: 3
@@ -380,9 +380,7 @@ ggplot() +
 
 ### Location description doesn't match coordinates
 
-Sometimes not all of the metadata about location aligns with the
-coordinate location. Occasionally these errors are fixable. Let's use red-eyed tree frog data as an example (downloaded at the
-[start of the chapter](geospatial-cleaning/qmd#prerequisites)). 
+Misalignment between location metadata and coordinates could indicate errors in the dataset, but it's sometimes possible to rectify these. Let's use red-eyed tree frog data as an example. 
 
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/original" class="rounded"/></img>
@@ -400,15 +398,13 @@ frogs <- frogs |>
 frogs
 ```
 
-When we
-plot the coordinates of our red-eyed tree frog occurrences, there is an
+When we plot the coordinates of our red-eyed tree frog occurrences, there is an
 unexpected observation near Japan. This is quite surprising---red-eyed
 tree frogs are not native to Japan!
 
 ```{r}
 # Get a map of aus, transform projection
-aus <- ozmaps::ozmap_country |>
-  st_transform(crs = st_crs(4326))
+aus <- st_transform(ozmap_country, 4326)
 
 # Map
 ggplot() +
@@ -498,7 +494,7 @@ ggplot() +
              colour = "#557755")
 ```
 
-## Issues to remove records
+## Excluding unfixable coordinate errors
 
 Some coordinates issues cannot be fixed or inferred. In this case, it is
 important that you identify which records have issues and remove them
@@ -509,16 +505,14 @@ identified and removed in your dataset.
 
 ### Flipped coordinates
 
-Flipped coordinates typically appear as a clustering of points, whereby
-swapping the latitude and longitude will place the coordinates where
-they are expected [@jin2020].
+Records with flipped coordinates typically appear as a group of points in an 
+unexpected location, whereby swapping the latitude and longitude will place 
+the coordinates where they are expected.
 
-Let's use occurrence data of Kowari (a native, carnivorous mouse species) as an 
-example (downloaded at the
-[start of the chapter](geospatial-cleaning.html#prerequisites)). 
-If using the galah package, you can add the `COUNTRY_COORDINATE_MISMATCH` 
-assertion column to your download to find occurrence records flagged as 
-with mismatching coordinates and country data.
+Let's use occurrence records of Kowari (a native, carnivorous mouse species) as
+an example. Including the `COUNTRY_COORDINATE_MISMATCH` assertion column when
+downloading records using the galah package allows us to identify records
+flagged as having mismatches between coordinates and country metadata.
 
 ::: aside
 
@@ -551,7 +545,7 @@ ggplot() +
   pilot::scale_color_pilot()
 ```
 
-To remove these points from our data, we can filter our records to only records with coordinates within Australia's land border.
+To remove these data, we can filter the dataset to exclude records that do not fall within Australia's minimum and maximum coordinates.  
 
 ```{r}
 #| fig-height: 2.5
@@ -573,15 +567,13 @@ ggplot() +
 
 ### Zero coordinates
 
-Some records are mistakenly recorded with zero as their latitude and/or
-longitude coordinates. These records will not accurately represent their
-valid location and must be removed.
+Sometimes latitude and/or longitude data are recorded as having zero values;
+these values are not accurate representations of locations and thus should be
+removed.
 
-Let's use acacia data as an example (downloaded at the
-[start of the chapter](geospatial-cleaning/qmd#prerequisites)). 
-If using the galah package, you can add the `ZERO_COORDINATE` assertion
-column to your download to find occurrence records flagged as suspicious
-for zero coordinates.
+Let's use acacia data as an example. Including the `ZERO_COORDINATE` assertion
+column to your download allows us to identify records flagged as having zero
+values in the coordinate fields.
 
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/original" class="rounded"/></img>
@@ -600,7 +592,7 @@ acacias |>
   select(ZERO_COORDINATE, everything())
 ```
 
-We can see the suspicious record in orange on our map.
+We can see the flagged record in orange on our map.
 
 ```{r}
 #| fig-height: 2
@@ -613,7 +605,7 @@ ggplot() +
   pilot::scale_color_pilot()
 ```
 
-We can remove the problematic record by filtering our data to remove
+We can remove this record by filtering our dataset to remove
 records with longitude or latitude coordinates that equal zero.
 
 ```{r}
@@ -636,21 +628,19 @@ ggplot() +
 **Centroids**, or coordinates that mark the exact centre point of an
 area, are sometimes assigned to an occurrence record when the original
 observation location was provided as a description. If a record was
-collected using a vague locality description or from incorrect
-georeferencing, centroids can be used to categorise the record into
+collected using a vague locality description or through incorrect
+geo-referencing, centroids can be used to categorise the record into
 broadly the correct area[^geospatial-cleaning-1].
 
-[^geospatial-cleaning-1]: This can happen when record locations is
+[^geospatial-cleaning-1]: This can happen when record locations are
     incorrectly given as the physical location of the specimen, or
     because they represent individuals from captivity or grown in
     horticulture (but were not clearly labelled as such).
 
-Let's use common brown butterfly data for our example (downloaded at the
-[start of the chapter](geospatial-cleaning.qmd#prerequisites)). If using
-the galah package, we can add the `COORDINATES_CENTRE_OF_COUNTRY` or
-`COORDINATES_CENTRE_OF_STATEPROVINCE` assertions columns to your
-download to find occurrence records flagged as suspicious for centroid
-coordinates.
+Let's use common brown butterfly data for our example. Including the
+`COORDINATES_CENTRE_OF_COUNTRY` and/or `COORDINATES_CENTRE_OF_STATEPROVINCE`
+assertions columns to your download allows us to identify records flagged as
+containing centroid coordinates.
 
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"/></img>
@@ -672,8 +662,7 @@ butterflies |>
          everything())
 ```
 
-Filtering our data to records flagged as suspicious, we return one
-record.
+Filtering our data to flagged records, we return one record.
 
 ```{r}
 butterflies |>
@@ -683,7 +672,7 @@ butterflies |>
     )
 ```
 
-The suspicious record is the single orange point on our map.
+The flagged record is the single orange point on our map.
 
 ```{r}
 ggplot() + 
@@ -698,7 +687,7 @@ ggplot() +
 ```
 
 We can remove this data point by excluding this record from our
-dataframe.
+dataset.
 
 ```{r}
 butterflies_filtered <- butterflies |>
@@ -719,14 +708,13 @@ ggplot() +
 
 Some observations are recorded in locations where animals and plants
 live but do not naturally occur. A common example is observations
-recorded at public facilities like zoos, aquariums and botanic gardens.
+recorded at public facilities like zoos, aquariums, and botanic gardens.
 
 Other times, observations are recorded in places where specimens of
 animals and plants might be stored, but not where they were observed.
 Common examples are museums and herbaria.
 
-In some cases, like with records of the Gorse Bitter-pea (downloaded at
-the [start of the chapter](geospatial-cleaning.qmd#prerequisites)), these locations can appear suspicious
+In some cases, like with records of the Gorse Bitter-pea, these locations can appear suspicious
 but not overly obvious. When we map these observations, there is a
 tailing distribution of points in Western Australia with several points
 located near the west coast of Australia.
@@ -778,7 +766,7 @@ bitter_peas |>
   select(dataResourceName)
 ```
 
-Having identified they could be can remove these records from our data.
+Having identified this, these records can now be removed from our dataset. 
 
 ```{r}
 bitter_peas_filtered <- bitter_peas |>
@@ -814,14 +802,13 @@ galah_call() |>
 ```
 :::
 
+<!-- 
 ## Use expert distributions
 
-*Coming soon...* <!--once galah supports expert distributions...-->
+*Coming soon...* once galah supports expert distributions...
+This section can have an example expert distribution, then plot points on the 
+top, then find which points are outside of the distribution to investigate 
 
-<!-- This section can have an example expert distribution, then plot points on the top, then find which points are outside of the distribution to investigate -->
-
-````{=html}
-<!--
 One way to identify suspicious observations is to use an expert
 distribution to determine whether an occurrence record is within the
 possible range of a species. At the most basic, expert distributions can
@@ -831,24 +818,22 @@ compared visually to your points.
 It's also possible to download expert distributions as shapefiles, and
 these can be plotted on a map to directly compare with your occurrence
 record locations.
-
-
-```{r}
-
-```
-
 -->
-````
 
 ## Packages
+
+Other packages exist to make identifying and cleaning geospatial coordinates 
+more streamlined. The advantage of using these packages is that they can 
+run many checks over coordinates at one time, rather than 
+identifying each error separately like we did over this chapter. This process 
+can make finding possible spatial outliers faster.
 
 #### CoordinateCleaner
 
 The [CoordinateCleaner
-package](https://docs.ropensci.org/CoordinateCleaner/index.html) is a
-package for automated flagging of common spatial and temporal errors of
-biological and paleaontological data. It is particularly good at
-cleaning data from GBIF.
+package](https://docs.ropensci.org/CoordinateCleaner/index.html) is a package
+for automated flagging of common spatial and temporal errors of biological and
+palaentological data. It is particularly useful for cleaning data from GBIF.
 
 Here is an example of a general cleaning function, but there are many
 more bespoke options that the package offers.
@@ -868,8 +853,8 @@ plot(coordinate_tests)
 ## Summary
 
 Each of the cleaning steps in this chapter do not have to be run in
-order, or even at all. Whether they are used is context dependent and
-taxon dependent. As an example, what is one species that has many
+order, or even at all. Whether they are used is context- and
+taxon-dependent. As an example, what is one species that has many
 "wrong" coordinates based on many of the steps listed above?
 
 The Great White Shark.
@@ -913,7 +898,8 @@ sharks |>
 ```
 
 
-The difficulty with cleaning Great White Shark occurrence data is that these sharks have a *massive* habitat range, and these locations along (what appear to be) the North American coast and Madagascar could very well be true occurrences. In this case, we might need to decide the spatial range that makes sense for our specific investigation. Be sure to consider the taxonomic and spatial range of
-your species before jumping into data cleaning!
-
-
+The difficulty with cleaning Great White Shark occurrence data is that these
+sharks have a *massive* habitat range, and these locations along (what appear to
+be) the North American coast and Madagascar could very well be true occurrences.
+Be sure to consider the taxonomic and spatial range of your species before
+jumping into data cleaning!

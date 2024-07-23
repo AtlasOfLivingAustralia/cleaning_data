@@ -4,9 +4,9 @@ lightbox: true
 
 # Ecological data cleaning
 
-This section will tackle data cleaning methods that rely on ecological/biological expert knowledge of your data. Not every step in this section will apply to every dataset. Whether you apply each step will depend on the taxonomic groups and species in your dataset. 
+This section addresses data cleaning methods that leverage ecological and biological expertise. Not every step will be relevant to every dataset; the applicability of each step depends on the particular taxonomic groups and species included in your data.
 
-The first chapter explains ways to search your taxonomy and verify there are no inconsistencies in taxonomic names. The second chapter shows ways to determine uncertainty within your data's spatial coordinates. The third chapter then shows how to identify different geospatial issues that might exist in your data and how to fix them.
+The first chapter explains ways to search your taxonomy and verify there are no inconsistencies in taxonomic names. The second chapter covers methods to determine uncertainty in your data’s spatial coordinates. The third chapter demonstrates how to identify and resolve various geospatial issues in your data.
 
 <!-- Visualisation placeholder -->
 
