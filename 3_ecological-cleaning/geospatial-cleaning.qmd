@@ -284,6 +284,8 @@ desert_plant <- desert_plant |>
 
 <!-- I think this header could be more informative, but I can't think of any alternatives. I don't think I understand what the header means -SB -->
 
+<!-- Update: possible header options are "Correcting Fixable Coordinate Errors" and "Excluding Unfixable Coordinate Errors". Also see comments in slack about turning this into 1 example instead of 2 -SB -->
+
 Spatial outliers can sometimes result from taxonomic misidentification, but not
 always. Occasionally, records that appear as outliers are true observations of a
 species but contain mistakes in their coordinates. To avoid unnecessarily
@@ -407,8 +409,7 @@ tree frogs are not native to Japan!
 
 ```{r}
 # Get a map of aus, transform projection
-aus <- ozmaps::ozmap_country |>
-  st_transform(crs = st_crs(4326))
+aus <- st_transform(ozmap_country, 4326)
 
 # Map
 ggplot() +
@@ -513,12 +514,12 @@ Flipped coordinates typically appear as a clustering of points, whereby
 swapping the latitude and longitude will place the coordinates where
 they are expected [@jin2020].
 
-Let's use occurrence data of Kowari (a native, carnivorous mouse species) as an 
-example (downloaded at the
-[start of the chapter](geospatial-cleaning.html#prerequisites)). 
-If using the galah package, you can add the `COUNTRY_COORDINATE_MISMATCH` 
-assertion column to your download to find occurrence records flagged as 
-with mismatching coordinates and country data.
+<!-- I don't understand why flipped coords would appear as a cluster of points. It's also unclear why we're citing this paper here - it's a great overview of a lot of geographical data cleaning, so perhaps it was supposed to go in the intro to this section? - SB -->
+
+Let's use occurrence records of Kowari (a native, carnivorous mouse species) as
+an example. Including the `COUNTRY_COORDINATE_MISMATCH` assertion column when
+downloading records using the galah package allows us to identify records
+flagged as having mismatches between coordinates and country metadata.
 
 ::: aside
 
@@ -551,7 +552,7 @@ ggplot() +
   pilot::scale_color_pilot()
 ```
 
-To remove these points from our data, we can filter our records to only records with coordinates within Australia's land border.
+To remove these data, we can filter the dataset to exclude records that do not fall within Australia's minimum and maximum coordinates.  
 
 ```{r}
 #| fig-height: 2.5
@@ -573,15 +574,13 @@ ggplot() +
 
 ### Zero coordinates
 
-Some records are mistakenly recorded with zero as their latitude and/or
-longitude coordinates. These records will not accurately represent their
-valid location and must be removed.
+Sometimes latitude and/or longitude data are recorded as having zero values;
+these values are not accurate representations of locations and thus should be
+removed.
 
-Let's use acacia data as an example (downloaded at the
-[start of the chapter](geospatial-cleaning/qmd#prerequisites)). 
-If using the galah package, you can add the `ZERO_COORDINATE` assertion
-column to your download to find occurrence records flagged as suspicious
-for zero coordinates.
+Let's use acacia data as an example. Including the `ZERO_COORDINATE` assertion
+column to your download allows us to identify records flagged as having zero
+values in the coordinate fields.
 
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/original" class="rounded"/></img>
@@ -600,7 +599,7 @@ acacias |>
   select(ZERO_COORDINATE, everything())
 ```
 
-We can see the suspicious record in orange on our map.
+We can see the flagged record in orange on our map.
 
 ```{r}
 #| fig-height: 2
@@ -613,7 +612,7 @@ ggplot() +
   pilot::scale_color_pilot()
 ```
 
-We can remove the problematic record by filtering our data to remove
+We can remove this record by filtering our dataset to remove
 records with longitude or latitude coordinates that equal zero.
 
 ```{r}
@@ -636,21 +635,19 @@ ggplot() +
 **Centroids**, or coordinates that mark the exact centre point of an
 area, are sometimes assigned to an occurrence record when the original
 observation location was provided as a description. If a record was
-collected using a vague locality description or from incorrect
+collected using a vague locality description or through incorrect
 georeferencing, centroids can be used to categorise the record into
 broadly the correct area[^geospatial-cleaning-1].
 
-[^geospatial-cleaning-1]: This can happen when record locations is
+[^geospatial-cleaning-1]: This can happen when record locations are
     incorrectly given as the physical location of the specimen, or
     because they represent individuals from captivity or grown in
     horticulture (but were not clearly labelled as such).
 
-Let's use common brown butterfly data for our example (downloaded at the
-[start of the chapter](geospatial-cleaning.qmd#prerequisites)). If using
-the galah package, we can add the `COORDINATES_CENTRE_OF_COUNTRY` or
-`COORDINATES_CENTRE_OF_STATEPROVINCE` assertions columns to your
-download to find occurrence records flagged as suspicious for centroid
-coordinates.
+Let's use common brown butterfly data for our example. Including the
+`COORDINATES_CENTRE_OF_COUNTRY` and/or `COORDINATES_CENTRE_OF_STATEPROVINCE`
+assertions columns to your download allows us to identify records flagged as
+containing centroid coordinates.
 
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"/></img>
@@ -672,8 +669,7 @@ butterflies |>
          everything())
 ```
 
-Filtering our data to records flagged as suspicious, we return one
-record.
+Filtering our data to flagged records, we return one record.
 
 ```{r}
 butterflies |>
@@ -683,7 +679,7 @@ butterflies |>
     )
 ```
 
-The suspicious record is the single orange point on our map.
+The flagged record is the single orange point on our map.
 
 ```{r}
 ggplot() + 
@@ -698,7 +694,7 @@ ggplot() +
 ```
 
 We can remove this data point by excluding this record from our
-dataframe.
+dataset.
 
 ```{r}
 butterflies_filtered <- butterflies |>
@@ -719,14 +715,13 @@ ggplot() +
 
 Some observations are recorded in locations where animals and plants
 live but do not naturally occur. A common example is observations
-recorded at public facilities like zoos, aquariums and botanic gardens.
+recorded at public facilities like zoos, aquariums, and botanic gardens.
 
 Other times, observations are recorded in places where specimens of
 animals and plants might be stored, but not where they were observed.
 Common examples are museums and herbaria.
 
-In some cases, like with records of the Gorse Bitter-pea (downloaded at
-the [start of the chapter](geospatial-cleaning.qmd#prerequisites)), these locations can appear suspicious
+In some cases, like with records of the Gorse Bitter-pea, these locations can appear suspicious
 but not overly obvious. When we map these observations, there is a
 tailing distribution of points in Western Australia with several points
 located near the west coast of Australia.
@@ -778,7 +773,7 @@ bitter_peas |>
   select(dataResourceName)
 ```
 
-Having identified they could be can remove these records from our data.
+Having identified this, these records can now be removed from our dataset. 
 
 ```{r}
 bitter_peas_filtered <- bitter_peas |>
