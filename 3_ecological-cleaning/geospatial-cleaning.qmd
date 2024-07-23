@@ -33,6 +33,15 @@ and analytic outputs.
 In this chapter, we will highlight common issues with coordinate data and
 demonstrate how to correct or remove suspicious-seeming records.
 
+:::.callout-tip
+
+## Checklist
+
+This chapter can be read more like a checklist of possible geospatial errors in 
+a dataset, how to identify them, and how to fix them.
+
+:::
+
 ### Prerequisites
 
 In this chapter we'll use several datasets:
