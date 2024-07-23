@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.540">
+<meta name="generator" content="quarto-1.5.55">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cleaning Biodiversity Data in R - 10&nbsp; Geospatial cleaning</title>
+<title>10&nbsp; Geospatial cleaning – Cleaning Biodiversity Data in R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -133,13 +133,13 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../3_ecological-cleaning/1_intro.html">Ecological data cleaning</a></li><li class="breadcrumb-item"><a href="../3_ecological-cleaning/geospatial-cleaning.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Geospatial cleaning</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -156,7 +156,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://cleaning-data-r.ala.org.au/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -200,7 +200,7 @@ div.csl-indent {
       <div class="sidebar-item-container"> 
             <a href="../1_exploring/1_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Exploring biodiversity data</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -223,7 +223,7 @@ div.csl-indent {
       <div class="sidebar-item-container"> 
             <a href="../2_general-cleaning/1_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">General data cleaning</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -264,7 +264,7 @@ div.csl-indent {
       <div class="sidebar-item-container"> 
             <a href="../3_ecological-cleaning/1_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ecological data cleaning</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -291,9 +291,9 @@ div.csl-indent {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
  <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
@@ -358,21 +358,21 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">10.0.1</span> Prerequisites</a></li>
-  <li><a href="#missing-coordinates" id="toc-missing-coordinates" class="nav-link" data-scroll-target="#missing-coordinates"><span class="header-section-number">10.1</span> Missing coordinates</a></li>
-  <li><a href="#issues-to-fix-records" id="toc-issues-to-fix-records" class="nav-link" data-scroll-target="#issues-to-fix-records"><span class="header-section-number">10.2</span> Issues to fix records</a>
+  <li><a href="#checklist" id="toc-checklist" class="nav-link active" data-scroll-target="#checklist"><span class="header-section-number">10.1</span> Checklist</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">10.1.1</span> Prerequisites</a></li>
+  <li><a href="#missing-coordinates" id="toc-missing-coordinates" class="nav-link" data-scroll-target="#missing-coordinates"><span class="header-section-number">10.2</span> Missing coordinates</a></li>
+  <li><a href="#correcting-fixable-coordinate-errors" id="toc-correcting-fixable-coordinate-errors" class="nav-link" data-scroll-target="#correcting-fixable-coordinate-errors"><span class="header-section-number">10.3</span> Correcting fixable coordinate errors</a>
   <ul class="collapse">
-  <li><a href="#swapped-numeric-sign" id="toc-swapped-numeric-sign" class="nav-link" data-scroll-target="#swapped-numeric-sign"><span class="header-section-number">10.2.1</span> Swapped numeric sign</a></li>
-  <li><a href="#location-description-doesnt-match-coordinates" id="toc-location-description-doesnt-match-coordinates" class="nav-link" data-scroll-target="#location-description-doesnt-match-coordinates"><span class="header-section-number">10.2.2</span> Location description doesn’t match coordinates</a></li>
+  <li><a href="#swapped-numeric-sign" id="toc-swapped-numeric-sign" class="nav-link" data-scroll-target="#swapped-numeric-sign"><span class="header-section-number">10.3.1</span> Swapped numeric sign</a></li>
+  <li><a href="#location-description-doesnt-match-coordinates" id="toc-location-description-doesnt-match-coordinates" class="nav-link" data-scroll-target="#location-description-doesnt-match-coordinates"><span class="header-section-number">10.3.2</span> Location description doesn’t match coordinates</a></li>
   </ul></li>
-  <li><a href="#issues-to-remove-records" id="toc-issues-to-remove-records" class="nav-link" data-scroll-target="#issues-to-remove-records"><span class="header-section-number">10.3</span> Issues to remove records</a>
+  <li><a href="#excluding-unfixable-coordinate-errors" id="toc-excluding-unfixable-coordinate-errors" class="nav-link" data-scroll-target="#excluding-unfixable-coordinate-errors"><span class="header-section-number">10.4</span> Excluding unfixable coordinate errors</a>
   <ul class="collapse">
-  <li><a href="#flipped-coordinates" id="toc-flipped-coordinates" class="nav-link" data-scroll-target="#flipped-coordinates"><span class="header-section-number">10.3.1</span> Flipped coordinates</a></li>
-  <li><a href="#zero-coordinates" id="toc-zero-coordinates" class="nav-link" data-scroll-target="#zero-coordinates"><span class="header-section-number">10.3.2</span> Zero coordinates</a></li>
-  <li><a href="#centroids" id="toc-centroids" class="nav-link" data-scroll-target="#centroids"><span class="header-section-number">10.3.3</span> Centroids</a></li>
-  <li><a href="#cities-zoos-aquariums-museums-herbaria" id="toc-cities-zoos-aquariums-museums-herbaria" class="nav-link" data-scroll-target="#cities-zoos-aquariums-museums-herbaria"><span class="header-section-number">10.3.4</span> Cities, zoos, aquariums, museums &amp; herbaria</a></li>
+  <li><a href="#flipped-coordinates" id="toc-flipped-coordinates" class="nav-link" data-scroll-target="#flipped-coordinates"><span class="header-section-number">10.4.1</span> Flipped coordinates</a></li>
+  <li><a href="#zero-coordinates" id="toc-zero-coordinates" class="nav-link" data-scroll-target="#zero-coordinates"><span class="header-section-number">10.4.2</span> Zero coordinates</a></li>
+  <li><a href="#centroids" id="toc-centroids" class="nav-link" data-scroll-target="#centroids"><span class="header-section-number">10.4.3</span> Centroids</a></li>
+  <li><a href="#cities-zoos-aquariums-museums-herbaria" id="toc-cities-zoos-aquariums-museums-herbaria" class="nav-link" data-scroll-target="#cities-zoos-aquariums-museums-herbaria"><span class="header-section-number">10.4.4</span> Cities, zoos, aquariums, museums &amp; herbaria</a></li>
   </ul></li>
-  <li><a href="#use-expert-distributions" id="toc-use-expert-distributions" class="nav-link" data-scroll-target="#use-expert-distributions"><span class="header-section-number">10.4</span> Use expert distributions</a></li>
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">10.5</span> Packages</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.6</span> Summary</a></li>
   </ul>
@@ -400,12 +400,16 @@ div.csl-indent {
 </header>
 
 
-<p>Geospatial observational data provides essential information about species’ locations over time and space, and can be used with ecological data to understand interactions of species with their environment. However, geospatial data can be difficult to work with. Seemingly minor issues can have large impacts on the data’s validity.</p>
-<p><strong>Outliers</strong>—points located at large-enough distances from the majority of the species’ observations to skew an overall distribution—are a major challenge for geospatial data cleaning. Identifying outliers can be difficult because it’s not always clear whether an outlier is a true outlier or a data error. Data errors can result from species misidenfitication or incorrect geo-referencing. Other accidental data errors like reversing numeric symbols, mistyping a coordinate number or entering the wrong location can have dramatic consequences on a species’ reported location as well. For some species with smaller ranges, these errors will be easier to find. For species with larger ranges or analyses with many species over a larger area, these errors will be much more difficult to identify.</p>
-<p>Every dataset has its own combination of issues that will require bespoke cleaning to address them. It is important to clean geospatial data effectively if they are to be useful, as geospatial errors can lead to unexpected results of species range estimates and analytic output.</p>
-<p>In this chapter, we show some common issues with coordinate data and how to correct or remove records that appear suspicious.</p>
-<section id="prerequisites" class="level3 page-columns page-full" data-number="10.0.1">
-<h3 data-number="10.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">10.0.1</span> Prerequisites</h3>
+<p>Geospatial observational data provide essential information about species’ locations over time and space, and can be combined with ecological data to understand species-environment interactions. However, working with geospatial data can be challenging, as seemingly minor issues can significantly impact data validity.</p>
+<p><strong>Outliers</strong>—data points that are considerably distant from the majority of a species’ observations and can skew overall distribution—are a major challenge in geospatial data cleaning. Identifying outliers can be difficult because it’s not always clear whether they are true outliers or data errors. Errors can result from species misidentification or incorrect geo-referencing. Other accidental errors, such as reversing numeric symbols, mistyping coordinates, or entering incorrect locations, can dramatically affect the reported location of a species. For species with smaller ranges, these errors may be easier to detect. However, for species with larger ranges or analyses involving many species over a large area, these errors become much more difficult to identify.</p>
+<p>Every dataset has its own combination of issues requiring bespoke cleaning methods (e.g. <span class="citation" data-cites="jin2020">(<a href="../references.html#ref-jin2020" role="doc-biblioref">Jin and Yang 2020</a>)</span>). It is crucial to clean geospatial data effectively to ensure their usefulness, as errors can lead to unexpected results in species range estimates and analytic outputs.</p>
+<p>In this chapter, we will highlight common issues with coordinate data and demonstrate how to correct or remove suspicious-seeming records.</p>
+<section id="checklist" class="level2 .callout-tip" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="checklist"><span class="header-section-number">10.1</span> Checklist</h2>
+<p>This chapter can be read more like a checklist of possible geospatial errors in a dataset, how to identify them, and how to fix them.</p>
+</section>
+<section id="prerequisites" class="level3 page-columns page-full" data-number="10.1.1">
+<h3 data-number="10.1.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">10.1.1</span> Prerequisites</h3>
 <p>In this chapter we’ll use several datasets:</p>
 <ul>
 <li>MacDonnell’s desert fuschia (<em>Eremophila macdonnellii</em>) occurrence records from the ALA</li>
@@ -551,9 +555,9 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="missing-coordinates" class="level2" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="missing-coordinates"><span class="header-section-number">10.1</span> Missing coordinates</h2>
-<p>Mentioned in the <a href="../2_general-cleaning/missing-values.html">Missing Values chapter</a>, many spatial analytical tools are not compatible with missing coordinate data. We recommend identifying the rows that have missing data before deciding to exclude them.</p>
+<section id="missing-coordinates" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="missing-coordinates"><span class="header-section-number">10.2</span> Missing coordinates</h2>
+<p>As discussed in <a href="../2_general-cleaning/missing-values.html##missing-coordinates">Missing Values chapter</a>, many spatial analytical tools are not compatible with missing coordinate data. We recommend identifying the rows that have missing data before deciding to exclude them.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify missing data in coordinates</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>desert_plant <span class="sc">|&gt;</span> </span>
@@ -577,6 +581,10 @@ Original download queries
 #   dataResourceName &lt;chr&gt;, PRESUMED_SWAPPED_COORDINATE &lt;lgl&gt;</code></pre>
 </div>
 </div>
+<!-- Incredibly minor point, but I wondered if it would be simpler to do something like: -->
+<!-- desert_plant |> filter(!is.na(decimalLatitude), !is.na(decimalLongitude)) -->
+<!-- Only because we've used filter to identify NAs above, and so it logically follows to do the inverse using the same function rather than introduce a new (albeit very nice) function -SB  -->
+<!-- I see what you are saying, but I think we keep it. I think drop_na() makes a lot of sense and we might as well suggest the best function for the job -DK -->
 <p>You can use <code>drop_na()</code> to remove missing values from your dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Excluding them</span></span>
@@ -586,20 +594,21 @@ Original download queries
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="1">You could also use <code>drop_na(starts_with("decimal"))</code> to achieve the same thing</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="1">You could also use <code>filter(!is.na(decimalLatitude), !is.na(decimalLongitude))</code> to achieve the same thing</span>
 </dd>
 </dl>
 </div>
 </div>
 </section>
-<section id="issues-to-fix-records" class="level2 page-columns page-full" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="issues-to-fix-records"><span class="header-section-number">10.2</span> Issues to fix records</h2>
-<p>Spatial outliers can sometimes be due to taxonomic misidentification, but not always. Sometimes, records that appear as outliers can be true observations of a species, but the record has a mistake in its coordinates. To avoid deleting data that can be included in your analysis, it’s good practice to use several sources of spatial information to decide whether an unexpected data point is due to a small but fixable error in coordinates, or not.</p>
-<p>Many coordinates issues can be solved with data manipulation instead of discarding. Here are several coordinate issues that can be identified and corrected. Follow the link to each case study to learn how to identify and fix the issue.</p>
-<section id="swapped-numeric-sign" class="level3 page-columns page-full" data-number="10.2.1">
-<h3 data-number="10.2.1" class="anchored" data-anchor-id="swapped-numeric-sign"><span class="header-section-number">10.2.1</span> Swapped numeric sign</h3>
-<p>If there is a clustering of points mirrored to another hemisphere, consider swapping the sign and correct rather than discarding the points.</p>
-<p>Let’s use MacDonnell’s desert fuschia occurrence records for our example (downloaded at the <a href="../3_ecological-cleaning/geospatial-cleaning.html#prerequisites">start of the chapter</a>). If using the galah package, we can add the <code>PRESUMED_SWAPPED_COORDINATE</code> assertion column to our download to help find occurrence records flagged as suspicious for swapped coordinates.</p>
+<section id="correcting-fixable-coordinate-errors" class="level2 page-columns page-full" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="correcting-fixable-coordinate-errors"><span class="header-section-number">10.3</span> Correcting fixable coordinate errors</h2>
+<!-- Possible header options are "Correcting Fixable Coordinate Errors" and "Excluding Unfixable Coordinate Errors". Also see comments in slack about turning this into 1 example instead of 2 -SB -->
+<p>Spatial outliers can sometimes result from taxonomic misidentification, but not always. Occasionally, records that appear as outliers are true observations of a species but contain mistakes in their coordinates. To avoid unnecessarily deleting data, it’s good practice to use multiple sources of spatial information to decide whether an unexpected data point is due to a small but fixable error in coordinates.</p>
+<p>Many coordinate issues can be solved through data manipulation rather than discarding the data. Here are several coordinate issues that can be identified and corrected.</p>
+<section id="swapped-numeric-sign" class="level3 page-columns page-full" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="swapped-numeric-sign"><span class="header-section-number">10.3.1</span> Swapped numeric sign</h3>
+<p>If you notice a cluster of points mirrored in the opposite hemisphere, consider correcting the sign instead of discarding the points.</p>
+<p>Let’s use MacDonnell’s desert fuschia occurrence records for our example. Including the <code>PRESUMED_SWAPPED_COORDINATE</code> assertion column when downloading records using the galah package allows us to identify records flagged as potentially having swapped coordinates.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"></p>
@@ -632,7 +641,7 @@ Original download queries
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;</code></pre>
 </div>
 </div>
-<p>We can see this single record highlighted in orange on our map, sitting in a very similar location to where Australia would be if we mirrored its location.</p>
+<p>If we plot these records on a map and colour the points based on values in the <code>PRESUMED_SWAPPED_COORDINATE</code> assertion column, we can see that there is a single record (in orange) that looks like its coordinates have been mirrored across hemispheres.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve map of Australia</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>aus <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ozmap_country, <span class="dv">4326</span>)</span>
@@ -652,20 +661,21 @@ Original download queries
 </div>
 </div>
 </div>
-<p>We can fix the numeric symbols using <code>case_when()</code> from dplyr, which works the same as an <code>ifelse</code> statement (but can handle many of statements at once). The first updates our <code>decimalLongitude</code> column so that when <code>decimalLongitude</code> is less than 0, we remove the negative symbol by multiplying by -1, otherwise we keep the original longitude value. The second updates our <code>decimalLatitude</code> column using the same process.</p>
+<p>We can correct the numeric signs using <code>if_else()</code> from dplyr. The first statement updates our <code>decimalLongitude</code> column so that when <code>decimalLongitude</code> is less than 0, we remove the negative symbol by multiplying by -1, otherwise we keep the original longitude value. The second statement updates our <code>decimalLatitude</code> column using the same process.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>desert_plant_filtered <span class="ot">&lt;-</span> desert_plant <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimalLongitude =</span> <span class="fu">case_when</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      decimalLongitude <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> decimalLongitude <span class="sc">*</span> <span class="sc">-</span><span class="dv">1</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> decimalLongitude</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimalLongitude =</span> <span class="fu">if_else</span>(decimalLongitude <span class="sc">&lt;</span> <span class="dv">0</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>      decimalLongitude <span class="sc">*</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>      decimalLongitude</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimalLatitude =</span> <span class="fu">case_when</span>(</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      decimalLatitude <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">~</span> decimalLatitude <span class="sc">*</span> <span class="sc">-</span><span class="dv">1</span>,</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> decimalLatitude</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimalLatitude =</span> <span class="fu">if_else</span>(decimalLatitude <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>      decimalLatitude <span class="sc">*</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>      decimalLatitude</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Our updated map has fixed the coordinates of our record.</p>
+<p>And here’s the updated map, with the corrected coordinates.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus) <span class="sc">+</span></span>
@@ -683,9 +693,9 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="location-description-doesnt-match-coordinates" class="level3 page-columns page-full" data-number="10.2.2">
-<h3 data-number="10.2.2" class="anchored" data-anchor-id="location-description-doesnt-match-coordinates"><span class="header-section-number">10.2.2</span> Location description doesn’t match coordinates</h3>
-<p>Sometimes not all of the metadata about location aligns with the coordinate location. Occasionally these errors are fixable. Let’s use red-eyed tree frog data as an example (downloaded at the <a href="geospatial-cleaning/qmd#prerequisites">start of the chapter</a>).</p>
+<section id="location-description-doesnt-match-coordinates" class="level3 page-columns page-full" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="location-description-doesnt-match-coordinates"><span class="header-section-number">10.3.2</span> Location description doesn’t match coordinates</h3>
+<p>Misalignment between location metadata and coordinates could indicate errors in the dataset, but it’s sometimes possible to rectify these. Let’s use red-eyed tree frog data as an example.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/original" class="rounded"></p>
@@ -717,21 +727,19 @@ Original download queries
 #   genus &lt;chr&gt;, species &lt;chr&gt;, cl22 &lt;chr&gt;</code></pre>
 </div>
 </div>
-<p>When we plot the coordinates of our red-eyed tree frog occurrences, there is an unexpected observation near Japan. This is quite surprising—red-eyed tree frogs are not native to Japan!</p>
+<p>When we plot the coordinates of our red-eyed tree frog occurrences, there is an unexpected observation near Japan (or where Japan would appear if we had plotted more countries and not just Australia). This is quite surprising—red-eyed tree frogs are not native to Japan!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a map of aus, transform projection</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>aus <span class="ot">&lt;-</span> ozmaps<span class="sc">::</span>ozmap_country <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="at">crs =</span> <span class="fu">st_crs</span>(<span class="dv">4326</span>))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Map</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus,</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="cn">NA</span>,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> frogs,</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#557755"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>aus <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ozmap_country, <span class="dv">4326</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Map</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> frogs,</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#557755"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -823,12 +831,11 @@ Original download queries
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="cn">NA</span>,</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> frogs_fixed,</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#557755"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>) <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> frogs_fixed,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#557755"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -840,14 +847,14 @@ Original download queries
 </div>
 </section>
 </section>
-<section id="issues-to-remove-records" class="level2 page-columns page-full" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="issues-to-remove-records"><span class="header-section-number">10.3</span> Issues to remove records</h2>
+<section id="excluding-unfixable-coordinate-errors" class="level2 page-columns page-full" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="excluding-unfixable-coordinate-errors"><span class="header-section-number">10.4</span> Excluding unfixable coordinate errors</h2>
 <p>Some coordinates issues cannot be fixed or inferred. In this case, it is important that you identify which records have issues and remove them prior to analysis.</p>
 <p>Here are some examples of geospatial errors that might need to be identified and removed in your dataset.</p>
-<section id="flipped-coordinates" class="level3 page-columns page-full" data-number="10.3.1">
-<h3 data-number="10.3.1" class="anchored" data-anchor-id="flipped-coordinates"><span class="header-section-number">10.3.1</span> Flipped coordinates</h3>
-<p>Flipped coordinates typically appear as a clustering of points, whereby swapping the latitude and longitude will place the coordinates where they are expected <span class="citation" data-cites="jin2020">(<a href="../references.html#ref-jin2020" role="doc-biblioref">Jin and Yang 2020</a>)</span>.</p>
-<p>Let’s use occurrence data of Kowari (a native, carnivorous mouse species) as an example (downloaded at the <a href="geospatial-cleaning.html#prerequisites">start of the chapter</a>). If using the galah package, you can add the <code>COUNTRY_COORDINATE_MISMATCH</code> assertion column to your download to find occurrence records flagged as with mismatching coordinates and country data.</p>
+<section id="flipped-coordinates" class="level3 page-columns page-full" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="flipped-coordinates"><span class="header-section-number">10.4.1</span> Flipped coordinates</h3>
+<p>Records with flipped coordinates typically appear as a group of points in an unexpected location, whereby swapping the latitude and longitude will place the coordinates where they are expected.</p>
+<p>Let’s use occurrence records of Kowari (a native, carnivorous mouse species) as an example. Including the <code>COUNTRY_COORDINATE_MISMATCH</code> assertion column when downloading records using the galah package allows us to identify records flagged as having mismatches between coordinates and country metadata.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/original" class="rounded"></p>
@@ -900,7 +907,7 @@ Original download queries
 </div>
 </div>
 </div>
-<p>To remove these points from our data, we can filter our records to only records with coordinates within Australia’s land border.</p>
+<p>To remove these data, we can filter the dataset to exclude records that do not fall within Australia’s minimum and maximum coordinates.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>native_mice_filtered <span class="ot">&lt;-</span> native_mice <span class="sc">|&gt;</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(decimalLongitude <span class="sc">&gt;</span> <span class="dv">100</span>,</span>
@@ -924,10 +931,10 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="zero-coordinates" class="level3 page-columns page-full" data-number="10.3.2">
-<h3 data-number="10.3.2" class="anchored" data-anchor-id="zero-coordinates"><span class="header-section-number">10.3.2</span> Zero coordinates</h3>
-<p>Some records are mistakenly recorded with zero as their latitude and/or longitude coordinates. These records will not accurately represent their valid location and must be removed.</p>
-<p>Let’s use acacia data as an example (downloaded at the <a href="geospatial-cleaning/qmd#prerequisites">start of the chapter</a>). If using the galah package, you can add the <code>ZERO_COORDINATE</code> assertion column to your download to find occurrence records flagged as suspicious for zero coordinates.</p>
+<section id="zero-coordinates" class="level3 page-columns page-full" data-number="10.4.2">
+<h3 data-number="10.4.2" class="anchored" data-anchor-id="zero-coordinates"><span class="header-section-number">10.4.2</span> Zero coordinates</h3>
+<p>Sometimes latitude and/or longitude data are recorded as having zero values; these values are not accurate representations of locations and thus should be removed.</p>
+<p>Let’s use acacia data as an example. Including the <code>ZERO_COORDINATE</code> assertion column to your download allows us to identify records flagged as having zero values in the coordinate fields.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/original" class="rounded"></p>
@@ -960,7 +967,7 @@ Original download queries
 #   locality &lt;chr&gt;</code></pre>
 </div>
 </div>
-<p>We can see the suspicious record in orange on our map.</p>
+<p>We can see the flagged record in orange on our map.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus) <span class="sc">+</span></span>
@@ -977,7 +984,7 @@ Original download queries
 </div>
 </div>
 </div>
-<p>We can remove the problematic record by filtering our data to remove records with longitude or latitude coordinates that equal zero.</p>
+<p>We can remove this record by filtering our dataset to remove records with longitude or latitude coordinates that equal zero.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>acacias_filtered <span class="ot">&lt;-</span> acacias <span class="sc">|&gt;</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(decimalLongitude <span class="sc">!=</span> <span class="dv">0</span>,</span>
@@ -999,10 +1006,10 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="centroids" class="level3 page-columns page-full" data-number="10.3.3">
-<h3 data-number="10.3.3" class="anchored" data-anchor-id="centroids"><span class="header-section-number">10.3.3</span> Centroids</h3>
-<p><strong>Centroids</strong>, or coordinates that mark the exact centre point of an area, are sometimes assigned to an occurrence record when the original observation location was provided as a description. If a record was collected using a vague locality description or from incorrect georeferencing, centroids can be used to categorise the record into broadly the correct area<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<p>Let’s use common brown butterfly data for our example (downloaded at the <a href="../3_ecological-cleaning/geospatial-cleaning.html#prerequisites">start of the chapter</a>). If using the galah package, we can add the <code>COORDINATES_CENTRE_OF_COUNTRY</code> or <code>COORDINATES_CENTRE_OF_STATEPROVINCE</code> assertions columns to your download to find occurrence records flagged as suspicious for centroid coordinates.</p>
+<section id="centroids" class="level3 page-columns page-full" data-number="10.4.3">
+<h3 data-number="10.4.3" class="anchored" data-anchor-id="centroids"><span class="header-section-number">10.4.3</span> Centroids</h3>
+<p><strong>Centroids</strong>, or coordinates that mark the exact centre point of an area, are sometimes assigned to an occurrence record when the original observation location was provided as a description. If a record was collected using a vague locality description or through incorrect geo-referencing, centroids can be used to categorise the record into broadly the correct area<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Let’s use common brown butterfly data for our example. Including the <code>COORDINATES_CENTRE_OF_COUNTRY</code> and/or <code>COORDINATES_CENTRE_OF_STATEPROVINCE</code> assertions columns to your download allows us to identify records flagged as containing centroid coordinates.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"></p>
@@ -1038,7 +1045,7 @@ Original download queries
 #   dataResourceName &lt;chr&gt;, countryCode &lt;chr&gt;, locality &lt;chr&gt;</code></pre>
 </div>
 </div>
-<p>Filtering our data to records flagged as suspicious, we return one record.</p>
+<p>Filtering our data to flagged records, we return one record.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>butterflies <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
@@ -1056,7 +1063,7 @@ Original download queries
 #   COORDINATES_CENTRE_OF_STATEPROVINCE &lt;lgl&gt;</code></pre>
 </div>
 </div>
-<p>The suspicious record is the single orange point on our map.</p>
+<p>The flagged record is the single orange point on our map.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus) <span class="sc">+</span></span>
@@ -1074,7 +1081,7 @@ Original download queries
 </div>
 </div>
 </div>
-<p>We can remove this data point by excluding this record from our dataframe.</p>
+<p>We can remove this data point by excluding this record from our dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>butterflies_filtered <span class="ot">&lt;-</span> butterflies <span class="sc">|&gt;</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(COORDINATES_CENTRE_OF_STATEPROVINCE <span class="sc">==</span> <span class="cn">FALSE</span>)</span>
@@ -1096,11 +1103,11 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="cities-zoos-aquariums-museums-herbaria" class="level3 page-columns page-full" data-number="10.3.4">
-<h3 data-number="10.3.4" class="anchored" data-anchor-id="cities-zoos-aquariums-museums-herbaria"><span class="header-section-number">10.3.4</span> Cities, zoos, aquariums, museums &amp; herbaria</h3>
-<p>Some observations are recorded in locations where animals and plants live but do not naturally occur. A common example is observations recorded at public facilities like zoos, aquariums and botanic gardens.</p>
+<section id="cities-zoos-aquariums-museums-herbaria" class="level3 page-columns page-full" data-number="10.4.4">
+<h3 data-number="10.4.4" class="anchored" data-anchor-id="cities-zoos-aquariums-museums-herbaria"><span class="header-section-number">10.4.4</span> Cities, zoos, aquariums, museums &amp; herbaria</h3>
+<p>Some observations are recorded in locations where animals and plants live but do not naturally occur. A common example is observations recorded at public facilities like zoos, aquariums, and botanic gardens.</p>
 <p>Other times, observations are recorded in places where specimens of animals and plants might be stored, but not where they were observed. Common examples are museums and herbaria.</p>
-<p>In some cases, like with records of the Gorse Bitter-pea (downloaded at the <a href="../3_ecological-cleaning/geospatial-cleaning.html#prerequisites">start of the chapter</a>), these locations can appear suspicious but not overly obvious. When we map these observations, there is a tailing distribution of points in Western Australia with several points located near the west coast of Australia.</p>
+<p>In some cases, like with records of the Gorse Bitter-pea, these locations can appear suspicious but not overly obvious. When we map these observations, there is a tailing distribution of points in Western Australia with several points located near the west coast of Australia.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
 <p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/original" class="rounded"></p>
@@ -1116,7 +1123,7 @@ Original download queries
 <span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> bitter_peas,</span>
 <span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> pilot<span class="sc">::</span><span class="fu">pilot_color</span>(<span class="st">"navy"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#204466"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1157,7 +1164,7 @@ Original download queries
 2 NSW AVH feed                                 </code></pre>
 </div>
 </div>
-<p>Having identified they could be can remove these records from our data.</p>
+<p>Having identified this, these records can now be removed from our dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>bitter_peas_filtered <span class="ot">&lt;-</span> bitter_peas <span class="sc">|&gt;</span></span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(decimalLongitude <span class="sc">&gt;</span> <span class="dv">120</span>)</span>
@@ -1205,13 +1212,13 @@ Use <code>basisOfRecord</code>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="use-expert-distributions" class="level2" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="use-expert-distributions"><span class="header-section-number">10.4</span> Use expert distributions</h2>
-<p><em>Coming soon…</em> <!--once galah supports expert distributions...--></p>
-<!-- This section can have an example expert distribution, then plot points on the top, then find which points are outside of the distribution to investigate -->
-<!--
+<!-- 
+## Use expert distributions
+
+*Coming soon...* once galah supports expert distributions...
+This section can have an example expert distribution, then plot points on the 
+top, then find which points are outside of the distribution to investigate 
+
 One way to identify suspicious observations is to use an expert
 distribution to determine whether an occurrence record is within the
 possible range of a species. At the most basic, expert distributions can
@@ -1221,19 +1228,16 @@ compared visually to your points.
 It's also possible to download expert distributions as shapefiles, and
 these can be plotted on a map to directly compare with your occurrence
 record locations.
-
-
-::: {.cell}
-
-:::
-
 -->
+</section>
 </section>
 <section id="packages" class="level2" data-number="10.5">
 <h2 data-number="10.5" class="anchored" data-anchor-id="packages"><span class="header-section-number">10.5</span> Packages</h2>
+<p>Other packages exist to make identifying and cleaning geospatial coordinates more streamlined. The advantage of using these packages is that they can run many checks over coordinates at one time, rather than identifying each error separately like we did over this chapter. This process can make finding possible spatial outliers faster. The disadvantage is that checks might be more difficult to tweak compared to manual checks. Manual checks can also make the steps you made to clean your data clearer (and easier to edit later) in a complete data cleaning workflow.</p>
+<p>Choose the package (or mix of packages and functions) that work best for you and your data cleaning needs.</p>
 <section id="coordinatecleaner" class="level4">
 <h4 class="anchored" data-anchor-id="coordinatecleaner">CoordinateCleaner</h4>
-<p>The <a href="https://docs.ropensci.org/CoordinateCleaner/index.html">CoordinateCleaner package</a> is a package for automated flagging of common spatial and temporal errors of biological and paleaontological data. It is particularly good at cleaning data from GBIF.</p>
+<p>The <a href="https://docs.ropensci.org/CoordinateCleaner/index.html">CoordinateCleaner package</a> is a package for automated flagging of common spatial and temporal errors of biological and palaentological data. It is particularly useful for cleaning data from GBIF.</p>
 <p>Here is an example of a general cleaning function, but there are many more bespoke options that the package offers.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CoordinateCleaner)</span>
@@ -1243,7 +1247,7 @@ record locations.
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">species =</span> <span class="st">"scientificName"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `ne_50m_land' from data source 
-  `C:\Users\KEL329\AppData\Local\Temp\RtmpWuRLbL\ne_50m_land.shp' 
+  `C:\Users\KEL329\AppData\Local\Temp\Rtmps9ityx\ne_50m_land.shp' 
   using driver `ESRI Shapefile'
 Simple feature collection with 1420 features and 3 fields
 Geometry type: MULTIPOLYGON
@@ -1262,7 +1266,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="geospatial-cleaning_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="geospatial-cleaning_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1271,7 +1275,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </section>
 <section id="summary" class="level2 page-columns page-full" data-number="10.6">
 <h2 data-number="10.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.6</span> Summary</h2>
-<p>Each of the cleaning steps in this chapter do not have to be run in order, or even at all. Whether they are used is context dependent and taxon dependent. As an example, what is one species that has many “wrong” coordinates based on many of the steps listed above?</p>
+<p>Each of the cleaning steps in this chapter do not have to be run in order, or even at all. Whether they are used is context- and taxon-dependent. As an example, what is one species that has many “wrong” coordinates based on many of the steps listed above?</p>
 <p>The Great White Shark.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
@@ -1308,12 +1312,12 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="geospatial-cleaning_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="geospatial-cleaning_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The difficulty with cleaning Great White Shark occurrence data is that these sharks have a <em>massive</em> habitat range, and these locations along (what appear to be) the North American coast and Madagascar could very well be true occurrences. In this case, we might need to decide the spatial range that makes sense for our specific investigation. Be sure to consider the taxonomic and spatial range of your species before jumping into data cleaning!</p>
+<p>The difficulty with cleaning Great White Shark occurrence data is that these sharks have a <em>massive</em> habitat range, and these locations along (what appear to be) the North American coast and Madagascar could very well be true occurrences. Be sure to consider the taxonomic and spatial range of your species before jumping into data cleaning!</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -1325,7 +1329,7 @@ Jin, Jing, and Jun Yang. 2020. <span>“BDcleaner: A Workflow for Cleaning Taxon
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>This can happen when record locations is incorrectly given as the physical location of the specimen, or because they represent individuals from captivity or grown in horticulture (but were not clearly labelled as such).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>This can happen when record locations are incorrectly given as the physical location of the specimen, or because they represent individuals from captivity or grown in horticulture (but were not clearly labelled as such).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
@@ -1365,18 +1369,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -1408,7 +1401,47 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1443,7 +1476,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
@@ -1491,7 +1528,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      return note.innerHTML;
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -1753,12 +1795,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../3_ecological-cleaning/geospatial-investigation.html" class="pagination-link  aria-label=" &lt;span="" investigation&lt;="" span&gt;"="">
+      <a href="../3_ecological-cleaning/geospatial-investigation.html" class="pagination-link" aria-label="Geospatial investigation">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Geospatial investigation</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../4_appendices/where-to-get-data.html" class="pagination-link" aria-label="<span class='chapter-number'>A</span>&nbsp; <span class='chapter-title'>Where to get data</span>">
+      <a href="../4_appendices/where-to-get-data.html" class="pagination-link" aria-label="Where to get data">
         <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Where to get data</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
