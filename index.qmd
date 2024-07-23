@@ -1,10 +1,10 @@
 # Welcome {.unnumbered}
 
-This book is a practical guide on cleaning geo-referenced biodiversity data
-using R. We focus on processes and challenges you'll face with
-biodiversity data. As such, this book isn't a guide to data cleaning in general,
-but a targeted resource for anyone working with or interested in ecology/evolution and geo-referenced 
-biodiversity data.
+This book is a practical guide for cleaning geo-referenced biodiversity data
+using R. It focuses specifically on the processes and challenges associated with
+biodiversity data. As such, it is not a general guide to data cleaning but a
+targeted resource for those working with or interested in ecology, evolution,
+and geo-referenced biodiversity data.
 
 ```{r}
 #| include: false
@@ -44,13 +44,24 @@ The [Pacific Cleaner Shrimp (*Lysmata amboinensis*)](https://bie.ala.org.au/spec
 
 ## Acknowledgement of Country
 
-The Atlas of Living Australia acknowledges that we live and work on Aboriginal and Torres Strait Islander lands, rivers, and seas. Indigenous Australian peoples held and continue to hold incomparably intricate environmental knowledge as first peoples of this country. We are working with communities to acknowledge and archive these different types of [knowledge](https://www.ala.org.au/indigenous-ecological-knowledge/) in a culturally sensitive way.
+The Atlas of Living Australia acknowledges that we live and work on Aboriginal
+and Torres Strait Islander lands, rivers, and seas. Indigenous Australian
+peoples held and continue to hold incomparably intricate environmental knowledge
+as first peoples of this country. We are working with communities to acknowledge
+and archive these different types of
+[knowledge](https://www.ala.org.au/indigenous-ecological-knowledge/) in a
+culturally sensitive way.
 
-The authors of this book currently reside on Ngunnawal and Ngambri (Canberra), Wurundjeri and Bunurong (Melbourne), Turrbal and Yuggera (Brisbane), Kaurna (Adelaide), and Gadigal (Sydney) lands, and we pay our respects to Elders past and present.   
+The authors of this book currently reside on the lands of the Ngunnawal and
+Ngambri (Canberra), Wurundjeri Woi Wurrung and Bunurong (Naarm/Melbourne),
+Turrbal and Yuggera (Meanjin/Brisbane), Kaurna (Tarntanya/Adelaide), and Gadigal
+(Gadigal/Sydney) peoples. We pay our respects to Elders past and present.
 
 ## Acknowledgements {.unnumbered}
 
 This book was inspired by an [Australian Research Data
 Commons](https://ardc.edu.au/) project where our team worked closely with
 research partners to streamline their data cleaning workflows. This book is a
-collaborative effort from the [Science and Decision Support team](https://labs.ala.org.au/about/) at the [Atlas of Living Australia (ALA)](https://www.ala.org.au/)
+collaborative effort from the [Science and Decision Support
+team](https://labs.ala.org.au/about/) at the [Atlas of Living Australia
+(ALA)](https://www.ala.org.au/).
