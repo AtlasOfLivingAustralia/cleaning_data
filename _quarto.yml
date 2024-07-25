@@ -15,7 +15,8 @@ book:
   page-navigation: true
   back-to-top-navigation: true
   search: true
-  repo-url: https://cleaning-data-r.ala.org.au/
+  site-url: https://cleaning-data-r.ala.org.au/
+  repo-url: https://github.com/AtlasOfLivingAustralia/cleaning_data
   sidebar:
     logo: images/ALA_Logo_Inline_RGB.png
 
