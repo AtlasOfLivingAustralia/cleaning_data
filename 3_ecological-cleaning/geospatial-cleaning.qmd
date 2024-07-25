@@ -33,7 +33,7 @@ and analytic outputs.
 In this chapter, we will highlight common issues with coordinate data and
 demonstrate how to correct or remove suspicious-seeming records.
 
-:::.callout-tip
+:::{.callout-tip}
 
 ## Checklist
 
@@ -506,16 +506,14 @@ ggplot() +
 
 Some coordinates issues cannot be fixed or inferred. In this case, it is
 important that you identify which records have issues and remove them
-prior to analysis.
-
-Here are some examples of geospatial errors that might need to be
-identified and removed in your dataset.
+prior to analysis. Here are some examples of geospatial errors that might 
+need to be identified and removed in your dataset.
 
 ### Flipped coordinates
 
 Records with flipped coordinates typically appear as a group of points in an 
-unexpected location, whereby swapping the latitude and longitude will place 
-the coordinates where they are expected.
+unexpected location. Although sometimes they can be fixed, this is not always 
+the case.
 
 Let's use occurrence records of Kowari (a native, carnivorous mouse species) as
 an example. Including the `COUNTRY_COORDINATE_MISMATCH` assertion column when
