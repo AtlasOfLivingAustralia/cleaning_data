@@ -9,7 +9,7 @@ editor:
 
 # Packages
 
-These are some of our favourite packages, with most appearing many times throughout the book. We thought it would be nice to feature them more conveniently here.
+These are some of our favourite packages, with most appearing many times throughout the book. We thought it would be nice to feature them more prominently here.
 
 ::: {style="display: flex;"}
 
@@ -22,12 +22,10 @@ These are some of our favourite packages, with most appearing many times through
 ::: {style="width: 75%;"}
 ### galah
 
-[galah](https://galah.ala.org.au) is an R and Python interface to biodiversity data hosted by the
-Atlas of Living Australia (ALA). It enables users to locate and download
-species occurrence records (observations, specimens, eDNA records,
-etc.), taxonomic information, or associated media such as images or
-sounds, and to restrict their queries to particular taxa or
-locations.
+[galah](https://galah.ala.org.au) is an R and Python interface to biodiversity
+data hosted by the Atlas of Living Australia (ALA). It enables users to query
+and download species occurrence records (observations, specimens, eDNA records,
+etc.), taxonomic information, or associated media such as images or sounds.
 :::
 :::
 
@@ -44,7 +42,10 @@ locations.
 ::: {style="width: 75%;"}
 ### here
 
-[here](https://here.r-lib.org/index.html) is a package for easy file referencing in project-oriented workflows. The here package creates relative paths relative the top-file directory in ways that are more robust from errors. Artwork by [allison_horst](https://x.com/allison_horst?lang=en).
+[here](https://here.r-lib.org/index.html) is a package for easy file referencing
+in project-oriented workflows. The here package creates paths relative to
+the top-file directory in ways that are more robust to errors. Artwork by
+[allison_horst](https://x.com/allison_horst?lang=en).
 :::
 :::
 
@@ -59,7 +60,9 @@ locations.
 ::: {style="width: 75%;"}
 ### skimr
 
-[skimr](https://docs.ropensci.org/skimr/) is a package for providing rich summaries with summary statistics of data in R. Users can `skim()` these summary statistics to quickly and more completely understand their data.
+[skimr](https://docs.ropensci.org/skimr/) is a package for providing rich
+summaries of variables in datasets in R. Users can `skim()` these summary
+statistics to quickly get an overview of their data.
 :::
 :::
 
@@ -73,8 +76,10 @@ locations.
 ::: {style="width: 75%;"}
 ### tidyverse
 
-[tidyverse](https://www.tidyverse.org) is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structure. Some notable
-packages within the tidyverse are dplyr, tidyr and ggplot2.
+The [tidyverse](https://www.tidyverse.org) is an opinionated collection of R
+packages designed for data science. All packages share an underlying design
+philosophy, grammar, and data structure. Some notable packages within the
+tidyverse are dplyr, tidyr, and ggplot2.
 :::
 :::
 
@@ -90,7 +95,11 @@ packages within the tidyverse are dplyr, tidyr and ggplot2.
 ::: {style="width: 75%;"}
 ### ozmaps
 
-[ozmaps](https://github.com/mdsumner/ozmaps) is a package that hosts a collection of Australian mapping spatial object data: coastlines, state outlines, local government areas and electoral boundaries. It streamlines the process of downloading shapefiles of Australia. Data for ozmaps is derived from the Australian Bureau of Statistics (2016). 
+[ozmaps](https://github.com/mdsumner/ozmaps) is a package that hosts a
+collection of Australian spatial object data: coastlines, state
+outlines, local government areas, and electoral boundaries. It streamlines the
+process of downloading shapefiles of Australia. Data in ozmaps are derived from
+the Australian Bureau of Statistics (2016).
 
 :::
 :::
@@ -105,7 +114,11 @@ packages within the tidyverse are dplyr, tidyr and ggplot2.
 ::: {style="width: 75%;"}
 ### sf
 
-[sf](https://r-spatial.github.io/sf/) allows users to encode spatial vector data. The sf package provides access to [simple features](https://en.wikipedia.org/wiki/Simple_Features) in R, allowing users to conduct geometrical operations using coordinate reference systems for spatial data manipulation.
+[sf](https://r-spatial.github.io/sf/) allows users to encode spatial vector
+data. The sf package provides access to [simple
+features](https://en.wikipedia.org/wiki/Simple_Features) in R, allowing users to
+conduct geometrical operations using coordinate reference systems for spatial
+data manipulation.
 
 :::
 :::
@@ -140,7 +153,7 @@ packages within the tidyverse are dplyr, tidyr and ggplot2.
 ::: {style="width: 75%;"}
 ### tidyr
 
-[tidyr](https://tidyr.tidyverse.org) is a package to help you make "tidy data", where each variable is a column, each observation is a row, and each value value is a cell. 
+[tidyr](https://tidyr.tidyverse.org) is a package to help you make "tidy data", where each variable is a column, each observation is a row, and each value is a cell. 
 
 :::
 :::
@@ -156,7 +169,7 @@ packages within the tidyverse are dplyr, tidyr and ggplot2.
 
 ### stringr
 
-[stringr](https://stringr.tidyverse.org/) is a package with a cohesive set of functions to filter, match and correct strings and characters. 
+[stringr](https://stringr.tidyverse.org/) is a package with a cohesive set of functions to filter, match, and prepare, and correct strings. 
 
 :::
 :::
@@ -174,7 +187,7 @@ packages within the tidyverse are dplyr, tidyr and ggplot2.
 ::: {style="width: 75%;"}
 ### janitor
 
-[janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) is a package with a collection of helper functions for initial data exploration, summarising and data cleaning.
+[janitor](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html) is a package with a collection of helper functions for initial data exploration, summarising, and data cleaning.
 :::
 :::
 
