@@ -376,7 +376,6 @@ the [Global Register of Introduced and Invasive Species
 in your working directory, we can read the list into R. Taxonomic names are
 stored in columns with an `accepted_name` prefix.
 
-<!-- Given that this can now be downloaded from the website again as a simplified checklist i.e. single csv file, should we name the file something a bit more sensible than "GRIIS_Australia_20230331-121730.csv"? Probably also worth downloading the latest version because there have been some significant changes to the contents of the list in the last year or so -SB  -->
 
 ```{r}
 #| eval: false
