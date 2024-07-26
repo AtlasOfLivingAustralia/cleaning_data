@@ -1011,12 +1011,14 @@ using `get_tsn()`, which taxize uses to as a taxonomic identifier. Then
 we can search for existing synonyms by supplying the `tsn` to the
 `synonyms()` function.
 
-<!-- Note: `synonyms()` has timed out in the past (and could be a source of future errors) -->
+<!-- Note: `get_tsn()` has timed out in the past (and could be a source of future errors) -->
+<!-- TODO: Check if this is working again -->
 
 ```{r}
+#| eval: false
 # Retrieve synonyms
-tsn <- get_tsn(resolved$matched_name)
-synonyms(tsn)
+tsn <- get_tsn(resolved$matched_name) # timed out as of 2024-07-26
+synonyms(tsn) 
 ```
 
 #### Homonyms
@@ -1028,14 +1030,15 @@ If a name matches multiple names, `get_tsn_()` will return all matches.
 resolved <- gnr_resolve("morganella", best_match_only = TRUE)
 
 # Retrieve matches
-tsn <- get_tsn_(resolved$matched_name)
-tsn
+# tsn <- get_tsn_(resolved$matched_name) # timed out as of 2024-07-26
+# tsn
 ```
 
 You can then use each `tsn` number to return the complete classification
 of the taxonomic name.
 
 ```{r}
+#| eval: false
 # Retrieve upstream taxonomy
 classification(tsn$Morganella$tsn[1], # <1>
                upto = "family", 
