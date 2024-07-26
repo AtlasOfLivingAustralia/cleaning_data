@@ -156,7 +156,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://cleaning-data-r.ala.org.au/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+    <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -358,23 +358,22 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#checklist" id="toc-checklist" class="nav-link active" data-scroll-target="#checklist"><span class="header-section-number">10.1</span> Checklist</a></li>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites"><span class="header-section-number">10.1.1</span> Prerequisites</a></li>
-  <li><a href="#missing-coordinates" id="toc-missing-coordinates" class="nav-link" data-scroll-target="#missing-coordinates"><span class="header-section-number">10.2</span> Missing coordinates</a></li>
-  <li><a href="#correcting-fixable-coordinate-errors" id="toc-correcting-fixable-coordinate-errors" class="nav-link" data-scroll-target="#correcting-fixable-coordinate-errors"><span class="header-section-number">10.3</span> Correcting fixable coordinate errors</a>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">10.0.1</span> Prerequisites</a></li>
+  <li><a href="#missing-coordinates" id="toc-missing-coordinates" class="nav-link" data-scroll-target="#missing-coordinates"><span class="header-section-number">10.1</span> Missing coordinates</a></li>
+  <li><a href="#correcting-fixable-coordinate-errors" id="toc-correcting-fixable-coordinate-errors" class="nav-link" data-scroll-target="#correcting-fixable-coordinate-errors"><span class="header-section-number">10.2</span> Correcting fixable coordinate errors</a>
   <ul class="collapse">
-  <li><a href="#swapped-numeric-sign" id="toc-swapped-numeric-sign" class="nav-link" data-scroll-target="#swapped-numeric-sign"><span class="header-section-number">10.3.1</span> Swapped numeric sign</a></li>
-  <li><a href="#location-description-doesnt-match-coordinates" id="toc-location-description-doesnt-match-coordinates" class="nav-link" data-scroll-target="#location-description-doesnt-match-coordinates"><span class="header-section-number">10.3.2</span> Location description doesn’t match coordinates</a></li>
+  <li><a href="#swapped-numeric-sign" id="toc-swapped-numeric-sign" class="nav-link" data-scroll-target="#swapped-numeric-sign"><span class="header-section-number">10.2.1</span> Swapped numeric sign</a></li>
+  <li><a href="#location-description-doesnt-match-coordinates" id="toc-location-description-doesnt-match-coordinates" class="nav-link" data-scroll-target="#location-description-doesnt-match-coordinates"><span class="header-section-number">10.2.2</span> Location description doesn’t match coordinates</a></li>
   </ul></li>
-  <li><a href="#excluding-unfixable-coordinate-errors" id="toc-excluding-unfixable-coordinate-errors" class="nav-link" data-scroll-target="#excluding-unfixable-coordinate-errors"><span class="header-section-number">10.4</span> Excluding unfixable coordinate errors</a>
+  <li><a href="#excluding-unfixable-coordinate-errors" id="toc-excluding-unfixable-coordinate-errors" class="nav-link" data-scroll-target="#excluding-unfixable-coordinate-errors"><span class="header-section-number">10.3</span> Excluding unfixable coordinate errors</a>
   <ul class="collapse">
-  <li><a href="#flipped-coordinates" id="toc-flipped-coordinates" class="nav-link" data-scroll-target="#flipped-coordinates"><span class="header-section-number">10.4.1</span> Flipped coordinates</a></li>
-  <li><a href="#zero-coordinates" id="toc-zero-coordinates" class="nav-link" data-scroll-target="#zero-coordinates"><span class="header-section-number">10.4.2</span> Zero coordinates</a></li>
-  <li><a href="#centroids" id="toc-centroids" class="nav-link" data-scroll-target="#centroids"><span class="header-section-number">10.4.3</span> Centroids</a></li>
-  <li><a href="#cities-zoos-aquariums-museums-herbaria" id="toc-cities-zoos-aquariums-museums-herbaria" class="nav-link" data-scroll-target="#cities-zoos-aquariums-museums-herbaria"><span class="header-section-number">10.4.4</span> Cities, zoos, aquariums, museums &amp; herbaria</a></li>
+  <li><a href="#flipped-coordinates" id="toc-flipped-coordinates" class="nav-link" data-scroll-target="#flipped-coordinates"><span class="header-section-number">10.3.1</span> Flipped coordinates</a></li>
+  <li><a href="#zero-coordinates" id="toc-zero-coordinates" class="nav-link" data-scroll-target="#zero-coordinates"><span class="header-section-number">10.3.2</span> Zero coordinates</a></li>
+  <li><a href="#centroids" id="toc-centroids" class="nav-link" data-scroll-target="#centroids"><span class="header-section-number">10.3.3</span> Centroids</a></li>
+  <li><a href="#cities-zoos-aquariums-museums-herbaria" id="toc-cities-zoos-aquariums-museums-herbaria" class="nav-link" data-scroll-target="#cities-zoos-aquariums-museums-herbaria"><span class="header-section-number">10.3.4</span> Cities, zoos, aquariums, museums &amp; herbaria</a></li>
   </ul></li>
-  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">10.5</span> Packages</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.6</span> Summary</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><span class="header-section-number">10.4</span> Packages</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">10.5</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -404,12 +403,21 @@ div.csl-indent {
 <p><strong>Outliers</strong>—data points that are considerably distant from the majority of a species’ observations and can skew overall distribution—are a major challenge in geospatial data cleaning. Identifying outliers can be difficult because it’s not always clear whether they are true outliers or data errors. Errors can result from species misidentification or incorrect geo-referencing. Other accidental errors, such as reversing numeric symbols, mistyping coordinates, or entering incorrect locations, can dramatically affect the reported location of a species. For species with smaller ranges, these errors may be easier to detect. However, for species with larger ranges or analyses involving many species over a large area, these errors become much more difficult to identify.</p>
 <p>Every dataset has its own combination of issues requiring bespoke cleaning methods (e.g. <span class="citation" data-cites="jin2020">(<a href="../references.html#ref-jin2020" role="doc-biblioref">Jin and Yang 2020</a>)</span>). It is crucial to clean geospatial data effectively to ensure their usefulness, as errors can lead to unexpected results in species range estimates and analytic outputs.</p>
 <p>In this chapter, we will highlight common issues with coordinate data and demonstrate how to correct or remove suspicious-seeming records.</p>
-<section id="checklist" class="level2 .callout-tip" data-number="10.1">
-<h2 data-number="10.1" class="anchored" data-anchor-id="checklist"><span class="header-section-number">10.1</span> Checklist</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Checklist
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>This chapter can be read more like a checklist of possible geospatial errors in a dataset, how to identify them, and how to fix them.</p>
-</section>
-<section id="prerequisites" class="level3 page-columns page-full" data-number="10.1.1">
-<h3 data-number="10.1.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">10.1.1</span> Prerequisites</h3>
+</div>
+</div>
+<section id="prerequisites" class="level3 page-columns page-full" data-number="10.0.1">
+<h3 data-number="10.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">10.0.1</span> Prerequisites</h3>
 <p>In this chapter we’ll use several datasets:</p>
 <ul>
 <li>MacDonnell’s desert fuschia (<em>Eremophila macdonnellii</em>) occurrence records from the ALA</li>
@@ -482,7 +490,7 @@ div.csl-indent {
 <p><a href="https://biocache.ala.org.au/occurrences/fde7691c-37f3-40a0-a2b7-628b0d0240c7"><em>Daviesia ulicifolia ruscifolia</em> flowering.<br>Photo by Warren Tomlinson CC-BY-NC 4.0 (Int)</a></p>
 </div>
 </div></div><div class="callout callout-style-simple callout-note no-icon callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -491,7 +499,7 @@ Original download queries
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Note:</strong> You don’t need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.</p>
 <div class="cell">
@@ -555,8 +563,8 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="missing-coordinates" class="level2" data-number="10.2">
-<h2 data-number="10.2" class="anchored" data-anchor-id="missing-coordinates"><span class="header-section-number">10.2</span> Missing coordinates</h2>
+<section id="missing-coordinates" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="missing-coordinates"><span class="header-section-number">10.1</span> Missing coordinates</h2>
 <p>As discussed in <a href="../2_general-cleaning/missing-values.html##missing-coordinates">Missing Values chapter</a>, many spatial analytical tools are not compatible with missing coordinate data. We recommend identifying the rows that have missing data before deciding to exclude them.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify missing data in coordinates</span></span>
@@ -600,13 +608,13 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="correcting-fixable-coordinate-errors" class="level2 page-columns page-full" data-number="10.3">
-<h2 data-number="10.3" class="anchored" data-anchor-id="correcting-fixable-coordinate-errors"><span class="header-section-number">10.3</span> Correcting fixable coordinate errors</h2>
+<section id="correcting-fixable-coordinate-errors" class="level2 page-columns page-full" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="correcting-fixable-coordinate-errors"><span class="header-section-number">10.2</span> Correcting fixable coordinate errors</h2>
 <!-- Possible header options are "Correcting Fixable Coordinate Errors" and "Excluding Unfixable Coordinate Errors". Also see comments in slack about turning this into 1 example instead of 2 -SB -->
 <p>Spatial outliers can sometimes result from taxonomic misidentification, but not always. Occasionally, records that appear as outliers are true observations of a species but contain mistakes in their coordinates. To avoid unnecessarily deleting data, it’s good practice to use multiple sources of spatial information to decide whether an unexpected data point is due to a small but fixable error in coordinates.</p>
 <p>Many coordinate issues can be solved through data manipulation rather than discarding the data. Here are several coordinate issues that can be identified and corrected.</p>
-<section id="swapped-numeric-sign" class="level3 page-columns page-full" data-number="10.3.1">
-<h3 data-number="10.3.1" class="anchored" data-anchor-id="swapped-numeric-sign"><span class="header-section-number">10.3.1</span> Swapped numeric sign</h3>
+<section id="swapped-numeric-sign" class="level3 page-columns page-full" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="swapped-numeric-sign"><span class="header-section-number">10.2.1</span> Swapped numeric sign</h3>
 <p>If you notice a cluster of points mirrored in the opposite hemisphere, consider correcting the sign instead of discarding the points.</p>
 <p>Let’s use MacDonnell’s desert fuschia occurrence records for our example. Including the <code>PRESUMED_SWAPPED_COORDINATE</code> assertion column when downloading records using the galah package allows us to identify records flagged as potentially having swapped coordinates.</p>
 
@@ -693,8 +701,8 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="location-description-doesnt-match-coordinates" class="level3 page-columns page-full" data-number="10.3.2">
-<h3 data-number="10.3.2" class="anchored" data-anchor-id="location-description-doesnt-match-coordinates"><span class="header-section-number">10.3.2</span> Location description doesn’t match coordinates</h3>
+<section id="location-description-doesnt-match-coordinates" class="level3 page-columns page-full" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="location-description-doesnt-match-coordinates"><span class="header-section-number">10.2.2</span> Location description doesn’t match coordinates</h3>
 <p>Misalignment between location metadata and coordinates could indicate errors in the dataset, but it’s sometimes possible to rectify these. Let’s use red-eyed tree frog data as an example.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
@@ -847,13 +855,12 @@ Original download queries
 </div>
 </section>
 </section>
-<section id="excluding-unfixable-coordinate-errors" class="level2 page-columns page-full" data-number="10.4">
-<h2 data-number="10.4" class="anchored" data-anchor-id="excluding-unfixable-coordinate-errors"><span class="header-section-number">10.4</span> Excluding unfixable coordinate errors</h2>
-<p>Some coordinates issues cannot be fixed or inferred. In this case, it is important that you identify which records have issues and remove them prior to analysis.</p>
-<p>Here are some examples of geospatial errors that might need to be identified and removed in your dataset.</p>
-<section id="flipped-coordinates" class="level3 page-columns page-full" data-number="10.4.1">
-<h3 data-number="10.4.1" class="anchored" data-anchor-id="flipped-coordinates"><span class="header-section-number">10.4.1</span> Flipped coordinates</h3>
-<p>Records with flipped coordinates typically appear as a group of points in an unexpected location, whereby swapping the latitude and longitude will place the coordinates where they are expected.</p>
+<section id="excluding-unfixable-coordinate-errors" class="level2 page-columns page-full" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="excluding-unfixable-coordinate-errors"><span class="header-section-number">10.3</span> Excluding unfixable coordinate errors</h2>
+<p>Some coordinates issues cannot be fixed or inferred. In this case, it is important that you identify which records have issues and remove them prior to analysis. Here are some examples of geospatial errors that might need to be identified and removed in your dataset.</p>
+<section id="flipped-coordinates" class="level3 page-columns page-full" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="flipped-coordinates"><span class="header-section-number">10.3.1</span> Flipped coordinates</h3>
+<p>Records with flipped coordinates typically appear as a group of points in an unexpected location. Although sometimes they can be fixed, this is not always the case.</p>
 <p>Let’s use occurrence records of Kowari (a native, carnivorous mouse species) as an example. Including the <code>COUNTRY_COORDINATE_MISMATCH</code> assertion column when downloading records using the galah package allows us to identify records flagged as having mismatches between coordinates and country metadata.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
@@ -931,8 +938,8 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="zero-coordinates" class="level3 page-columns page-full" data-number="10.4.2">
-<h3 data-number="10.4.2" class="anchored" data-anchor-id="zero-coordinates"><span class="header-section-number">10.4.2</span> Zero coordinates</h3>
+<section id="zero-coordinates" class="level3 page-columns page-full" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="zero-coordinates"><span class="header-section-number">10.3.2</span> Zero coordinates</h3>
 <p>Sometimes latitude and/or longitude data are recorded as having zero values; these values are not accurate representations of locations and thus should be removed.</p>
 <p>Let’s use acacia data as an example. Including the <code>ZERO_COORDINATE</code> assertion column to your download allows us to identify records flagged as having zero values in the coordinate fields.</p>
 
@@ -1006,8 +1013,8 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="centroids" class="level3 page-columns page-full" data-number="10.4.3">
-<h3 data-number="10.4.3" class="anchored" data-anchor-id="centroids"><span class="header-section-number">10.4.3</span> Centroids</h3>
+<section id="centroids" class="level3 page-columns page-full" data-number="10.3.3">
+<h3 data-number="10.3.3" class="anchored" data-anchor-id="centroids"><span class="header-section-number">10.3.3</span> Centroids</h3>
 <p><strong>Centroids</strong>, or coordinates that mark the exact centre point of an area, are sometimes assigned to an occurrence record when the original observation location was provided as a description. If a record was collected using a vague locality description or through incorrect geo-referencing, centroids can be used to categorise the record into broadly the correct area<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <p>Let’s use common brown butterfly data for our example. Including the <code>COORDINATES_CENTRE_OF_COUNTRY</code> and/or <code>COORDINATES_CENTRE_OF_STATEPROVINCE</code> assertions columns to your download allows us to identify records flagged as containing centroid coordinates.</p>
 
@@ -1103,8 +1110,8 @@ Original download queries
 </div>
 </div>
 </section>
-<section id="cities-zoos-aquariums-museums-herbaria" class="level3 page-columns page-full" data-number="10.4.4">
-<h3 data-number="10.4.4" class="anchored" data-anchor-id="cities-zoos-aquariums-museums-herbaria"><span class="header-section-number">10.4.4</span> Cities, zoos, aquariums, museums &amp; herbaria</h3>
+<section id="cities-zoos-aquariums-museums-herbaria" class="level3 page-columns page-full" data-number="10.3.4">
+<h3 data-number="10.3.4" class="anchored" data-anchor-id="cities-zoos-aquariums-museums-herbaria"><span class="header-section-number">10.3.4</span> Cities, zoos, aquariums, museums &amp; herbaria</h3>
 <p>Some observations are recorded in locations where animals and plants live but do not naturally occur. A common example is observations recorded at public facilities like zoos, aquariums, and botanic gardens.</p>
 <p>Other times, observations are recorded in places where specimens of animals and plants might be stored, but not where they were observed. Common examples are museums and herbaria.</p>
 <p>In some cases, like with records of the Gorse Bitter-pea, these locations can appear suspicious but not overly obvious. When we map these observations, there is a tailing distribution of points in Western Australia with several points located near the west coast of Australia.</p>
@@ -1184,7 +1191,7 @@ Original download queries
 </div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -1193,7 +1200,7 @@ Use <code>basisOfRecord</code>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>You can use the field <code>basisOfRecord</code> to avoid including records from museums and herbaria when creating your query in galah.</p>
 <div class="cell">
@@ -1231,8 +1238,8 @@ record locations.
 -->
 </section>
 </section>
-<section id="packages" class="level2" data-number="10.5">
-<h2 data-number="10.5" class="anchored" data-anchor-id="packages"><span class="header-section-number">10.5</span> Packages</h2>
+<section id="packages" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="packages"><span class="header-section-number">10.4</span> Packages</h2>
 <p>Other packages exist to make identifying and cleaning geospatial coordinates more streamlined. The advantage of using these packages is that they can run many checks over coordinates at one time, rather than identifying each error separately like we did over this chapter. This process can make finding possible spatial outliers faster. The disadvantage is that checks might be more difficult to tweak compared to manual checks. Manual checks can also make the steps you made to clean your data clearer (and easier to edit later) in a complete data cleaning workflow.</p>
 <p>Choose the package (or mix of packages and functions) that work best for you and your data cleaning needs.</p>
 <section id="coordinatecleaner" class="level4">
@@ -1247,7 +1254,7 @@ record locations.
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">species =</span> <span class="st">"scientificName"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `ne_50m_land' from data source 
-  `C:\Users\KEL329\AppData\Local\Temp\Rtmps9ityx\ne_50m_land.shp' 
+  `C:\Users\KEL329\AppData\Local\Temp\RtmpsLbXU9\ne_50m_land.shp' 
   using driver `ESRI Shapefile'
 Simple feature collection with 1420 features and 3 fields
 Geometry type: MULTIPOLYGON
@@ -1273,8 +1280,8 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </section>
 </section>
-<section id="summary" class="level2 page-columns page-full" data-number="10.6">
-<h2 data-number="10.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.6</span> Summary</h2>
+<section id="summary" class="level2 page-columns page-full" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">10.5</span> Summary</h2>
 <p>Each of the cleaning steps in this chapter do not have to be run in order, or even at all. Whether they are used is context- and taxon-dependent. As an example, what is one species that has many “wrong” coordinates based on many of the steps listed above?</p>
 <p>The Great White Shark.</p>
 
@@ -1426,7 +1433,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/cleaning-data-r\.ala\.org\.au\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

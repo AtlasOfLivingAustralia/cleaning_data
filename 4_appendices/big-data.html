@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://cleaning-data-r.ala.org.au/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+    <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -501,16 +501,16 @@ $ decimalLongitude &lt;double&gt; 153.2038, 153.5448, 150.6065, 143.8612, 149.11
 <pre><code># A tibble: 208 × 4
    species               year cl22                         count
    &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;                        &lt;dbl&gt;
- 1 Pardalotus punctatus  2020 New South Wales               7990
- 2 Pardalotus punctatus  2021 Australian Capital Territory  5265
- 3 Pardalotus striatus   2020 Northern Territory             742
- 4 Pardalotus punctatus  2018 New South Wales              10337
- 5 Pardalotus striatus   2023 Western Australia              851
- 6 Pardalotus striatus   2021 Victoria                     12208
- 7 Pardalotus striatus   2021 Western Australia             4311
- 8 Pardalotus striatus   2017 Northern Territory             628
- 9 Pardalotus striatus   2019 Australian Capital Territory  2778
-10 Pardalotus punctatus  2022 Australian Capital Territory  4421
+ 1 Pardalotus striatus   2015 New South Wales               3294
+ 2 Pardalotus striatus   2021 Queensland                   15607
+ 3 Pardalotus striatus   2022 New South Wales               6458
+ 4 Pardalotus striatus   2018 Northern Territory             933
+ 5 Pardalotus striatus   2020 Australian Capital Territory  3552
+ 6 Pardalotus punctatus  2015 Australian Capital Territory  2284
+ 7 Pardalotus punctatus  2019 Australian Capital Territory  3519
+ 8 Pardalotus striatus   2021 South Australia               2847
+ 9 Pardalotus striatus   2017 Australian Capital Territory  2271
+10 Pardalotus striatus   2023 Queensland                    2959
 # ℹ 198 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -621,7 +621,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/cleaning-data-r\.ala\.org\.au\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

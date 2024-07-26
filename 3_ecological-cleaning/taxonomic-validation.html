@@ -160,7 +160,7 @@ div.csl-indent {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://cleaning-data-r.ala.org.au/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+    <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -769,15 +769,14 @@ Original download queries
 <pre><code># A tibble: 2 × 2
   species               count
   &lt;chr&gt;                 &lt;int&gt;
-1 Aprasia parapulchella   687
-2 Aprasia aurita          102</code></pre>
+1 Aprasia parapulchella   688
+2 Aprasia aurita          103</code></pre>
 </div>
 </div>
 </section>
 <section id="using-an-external-list" class="level4">
 <h4 class="anchored" data-anchor-id="using-an-external-list">Using an external list</h4>
 <p>We can also use lists downloaded outside of galah to filter our data. As an example, let’s filter our taxonomic names to include only Australian names from the <a href="https://griis.org/download">Global Register of Introduced and Invasive Species (GRIIS)</a>. After downloading this list and saving it in your working directory, we can read the list into R. Taxonomic names are stored in columns with an <code>accepted_name</code> prefix.</p>
-<!-- Given that this can now be downloaded from the website again as a simplified checklist i.e. single csv file, should we name the file something a bit more sensible than "GRIIS_Australia_20230331-121730.csv"? Probably also worth downloading the latest version because there have been some significant changes to the contents of the list in the last year or so -SB  -->
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-12"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1">1</button><span id="annotated-cell-12-1" class="code-annotation-target"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a>griis <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"griis_australia_20240712.csv"</span>))</span>
 <span id="annotated-cell-12-2"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1578,137 +1577,52 @@ Original download query
 </div>
 </div>
 <p>Using the resolved name, we can search for its Taxonomic Serial Number using <code>get_tsn()</code>, which taxize uses to as a taxonomic identifier. Then we can search for existing synonyms by supplying the <code>tsn</code> to the <code>synonyms()</code> function.</p>
-<!-- Note: `synonyms()` has timed out in the past (and could be a source of future errors) -->
+<!-- Note: `get_tsn()` has timed out in the past (and could be a source of future errors) -->
+<!-- TODO: Check if this is working again -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve synonyms</span></span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>tsn <span class="ot">&lt;-</span> <span class="fu">get_tsn</span>(resolved<span class="sc">$</span>matched_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>══  1 queries  ═══════════════</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Retrieving data for taxon 'Litoria caerulea'</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>✔  Found:  Litoria caerulea
-══  Results  ═════════════════
-
-• Total: 1 
-• Found: 1 
-• Not Found: 0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">synonyms</span>(tsn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Accepted name(s) is/are 'Ranoidea caerulea'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Using tsn(s) 1099550</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$`662872`
-  sub_tsn          acc_name acc_tsn    acc_author     syn_author
-1  662872 Ranoidea caerulea 1099550 (White, 1790)  (White, 1790)
-2  662872 Ranoidea caerulea 1099550 (White, 1790)    White, 1790
-3  662872 Ranoidea caerulea 1099550 (White, 1790)   Daudin, 1803
-4  662872 Ranoidea caerulea 1099550 (White, 1790)  (White, 1790)
-5  662872 Ranoidea caerulea 1099550 (White, 1790)  (White, 1790)
-6  662872 Ranoidea caerulea 1099550 (White, 1790)   De Vis, 1884
-7  662872 Ranoidea caerulea 1099550 (White, 1790) (De Vis, 1884)
-8  662872 Ranoidea caerulea 1099550 (White, 1790) (De Vis, 1884)
-9  662872 Ranoidea caerulea 1099550 (White, 1790)  (White, 1790)
-                syn_name syn_tsn
-1       Litoria caerulea  662872
-2          Rana caerulea 1099551
-3            Hyla cyanea 1099552
-4     Pelodryas caerulea 1099553
-5          Hyla caerulea 1099554
-6          Hyla irrorata 1099555
-7       Litoria irrorata 1099556
-8     Pelodryas irrorata 1099557
-9 Hyla caerulea caerulea 1106142</code></pre>
-</div>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>tsn <span class="ot">&lt;-</span> <span class="fu">get_tsn</span>(resolved<span class="sc">$</span>matched_name) <span class="co"># timed out as of 2024-07-26</span></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="fu">synonyms</span>(tsn) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="homonyms" class="level4">
 <h4 class="anchored" data-anchor-id="homonyms">Homonyms</h4>
 <p>If a name matches multiple names, <code>get_tsn_()</code> will return all matches.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># resolve morganella name</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(<span class="st">"morganella"</span>, <span class="at">best_match_only =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve matches</span></span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>tsn <span class="ot">&lt;-</span> <span class="fu">get_tsn_</span>(resolved<span class="sc">$</span>matched_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Retrieving data for taxon 'Morganella'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>tsn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$Morganella
-# A tibble: 8 × 4
-  tsn    scientificName               commonNames nameUsage
-  &lt;chr&gt;  &lt;chr&gt;                        &lt;chr&gt;       &lt;chr&gt;    
-1 200802 Morganella                   NA          valid    
-2 200803 Morganella conspicua         NA          valid    
-3 200804 Morganella longispina        NA          valid    
-4 957632 Morganella                   NA          valid    
-5 958592 Morganella morganii          NA          valid    
-6 963648 Morganella psychrotolerans   NA          valid    
-7 969527 Morganella morganii morganii NA          valid    
-8 969528 Morganella morganii sibonii  NA          valid    </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># resolve morganella name</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(<span class="st">"morganella"</span>, <span class="at">best_match_only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve matches</span></span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="co"># tsn &lt;- get_tsn_(resolved$matched_name) # timed out as of 2024-07-26</span></span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="co"># tsn</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can then use each <code>tsn</code> number to return the complete classification of the taxonomic name.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-89"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-89-1"><a href="#annotated-cell-89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve upstream taxonomy</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-89" data-target-annotation="1">1</button><span id="annotated-cell-89-2" class="code-annotation-target"><a href="#annotated-cell-89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">classification</span>(tsn<span class="sc">$</span>Morganella<span class="sc">$</span>tsn[<span class="dv">1</span>],</span>
-<span id="annotated-cell-89-3"><a href="#annotated-cell-89-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">upto =</span> <span class="st">"family"</span>, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-89" data-target-annotation="2">2</button><span id="annotated-cell-89-4" class="code-annotation-target"><a href="#annotated-cell-89-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">db =</span> <span class="st">"itis"</span></span>
-<span id="annotated-cell-89-5"><a href="#annotated-cell-89-5" aria-hidden="true" tabindex="-1"></a>               )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-87"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-87-1"><a href="#annotated-cell-87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve upstream taxonomy</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-87" data-target-annotation="1">1</button><span id="annotated-cell-87-2" class="code-annotation-target"><a href="#annotated-cell-87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">classification</span>(tsn<span class="sc">$</span>Morganella<span class="sc">$</span>tsn[<span class="dv">1</span>],</span>
+<span id="annotated-cell-87-3"><a href="#annotated-cell-87-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">upto =</span> <span class="st">"family"</span>, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-87" data-target-annotation="2">2</button><span id="annotated-cell-87-4" class="code-annotation-target"><a href="#annotated-cell-87-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">db =</span> <span class="st">"itis"</span></span>
+<span id="annotated-cell-87-5"><a href="#annotated-cell-87-5" aria-hidden="true" tabindex="-1"></a>               )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-89" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-87" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-89" data-code-lines="2" data-code-annotation="1">Indexes the first number in the <code>tsn</code> column <code>"200902"</code></span>
+<span data-code-cell="annotated-cell-87" data-code-lines="2" data-code-annotation="1">Indexes the first number in the <code>tsn</code> column <code>"200902"</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-89" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-87" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-89" data-code-lines="4" data-code-annotation="2">Specifies database</span>
+<span data-code-cell="annotated-cell-87" data-code-lines="4" data-code-annotation="2">Specifies database</span>
 </dd>
 </dl>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$`200802`
-             name         rank      id
-1        Animalia      kingdom  202423
-2       Bilateria   subkingdom  914154
-3     Protostomia infrakingdom  914155
-4       Ecdysozoa  superphylum  914158
-5      Arthropoda       phylum   82696
-6        Hexapoda    subphylum  563886
-7         Insecta        class   99208
-8       Pterygota     subclass  100500
-9        Neoptera   infraclass  563890
-10      Acercaria   superorder 1227978
-11      Hemiptera        order  103359
-12 Sternorrhyncha     suborder  109185
-13      Coccoidea  superfamily  109195
-14    Diaspididae       family  109198
-15     Morganella        genus  200802
-
-attr(,"class")
-[1] "classification"
-attr(,"db")
-[1] "itis"</code></pre>
 </div>
 </div>
 <!-- The below is meant to work but it doesn't at all with a small sample -->
 <p>If you are using a list of many names, you can use the other names to establish taxonomic context for matching by adding <code>with_context = TRUE</code> to <code>gnr_resolve()</code>. This context reduces the chances of returning taxonomic homonyms.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example:</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>list_of_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name1"</span>, <span class="st">"name2"</span>, <span class="st">"name3"</span>, ...)</span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(list_of_names, <span class="at">with_context =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># example:</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>list_of_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"name1"</span>, <span class="st">"name2"</span>, <span class="st">"name3"</span>, ...)</span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>resolved <span class="ot">&lt;-</span> <span class="fu">gnr_resolve</span>(list_of_names, <span class="at">with_context =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </div>
@@ -1717,13 +1631,13 @@ attr(,"db")
 <p>For example, we can return existing synonyms for <em>Lupocyclus inaequalis</em> by supplying its <code>AphiaID</code> to the <code>wm_synonyms()</code> function. We’ll use a subset of the WoRMS dataset, saved in the <code>worms.csv</code> file.</p>
 
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worrms)</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"worms.csv"</span>)) </span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(worrms)</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"worms.csv"</span>)) </span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -1735,11 +1649,11 @@ attr(,"db")
 </div>
 <p>Our search returns a superseded synonym <em>Goniosoma inaequale</em>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(AphiaID) <span class="sc">|&gt;</span></span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wm_synonyms</span>() <span class="sc">|&gt;</span></span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>marine_sp <span class="sc">|&gt;</span></span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scientificname <span class="sc">==</span> <span class="st">"Lupocyclus inaequalis"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(AphiaID) <span class="sc">|&gt;</span></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">wm_synonyms</span>() <span class="sc">|&gt;</span></span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(AphiaID, scientificname, status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   AphiaID scientificname      status                
@@ -1898,7 +1812,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/cleaning-data-r\.ala\.org\.au\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

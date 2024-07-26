@@ -140,7 +140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://cleaning-data-r.ala.org.au/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+    <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -371,11 +371,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>If you work with biodiversity data, odds are high that you will need to join 2 separate datasets at some point to test how spatial, temporal or environmental factors influence species. This chapter is a brief overview of several common types of joins in <a href="https://dplyr.tidyverse.org/">dplyr</a> to help get started.</p>
+<p>If you work with biodiversity data, it is likely that you will need to join two separate datasets at some point to analyse how spatial, temporal, or environmental factors influence species. This chapter provides a brief overview of several common types of joins in <a href="https://dplyr.tidyverse.org/">dplyr</a> to help you get started.</p>
 <p>For a comprehensive introduction to joins, check out the <a href="https://r4ds.hadley.nz/joins">Joins chapter in R for Data Science</a>.</p>
 <section id="prerequisites" class="level3 page-columns page-full" data-number="D.0.1">
 <h3 data-number="D.0.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">D.0.1</span> Prerequisites</h3>
-<p>In this chapter, we will use starling occurrence data from September, 2015 in the ALA.</p>
+<p>In this chapter, we will use starling occurrence data from September 2015 in the ALA.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
@@ -444,8 +444,8 @@ Original download queries
 </section>
 <section id="keys" class="level2" data-number="D.1">
 <h2 data-number="D.1" class="anchored" data-anchor-id="keys"><span class="header-section-number">D.1</span> Keys</h2>
-<p>Joining dataframes relies on setting a <em>key</em>—one or more columns that exist in a primary table that correspond to one or more columns in a second table. Two dataframes that we intend to join are matched according to the designated key.</p>
-<p>As a basic example, let’s say we want to add complete taxonomic information to our <code>starlings</code> dataframe, which contains occurrence records with some, but not all, taxonomic information. <code>starlings_taxonomy</code> contains complete taxonomic information for <em>Sturnidae</em>.</p>
+<p>Joining dataframes relies on setting a <em>key</em>—one or more columns that exist in a primary table that correspond to one or more columns in a secondary table. Two datasets that we intend to join are matched according to the designated key.</p>
+<p>As a simple example, let’s say we want to add complete taxonomic information to our <code>starlings</code> dataframe, which contains occurrence records with some, but not all, levels of taxonomic information. <code>starlings_taxonomy</code> contains complete taxonomic information for <em>Sturnidae</em>.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset nav-pills">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><code>starlings</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>starlings_taxonomy</code></a></li></ul>
 <div class="tab-content nav-pills">
@@ -513,7 +513,7 @@ Original download queries
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>starlings_taxonomy <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(genus) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
   genus       
@@ -528,15 +528,15 @@ Original download queries
 </div>
 </div>
 </div>
-<p>We can use these columns as a key to join the additional taxonomic information to our starlings occurrence records<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>We can use this genus column as a key to add the extra levels of taxonomic information to the table containing starling occurrence records<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>starlings <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(starlings_taxonomy, </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">join_by</span>(genus <span class="sc">==</span> genus)) <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">join_by</span>(genus)) <span class="sc">|&gt;</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>() <span class="co"># paged output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning in left_join(starlings, starlings_taxonomy, join_by(genus == genus)): Detected an unexpected many-to-many relationship between `x` and `y`.
+<pre><code>Warning in left_join(starlings, starlings_taxonomy, join_by(genus)): Detected an unexpected many-to-many relationship between `x` and `y`.
 ℹ Row 1805 of `x` matches multiple rows in `y`.
 ℹ Row 2 of `y` matches multiple rows in `x`.
 ℹ If a many-to-many relationship is expected, set `relationship =
@@ -573,7 +573,7 @@ Original download queries
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <p><img src="../images/left-join.gif" class="img-fluid"></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(x, y, <span class="fu">join_by</span>(id <span class="sc">==</span> id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(x, y, <span class="fu">join_by</span>(id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
      id x     y    
@@ -587,7 +587,7 @@ Original download queries
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <p><img src="../images/right-join.gif" class="img-fluid"></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(x, y, <span class="fu">join_by</span>(id <span class="sc">==</span> id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(x, y, <span class="fu">join_by</span>(id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
      id x     y    
@@ -601,7 +601,7 @@ Original download queries
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
 <p><img src="../images/full-join.gif" class="img-fluid"></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">full_join</span>(x, y, <span class="fu">join_by</span>(id <span class="sc">==</span> id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">full_join</span>(x, y, <span class="fu">join_by</span>(id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
      id x     y    
@@ -616,7 +616,7 @@ Original download queries
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
 <p><img src="../images/semi-join.gif" class="img-fluid"></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">semi_join</span>(x, y, <span class="fu">join_by</span>(id <span class="sc">==</span> id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">semi_join</span>(x, y, <span class="fu">join_by</span>(id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
      id x    
@@ -629,7 +629,7 @@ Original download queries
 <div id="tabset-3-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-5-tab">
 <p><img src="../images/anti-join.gif" class="img-fluid"></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anti_join</span>(x, y, <span class="fu">join_by</span>(id <span class="sc">==</span> id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anti_join</span>(x, y, <span class="fu">join_by</span>(id))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 2
      id x    
@@ -643,8 +643,8 @@ Original download queries
 </section>
 <section id="spatial-joins" class="level2" data-number="D.3">
 <h2 data-number="D.3" class="anchored" data-anchor-id="spatial-joins"><span class="header-section-number">D.3</span> Spatial joins</h2>
-<p>It can be useful to summarise where species or taxonomic groups occur by grouping by a spatial region (e.g., state, council area, bioregion). To do so, records or summary statistics need to be linked to the region they pertain to. Usually, this requires a join between a spatial object and a dataframe, or between two spatial objects.</p>
-<p>As an simple example, let’s download a shapefile of Australian states and territories using the ozmaps package. Our <code>aus</code> object contains the name of each state/territory (<code>NAME</code>) and its shape (<code>geometry</code>)<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>Summarising where species or taxonomic groups occur by grouping them by spatial regions (e.g.&nbsp;state, council area, bioregion) can be useful. To do this, records or summary statistics need to be linked to their corresponding regions. This typically requires joining a spatial object with a dataframe, or joining two spatial objects.</p>
+<p>As a simple example, let’s download a shapefile of Australian states and territories using the ozmaps package. The <code>aus</code> object contains the name of each state/territory (<code>NAME</code>) and its shape (geometry)<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ozmaps)</span>
@@ -754,10 +754,10 @@ Geodetic CRS:  WGS 84
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">crs =</span> <span class="dv">4326</span>)</span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co"># join points to aus states that intersect spatially</span></span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>states_with_species <span class="ot">&lt;-</span> <span class="fu">st_join</span>(<span class="at">x =</span> aus, </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>states_with_species <span class="ot">&lt;-</span> <span class="fu">st_join</span>(<span class="at">x =</span> aus,</span>
 <span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>                               <span class="at">y =</span> starlings_sf,</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">join =</span> st_intersects,</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">left =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>                               <span class="at">join =</span> st_intersects,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                               <span class="at">left =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>states_with_species <span class="sc">|&gt;</span></span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>() <span class="co"># paged output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -874,7 +874,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/cleaning-data-r\.ala\.org\.au\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
