@@ -9,6 +9,8 @@ editor:
 
 # Packages
 
+These are some of our favourite packages, with most appearing many times throughout the book. We thought it would be nice to feature them more conveniently here.
+
 ::: {style="display: flex;"}
 
 ::: {style="width: 25%;"}
