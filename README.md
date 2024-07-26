@@ -5,10 +5,6 @@
 This is the repository for the book *Cleaning Biodiversity Data in R*. This book is a practical guide for cleaning geo-referenced biodiversity data
 using R. It focuses specifically on the processes and challenges you'll face with biodiversity data.
 
-### Citation
-
-Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, O., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version 0.1.0). <https://doi.org/10.54102/ala.77009>.
-
 ### License
 
 This book is available free to read, and is licenced under a [CC BY-NC-ND 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/). This means that the book can be shared and redistributed as long as appropriate credit is given to the authors, and any minor changes are indicated appropriately. Modified versions that remix or modify the content may not be distributed. See our [licensing and contributing guidelines](https://github.com/AtlasOfLivingAustralia/cleaning_data/blob/main/licensing.md) for more information.
