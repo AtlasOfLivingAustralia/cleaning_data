@@ -14,8 +14,8 @@ environmental data for region or area, biological data to compare measures of
 organisms' physical or behavioural traits, and genetic data to compare unique
 DNA or alleles between individuals.
 
-Here, we'll detail what open source data is, provide some places to look for 
-open source data and suggest some R packages that are useful for downloading 
+Here, we'll detail what open source data is, provide some places to look for
+open source data and suggest some R packages that are useful for downloading
 different types of data.
 
 ### Prerequisites
@@ -91,11 +91,11 @@ collections.
 
 Some examples include:
 
-| Name                                                          | Description                                                                                         |
+| Name                                                             | Description                                                                                         |
 |-------------------------------|-------------------------------------------------|
-| [Integrated Digitzed Biocollections](https://www.idigbio.org) | Holds data of biological specimens that have been made electronically available (i.e., *digitised*) |
-| [VertNet](https://www.vertnet.org/)                           | Holds data of vertebrate specimens from more than 400 collections & 120 publishers                  |
-| Australasian Virtual Herbarium (AVH)                          | Holds over eight million plant, algae and fungi specimens                                           |
+| [Integrated Digitzed Biocollections](https://www.idigbio.org)    | Holds data of biological specimens that have been made electronically available (i.e., *digitised*) |
+| [VertNet](https://www.vertnet.org/)                              | Holds data of vertebrate specimens from more than 400 collections & 120 publishers                  |
+| [Australasian Virtual Herbarium (AVH)](https://avh.chah.org.au/) | Holds over eight million plant, algae and fungi specimens                                           |
 
 #### Data providers
 
@@ -109,24 +109,51 @@ sources in your download. You can directly contact data providers to ensure the
 data hasn't been pre-filtered before downloading.
 :::
 
-
+```{=html}
 <!-- 
 I feel like this is an important point to make in this book, but it is kinda hidden here. It could go in the intro, but there's not a particular place for this kind of info there either? - DK 
 -->
-
+```
 <!-- Long-form version -->
 
 ::: {.callout-note collapse="true"}
 #### Why do we still have to clean data from data infrastructures?
 
-Data infrastructures like the Atlas of Living Australia ingest, aggregate and standardise millions of rows of data from thousands of data providers. Some data comes from large providers with standardised workflows, like state government monitoring programs, [iNaturalist Australia](https://inaturalist.ala.org.au/) or [eBird](https://ebird.org/home). These data providers use workflows that attempt to remove suspicious records prior to sharing data with a Living Atlas, and, in general, these workflows catch many issues that otherwise might need fixing. 
+Data infrastructures like the Atlas of Living Australia ingest, aggregate and
+standardise millions of rows of data from thousands of data providers. Some data
+comes from large providers with standardised workflows, like state government
+monitoring programs, [iNaturalist Australia](https://inaturalist.ala.org.au/) or
+[eBird](https://ebird.org/home). These data providers use workflows that attempt
+to remove suspicious records prior to sharing data with a Living Atlas, and, in
+general, these workflows catch many issues that otherwise might need fixing.
 
-However, not all data providers have standardised workflows. Some data has been transcribed from written survey records and provided by a small or independent data provider. Other data might have been transcribed from archived written records in a museum, or even in a scientists backlog from a long-lost research project. These data are valuable but inevitably prone to errors that are difficult to fix---handwriting can be smudged or difficult to read, records might be lacking important details about their location or time of observation. Even in data from standardised workflows, errors like taxonomic misidentification or flipped geospatial coordinates can slip through the cracks because expert knowledge is required to identify and amend individual records. These records can also range in their precision or level of detail, and might not be suitable for every type of analysis.
+However, not all data providers have standardised workflows. Some data has been
+transcribed from written survey records and provided by a small or independent
+data provider. Other data might have been transcribed from archived written
+records in a museum, or even in a scientists backlog from a long-lost research
+project. These data are valuable but inevitably prone to errors that are
+difficult to fix---handwriting can be smudged or difficult to read, records
+might be lacking important details about their location or time of observation.
+Even in data from standardised workflows, errors like taxonomic
+misidentification or flipped geospatial coordinates can slip through the cracks
+because expert knowledge is required to identify and amend individual records.
+These records can also range in their precision or level of detail, and might
+not be suitable for every type of analysis.
 
-Ultimately, it's a team effort to remove or fix data issues. Although a data infrastructure can use programmatic data quality checks to try to remove more extreme outliers, many errors are context dependent and require verification from the original data provider. This means that the responsibility to fix records usually falls on the data provider because only the data provider has knowledge required to amend their original data. Inevitably, there will be errors in data from many different sources, and equipped with this knowledge, we still need to clean data from data infrastructures to be suitable for our research question or analysis.
+Ultimately, it's a team effort to remove or fix data issues. Although a data
+infrastructure can use programmatic data quality checks to try to remove more
+extreme outliers, many errors are context dependent and require verification
+from the original data provider. This means that the responsibility to fix
+records usually falls on the data provider because only the data provider has
+knowledge required to amend their original data. Inevitably, there will be
+errors in data from many different sources, and equipped with this knowledge, we
+still need to clean data from data infrastructures to be suitable for our
+research question or analysis.
 :::
 
 <!-- This could be a shorter version of the above? -->
+
+```{=html}
 <!--
 ::: {.callout-note collapse="true"}
 #### Why do we still have to clean data held in data infrastructures? (short)
@@ -142,7 +169,7 @@ providers to double check that any flagged errors are indeed actually
 errors.
 :::
 -->
-
+```
 ### Spatial data
 
 Spatial data contain information that corresponds to an area on the globe and
@@ -185,14 +212,14 @@ ggplot() +
 #### Rasters
 
 **Rasters** are data for drawing a layer of data values over a gridded area.
-They contain values of a variable (like temperature) for each pixel of a grid, and
-Each pixel of the grid represents a square area (e.g., 1 km^2^). Just like
+They contain values of a variable (like temperature) for each pixel of a grid,
+and Each pixel of the grid represents a square area (e.g., 1 km^2^). Just like
 how the smaller each pixel is on a TV screen the higher its definition, the
 smaller each square is in a raster layer the higher its resolution.
 
 Climate data is often saved as a raster, which is typically loaded using an R
 package like {[geodata](https://github.com/rspatial/geodata)} or by reading in a
-`.tif` file using the {terra} package. 
+`.tif` file using the {terra} package.
 
 <!-- Download this file from Teams /data/data_cleaning_book/ -->
 
@@ -206,8 +233,8 @@ Here is an example of what raster data looks like in R...
 world_clim_raster
 ```
 
-
-...and what it looks like when plotted with tidyterra and ggplot2. This map displays Australia's annual mean temperature (BioClim 1) in low-resolution. 
+...and what it looks like when plotted with tidyterra and ggplot2. This map
+displays Australia's annual mean temperature (BioClim 1) in low-resolution.
 
 ```{r}
 ggplot() +
@@ -269,9 +296,11 @@ shapefile <- st_read(here("path",
                      quiet = TRUE) |>
   ms_simplify(keep = 0.1) # <1>
 ```
-1. Many shapefiles are a large file size. `ms_simplify()` from the rmapshaper package simplifies the shapefile by reducing the number of points that make up the polygon while maintaining its overall shape. This is a handy way to reduce the size of your shapefile in R.
 
-
+1.  Many shapefiles are a large file size. `ms_simplify()` from the rmapshaper
+    package simplifies the shapefile by reducing the number of points that make
+    up the polygon while maintaining its overall shape. This is a handy way to
+    reduce the size of your shapefile in R.
 :::
 
 ### Taxonomic data
@@ -289,7 +318,8 @@ make sure the classifications you expect are what you finding. This check will
 help prevent errors later on (though you might still need to re-code data
 manually).
 
-We discuss these considerations in more detail in the [Taxonomic Validation chapter](../3_cleaning-expert/taxonomic_validation.qmd).
+We discuss these considerations in more detail in the [Taxonomic Validation
+chapter](../3_cleaning-expert/taxonomic_validation.qmd).
 
 Here are some examples of where to find Australian taxonomic information.
 
@@ -309,7 +339,7 @@ between individuals, groups or species.
 The following are some examples of where to find trait data.
 
 | Name          | Description                                                                                                                                                                                                        |
-|------------------|--------------------------------------------------------------|
+|--------------------|------------------------------------------------------------|
 | [Austraits]() | A plant trait database that synthesises data from field surveys, published literature, taxonomic monographs, and individual taxon descriptions. The database holds nearly 500 traits across more than 30,000 taxa. |
 
 : {tbl-colwidths="\[25,75\]"}
@@ -334,10 +364,10 @@ help you select one (or more!) that align with your specific needs.
 data like occurrences, counts, species and media (e.g., images & sounds) from
 the Living Atlases and GBIF.
 
-In the majority of examples over this book we will be using the `galah` package. 
-One benefit of using `galah` is that it uses tidy syntax (much like dplyr) to 
-edit & filter download queries. Additionally, galah can access data from 10 other
-Living Atlases and GBIF.
+In the majority of examples over this book we will be using the `galah` package.
+One benefit of using `galah` is that it uses tidy syntax (much like dplyr) to
+edit & filter download queries. Additionally, galah can access data from 10
+other Living Atlases and GBIF.
 
 ```{r}
 #| warning: false
@@ -419,10 +449,12 @@ ebirdgeo(species = species_code('spinus tristis'),
 #### spocc
 
 [spocc](https://docs.ropensci.org/spocc/) queries and collects species
-occurrence data from a variety of sources, including 
-[GBIF](https://www.gbif.org/), the [ALA](https://ala.org.au/), 
-[iDigBio](http://www.idigbio.org/) and 
-[VertNet](https://github.com/ropensci/rvertnet). spocc is particularly useful because it allows for a single download request in R to query and return data from multiple data sources in a single nested dataframe.
+occurrence data from a variety of sources, including
+[GBIF](https://www.gbif.org/), the [ALA](https://ala.org.au/),
+[iDigBio](http://www.idigbio.org/) and
+[VertNet](https://github.com/ropensci/rvertnet). spocc is particularly useful
+because it allows for a single download request in R to query and return data
+from multiple data sources in a single nested dataframe.
 
 ```{r}
 #| eval: false
