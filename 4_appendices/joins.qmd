@@ -8,13 +8,13 @@ number-depth: 3
 
 # Joins
 
-If you work with biodiversity data, odds are high that you will need to join 2 separate datasets at some point to test how spatial, temporal or environmental factors influence species. This chapter is a brief overview of several common types of joins in [dplyr](https://dplyr.tidyverse.org/) to help get started. 
+If you work with biodiversity data, it is likely that you will need to join two separate datasets at some point to analyse how spatial, temporal, or environmental factors influence species. This chapter provides a brief overview of several common types of joins in [dplyr](https://dplyr.tidyverse.org/) to help you get started. 
 
 For a comprehensive introduction to joins, check out the [Joins chapter in R for Data Science](https://r4ds.hadley.nz/joins).
 
 ### Prerequisites
 
-In this chapter, we will use starling occurrence data from September, 2015 in the ALA.
+In this chapter, we will use starling occurrence data from September 2015 in the ALA.
 
 ```{r prereq-internal}
 #| echo: false
@@ -117,9 +117,9 @@ starlings <- galah_call() |>
 
 ## Keys
 
-Joining dataframes relies on setting a *key*---one or more columns that exist in a primary table that correspond to one or more columns in a second table. Two dataframes that we intend to join are matched according to the designated key.
+Joining dataframes relies on setting a *key*---one or more columns that exist in a primary table that correspond to one or more columns in a secondary table. Two datasets that we intend to join are matched according to the designated key.
 
-As a basic example, let's say we want to add complete taxonomic information to our `starlings` dataframe, which contains occurrence records with some, but not all, taxonomic information. `starlings_taxonomy` contains complete taxonomic information for *Sturnidae*.
+As a simple example, let's say we want to add complete taxonomic information to our `starlings` dataframe, which contains occurrence records with some, but not all, levels of taxonomic information. `starlings_taxonomy` contains complete taxonomic information for *Sturnidae*.
 
 :::{.panel-tabset .nav-pills}
 
@@ -154,20 +154,20 @@ starlings |>
 
 ```{r}
 starlings_taxonomy |>
-  select(genus)
+  select(genus) 
 ```
 
 
 :::
 
-We can use these columns as a key to join the additional taxonomic information to our starlings occurrence records[^genus].
+We can use this genus column as a key to add the extra levels of taxonomic information to the table containing starling occurrence records[^genus].
 
 [^genus]: Using `genus` is also a better choice than `species` or `scientificName` in this instance because they appear to contain similar *but not exactly the same* information to `starlings_taxonomy$species_name`. Using these columns as a key for our join would result in missing information after joining due to mismatches.
 
 ```{r}
 starlings |>
   left_join(starlings_taxonomy, 
-            join_by(genus == genus)) |>
+            join_by(genus)) |>
   
   rmarkdown::paged_table() # paged output
 ```
@@ -199,7 +199,7 @@ y <- tibble(id = c(1, 2, 4),
 ![](../images/left-join.gif)
 
 ```{r}
-left_join(x, y, join_by(id == id))
+left_join(x, y, join_by(id))
 ```
 
 #### Right join
@@ -207,7 +207,7 @@ left_join(x, y, join_by(id == id))
 ![](../images/right-join.gif)
 
 ```{r}
-right_join(x, y, join_by(id == id))
+right_join(x, y, join_by(id))
 ```
 
 #### Full join
@@ -215,7 +215,7 @@ right_join(x, y, join_by(id == id))
 ![](../images/full-join.gif)
 
 ```{r}
-full_join(x, y, join_by(id == id))
+full_join(x, y, join_by(id))
 ```
 
 
@@ -224,7 +224,7 @@ full_join(x, y, join_by(id == id))
 ![](../images/semi-join.gif)
 
 ```{r}
-semi_join(x, y, join_by(id == id))
+semi_join(x, y, join_by(id))
 ```
 
 #### Anti join
@@ -232,16 +232,16 @@ semi_join(x, y, join_by(id == id))
 ![](../images/anti-join.gif)
 
 ```{r}
-anti_join(x, y, join_by(id == id))
+anti_join(x, y, join_by(id))
 ```
 
 :::
 
 ## Spatial joins
 
-It can be useful to summarise where species or taxonomic groups occur by grouping by a spatial region (e.g., state, council area, bioregion). To do so, records or summary statistics need to be linked to the region they pertain to. Usually, this requires a join between a spatial object and a dataframe, or between two spatial objects.
+Summarising where species or taxonomic groups occur by grouping them by spatial regions (e.g. state, council area, bioregion) can be useful. To do this, records or summary statistics need to be linked to their corresponding regions. This typically requires joining a spatial object with a dataframe, or joining two spatial objects.
 
-As an simple example, let's download a shapefile of Australian states and territories using the ozmaps package. Our `aus` object contains the name of each state/territory (`NAME`) and its shape (`geometry`)[^vector].
+As a simple example, let's download a shapefile of Australian states and territories using the ozmaps package. The `aus` object contains the name of each state/territory (`NAME`) and its shape (geometry)[^vector].
 
 [^vector]: This shapefile contains state/territory outlines as vectors. See [this section on vectors](where-to-get-data.qmd#spatial-data) to learn more about what a vector is.
 
@@ -301,13 +301,11 @@ starlings_sf <- starlings |>
            crs = 4326)
 
 # join points to aus states that intersect spatially
-states_with_species <- st_join(x = aus, 
+states_with_species <- st_join(x = aus,
                                y = starlings_sf,
-                            join = st_intersects,
-                            left = FALSE)
+                               join = st_intersects,
+                               left = FALSE)
 
 states_with_species |>
   rmarkdown::paged_table() # paged output
 ```
-
-
