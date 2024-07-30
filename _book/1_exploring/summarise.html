@@ -136,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="sidebar-title mb-0 py-0">
       <a href="../">Cleaning Biodiversity Data in R</a> 
         <div class="sidebar-tools-main">
-    <a href="https://cleaning-data-r.ala.org.au/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-git"></i></a>
+    <a href="https://github.com/AtlasOfLivingAustralia/cleaning_data" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
@@ -333,7 +333,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar"><div class="quarto-margin-header"><div class="margin-header-item">
+<script src="https://cdn.usefathom.com/script.js" data-site="QDWZORBB" defer=""></script>
+
+</div></div>
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
@@ -454,7 +457,7 @@ Original download queries
 <pre><code># A tibble: 1 × 1
    count
    &lt;int&gt;
-1 140836</code></pre>
+1 142050</code></pre>
 </div>
 </div>
 <p>…or group by a taxonomic rank like genus…</p>
@@ -468,11 +471,11 @@ Original download queries
 <pre><code># A tibble: 5 × 2
   genus       count
   &lt;chr&gt;       &lt;int&gt;
-1 Dacelo      92696
-2 Todiramphus 40892
-3 Ceyx         5906
-4 Tanysiptera   886
-5 Syma          340</code></pre>
+1 Dacelo      93239
+2 Todiramphus 41425
+3 Ceyx         6013
+4 Tanysiptera   903
+5 Syma          349</code></pre>
 </div>
 </div>
 <p>…or species.</p>
@@ -486,15 +489,15 @@ Original download queries
 <pre><code># A tibble: 10 × 2
    species                  count
    &lt;chr&gt;                    &lt;int&gt;
- 1 Dacelo novaeguineae      85426
- 2 Todiramphus sanctus      25938
- 3 Todiramphus macleayii     9866
- 4 Dacelo leachii            7264
- 5 Ceyx azureus              5248
- 6 Todiramphus pyrrhopygius  2322
- 7 Tanysiptera sylvia         886
- 8 Ceyx pusillus              658
- 9 Syma torotoro              340
+ 1 Dacelo novaeguineae      85782
+ 2 Todiramphus sanctus      26228
+ 3 Todiramphus macleayii    10037
+ 4 Dacelo leachii            7451
+ 5 Ceyx azureus              5342
+ 6 Todiramphus pyrrhopygius  2365
+ 7 Tanysiptera sylvia         903
+ 8 Ceyx pusillus              671
+ 9 Syma torotoro              349
 10 Todiramphus chloris         29</code></pre>
 </div>
 </div>
@@ -620,14 +623,14 @@ Original download queries
 <pre><code># A tibble: 8 × 2
   cl22                         count
   &lt;chr&gt;                        &lt;int&gt;
-1 Queensland                   50295
-2 New South Wales              38869
-3 Victoria                     24075
-4 Northern Territory            9789
-5 Western Australia             7654
-6 Australian Capital Territory  3519
-7 South Australia               2474
-8 Tasmania                      2443</code></pre>
+1 Queensland                   51028
+2 New South Wales              39075
+3 Victoria                     23941
+4 Northern Territory            9870
+5 Western Australia             7860
+6 Australian Capital Territory  3518
+7 South Australia               2504
+8 Tasmania                      2500</code></pre>
 </div>
 </div>
 <p>We can also group our counts by state/territory <em>and</em> a taxonomic rank like genus.</p>
@@ -641,16 +644,16 @@ Original download queries
 <pre><code># A tibble: 26 × 3
    cl22            genus       count
    &lt;chr&gt;           &lt;chr&gt;       &lt;int&gt;
- 1 Queensland      Dacelo      27045
- 2 Queensland      Todiramphus 19396
- 3 Queensland      Ceyx         2563
- 4 Queensland      Tanysiptera   885
- 5 Queensland      Syma          338
- 6 New South Wales Dacelo      29827
- 7 New South Wales Todiramphus  7564
- 8 New South Wales Ceyx         1467
- 9 Victoria        Dacelo      19788
-10 Victoria        Todiramphus  3770
+ 1 Queensland      Dacelo      27383
+ 2 Queensland      Todiramphus 19692
+ 3 Queensland      Ceyx         2632
+ 4 Queensland      Tanysiptera   902
+ 5 Queensland      Syma          347
+ 6 New South Wales Dacelo      29944
+ 7 New South Wales Todiramphus  7636
+ 8 New South Wales Ceyx         1484
+ 9 Victoria        Dacelo      19655
+10 Victoria        Todiramphus  3763
 # ℹ 16 more rows</code></pre>
 </div>
 </div>
@@ -916,14 +919,14 @@ Original download queries
 <pre><code># A tibble: 8 × 2
   year   count
   &lt;chr&gt;  &lt;int&gt;
-1 2022  140836
-2 2021  128897
-3 2020  109056
-4 2018   95747
-5 2019   93954
-6 2017   78734
-7 2023   46154
-8 2024    3570</code></pre>
+1 2023  172918
+2 2022  142050
+3 2021  129197
+4 2020  109432
+5 2018   96343
+6 2019   94693
+7 2017   79232
+8 2024   61509</code></pre>
 </div>
 </div>
 <p>Alternatively, you can use the lubridate package to summarise after downloading counts.</p>
@@ -1241,7 +1244,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/cleaning-data-r\.ala\.org\.au\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
