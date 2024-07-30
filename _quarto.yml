@@ -17,6 +17,7 @@ book:
   search: true
   site-url: https://cleaning-data-r.ala.org.au/
   repo-url: https://github.com/AtlasOfLivingAustralia/cleaning_data
+  margin-header: _fathom.html
   sidebar:
     logo: images/ALA_Logo_Inline_RGB.png
 
