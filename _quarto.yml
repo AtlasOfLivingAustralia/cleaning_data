@@ -18,6 +18,8 @@ book:
   site-url: https://cleaning-data-r.ala.org.au/
   repo-url: https://github.com/AtlasOfLivingAustralia/cleaning_data
   margin-header: _fathom.html
+  image: images/cleaner-shrimp_cover.png
+  image-alt: "A Pacific Cleaner Shrimp illustration"
   sidebar:
     logo: images/ALA_Logo_Inline_RGB.png
 
