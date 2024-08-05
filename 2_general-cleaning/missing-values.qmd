@@ -353,4 +353,6 @@ geckos_filtered
 
 This chapter showed ways to find and remove different types of missing records from your dataset. It's important to note that there might not be a single cleaned dataset without any missing values. You might find that in the same workflow, you will clean your dataset in multiple ways to preserve rows that are missing some, but not all, information. For example, some records may have complete taxonomic identification but lack spatial coordinates, while others have spatial coordinates but lack taxonomic information. Depending on the type of analysis you intend to perform, you may need to adjust your data cleaning approach accordingly.
 
+For a more comprehensive resource about missing values, including how to clean, visually represent, and impute them, check out [The Missing Book](https://tmb.njtierney.com/).
+
 In the next chapter we will address working with strings (character sequences). Strings often involve correcting for things like typos or extra spacing that are difficult to pick up at a first glance.
