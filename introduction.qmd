@@ -139,8 +139,7 @@ cleaning and visualisation. If you are new to R or need a refresher,
 there are many amazing and freely available resources available online.
 [Data Analysis and Visualisation in R for
 Ecologists](https://datacarpentry.org/R-ecology-lesson/) and [R for Data
-Science](https://r4ds.had.co.nz/index.html) are both excellent starting
-points.
+Science](https://r4ds.hadley.nz/) are both excellent starting points.
 
 Download R from [CRAN](https://cloud.r-project.org/), selecting the
 version that matches your operating system, and install it on your
