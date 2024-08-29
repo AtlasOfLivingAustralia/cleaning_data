@@ -815,7 +815,7 @@ Note
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxonRank <span class="sc">==</span> <span class="st">"species"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(taxonRank, scientificName, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,825 × 9
+<pre><code># A tibble: 1,812 × 9
    taxonRank scientificName        recordID       taxonConceptID decimalLatitude
    &lt;chr&gt;     &lt;chr&gt;                 &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;
  1 species   Gehyra variegata      001c2b9f-34c8… https://biodi…           -22.7
@@ -828,7 +828,7 @@ Note
  8 species   Christinus marmoratus 00c15ed1-873e… https://biodi…           -35.4
  9 species   Christinus marmoratus 00d886f8-1ee4… https://biodi…           -35.0
 10 species   Gehyra variegata      00e80fcb-843d… https://biodi…           -29.9
-# ℹ 1,815 more rows
+# ℹ 1,802 more rows
 # ℹ 4 more variables: decimalLongitude &lt;dbl&gt;, eventDate &lt;dttm&gt;,
 #   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;</code></pre>
 </div>
@@ -872,6 +872,7 @@ Note
 <section id="summary-1" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="summary-1"><span class="header-section-number">5.4</span> Summary</h2>
 <p>This chapter showed ways to find and remove different types of missing records from your dataset. It’s important to note that there might not be a single cleaned dataset without any missing values. You might find that in the same workflow, you will clean your dataset in multiple ways to preserve rows that are missing some, but not all, information. For example, some records may have complete taxonomic identification but lack spatial coordinates, while others have spatial coordinates but lack taxonomic information. Depending on the type of analysis you intend to perform, you may need to adjust your data cleaning approach accordingly.</p>
+<p>For a more comprehensive resource about missing values, including how to clean, visually represent, and impute them, check out <a href="https://tmb.njtierney.com/">The Missing Book</a>.</p>
 <p>In the next chapter we will address working with strings (character sequences). Strings often involve correcting for things like typos or extra spacing that are difficult to pick up at a first glance.</p>
 
 
