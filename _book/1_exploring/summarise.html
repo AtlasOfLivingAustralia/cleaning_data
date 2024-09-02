@@ -105,6 +105,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+<meta property="og:title" content="2&nbsp; Summarise – Cleaning Biodiversity Data in R">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://cleaning-data-r.ala.org.au/1_exploring/images/cleaner-shrimp_cover.png">
+<meta property="og:site_name" content="Cleaning Biodiversity Data in R">
+<meta property="og:image:alt" content="A cover image with a Pacific Cleaner Shrimp illustration">
+<meta name="twitter:title" content="2&nbsp; Summarise – Cleaning Biodiversity Data in R">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://cleaning-data-r.ala.org.au/1_exploring/images/cleaner-shrimp_cover.png">
+<meta name="twitter:image:alt" content="A cover image with a Pacific Cleaner Shrimp illustration">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-sidebar floating slimcontent">
@@ -457,7 +467,7 @@ Original download queries
 <pre><code># A tibble: 1 × 1
    count
    &lt;int&gt;
-1 142050</code></pre>
+1 142020</code></pre>
 </div>
 </div>
 <p>…or group by a taxonomic rank like genus…</p>
@@ -471,9 +481,9 @@ Original download queries
 <pre><code># A tibble: 5 × 2
   genus       count
   &lt;chr&gt;       &lt;int&gt;
-1 Dacelo      93239
+1 Dacelo      93208
 2 Todiramphus 41425
-3 Ceyx         6013
+3 Ceyx         6014
 4 Tanysiptera   903
 5 Syma          349</code></pre>
 </div>
@@ -489,11 +499,11 @@ Original download queries
 <pre><code># A tibble: 10 × 2
    species                  count
    &lt;chr&gt;                    &lt;int&gt;
- 1 Dacelo novaeguineae      85782
- 2 Todiramphus sanctus      26228
- 3 Todiramphus macleayii    10037
+ 1 Dacelo novaeguineae      85751
+ 2 Todiramphus sanctus      26226
+ 3 Todiramphus macleayii    10039
  4 Dacelo leachii            7451
- 5 Ceyx azureus              5342
+ 5 Ceyx azureus              5343
  6 Todiramphus pyrrhopygius  2365
  7 Tanysiptera sylvia         903
  8 Ceyx pusillus              671
@@ -623,14 +633,14 @@ Original download queries
 <pre><code># A tibble: 8 × 2
   cl22                         count
   &lt;chr&gt;                        &lt;int&gt;
-1 Queensland                   51028
-2 New South Wales              39075
+1 Queensland                   51030
+2 New South Wales              39038
 3 Victoria                     23941
-4 Northern Territory            9870
+4 Northern Territory            9872
 5 Western Australia             7860
 6 Australian Capital Territory  3518
 7 South Australia               2504
-8 Tasmania                      2500</code></pre>
+8 Tasmania                      2502</code></pre>
 </div>
 </div>
 <p>We can also group our counts by state/territory <em>and</em> a taxonomic rank like genus.</p>
@@ -645,15 +655,15 @@ Original download queries
    cl22            genus       count
    &lt;chr&gt;           &lt;chr&gt;       &lt;int&gt;
  1 Queensland      Dacelo      27383
- 2 Queensland      Todiramphus 19692
- 3 Queensland      Ceyx         2632
+ 2 Queensland      Todiramphus 19693
+ 3 Queensland      Ceyx         2633
  4 Queensland      Tanysiptera   902
  5 Queensland      Syma          347
- 6 New South Wales Dacelo      29944
- 7 New South Wales Todiramphus  7636
- 8 New South Wales Ceyx         1484
+ 6 New South Wales Dacelo      29910
+ 7 New South Wales Todiramphus  7634
+ 8 New South Wales Ceyx         1483
  9 Victoria        Dacelo      19655
-10 Victoria        Todiramphus  3763
+10 Victoria        Todiramphus  3762
 # ℹ 16 more rows</code></pre>
 </div>
 </div>
@@ -919,14 +929,14 @@ Original download queries
 <pre><code># A tibble: 8 × 2
   year   count
   &lt;chr&gt;  &lt;int&gt;
-1 2023  172918
-2 2022  142050
-3 2021  129197
-4 2020  109432
-5 2018   96343
-6 2019   94693
-7 2017   79232
-8 2024   61509</code></pre>
+1 2023  172941
+2 2022  142020
+3 2021  129155
+4 2020  109404
+5 2018   96285
+6 2019   94647
+7 2017   79178
+8 2024   62306</code></pre>
 </div>
 </div>
 <p>Alternatively, you can use the lubridate package to summarise after downloading counts.</p>
