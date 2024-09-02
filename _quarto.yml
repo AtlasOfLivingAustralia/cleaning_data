@@ -20,6 +20,13 @@ book:
   margin-header: _fathom.html
   image: images/cleaner-shrimp_cover.png
   image-alt: "A Pacific Cleaner Shrimp illustration"
+  open-graph: 
+    image: images/cleaner-shrimp_cover.png
+    image-alt: "A cover image with a Pacific Cleaner Shrimp illustration"
+  twitter-card: 
+    image: images/cleaner-shrimp_cover.png
+    image-alt: "A cover image with a Pacific Cleaner Shrimp illustration"
+    card-style: summary_large_image
   sidebar:
     logo: images/ALA_Logo_Inline_RGB.png
 
