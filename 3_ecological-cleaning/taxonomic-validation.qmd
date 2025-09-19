@@ -912,7 +912,7 @@ If a name matches multiple names, `get_tsn_()` will return all matches.
 resolved <- gna_verifier("Morganella", capitalize = TRUE)
 
 # Retrieve matches
-tsn <- get_tsn_(resolved$matchedCanonicalSimple) # timed out as of 2024-07-26
+tsn <- get_tsn_(resolved$matchedCanonicalSimple) # works as of 2025-09-19
 tsn
 ```
 
