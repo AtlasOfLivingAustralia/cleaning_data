@@ -874,11 +874,6 @@ There are several packages available that can be used to query different taxonom
 
 The [taxize package](https://github.com/ropensci/taxize) allows users to search across many taxonomic data sources for hierarchical taxonomic information, such as species names (scientific and common), to resolve synonyms and homonyms.
 
-:::{.callout-warning collapse="false"}
-#### taxize not working
-As of 17 September, 2025 the taxize functions in this section hit `HTTP 404` errors. We suggest finding other solutions until these issues are fixed.
-:::
-
 #### Synonyms
 
 We can match names against up to 118 data sources including GBIF, Catalogue of Life, World Register of Marine Species using `gnr_resolve()` and return one or more names scored by how well-matched they are to these sources.
@@ -892,7 +887,7 @@ Let's search for any synonyms of *Litoria caerulea* as an example.
 library(taxize)
 
 # Resolve names
-resolved <- gnr_resolve(sci = "litoria caerulea", best_match_only = TRUE)
+resolved <- gna_verifier(c("litoria caerulea"), capitalize = TRUE)
 resolved
 ```
 
@@ -903,9 +898,8 @@ Using the resolved name, we can search for its Taxonomic Serial Number using `ge
 <!-- TODO: Check if this is working again -->
 
 ```{r}
-#| eval: false
 # Retrieve synonyms
-tsn <- get_tsn(resolved$matched_name) # timed out as of 2024-07-26
+tsn <- get_tsn(resolved$matchedCanonicalSimple) # works as of 2025-09-19
 synonyms(tsn) 
 ```
 
@@ -914,19 +908,17 @@ synonyms(tsn)
 If a name matches multiple names, `get_tsn_()` will return all matches.
 
 ```{r}
-#| error: true
 # resolve morganella name
-resolved <- gnr_resolve("morganella", best_match_only = TRUE)
+resolved <- gna_verifier("Morganella", capitalize = TRUE)
 
 # Retrieve matches
-# tsn <- get_tsn_(resolved$matched_name) # timed out as of 2024-07-26
-# tsn
+tsn <- get_tsn_(resolved$matchedCanonicalSimple) # timed out as of 2024-07-26
+tsn
 ```
 
 You can then use each `tsn` number to return the complete classification of the taxonomic name.
 
 ```{r}
-#| eval: false
 # Retrieve upstream taxonomy
 classification(tsn$Morganella$tsn[1], # <1>
                upto = "family", 
