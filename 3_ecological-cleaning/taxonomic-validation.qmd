@@ -329,6 +329,12 @@ search_all(lists, "dr650") |>
 
 If we wish to use this threatened species list to filter a query, we'll need to ensure we `group_by()` either `scientificName` or `taxonConceptID`. Both fields capture the lowest taxonomic identification, and will match a list with names at multiple taxonomic levels appropriately. For example, grouping by `taxonConceptID` will return taxonomic information of matching species *and* subspecies (see this [ALA Labs post](https://labs.ala.org.au/posts/2025-07-20_species-lists-in-R/#download-data) for more information).
 
+<!-- 
+Note: The chunk below seems to trigger a weird error sometimes
+      The message is 'ERROR: [non-error-thrown] undefined' 
+      The way to get around it is to run the code in your console up to at least line 347, then render again and it should work
+-->
+
 ```{r}
 species_shoalhaven <- galah_call() |>
   filter(cl11170 == "Shoalhaven",
@@ -439,7 +445,7 @@ search_taxa("Eucalyptus x studleyensis")
 An issue arises because existing regional lists like the Victorian threatened species list (`dr655`) still contain the name *Eucalyptus x studleyensis* because it was once considered a threatened regional species.
 
 ```{r}
-search_all(lists, "dr655") |>
+search_all(lists, "Victoria : Conservation Status") |>
   search_values("Eucalyptus x studleyensis")
 ```
 

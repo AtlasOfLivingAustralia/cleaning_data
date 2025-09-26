@@ -64,7 +64,7 @@ people frequently ask how to do it!
 
 This book is our response to questions about how to clean ecological
 data, and to our discovery that (because workflows vary immensely) there
-don't seem to be many resources that consolidate methods to clean
+doesn't seem to be many resources that consolidate methods to clean
 ecological data in R. We are by no means experts in cleaning all types
 of data for all types of ecological analyses. We do, however, work with
 ecological data on a daily basis and encounter many data cleaning issues

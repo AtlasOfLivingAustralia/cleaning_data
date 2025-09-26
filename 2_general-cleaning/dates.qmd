@@ -129,6 +129,7 @@ into R. For example, the following date format isn't converted correctly
 when we try to convert it to a date.
 
 ```{r}
+#| warning: true
 df <- tibble(
   date = c("X2020.01.22",
            "X2020.01.22",
@@ -204,6 +205,14 @@ plants |>
 :::
 
 :::
+
+:::{.callout-warning collapse="true"}
+##### Missing dates
+
+Keep in mind that some occurrence records don't have date information (either it wasn't supplied or was deemed unreliable eg a non-existent date). Rows with missing dates will appear as `NA` values.
+
+:::
+
 
 ## Filter
 

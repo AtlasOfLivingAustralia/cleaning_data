@@ -34,7 +34,6 @@ Download the `bees.parquet` file from the [Data in this book chapter](../data-in
 # packages
 library(galah)
 library(dplyr)
-library(tidyverse)
 library(janitor)
 library(here)
 library(arrow)
@@ -65,7 +64,6 @@ test <- glue::glue(
 # packages
 library(galah)
 library(dplyr)
-library(tidyverse)
 library(janitor)
 library(here)
 library(arrow)
