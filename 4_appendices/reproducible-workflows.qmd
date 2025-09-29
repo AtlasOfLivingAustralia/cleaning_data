@@ -4,7 +4,7 @@ editor:
     wrap: 72
 code-annotations: hover
 number-depth: 3
-bibliography: ../data-cleaning-book-references.bib
+bibliography: ../references.bib
 ---
 
 # Reproducible workflows

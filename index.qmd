@@ -34,7 +34,7 @@ This book is available free to read, and is licenced under the
   
 #### Citation
 
-Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, O., Waite, C., Fenker, J., Westgate, M. (2024). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://doi.org/10.54102/ala.77009](https://doi.org/10.54102/ala.77009). 
+Kellie, D., Kar, F., Balasubramaniam, S., Schneider, M., Schwenke, A., Torresan, O., Waite, C., Fenker, J., Westgate, M. (2025). *Cleaning Biodiversity Data in R*. (Version `{r} release_number`). [https://doi.org/10.54102/ala.77009](https://doi.org/10.54102/ala.77009). 
 
 #### Cover
 

@@ -247,6 +247,7 @@ geckos_missing <- geckos |>
 
 
 ```{r}
+# see data, showing columns of interest first
 geckos_missing |>
   select(scientificName, class, family, genus, species, everything())
 ```
@@ -263,7 +264,7 @@ geckos_species_list <- galah_call() |>
 head(geckos_species_list)
 ```
 
-To match the complete names in `geckos_species_list` with the missing names in `geckos_missing`, we can use a strategy of match-and-merge. 
+We now have our data with missing taxonomic information (`geckos_missing`) and data with complete taxonomic information (`geckos_species_list`). To match the complete names in `geckos_species_list` with the missing names in `geckos_missing`, we can use a strategy of match-and-merge. 
 
 :::{.callout-note collapse="true"}
 
@@ -287,6 +288,8 @@ list_subset <- geckos_species_list |>
 ```
 
 We can use `left_join()` to merge `list_subset` to `geckos_missing`. Records that are identified at least down to the family level now have the correct rank information in the `class_new` and `family_new` columns [^3].
+
+[^3]: Because both `geckos_missing` and `list_subset` already have `class` and `family` columns, we've specified a suffix to append to our new column and our old column after joining `geckos_missing` and `list_subset` together using the argument `suffix` in `left_join()`.
 
 This hasn't worked for every row, however, because `scientificName` contains the name of the lowest taxonomic rank the occurrence is identified to. Names like `Christinus` and `Gehyra` are genus names, so in these cases `scientificName` won't match our reference `species_name` column!
 

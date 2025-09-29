@@ -152,12 +152,12 @@ You can get the same summaries after downloading the data locally using [dplyr](
 birds |>
   group_by(genus) |>
   count() |>
-  arrange(desc(-n))
+  arrange(desc(n))
 
 birds |>
   group_by(species) |>
   count() |>
-  arrange(desc(-n))
+  arrange(desc(n))
 ```
 
 #### janitor

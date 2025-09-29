@@ -143,6 +143,23 @@ Instead, if we are interested in comparing species in our data, it might be more
 
 To filter our duplicate data by species, we can first split our data by species...
 
+:::{.callout-warning collapse="true"}
+###### `group_split()` is experimental
+`dplyr::group_split()` is an amazing function and makes any split operation very easy, especially in a pipe. However, the documentation of `group_split()` states that it's an experimental function, "is not stable", and "may be deprecated in the future." If you are concerned about longevity of your code, you can use `base::split()`. An equivalent way to do the split part is:
+
+```{r}
+# limiting to first 10 rows for example purposes
+birds_n10 <- birds[1:10,]
+
+# split by species name
+birds_n10 |> 
+  split(birds_n10$species) 
+```
+
+However, note that order of variables is not preserved in this base solution and data will need to be reordered if we want to match `group_split()` output exactly (this is the complicated part, which makes this option not as nice/convenient as `group_split()`).
+
+:::
+
 ```{r}
 #| eval: false
 birds |>
@@ -248,6 +265,6 @@ birds_filtered |>
 
 ## Summary
 
-This chapter has introduced some ways to find duplicated records, remove them from datasets, and check if the changes were correctly made. These methods can be more broadly applied to other types of data as well, not just spatial data. Depending on your analysis, you may need to use bespoke methods for handling duplicates. Later chapters like [Taxonomic validation](../3_ecological-cleaning/taxonomic-validation.qmd) and [Geospatial cleaning](../3_cleaning_expert/geospatial-cleaning.qmd) cover more advanced detection and cleaning methods.
+This chapter has introduced some ways to find duplicated records, remove them from datasets, and check if the changes were correctly made. These methods can be more broadly applied to other types of data as well, not just spatial data. Depending on your analysis, you may need to use bespoke methods for handling duplicates. Later chapters like [Taxonomic validation](../3_ecological-cleaning/taxonomic-validation.qmd) and [Geospatial cleaning](../3_ecological-cleaning/geospatial-cleaning.qmd) cover more advanced detection and cleaning methods.
 
 In the next chapter, we will discuss ways of handling **missing values** in your dataset. 

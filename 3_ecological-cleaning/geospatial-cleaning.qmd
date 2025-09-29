@@ -643,10 +643,17 @@ broadly the correct area[^geospatial-cleaning-1].
     because they represent individuals from captivity or grown in
     horticulture (but were not clearly labelled as such).
 
-Let's use common brown butterfly data for our example. Including the
-`COORDINATES_CENTRE_OF_COUNTRY` and/or `COORDINATES_CENTRE_OF_STATEPROVINCE`
-assertions columns to your download allows us to identify records flagged as
-containing centroid coordinates.
+Let's use common brown butterfly data for our example. 
+
+
+:::{.callout-warning collapse="false"}
+###### ALA centroid assertions currently under review
+
+The ALA is currently (September 2025) in the process of reviewing the `COORDINATES_CENTRE_OF_COUNTRY` and `COORDINATES_CENTRE_OF_STATEPROVINCE` assertions columns to ensure they are accurate. 
+While this process is ongoing, we suggest using an alternative method of 
+generating centroids for a map or polygon like `sf::st_centroid()` and comparing the coordinates to observation coordinates in your dataset.
+
+:::
 
 ::: aside
 <img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"/></img>
@@ -657,6 +664,12 @@ Mononymous CC-BY-NC 4.0
 (Int)](https://biocache.ala.org.au/occurrences/6f6f172b-5d8e-4879-b77c-3517e08819e8)
 :::
 :::
+
+
+Including the
+`COORDINATES_CENTRE_OF_COUNTRY` and/or `COORDINATES_CENTRE_OF_STATEPROVINCE`
+assertions columns to your download allows us to identify records flagged as
+containing centroid coordinates.
 
 ```{r}
 butterflies <- butterflies |>
@@ -709,6 +722,9 @@ ggplot() +
   theme(legend.position = "none")
 
 ```
+
+Keep in mind that just because an observation's coordinates match a centroid doesn't mean that the observation's location is *generalised* (i.e., made less precise) to the centre of a polygon area. It could be coincidence! If you want to preserve as much data as possible, using other information can help determine if an observation's coordinate location has been generalised or not. For example, the `dataGeneralizations`, `coordinateUncertaintyInMetres` and `locality` fields may offer extra context about whether an observation has been generalised because it is a sensitive record, or whether there is a location that the observation is more broadly associated with.
+
 
 ### Cities, zoos, aquariums, museums & herbaria
 
