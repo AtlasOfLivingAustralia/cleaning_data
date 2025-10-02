@@ -7,8 +7,6 @@
 
 ## Updating the published version of the website
 
-The rendered version of the book that appears on <https://cleaning-data-r.ala.org.au/> is on the `gh-pages` branch in the `_site` folder. This version is updated separately to what is on the main branch.
-
 ### Version number
 
 Before updating the book, it's important to document changes in a new [Release](https://github.com/AtlasOfLivingAustralia/cleaning_data/releases). The latest release number is web-scraped and used to build the updated citation displayed on the Welcome page of the book.
@@ -16,6 +14,8 @@ Before updating the book, it's important to document changes in a new [Release](
 So you should always *add a new release, then publish the new version of the book*. This will ensure the citation updates correctly.
 
 ### Publish
+
+The rendered version of the book that appears on <https://cleaning-data-r.ala.org.au/> is on the `gh-pages` branch in the `_site` folder. This version is updated separately to what is on the main branch.
 
 We use the Publish command to update the published version of the book. The original process to set this up is documented [here](https://quarto.org/docs/publishing/github-pages.html#publish-command).
 
@@ -28,6 +28,8 @@ quarto publish gh-pages
 This will render the book and publish the new version from the `gh-pages` branch to the live website.
 
 At the moment, sometimes `publish` pushes changes to a GH url, rather than https://cleaning-data-r.ala.org.au/. After running `quarto publish` be sure to double check that the custom domain in [Settings](https://github.com/AtlasOfLivingAustralia/cleaning_data/settings/pages) is still set to cleaning-data-r.ala.org.au
+
+Update 2025-09: Matt Andrews added a `CNAME` file to the `gh-pages` branch that should fix publishing to cleaning-data-r.ala.org.au url. Ensure that this file exists in the `gh-pages` top directory to avoid publishing issues.
 
 ## Updating data & DOIs
 
