@@ -204,7 +204,8 @@ records in states/territories where our species definitely doesn't live?
 Is the data too sparse to use for our expected analysis plan?
 
 Lucky for us, the `banksia` data we just plotted doesn't seem to have
-any obvious issues!
+any glaring issues, though you might notice some stray points in Tasmania 
+and inland Australia that deserve some additional interrogating!
 
 ## Precision
 
