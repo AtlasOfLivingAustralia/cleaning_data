@@ -257,29 +257,16 @@ banksia <- banksia |>
 
 ## Uncertainty
 
-<!-- I got a little confused here initially, and I wonder if it would be less (potentially) confusing to refer to precision and accuracy instead, and explain that accuracy is referred to as uncertainty in the ALA? I'm still not even sure I have correctly understood this, so feel free to ignore if I've gotten it wrong - SB -->
+Uncertainty is a measure of how different an unknown true value might be from a given value. In georeferencing, we use uncertainty to refer to the maximum distance from a georeferenced coordinate to the furthest point where the true location might be. This uncertainty value is a combination of all the possible sources of error given as a distance (Chapman and Wieczorek 2025) <!-- this reference needs to be added -->, taking into account issues like an unknown coordinate projection, derived geocoordinates (e.g., using geocoordinates for a described town or creek) or any uncertainty around an observation's specific location. 
 
-Similarly, not all observations have the same degree of accuracy. An
-organism's *exact* location will likely have an area of uncertainty
-around it. This uncertainty can vary due to the opportunistic condition
-of an observation (a species was observed at some distance before moving
-elsewhere), or from inaccurate measurement or documentation. However, a
-main distinction between record uncertainty and record precision is that
-data infrastructures like the ALA can *add uncertainty* to a record,
-usually [for sensitivity
-purposes](geospatial-investigation.qmd#obfusctaed-locations) (described in
-more detail in the next section). Although adding uncertainty to data is
-important for protecting individual species, uncertainty inevitably
-affects [how robust the results from species distribution models
+An additional factor that can affect the uncertainty of a geocoordinate is the practice of obfuscation---using standard methods to hide the original location of a record. This is discussed more in the [next section](geospatial-investigation.qmd#obfuscated-locations). Although adding uncertainty to data is important for protecting individual species, uncertainty inevitably affects [how robust the results from species distribution models
 are](https://besjournals.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1365-2664.2007.01408.x),
 so it is important to be aware of location uncertainty.
 
 When downloading data from the ALA with the galah package, it's possible
 to include the
 [`coordinateUncertaintyInMeters`](https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters)
-field with your data. This refers to the margin of error, represented as
-a circular area, around the true location of the recorded observation.
-We added this column in our [original galah
+field with your data. We added this column in our [original galah
 query](geospatial-investigation.qmd#prerequisites).
 
 ```{r}
@@ -309,18 +296,11 @@ banksia <- banksia |>
 
 ## Obfuscated locations
 
-Some species observations are classified as *sensitive*, meaning that 
-information about these species and where they are located is restricted for some reason (e.g., endangered, subject
-to poaching or misuse, privacy concerns). Occurrence records of
-sensitive species may be deliberately *obfuscated*---have their their locations made less accurate---to protect the true
-locations of these species. Although removing accuracy makes these data more
-difficult to work with, obfuscation helps to avoid risks like poaching
-or capture while still allowing these species' data to be included in
-broader summaries.
+Some species observations are classified as restricted access or sensitive, meaning that information about these species and where they are located is restricted for some reason (e.g., subject to poaching or misuse, privacy concerns, or economically species records of biosecurity species eradications). Occurrence records of sensitive species may be deliberately *obfuscated*---have their locations *generalised* or *randomised*---to protect the true locations of these species. Although increasing uncertainty makes these data more difficult to work with, obfuscation helps to avoid risks like poaching or capture while still allowing these species’ data to be included in broader summaries.
 
 There are a couple of ways to obfuscate locations, either by *randomisation* or 
 *generalisation*. Generalisation, the method used by the ALA, involves the 
-removal of decimal points from decimal coordinates, rounded to distances of 1km, 10km or 50km (in accordance with state/territory legislation)[^randomisation]. This effectively 'snaps' any point within a grid cell to the corner of that cell.
+removal of decimal points from decimal coordinates, rounded to distances of 1km, 10km or 50km (in accordance with state/territory policies)[^randomisation]. This effectively 'snaps' any point within a grid cell to a corner of that cell.
 
 [^randomisation]: Alternatively, *randomisation* involves placing an observation in a new location randomly within certain distance from its true location. For example iNaturalist randomises their data at a 30 km resolution prior to sharing data with the Atlas of Living Australia.
 
@@ -437,7 +417,7 @@ generalised_tortoise_count <- galah_call() |>
 
 For example, the Western Swamp Tortoise is [a critically endangered
 species in Western
-Australia](https://www.dcceew.gov.au/environment/biodiversity/threatened/action-plan/priority-reptiles/western-swamp-tortoise).
+Australia](https://www.dcceew.gov.au/environment/biodiversity/threatened/action-plan/priority-reptiles/western-swamp-tortoise) that is also a restricted access species.
 There are `r total_tortoise_count` records of this species in the ALA.
 
 ```{r}
