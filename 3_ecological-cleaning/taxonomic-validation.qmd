@@ -871,7 +871,7 @@ Homonyms are identical names that are used to refer to different taxa. For examp
 
 #### Capitalisation standards
 
-If you're cleaning strings with a method that is case sensitive, it is important to be aware of capitalisation standards for scientific names. For example, the first letter of genus should always be capitalised and the species name (and any subspecies, varieties etc.) should always be lower case (e.g. *Homo sapiens*). Not using the correct case increases the likelihood of encountering a homonym error. The only time this is not true is if you are using an undescribed species name such as *Anilios sp. ‘Cape Range’* or *Grevillea sp. Victoria Desert (R.Davis et al. RD 11611) WA Herbarium*. In these cases it is essential to get the capitalisation and spacing identical (note, for example the absence of a space between “R.” and “Davis”, which is a standard used by all herbaria in Australia).
+If you're cleaning strings with a method that is case sensitive, it is important to be aware of capitalisation standards for scientific names. For example, the first letter of genus should always be capitalised and the species name (and any subspecies, varieties etc.) should always be lower case (e.g. *Homo sapiens*). Not using the correct case increases the likelihood of encountering a homonym error. The only time this is not true is if you are using an undescribed species name such as *Anilios* sp. ‘Cape Range’ or *Grevillea* sp. Victoria Desert (R.Davis et al. RD 11611) WA Herbarium*. In these cases it is essential to get the capitalisation and spacing identical (note, for example the absence of a space between “R.” and “Davis”, which is a standard used by all herbaria in Australia).
 
 :::
 
