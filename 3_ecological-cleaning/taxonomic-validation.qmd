@@ -236,7 +236,7 @@ birds_2023 |>
   distinct(scientificName)
 ```
 
-Although both are correct, be sure to check your data to make sure that this naming format is consistent. Other taxonomic names (like subgenera) can differ between taxonomic groups, too.
+Although both are correct, be sure to check your data to make sure that this naming format is consistent. Other taxonomic names (like subgenera) can differ between taxonomic groups, and also between sources.
 
 ## Matching names to a species list
 
@@ -246,7 +246,7 @@ There are several ways to filter records to match names on a species list. First
 
 #### galah
 
-The ALA contains both national and state-based conservation status lists. For example, if we want to use the Victorian Restricted Species list, we can perform a text search for available lists using the term "victoria" with `search_all(lists, "victoria")`.
+The ALA contains both national and state-based threatened and sensitive lists. For example, if we want to use the Victorian Restricted Species list, which is the list of species in Victoria for which all records have been [generalised](@note-generalisation), we can perform a text search for available lists using the term "victoria" with `search_all(lists, "victoria")`.
 
 ```{r}
 list_search <- search_all(lists, "victoria")
@@ -271,7 +271,7 @@ vic_species_list
 
 1.  We are using the list ID `dr490` (specified in the `species_list_uid` column) to make sure we return the correct list
 
-We can now compare the taxa in `vic_species_list` to those in our `legless_lizards` dataset to identify any restricted species.
+We can now compare the taxa in `vic_species_list` to those in our `legless_lizards` dataset to identify any species whose distributions have been generalised.
 
 ```{r}
 legless_lizards_filtered <- legless_lizards |>
@@ -397,11 +397,11 @@ You can apply this concept of filtering to any list of species, or other fields,
 
 ### When a name match returns a different result than expected
 
-Names matching can be tricky. Sometimes a name might match to an incorrect result, usually caused by an accidental text match. Other times, a name might match to a correct result, but the result is unexpected (and might cause confusion later if it goes unrecognised). This scenario usually occurs when a taxonomic name is no longer accepted. The following sections will elaborate on each scenario.
+Names matching can be tricky. This can be caused by taxonomy itself (e.g. changes in scientific names, synonyms, or homonyms) or simple errors (e.g. spelling errors in scientific names, the incorrect Authority being attached to a scientific name). Sometimes a name might match to an incorrect result, usually caused by an accidental text match. Other times, a name might match to a correct result, but the result is unexpected (and might cause confusion later if it goes unrecognised). This scenario usually occurs when a taxonomic name is no longer accepted. The following sections will elaborate on each scenario.
 
 #### Match returns incorrect result
 
-Returning an incorrect match to a taxonomic name most often happens when doing a taxonomic search, like with `search_taxa()`. For example, let's say we are interested in returning taxonomic information for the Eastern barred-nose bandicoot (*Perameles gunnii gunnii)*, a subspecies of bandicoot. If we do a quick search for the two unique words in its name we return a search result, but the result is information on the species *Perameles gunnii* rather than the subspecies.
+Returning an incorrect match to a taxonomic name most often happens when doing a taxonomic search, like with `search_taxa()`. For example, let's say we are interested in returning taxonomic information for the Tasmanian population of the Eastern Barred Bandicoot (*Perameles gunnii gunnii)*. If we do a quick search for the two unique words in its name we return a search result, but the result is information on the species *Perameles gunnii* rather than the subspecies.
 
 ```{r}
 search_taxa("perameles gunnii")
@@ -434,15 +434,23 @@ galah_call() |>
 
 Be mindful about whether any taxonomic names you are interested in might return information at the wrong taxonomic level by mistake. Amending searches or replacing incorrect matches with correct information may be required to ensure taxonomic matches are correct.
 
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Querying subspecies
+
+Sometimes occurrences are not recorded to the lowest taxonomic level, such as subspecies. There are many reasons why this might occur, and it often has more to do with the source of the record than the accuracy of identification. In the case of *Perameles gunnii gunnii*, there are 15 records at the subspecies level and over 3,000 records of *Perameles gunnii* in Tasmania. Most authorities have not recorded the subspecies simply because it is the *only* subspecies of *Perameles gunnii* found in Tasmania. In this situation, the best way to get records of *Perameles gunnii gunnii* would be to intersect a query for *Perameles gunnii* with a geospatial boundary of Tasmania. Depending on your taxon of interest, a query for subspecies may need to include both species and subspecies names, and vice versa in a query for species. 
+
+:::
+
 #### Match returns correct but unexpected result
 
-It's also possible that a taxonomic name returns a different match to what we might expect, but this is the correct match for the name. For example, a search for the Eucalpyt species *Eucalyptus x studleyensis* returns the genus *Eucalyptus*. This is the correct result. *Eucalyptus x studleyensis* is not recognised as a separate species by the Australian Plant Census (APC), so a search will correctly match the the higher taxonomic genus level.
+It's also possible that a taxonomic name returns a different match to what we might expect, but this is the correct match for the name. For example, a search for the Eucalypt species *Eucalyptus x studleyensis* returns the genus *Eucalyptus*. This is the correct result. Even though *Eucalyptus x studleyensis* is recognised as a threatened species in Victoria, it is not recognised as a separate species by the combined view of the herbaria of Australia, the Australian Plant Census (APC), so a search will correctly match the the higher taxonomic genus level.
 
 ```{r}
 search_taxa("Eucalyptus x studleyensis")
 ```
 
-An issue arises because existing regional lists like the Victorian threatened species list (`dr655`) still contain the name *Eucalyptus x studleyensis* because it was once considered a threatened regional species.
+An issue arises because existing regional lists like the Victorian threatened species list (`dr655`) still contain the name *Eucalyptus x studleyensis* because it is still considered a threatened species at state level.
 
 ```{r}
 search_all(lists, "Victoria : Conservation Status") |>
@@ -462,7 +470,7 @@ The solution here is a little less clear. Depending on the goals of the investig
 
 ### Missing higher taxonomic information
 
-It's not uncommon to receive data that are missing information at some taxonomic levels, but this can make it tricky to summarise data or create visualisations based on taxonomy later on.
+It's not uncommon to receive data that are missing information at some taxonomic levels, but this can make it tricky to summarise data or create visualisations based on taxonomy later on. It can also interfere with names matching processes if there are homonyms. 
 
 As an example, here is a small sample of our `inverts` dataset. You'll notice that we only have information on `scientific_name`, `class`, and `family`.
 
@@ -567,7 +575,7 @@ eucalypts |>
   count(name = "n_species")
 ```
 
-Let's say we want to compare these observations to data retrieved outside of the ALA and decide that we'd prefer to use GBIF's[^taxonomic-validation-1] taxonomy. ALA data uses its own taxonomic backbone that differs to GBIF's (depending on the taxonomic group), so we will need to amend our taxonomic names to match GBIF's.
+Let's say we want to compare these observations to data retrieved outside of the ALA and decide that we'd prefer to use GBIF's[^taxonomic-validation-1] taxonomy. ALA data uses a taxonomic backbone based on the National Species List, maintained by the Australian Biological Resources Study, that differs from GBIF's, so we will need to amend our taxonomic names to match GBIF's.
 
 [^taxonomic-validation-1]: [Global Biodiversity Infrastructure Facility (GBIF)](https://www.gbif.org/)
 
@@ -706,7 +714,7 @@ ala_taxa |>
   select(scientific_name, phylum, class, order)
 ```
 
-We might not know about this issue when we first decide to match GBIF's taxonomic names to our data. So it's important to investigate how well these names match (and where there are any mismatches) before merging them to our complete `eucalypts` data.
+We might not know about this issue when we first decide to match GBIF's taxonomic names to our data. So it's important to investigate how well these names match (and where there are mismatches) before merging them to our complete `eucalypts` data.
 
 Now that we are aware of the differences between GBIF and ALA names, if we would like to use GBIF's taxonomic names, we can join the columns with the suffix `_gbif` to our `eucalypt` occurrences data, and then replace the old taxonomic names columns with the GBIF names columns[^taxonomic-validation-4].
 
@@ -728,16 +736,28 @@ eucalypts_updated_names |>
   rmarkdown::paged_table()    # paged table output
 ```
 
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Global vs. Australian taxonomy
+
+Be aware that there are many areas of disagreement between global taxonomies and Australian taxonomy. A well known one was (until recently) that Australian tree frogs (hylids) were known by the genus name *Litoria* in Australia, but *Ranoidea* internationally. Searching for "Litoria" in GBIF would not previously return all Australian hylid records and the converse was true in the ALA.
+
+:::  
+
 ## Detecting synonyms
 
-Scientific discoveries and advances in our understanding of evolutionary relationships can cause changes in taxonomy. These taxonomic changes can sometimes result in synonyms being created. Taxonomic **synonyms** refer to two or more names of the same rank, that denote the same taxon. It can be difficult to spot synonyms in your dataset, but ignoring them can result in errors during analysis, such as artificially inflated numbers of taxa or assuming misleading relationships among taxa.
+Scientific discoveries and advances in our understanding of evolutionary relationships can cause changes in taxonomy. Species can be renamed, or be placed in different genera or even families. **Taxonomic synonyms** are created as a result of these changes. Taxonomic synonyms refer to two or more scientific names that denote the same taxon. It can be difficult to spot synonyms in your dataset, but ignoring them can result in errors during analysis, such as artificially inflated numbers of taxa or assuming misleading relationships among taxa.
 
 Here are some examples of synonyms.
 
 ::::::: {.panel-tabset .nav-pills}
 #### Frogs
 
-*Ranoidea caerulea* is a synonym of *Litoria caerulea*, a species of frog. The genus and species returned differs between GBIF and the ALA.
+*Ranoidea caerulea* is a synonym of *Litoria caerulea*, a species of frog. To date, *R. caerulea* has been the accepted name globally but *L. caerulea* is the preferred scientific name used in Australia. They are now both synonyms of *Pelodryas caerulea*, described in 2025[^taxonomic-validation-5], which has not yet been widely adopted. The genus and species returned differs between GBIF and the ALA.
+
+[^taxonomic-validation-5]: Stephen C Donnellan, Michael J Mahony, Damien Esquerré, Ian G Brennan, Luke C Price, Alan Lemmon, Emily Moriarty Lemmon, Rainer Günther, Paul Monis, Terry Bertozzi, J Scott Keogh, Glenn M Shea, Stephen J Richards, Phylogenomics informs a generic revision of the Australo-Papuan treefrogs (Anura: Pelodryadidae), *Zoological Journal of the Linnean Society*, Volume 204, Issue 2, June 2025, [https://doi.org/10.1093/zoolinnean/zlaf015](https://doi.org/10.1093/zoolinnean/zlaf015)
+
+
 
 ```{r}
 #| warning: false
@@ -800,9 +820,7 @@ ala_taxa |>
 ::::
 :::::::
 
-In the above examples, taxonomic searches match correctly in GBIF because GBIF uses a special, massive database of accepted and superseded names and synonyms. This massive names database allows GBIF to match *lots* of different names. ALA, on the other hand, uses a much smaller taxonomic names database that matches its current taxonomic backbone. This names database is smaller, making it easier to store, but less complete than GBIF's.
-
-Using tools like `search_taxa()` in galah is a useful way to check whether a search returns the taxonomic information you expect.
+In the above examples, taxonomic searches match differently in GBIF and the ALA because each accepts a different preferred name. Using tools like `search_taxa()` in galah is a useful way to check whether a search returns the taxonomic information you expect.
 
 ### Checking for synonyms
 
@@ -845,9 +863,17 @@ All names under `species` are *Eucalyptus leucoxylon*, and yet there are \*\*lot
 
 ## Detecting homonyms
 
-Homonyms are identical names that are used to refer to different taxa. For example, the name *Morganella* is a [genus of bacteria](https://bie.ala.org.au/species/NZOR-6-116469), a [genus of fungi](https://bie.ala.org.au/species/https://id.biodiversity.org.au/node/fungi/60091999#overview), a [genus of scale insect](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/3d1bad6b-4753-430c-a009-c6f4787b3421), and a [genus of brachiopod](https://en.wikipedia.org/wiki/List_of_brachiopod_genera) from the Devonian period[^taxonomic-validation-5]!
+Homonyms are identical names that are used to refer to different taxa. For example, the name *Morganella* is a [genus of bacteria](https://bie.ala.org.au/species/NZOR-6-116469), a [genus of fungi](https://bie.ala.org.au/species/https://id.biodiversity.org.au/node/fungi/60091999#overview), a [genus of scale insect](https://bie.ala.org.au/species/https://biodiversity.org.au/afd/taxa/3d1bad6b-4753-430c-a009-c6f4787b3421), and a [genus of fossil brachiopod](https://en.wikipedia.org/wiki/List_of_brachiopod_genera) from the Devonian period[^taxonomic-validation-6]!
 
-[^taxonomic-validation-5]: Referred to as "[the Age of Fishes](https://www.nps.gov/articles/000/devonian-period.htm#)", the Devonian Period occurred \~419 to \~359 million years ago.
+[^taxonomic-validation-6]: Referred to as "[the Age of Fishes](https://www.nps.gov/articles/000/devonian-period.htm#)", the Devonian Period occurred \~419 to \~359 million years ago.
+
+:::{.callout-note collapse="true" appearance="minimal"}
+
+#### Capitalisation standards
+
+If you're cleaning strings with a method that is case sensitive, it is important to be aware of capitalisation standards for scientific names. For example, the first letter of genus should always be capitalised and the species name (and any subspecies, varieties etc.) should always be lower case (e.g. *Homo sapiens*). Not using the correct case increases the likelihood of encountering a homonym error. The only time this is not true is if you are using an undescribed species name such as *Anilios* sp. ‘Cape Range’ or *Grevillea* sp. Victoria Desert (R.Davis et al. RD 11611) WA Herbarium*. In these cases it is essential to get the capitalisation and spacing identical (note, for example the absence of a space between “R.” and “Davis”, which is a standard used by all herbaria in Australia).
+
+:::
 
 When you search for names with `search_taxa()` from the galah package, you'll receive a warning if there is a homonym issue.
 
@@ -901,11 +927,9 @@ Using the resolved name, we can search for its Taxonomic Serial Number using `ge
 
 <!-- Note: `get_tsn()` has timed out in the past (and could be a source of future errors) -->
 
-<!-- TODO: Check if this is working again -->
-
 ```{r}
 # Retrieve synonyms
-tsn <- get_tsn(resolved$matchedCanonicalSimple) # works as of 2025-09-19
+tsn <- get_tsn(resolved$matchedCanonicalSimple) # works as of 2025-10-03
 synonyms(tsn) 
 ```
 
@@ -1003,6 +1027,12 @@ Programmatic solutions for validating taxonomy can only go so far. To obtain a h
 Here is a list of some Australian taxonomic society groups to help validate taxonomies.
 
 ### Australian taxonomic society groups
+
+**ALL SPECIES IN AUSTRALIA** 
+
+You can contact the ALA’s helpdesk, who can answer your query or pass you to the relevant experts: support@ala.org.au. 
+
+The best first port of call for queries on species names in Australia is the [National Species List](https://biodiversity.org.au/nsl/) , which is maintained by the Australian Government’s Australian Biological Resources Study. If the list itself cannot help, then a query to the ABRS will often quickly resolve an issue.
 
 **VERTEBRATES**
 

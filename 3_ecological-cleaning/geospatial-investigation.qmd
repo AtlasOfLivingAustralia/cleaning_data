@@ -304,7 +304,7 @@ removal of decimal points from decimal coordinates, rounded to distances of 1km,
 
 [^randomisation]: Alternatively, *randomisation* involves placing an observation in a new location randomly within certain distance from its true location. For example iNaturalist randomises their data at a 30 km resolution prior to sharing data with the Atlas of Living Australia.
 
-:::{.callout-note collapse="true"}
+:::{#note-generalisation .callout-note collapse="true"}
 ##### How does generalisation work?
 
 When points are generalised, all points within the same grid cell will snap to the same corner regardless of where they sit within the grid cell. In Australia, this is the north west corner, in Brazil it’s the north east corner, in China it’s the south west corner and in Europe it’s the south east corner. The animation below demonstrates how this affects data points rounded from 4 decimals (frame 1), to 2 decimals (frame 2), to 1 decimal (frame 3)[^decimals]. Note that longitude values (`x`) are always rounded down and latitude values (`y`) are always rounded up to ensure all points in the grid generalise to the same corner.
