@@ -36,3 +36,19 @@ Update 2025-09: Matt Andrews added a `CNAME` file to the `gh-pages` branch that 
 Run the code in `/scripts/1_generate-doi.R` to rerun all galah queries in the Prerequisite sections of each chapter and regenerate DOIs for these newly run queries. This will save each of the results under a specific DOI (using `galah::atlas_occurrences(mint_doi = TRUE)`). These DOIs can then be used by galah to retrieve these exact results again.
 
 Updated data DOIs are stored in `/data/galah-dois/doi_table`. Each Prerequisite section will use this table to retrieve the desired DOIs necessary for the chapter.
+
+Note that if you update `/data/pardalotes.csv` file, be nice to others and store the most recent version on the Science & Decision Support Teams folder in `/Data/data-cleaning-book/data/`
+
+## Not updating data?
+
+If you want to render the book but aren't updating data, you'll need to make sure you have a few data files on your system first. These files are either too large to include on the repository (and therefore on .gitignore) or generated in the data/DOI generating process.
+
+The two main files are:
+
+-   `/data/rasters/aggregated_bioclim.tif`
+
+-   `/data/pardalotes.csv`
+
+You can find the most recent version of these files here:
+
+<https://csiroau.sharepoint.com/:f:/r/sites/AtlasofLivingAustraliaTeams/Shared%20Documents/Teams/Science%20and%20Decision%20Support/Data/data-cleaning-book/data?csf=1&web=1&e=xxybs4>
