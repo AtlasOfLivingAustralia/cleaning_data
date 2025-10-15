@@ -296,7 +296,7 @@ banksia <- banksia |>
 
 ## Obfuscated locations
 
-Some species observations are classified as restricted access or sensitive, meaning that information about these species and where they are located is restricted for some reason (e.g., subject to poaching or misuse, privacy concerns, or economically species records of biosecurity species eradications). Occurrence records of sensitive species may be deliberately *obfuscated*---have their locations *generalised* or *randomised*---to protect the true locations of these species. Although increasing uncertainty makes these data more difficult to work with, obfuscation helps to avoid risks like poaching or capture while still allowing these species’ data to be included in broader summaries.
+Some species observations are classified as restricted access or sensitive, meaning that information about these species and where they are located is restricted for some reason (e.g., subject to poaching or misuse, privacy concerns, or economically important species records of biosecurity species eradications). Occurrence records of sensitive species may be deliberately *obfuscated*---have their locations *generalised* or *randomised*---to protect the true locations of these species. Although increasing uncertainty makes these data more difficult to work with, obfuscation helps to avoid risks like poaching or capture while still allowing these species’ data to be included in broader summaries.
 
 There are a couple of ways to obfuscate locations, either by *randomisation* or 
 *generalisation*. Generalisation, the method used by the ALA, involves the 

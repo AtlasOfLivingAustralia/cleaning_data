@@ -271,7 +271,7 @@ vic_species_list
 
 1.  We are using the list ID `dr490` (specified in the `species_list_uid` column) to make sure we return the correct list
 
-We can now compare the taxa in `vic_species_list` to those in our `legless_lizards` dataset to identify any species whose distributions have been generalised.
+We can now compare the taxa in `vic_species_list` to those in our `legless_lizards` dataset to identify any species whose records have been generalised.
 
 ```{r}
 legless_lizards_filtered <- legless_lizards |>
@@ -740,13 +740,13 @@ eucalypts_updated_names |>
 
 #### Global vs. Australian taxonomy
 
-Be aware that there are many areas of disagreement between global taxonomies and Australian taxonomy. A well known one was (until recently) that Australian tree frogs (hylids) were known by the genus name *Litoria* in Australia, but *Ranoidea* internationally. Searching for "Litoria" in GBIF would not previously return all Australian hylid records and the converse was true in the ALA.
+Be aware that there are many areas of disagreement between global taxonomies and Australian taxonomy. A well known case was (until recently) that Australian tree frogs (hylids) were known by the genus name *Litoria* in Australia, but *Ranoidea* internationally. Searching for "Litoria" in GBIF would not previously return all Australian hylid records and the converse was true in the ALA.
 
 :::  
 
 ## Detecting synonyms
 
-Scientific discoveries and advances in our understanding of evolutionary relationships can cause changes in taxonomy. Species can be renamed, or be placed in different genera or even families. **Taxonomic synonyms** are created as a result of these changes. Taxonomic synonyms refer to two or more scientific names that denote the same taxon. It can be difficult to spot synonyms in your dataset, but ignoring them can result in errors during analysis, such as artificially inflated numbers of taxa or assuming misleading relationships among taxa.
+Scientific discoveries and advances in our understanding of evolutionary relationships can cause changes in taxonomy. Species can be renamed, split into several species, or be placed in different genera or even families. **Taxonomic synonyms** are created as a result of these changes. Taxonomic synonyms refer to two or more scientific names that denote the same taxon. It can be difficult to spot synonyms in your dataset, but ignoring them can result in errors during analysis, such as artificially inflated numbers of taxa or assuming misleading relationships among taxa.
 
 Here are some examples of synonyms.
 
@@ -822,7 +822,7 @@ ala_taxa |>
 
 In the above examples, taxonomic searches match differently in GBIF and the ALA because each accepts a different preferred name. Using tools like `search_taxa()` in galah is a useful way to check whether a search returns the taxonomic information you expect.
 
-### Checking for synonyms
+### Checking for synonyms {#sec-synonyms}
 
 Some species lists return accepted names *and* synonyms. For example, here is a species list of *Eucalyptus* downloaded from GBIF (which we used earlier in the chapter).
 
@@ -854,12 +854,17 @@ gbif_species_list
 GBIF species lists include a `taxonomicStatus` column that supplies information of whether a taxonomic name is accepted or a synonym. A good example is the list of names for *Eucalyptus leucoxylon*, which has a number of accepted subspecies names and synonyms.
 
 ```{r}
-gbif_species_list |>
+e_leucoxylon_names <- gbif_species_list |>
   filter(species == "Eucalyptus leucoxylon") |>
   select(species, taxonRank, taxonomicStatus, acceptedScientificName)
+
+e_leucoxylon_names
 ```
 
-All names under `species` are *Eucalyptus leucoxylon*, and yet there are \*\*lots\* of names associated with varieties, subspecies and species. The main takeaway from this example is that some species can have many accepted names and synonyms depending on the taxonomic level you are interested in. GBIF species lists are one useful way to determine what accepted names might be suitable for your data.
+All names under `species` are *Eucalyptus leucoxylon*, and yet there are \*\*lots\* of names associated with varieties, subspecies and species. The main takeaway from this example is that some species can have many accepted names and synonyms depending on the taxonomic level you are interested in. GBIF species lists are one useful way to determine what accepted names might be suitable for your data. 
+
+For Australian data more specifically, [The National Species List](https://biodiversity.org.au/nsl/) is the accepted national standard for checking scientific names and the recommended place to start. If you are working with plant data, the [APCalign](https://traitecoevo.github.io/APCalign/index.html) package offers tools to align and update Australian plant taxon names (see the [Packages section](#sec-packages) below for more detail).
+
 
 ## Detecting homonyms
 
@@ -897,7 +902,7 @@ galah_call() |>
 
 For more information on advanced taxonomic filtering in galah, you can read [this vignette on the package website](https://galah.ala.org.au/R/articles/taxonomic_filtering.html).
 
-## Packages
+## Packages {#sec-packages}
 
 There are several packages available that can be used to query different taxonomic databases and check for synonyms.
 
@@ -1018,6 +1023,37 @@ marine_sp |>
   wm_synonyms() |>
   select(AphiaID, scientificname, status)
 ```
+
+
+### APCalign
+
+The [APCalign](https://traitecoevo.github.io/APCalign/index.html) package uses the [Australian Plant Census (APC)](https://biodiversity.org.au/nsl/services/search/taxonomy) and [Australian Plant Name Index (APNI)](https://biodiversity.org.au/nsl/services/search/names) to help users update species lists and match them to their established status (native/introduced) within different states/territories. Using our *Eucalyptus leucoxylon* example, let's return the aligned, accepted and suggested name of the first 5 accepted scientific names in our `e_leucoxylon_names`.
+
+```{r}
+#| message: false
+#| warning: false
+library(APCalign)
+
+create_taxonomic_update_lookup( 
+  taxa = e_leucoxylon_names$acceptedScientificName[1:5]
+)
+```
+
+Notice that the results are slightly different to those in `gbif_species_list` example that that we saw above in the [Synonyms section](#sec-synonyms). Specifically, several synonyms are categorised as accepted subspecies names, which more accurately aligns to the APC's accepted taxonomic names.
+
+APCalign provides additional functions like [`align_taxa()`](https://traitecoevo.github.io/APCalign/reference/align_taxa.html) and [`update_taxonomy()`](https://traitecoevo.github.io/APCalign/reference/update_taxonomy.html) to help update larger lists of taxonomic names and provide explanations about how names were matched.
+
+```{r}
+aligned_taxa <-
+  APCalign::align_taxa(
+    original_name = e_leucoxylon_names$acceptedScientificName[1:5],
+    identifier = "APCalign test"
+  ) 
+
+aligned_taxa |>
+  rmarkdown::paged_table() # paged table format
+```
+
 ::::
 
 ## Input from experts
@@ -1032,7 +1068,7 @@ Here is a list of some Australian taxonomic society groups to help validate taxo
 
 You can contact the ALA’s helpdesk, who can answer your query or pass you to the relevant experts: support@ala.org.au. 
 
-The best first port of call for queries on species names in Australia is the [National Species List](https://biodiversity.org.au/nsl/) , which is maintained by the Australian Government’s Australian Biological Resources Study. If the list itself cannot help, then a query to the ABRS will often quickly resolve an issue.
+The best first port of call for queries on species names in Australia is the [National Species List](https://biodiversity.org.au/nsl/), which is maintained by the Australian Government’s Australian Biological Resources Study. If the list itself cannot help, then a query to the ABRS will often quickly resolve an issue.
 
 **VERTEBRATES**
 
