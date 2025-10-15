@@ -142,5 +142,5 @@ Quarto files are useful for reproducibility because they make it possible to ren
 
 ## Code review
 
-Outside of data science tools to improve reproducibility, [code review can be revolutionary for improving code reproducibility](@ivimey-cook_implementing_2023). Asking others to review your code, though scary, can provide opportunity to identify ways to make code more efficient and stable.
+Outside of data science tools to improve reproducibility, code review can be revolutionary for improving code reproducibility [@ivimey-cook_implementing_2023]. Asking others to review your code, though scary, can provide opportunity to identify ways to make code more efficient and stable.
 
