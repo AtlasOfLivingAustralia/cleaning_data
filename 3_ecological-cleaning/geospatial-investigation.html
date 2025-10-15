@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -540,7 +560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>In a quick glance, we can check whether there are any records in places that they shouldn’t be. Are there records in the ocean? Are there records in states/territories where our species definitely doesn’t live? Is the data too sparse to use for our expected analysis plan?</p>
-<p>Lucky for us, the <code>banksia</code> data we just plotted doesn’t seem to have any obvious issues!</p>
+<p>Lucky for us, the <code>banksia</code> data we just plotted doesn’t seem to have any glaring issues, though you might notice some stray points in Tasmania and inland Australia that deserve some additional interrogating!</p>
 </section>
 <section id="precision" class="level2" data-number="9.2">
 <h2 data-number="9.2" class="anchored" data-anchor-id="precision"><span class="header-section-number">9.2</span> Precision</h2>
@@ -601,9 +621,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="uncertainty" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="uncertainty"><span class="header-section-number">9.3</span> Uncertainty</h2>
-<!-- I got a little confused here initially, and I wonder if it would be less (potentially) confusing to refer to precision and accuracy instead, and explain that accuracy is referred to as uncertainty in the ALA? I'm still not even sure I have correctly understood this, so feel free to ignore if I've gotten it wrong - SB -->
-<p>Similarly, not all observations have the same degree of accuracy. An organism’s <em>exact</em> location will likely have an area of uncertainty around it. This uncertainty can vary due to the opportunistic condition of an observation (a species was observed at some distance before moving elsewhere), or from inaccurate measurement or documentation. However, a main distinction between record uncertainty and record precision is that data infrastructures like the ALA can <em>add uncertainty</em> to a record, usually <a href="../3_ecological-cleaning/geospatial-investigation.html#obfusctaed-locations">for sensitivity purposes</a> (described in more detail in the next section). Although adding uncertainty to data is important for protecting individual species, uncertainty inevitably affects <a href="https://besjournals.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1365-2664.2007.01408.x">how robust the results from species distribution models are</a>, so it is important to be aware of location uncertainty.</p>
-<p>When downloading data from the ALA with the galah package, it’s possible to include the <a href="https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters"><code>coordinateUncertaintyInMeters</code></a> field with your data. This refers to the margin of error, represented as a circular area, around the true location of the recorded observation. We added this column in our <a href="../3_ecological-cleaning/geospatial-investigation.html#prerequisites">original galah query</a>.</p>
+<p>Uncertainty is a measure of how different an unknown true value might be from a given value. In georeferencing, we use uncertainty to refer to the maximum distance from a georeferenced coordinate to the furthest point where the true location might be. This uncertainty value is a combination of all the possible sources of error given as a distance <span class="citation" data-cites="chapman_georeferencing_2020">(<a href="../references.html#ref-chapman_georeferencing_2020" role="doc-biblioref">Chapman and Wieczorek 2020</a>)</span>, taking into account issues like an unknown coordinate projection, derived geocoordinates (e.g., using geocoordinates for a described town or creek) or any uncertainty around an observation’s specific location.</p>
+<p>An additional factor that can affect the uncertainty of a geocoordinate is the practice of obfuscation—using standard methods to hide the original location of a record. This is discussed more in the <a href="../3_ecological-cleaning/geospatial-investigation.html#obfuscated-locations">next section</a>. Although adding uncertainty to data is important for protecting individual species, uncertainty inevitably affects <a href="https://besjournals.onlinelibrary.wiley.com/doi/pdfdirect/10.1111/j.1365-2664.2007.01408.x">how robust the results from species distribution models are</a>, so it is important to be aware of location uncertainty.</p>
+<p>When downloading data from the ALA with the galah package, it’s possible to include the <a href="https://dwc.tdwg.org/terms/#dwc:coordinateUncertaintyInMeters"><code>coordinateUncertaintyInMeters</code></a> field with your data. We added this column in our <a href="../3_ecological-cleaning/geospatial-investigation.html#prerequisites">original galah query</a>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>banksia <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName,</span>
@@ -656,9 +676,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="obfuscated-locations" class="level2 page-columns page-full" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="obfuscated-locations"><span class="header-section-number">9.4</span> Obfuscated locations</h2>
-<p>Some species observations are classified as <em>sensitive</em>, meaning that information about these species and where they are located is restricted for some reason (e.g., endangered, subject to poaching or misuse, privacy concerns). Occurrence records of sensitive species may be deliberately <em>obfuscated</em>—have their their locations made less accurate—to protect the true locations of these species. Although removing accuracy makes these data more difficult to work with, obfuscation helps to avoid risks like poaching or capture while still allowing these species’ data to be included in broader summaries.</p>
-<p>There are a couple of ways to obfuscate locations, either by <em>randomisation</em> or <em>generalisation</em>. Generalisation, the method used by the ALA, involves the removal of decimal points from decimal coordinates, rounded to distances of 1km, 10km or 50km (in accordance with state/territory legislation)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. This effectively ‘snaps’ any point within a grid cell to the corner of that cell.</p>
-<div class="callout callout-style-default callout-note callout-titled">
+<p>Some species observations are classified as restricted access or sensitive, meaning that information about these species and where they are located is restricted for some reason (e.g., subject to poaching or misuse, privacy concerns, or economically important species records of biosecurity species eradications). Occurrence records of sensitive species may be deliberately <em>obfuscated</em>—have their locations <em>generalised</em> or <em>randomised</em>—to protect the true locations of these species. Although increasing uncertainty makes these data more difficult to work with, obfuscation helps to avoid risks like poaching or capture while still allowing these species’ data to be included in broader summaries.</p>
+<p>There are a couple of ways to obfuscate locations, either by <em>randomisation</em> or <em>generalisation</em>. Generalisation, the method used by the ALA, involves the removal of decimal points from decimal coordinates, rounded to distances of 1km, 10km or 50km (in accordance with state/territory policies)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. This effectively ‘snaps’ any point within a grid cell to a corner of that cell.</p>
+<div id="note-generalisation" class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -772,7 +792,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 2 raw_dataGeneralizations &lt;NA&gt;                               fields</code></pre>
 </div>
 </div>
-<p>For example, the Western Swamp Tortoise is <a href="https://www.dcceew.gov.au/environment/biodiversity/threatened/action-plan/priority-reptiles/western-swamp-tortoise">a critically endangered species in Western Australia</a>. There are 132 records of this species in the ALA.</p>
+<p>For example, the Western Swamp Tortoise is <a href="https://www.dcceew.gov.au/environment/biodiversity/threatened/action-plan/priority-reptiles/western-swamp-tortoise">a critically endangered species in Western Australia</a> that is also a restricted access species. There are 132 records of this species in the ALA.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Pseudemydura umbrina"</span>) <span class="sc">|&gt;</span></span>
@@ -843,6 +863,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the next chapter, we’ll see examples of issues with coordinates that require correcting or removing.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-chapman_georeferencing_2020" class="csl-entry" role="listitem">
+Chapman, Arthur, and John Wieczorek. 2020. <span>“Georeferencing <span>Best</span> <span>Practices</span>.”</span> <a href="https://doi.org/10.15468/DOC-GG7H-S853">https://doi.org/10.15468/DOC-GG7H-S853</a>.
+</div>
+</div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
