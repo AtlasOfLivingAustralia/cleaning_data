@@ -9,6 +9,8 @@ Taxonomic classification is in a state of constant change. Advances in methods, 
 
 This process of changing taxonomy makes working with open-source biodiversity data challenging. Views may differ within the literature or across authorities about which taxonomy is correct. In different countries, one taxonomy might better describe the native taxonomic diversity than others. Data infrastructures must also make choices about which taxonomic authorities to use, and different infrastructures inevitably make different decisions.
 
+Another important issue is that when using data from multiple data providers, there is no guarantee that each data provider uses the same taxonomic resolution. If, for example, you are interested in viewing subspecies records for birds, many larger datasets don't share their dataset with subspecies information included (e.g., Birdlife). This means that in order to look for records for a subspecies you may need to search at both the species and subspecies level to find all relevant records. 
+
 As a result, most taxonomic data will need checking and cleaning before analysis. You will encounter situations where the same taxon has several names (synonyms) or where the same name can refer to several entirely unrelated taxa (homonyms). These situations can be tricky to identify and therefore clean when working with taxonomic data.
 
 While there is no perfect solution, some tips, tricks, and tools do exist. In this chapter we will go through some of these to clean taxonomic data, including ways of dealing with missing taxonomic information, and detecting synonyms and homonyms.
@@ -294,24 +296,26 @@ This process has removed more than 140 records from our dataset.
 nrow(legless_lizards) - nrow(legless_lizards_filtered)
 ```
 
-We can also filter our queries *prior* to downloading data in galah by adding a filter specifying `species_list_uid == dr490` to our query.
+We can also filter our queries *prior* to downloading data in galah by adding a filter specifying `species_list_uid == dr490` to our query. We'll also filter our result to only records in Victoria as this is a state-specific list.
 
 ```{r}
 galah_call() |>
   identify("Pygopodidae") |>
-  filter(species_list_uid == dr490) |> # <1>
+  filter(species_list_uid == dr490, # <1>
+         stateProvince == "Victoria") |>
   group_by(species) |>
   atlas_counts()
 ```
 
 1.  We are using the list ID `dr490` (specified in the `species_list_uid` column) to make sure we return the correct list
 
-It's important to consider the level of taxonomic identification in a given list; some contain genus, species and subspecies names. The results above are limited to return only names matched to the species level, but to return the lowest taxonomic name identified we can group by `scientificName`.
+It's important to consider the level of taxonomic identification in a given list; some contain genus, species and subspecies names. The results above are limited to return only names matched to the species level, but to return the lowest taxonomic name identified we can group by `scientificName` (this is a bad example because the lowest level of identification *is* the species level).
 
 ```{r}
 galah_call() |>
   identify("Pygopodidae") |>
-  filter(species_list_uid == dr490) |> # <1>
+  filter(species_list_uid == dr490, # <1>
+         stateProvince == "Victoria") |> 
   group_by(scientificName) |>
   atlas_counts()
 ```
