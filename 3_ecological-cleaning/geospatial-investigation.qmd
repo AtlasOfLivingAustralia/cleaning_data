@@ -90,14 +90,14 @@ quokkas <- galah_call() |>
 ```
 
 ::::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/6/1/1/401b8f4d-d896-493c-9c93-e0aecca9116f/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/f/6/1/1/401b8f4d-d896-493c-9c93-e0aecca9116f/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Banksia serrata*.<br>Photo by kate_and_sam CC-BY-NC 4.0
 (Int)](https://biocache.ala.org.au/occurrences/7a57075b-57fa-4b56-9565-29e8aea08223)
 :::
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/9/b/a/d/d994e948-cdb1-4e33-a925-dfce99bbdab9/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/9/b/a/d/d994e948-cdb1-4e33-a925-dfce99bbdab9/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Setonix brachyurus* munching on leaves.<br>Photo by Stephen Cox

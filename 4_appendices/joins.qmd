@@ -77,7 +77,7 @@ starlings_taxonomy <- galah_call() |>
 
 :::{.aside}
 
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/9/0/8/4/4a8c739b-5c41-4754-b064-ea96d0104809/original"></img>
+<img class = "rounded" src="https://images-assets.ala.org.au/store/9/0/8/4/4a8c739b-5c41-4754-b064-ea96d0104809/thumbnail_large"></img>
 
 ::: {.figure-caption}
 [*Sturnus (Sturnus) vulgaris* perched on a branch. Photo by Rob Solic CC-BY-NC 4.0

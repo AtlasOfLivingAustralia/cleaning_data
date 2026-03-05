@@ -126,25 +126,25 @@ gbif_species_list <- arrow::read_parquet(
 ```
 
 ::::::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Todiramphus (Todiramphus) sanctus* perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3)
 :::
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/7/a/b/3544fca1-e201-4e90-8551-64e73ed6ba7c/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/c/7/a/b/3544fca1-e201-4e90-8551-64e73ed6ba7c/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Paradelma orientalis* smiling at the camera.<br>Photo by dhfischer CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/1ccd81c3-a642-4d78-a6a3-4393978e6a73)
 :::
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Paralaoma mucoides* on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/8a44a8df-2819-45d4-b8c5-e6dc7629e0fe)
 :::
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Eucalyptus leucoxylon* leaves and flowers.<br>Photo by davidsando CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2)
@@ -257,7 +257,13 @@ list_search
 
 Filtering our results to authoritative lists only can help us find official state lists.
 
+:::{.callout-warning}
+# Broken in galah version 2.2.0
+The `isAuthoritative` column is missing in the output of `search_all(lists)` in galah version 2.2.0. As a result, the following code chunk doesn't work as a filtering method for now.
+:::
+
 ```{r}
+#| eval: FALSE
 list_search |> 
   filter(isAuthoritative == TRUE)
 ```
@@ -283,7 +289,7 @@ legless_lizards_filtered
 ```
 
 :::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/7/a/b/3544fca1-e201-4e90-8551-64e73ed6ba7c/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/c/7/a/b/3544fca1-e201-4e90-8551-64e73ed6ba7c/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Paradelma orientalis* smiling at the camera.<br>Photo by dhfischer CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/1ccd81c3-a642-4d78-a6a3-4393978e6a73)
@@ -486,7 +492,7 @@ inverts_sample |> print(n = 5)
 ```
 
 :::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Paralaoma mucoides* on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/8a44a8df-2819-45d4-b8c5-e6dc7629e0fe)
@@ -563,7 +569,7 @@ eucalypts
 ```
 
 :::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/3/0/2/e/1ebe2767-0f46-43ba-afe1-c49d4046e203/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Eucalyptus leucoxylon* leaves and flowers.<br>Photo by davidsando CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/f9db3de0-65aa-4e30-b430-ac1eff8821d2)
@@ -698,7 +704,7 @@ gbif_taxa <- search_taxa("Eucalyptus")
 
 # Show relevant columns
 gbif_taxa |>
-  select(scientific_name, phylum, class, order)
+  select(canonical_name, phylum, class, order)
 ```
 
 ...whereas in the ALA, *Eucalyptus* sits in the phylum *Charophyta* and the class *Equisetopsida*.
@@ -770,7 +776,7 @@ galah_config(atlas = "gbif")
 gbif_taxa <- search_taxa("Litoria caerulea")
 
 gbif_taxa |> 
-  select(scientific_name, genus, species)
+  select(canonical_name, genus, species)
 ```
 
 ```{r}
@@ -784,7 +790,7 @@ ala_taxa |>
 ```
 
 :::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/b/7/5/6/ed83fa14-2ef0-4abd-a90b-fedc7cd1657b/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/b/7/5/6/ed83fa14-2ef0-4abd-a90b-fedc7cd1657b/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Litoria caerulea* sitting on some tiles.<br>Photo by Thomas Mesaglio CC-BY 4.0 (Int)](https://biocache.ala.org.au/occurrences/310a0f9e-bf87-4a7f-a92c-80d9282e88ef)
@@ -802,7 +808,7 @@ galah_config(atlas = "gbif")
 gbif_taxa <- search_taxa("commersonia rosea")
 
 gbif_taxa |> 
-  select(scientific_name, genus, species)
+  select(canonical_name, genus, species)
 ```
 
 ```{r}
@@ -816,7 +822,7 @@ ala_taxa |>
 ```
 
 :::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/7/b/7/210de50e-d758-41f1-8f87-448343937b73/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/3/7/b/7/210de50e-d758-41f1-8f87-448343937b73/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Androcalva roseava rosea* flowering.<br>Photo by Will Cornwell CC-BY 4.0 (Int)](https://biocache.ala.org.au/occurrences/4f3def8a-8f02-40fe-9ce3-b08663a5d899)

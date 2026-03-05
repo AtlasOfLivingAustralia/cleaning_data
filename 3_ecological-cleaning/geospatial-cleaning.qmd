@@ -151,7 +151,7 @@ bitter_peas <- galah_call() |>
 ```
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Eremophila macdonnellii* aka MacDonnell's desert fuschia.<br>Photo by
@@ -159,28 +159,28 @@ M. Fagg CC-BY 3.0
 (Au)](https://biocache.ala.org.au/occurrences/fcf8a190-5e7b-45b9-9f7d-402dd3e230fd)
 :::
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Litoria chloris* standing on leaves.<br>Photo by Reiner Richter
 CC-BY](https://biocache.ala.org.au/occurrences/e0d5d604-e148-408e-8dbf-984f42701b4c)
 :::
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Dasyuroides byrnei* pair captured in red light.<br>Photo by Ged Tranter 
 CC-BY](https://biocache.ala.org.au/occurrences/fa0c5c98-007a-4af9-b6db-0c8dcacaeaf5)
 :::
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Acacia aneura* flowering.<br>Photo by rachbaxter CC-BY-NC 4.0
 (Int)](https://biocache.ala.org.au/occurrences/9081b056-df23-495c-806e-fc5b265afb3a)
 :::
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Heteronympha merope merope* resting on leaf litter.<br>Photo by
@@ -188,7 +188,7 @@ Mononymous CC-BY-NC 4.0
 (Int)](https://biocache.ala.org.au/occurrences/6f6f172b-5d8e-4879-b77c-3517e08819e8)
 :::
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Daviesia ulicifolia ruscifolia* flowering.<br>Photo by Warren
@@ -316,7 +316,7 @@ the galah package allows us to identify records flagged as potentially having
 swapped coordinates.
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Eremophila macdonnellii* aka MacDonnell's desert fuschia.<br>Photo by
@@ -392,7 +392,7 @@ ggplot() +
 Misalignment between location metadata and coordinates could indicate errors in the dataset, but it's sometimes possible to rectify these. Let's use red-eyed tree frog data as an example. 
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Litoria chloris* standing on leaves.<br>Photo by Reiner Richter
@@ -522,7 +522,7 @@ flagged as having mismatches between coordinates and country metadata.
 
 ::: aside
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Dasyuroides byrnei* pair captured in red light.<br>Photo by Ged Tranter 
@@ -582,7 +582,7 @@ column to your download allows us to identify records flagged as having zero
 values in the coordinate fields.
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Acacia aneura* flowering.<br>Photo by rachbaxter CC-BY-NC 4.0
@@ -656,7 +656,7 @@ generating centroids for a map or polygon like `sf::st_centroid()` and comparing
 :::
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Heteronympha merope merope* resting on leaf litter.<br>Photo by
@@ -742,7 +742,7 @@ tailing distribution of points in Western Australia with several points
 located near the west coast of Australia.
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Daviesia ulicifolia ruscifolia* flowering.<br>Photo by Warren
@@ -888,7 +888,7 @@ taxon-dependent. As an example, what is one species that has many
 The Great White Shark.
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/8/8/5/1b2967ba-5113-43cb-bff0-3ca958c15885/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/5/8/8/5/1b2967ba-5113-43cb-bff0-3ca958c15885/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Carcharodon carcharias* swimming off the South Australian coast.<br>Photo by Coffin Bay Scuba Co. CC-BY-NC 4.0

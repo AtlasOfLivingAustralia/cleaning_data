@@ -86,13 +86,13 @@ bees <- read_parquet(here(\"path\", \"to\", \"bees.parquet\"))
 
 :::{.aside}
 
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/d/7/e/1f21b7e5-1cc7-45a0-8f83-d8e5dd51e7d2/original"></img>
+<img class = "rounded" src="https://images-assets.ala.org.au/store/2/d/7/e/1f21b7e5-1cc7-45a0-8f83-d8e5dd51e7d2/thumbnail_large"></img>
 
 ::: {.figure-caption}
 [*Dendrolagus lumholtzi* sitting on a branch.<br>Photo by matthewkwan  CC-BY](https://biocache.ala.org.au/occurrences/290bcdef-d02a-49fe-b96b-96865527f02f)
 :::
 
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/0/e/5/277a5c28-827a-49c7-8588-d16333925e00/original"></img>
+<img class = "rounded" src="https://images-assets.ala.org.au/store/0/0/e/5/277a5c28-827a-49c7-8588-d16333925e00/thumbnail_large"></img>
 
 ::: {.figure-caption}
 [*Braunsapis* species hovering in front of a ghost gum tree flower.<br>Photo by Zig Madycki CC-BY-NC-ND 4.0 (Int)](https://biocache.ala.org.au/occurrences/92928258-92a1-4e6b-b9e2-46da0d8df383)
@@ -264,7 +264,7 @@ tree_kangaroo |>
 
 :::{.aside}
 
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/8/1/4/e/3ab85f6a-af7f-47a5-a0d8-19cfae02e418/original"></img>
+<img class = "rounded" src="https://images-assets.ala.org.au/store/8/1/4/e/3ab85f6a-af7f-47a5-a0d8-19cfae02e418/thumbnail_large"></img>
 
 ::: {.figure-caption}
 [*Dendrolagus bennettianus* grasping a tree branch.<br>Photo by David White CC-BY](https://biocache.ala.org.au/occurrences/277f995e-0e7e-45c2-afc6-8fe4bf765294)

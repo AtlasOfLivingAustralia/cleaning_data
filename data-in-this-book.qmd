@@ -44,7 +44,7 @@ This is a subset of a larger dataset---[Curated Plant and Invertebrate Dataset f
 
 ::: aside
 
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/0/e/5/277a5c28-827a-49c7-8588-d16333925e00/original"></img>
+<img class = "rounded" src="https://images-assets.ala.org.au/store/0/0/e/5/277a5c28-827a-49c7-8588-d16333925e00/thumbnail_large"></img>
 
 ::: {.figure-caption}
 [*Braunsapis* species hovering in front of a ghost gum tree flower.<br>Photo by Zig Madycki CC-BY-NC-ND 4.0 (Int)](https://biocache.ala.org.au/occurrences/92928258-92a1-4e6b-b9e2-46da0d8df383)
@@ -69,7 +69,7 @@ This is a subset of a larger dataset---[Curated Plant and Invertebrate Dataset f
 
 ::: aside
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/0/5/6/a/ca48dfdd-15b3-4ac5-a392-cf5f93a6a650/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Paralaoma mucoides* on a rock.<br>Photo by Nick Porch CC-BY-NC 4.0

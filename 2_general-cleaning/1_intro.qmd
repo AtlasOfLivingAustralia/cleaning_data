@@ -12,7 +12,7 @@ The steps provided here are not meant to be followed in linear order. Instead, t
 
 ::: aside
 
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/e/b/3/c/a83dce83-614d-4630-9fff-07dde027c3be/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/e/b/3/c/a83dce83-614d-4630-9fff-07dde027c3be/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Todiramphus (Cyanalcyon) pyrrhopygius* diving through the air. Photo by diana_shang CC-BY-NC 4.0

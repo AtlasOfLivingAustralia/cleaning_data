@@ -72,7 +72,7 @@ frogs <- galah_call() |>
 
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/a/8/f/c3c17ed0-952c-46c5-8de2-0069ff38f8a2/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/2/a/8/f/c3c17ed0-952c-46c5-8de2-0069ff38f8a2/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Litoria watjulumensis* seated on a rock.<br>Photo by simono CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/44ed2cdd-ab7c-4974-b2fd-6a6394d5cd7b)
@@ -265,7 +265,7 @@ frogs |>
 ```
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/e/e/4/8/53fabae9-22c2-448d-9352-bc7cf9e584ee/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/e/e/4/8/53fabae9-22c2-448d-9352-bc7cf9e584ee/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Litoria ewingii* nestled in the mud. <br>Photo by george_vaughan CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/157896a8-868c-4e5f-87f1-d6063450c624)
@@ -386,7 +386,7 @@ frogs_united |> rmarkdown::paged_table() # nice format
 ```
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/1/3/a/7/c5363580-9cee-4a4c-8ae9-1dafdc157a31/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/1/3/a/7/c5363580-9cee-4a4c-8ae9-1dafdc157a31/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Litoria raniformis* close-up <br>Photo by sonyaf CC-BY-NC 4.0 (Int)](https://biocache.ala.org.au/occurrences/ce795264-ebec-4e57-9ff4-e3f91440a747)

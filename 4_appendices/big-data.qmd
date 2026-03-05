@@ -61,7 +61,7 @@ galah_call() |>
 
 :::{.aside}
 
-<img class = "rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/6/2/0/1b7b3e7a-80d8-49e2-be69-f2b7ebb10267/original"></img>
+<img class = "rounded" src="https://images-assets.ala.org.au/store/7/6/2/0/1b7b3e7a-80d8-49e2-be69-f2b7ebb10267/thumbnail_large"></img>
 
 ::: {.figure-caption}
 [*Pardalotus (Pardalotus) punctatus* eating a snack. Photo by sirkendizzle CC-BY-NC 4.0

@@ -74,7 +74,7 @@ plants <- galah_call() |>
 ```
 
 ::: aside
-<img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/8/a/8/9fc9b089-9cb5-401b-bbe4-bf40c12f8a8c/original" class="rounded"/></img>
+<img src="https://images-assets.ala.org.au/store/c/8/a/8/9fc9b089-9cb5-401b-bbe4-bf40c12f8a8c/thumbnail_large" class="rounded"/></img>
 
 ::: figure-caption
 [*Grevillea acanthifolia* flowering.<br>Photo by porcoespinho15 CC-BY-NC
