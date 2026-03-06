@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.9.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Appendix E — Reproducible workflows – Cleaning Biodiversity Data in R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -59,7 +62,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -90,15 +92,14 @@ div.csl-indent {
 <link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5f2055cda669fb4584fdde471100b5f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-18d2e8d228fd9f1b78fdf7672ca3943c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -413,7 +414,7 @@ div.csl-indent {
 
 
 <p>One of the strengths of using code for data cleaning, analysis and visualisation is that, compared to point-and-click software, code is easier to share and use to reproduce results. However, every messy code script won’t magically run on another person’s computer (or even in a few months on your own computer) if a few steps aren’t taken to ensure code can be reliably run again. These steps include small but meaningful things like managing folders/file paths, tracking packages, and documenting what certain code snippets are meant to do.</p>
-<p>Without the ability to reproduce results, it is very difficult to verify or build on previous findings. Research finds that code sharing isn’t very common in ecology and evolution research <span class="citation" data-cites="kimmel_empirical_2023">(<a href="../references.html#ref-kimmel_empirical_2023" role="doc-biblioref">Kimmel, Avolio, and Ferraro 2023</a>)</span>, and when code is shared, a surprisingly small proportion of coding workflows run from start to finish <span class="citation" data-cites="culina_low_2020 roche_public_2015">(<a href="../references.html#ref-culina_low_2020" role="doc-biblioref">Culina et al. 2020</a>; <a href="../references.html#ref-roche_public_2015" role="doc-biblioref">Roche et al. 2015</a>)</span>. Taking steps to improve the reproducibility of your code will improve the usefulness and longevity of your analyses.</p>
+<p>Without the ability to reproduce results, it is very difficult to verify or build on previous findings. Research finds that code sharing isn’t very common in ecology and evolution research <span class="citation" data-cites="kimmel_empirical_2023">(<a href="../references.html#ref-kimmel_empirical_2023" role="doc-biblioref">Kimmel et al. 2023</a>)</span>, and when code is shared, a surprisingly small proportion of coding workflows run from start to finish <span class="citation" data-cites="culina_low_2020 roche_public_2015">(<a href="../references.html#ref-culina_low_2020" role="doc-biblioref">Culina et al. 2020</a>; <a href="../references.html#ref-roche_public_2015" role="doc-biblioref">Roche et al. 2015</a>)</span>. Taking steps to improve the reproducibility of your code will improve the usefulness and longevity of your analyses.</p>
 <p>This chapter details how to improve the reproducibility of your R code workflows. Many of these steps were originally described in <a href="https://communities.springernature.com/posts/improving-code-reproducibility-small-steps-with-big-impacts">this Nature Eco Evo blog</a>.</p>
 <p>For another comprehensive summary about reproducibility and using R, see the <a href="https://tellingstorieswithdata.com/03-workflow.html">Reproducible Workflow chapter</a> in <a href="https://tellingstorieswithdata.com/"><em>Telling Stories with Data</em></a>.</p>
 <section id="what-does-reproducibility-mean" class="level2" data-number="E.1">
@@ -531,15 +532,15 @@ div.csl-indent {
 <p>Outside of data science tools to improve reproducibility, code review can be revolutionary for improving code reproducibility <span class="citation" data-cites="ivimey-cook_implementing_2023">(<a href="../references.html#ref-ivimey-cook_implementing_2023" role="doc-biblioref">Ivimey-Cook et al. 2023</a>)</span>. Asking others to review your code, though scary, can provide opportunity to identify ways to make code more efficient and stable.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-culina_low_2020" class="csl-entry" role="listitem">
 Culina, Antica, Ilona Van Den Berg, Simon Evans, and Alfredo Sánchez-Tójar. 2020. <span>“Low Availability of Code in Ecology: <span>A</span> Call for Urgent Action.”</span> <em>PLOS Biology</em> 18 (7): e3000763. <a href="https://doi.org/10.1371/journal.pbio.3000763">https://doi.org/10.1371/journal.pbio.3000763</a>.
 </div>
 <div id="ref-ivimey-cook_implementing_2023" class="csl-entry" role="listitem">
-Ivimey-Cook, Edward R., Joel L. Pick, Kevin R. Bairos-Novak, Antica Culina, Elliot Gould, Matthew Grainger, Benjamin M. Marshall, et al. 2023. <span>“Implementing Code Review in the Scientific Workflow: <span>Insights</span> from Ecology and Evolutionary Biology.”</span> <em>Journal of Evolutionary Biology</em> 36 (10): 1347–56. <a href="https://doi.org/10.1111/jeb.14230">https://doi.org/10.1111/jeb.14230</a>.
+Ivimey-Cook, Edward R., Joel L. Pick, Kevin R. Bairos-Novak, et al. 2023. <span>“Implementing Code Review in the Scientific Workflow: <span>Insights</span> from Ecology and Evolutionary Biology.”</span> <em>Journal of Evolutionary Biology</em> 36 (10): 1347–56. <a href="https://doi.org/10.1111/jeb.14230">https://doi.org/10.1111/jeb.14230</a>.
 </div>
 <div id="ref-kimmel_empirical_2023" class="csl-entry" role="listitem">
-Kimmel, Kaitlin, Meghan L. Avolio, and Paul J. Ferraro. 2023. <span>“Empirical Evidence of Widespread Exaggeration Bias and Selective Reporting in Ecology.”</span> <em>Nature Ecology &amp; Evolution</em>, August. <a href="https://doi.org/10.1038/s41559-023-02144-3">https://doi.org/10.1038/s41559-023-02144-3</a>.
+Kimmel, Kaitlin, Meghan L. Avolio, and Paul J. Ferraro. 2023. <span>“Empirical Evidence of Widespread Exaggeration Bias and Selective Reporting in Ecology.”</span> <em>Nature Ecology &amp; Evolution</em>, ahead of print, August. <a href="https://doi.org/10.1038/s41559-023-02144-3">https://doi.org/10.1038/s41559-023-02144-3</a>.
 </div>
 <div id="ref-roche_public_2015" class="csl-entry" role="listitem">
 Roche, Dominique G., Loeske E. B. Kruuk, Robert Lanfear, and Sandra A. Binning. 2015. <span>“Public <span>Data</span> <span>Archiving</span> in <span>Ecology</span> and <span>Evolution</span>: <span>How</span> <span>Well</span> <span>Are</span> <span>We</span> <span>Doing</span>?”</span> <em>PLOS Biology</em> 13 (11): e1002295. <a href="https://doi.org/10.1371/journal.pbio.1002295">https://doi.org/10.1371/journal.pbio.1002295</a>.
