@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.9.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Appendix A — Where to get data – Cleaning Biodiversity Data in R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,15 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5f2055cda669fb4584fdde471100b5f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-18d2e8d228fd9f1b78fdf7672ca3943c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -620,7 +622,7 @@ Geodetic CRS:  GDA94
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>world_clim_raster</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>class       : SpatRaster 
-dimensions  : 86, 87, 19  (nrow, ncol, nlyr)
+size        : 86, 87, 19  (nrow, ncol, nlyr)
 resolution  : 0.5416667, 0.5416667  (x, y)
 extent      : 112.5, 159.625, -55.58333, -9  (xmin, xmax, ymin, ymax)
 coord. ref. : lon/lat WGS 84 (EPSG:4326) 
@@ -765,7 +767,7 @@ max values  :   28.209095,   16.710342,    80.15718,   676.51477,    41.65941,  
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 331 × 8
+<pre><code># A tibble: 321 × 9
    recordID       scientificName taxonConceptID decimalLatitude decimalLongitude
    &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
  1 0053a1f3-b5e1… Perameles nas… https://biodi…           -34.4             151.
@@ -775,12 +777,12 @@ max values  :   28.209095,   16.710342,    80.15718,   676.51477,    41.65941,  
  5 02943584-050a… Perameles nas… https://biodi…           -33.3             151.
  6 02af5fdd-4800… Perameles nas… https://biodi…           -29.3             152.
  7 02c5d0db-913f… Perameles nas… https://biodi…           -31.2             153.
- 8 04ad578b-af11… Perameles nas… https://biodi…           -26.7             152.
- 9 0518bfb9-cf9d… Perameles nas… https://biodi…           -34.3             151.
-10 05496ff9-d61e… Perameles nas… https://biodi…           -33.3             151.
-# ℹ 321 more rows
-# ℹ 3 more variables: eventDate &lt;dttm&gt;, occurrenceStatus &lt;chr&gt;,
-#   dataResourceName &lt;chr&gt;</code></pre>
+ 8 0518bfb9-cf9d… Perameles nas… https://biodi…           -34.3             151.
+ 9 05496ff9-d61e… Perameles nas… https://biodi…           -33.3             151.
+10 05893843-8389… Perameles nas… https://biodi…           -35.3             150.
+# ℹ 311 more rows
+# ℹ 4 more variables: eventDate &lt;dttm&gt;, basisOfRecord &lt;chr&gt;,
+#   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;</code></pre>
 </div>
 </div>
 </section>

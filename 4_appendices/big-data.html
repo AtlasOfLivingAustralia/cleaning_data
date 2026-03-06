@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.9.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Appendix B — Big data – Cleaning Biodiversity Data in R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,15 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5f2055cda669fb4584fdde471100b5f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-18d2e8d228fd9f1b78fdf7672ca3943c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -402,7 +404,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <!-- Queries -->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/7/6/2/0/1b7b3e7a-80d8-49e2-be69-f2b7ebb10267/original"></p>
+<p><img class="rounded" src="https://images-assets.ala.org.au/store/7/6/2/0/1b7b3e7a-80d8-49e2-be69-f2b7ebb10267/thumbnail_large"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/90dfaafd-a77c-4ccc-842d-3218a1ce64d2"><em>Pardalotus (Pardalotus) punctatus</em> eating a snack. Photo by sirkendizzle CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -517,16 +519,16 @@ $ decimalLongitude &lt;double&gt; 148.4348, 145.1741, 138.8347, 136.4116, 144.89
 <pre><code># A tibble: 230 × 4
    species               year cl22                         count
    &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;                        &lt;dbl&gt;
- 1 Pardalotus punctatus  2024 Victoria                      9143
- 2 Pardalotus striatus   2017 Western Australia             3220
- 3 Pardalotus striatus   2015 Queensland                    5272
- 4 Pardalotus striatus   2017 Australian Capital Territory  2279
- 5 Pardalotus punctatus  2016 New South Wales               6235
- 6 Pardalotus striatus   2023 Western Australia             5489
- 7 Pardalotus striatus   2022 Western Australia             4808
- 8 Pardalotus punctatus  2019 Western Australia              445
- 9 Pardalotus striatus   2021 Western Australia             4323
-10 Pardalotus striatus   2016 Tasmania                      1020
+ 1 Pardalotus striatus   2017 Queensland                    8779
+ 2 Pardalotus punctatus  2018 New South Wales              10401
+ 3 Pardalotus striatus   2016 Victoria                      5051
+ 4 Pardalotus striatus   2021 Queensland                   15677
+ 5 Pardalotus striatus   2019 Northern Territory            1444
+ 6 Pardalotus striatus   2023 Queensland                   18115
+ 7 Pardalotus striatus   2022 Queensland                   14792
+ 8 Pardalotus punctatus  2017 New South Wales               6307
+ 9 Pardalotus striatus   2015 Australian Capital Territory  1725
+10 Pardalotus striatus   2019 Victoria                      8090
 # ℹ 220 more rows</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

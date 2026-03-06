@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.9.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>2&nbsp; Summarise – Cleaning Biodiversity Data in R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,15 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5f2055cda669fb4584fdde471100b5f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-18d2e8d228fd9f1b78fdf7672ca3943c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -416,7 +418,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <!-- Queries -->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></p>
+<p><img class="rounded" src="https://images-assets.ala.org.au/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/thumbnail_large"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3"><em>Todiramphus (Todiramphus) sanctus</em> perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -470,7 +472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 1 × 1
    count
    &lt;int&gt;
-1 143168</code></pre>
+1 143981</code></pre>
 </div>
 </div>
 <p>…or group by a taxonomic rank like genus…</p>
@@ -481,14 +483,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(genus) <span class="sc">|&gt;</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 2
+<pre><code># A tibble: 6 × 2
   genus       count
   &lt;chr&gt;       &lt;int&gt;
-1 Dacelo      94075
-2 Todiramphus 41640
-3 Ceyx         6063
-4 Tanysiptera   911
-5 Syma          358</code></pre>
+1 Dacelo      94523
+2 Todiramphus 41928
+3 Ceyx         6121
+4 Tanysiptera   919
+5 Syma          366
+6 Alcedo         21</code></pre>
 </div>
 </div>
 <p>…or species.</p>
@@ -499,19 +502,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(species) <span class="sc">|&gt;</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 2
+<pre><code># A tibble: 11 × 2
    species                  count
    &lt;chr&gt;                    &lt;int&gt;
- 1 Dacelo novaeguineae      86606
- 2 Todiramphus sanctus      26399
- 3 Todiramphus macleayii    10054
- 4 Dacelo leachii            7464
- 5 Ceyx azureus              5388
- 6 Todiramphus pyrrhopygius  2386
- 7 Tanysiptera sylvia         911
- 8 Ceyx pusillus              675
- 9 Syma torotoro              358
-10 Todiramphus chloris         31</code></pre>
+ 1 Dacelo novaeguineae      86999
+ 2 Todiramphus sanctus      26562
+ 3 Todiramphus macleayii    10139
+ 4 Dacelo leachii            7519
+ 5 Ceyx azureus              5439
+ 6 Todiramphus chloris       2696
+ 7 Todiramphus pyrrhopygius  2410
+ 8 Tanysiptera sylvia         919
+ 9 Ceyx pusillus              682
+10 Syma torotoro              366
+11 Alcedo atthis               19</code></pre>
 </div>
 </div>
 <p>Our results show that the large majority of records are of <em>Dacelo novaeguineae</em> (aka the Laughing Kookaburra).</p>
@@ -599,7 +603,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/1/f/9/6/d7f7f9c3-bd0b-4bf6-a76a-10a003c469f1/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/1/f/9/6/d7f7f9c3-bd0b-4bf6-a76a-10a003c469f1/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/681dcc16-c29c-4aea-8c5d-85cc766689cc"><em>Syma torotoro</em> perched on a branch. Photo by Matt Goodwin CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -636,14 +640,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 8 × 2
   cl22                         count
   &lt;chr&gt;                        &lt;int&gt;
-1 Queensland                   51132
-2 New South Wales              39949
-3 Victoria                     23964
-4 Northern Territory            9889
-5 Western Australia             7883
-6 Australian Capital Territory  3529
-7 South Australia               2548
-8 Tasmania                      2509</code></pre>
+1 Queensland                   51503
+2 New South Wales              40179
+3 Victoria                     24012
+4 Northern Territory            9963
+5 Western Australia             7951
+6 Australian Capital Territory  3534
+7 Tasmania                      2545
+8 South Australia               2525</code></pre>
 </div>
 </div>
 <p>We can also group our counts by state/territory <em>and</em> a taxonomic rank like genus.</p>
@@ -654,20 +658,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cl22, genus) <span class="sc">|&gt;</span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 26 × 3
+<pre><code># A tibble: 27 × 3
    cl22            genus       count
    &lt;chr&gt;           &lt;chr&gt;       &lt;int&gt;
- 1 Queensland      Dacelo      27441
- 2 Queensland      Todiramphus 19710
- 3 Queensland      Ceyx         2643
- 4 Queensland      Tanysiptera   910
- 5 Queensland      Syma          356
- 6 New South Wales Dacelo      30642
- 7 New South Wales Todiramphus  7781
- 8 New South Wales Ceyx         1515
- 9 Victoria        Dacelo      19673
-10 Victoria        Todiramphus  3766
-# ℹ 16 more rows</code></pre>
+ 1 Queensland      Dacelo      27621
+ 2 Queensland      Todiramphus 19856
+ 3 Queensland      Ceyx         2671
+ 4 Queensland      Tanysiptera   918
+ 5 Queensland      Syma          364
+ 6 New South Wales Dacelo      30797
+ 7 New South Wales Todiramphus  7843
+ 8 New South Wales Ceyx         1528
+ 9 New South Wales Alcedo          2
+10 Victoria        Dacelo      19714
+# ℹ 17 more rows</code></pre>
 </div>
 </div>
 <p>Our results show that we have the most records in Queensland and New South Wales.</p>
@@ -779,7 +783,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/e/e/4/4/cb5df529-5251-417c-864d-1345142a44ee/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/e/e/4/4/cb5df529-5251-417c-864d-1345142a44ee/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/69cff4b0-d9d1-4d63-bdd7-9d3fccf130c1"><em>Dacelo (Dacelo) novaeguineae</em> perched on a backyard fence. Photo by laura_free19 CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -929,18 +933,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span></span>
 <span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_counts</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 9 × 2
-  year   count
-  &lt;chr&gt;  &lt;int&gt;
-1 2023  176460
-2 2022  143168
-3 2021  129685
-4 2020  109551
-5 2018   96529
-6 2019   94888
-7 2017   79450
-8 2024   70094
-9 2025    9003</code></pre>
+<pre><code># A tibble: 10 × 2
+   year   count
+   &lt;chr&gt;  &lt;int&gt;
+ 1 2024  191874
+ 2 2023  178558
+ 3 2022  143981
+ 4 2021  130459
+ 5 2025  129816
+ 6 2020  110027
+ 7 2018   96955
+ 8 2019   95498
+ 9 2017   79823
+10 2026    2104</code></pre>
 </div>
 </div>
 <p>Alternatively, you can use the lubridate package to summarise after downloading counts.</p>
@@ -1059,7 +1064,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/d/8/2/4/f42e7f72-2525-47a8-aa80-39cc6f91428d/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/d/8/2/4/f42e7f72-2525-47a8-aa80-39cc6f91428d/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/d451576a-027b-4450-9a1c-9e9a35fa8912"><em>Tanysiptera (Uralcyon) sylvia</em> perched on a branch. Photo by Kris Bernard CC-BY-NC 4.0 (Int)</a></p>
 </div>

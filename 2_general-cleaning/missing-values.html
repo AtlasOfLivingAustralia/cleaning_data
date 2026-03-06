@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.9.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>5&nbsp; Missing values – Cleaning Biodiversity Data in R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -70,15 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5f2055cda669fb4584fdde471100b5f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-18d2e8d228fd9f1b78fdf7672ca3943c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -410,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <!-- Queries -->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/8/7/9/8/89ad2446-e89c-481c-97d7-375ffad18978/original"></p>
+<p><img class="rounded" src="https://images-assets.ala.org.au/store/8/7/9/8/89ad2446-e89c-481c-97d7-375ffad18978/thumbnail_large"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/b0085bb1-72b9-4a4d-8dbf-05174b85c973"><em>Heteronotia binoei</em> camouflaged over rocks, sticks &amp; leaves.<br>Photo by Reiner Richter CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -653,7 +655,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/0/b/0/44f6694a-024a-45cd-896a-b73538fc0b02/original"></p>
+<p><img class="rounded" src="https://images-assets.ala.org.au/store/2/0/b/0/44f6694a-024a-45cd-896a-b73538fc0b02/thumbnail_large"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/996b962a-442d-412e-adad-59400bad3f6f"><em>Gehyra dubia</em> camouflaged over rocks. <br>Photo by Nick Talbot CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -723,16 +725,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(geckos_species_list)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 11
-  taxon_concept_id species_name scientific_name_auth…¹ taxon_rank kingdom phylum
-  &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;                  &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt; 
-1 https://biodive… Heteronotia… (Gray, 1845)           species    Animal… Chord…
-2 https://biodive… Christinus … (Gray, 1845)           species    Animal… Chord…
-3 https://biodive… Gehyra vari… (Duméril &amp; Bibron, 18… species    Animal… Chord…
-4 https://biodive… Hemidactylu… Duméril &amp; Bibron, 1836 species    Animal… Chord…
-5 https://biodive… Gehyra dubia (Macleay, 1877)        species    Animal… Chord…
-6 https://biodive… Gehyra vers… Hutchinson, Sistrom, … species    Animal… Chord…
+  species    species_name scientific_name_auth…¹ taxon_rank kingdom phylum class
+  &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;                  &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;
+1 https://b… Heteronotia… (Gray, 1845)           species    Animal… Chord… Rept…
+2 https://b… Christinus … (Gray, 1845)           species    Animal… Chord… Rept…
+3 https://b… Gehyra vari… (Duméril &amp; Bibron, 18… species    Animal… Chord… Rept…
+4 https://b… Hemidactylu… Duméril &amp; Bibron, 1836 species    Animal… Chord… Rept…
+5 https://b… Gehyra dubia (Macleay, 1877)        species    Animal… Chord… Rept…
+6 https://b… Gehyra purp… Storr, 1982            species    Animal… Chord… Rept…
 # ℹ abbreviated name: ¹​scientific_name_authorship
-# ℹ 5 more variables: class &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,
+# ℹ 4 more variables: order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,
 #   vernacular_name &lt;chr&gt;</code></pre>
 </div>
 </div>
@@ -761,11 +763,11 @@ Note
   species_name           
   &lt;chr&gt;                  
 1 Lepidodactylus lugubris
-2 Gehyra montium         
-3 Gehyra lazelli         
-4 Nactus eboracensis     
-5 Gehyra punctata        
-6 Nactus pelagicus       </code></pre>
+2 Gehyra lazelli         
+3 Gehyra montium         
+4 Nactus pelagicus       
+5 Nactus eboracensis     
+6 Gehyra punctata        </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>geckos_missing <span class="sc">|&gt;</span> <span class="fu">select</span>(scientificName) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">15</span>) <span class="co"># see sample of data</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -829,7 +831,7 @@ Note
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxonRank <span class="sc">==</span> <span class="st">"species"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(taxonRank, scientificName, <span class="fu">everything</span>()) <span class="co"># reorder columns</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,844 × 9
+<pre><code># A tibble: 1,804 × 10
    taxonRank scientificName        recordID       taxonConceptID decimalLatitude
    &lt;chr&gt;     &lt;chr&gt;                 &lt;chr&gt;          &lt;chr&gt;                    &lt;dbl&gt;
  1 species   Gehyra variegata      001c2b9f-34c8… https://biodi…           -22.7
@@ -842,9 +844,9 @@ Note
  8 species   Christinus marmoratus 00c15ed1-873e… https://biodi…           -35.4
  9 species   Christinus marmoratus 00d886f8-1ee4… https://biodi…           -35.0
 10 species   Gehyra variegata      00e80fcb-843d… https://biodi…           -29.9
-# ℹ 1,834 more rows
-# ℹ 4 more variables: decimalLongitude &lt;dbl&gt;, eventDate &lt;dttm&gt;,
-#   occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;</code></pre>
+# ℹ 1,794 more rows
+# ℹ 5 more variables: decimalLongitude &lt;dbl&gt;, eventDate &lt;dttm&gt;,
+#   basisOfRecord &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, dataResourceName &lt;chr&gt;</code></pre>
 </div>
 </div>
 <p>However, it is still possible to filter records using the tools above without using the <code>taxonRank</code> column. In this case we remove records not identified down to the genus.</p>
@@ -877,7 +879,7 @@ Note
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/c/d/a/d/817ae616-5596-407d-bab3-259ad78adadc/original"></p>
+<p><img class="rounded" src="https://images-assets.ala.org.au/store/c/d/a/d/817ae616-5596-407d-bab3-259ad78adadc/thumbnail_large"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/69fda312-853a-4780-aeaf-9d6f7c7f47fe"><em>Christinus marmoratus</em> camouflaged over lichen. <br> Photo by Edward CC-BY-NC 4.0 (Int)</a></p>
 </div>

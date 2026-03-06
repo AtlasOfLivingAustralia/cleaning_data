@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.9.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>9&nbsp; Geospatial investigation – Cleaning Biodiversity Data in R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -59,7 +62,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -90,15 +92,14 @@ div.csl-indent {
 <link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5f2055cda669fb4584fdde471100b5f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-18d2e8d228fd9f1b78fdf7672ca3943c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -427,11 +428,11 @@ div.csl-indent {
 
 <!-- Queries -->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/6/1/1/401b8f4d-d896-493c-9c93-e0aecca9116f/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/f/6/1/1/401b8f4d-d896-493c-9c93-e0aecca9116f/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/7a57075b-57fa-4b56-9565-29e8aea08223"><em>Banksia serrata</em>.<br>Photo by kate_and_sam CC-BY-NC 4.0 (Int)</a></p>
 </div>
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/9/b/a/d/d994e948-cdb1-4e33-a925-dfce99bbdab9/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/9/b/a/d/d994e948-cdb1-4e33-a925-dfce99bbdab9/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/077bb0ae-3ecc-451a-a216-2bf0ebed7954"><em>Setonix brachyurus</em> munching on leaves.<br>Photo by Stephen Cox CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -863,9 +864,9 @@ div.csl-indent {
 <p>In the next chapter, we’ll see examples of issues with coordinates that require correcting or removing.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-chapman_georeferencing_2020" class="csl-entry" role="listitem">
-Chapman, Arthur, and John Wieczorek. 2020. <span>“Georeferencing <span>Best</span> <span>Practices</span>.”</span> <a href="https://doi.org/10.15468/DOC-GG7H-S853">https://doi.org/10.15468/DOC-GG7H-S853</a>.
+Chapman, Arthur, and John Wieczorek. 2020. <em>Georeferencing <span>Best</span> <span>Practices</span></em>. <a href="https://doi.org/10.15468/DOC-GG7H-S853">https://doi.org/10.15468/DOC-GG7H-S853</a>.
 </div>
 </div>
 </section>

@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.9.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>10&nbsp; Geospatial cleaning – Cleaning Biodiversity Data in R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -59,7 +62,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -90,15 +92,14 @@ div.csl-indent {
 <link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5f2055cda669fb4584fdde471100b5f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-18d2e8d228fd9f1b78fdf7672ca3943c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -481,27 +482,27 @@ div.csl-indent {
 
 <!-- Queries -->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/fcf8a190-5e7b-45b9-9f7d-402dd3e230fd"><em>Eremophila macdonnellii</em> aka MacDonnell’s desert fuschia.<br>Photo by M. Fagg CC-BY 3.0 (Au)</a></p>
 </div>
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/e0d5d604-e148-408e-8dbf-984f42701b4c"><em>Litoria chloris</em> standing on leaves.<br>Photo by Reiner Richter CC-BY</a></p>
 </div>
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/fa0c5c98-007a-4af9-b6db-0c8dcacaeaf5"><em>Dasyuroides byrnei</em> pair captured in red light.<br>Photo by Ged Tranter CC-BY</a></p>
 </div>
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/9081b056-df23-495c-806e-fc5b265afb3a"><em>Acacia aneura</em> flowering.<br>Photo by rachbaxter CC-BY-NC 4.0 (Int)</a></p>
 </div>
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/6f6f172b-5d8e-4879-b77c-3517e08819e8"><em>Heteronympha merope merope</em> resting on leaf litter.<br>Photo by Mononymous CC-BY-NC 4.0 (Int)</a></p>
 </div>
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/fde7691c-37f3-40a0-a2b7-628b0d0240c7"><em>Daviesia ulicifolia ruscifolia</em> flowering.<br>Photo by Warren Tomlinson CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -519,58 +520,58 @@ div.csl-indent {
 <div class="callout-body-container callout-body">
 <p><strong>Note:</strong> You don’t need to run this code block to read this chapter. It can, however, be useful to see the original download query. This code will download the latest data from the ALA, which you are welcome to use instead, though the data might not exactly reproduce results in this chapter.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-34"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-34-1"><a href="#annotated-cell-34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
-<span id="annotated-cell-34-2"><a href="#annotated-cell-34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
-<span id="annotated-cell-34-3"><a href="#annotated-cell-34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-34-4"><a href="#annotated-cell-34-4" aria-hidden="true" tabindex="-1"></a>desert_plant <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-5"><a href="#annotated-cell-34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Eremophila macdonnellii"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-6"><a href="#annotated-cell-34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, </span>
-<span id="annotated-cell-34-7"><a href="#annotated-cell-34-7" aria-hidden="true" tabindex="-1"></a>         PRESUMED_SWAPPED_COORDINATE) <span class="sc">|&gt;</span> <span class="co"># add assertion column</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-34" data-target-annotation="1">1</button><span id="annotated-cell-34-8" class="code-annotation-target"><a href="#annotated-cell-34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="annotated-cell-34-9"><a href="#annotated-cell-34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-34-10"><a href="#annotated-cell-34-10" aria-hidden="true" tabindex="-1"></a>frogs <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-11"><a href="#annotated-cell-34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Litoria chloris"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-12"><a href="#annotated-cell-34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-13"><a href="#annotated-cell-34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>,</span>
-<span id="annotated-cell-34-14"><a href="#annotated-cell-34-14" aria-hidden="true" tabindex="-1"></a>         countryCode, locality,</span>
-<span id="annotated-cell-34-15"><a href="#annotated-cell-34-15" aria-hidden="true" tabindex="-1"></a>         family, genus, species, </span>
-<span id="annotated-cell-34-16"><a href="#annotated-cell-34-16" aria-hidden="true" tabindex="-1"></a>         cl22, eventDate) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-17"><a href="#annotated-cell-34-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="annotated-cell-34-18"><a href="#annotated-cell-34-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-34-19"><a href="#annotated-cell-34-19" aria-hidden="true" tabindex="-1"></a>native_mice <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-20"><a href="#annotated-cell-34-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Dasyuroides byrnei"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-21"><a href="#annotated-cell-34-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, decimalLongitude, decimalLatitude,</span>
-<span id="annotated-cell-34-22"><a href="#annotated-cell-34-22" aria-hidden="true" tabindex="-1"></a>         eventDate,</span>
-<span id="annotated-cell-34-23"><a href="#annotated-cell-34-23" aria-hidden="true" tabindex="-1"></a>         country, countryCode, locality, </span>
-<span id="annotated-cell-34-24"><a href="#annotated-cell-34-24" aria-hidden="true" tabindex="-1"></a>         COUNTRY_COORDINATE_MISMATCH,</span>
-<span id="annotated-cell-34-25"><a href="#annotated-cell-34-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">group =</span> <span class="st">"assertions"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-26"><a href="#annotated-cell-34-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="annotated-cell-34-27"><a href="#annotated-cell-34-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-34-28"><a href="#annotated-cell-34-28" aria-hidden="true" tabindex="-1"></a>acacias <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-29"><a href="#annotated-cell-34-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"acacia aneura"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-30"><a href="#annotated-cell-34-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>,</span>
-<span id="annotated-cell-34-31"><a href="#annotated-cell-34-31" aria-hidden="true" tabindex="-1"></a>         ZERO_COORDINATE, <span class="co"># add assertion column</span></span>
-<span id="annotated-cell-34-32"><a href="#annotated-cell-34-32" aria-hidden="true" tabindex="-1"></a>         countryCode, locality) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-33"><a href="#annotated-cell-34-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="annotated-cell-34-34"><a href="#annotated-cell-34-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-34-35"><a href="#annotated-cell-34-35" aria-hidden="true" tabindex="-1"></a>butterflies <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-36"><a href="#annotated-cell-34-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Heteronympha merope"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-37"><a href="#annotated-cell-34-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2014</span>,</span>
-<span id="annotated-cell-34-38"><a href="#annotated-cell-34-38" aria-hidden="true" tabindex="-1"></a>         decimalLatitude <span class="sc">&lt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-39"><a href="#annotated-cell-34-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>,</span>
-<span id="annotated-cell-34-40"><a href="#annotated-cell-34-40" aria-hidden="true" tabindex="-1"></a>         COORDINATES_CENTRE_OF_COUNTRY, <span class="co"># add assertion column</span></span>
-<span id="annotated-cell-34-41"><a href="#annotated-cell-34-41" aria-hidden="true" tabindex="-1"></a>         COORDINATES_CENTRE_OF_STATEPROVINCE, <span class="co"># add assertion column</span></span>
-<span id="annotated-cell-34-42"><a href="#annotated-cell-34-42" aria-hidden="true" tabindex="-1"></a>         countryCode, locality) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-43"><a href="#annotated-cell-34-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="annotated-cell-34-44"><a href="#annotated-cell-34-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-34-45"><a href="#annotated-cell-34-45" aria-hidden="true" tabindex="-1"></a>bitter_peas <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-46"><a href="#annotated-cell-34-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Daviesia ulicifolia"</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-34-47"><a href="#annotated-cell-34-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-33"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-33-1"><a href="#annotated-cell-33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(galah)</span>
+<span id="annotated-cell-33-2"><a href="#annotated-cell-33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">galah_config</span>(<span class="at">email =</span> <span class="st">"your-email-here"</span>)</span>
+<span id="annotated-cell-33-3"><a href="#annotated-cell-33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-33-4"><a href="#annotated-cell-33-4" aria-hidden="true" tabindex="-1"></a>desert_plant <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-5"><a href="#annotated-cell-33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Eremophila macdonnellii"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-6"><a href="#annotated-cell-33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>, </span>
+<span id="annotated-cell-33-7"><a href="#annotated-cell-33-7" aria-hidden="true" tabindex="-1"></a>         PRESUMED_SWAPPED_COORDINATE) <span class="sc">|&gt;</span> <span class="co"># add assertion column</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-33" data-target-annotation="1">1</button><span id="annotated-cell-33-8" class="code-annotation-target"><a href="#annotated-cell-33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="annotated-cell-33-9"><a href="#annotated-cell-33-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-33-10"><a href="#annotated-cell-33-10" aria-hidden="true" tabindex="-1"></a>frogs <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-11"><a href="#annotated-cell-33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Litoria chloris"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-12"><a href="#annotated-cell-33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2013</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-13"><a href="#annotated-cell-33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>,</span>
+<span id="annotated-cell-33-14"><a href="#annotated-cell-33-14" aria-hidden="true" tabindex="-1"></a>         countryCode, locality,</span>
+<span id="annotated-cell-33-15"><a href="#annotated-cell-33-15" aria-hidden="true" tabindex="-1"></a>         family, genus, species, </span>
+<span id="annotated-cell-33-16"><a href="#annotated-cell-33-16" aria-hidden="true" tabindex="-1"></a>         cl22, eventDate) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-17"><a href="#annotated-cell-33-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="annotated-cell-33-18"><a href="#annotated-cell-33-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-33-19"><a href="#annotated-cell-33-19" aria-hidden="true" tabindex="-1"></a>native_mice <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-20"><a href="#annotated-cell-33-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Dasyuroides byrnei"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-21"><a href="#annotated-cell-33-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(scientificName, decimalLongitude, decimalLatitude,</span>
+<span id="annotated-cell-33-22"><a href="#annotated-cell-33-22" aria-hidden="true" tabindex="-1"></a>         eventDate,</span>
+<span id="annotated-cell-33-23"><a href="#annotated-cell-33-23" aria-hidden="true" tabindex="-1"></a>         country, countryCode, locality, </span>
+<span id="annotated-cell-33-24"><a href="#annotated-cell-33-24" aria-hidden="true" tabindex="-1"></a>         COUNTRY_COORDINATE_MISMATCH,</span>
+<span id="annotated-cell-33-25"><a href="#annotated-cell-33-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">group =</span> <span class="st">"assertions"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-26"><a href="#annotated-cell-33-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="annotated-cell-33-27"><a href="#annotated-cell-33-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-33-28"><a href="#annotated-cell-33-28" aria-hidden="true" tabindex="-1"></a>acacias <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-29"><a href="#annotated-cell-33-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"acacia aneura"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-30"><a href="#annotated-cell-33-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>,</span>
+<span id="annotated-cell-33-31"><a href="#annotated-cell-33-31" aria-hidden="true" tabindex="-1"></a>         ZERO_COORDINATE, <span class="co"># add assertion column</span></span>
+<span id="annotated-cell-33-32"><a href="#annotated-cell-33-32" aria-hidden="true" tabindex="-1"></a>         countryCode, locality) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-33"><a href="#annotated-cell-33-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="annotated-cell-33-34"><a href="#annotated-cell-33-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-33-35"><a href="#annotated-cell-33-35" aria-hidden="true" tabindex="-1"></a>butterflies <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-36"><a href="#annotated-cell-33-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Heteronympha merope"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-37"><a href="#annotated-cell-33-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2014</span>,</span>
+<span id="annotated-cell-33-38"><a href="#annotated-cell-33-38" aria-hidden="true" tabindex="-1"></a>         decimalLatitude <span class="sc">&lt;</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-39"><a href="#annotated-cell-33-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">group =</span> <span class="st">"basic"</span>,</span>
+<span id="annotated-cell-33-40"><a href="#annotated-cell-33-40" aria-hidden="true" tabindex="-1"></a>         COORDINATES_CENTRE_OF_COUNTRY, <span class="co"># add assertion column</span></span>
+<span id="annotated-cell-33-41"><a href="#annotated-cell-33-41" aria-hidden="true" tabindex="-1"></a>         COORDINATES_CENTRE_OF_STATEPROVINCE, <span class="co"># add assertion column</span></span>
+<span id="annotated-cell-33-42"><a href="#annotated-cell-33-42" aria-hidden="true" tabindex="-1"></a>         countryCode, locality) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-43"><a href="#annotated-cell-33-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="annotated-cell-33-44"><a href="#annotated-cell-33-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-33-45"><a href="#annotated-cell-33-45" aria-hidden="true" tabindex="-1"></a>bitter_peas <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-46"><a href="#annotated-cell-33-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Daviesia ulicifolia"</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-33-47"><a href="#annotated-cell-33-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-34" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-33" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-34" data-code-lines="8,17,26,33,43,47" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
+<span data-code-cell="annotated-cell-33" data-code-lines="8,17,26,33,43,47" data-code-annotation="1">We created a custom DOI for our download by using <code>atlas_occurrences(mint_doi = TRUE)</code>.</span>
 </dd>
 </dl>
 </div>
@@ -635,7 +636,7 @@ div.csl-indent {
 <p>Let’s use MacDonnell’s desert fuschia occurrence records for our example. Including the <code>PRESUMED_SWAPPED_COORDINATE</code> assertion column when downloading records using the galah package allows us to identify records flagged as potentially having swapped coordinates.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/f/5/e/7/2ce6ee0a-f662-4e93-88a4-61e7dcb07e5f/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/fcf8a190-5e7b-45b9-9f7d-402dd3e230fd"><em>Eremophila macdonnellii</em> aka MacDonnell’s desert fuschia.<br>Photo by M. Fagg CC-BY 3.0 (Au)</a></p>
 </div>
@@ -722,7 +723,7 @@ div.csl-indent {
 <p>Misalignment between location metadata and coordinates could indicate errors in the dataset, but it’s sometimes possible to rectify these. Let’s use red-eyed tree frog data as an example.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/3/1/a/b/987382fa-8168-4249-870b-4e043824ba13/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/e0d5d604-e148-408e-8dbf-984f42701b4c"><em>Litoria chloris</em> standing on leaves.<br>Photo by Reiner Richter CC-BY</a></p>
 </div>
@@ -880,7 +881,7 @@ div.csl-indent {
 <p>Let’s use occurrence records of Kowari (a native, carnivorous mouse species) as an example. Including the <code>COUNTRY_COORDINATE_MISMATCH</code> assertion column when downloading records using the galah package allows us to identify records flagged as having mismatches between coordinates and country metadata.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/0/3/1/9/6015cc38-f4c3-47d3-b7c5-1adf563e9130/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/fa0c5c98-007a-4af9-b6db-0c8dcacaeaf5"><em>Dasyuroides byrnei</em> pair captured in red light.<br>Photo by Ged Tranter CC-BY</a></p>
 </div>
@@ -960,7 +961,7 @@ div.csl-indent {
 <p>Let’s use acacia data as an example. Including the <code>ZERO_COORDINATE</code> assertion column to your download allows us to identify records flagged as having zero values in the coordinate fields.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/0/5/5/0/795c14ba-3ee5-4af6-a3a5-d78c04e50550/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/9081b056-df23-495c-806e-fc5b265afb3a"><em>Acacia aneura</em> flowering.<br>Photo by rachbaxter CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -1051,7 +1052,7 @@ div.csl-indent {
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/5/c/2/5/5ad0125f-8684-4e66-b5bf-cd0b0f8e52c5/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/6f6f172b-5d8e-4879-b77c-3517e08819e8"><em>Heteronympha merope merope</em> resting on leaf litter.<br>Photo by Mononymous CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -1151,7 +1152,7 @@ div.csl-indent {
 <p>In some cases, like with records of the Gorse Bitter-pea, these locations can appear suspicious but not overly obvious. When we map these observations, there is a tailing distribution of points in Western Australia with several points located near the west coast of Australia.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/a/5/d/3/4407a084-d780-4972-84e6-2fb297793d5a/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/fde7691c-37f3-40a0-a2b7-628b0d0240c7"><em>Daviesia ulicifolia ruscifolia</em> flowering.<br>Photo by Warren Tomlinson CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -1286,25 +1287,15 @@ record locations.
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Run record-level tests</span></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>coordinate_tests <span class="ot">&lt;-</span> <span class="fu">clean_coordinates</span>(<span class="at">x =</span> butterflies, </span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">species =</span> <span class="st">"scientificName"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Reading layer `ne_50m_land' from data source 
-  `C:\Users\KEL329\AppData\Local\Temp\Rtmp216rvC\ne_50m_land.shp' 
-  using driver `ESRI Shapefile'
-Simple feature collection with 1420 features and 3 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -180 ymin: -89.99893 xmax: 180 ymax: 83.59961
-Geodetic CRS:  WGS 84</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(coordinate_tests)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">species =</span> <span class="st">"scientificName"</span>)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(coordinate_tests)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    .val     .equ     .zer     .cap     .cen     .sea     .otl     .gbf 
        0        0        0       22        0       11       60        0 
    .inst .summary 
       13      100 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coordinate_tests)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coordinate_tests)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1321,35 +1312,35 @@ Geodetic CRS:  WGS 84</code></pre>
 <p>The Great White Shark.</p>
 
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/5/8/8/5/1b2967ba-5113-43cb-bff0-3ca958c15885/original" class="rounded"></p>
+<p><img src="https://images-assets.ala.org.au/store/5/8/8/5/1b2967ba-5113-43cb-bff0-3ca958c15885/thumbnail_large" class="rounded"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/3be163bd-a0f6-43c5-be0a-46e7b6690924"><em>Carcharodon carcharias</em> swimming off the South Australian coast.<br>Photo by Coffin Bay Scuba Co.&nbsp;CC-BY-NC 4.0 (Int)</a></p>
 </div>
 </div></div><div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download occurrence records</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>sharks <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Carcharodon carcharias"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(basisOfRecord <span class="sc">==</span> <span class="st">"HUMAN_OBSERVATION"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply_profile</span>(ALA) <span class="sc">|&gt;</span></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve map of Australia</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>aus <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ozmap_country, <span class="dv">4326</span>)</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Map occurrences</span></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>sharks <span class="sc">|&gt;</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(decimalLongitude, decimalLatitude) <span class="sc">|&gt;</span></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus,</span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>,</span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sharks,</span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
-<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#135277"</span>) <span class="sc">+</span></span>
-<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download occurrence records</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>sharks <span class="ot">&lt;-</span> <span class="fu">galah_call</span>() <span class="sc">|&gt;</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify</span>(<span class="st">"Carcharodon carcharias"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(basisOfRecord <span class="sc">==</span> <span class="st">"HUMAN_OBSERVATION"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply_profile</span>(ALA) <span class="sc">|&gt;</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">atlas_occurrences</span>()</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve map of Australia</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>aus <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(ozmap_country, <span class="dv">4326</span>)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Map occurrences</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>sharks <span class="sc">|&gt;</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(decimalLongitude, decimalLatitude) <span class="sc">|&gt;</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> aus,</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">colour =</span> <span class="st">"grey60"</span>,</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>          <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> sharks,</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> decimalLongitude,</span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">y =</span> decimalLatitude),</span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour =</span> <span class="st">"#135277"</span>) <span class="sc">+</span></span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1362,7 +1353,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <p>The difficulty with cleaning Great White Shark occurrence data is that these sharks have a <em>massive</em> habitat range, and these locations along (what appear to be) the North American coast and Madagascar could very well be true occurrences. Be sure to consider the taxonomic and spatial range of your species before jumping into data cleaning!</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-jin2020" class="csl-entry" role="listitem">
 Jin, Jing, and Jun Yang. 2020. <span>“BDcleaner: A Workflow for Cleaning Taxonomic and Geographic Errors in Occurrence Data Archived in Biodiversity Databases.”</span> <em>Global Ecology and Conservation</em> 21 (March): e00852. <a href="https://doi.org/10.1016/j.gecco.2019.e00852">https://doi.org/10.1016/j.gecco.2019.e00852</a>.
 </div>

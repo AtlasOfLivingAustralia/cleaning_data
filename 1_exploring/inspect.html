@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.9.29">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>1&nbsp; Inspect – Cleaning Biodiversity Data in R</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -59,7 +62,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -90,15 +92,14 @@ div.csl-indent {
 <link href="../images/cleaner-shrimp_cover.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dfa48a90d809c806c7ea2d5aecd9fc66.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-5f2055cda669fb4584fdde471100b5f9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-18d2e8d228fd9f1b78fdf7672ca3943c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -421,7 +422,7 @@ div.csl-indent {
 
 <!-- Queries-->
 <div class="no-row-height column-margin column-container"><div class="margin-aside">
-<p><img class="rounded" src="https://ala-images.s3.ap-southeast-2.amazonaws.com/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/original"></p>
+<p><img class="rounded" src="https://images-assets.ala.org.au/store/2/5/1/d/9525c6da-fd47-41fa-8eff-55c6747ed152/thumbnail_large"></p>
 <div class="figure-caption">
 <p><a href="https://biocache.ala.org.au/occurrences/77b8aac0-18af-4ec6-a03c-ff825859a6f3"><em>Todiramphus (Todiramphus) sanctus</em> perched on a branch. Photo by Kerri-Lee Harris CC-BY-NC 4.0 (Int)</a></p>
 </div>
@@ -852,7 +853,7 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
  - attr(*, "problems")=&lt;externalptr&gt; 
  - attr(*, "doi")= chr "https://doi.org/10.26197/ala.b1b818e5-04f1-410f-8910-f8c8d1a696e7"
  - attr(*, "citation")= 'glue' chr "Atlas of Living Australia occurrence download at https://biocache.ala.org.au/occurrences/search?&amp;q=*%3A*&amp;fq=%28"| __truncated__
- - attr(*, "modified_date")= chr "15 October 2025"</code></pre>
+ - attr(*, "modified_date")= chr "6 March 2026"</code></pre>
 </div>
 </div>
 </div>
@@ -872,7 +873,7 @@ $ year             &lt;dbl&gt; 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2022, 2
 <p>When you are confident that the dataset is largely as expected, you are ready to start summarising your data.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-rowley2020frogid" class="csl-entry" role="listitem">
 Rowley, Jodi JL, and Corey T Callaghan. 2020. <span>“The FrogID Dataset: Expert-Validated Occurrence Records of Australia’s Frogs Collected by Citizen Scientists.”</span> <em>ZooKeys</em> 912: 139.
 </div>
